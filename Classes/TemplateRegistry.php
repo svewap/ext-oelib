@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a registry for templates.
@@ -99,7 +100,7 @@ class Tx_Oelib_TemplateRegistry {
 	public function getByFileName($fileName) {
 		if (!isset($this->templates[$fileName])) {
 			/** @var Tx_Oelib_Template $template */
-			$template = t3lib_div::makeInstance('Tx_Oelib_Template');
+			$template = GeneralUtility::makeInstance('Tx_Oelib_Template');
 
 			if ($fileName !== '') {
 				$template->processTemplateFromFile($fileName);

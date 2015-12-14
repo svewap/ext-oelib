@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a mapper for front-end users.
@@ -81,7 +82,7 @@ class tx_oelib_Mapper_FrontEndUser extends Tx_Oelib_DataMapper {
 				'*',
 				$this->getTableName(),
 				$this->getUniversalWhereClause() . ' AND ' .
-					'usergroup REGEXP \'(^|,)(' . implode('|', t3lib_div::intExplode(',', $groupUids)) . ')($|,)\''
+					'usergroup REGEXP \'(^|,)(' . implode('|', GeneralUtility::intExplode(',', $groupUids)) . ')($|,)\''
 			)
 		);
 	}

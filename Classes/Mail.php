@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents an e-mail.
@@ -282,7 +283,7 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object {
 	 */
 	public function setCssFile($cssFile) {
 		if (!$this->cssFileIsCached($cssFile)) {
-			$absoluteFileName = t3lib_div::getFileAbsFileName($cssFile);
+			$absoluteFileName = GeneralUtility::getFileAbsFileName($cssFile);
 			if (($cssFile !== '') && is_readable($absoluteFileName)
 			) {
 				self::$cssFileCache[$cssFile] = file_get_contents($absoluteFileName);

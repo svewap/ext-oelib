@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Test case.
@@ -52,7 +53,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase {
 			return array();
 		}
 
-		$numbers = t3lib_div::intExplode(',', $valueList);
+		$numbers = GeneralUtility::intExplode(',', $valueList);
 		sort($numbers, SORT_NUMERIC);
 
 		return $numbers;

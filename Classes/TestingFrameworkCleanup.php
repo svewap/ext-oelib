@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class takes care of cleaning up oelib after the testing framework.
@@ -40,7 +41,7 @@ class tx_oelib_TestingFrameworkCleanup {
 		Tx_Oelib_TranslatorRegistry::purgeInstance();
 
 		/** @var Tx_Oelib_MailerFactory $mailerFactory */
-		$mailerFactory = t3lib_div::makeInstance('Tx_Oelib_MailerFactory');
+		$mailerFactory = GeneralUtility::makeInstance('Tx_Oelib_MailerFactory');
 		$mailerFactory->cleanUp();
 	}
 }

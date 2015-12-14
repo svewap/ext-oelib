@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Test case.
@@ -35,7 +36,7 @@ class Tx_Oelib_Tests_Unit_RealMailerTest extends Tx_Phpunit_TestCase {
 		$this->subject = new Tx_Oelib_RealMailer();
 
 		$this->message = $this->getMock('t3lib_mail_Message', array('send', '__destruct'));
-		t3lib_div::addInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage', $this->message);
+		GeneralUtility::addInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage', $this->message);
 	}
 
 	/**

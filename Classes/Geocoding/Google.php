@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a service to look up geo coordinates via Google Maps.
@@ -164,7 +165,7 @@ class tx_oelib_Geocoding_Google implements tx_oelib_Interface_GeocodingLookup {
 	protected function sendRequest($address) {
 		$baseUrlWithAddress = self::BASE_URL . '&address=';
 
-		return t3lib_div::getURL($baseUrlWithAddress . urlencode($address));
+		return GeneralUtility::getURL($baseUrlWithAddress . urlencode($address));
 	}
 
 	/**

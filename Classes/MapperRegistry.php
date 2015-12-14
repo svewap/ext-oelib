@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a registry for mappers. The mappers must be located in
@@ -167,7 +168,7 @@ class Tx_Oelib_MapperRegistry {
 				$mapper->setTestingFramework($this->testingFramework);
 			} else {
 				/** @var Tx_Oelib_DataMapper $mapper */
-				$mapper = t3lib_div::makeInstance($unifiedClassName);;
+				$mapper = GeneralUtility::makeInstance($unifiedClassName);;
 			}
 			$this->mappers[$unifiedClassName] = $mapper;
 		} else {

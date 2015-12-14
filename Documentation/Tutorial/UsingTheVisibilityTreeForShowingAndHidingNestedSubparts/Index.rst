@@ -49,7 +49,7 @@ mirrors these requirements:
 
 ::
 
-   $tree = t3lib_div::makeInstance(
+   $tree = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
     ‘tx_oelib_Visibility_Tree’,
     array(
      ‘ParentSubpart1’ => array(

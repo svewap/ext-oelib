@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class checks the extension configuration (TS setup) and some data for
@@ -895,7 +896,7 @@ class Tx_Oelib_ConfigCheck {
 		$fieldName, $canUseFlexforms, $sheet, $explanation, array $allowedValues
 	) {
 		if ($this->objectToCheck->hasConfValueString($fieldName, $sheet)) {
-			$allValues = t3lib_div::trimExplode(
+			$allValues = GeneralUtility::trimExplode(
 				',',
 				$this->objectToCheck->getConfValueString($fieldName, $sheet),
 				TRUE
@@ -1606,7 +1607,7 @@ class Tx_Oelib_ConfigCheck {
 	 * @return void
 	 */
 	protected function checkCssStyledContent() {
-		t3lib_div::logDeprecatedFunction();
+		GeneralUtility::logDeprecatedFunction();
 	}
 
 	/**
@@ -1749,7 +1750,7 @@ class Tx_Oelib_ConfigCheck {
 			return;
 		}
 
-		if (!t3lib_div::validEmail($value)) {
+		if (!GeneralUtility::validEmail($value)) {
 			$message = 'The e-mail address in <strong>'.$this->getTSSetupPath()
 				.$fieldName.'</strong> is set to <strong>'.$value.'</strong> '
 				.'which is not valid. E-mails might not be received as long as '

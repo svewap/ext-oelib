@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Test case.
@@ -42,16 +43,6 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase {
 	);
 
 	/**
-	 * @var string[]
-	 */
-	private $otherEmail = array(
-		'recipient' => 'any-other-recipient@email-address.org',
-		'subject' => 'any other subject',
-		'message' => 'any other message',
-		'headers' => '',
-	);
-
-	/**
 	 * @var bool
 	 */
 	protected $deprecationLogEnabledBackup = FALSE;
@@ -62,12 +53,12 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase {
 		$this->subject = new Tx_Oelib_EmailCollector();
 
 		$this->message1 = $this->getMock('t3lib_mail_Message', array('send', '__destruct'));
-		t3lib_div::addInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage', $this->message1);
+		GeneralUtility::addInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage', $this->message1);
 	}
 
 	protected function tearDown() {
-		// Get any surplus instances added via t3lib_div::addInstance.
-		t3lib_div::makeInstance('t3lib_mail_Message');
+		// Get any surplus instances added via \TYPO3\CMS\Core\Utility\GeneralUtility::addInstance.
+		GeneralUtility::makeInstance('t3lib_mail_Message');
 
 		$this->subject->cleanUp();
 

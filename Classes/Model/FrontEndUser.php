@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a front-end user.
@@ -417,7 +418,7 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
 
 		$isMember = FALSE;
 
-		foreach (t3lib_div::trimExplode(',', $uidList, TRUE) as $uid) {
+		foreach (GeneralUtility::trimExplode(',', $uidList, TRUE) as $uid) {
 			if ($this->getUserGroups()->hasUid($uid)) {
 				$isMember = TRUE;
 				break;

@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class returns either an instance of the Tx_Oelib_RealHeaderProxy which
@@ -79,7 +80,7 @@ class tx_oelib_headerProxyFactory {
 		}
 
 		if (!is_object($this->headerProxy) || (get_class($this->headerProxy) !== $className)) {
-			$this->headerProxy = t3lib_div::makeInstance($className);
+			$this->headerProxy = GeneralUtility::makeInstance($className);
 		}
 
 		return $this->headerProxy;

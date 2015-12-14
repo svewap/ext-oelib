@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class provides functions for calculating the distance between geo objects.
@@ -99,7 +100,7 @@ class tx_oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
 	 */
 	public function filterByDistance(Tx_Oelib_List $unfilteredObjects, tx_oelib_Interface_Geo $center, $distance) {
 		/** @var Tx_Oelib_List $objectsWithinDistance */
-		$objectsWithinDistance = t3lib_div::makeInstance('Tx_Oelib_List');
+		$objectsWithinDistance = GeneralUtility::makeInstance('Tx_Oelib_List');
 
 		/** @var tx_oelib_Interface_Geo|Tx_Oelib_Model $object */
 		foreach ($unfilteredObjects as $object) {
