@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * Test case.
@@ -52,7 +53,7 @@ class Tx_Oelib_Tests_Unit_MailerFactoryTest extends Tx_Phpunit_TestCase {
 	 */
 	public function factoryIsSingleton() {
 		self::assertInstanceOf(
-			't3lib_Singleton',
+			SingletonInterface::class,
 			$this->subject
 		);
 	}
