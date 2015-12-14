@@ -13,6 +13,7 @@
  */
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\Utility\File\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -1204,8 +1205,8 @@ final class Tx_Oelib_TestingFramework {
 		$this->suppressFrontEndCookies();
 		$this->discardFakeFrontEnd();
 
-		/** @var t3lib_TimeTrackNull $timeTrack */
-		$timeTrack = GeneralUtility::makeInstance('t3lib_TimeTrackNull');
+		/** @var NullTimeTracker $timeTrack */
+		$timeTrack = GeneralUtility::makeInstance(NullTimeTracker::class);
 		$GLOBALS['TT'] = $timeTrack;
 
 		/** @var TypoScriptFrontendController $frontEnd */
