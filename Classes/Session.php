@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * This Singleton class represents a session and its data.
@@ -154,7 +155,7 @@ class Tx_Oelib_Session extends Tx_Oelib_PublicObject {
 	/**
 	 * Returns the current front-end instance.
 	 *
-	 * @return tslib_fe|NULL
+	 * @return TypoScriptFrontendController|null
 	 */
 	protected function getFrontEndController() {
 		return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : NULL;

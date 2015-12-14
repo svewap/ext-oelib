@@ -12,6 +12,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * This class represents a registration that allows the storage and retrieval
@@ -233,7 +234,7 @@ class Tx_Oelib_ConfigurationRegistry {
 	/**
 	 * Returns the current front-end instance.
 	 *
-	 * @return tslib_fe|NULL
+	 * @return TypoScriptFrontendController|null
 	 */
 	protected function getFrontEndController() {
 		return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : NULL;

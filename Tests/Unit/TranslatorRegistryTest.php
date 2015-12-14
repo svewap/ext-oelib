@@ -12,6 +12,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Test case.
@@ -59,7 +60,7 @@ class Tx_Oelib_Tests_Unit_TranslatorRegistryTest extends Tx_Phpunit_TestCase {
 	/**
 	 * Returns the current front-end instance.
 	 *
-	 * @return tslib_fe
+	 * @return TypoScriptFrontendController
 	 */
 	private function getFrontEndController() {
 		return $GLOBALS['TSFE'];

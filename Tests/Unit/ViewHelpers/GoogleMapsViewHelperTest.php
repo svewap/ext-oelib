@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Testcase for the Tx_Oelib_ViewHelpers_GoogleMapsViewHelper class.
@@ -32,12 +33,12 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	private $mapPointWithCoordinates = NULL;
 
 	/**
-	 * @var tslib_fe
+	 * @var TypoScriptFrontendController
 	 */
 	private $mockFrontEnd = NULL;
 
 	protected function setUp() {
-		$this->mockFrontEnd = $this->getMock('tslib_fe', array('dummy'), array(), '', FALSE);
+		$this->mockFrontEnd = $this->getMock(TypoScriptFrontendController::class, array('dummy'), array(), '', FALSE);
 		$GLOBALS['TSFE'] = $this->mockFrontEnd;
 		$this->mapPointWithCoordinates = $this->getMock('tx_oelib_Interface_MapPoint');
 		$this->mapPointWithCoordinates->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));

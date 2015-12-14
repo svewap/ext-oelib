@@ -13,6 +13,7 @@
  */
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Test case.
@@ -86,7 +87,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase {
 	/**
 	 * Returns the current front-end instance.
 	 *
-	 * @return tslib_fe
+	 * @return TypoScriptFrontendController
 	 */
 	private function getFrontEndController() {
 		return $GLOBALS['TSFE'];
@@ -4418,9 +4419,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase {
 		$this->subject->createFrontEndPage();
 		$this->subject->createFakeFrontEnd();
 
-		self::assertTrue(
-			$GLOBALS['TSFE'] instanceof tslib_fe
-		);
+		self::assertInstanceOf(TypoScriptFrontendController::class, $GLOBALS['TSFE']);
 	}
 
 	/**

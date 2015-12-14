@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Test case.
@@ -242,7 +243,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase 
 		Tx_Oelib_PageFinder::getInstance()->forceSource(
 			Tx_Oelib_PageFinder::SOURCE_FRONT_END
 		);
-		/** @var tslib_fe $frontEndController */
+		/** @var TypoScriptFrontendController $frontEndController */
 		$frontEndController = $GLOBALS['TSFE'];
 		$frontEndController->tmpl->rootId = 0;
 		$frontEndController->tmpl->rootLine = FALSE;

@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * This ViewHelper creates a Google Map with markers/points on it.
@@ -304,7 +305,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends Tx_Fluid_Core_ViewHelper
 	/**
 	 * Returns $GLOBALS['TSFE'].
 	 *
-	 * @return tslib_fe
+	 * @return TypoScriptFrontendController
 	 */
 	protected function getFrontEndController() {
 		return $GLOBALS['TSFE'];
