@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -28,15 +29,15 @@ class Tx_Oelib_Tests_Unit_RealMailerTest extends Tx_Phpunit_TestCase {
 	private $subject = NULL;
 
 	/**
-	 * @var t3lib_mail_Message|PHPUnit_Framework_MockObject_MockObject
+	 * @var MailMessage|PHPUnit_Framework_MockObject_MockObject
 	 */
 	private $message = NULL;
 
 	protected function setUp() {
 		$this->subject = new Tx_Oelib_RealMailer();
 
-		$this->message = $this->getMock('t3lib_mail_Message', array('send', '__destruct'));
-		GeneralUtility::addInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage', $this->message);
+		$this->message = $this->getMock(MailMessage::class, array('send', '__destruct'));
+		GeneralUtility::addInstance(MailMessage::class, $this->message);
 	}
 
 	/**

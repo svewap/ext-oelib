@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Mail\MailMessage;
 
 /**
  * This class sends e-mails.
@@ -24,11 +25,11 @@ class Tx_Oelib_RealMailer extends Tx_Oelib_AbstractMailer {
 	/**
 	 * Sends a Swift e-mail.
 	 *
-	 * @param t3lib_mail_Message $email the e-mail to send.
+	 * @param MailMessage $email the e-mail to send.
 	 *
 	 * @return void
 	 */
-	protected function sendSwiftMail(t3lib_mail_Message $email) {
+	protected function sendSwiftMail(MailMessage $email) {
 		$email->send();
 	}
 }
