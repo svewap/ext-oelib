@@ -12,6 +12,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
+use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -4509,9 +4510,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase {
 		$this->subject->createFrontEndPage();
 		$this->subject->createFakeFrontEnd();
 
-		self::assertTrue(
-			$this->getFrontEndController()->tmpl instanceof t3lib_TStemplate
-		);
+		self::assertInstanceOf(TemplateService::class, $this->getFrontEndController()->tmpl);
 	}
 
 	/**

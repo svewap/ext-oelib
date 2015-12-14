@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -203,8 +204,8 @@ class Tx_Oelib_ConfigurationRegistry {
 			return $this->getFrontEndController()->tmpl->setup;
 		}
 
-		/** @var t3lib_TStemplate $template */
-		$template = GeneralUtility::makeInstance('t3lib_TStemplate');
+		/** @var TemplateService $template */
+		$template = GeneralUtility::makeInstance(TemplateService::class);
 		$template->tt_track = 0;
 		$template->init();
 
