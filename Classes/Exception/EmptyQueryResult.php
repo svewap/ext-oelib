@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 
 /**
  * This class represents an exception that should be thrown when a database
@@ -32,7 +33,7 @@ class tx_oelib_Exception_EmptyQueryResult extends Exception {
 	public function __construct($code = 0) {
 		$message = 'The database query returned an empty result, but should  have returned a non-empty result.';
 
-		/** @var t3lib_DB $databaseConnection */
+		/** @var DatabaseConnection $databaseConnection */
 		$databaseConnection = $GLOBALS['TYPO3_DB'];
 		if ($databaseConnection->store_lastBuiltQuery || $databaseConnection->debugOutput) {
 			$message .= LF . 'The last built query:' . LF . $databaseConnection->debug_lastBuiltQuery;

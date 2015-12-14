@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 
 /**
  * Test case.
@@ -49,7 +50,7 @@ class Tx_Oelib_Tests_Unit_Exception_DatabaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function messageForInvalidQueryContainsErrorMessageFromDatabase() {
-		/** @var t3lib_DB $databaseAdapter */
+		/** @var DatabaseConnection $databaseAdapter */
 		$databaseAdapter =$GLOBALS['TYPO3_DB'];
 		$databaseAdapter->exec_SELECTquery('asdf', 'tx_oelib_test', '');
 		$subject = new tx_oelib_Exception_Database();
@@ -64,7 +65,7 @@ class Tx_Oelib_Tests_Unit_Exception_DatabaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function messageForInvalidQueryWithLastQueryEnabledContainsLastQuery() {
-		/** @var t3lib_DB $databaseAdapter */
+		/** @var DatabaseConnection $databaseAdapter */
 		$databaseAdapter =$GLOBALS['TYPO3_DB'];
 		$databaseAdapter->exec_SELECTquery('asdf', 'tx_oelib_test', '');
 		$subject = new tx_oelib_Exception_Database();

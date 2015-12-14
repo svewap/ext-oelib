@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -691,7 +692,7 @@ class Tx_Oelib_Db {
 	/**
 	 * Returns $GLOBALS['TYPO3_DB'].
 	 *
-	 * @return t3lib_DB
+	 * @return DatabaseConnection
 	 */
 	static public function getDatabaseConnection() {
 		return $GLOBALS['TYPO3_DB'];

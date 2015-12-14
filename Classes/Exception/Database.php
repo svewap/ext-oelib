@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 
 /**
  * This class represents an exception that should be thrown when a database
@@ -31,7 +32,7 @@ class tx_oelib_Exception_Database extends Exception {
 	 * @param int $code error code, must be >= 0
 	 */
 	public function __construct($code = 0) {
-		/** @var t3lib_DB $databaseConnection */
+		/** @var DatabaseConnection $databaseConnection */
 		$databaseConnection = $GLOBALS['TYPO3_DB'];
 
 		$message = 'There was an error with the database query.' . LF . $databaseConnection->sql_error();
