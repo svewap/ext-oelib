@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
  * This class represents a mapper for back-end users.
@@ -112,7 +113,7 @@ class tx_oelib_Mapper_BackEndUser extends Tx_Oelib_DataMapper {
 	/**
 	 * Returns $GLOBALS['BE_USER'].
 	 *
-	 * @return t3lib_beUserAuth
+	 * @return BackendUserAuthentication
 	 */
 	protected function getBackEndUserAuthentication() {
 		return $GLOBALS['BE_USER'];

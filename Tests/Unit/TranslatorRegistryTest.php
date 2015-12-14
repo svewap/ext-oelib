@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
  * Test case.
@@ -28,7 +29,7 @@ class Tx_Oelib_Tests_Unit_TranslatorRegistryTest extends Tx_Phpunit_TestCase {
 	protected $testingFramework = NULL;
 
 	/**
-	 * @var t3lib_beUserAuth
+	 * @var BackendUserAuthentication
 	 */
 	protected $backEndUserBackup = NULL;
 
@@ -36,7 +37,7 @@ class Tx_Oelib_Tests_Unit_TranslatorRegistryTest extends Tx_Phpunit_TestCase {
 		$this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
 
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
-		$backEndUser = new t3lib_beUserAuth();
+		$backEndUser = new BackendUserAuthentication();
 		$backEndUser->user = array('uid' => $this->testingFramework->createBackEndUser());
 		$GLOBALS['BE_USER'] = $backEndUser;
 

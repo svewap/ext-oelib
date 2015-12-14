@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
  * Test case.
@@ -44,7 +45,7 @@ class Tx_Oelib_Tests_Unit_BackEndLoginManagerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * Returns $GLOBALS['BE_USER'].
 	 *
-	 * @return t3lib_beUserAuth
+	 * @return BackendUserAuthentication
 	 */
 	private function getBackEndUserAuthentication() {
 		return $GLOBALS['BE_USER'];

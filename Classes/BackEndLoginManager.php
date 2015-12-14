@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
  * This class represents a manager for back-end logins, providing access to the logged-in user.
@@ -124,7 +125,7 @@ class Tx_Oelib_BackEndLoginManager implements tx_oelib_Interface_LoginManager {
 	/**
 	 * Returns $GLOBALS['BE_USER'].
 	 *
-	 * @return t3lib_beUserAuth|NULL
+	 * @return BackendUserAuthentication|null
 	 */
 	protected function getBackEndUserAuthentication() {
 		return isset($GLOBALS['BE_USER']) ? $GLOBALS['BE_USER'] : NULL;
