@@ -111,8 +111,6 @@ of the many good documentations regarding this topic.
 ::
 
    <?php
-   require_once(t3lib_extMgm::extPath('oelib') . 'class.tx_oelib_Autoloader.php');
-
    class tx_seminars_categoryTest extends tx_phpunit_testcase {
      private $fixture;
      private $testingFramework;

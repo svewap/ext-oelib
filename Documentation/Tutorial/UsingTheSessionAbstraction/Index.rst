@@ -25,8 +25,6 @@ In the code, reading and writing session data looks like this:
 
 ::
 
-   require_once(t3lib_extMgm::extPath('oelib') . 'class.tx_oelib_Autoloader.php');
-   ...
    tx_oelib_session::getInstance(tx_oelib_Session::TYPE_TEMPORARY)->setAsString(
            'foo-sessionkey',
            'some data'
@@ -42,8 +40,6 @@ In the unit tests, you can replace real session handling with a fake
 session:
 
 ::
-
-   require_once(t3lib_extMgm::extPath('oelib') . 'class.tx_oelib_Autoloader.php');
 
    public function setUp() {
            $this->session = new tx_oelib_FakeSession();

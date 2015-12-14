@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -120,7 +121,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase {
 	 * @return void
 	 */
 	protected function checkIfExtensionUserOelibtestIsLoaded() {
-		if (!t3lib_extMgm::isLoaded('user_oelibtest')) {
+		if (!ExtensionManagementUtility::isLoaded('user_oelibtest')) {
 			self::markTestSkipped(
 				'The extension user_oelibtest is not installed, but needs to be installed. Please install it.'
 			);
@@ -134,7 +135,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase {
 	 * @return void
 	 */
 	protected function checkIfExtensionUserOelibtest2IsLoaded() {
-		if (!t3lib_extMgm::isLoaded('user_oelibtest')) {
+		if (!ExtensionManagementUtility::isLoaded('user_oelibtest')) {
 			self::markTestSkipped(
 				'The extension user_oelibtest2 is not installed, but needs to be installed. Please install it.'
 			);

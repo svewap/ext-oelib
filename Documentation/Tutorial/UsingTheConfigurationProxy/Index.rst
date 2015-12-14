@@ -29,14 +29,7 @@ and is implemented lazily.
 Use the proxy in a class
 """"""""""""""""""""""""
 
-To use the proxy in your class, first of all load the proxy class
-using the autoloader:
-
-::
-
-   require_once(t3lib_extMgm::extPath('oelib').'class.tx_oelib_Autoloader.php');
-
-Then just get the instance of your extension's proxy. Pass the
+Get the instance of your extension's proxy. Pass the
 extension key without the prefix “tx” for this. There is no need for
 any further initialization as this is done automatically if necessary:
 
