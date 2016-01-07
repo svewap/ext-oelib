@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\File\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -138,7 +139,7 @@ final class Tx_Oelib_TestingFramework {
 	/**
 	 * an instance used for retrieving a unique file name
 	 *
-	 * @var t3lib_basicFileFunctions
+	 * @var BasicFileUtility
 	 */
 	protected static $fileNameProcessor = NULL;
 
@@ -1160,7 +1161,7 @@ final class Tx_Oelib_TestingFramework {
 		}
 
 		if (!self::$fileNameProcessor) {
-			self::$fileNameProcessor = GeneralUtility::makeInstance('t3lib_basicFileFunctions');
+			self::$fileNameProcessor = GeneralUtility::makeInstance(BasicFileUtility::class);
 		}
 
 		return self::$fileNameProcessor->getUniqueName(
