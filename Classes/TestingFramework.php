@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\File\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -197,7 +198,7 @@ final class Tx_Oelib_TestingFramework {
 
 		/** @var array $rootLineCacheConfiguration */
 		$rootLineCacheConfiguration = (array) $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_rootline'];
-		$rootLineCacheConfiguration['backend'] = 't3lib_cache_backend_NullBackend';
+		$rootLineCacheConfiguration['backend'] = NullBackend::class;
 		$cacheConfigurations = array('cache_rootline' => $rootLineCacheConfiguration);
 		/** @var CacheManager $cacheManager */
 		$cacheManager = GeneralUtility::makeInstance(CacheManager::class);
