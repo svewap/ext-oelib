@@ -11,6 +11,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5436] Change t3lib_cs to \TYPO3\CMS\Core\Charset\CharsetConverter
 - [#5434] Change t3lib_cache_backend_NullBackend to \TYPO3\CMS\Core\Cache\Backend\NullBackend
 - [#5435] Change t3lib_cache_Manager to \TYPO3\CMS\Core\Cache\CacheManager
 - [#5433] Change t3lib_basicFileFunctions to \TYPO3\CMS\Core\Utility\File\BasicFileUtility

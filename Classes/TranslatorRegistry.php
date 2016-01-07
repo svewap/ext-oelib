@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -54,7 +55,7 @@ class Tx_Oelib_TranslatorRegistry {
 	private $renderCharset = 'utf-8';
 
 	/**
-	 * @var t3lib_cs helper for charset conversion
+	 * @var CharsetConverter helper for charset conversion
 	 */
 	private $charsetConversion = NULL;
 
