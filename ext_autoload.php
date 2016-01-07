@@ -7,7 +7,6 @@ return array(
 	'tx_oelib_abstractheaderproxy' => $extensionPath . 'Classes/AbstractHeaderProxy.php',
 	'tx_oelib_abstractmailer' => $extensionPath . 'Classes/AbstractMailer.php',
 	'tx_oelib_attachment' => $extensionPath . 'Classes/Attachment.php',
-	'tx_oelib_autoloader' => $extensionPath . 'class.tx_oelib_Autoloader.php',
 	'tx_oelib_backendloginmanager' => $extensionPath . 'Classes/BackEndLoginManager.php',
 	'tx_oelib_configcheck' => $extensionPath . 'Classes/ConfigCheck.php',
 	'tx_oelib_configuration' => $extensionPath . 'Classes/Configuration.php',

@@ -25,11 +25,7 @@ extension, this is what to do:
 
 #. Enter this extension as a dependency for your extension.
 
-#. In the start of your class files, replace all occurrences ofrequire\_o
-   nce(PATH\_tslib.'class.tslib\_pibase.php');withrequire\_once(t3lib\_ex
-   tMgm::extPath('oelib') . 'class.tx\_oelib\_Autoloader.php');
-
-#. Replace all occurrences ofextends tslib\_pibasewithextends
+#. Replace all occurrences of extends tslib\_pibase with extends
    tx\_oelib\_templatehelper
 
 #. Replace all calls to $this->pi\_getLL with $this->translate. (This is
