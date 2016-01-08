@@ -24,9 +24,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class tx_oelib_headerProxyFactory {
+class Tx_Oelib_HeaderProxyFactory {
 	/**
-	 * @var tx_oelib_headerProxyFactory
+	 * @var Tx_Oelib_HeaderProxyFactory
 	 */
 	private static $instance = NULL;
 
@@ -56,11 +56,11 @@ class tx_oelib_headerProxyFactory {
 	/**
 	 * Retrieves the singleton instance of the factory.
 	 *
-	 * @return tx_oelib_headerProxyFactory the singleton factory
+	 * @return Tx_Oelib_HeaderProxyFactory the singleton factory
 	 */
 	public static function getInstance() {
 		if (!is_object(self::$instance)) {
-			self::$instance = new tx_oelib_headerProxyFactory();
+			self::$instance = new Tx_Oelib_HeaderProxyFactory();
 		}
 
 		return self::$instance;

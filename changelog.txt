@@ -12,6 +12,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5468] Rename tx_oelib_headerProxyFactory to Tx_Oelib_HeaderProxyFactory
 - [#5470] Rename tx_oelib_Time to Tx_Oelib_Time
 - [#5451] Rename tx_oelib_Model_FrontEndUser to Tx_Oelib_Model_FrontEndUser
 - [#5448] Rename tx_oelib_Tests_Unit_Fixtures_TestingMapper to Tx_Oelib_Tests_Unit_Fixtures_TestingMapper

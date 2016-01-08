@@ -30,12 +30,12 @@ class Tx_Oelib_Tests_Unit_HeaderProxyFactoryTest extends Tx_Phpunit_TestCase {
 	protected function setUp() {
 		// Only the instance with an enabled test mode can be tested as in the
 		// non-test mode added headers are not accessible.
-		tx_oelib_headerProxyFactory::getInstance()->enableTestMode();
-		$this->subject = tx_oelib_headerProxyFactory::getInstance()->getHeaderProxy();
+		Tx_Oelib_HeaderProxyFactory::getInstance()->enableTestMode();
+		$this->subject = Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy();
 	}
 
 	protected function tearDown() {
-		tx_oelib_headerProxyFactory::purgeInstance();
+		Tx_Oelib_HeaderProxyFactory::purgeInstance();
 	}
 
 	/**
@@ -53,11 +53,11 @@ class Tx_Oelib_Tests_Unit_HeaderProxyFactoryTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getHeaderProxyInNonTestMode() {
 		// new instances always have a disabled test mode
-		tx_oelib_headerProxyFactory::purgeInstance();
+		Tx_Oelib_HeaderProxyFactory::purgeInstance();
 
 		self::assertSame(
 			'Tx_Oelib_RealHeaderProxy',
-			get_class(tx_oelib_headerProxyFactory::getInstance()->getHeaderProxy())
+			get_class(Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy())
 		);
 	}
 
@@ -65,13 +65,13 @@ class Tx_Oelib_Tests_Unit_HeaderProxyFactoryTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getHeaderProxyInSameModeAfterPurgeInstanceReturnsNewInstance() {
-		tx_oelib_headerProxyFactory::purgeInstance();
-		$instance = tx_oelib_headerProxyFactory::getInstance()->getHeaderProxy();
-		tx_oelib_headerProxyFactory::purgeInstance();
+		Tx_Oelib_HeaderProxyFactory::purgeInstance();
+		$instance = Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy();
+		Tx_Oelib_HeaderProxyFactory::purgeInstance();
 
 		self::assertNotSame(
 			$instance,
-			tx_oelib_headerProxyFactory::getInstance()->getHeaderProxy()
+			Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy()
 		);
 	}
 
@@ -81,7 +81,7 @@ class Tx_Oelib_Tests_Unit_HeaderProxyFactoryTest extends Tx_Phpunit_TestCase {
 	public function getHeaderProxyReturnsTheSameObjectWhenCalledInTheSameClassInTheSameMode() {
 		self::assertSame(
 			$this->subject,
-			tx_oelib_headerProxyFactory::getInstance()->getHeaderProxy()
+			Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy()
 		);
 	}
 
@@ -90,11 +90,11 @@ class Tx_Oelib_Tests_Unit_HeaderProxyFactoryTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getHeaderProxyNotReturnsTheSameObjectWhenCalledInTheSameClassInAnotherMode() {
 		// new instances always have a disabled test mode
-		tx_oelib_headerProxyFactory::purgeInstance();
+		Tx_Oelib_HeaderProxyFactory::purgeInstance();
 
 		self::assertNotSame(
 			$this->subject,
-			tx_oelib_headerProxyFactory::getInstance()->getHeaderProxy()
+			Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy()
 		);
 	}
 
