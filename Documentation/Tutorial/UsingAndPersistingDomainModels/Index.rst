@@ -45,7 +45,7 @@ model in oelib as an example:
 
 ::
 
-   class tx_oelib_Model_FrontEndUser extends tx_oelib_Model implements
+   class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements
          Tx_Oelib_Interface_MailRole, tx_oelib_Interface_Address
    {
          /**
@@ -96,7 +96,7 @@ for examples:
          /**
         * @var string the model class name for this mapper, must not be empty
         */
-         protected $modelClassName = 'tx_oelib_Model_FrontEndUser';
+         protected $modelClassName = 'Tx_Oelib_Model_FrontEndUser';
 
          /**
         * @var array the (possible) relations of the created models in the format
