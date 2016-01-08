@@ -85,7 +85,8 @@ class Tx_Oelib_Db {
 	 * @param int $showHidden
 	 *        If $showHidden is set (0/1), any hidden-fields in records are ignored.
 	 *        NOTICE: If you call this function, consider what to do with the show_hidden parameter.
-	 *        Maybe it should be set? See tslib_cObj->enableFields where it's implemented correctly.
+	 *        Maybe it should be set? See ContentObjectRenderer->enableFields
+	 *        where it's implemented correctly.
 	 * @param array $ignoreArray
 	 *        Array you can pass where keys can be "disabled", "starttime", "endtime", "fe_group" (keys from "enablefields" in
 	 *        TCA) and if set they will make sure that part of the clause is not added. Thus disables the specific part of the

@@ -11,6 +11,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5438] Change tslib_cObj to ContentObjectRenderer
 - [#5437] Change tslib_pibase to \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 - [#5441] Change t3lib_DB to \TYPO3\CMS\Core\Database\DatabaseConnection
 - [#5461] Drop the oelib autoloader

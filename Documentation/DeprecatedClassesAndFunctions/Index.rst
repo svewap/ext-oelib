@@ -569,7 +569,7 @@ as bold.
          Tx\_Oelib\_TemplateHelper::createRestrictedImage
 
    Successor
-         tslib\_cObj::IMAGE
+         ContentObjectRenderer::IMAGE
 
    Deprecated
          2014-09-01

@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -127,13 +128,10 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function initInitializesContentObject() {
+	public function initInitializesContentObjectRenderer() {
 		$this->subject->init();
 
-		self::assertInstanceOf(
-			'TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer',
-			$this->subject->cObj
-		);
+		self::assertInstanceOf(ContentObjectRenderer::class, $this->subject->cObj);
 	}
 
 
@@ -4304,7 +4302,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function ensureContentObjectForExistingContentObjectLeavesItUntouched() {
-		$contentObject = new tslib_cObj();
+		$contentObject = new ContentObjectRenderer();
 		$this->subject->cObj = $contentObject;
 
 		$this->subject->ensureContentObject();
