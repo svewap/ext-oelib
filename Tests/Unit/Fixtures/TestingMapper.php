@@ -40,8 +40,8 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper {
 		'owner' => 'tx_oelib_Mapper_FrontEndUser',
 		'children' => 'tx_oelib_Tests_Unit_Fixtures_TestingMapper',
 		'related_records' => 'tx_oelib_Tests_Unit_Fixtures_TestingMapper',
-		'composition' => 'tx_oelib_Tests_Unit_Fixtures_TestingChildMapper',
-		'composition2' => 'tx_oelib_Tests_Unit_Fixtures_TestingChildMapper',
+		'composition' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper',
+		'composition2' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper',
 		'bidirectional' => 'tx_oelib_Tests_Unit_Fixtures_TestingMapper',
 	);
 
