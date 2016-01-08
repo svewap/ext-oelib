@@ -11,6 +11,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5437] Change tslib_pibase to \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 - [#5441] Change t3lib_DB to \TYPO3\CMS\Core\Database\DatabaseConnection
 - [#5461] Drop the oelib autoloader
 - [#5432] Change t3lib_TStemplate to \TYPO3\CMS\Core\TypoScript\TemplateService
@@ -24,7 +25,7 @@ Changes:
 - [#5426] Change t3lib_beUserAuth to BackendUserAuthentication
 - [#5430] Change t3lib_extMgm to \TYPO3\CMS\Core\Utility\ExtensionManagementUtility
 - [#5425] Change t3lib_div into \TYPO3\CMS\Core\Utility\GeneralUtility
-- [#5424] Change t3lib_Singleton into \TYPO3\CMS\Core\SingletonInterface
+- [#5424] Change t3lib_Singleton to \TYPO3\CMS\Core\SingletonInterface
 - [#5418] Drop the css_styled_content requirement
 - [#5417] Require static_info_tables >= 6.2.0
 - [#5421] Deprecate TemplateHelper::getStoragePid

@@ -12,6 +12,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 
 /**
  * This class provides functions for localization.
@@ -21,7 +22,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-abstract class Tx_Oelib_SalutationSwitcher extends tslib_pibase {
+abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin {
 	/**
 	 * A list of language keys for which the localizations have been loaded
 	 * (or NULL if the list has not been compiled yet).

@@ -25,8 +25,8 @@ extension, this is what to do:
 
 #. Enter this extension as a dependency for your extension.
 
-#. Replace all occurrences of extends tslib\_pibase with extends
-   tx\_oelib\_templatehelper
+#. Replace all occurrences of extends AbstractPlugin with extends
+   Tx\_Oelib\_TemplateHelper
 
 #. Replace all calls to $this->pi\_getLL with $this->translate. (This is
    optional as the first function still exists in the oelib extension,
