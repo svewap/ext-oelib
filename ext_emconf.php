@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'One is Enough Library',
-	'description' => 'This extension provides useful stuff for extension development: helper functions for unit testing, templating, automatic configuration checks and performance benchmarking.',
+	'description' => 'This extension provides useful stuff for extension development: helper functions for unit testing, templating and automatic configuration checks.',
 	'category' => 'services',
 	'author' => 'Oliver Klee',
 	'author_email' => 'typo3-coding@oliverklee.de',

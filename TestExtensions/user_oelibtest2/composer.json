@@ -1,0 +1,15 @@
+{
+  "name": "oliverklee/user-oelibtest2",
+  "type": "typo3-cms-extension",
+  "version": "0.0.0",
+  "description": "Test extension for oelib",
+  "license": ["GPL-2.0+"],
+  "replace": {
+    "user-oelibtest2": "self.version",
+    "typo3-ter/user-oelibtest2": "self.version"
+  },
+  "require": {
+    "oliverklee/oelib": "*",
+    "oliverklee/user-oelibtest2": "*"
+  }
+}
