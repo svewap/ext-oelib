@@ -14,6 +14,7 @@
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * This utility class provides some commonly-used functions for handling
@@ -191,8 +192,8 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher {
 		$template->tt_track = 0;
 		$template->init();
 
-		/** @var t3lib_pageSelect $page */
-		$page = GeneralUtility::makeInstance('t3lib_pageSelect');
+		/** @var PageRepository $page */
+		$page = GeneralUtility::makeInstance(PageRepository::class);
 
 		// Gets the root line.
 		// Finds the selected page in the BE exactly as in BaseScriptClass::init().

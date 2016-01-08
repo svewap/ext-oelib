@@ -14,6 +14,7 @@
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * This class represents a registration that allows the storage and retrieval
@@ -209,8 +210,8 @@ class Tx_Oelib_ConfigurationRegistry {
 		$template->tt_track = 0;
 		$template->init();
 
-		/** @var t3lib_pageSelect $page */
-		$page = GeneralUtility::makeInstance('t3lib_pageSelect');
+		/** @var PageRepository $page */
+		$page = GeneralUtility::makeInstance(PageRepository::class);
 		$rootline = $page->getRootLine($pageUid);
 		$template->runThroughTemplates($rootline, 0);
 		$template->generateConfig();

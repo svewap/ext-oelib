@@ -14,6 +14,7 @@
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * This class provides some static database-related functions.
@@ -27,7 +28,7 @@ class Tx_Oelib_Db {
 	/**
 	 * page object which we will use to call enableFields on
 	 *
-	 * @var t3lib_pageSelect
+	 * @var PageRepository
 	 */
 	static private $pageForEnableFields = NULL;
 
@@ -70,7 +71,7 @@ class Tx_Oelib_Db {
 	}
 
 	/**
-	 * Wrapper function for t3lib_pageSelect::enableFields() since it is no
+	 * Wrapper function for PageRepository::enableFields() since it is no
 	 * longer accessible statically.
 	 *
 	 * Returns a part of a WHERE clause which will filter out records with
@@ -135,7 +136,7 @@ class Tx_Oelib_Db {
 			if ((self::getFrontEndController() !== NULL) && is_object(self::getFrontEndController()->sys_page)) {
 				self::$pageForEnableFields = self::getFrontEndController()->sys_page;
 			} else {
-				self::$pageForEnableFields = GeneralUtility::makeInstance('t3lib_pageSelect');
+				self::$pageForEnableFields = GeneralUtility::makeInstance(PageRepository::class);
 			}
 		}
 	}
