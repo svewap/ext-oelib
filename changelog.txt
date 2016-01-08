@@ -11,6 +11,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5448] Rename tx_oelib_Tests_Unit_Fixtures_TestingMapper to Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
 - [#5449] Rename tx_oelib_Tests_Unit_Fixtures_TestingChildMapper to Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper
 - [#5450] Rename tx_oelib_Tests_Unit_Fixtures_TestingModel to Tx_Oelib_Tests_Unit_Fixtures_TestingModel
 - [#5447] Rename tx_oelib_Interface_MailRole to Tx_Oelib_Interface_MailRole
