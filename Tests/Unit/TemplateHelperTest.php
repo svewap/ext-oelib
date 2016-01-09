@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -42,7 +43,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase {
 		$this->deprecationLogEnabledBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'];
 
 		$this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
-		$pageUid = $this->testingFramework->createFrontEndPage(0, array('storage_pid' => 0));
+		$pageUid = $this->testingFramework->createFrontEndPage(0);
 		$this->testingFramework->createFakeFrontEnd($pageUid);
 		Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', TRUE);
 
@@ -4348,6 +4349,10 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getStoragePidForGrspSetReturnsThisId() {
+		if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7000000) {
+			$this->markTestSkipped('This test is only applicable for TYPO3 below version 7');
+		}
+
 		$pageUid = $this->testingFramework->createFrontEndPage(
 			0, array('storage_pid' => 42)
 		);
@@ -4363,6 +4368,10 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function hasStoragePidForGrspSetReturnsTrue() {
+		if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7000000) {
+			$this->markTestSkipped('This test is only applicable for TYPO3 below version 7');
+		}
+
 		$pageUid = $this->testingFramework->createFrontEndPage(
 			0, array('storage_pid' => 42)
 		);
