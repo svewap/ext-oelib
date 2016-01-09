@@ -22,12 +22,12 @@
  */
 class Tx_Oelib_Tests_Unit_Mapper_FederalStateTest extends Tx_Phpunit_TestCase {
 	/**
-	 * @var tx_oelib_Mapper_FederalState
+	 * @var Tx_Oelib_Mapper_FederalState
 	 */
 	private $subject = NULL;
 
 	protected function setUp() {
-		$this->subject = new tx_oelib_Mapper_FederalState();
+		$this->subject = new Tx_Oelib_Mapper_FederalState();
 	}
 
 	/*

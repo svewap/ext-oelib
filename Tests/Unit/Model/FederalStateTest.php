@@ -33,8 +33,8 @@ class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getLocalNameReturnsLocalNameOfNorthRhineWestphalia() {
-		/** @var tx_oelib_Mapper_FederalState $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FederalState');
+		/** @var Tx_Oelib_Mapper_FederalState $mapper */
+		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
 		/** @var Tx_Oelib_Model_FederalState $model */
 		$model = $mapper->find(88);
 
@@ -53,8 +53,8 @@ class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getEnglishNameReturnsLocalNameOfNorthRhineWestphalia() {
-		/** @var tx_oelib_Mapper_FederalState $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FederalState');
+		/** @var Tx_Oelib_Mapper_FederalState $mapper */
+		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
 		/** @var Tx_Oelib_Model_FederalState $model */
 		$model = $mapper->find(88);
 
@@ -73,8 +73,8 @@ class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfNorthRhineWestphalia() {
-		/** @var tx_oelib_Mapper_FederalState $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FederalState');
+		/** @var Tx_Oelib_Mapper_FederalState $mapper */
+		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
 		/** @var Tx_Oelib_Model_FederalState $model */
 		$model = $mapper->find(88);
 
@@ -88,8 +88,8 @@ class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getIsoAlpha2ZoneCodeReturnsIsoAlpha2ZoneCodeOfNorthRhineWestphalia() {
-		/** @var tx_oelib_Mapper_FederalState $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FederalState');
+		/** @var Tx_Oelib_Mapper_FederalState $mapper */
+		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
 		/** @var Tx_Oelib_Model_FederalState $model */
 		$model = $mapper->find(88);
 

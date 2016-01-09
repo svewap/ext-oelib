@@ -20,7 +20,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_oelib_Mapper_FederalState extends Tx_Oelib_DataMapper {
+class Tx_Oelib_Mapper_FederalState extends Tx_Oelib_DataMapper {
 	/**
 	 * @var string
 	 */
