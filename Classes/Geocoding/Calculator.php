@@ -38,9 +38,9 @@ class tx_oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
 	 * Calculates the great-circle distance in kilometers between two geo
 	 * objects using the haversine formula.
 	 *
-	 * @param tx_oelib_Interface_Geo $object1
+	 * @param Tx_Oelib_Interface_Geo $object1
 	 *        the first object, must have geo coordinates
-	 * @param tx_oelib_Interface_Geo $object2
+	 * @param Tx_Oelib_Interface_Geo $object2
 	 *        the second object, must have geo coordinates
 	 *
 	 * @return float the distance between $object1 and $object2 in kilometers, will be >= 0.0
@@ -48,7 +48,7 @@ class tx_oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
 	 * @throws InvalidArgumentException
 	 */
 	public function calculateDistanceInKilometers(
-		tx_oelib_Interface_Geo $object1, tx_oelib_Interface_Geo $object2
+		Tx_Oelib_Interface_Geo $object1, Tx_Oelib_Interface_Geo $object2
 	) {
 		if ($object1->hasGeoError()) {
 			throw new InvalidArgumentException('$object1 has a geo error.');
@@ -86,23 +86,23 @@ class tx_oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
 	 * $center, including objects that are located at a distance of exactly
 	 * $distance.
 	 *
-	 * @param Tx_Oelib_List<tx_oelib_Interface_Geo> $unfilteredObjects
+	 * @param Tx_Oelib_List<Tx_Oelib_Interface_Geo> $unfilteredObjects
 	 *        the list to filter, may be empty
-	 * @param tx_oelib_Interface_Geo $center
+	 * @param Tx_Oelib_Interface_Geo $center
 	 *        the center to which $distance related
 	 * @param float $distance
 	 *        the distance in kilometers within which the returned objects must
 	 *        be located
 	 *
-	 * @return Tx_Oelib_List<tx_oelib_Interface_Geo>
+	 * @return Tx_Oelib_List<Tx_Oelib_Interface_Geo>
 	 *         a copy of $unfilteredObjects with only those objects that are
 	 *         located within $distance kilometers of $center
 	 */
-	public function filterByDistance(Tx_Oelib_List $unfilteredObjects, tx_oelib_Interface_Geo $center, $distance) {
+	public function filterByDistance(Tx_Oelib_List $unfilteredObjects, Tx_Oelib_Interface_Geo $center, $distance) {
 		/** @var Tx_Oelib_List $objectsWithinDistance */
 		$objectsWithinDistance = GeneralUtility::makeInstance('Tx_Oelib_List');
 
-		/** @var tx_oelib_Interface_Geo|Tx_Oelib_Model $object */
+		/** @var Tx_Oelib_Interface_Geo|Tx_Oelib_Model $object */
 		foreach ($unfilteredObjects as $object) {
 			if ($this->calculateDistanceInKilometers($center, $object)
 				<= $distance
@@ -119,13 +119,13 @@ class tx_oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
 	 *
 	 * Note: This move is not very accurate.
 	 *
-	 * @param tx_oelib_Interface_Geo $object
+	 * @param Tx_Oelib_Interface_Geo $object
 	 * @param float $direction direction of the movement in degrees (0.0 is east)
 	 * @param float $distance distance to move in kilometers, may be positive, zero or negative
 	 *
 	 * @return void
 	 */
-	public function move(tx_oelib_Interface_Geo $object, $direction, $distance) {
+	public function move(Tx_Oelib_Interface_Geo $object, $direction, $distance) {
 		$directionInRadians = deg2rad($direction);
 
 		$originalCoordinates = $object->getGeoCoordinates();
@@ -155,7 +155,7 @@ class tx_oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
 	 *
 	 * Note: This move is not very accurate.
 	 *
-	 * @param tx_oelib_Interface_Geo $object
+	 * @param Tx_Oelib_Interface_Geo $object
 	 * @param float $direction direction of the movement in degrees (0.0 is east)
 	 * @param float $maximumDistance maximum distance to move in kilometers, may be positive, zero or negative
 	 *
@@ -163,7 +163,7 @@ class tx_oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function moveByRandomDistance(tx_oelib_Interface_Geo $object, $direction, $maximumDistance) {
+	public function moveByRandomDistance(Tx_Oelib_Interface_Geo $object, $direction, $maximumDistance) {
 		if ($maximumDistance < 0) {
 			throw new InvalidArgumentException('$distance must be >= 0, but actually is: ' . $maximumDistance, 1407432668);
 		}
@@ -179,12 +179,12 @@ class tx_oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
 	 *
 	 * Note: This move is not very accurate.
 	 *
-	 * @param tx_oelib_Interface_Geo $object
+	 * @param Tx_Oelib_Interface_Geo $object
 	 * @param float $distance distance to move in kilometers, may be positive, zero or negative
 	 *
 	 * @return void
 	 */
-	public function moveInRandomDirection(tx_oelib_Interface_Geo $object, $distance) {
+	public function moveInRandomDirection(Tx_Oelib_Interface_Geo $object, $distance) {
 		$direction = mt_rand(0, 360);
 		$this->move($object, $direction, $distance);
 	}
@@ -194,12 +194,12 @@ class tx_oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
 	 *
 	 * Note: This move is not very accurate.
 	 *
-	 * @param tx_oelib_Interface_Geo $object
+	 * @param Tx_Oelib_Interface_Geo $object
 	 * @param float $maximumDistance maximum distance to move in kilometers, must not be negative
 	 *
 	 * @return void
 	 */
-	public function moveInRandomDirectionAndDistance(tx_oelib_Interface_Geo $object, $maximumDistance) {
+	public function moveInRandomDirectionAndDistance(Tx_Oelib_Interface_Geo $object, $maximumDistance) {
 		$direction = mt_rand(0, 360);
 		$this->moveByRandomDistance($object, $direction, $maximumDistance);
 	}

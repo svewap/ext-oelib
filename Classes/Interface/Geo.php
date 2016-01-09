@@ -20,7 +20,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface tx_oelib_Interface_Geo {
+interface Tx_Oelib_Interface_Geo {
 	/**
 	 * Returns this object's address formatted for a geo lookup, for example
 	 * "Pariser Str. 50, 53117 Auerberg, Bonn, DE". Any part of this address
