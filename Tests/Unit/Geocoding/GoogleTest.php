@@ -22,16 +22,16 @@
  */
 class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
 	/**
-	 * @var tx_oelib_Geocoding_Google
+	 * @var Tx_Oelib_Geocoding_Google
 	 */
 	private $subject;
 
 	protected function setUp() {
-		$this->subject = tx_oelib_Geocoding_Google::getInstance();
+		$this->subject = Tx_Oelib_Geocoding_Google::getInstance();
 	}
 
 	protected function tearDown() {
-		tx_oelib_Geocoding_Google::purgeInstance();
+		Tx_Oelib_Geocoding_Google::purgeInstance();
 	}
 
 
@@ -44,8 +44,8 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getInstanceCreatesGoogleMapsLookupInstance() {
 		self::assertInstanceOf(
-			'tx_oelib_Geocoding_Google',
-			tx_oelib_Geocoding_Google::getInstance()
+			'Tx_Oelib_Geocoding_Google',
+			Tx_Oelib_Geocoding_Google::getInstance()
 		);
 	}
 
@@ -53,14 +53,14 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setInstanceSetsInstance() {
-		tx_oelib_Geocoding_Google::purgeInstance();
+		Tx_Oelib_Geocoding_Google::purgeInstance();
 
 		$instance = new Tx_Oelib_Geocoding_Dummy();
-		tx_oelib_Geocoding_Google::setInstance($instance);
+		Tx_Oelib_Geocoding_Google::setInstance($instance);
 
 		self::assertSame(
 			$instance,
-			tx_oelib_Geocoding_Google::getInstance()
+			Tx_Oelib_Geocoding_Google::getInstance()
 		);
 	}
 
@@ -90,9 +90,9 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
 		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
 		$geo->setGeoError();
 
-		/** @var tx_oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
-			'tx_oelib_Geocoding_Google',
+			'Tx_Oelib_Geocoding_Google',
 			array('sendRequest', 'throttle'),
 			array(),
 			'',
@@ -135,9 +135,9 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
 			array('latitude' => 50.7335500, 'longitude' => 7.1014300)
 		);
 
-		/** @var tx_oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
-			'tx_oelib_Geocoding_Google',
+			'Tx_Oelib_Geocoding_Google',
 			array('sendRequest', 'throttle'),
 			array(),
 			'',
@@ -156,9 +156,9 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
 		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 		$geo->setGeoError();
 
-		/** @var tx_oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
-			'tx_oelib_Geocoding_Google',
+			'Tx_Oelib_Geocoding_Google',
 			array('sendRequest', 'throttle'),
 			array(),
 			'',
@@ -178,9 +178,9 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
 		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
 		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		/** @var tx_oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
-			'tx_oelib_Geocoding_Google',
+			'Tx_Oelib_Geocoding_Google',
 			array('sendRequest', 'throttle'),
 			array(),
 			'',
@@ -204,9 +204,9 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
 		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
 		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		/** @var tx_oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
-			'tx_oelib_Geocoding_Google',
+			'Tx_Oelib_Geocoding_Google',
 			array('sendRequest', 'throttle'),
 			array(),
 			'',
@@ -239,9 +239,9 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
 		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
 		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		/** @var tx_oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
-			'tx_oelib_Geocoding_Google',
+			'Tx_Oelib_Geocoding_Google',
 			array('sendRequest', 'throttle'),
 			array(),
 			'',
@@ -286,9 +286,9 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
 		$geo2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
 		$geo2->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		/** @var tx_oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
-			'tx_oelib_Geocoding_Google',
+			'Tx_Oelib_Geocoding_Google',
 			array('sendRequest'),
 			array(),
 			'',

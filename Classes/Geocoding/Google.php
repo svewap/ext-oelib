@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_oelib_Geocoding_Google implements tx_oelib_Interface_GeocodingLookup {
+class Tx_Oelib_Geocoding_Google implements tx_oelib_Interface_GeocodingLookup {
 	/**
 	 * status code for: okay, address was parsed
 	 *
@@ -83,7 +83,7 @@ class tx_oelib_Geocoding_Google implements tx_oelib_Interface_GeocodingLookup {
 	 */
 	public static function getInstance() {
 		if (!is_object(self::$instance)) {
-			self::$instance = new tx_oelib_Geocoding_Google();
+			self::$instance = new Tx_Oelib_Geocoding_Google();
 		}
 
 		return self::$instance;

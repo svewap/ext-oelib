@@ -15,6 +15,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5484] Rename tx_oelib_Geocoding_Google to Tx_Oelib_Geocoding_Google
 - [#5483] Rename tx_oelib_Geocoding_Dummy to Tx_Oelib_Geocoding_Dummy
 - [#5482] Rename tx_oelib_Geocoding_Calculator to Tx_Oelib_Geocoding_Calculator
 - [#5480] Rename tx_oelib_Exception_NotFound to Tx_Oelib_Exception_NotFound
