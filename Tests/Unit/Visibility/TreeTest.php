@@ -50,9 +50,7 @@ class Tx_Oelib_Tests_Unit_Visibility_TreeTest extends Tx_Phpunit_TestCase {
 
 		$children = $this->subject->getRootNode()->getChildren();
 
-		self::assertTrue(
-			$children[0] instanceof tx_oelib_Visibility_Node
-		);
+		self::assertInstanceOf(Tx_Oelib_Visibility_Node::class, $children[0]);
 	}
 
 	/**

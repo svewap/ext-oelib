@@ -23,12 +23,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class tx_oelib_Visibility_Tree {
 	/**
-	 * @var tx_oelib_Visibility_Node[] all nodes within the tree referenced by their keys
+	 * @var Tx_Oelib_Visibility_Node[] all nodes within the tree referenced by their keys
 	 */
 	private $nodes = array();
 
 	/**
-	 * @var tx_oelib_Visibility_Node
+	 * @var Tx_Oelib_Visibility_Node
 	 */
 	private $rootNode = NULL;
 
@@ -50,7 +50,7 @@ class tx_oelib_Visibility_Tree {
 	 * @param array $treeStructure the tree structure in a nested array, may be empty
 	 */
 	public function __construct(array $treeStructure) {
-		$this->rootNode = GeneralUtility::makeInstance('tx_oelib_Visibility_Node');
+		$this->rootNode = GeneralUtility::makeInstance(Tx_Oelib_Visibility_Node::class);
 
 		$this->buildTreeFromArray($treeStructure, $this->rootNode);
 	}
@@ -67,17 +67,17 @@ class tx_oelib_Visibility_Tree {
 	 *
 	 * @param array $treeStructure
 	 *        the tree structure as array, may be empty
-	 * @param tx_oelib_Visibility_Node $parentNode
+	 * @param Tx_Oelib_Visibility_Node $parentNode
 	 *        the parent node for the current key
 	 *
 	 * @return void
 	 */
 	private function buildTreeFromArray(
-		array $treeStructure, tx_oelib_Visibility_Node $parentNode
+		array $treeStructure, Tx_Oelib_Visibility_Node $parentNode
 	) {
 		foreach ($treeStructure as $nodeKey => $nodeContents) {
-			/** @var tx_oelib_Visibility_Node $childNode */
-			$childNode = GeneralUtility::makeInstance('tx_oelib_Visibility_Node');
+			/** @var Tx_Oelib_Visibility_Node $childNode */
+			$childNode = GeneralUtility::makeInstance(Tx_Oelib_Visibility_Node::class);
 			$parentNode->addChild($childNode);
 
 			if (is_array($nodeContents)) {
@@ -113,7 +113,7 @@ class tx_oelib_Visibility_Tree {
 	/**
 	 * Returns the root node.
 	 *
-	 * @return tx_oelib_Visibility_Node the root node
+	 * @return Tx_Oelib_Visibility_Node the root node
 	 */
 	public function getRootNode() {
 		return $this->rootNode;
