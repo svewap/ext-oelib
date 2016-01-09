@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class tx_oelib_Visibility_Tree {
+class Tx_Oelib_Visibility_Tree {
 	/**
 	 * @var Tx_Oelib_Visibility_Node[] all nodes within the tree referenced by their keys
 	 */
