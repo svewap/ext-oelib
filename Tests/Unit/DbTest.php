@@ -800,7 +800,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 *
-	 * @expectedException tx_oelib_Exception_EmptyQueryResult
+	 * @expectedException Tx_Oelib_Exception_EmptyQueryResult
 	 */
 	public function selectSingleForNoResultsThrowsEmptyQueryResultException() {
 		Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', 'title = "nothing"');

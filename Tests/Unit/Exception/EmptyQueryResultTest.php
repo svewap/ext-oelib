@@ -52,7 +52,7 @@ class Tx_Oelib_Tests_Unit_Exception_EmptyQueryResultTest extends Tx_Phpunit_Test
 	 */
 	public function messageAfterQueryWithLastQueryEnabledContainsLastQuery() {
 		Tx_Oelib_Db::getDatabaseConnection()->exec_SELECTquery('title', 'tx_oelib_test', '');
-		$subject = new tx_oelib_Exception_EmptyQueryResult();
+		$subject = new Tx_Oelib_Exception_EmptyQueryResult();
 
 		self::assertContains(
 			'SELECT',

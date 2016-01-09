@@ -558,7 +558,7 @@ abstract class Tx_Oelib_DataMapper {
 
 		try {
 			$data = Tx_Oelib_Db::selectSingle($this->columns, $this->getTableName(), $whereClause);
-		} catch (tx_oelib_Exception_EmptyQueryResult $exception) {
+		} catch (Tx_Oelib_Exception_EmptyQueryResult $exception) {
 			throw new tx_oelib_Exception_NotFound(
 				'The record where "' . $whereClause . '" could not be retrieved from the table ' . $this->getTableName() . '.'
 			);

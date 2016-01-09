@@ -348,7 +348,7 @@ class Tx_Oelib_Db {
 	 *
 	 * @return string[] the single result row, will not be empty
 	 *
-	 * @throws tx_oelib_Exception_EmptyQueryResult if there is no matching record
+	 * @throws Tx_Oelib_Exception_EmptyQueryResult if there is no matching record
 	 */
 	static public function selectSingle(
 		$fields,
@@ -363,7 +363,7 @@ class Tx_Oelib_Db {
 			$groupBy, $orderBy, $offset . ',' . 1
 		);
 		if (empty($result)) {
-			throw new tx_oelib_Exception_EmptyQueryResult();
+			throw new Tx_Oelib_Exception_EmptyQueryResult();
 		}
 
 		return $result[0];
