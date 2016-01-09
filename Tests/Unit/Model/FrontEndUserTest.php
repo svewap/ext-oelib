@@ -1007,7 +1007,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase {
 	 */
 	public function hasGroupMembershipForUserOnlyInProvidedGroupReturnsTrue() {
 		$userGroup = Tx_Oelib_MapperRegistry
-			::get('tx_oelib_Mapper_FrontEndUserGroup')->getNewGhost();
+			::get(Tx_Oelib_Mapper_FrontEndUserGroup::class)->getNewGhost();
 		$list = new Tx_Oelib_List();
 		$list->add($userGroup);
 
@@ -1022,7 +1022,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function hasGroupMembershipForUserInProvidedGroupAndInAnotherReturnsTrue() {
-		$groupMapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FrontEndUserGroup');
+		$groupMapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUserGroup::class);
 		$userGroup = $groupMapper->getNewGhost();
 		$list = new Tx_Oelib_List();
 		$list->add($groupMapper->getNewGhost());
@@ -1039,7 +1039,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function hasGroupMembershipForUserInOneOfTheProvidedGroupsReturnsTrue() {
-		$groupMapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FrontEndUserGroup');
+		$groupMapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUserGroup::class);
 		$userGroup = $groupMapper->getNewGhost();
 		$list = new Tx_Oelib_List();
 		$list->add($userGroup);
@@ -1057,7 +1057,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function hasGroupMembershipForUserNoneOfTheProvidedGroupsReturnsFalse() {
-		$groupMapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FrontEndUserGroup');
+		$groupMapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUserGroup::class);
 		$list = new Tx_Oelib_List();
 		$list->add($groupMapper->getNewGhost());
 		$list->add($groupMapper->getNewGhost());

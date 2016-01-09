@@ -103,7 +103,7 @@ for examples:
         *            DB column name => mapper name
         */
          protected $relations = array(
-                 'usergroup' => 'tx_oelib_Mapper_FrontEndUserGroup',
+                 'usergroup' => Tx_Oelib_Mapper_FrontEndUserGroup::class,
        );
    }
 

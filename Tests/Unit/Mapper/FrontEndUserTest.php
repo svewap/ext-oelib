@@ -79,7 +79,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getUserGroupsGetsRelatedGroupsAsList() {
 		$groupMapper
-			= Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FrontEndUserGroup');
+			= Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUserGroup::class);
 
 		$group1 = $groupMapper->getNewGhost();
 		$group2 = $groupMapper->getNewGhost();
