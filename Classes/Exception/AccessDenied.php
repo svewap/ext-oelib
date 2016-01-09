@@ -20,5 +20,5 @@
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class tx_oelib_Exception_AccessDenied extends Exception {
+class Tx_Oelib_Exception_AccessDenied extends Exception {
 }

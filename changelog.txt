@@ -14,6 +14,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5477] Rename tx_oelib_Exception_AccessDenied to Tx_Oelib_Exception_AccessDenied
 - [#5481] Set 7.9.99 as maximum TYPO3 version
 - [#5444] Switch to the Composer autoloader
 - [#5469] Rename tx_oelib_TestingFrameworkCleanup to Tx_Oelib_TestingFrameworkCleanup
