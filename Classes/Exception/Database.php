@@ -25,7 +25,7 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_oelib_Exception_Database extends Exception {
+class Tx_Oelib_Exception_Database extends Exception {
 	/**
 	 * The constructor.
 	 *

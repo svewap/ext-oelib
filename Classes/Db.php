@@ -214,7 +214,7 @@ class Tx_Oelib_Db {
 	 * @return int the number of affected rows, might be 0
 	 *
 	 * @throws InvalidArgumentException
-	 * @throws tx_oelib_Exception_Database if an error has occurred
+	 * @throws Tx_Oelib_Exception_Database if an error has occurred
 	 */
 	static public function delete($tableName, $whereClause) {
 		if ($tableName === '') {
@@ -226,7 +226,7 @@ class Tx_Oelib_Db {
 			$tableName, $whereClause
 		);
 		if (!$dbResult) {
-			throw new tx_oelib_Exception_Database();
+			throw new Tx_Oelib_Exception_Database();
 		}
 
 		return self::getDatabaseConnection()->sql_affected_rows();
@@ -245,7 +245,7 @@ class Tx_Oelib_Db {
 	 * @return int the number of affected rows, might be 0
 	 *
 	 * @throws InvalidArgumentException
-	 * @throws tx_oelib_Exception_Database if an error has occurred
+	 * @throws Tx_Oelib_Exception_Database if an error has occurred
 	 */
 	static public function update($tableName, $whereClause, array $fields) {
 		if ($tableName === '') {
@@ -257,7 +257,7 @@ class Tx_Oelib_Db {
 			$tableName, $whereClause, $fields
 		);
 		if (!$dbResult) {
-			throw new tx_oelib_Exception_Database();
+			throw new Tx_Oelib_Exception_Database();
 		}
 
 		return self::getDatabaseConnection()->sql_affected_rows();
@@ -274,7 +274,7 @@ class Tx_Oelib_Db {
 	 * @return int the UID of the created record, will be 0 if the table has no UID column
 	 *
 	 * @throws InvalidArgumentException
-	 * @throws tx_oelib_Exception_Database if an error has occurred
+	 * @throws Tx_Oelib_Exception_Database if an error has occurred
 	 */
 	static public function insert($tableName, array $recordData) {
 		if ($tableName === '') {
@@ -289,7 +289,7 @@ class Tx_Oelib_Db {
 			$tableName, $recordData
 		);
 		if (!$dbResult) {
-			throw new tx_oelib_Exception_Database();
+			throw new Tx_Oelib_Exception_Database();
 		}
 
 		return self::getDatabaseConnection()->sql_insert_id();
@@ -308,7 +308,7 @@ class Tx_Oelib_Db {
 	 * @return \mysqli_result MySQLi result object
 	 *
 	 * @throws InvalidArgumentException
-	 * @throws tx_oelib_Exception_Database if an error has occurred
+	 * @throws Tx_Oelib_Exception_Database if an error has occurred
 	 */
 	static public function select(
 		$fields, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '',
@@ -326,7 +326,7 @@ class Tx_Oelib_Db {
 			$fields, $tableNames, $whereClause, $groupBy, $orderBy, $limit
 		);
 		if (!$dbResult) {
-			throw new tx_oelib_Exception_Database();
+			throw new Tx_Oelib_Exception_Database();
 		}
 
 		return $dbResult;
@@ -435,7 +435,7 @@ class Tx_Oelib_Db {
 	 * Counts the number of matching records in the database for a particular
 	 * WHERE clause.
 	 *
-	 * @throws tx_oelib_Exception_Database if an error has occurred
+	 * @throws Tx_Oelib_Exception_Database if an error has occurred
 	 *
 	 * @param string $tableNames
 	 *        comma-separated list of existing tables from which to count, can

@@ -1466,7 +1466,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase {
 		Tx_Oelib_Db::enableQueryLogging();
 		$dbResult = Tx_Oelib_Db::getDatabaseConnection()->sql_query('TRUNCATE TABLE tx_oelib_test;');
 		if ($dbResult === FALSE) {
-			throw new tx_oelib_Exception_Database(1418586819);
+			throw new Tx_Oelib_Exception_Database(1418586819);
 		}
 
 		self::assertSame(

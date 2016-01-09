@@ -1634,7 +1634,7 @@ final class Tx_Oelib_TestingFramework {
 	 *
 	 * @return void
 	 *
-	 * @throws tx_oelib_Exception_Database
+	 * @throws Tx_Oelib_Exception_Database
 	 * @throws InvalidArgumentException
 	 *
 	 * @see resetAutoIncrementLazily
@@ -1664,7 +1664,7 @@ final class Tx_Oelib_TestingFramework {
 			'ALTER TABLE ' . $table . ' AUTO_INCREMENT=' . $newAutoIncrementValue . ';'
 		);
 		if ($dbResult === FALSE) {
-			throw new tx_oelib_Exception_Database(1418586244);
+			throw new Tx_Oelib_Exception_Database(1418586244);
 		}
 	}
 
@@ -1754,7 +1754,7 @@ final class Tx_Oelib_TestingFramework {
 	 *
 	 * @return int the current auto_increment value of table $table, will be > 0
 	 *
-	 * @throws tx_oelib_Exception_Database
+	 * @throws Tx_Oelib_Exception_Database
 	 * @throws InvalidArgumentException
 	 */
 	public function getAutoIncrement($table) {
@@ -1770,7 +1770,7 @@ final class Tx_Oelib_TestingFramework {
 
 		$dbResult = $databaseConnection->sql_query('SHOW TABLE STATUS WHERE Name = \'' . $table . '\';');
 		if ($dbResult === FALSE) {
-			throw new tx_oelib_Exception_Database(1416848924);
+			throw new Tx_Oelib_Exception_Database(1416848924);
 		}
 
 		$row = $databaseConnection->sql_fetch_assoc($dbResult);
@@ -1905,7 +1905,7 @@ final class Tx_Oelib_TestingFramework {
 	 *
 	 * @return void
 	 *
-	 * @throws tx_oelib_Exception_Database
+	 * @throws Tx_Oelib_Exception_Database
 	 * @throws InvalidArgumentException
 	 * @throws BadMethodCallException
 	 */
@@ -1928,7 +1928,7 @@ final class Tx_Oelib_TestingFramework {
 			$fieldName . '+1 WHERE uid=' . $uid
 		);
 		if ($dbResult === FALSE) {
-			throw new tx_oelib_Exception_Database(1418586263);
+			throw new Tx_Oelib_Exception_Database(1418586263);
 		}
 
 		if ($databaseConnection->sql_affected_rows() === 0) {

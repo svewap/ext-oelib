@@ -53,7 +53,7 @@ class Tx_Oelib_Tests_Unit_Exception_DatabaseTest extends Tx_Phpunit_TestCase {
 		/** @var DatabaseConnection $databaseAdapter */
 		$databaseAdapter =$GLOBALS['TYPO3_DB'];
 		$databaseAdapter->exec_SELECTquery('asdf', 'tx_oelib_test', '');
-		$subject = new tx_oelib_Exception_Database();
+		$subject = new Tx_Oelib_Exception_Database();
 
 		self::assertContains(
 			'asdf',
@@ -68,7 +68,7 @@ class Tx_Oelib_Tests_Unit_Exception_DatabaseTest extends Tx_Phpunit_TestCase {
 		/** @var DatabaseConnection $databaseAdapter */
 		$databaseAdapter =$GLOBALS['TYPO3_DB'];
 		$databaseAdapter->exec_SELECTquery('asdf', 'tx_oelib_test', '');
-		$subject = new tx_oelib_Exception_Database();
+		$subject = new Tx_Oelib_Exception_Database();
 
 		self::assertContains(
 			'SELECT',
