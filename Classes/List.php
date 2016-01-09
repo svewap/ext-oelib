@@ -316,7 +316,7 @@ class Tx_Oelib_List extends SplObjectStorage {
 	 * Sorts this list item in ascending order by their sorting.
 	 *
 	 * This function may only be used if all items in this list implement the
-	 * tx_oelib_Interface_Sortable interface.
+	 * Tx_Oelib_Interface_Sortable interface.
 	 *
 	 * @internal
 	 *
@@ -331,16 +331,16 @@ class Tx_Oelib_List extends SplObjectStorage {
 	 *
 	 * This function is not intended to be used from the outside.
 	 *
-	 * @param tx_oelib_Interface_Sortable $object1 the first object
-	 * @param tx_oelib_Interface_Sortable $object2 the second object
+	 * @param Tx_Oelib_Interface_Sortable $object1 the first object
+	 * @param Tx_Oelib_Interface_Sortable $object2 the second object
 	 *
 	 * @return int a negative number if $model1 should be before $model2,
 	 *                 a positive number if $model1 should be after $model2,
 	 *                 zero if both are equal for sorting
 	 */
 	public function compareSortings(
-		tx_oelib_Interface_Sortable $object1,
-		tx_oelib_Interface_Sortable $object2
+		Tx_Oelib_Interface_Sortable $object1,
+		Tx_Oelib_Interface_Sortable $object2
 	) {
 		return $object1->getSorting() - $object2->getSorting();
 	}

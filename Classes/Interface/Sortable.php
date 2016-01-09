@@ -20,7 +20,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface tx_oelib_Interface_Sortable {
+interface Tx_Oelib_Interface_Sortable {
 	/**
 	 * Returns the sorting value for this object.
 	 *

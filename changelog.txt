@@ -15,6 +15,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5499] Rename tx_oelib_Interface_Sortable to Tx_Oelib_Interface_Sortable
 - [#5496] Rename tx_oelib_Interface_Address to Tx_Oelib_Interface_Address
 - [#5495] Rename tx_oelib_Visibility_Tree to Tx_Oelib_Visibility_Tree
 - [#5494] Rename tx_oelib_Visibility_Node to Tx_Oelib_Visibility_Node
