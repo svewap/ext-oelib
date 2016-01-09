@@ -48,7 +48,7 @@ class tx_oelib_Mapper_FrontEndUser extends Tx_Oelib_DataMapper {
 	 * Finds a front-end user by user name. Hidden user records will be
 	 * retrieved as well.
 	 *
-	 * @throws tx_oelib_Exception_NotFound
+	 * @throws Tx_Oelib_Exception_NotFound
 	 *         if there is no front-end user with the provided user name in the
 	 *         database
 	 *

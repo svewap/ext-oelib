@@ -132,7 +132,7 @@ class Tx_Oelib_Tests_Unit_IdentityMapTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getForInexistentUidThrowsNotFoundException() {
 		$this->setExpectedException(
-			'tx_oelib_Exception_NotFound',
+			'Tx_Oelib_Exception_NotFound',
 			'This map currently does not contain a model with the UID 42.'
 		);
 
@@ -159,7 +159,7 @@ class Tx_Oelib_Tests_Unit_IdentityMapTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getNewUidForNonEmptyMapReturnsUidNotInMap() {
 		$this->setExpectedException(
-			'tx_oelib_Exception_NotFound'
+			'Tx_Oelib_Exception_NotFound'
 		);
 
 		$model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();

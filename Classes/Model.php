@@ -287,7 +287,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
 	 * Before this function may be called, setData() or set() must have been
 	 * called once.
 	 *
-	 * @throws tx_oelib_Exception_NotFound if this model is dead
+	 * @throws Tx_Oelib_Exception_NotFound if this model is dead
 	 *
 	 * @param string $key the key of the data item to get, must not be empty
 	 *
@@ -301,7 +301,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
 
 		$this->load();
 		if ($this->isDead()) {
-			throw new tx_oelib_Exception_NotFound(
+			throw new Tx_Oelib_Exception_NotFound(
 				'The ' . get_class($this) . ' with the UID ' . $this->getUid() .
 					' either has been deleted (or has never existed), but still is accessed.',
 				1332446332

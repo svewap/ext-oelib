@@ -40,7 +40,7 @@ class tx_oelib_Mapper_Currency extends Tx_Oelib_DataMapper {
 	/**
 	 * Finds a language by its ISO 4217 alpha-3 code.
 	 *
-	 * @throws tx_oelib_Exception_NotFound if there is no record with the
+	 * @throws Tx_Oelib_Exception_NotFound if there is no record with the
 	 *                                     provided ISO 4217 alpha-3 code
 	 *
 	 * @param string $isoAlpha3Code

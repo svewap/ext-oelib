@@ -89,7 +89,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper {
 	 * Retrieves a model based on the WHERE clause given in the parameter
 	 * $whereClauseParts. Hidden records will be retrieved as well.
 	 *
-	 * @throws tx_oelib_Exception_NotFound if there is no record in the DB
+	 * @throws Tx_Oelib_Exception_NotFound if there is no record in the DB
 	 *                                     which matches the WHERE clause
 	 *
 	 * @param string[] $whereClauseParts
@@ -155,7 +155,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper {
 	 * When this function reports "no match", the model could still exist in the
 	 * database, though.
 	 *
-	 * @throws tx_oelib_Exception_NotFound if there is no match in the cache yet
+	 * @throws Tx_Oelib_Exception_NotFound if there is no match in the cache yet
 	 *
 	 * @param string $key an existing key, must not be empty
 	 * @param string $value
@@ -196,7 +196,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper {
 	 *
 	 * @return Tx_Oelib_Model the cached model
 	 *
-	 * @throws tx_oelib_Exception_NotFound if there is no match in the cache yet
+	 * @throws Tx_Oelib_Exception_NotFound if there is no match in the cache yet
 	 */
 	public function findOneByTitleAndHeader($title, $header) {
 		$value = array();

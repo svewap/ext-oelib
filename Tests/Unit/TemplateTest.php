@@ -95,7 +95,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getSubpartWithNotExistingSubpartNameThrowsException() {
 		$this->setExpectedException(
-			'tx_oelib_Exception_NotFound',
+			'Tx_Oelib_Exception_NotFound',
 			'$key contained the subpart name "FOOBAR", but only the following subparts are available: ()'
 		);
 
@@ -109,7 +109,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getSubpartWithNotExistingSubpartNameThrowsExceptionWithSubpartNames() {
 		$this->setExpectedException(
-			'tx_oelib_Exception_NotFound',
+			'Tx_Oelib_Exception_NotFound',
 			'$key contained the subpart name "COFFEE", but only the following subparts are available: (FOO, BAR)'
 		);
 
@@ -3621,7 +3621,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getSubpartWithLowercaseNameWithUsingLowercaseThrowsException() {
 		$this->setExpectedException(
-			'tx_oelib_Exception_NotFound',
+			'Tx_Oelib_Exception_NotFound',
 			'$key contained the subpart name "my_subpart", but only the following subparts are available: ()'
 
 		);
@@ -3640,7 +3640,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getSubpartWithLowercaseNameWithUsingUppercaseThrowsException() {
 		$this->setExpectedException(
-			'tx_oelib_Exception_NotFound',
+			'Tx_Oelib_Exception_NotFound',
 			'$key contained the subpart name "MY_SUBPART", but only the following subparts are available: ()'
 		);
 

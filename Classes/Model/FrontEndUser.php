@@ -653,7 +653,7 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
 			$countryMapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_Country');
 			/** @var Tx_Oelib_Model_Country $country */
 			$country = $countryMapper->findByIsoAlpha3Code($countryCode);
-		} catch (tx_oelib_Exception_NotFound $exception) {
+		} catch (Tx_Oelib_Exception_NotFound $exception) {
 			$country = NULL;
 		}
 

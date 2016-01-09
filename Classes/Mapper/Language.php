@@ -40,7 +40,7 @@ class tx_oelib_Mapper_Language extends Tx_Oelib_DataMapper {
 	/**
 	 * Finds a language by its ISO 639-1 alpha-2 code.
 	 *
-	 * @throws tx_oelib_Exception_NotFound if there is no record with the
+	 * @throws Tx_Oelib_Exception_NotFound if there is no record with the
 	 *                                     provided ISO 639-1 alpha-2 code
 	 *
 	 * @param string $isoAlpha2Code

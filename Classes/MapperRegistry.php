@@ -90,7 +90,7 @@ class Tx_Oelib_MapperRegistry {
 	/**
 	 * Retrieves a dataMapper by class name.
 	 *
-	 * @throws tx_oelib_Exception_NotFound if there is no such mapper
+	 * @throws Tx_Oelib_Exception_NotFound if there is no such mapper
 	 *
 	 * @param string $className the name of an existing mapper class, must not be empty
 	 *
@@ -105,7 +105,7 @@ class Tx_Oelib_MapperRegistry {
 	/**
 	 * Retrieves a dataMapper by class name.
 	 *
-	 * @throws tx_oelib_Exception_NotFound if there is no such mapper class
+	 * @throws Tx_Oelib_Exception_NotFound if there is no such mapper class
 	 *
 	 * @param string $className the name of an existing mapper class, must not be empty
 	 *
@@ -127,7 +127,7 @@ class Tx_Oelib_MapperRegistry {
 
 		if (!isset($this->mappers[$unifiedClassName])) {
 			if (!class_exists($className, TRUE)) {
-				throw new tx_oelib_Exception_NotFound(
+				throw new Tx_Oelib_Exception_NotFound(
 					'No mapper class "' . $className . '" could be found.'
 				);
 			}

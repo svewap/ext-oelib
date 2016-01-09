@@ -557,7 +557,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase {
 		$uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
 
 		$this->setExpectedException(
-			'tx_oelib_Exception_NotFound',
+			'Tx_Oelib_Exception_NotFound',
 			'The Tx_Oelib_Tests_Unit_Fixtures_TestingModel with the UID ' . $uid .
 				' either has been deleted (or has never existed), but still is accessed.'
 		);
@@ -1439,7 +1439,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function findSingleByWhereClauseWithUidOfInexistentRecordThrowsException() {
-		$this->setExpectedException('tx_oelib_Exception_NotFound');
+		$this->setExpectedException('Tx_Oelib_Exception_NotFound');
 
 		$uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
 
@@ -1543,7 +1543,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase {
 	 */
 	public function findSingleByWhereClauseAndDatabaseAccessDisabledThrowsException() {
 		$this->setExpectedException(
-			'tx_oelib_Exception_NotFound',
+			'Tx_Oelib_Exception_NotFound',
 			'No record can be retrieved from the database because database ' .
 				'access is disabled for this mapper instance.'
 		);
@@ -3091,7 +3091,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function findOneByKeyFromCacheForModelNotInCacheThrowsException() {
-		$this->setExpectedException('tx_oelib_Exception_NotFound');
+		$this->setExpectedException('Tx_Oelib_Exception_NotFound');
 
 		$this->subject->findOneByKeyFromCache('title', 'bar');
 	}
@@ -3235,7 +3235,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function findOneByKeyForInexistentThrowsException() {
-		$this->setExpectedException('tx_oelib_Exception_NotFound');
+		$this->setExpectedException('Tx_Oelib_Exception_NotFound');
 
 		$this->subject->findOneByKey('title', 'Darjeeling');
 	}
@@ -3248,7 +3248,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 *
-	 * @expectedException tx_oelib_Exception_NotFound
+	 * @expectedException Tx_Oelib_Exception_NotFound
 	 */
 	public function findOneByCompoundKeyFromCacheForEmptyCompoundKeyThrowsException() {
 		$this->subject->findOneByCompoundKeyFromCache('bar');
@@ -3266,7 +3266,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 *
-	 * @expectedException tx_oelib_Exception_NotFound
+	 * @expectedException Tx_Oelib_Exception_NotFound
 	 */
 	public function findOneByCompoundKeyFromCacheForModelNotInCacheThrowsException() {
 		$this->subject->findOneByCompoundKeyFromCache('foo.bar');
@@ -3386,7 +3386,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 *
-	 * @expectedException tx_oelib_Exception_NotFound
+	 * @expectedException Tx_Oelib_Exception_NotFound
 	 */
 	public function findOneByCompoundKeyForNonExistentThrowsException() {
 		$this->subject->findOneByCompoundKey(array('title' => 'Darjeeling', 'header' => 'Tea Time'));

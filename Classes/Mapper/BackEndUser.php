@@ -49,7 +49,7 @@ class tx_oelib_Mapper_BackEndUser extends Tx_Oelib_DataMapper {
 	 * Finds a back-end user by user name. Hidden user records will be retrieved
 	 * as well.
 	 *
-	 * @throws tx_oelib_Exception_NotFound if there is no back-end user with the
+	 * @throws Tx_Oelib_Exception_NotFound if there is no back-end user with the
 	 *                                     provided user name in the be_user
 	 *                                     table
 	 *
@@ -91,7 +91,7 @@ class tx_oelib_Mapper_BackEndUser extends Tx_Oelib_DataMapper {
 	 * Reads a record from the database by UID (from this mapper's table). Also
 	 * hidden records will be retrieved.
 	 *
-	 * @throws tx_oelib_Exception_NotFound if there is no record in the DB
+	 * @throws Tx_Oelib_Exception_NotFound if there is no record in the DB
 	 *                                     with the UID $uid
 	 *
 	 * @param int $uid
