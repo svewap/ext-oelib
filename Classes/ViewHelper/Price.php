@@ -26,7 +26,7 @@
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_oelib_ViewHelper_Price {
+class Tx_Oelib_ViewHelper_Price {
 	/**
 	 * @var float the value of the price to render
 	 */

@@ -22,7 +22,7 @@ Using the price view helper
 
    ::
 
-      $priceViewHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_oelib_ViewHelper_Price');
+      $priceViewHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(Tx_Oelib_ViewHelper_Price::class);
 
 #. Set the currency of the price using the ISO 4217 alpha-3 code:
 

@@ -23,12 +23,12 @@
  */
 class Tx_Oelib_Tests_Unit_ViewHelper_PriceTest extends Tx_Phpunit_TestCase {
 	/**
-	 * @var tx_oelib_ViewHelper_Price
+	 * @var Tx_Oelib_ViewHelper_Price
 	 */
 	private $subject;
 
 	protected function setUp() {
-		$this->subject = new tx_oelib_ViewHelper_Price();
+		$this->subject = new Tx_Oelib_ViewHelper_Price();
 	}
 
 	/**
