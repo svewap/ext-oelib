@@ -14,6 +14,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5498] Rename tx_oelib_Interface_Identity to Tx_Oelib_Interface_Identity
 - [#5497] Rename tx_oelib_Interface_Geo to Tx_Oelib_Interface_Geo
 - [#5502] Rename tx_oelib_Interface_LoginManager to Tx_Oelib_Interface_LoginManager
 - [#5477] Rename tx_oelib_Exception_AccessDenied to Tx_Oelib_Exception_AccessDenied

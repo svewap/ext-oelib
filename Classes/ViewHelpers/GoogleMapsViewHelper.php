@@ -18,7 +18,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * This ViewHelper creates a Google Map with markers/points on it.
  *
  * In the generated JavaScript, the markers will also be accessible via the map
- * ID and the marker's UID (if the markers implement tx_oelib_Interface_Identity)
+ * ID and the marker's UID (if the markers implement Tx_Oelib_Interface_Identity)
  * like this:
  *
  * mapMarkersByUid.tx_oelib_map_1[42]
@@ -233,7 +233,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper {
 			}
 
 			$markerVariableName = 'marker_' . $index;
-			if (($mapPoint instanceof tx_oelib_Interface_Identity) && $mapPoint->hasUid()) {
+			if (($mapPoint instanceof Tx_Oelib_Interface_Identity) && $mapPoint->hasUid()) {
 				$markerParts[] = 'uid: ' . $mapPoint->getUid();
 				$mapMarkersByUidEntry = 'mapMarkersByUid.' . $mapId .
 					'[' . $mapPoint->getUid() . '] = ' . $markerVariableName . ';' . LF;
