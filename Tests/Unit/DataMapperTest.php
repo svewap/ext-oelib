@@ -2643,7 +2643,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function findAllCanBeUsedForStaticTables() {
-		Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_Country')->findAll();
+		Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->findAll();
 	}
 
 	/**

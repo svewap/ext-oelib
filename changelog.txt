@@ -15,6 +15,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5487] Rename tx_oelib_Mapper_Country to Tx_Oelib_Mapper_Country
 - [#5485] Rename tx_oelib_Mapper_BackEndUserGroup to Tx_Oelib_Mapper_BackEndUserGroup
 - [#5484] Rename tx_oelib_Geocoding_Google to Tx_Oelib_Geocoding_Google
 - [#5483] Rename tx_oelib_Geocoding_Dummy to Tx_Oelib_Geocoding_Dummy

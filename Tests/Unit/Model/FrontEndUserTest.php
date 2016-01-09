@@ -1582,8 +1582,8 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getCountryWithCountryReturnsCountryAsModel() {
-		/** @var tx_oelib_Mapper_Country $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_Country');
+		/** @var Tx_Oelib_Mapper_Country $mapper */
+		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class);
 		/** @var Tx_Oelib_Model_Country $country */
 		$country = $mapper->find(54);
 		$this->subject->setData(
@@ -1600,8 +1600,8 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setCountrySetsCountry() {
-		/** @var tx_oelib_Mapper_Country $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_Country');
+		/** @var Tx_Oelib_Mapper_Country $mapper */
+		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class);
 		/** @var Tx_Oelib_Model_Country $country */
 		$country = $mapper->find(54);
 		$this->subject->setCountry($country);
@@ -1649,8 +1649,8 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function hasCountryWithCountryReturnsTrue() {
-		/** @var tx_oelib_Mapper_Country $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_Country');
+		/** @var Tx_Oelib_Mapper_Country $mapper */
+		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class);
 		/** @var Tx_Oelib_Model_Country $country */
 		$country = $mapper->find(54);
 		$this->subject->setCountry($country);
