@@ -21,7 +21,7 @@
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Geocoding_Dummy implements tx_oelib_Interface_GeocodingLookup {
+class Tx_Oelib_Geocoding_Dummy implements Tx_Oelib_Interface_GeocodingLookup {
 	/**
 	 * faked coordinates with the keys "latitude" and "longitude" or empty if there are none
 	 *

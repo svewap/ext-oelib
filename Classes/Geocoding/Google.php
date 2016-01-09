@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Geocoding_Google implements tx_oelib_Interface_GeocodingLookup {
+class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup {
 	/**
 	 * status code for: okay, address was parsed
 	 *
@@ -39,7 +39,7 @@ class Tx_Oelib_Geocoding_Google implements tx_oelib_Interface_GeocodingLookup {
 	/**
 	 * the Singleton instance
 	 *
-	 * @var tx_oelib_Interface_GeocodingLookup
+	 * @var Tx_Oelib_Interface_GeocodingLookup
 	 */
 	private static $instance = NULL;
 
@@ -79,7 +79,7 @@ class Tx_Oelib_Geocoding_Google implements tx_oelib_Interface_GeocodingLookup {
 	 * Note: There will always be only one instance, even if this function is
 	 * called with different parameters.
 	 *
-	 * @return tx_oelib_Interface_GeocodingLookup the Singleton GoogleMaps look-up
+	 * @return Tx_Oelib_Interface_GeocodingLookup the Singleton GoogleMaps look-up
 	 */
 	public static function getInstance() {
 		if (!is_object(self::$instance)) {
@@ -94,12 +94,12 @@ class Tx_Oelib_Geocoding_Google implements tx_oelib_Interface_GeocodingLookup {
 	 *
 	 * Note: This function is to be used for testing only.
 	 *
-	 * @param tx_oelib_Interface_GeocodingLookup $instance
+	 * @param Tx_Oelib_Interface_GeocodingLookup $instance
 	 *        the instance which getInstance() should return
 	 *
 	 * @return void
 	 */
-	public static function setInstance(tx_oelib_Interface_GeocodingLookup $instance) {
+	public static function setInstance(Tx_Oelib_Interface_GeocodingLookup $instance) {
 		self::$instance = $instance;
 	}
 
