@@ -22,12 +22,12 @@
  */
 class Tx_Oelib_Tests_Unit_Mapper_LanguageTest extends Tx_Phpunit_TestCase {
 	/**
-	 * @var tx_oelib_Mapper_Language
+	 * @var Tx_Oelib_Mapper_Language
 	 */
 	private $subject;
 
 	protected function setUp() {
-		$this->subject = new tx_oelib_Mapper_Language();
+		$this->subject = new Tx_Oelib_Mapper_Language();
 	}
 
 	///////////////////////////
