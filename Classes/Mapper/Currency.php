@@ -21,7 +21,7 @@
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_oelib_Mapper_Currency extends Tx_Oelib_DataMapper {
+class Tx_Oelib_Mapper_Currency extends Tx_Oelib_DataMapper {
 	/**
 	 * @var string the name of the database table for this mapper
 	 */

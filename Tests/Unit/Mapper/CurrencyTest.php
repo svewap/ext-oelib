@@ -22,12 +22,12 @@
  */
 class Tx_Oelib_Tests_Unit_Mapper_CurrencyTest extends Tx_Phpunit_TestCase {
 	/**
-	 * @var tx_oelib_Mapper_Currency
+	 * @var Tx_Oelib_Mapper_Currency
 	 */
 	private $subject;
 
 	protected function setUp() {
-		$this->subject = new tx_oelib_Mapper_Currency();
+		$this->subject = new Tx_Oelib_Mapper_Currency();
 	}
 
 	///////////////////////////
