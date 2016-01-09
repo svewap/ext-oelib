@@ -292,7 +292,7 @@ class Tx_Oelib_Tests_Unit_Model_BackEndUserTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAllGroupsForOneGroupReturnsListWithThatGroup() {
 		$group = Tx_Oelib_MapperRegistry::
-			get('tx_oelib_Mapper_BackEndUserGroup')->getLoadedTestingModel(array());
+			get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel(array());
 		$groups = new Tx_Oelib_List();
 		$groups->add($group);
 		$this->subject->setData(array('usergroup' => $groups));
@@ -308,9 +308,9 @@ class Tx_Oelib_Tests_Unit_Model_BackEndUserTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAllGroupsForTwoGroupsReturnsBothGroups() {
 		$group1 = Tx_Oelib_MapperRegistry::
-			get('tx_oelib_Mapper_BackEndUserGroup')->getLoadedTestingModel(array());
+			get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel(array());
 		$group2 = Tx_Oelib_MapperRegistry::
-			get('tx_oelib_Mapper_BackEndUserGroup')->getLoadedTestingModel(array());
+			get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel(array());
 		$groups = new Tx_Oelib_List();
 		$groups->add($group1);
 		$groups->add($group2);
@@ -329,9 +329,9 @@ class Tx_Oelib_Tests_Unit_Model_BackEndUserTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAllGroupsForGroupWithSubgroupReturnsBothGroups() {
 		$subgroup = Tx_Oelib_MapperRegistry::
-			get('tx_oelib_Mapper_BackEndUserGroup')->getLoadedTestingModel(array());
+			get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel(array());
 		$group = Tx_Oelib_MapperRegistry::
-			get('tx_oelib_Mapper_BackEndUserGroup')->getLoadedTestingModel(
+			get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel(
 				array('subgroup' => $subgroup->getUid())
 			);
 		$groups = new Tx_Oelib_List();
@@ -351,13 +351,13 @@ class Tx_Oelib_Tests_Unit_Model_BackEndUserTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAllGroupsForGroupWithSubsubgroupContainsSubsubgroup() {
 		$subsubgroup = Tx_Oelib_MapperRegistry::
-			get('tx_oelib_Mapper_BackEndUserGroup')->getLoadedTestingModel(array());
+			get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel(array());
 		$subgroup = Tx_Oelib_MapperRegistry::
-			get('tx_oelib_Mapper_BackEndUserGroup')->getLoadedTestingModel(
+			get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel(
 				array('subgroup' => $subsubgroup->getUid())
 			);
 		$group = Tx_Oelib_MapperRegistry::
-			get('tx_oelib_Mapper_BackEndUserGroup')->getLoadedTestingModel(
+			get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel(
 				array('subgroup' => $subgroup->getUid())
 			);
 		$groups = new Tx_Oelib_List();
@@ -374,7 +374,7 @@ class Tx_Oelib_Tests_Unit_Model_BackEndUserTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAllGroupsForGroupWithSubgroupSelfReferenceReturnsOnlyOneGroup() {
 		$group = Tx_Oelib_MapperRegistry::
-			get('tx_oelib_Mapper_BackEndUserGroup')->getNewGhost();
+			get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getNewGhost();
 		$subgroups = new Tx_Oelib_List();
 		$subgroups->add($group);
 		$group->setData(array('subgroup' => $subgroups));
@@ -394,9 +394,9 @@ class Tx_Oelib_Tests_Unit_Model_BackEndUserTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAllGroupsForGroupWithSubgroupCycleReturnsBothGroups() {
 		$group1 = Tx_Oelib_MapperRegistry::
-			get('tx_oelib_Mapper_BackEndUserGroup')->getNewGhost();
+			get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getNewGhost();
 		$group2 = Tx_Oelib_MapperRegistry::
-			get('tx_oelib_Mapper_BackEndUserGroup')->getNewGhost();
+			get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getNewGhost();
 
 		$subgroups1 = new Tx_Oelib_List();
 		$subgroups1->add($group2);

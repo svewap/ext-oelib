@@ -184,7 +184,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase {
 	 */
 	public function userGroupRelationIsUserGroupList() {
 		/** @var Tx_Oelib_Model_BackEndUserGroup $group */
-		$group = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_BackEndUserGroup')->getNewGhost();
+		$group = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getNewGhost();
 		$groupUid = $group->getUid();
 		$userUid = $this->subject->getLoadedTestingModel(array('usergroup' => $groupUid))->getUid();
 

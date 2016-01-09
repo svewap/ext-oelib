@@ -27,14 +27,14 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserGroupTest extends Tx_Phpunit_TestCas
 	 */
 	private $testingFramework;
 	/**
-	 * @var tx_oelib_Mapper_BackEndUserGroup the object to test
+	 * @var Tx_Oelib_Mapper_BackEndUserGroup the object to test
 	 */
 	private $subject;
 
 	protected function setUp() {
 		$this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
 
-		$this->subject = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_BackEndUserGroup');
+		$this->subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_BackEndUserGroup::class);
 	}
 
 	protected function tearDown() {
