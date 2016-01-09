@@ -20,11 +20,11 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface tx_oelib_Interface_LoginManager {
+interface Tx_Oelib_Interface_LoginManager {
 	/**
 	 * Returns an instance of this class.
 	 *
-	 * @return tx_oelib_Interface_LoginManager the current Singleton instance
+	 * @return Tx_Oelib_Interface_LoginManager the current Singleton instance
 	 */
 	public static function getInstance();
 

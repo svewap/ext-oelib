@@ -21,7 +21,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_FrontEndLoginManager implements tx_oelib_Interface_LoginManager {
+class Tx_Oelib_FrontEndLoginManager implements Tx_Oelib_Interface_LoginManager {
 	/**
 	 * @var Tx_Oelib_FrontEndLoginManager the Singleton instance
 	 */
