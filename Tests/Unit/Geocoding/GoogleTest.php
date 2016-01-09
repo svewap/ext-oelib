@@ -55,7 +55,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
 	public function setInstanceSetsInstance() {
 		tx_oelib_Geocoding_Google::purgeInstance();
 
-		$instance = new tx_oelib_Geocoding_Dummy();
+		$instance = new Tx_Oelib_Geocoding_Dummy();
 		tx_oelib_Geocoding_Google::setInstance($instance);
 
 		self::assertSame(
