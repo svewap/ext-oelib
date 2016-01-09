@@ -20,7 +20,7 @@
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-interface tx_oelib_Interface_Address {
+interface Tx_Oelib_Interface_Address {
 	/**
 	 * Returns the city of the current address.
 	 *

@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Interface_MailRole, tx_oelib_Interface_Address {
+class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Interface_MailRole, Tx_Oelib_Interface_Address {
 	/**
 	 * @var int represents the male gender for this user
 	 */
