@@ -35,7 +35,7 @@ any further initialization as this is done automatically if necessary:
 
 ::
 
-   $proxyInstance = tx_oelib_configurationProxy::getInstance('extension');
+   $proxyInstance = Tx_Oelib_ConfigurationProxy::getInstance('extension');
 
 Now you can get configuration values. Therefore use the getter for the
 expected type of value and pass the configuration value's key:
