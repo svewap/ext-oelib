@@ -21,7 +21,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface tx_oelib_Interface_MapPoint {
+interface Tx_Oelib_Interface_MapPoint {
 	/**
 	 * Returns this object's coordinates.
 	 *

@@ -28,7 +28,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	private $subject = NULL;
 
 	/**
-	 * @var tx_oelib_Interface_MapPoint
+	 * @var Tx_Oelib_Interface_MapPoint|\PHPUnit_Framework_MockObject_MockObject
 	 */
 	private $mapPointWithCoordinates = NULL;
 
@@ -40,7 +40,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	protected function setUp() {
 		$this->mockFrontEnd = $this->getMock(TypoScriptFrontendController::class, array('dummy'), array(), '', FALSE);
 		$GLOBALS['TSFE'] = $this->mockFrontEnd;
-		$this->mapPointWithCoordinates = $this->getMock('tx_oelib_Interface_MapPoint');
+		$this->mapPointWithCoordinates = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$this->mapPointWithCoordinates->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$this->mapPointWithCoordinates->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -81,7 +81,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithoutCoordinatesReturnsEmptyString() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(FALSE));
 
 		self::assertSame(
@@ -94,7 +94,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithoutCoordinatesNotSetsAdditionalHeaderData() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(FALSE));
 
 		$this->subject->render(array($mapPoint));
@@ -395,11 +395,11 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForTwoElementWithCoordinatesUsesFirstMapPointCoordinatesAsCenter() {
-		$mapPoint1 = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint1 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint1->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint1->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
-		$mapPoint2 = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint2 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint2->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint2->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 5.6, 'longitude' => 7.8)));
@@ -416,11 +416,11 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForTwoElementsWithCoordinatesCreatesTwoMapMarkers() {
-		$mapPoint1 = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint1 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint1->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint1->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
-		$mapPoint2 = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint2 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint2->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint2->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 5.6, 'longitude' => 7.8)));
@@ -440,11 +440,11 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForTwoElementsWithCoordinatesExtendsBoundsTwoTimes() {
-		$mapPoint1 = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint1 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint1->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint1->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
-		$mapPoint2 = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint2 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint2->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint2->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 5.6, 'longitude' => 7.8)));
@@ -463,11 +463,11 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForTwoElementsWithCoordinatesFitsMapToBounds() {
-		$mapPoint1 = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint1 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint1->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint1->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
-		$mapPoint2 = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint2 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint2->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint2->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 5.6, 'longitude' => 7.8)));
@@ -483,7 +483,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithTitleCreatesTitle() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -501,7 +501,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithTitleEscapesQuotesInTitle() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -519,7 +519,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithTitleEscapesLinefeedsInTitle() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -537,7 +537,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithTitleEscapesCarriageReturnsInTitle() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -555,7 +555,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithTitleEscapesBackslashesInTitle() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -573,7 +573,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithoutTitleNotCreatesTitle() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -590,7 +590,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithInfoWindowContentCreatesInfoWindow() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -608,7 +608,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithInfoWindowContentEscapesQuotesInInfoWindowContent() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -626,7 +626,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithInfoWindowContentEscapesLinefeedsInInfoWindowContent() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -644,7 +644,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithInfoWindowContentEscapesCarriageReturnsInInfoWindowContent() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -662,7 +662,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithInfoWindowContentEscapesBackslashesInInfoWindowContent() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
@@ -680,7 +680,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 	 * @test
 	 */
 	public function renderForElementWithoutInfoWindowContentNotCreatesInfoWindow() {
-		$mapPoint = $this->getMock('tx_oelib_Interface_MapPoint');
+		$mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
 		$mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(TRUE));
 		$mapPoint->expects(self::any())->method('getGeoCoordinates')
 			->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));

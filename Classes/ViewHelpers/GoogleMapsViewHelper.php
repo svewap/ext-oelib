@@ -84,7 +84,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper {
 	 * Renders a Google Map with $mapPoints on it and sets the corresponding
 	 * HTML HEAD data.
 	 *
-	 * @param tx_oelib_Interface_MapPoint[] $mapPoints
+	 * @param Tx_Oelib_Interface_MapPoint[] $mapPoints
 	 *        the points to render, may be empty
 	 * @param string $width
 	 *        the CSS width of the Map element, e.g., "600px" or "100%",
@@ -139,7 +139,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper {
 	 *
 	 * @param string $mapId
 	 *        HTML ID of the map, must not be empty
-	 * @param tx_oelib_Interface_MapPoint[] $mapPoints
+	 * @param Tx_Oelib_Interface_MapPoint[] $mapPoints
 	 *        map points with coordinates, must not be empty
 	 * @param string $initializeFunctionName
 	 *        name of the JavaScript initialization function to create, must
@@ -173,19 +173,19 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper {
 	/**
 	 * Finds the map points within $mapPoints that have coordinates.
 	 *
-	 * @param tx_oelib_Interface_MapPoint[] $mapPoints
+	 * @param Tx_Oelib_Interface_MapPoint[] $mapPoints
 	 *        the points to check for coordinates, may be empty
 	 *
-	 * @return tx_oelib_Interface_MapPoint[]
+	 * @return Tx_Oelib_Interface_MapPoint[]
 	 *         the map points from $mapPoints that have coordinates, might be empty
 	 */
 	protected function findMapPointsWithCoordinates(array $mapPoints) {
 		$mapPointsWithCoordinates = array();
 
 		foreach ($mapPoints as $mapPoint) {
-			if (!($mapPoint instanceof tx_oelib_Interface_MapPoint)) {
+			if (!($mapPoint instanceof Tx_Oelib_Interface_MapPoint)) {
 				throw new InvalidArgumentException(
-					'All $mapPoints need to implement tx_oelib_Interface_MapPoint, but ' . get_class($mapPoint) . ' does not.',
+					'All $mapPoints need to implement Tx_Oelib_Interface_MapPoint, but ' . get_class($mapPoint) . ' does not.',
 					1318093613
 				);
 			}
@@ -200,7 +200,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper {
 	/**
 	 * Creates the JavaScript code for creating map markers for $mapPoints.
 	 *
-	 * @param tx_oelib_Interface_MapPoint[] $mapPoints
+	 * @param Tx_Oelib_Interface_MapPoint[] $mapPoints
 	 *        the points to render, all must have geo coordinates, may be empty
 	 * @param string $mapId
 	 *        HTML ID of the map, must not be empty
@@ -258,7 +258,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper {
 	/**
 	 * Creates the JavaScript for the info window of $mapPoint.
 	 *
-	 * @param tx_oelib_Interface_MapPoint $mapPoint
+	 * @param Tx_Oelib_Interface_MapPoint $mapPoint
 	 *        the map point for which to create the info window
 	 * @param string $markerVariableName
 	 *        valid name of the marker JavaScript variable, must not be empty
@@ -270,7 +270,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper {
 	 *         does not have info window content
 	 */
 	protected function createInfoWindowJavaScript(
-		tx_oelib_Interface_MapPoint $mapPoint, $markerVariableName, $index
+		Tx_Oelib_Interface_MapPoint $mapPoint, $markerVariableName, $index
 	) {
 		if (!$mapPoint->hasInfoWindowContent()) {
 			return '';
