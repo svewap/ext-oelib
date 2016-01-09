@@ -89,7 +89,7 @@ class Tx_Oelib_BackEndLoginManager implements Tx_Oelib_Interface_LoginManager {
 	 *
 	 * @return Tx_Oelib_Model_BackEndUser the logged-in back-end user, will be NULL if no user is logged in
 	 */
-	public function getLoggedInUser($mapperName = 'tx_oelib_Mapper_BackEndUser') {
+	public function getLoggedInUser($mapperName = Tx_Oelib_Mapper_BackEndUser::class) {
 		if ($mapperName === '') {
 			throw new InvalidArgumentException('$mapperName must not be empty.', 1331318483);
 		}
@@ -100,7 +100,7 @@ class Tx_Oelib_BackEndLoginManager implements Tx_Oelib_Interface_LoginManager {
 			return $this->loggedInUser;
 		}
 
-		/** @var tx_oelib_Mapper_BackEndUser $mapper */
+		/** @var Tx_Oelib_Mapper_BackEndUser $mapper */
 		$mapper = Tx_Oelib_MapperRegistry::get($mapperName);
 
 		/** @var Tx_Oelib_Model_BackEndUser $user */

@@ -25,15 +25,22 @@ class Tx_Oelib_Tests_Unit_BackEndLoginManagerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Oelib_BackEndLoginManager
 	 */
-	private $subject;
+	private $subject = null;
 
 	/**
 	 * @var Tx_Oelib_TestingFramework
 	 */
-	private $testingFramework;
+	private $testingFramework = null;
+
+	/**
+	 * @var Tx_Oelib_BackEndLoginManager
+	 */
+	private $backEndUserMapper = null;
 
 	protected function setUp() {
 		$this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+
+		$this->backEndUserMapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_BackEndUser::class);
 
 		$this->subject = Tx_Oelib_BackEndLoginManager::getInstance();
 	}
@@ -59,9 +66,7 @@ class Tx_Oelib_Tests_Unit_BackEndLoginManagerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getInstanceReturnsBackEndLoginManagerInstance() {
-		self::assertTrue(
-			$this->subject instanceof Tx_Oelib_BackEndLoginManager
-		);
+		self::assertInstanceOf(Tx_Oelib_BackEndLoginManager::class, $this->subject);
 	}
 
 	/**
@@ -105,8 +110,8 @@ class Tx_Oelib_Tests_Unit_BackEndLoginManagerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function isLoggedInForFakedUserReturnsTrue() {
-		/** @var tx_oelib_Model_BackEndUser $ghostUser */
-		$ghostUser = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_BackEndUser')->getNewGhost();
+		/** @var Tx_Oelib_Model_BackEndUser $ghostUser */
+		$ghostUser = $this->backEndUserMapper->getNewGhost();
 		$this->subject->setLoggedInUser($ghostUser);
 
 		self::assertTrue(
@@ -165,10 +170,8 @@ class Tx_Oelib_Tests_Unit_BackEndLoginManagerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getLoggedInUserWithAlreadyCreatedUserModelReturnsThatInstance() {
-		/** @var tx_oelib_Mapper_BackEndUser $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_BackEndUser');
-		/** @var tx_oelib_Model_BackEndUser $user */
-		$user = $mapper->find($this->getBackEndUserAuthentication()->user['uid']);
+		/** @var Tx_Oelib_Model_BackEndUser $user */
+		$user = $this->backEndUserMapper->find($this->getBackEndUserAuthentication()->user['uid']);
 
 		self::assertSame(
 			$user,
@@ -200,8 +203,8 @@ class Tx_Oelib_Tests_Unit_BackEndLoginManagerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setLoggedInUserForUserGivenSetsTheLoggedInUser() {
-		/** @var tx_oelib_Model_BackEndUser $backEndUser */
-		$backEndUser = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_BackEndUser')->getNewGhost();
+		/** @var Tx_Oelib_Model_BackEndUser $backEndUser */
+		$backEndUser = $this->backEndUserMapper->getNewGhost();
 		$this->subject->setLoggedInUser($backEndUser);
 
 		self::assertSame(
@@ -214,11 +217,11 @@ class Tx_Oelib_Tests_Unit_BackEndLoginManagerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setLoggedInUserForUserGivenAndAlreadyStoredLoggedInUserOverridesTheOldUserWithTheNewOne() {
-		/** @var tx_oelib_Model_BackEndUser $oldBackEndUser */
-		$oldBackEndUser = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_BackEndUser')->getNewGhost();
+		/** @var Tx_Oelib_Model_BackEndUser $oldBackEndUser */
+		$oldBackEndUser = $this->backEndUserMapper->getNewGhost();
 		$this->subject->setLoggedInUser($oldBackEndUser);
-		/** @var tx_oelib_Model_BackEndUser $newBackEndUser */
-		$newBackEndUser = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_BackEndUser')->getNewGhost();
+		/** @var Tx_Oelib_Model_BackEndUser $newBackEndUser */
+		$newBackEndUser = $this->backEndUserMapper->getNewGhost();
 		$this->subject->setLoggedInUser($newBackEndUser);
 
 		self::assertSame(
