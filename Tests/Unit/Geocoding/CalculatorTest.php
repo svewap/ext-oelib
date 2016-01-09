@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  */
 class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase {
 	/**
-	 * @var tx_oelib_Geocoding_Calculator
+	 * @var Tx_Oelib_Geocoding_Calculator
 	 */
 	protected $subject = null;
 
@@ -33,7 +33,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase {
 	protected $geoObject = null;
 
 	protected function setUp() {
-		$this->subject = new tx_oelib_Geocoding_Calculator();
+		$this->subject = new Tx_Oelib_Geocoding_Calculator();
 
 		$this->geoObject = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
 		$this->geoObject->setGeoCoordinates(array('latitude' => 50.733585499999997, 'longitude' => 7.1012733999999993));

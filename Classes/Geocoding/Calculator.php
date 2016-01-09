@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterface {
+class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterface {
 	/**
 	 * the earth radius in kilometers
 	 *
