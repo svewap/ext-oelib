@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_oelib_Mapper_FrontEndUser extends Tx_Oelib_DataMapper {
+class Tx_Oelib_Mapper_FrontEndUser extends Tx_Oelib_DataMapper {
 	/**
 	 * @var string the name of the database table for this mapper
 	 */

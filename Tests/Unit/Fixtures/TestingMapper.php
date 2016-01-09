@@ -37,7 +37,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper {
 	 */
 	protected $relations = array(
 		'friend' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
-		'owner' => 'tx_oelib_Mapper_FrontEndUser',
+		'owner' => Tx_Oelib_Mapper_FrontEndUser::class,
 		'children' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
 		'related_records' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
 		'composition' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper',

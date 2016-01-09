@@ -4896,7 +4896,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase {
 		$this->subject->createFakeFrontEnd();
 
 		$feUser = Tx_Oelib_MapperRegistry
-			::get('tx_oelib_Mapper_FrontEndUser')->getNewGhost();
+			::get(Tx_Oelib_Mapper_FrontEndUser::class)->getNewGhost();
 		$feUser->setData(array());
 		$this->subject->loginFrontEndUser($feUser->getUid());
 
@@ -4913,7 +4913,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase {
 		$this->subject->createFakeFrontEnd();
 
 		$feUser = Tx_Oelib_MapperRegistry
-			::get('tx_oelib_Mapper_FrontEndUser')->getNewGhost();
+			::get(Tx_Oelib_Mapper_FrontEndUser::class)->getNewGhost();
 		$feUser->setData(array());
 		$this->subject->loginFrontEndUser($feUser->getUid());
 
@@ -4930,7 +4930,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase {
 		$this->subject->createFakeFrontEnd();
 
 		$feUser = Tx_Oelib_MapperRegistry
-			::get('tx_oelib_Mapper_FrontEndUser')->getNewGhost();
+			::get(Tx_Oelib_Mapper_FrontEndUser::class)->getNewGhost();
 		$feUser->setData(array('name' => 'John Doe'));
 		$this->subject->loginFrontEndUser($feUser->getUid());
 
@@ -4950,7 +4950,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase {
 		);
 
 		$feUser = Tx_Oelib_MapperRegistry
-			::get('tx_oelib_Mapper_FrontEndUser')->getNewGhost();
+			::get(Tx_Oelib_Mapper_FrontEndUser::class)->getNewGhost();
 		$feUser->setData(array());
 		$this->subject->loginFrontEndUser($feUser->getUid());
 	}
@@ -4965,8 +4965,8 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase {
 		$feUserGroupUid = $this->subject->createFrontEndUserGroup(
 			array('title' => 'foo')
 		);
-		/** @var tx_oelib_Mapper_FrontEndUser $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FrontEndUser');
+		/** @var Tx_Oelib_Mapper_FrontEndUser $mapper */
+		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUser::class);
 		/** @var Tx_Oelib_Model_FrontEndUser $user */
 		$user = $mapper->find($this->subject->createFrontEndUser($feUserGroupUid));
 		$this->subject->loginFrontEndUser($user->getUid());

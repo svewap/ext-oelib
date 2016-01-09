@@ -26,14 +26,14 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase {
 	 */
 	private $testingFramework;
 	/**
-	 * @var tx_oelib_Mapper_FrontEndUser the object to test
+	 * @var Tx_Oelib_Mapper_FrontEndUser the object to test
 	 */
 	private $subject;
 
 	protected function setUp() {
 		$this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
 
-		$this->subject = new tx_oelib_Mapper_FrontEndUser();
+		$this->subject = new Tx_Oelib_Mapper_FrontEndUser();
 	}
 
 	protected function tearDown() {

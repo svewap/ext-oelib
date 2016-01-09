@@ -1333,8 +1333,8 @@ final class Tx_Oelib_TestingFramework {
 			$this->logoutFrontEndUser();
 		}
 
-		/** @var tx_oelib_Mapper_FrontEndUser $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FrontEndUser');
+		/** @var Tx_Oelib_Mapper_FrontEndUser $mapper */
+		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUser::class);
 		// loads the model from database if it is a ghost
 		$mapper->existsModel($userId);
 		$dataToSet = $mapper->find($userId)->getData();

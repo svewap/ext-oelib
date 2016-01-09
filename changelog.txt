@@ -15,6 +15,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5491] Rename tx_oelib_Mapper_FrontEndUser to Tx_Oelib_Mapper_FrontEndUser
 - [#5490] Rename tx_oelib_Mapper_FrontEndUserGroup to Tx_Oelib_Mapper_FrontEndUserGroup
 - [#5489] Rename tx_oelib_Mapper_FederalState to Tx_Oelib_Mapper_FederalState
 - [#5488] Rename tx_oelib_Mapper_Currency to Tx_Oelib_Mapper_Currency

@@ -200,8 +200,8 @@ class Tx_Oelib_Tests_Unit_FrontEndLoginManagerTest extends Tx_Phpunit_TestCase {
 	public function getLoggedInUserWithAlreadyCreatedUserModelReturnsThatInstance() {
 		$this->testingFramework->createFakeFrontEnd();
 		$uid = $this->testingFramework->createAndLoginFrontEndUser();
-		/** @var tx_oelib_Mapper_FrontEndUser $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FrontEndUser');
+		/** @var Tx_Oelib_Mapper_FrontEndUser $mapper */
+		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUser::class);
 		/** @var Tx_Oelib_Model_FrontEndUser $user */
 		$user = $mapper->find($uid);
 
@@ -216,7 +216,7 @@ class Tx_Oelib_Tests_Unit_FrontEndLoginManagerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getLoggedInUserWithLoadedModelOfUserNotInDatabaseReturnsThatInstance() {
 		$this->testingFramework->createFakeFrontEnd();
-		$user = Tx_Oelib_MapperRegistry::get('tx_oelib_Mapper_FrontEndUser')->getNewGhost();
+		$user = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUser::class)->getNewGhost();
 		$user->setData(array());
 		$this->testingFramework->loginFrontEndUser($user->getUid());
 
