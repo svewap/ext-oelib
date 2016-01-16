@@ -29,9 +29,6 @@
     "phpunit/phpunit": "~4.8.0"
   },
   "autoload": {
-    "classmap": ["Classes"]
-  },
-  "autoload-dev": {
-    "classmap": ["Tests"]
+    "classmap": ["Classes", "Tests"]
   }
 }

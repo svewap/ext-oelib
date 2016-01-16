@@ -51,10 +51,6 @@ $EM_CONF[$_EXTKEY] = array(
 	'autoload' => array(
 		'classmap' => array(
 			'Classes',
-		),
-	),
-	'autoload-dev' => array(
-		'classmap' => array(
 			'Tests',
 		),
 	),
