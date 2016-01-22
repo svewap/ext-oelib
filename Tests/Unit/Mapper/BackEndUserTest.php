@@ -191,7 +191,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase {
 		/** @var Tx_Oelib_Model_BackEndUser $user */
 		$user = $this->subject->find($userUid);
 		self::assertInstanceOf(
-			'Tx_Oelib_Model_BackEndUserGroup',
+			Tx_Oelib_Model_BackEndUserGroup::class,
 			$user->getGroups()->first()
 		);
 	}
