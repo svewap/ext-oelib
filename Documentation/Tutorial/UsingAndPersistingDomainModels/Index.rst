@@ -60,7 +60,7 @@ model in oelib as an example:
          /**
         * Gets this user's user groups.
         *
-        * @return tx_oelib_List this user's FE user groups, will not be empty if
+        * @return Tx_Oelib_List this user's FE user groups, will not be empty if
         *                       the user data is valid
         */
          public function getUserGroups() {
