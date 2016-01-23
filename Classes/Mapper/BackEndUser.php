@@ -31,7 +31,7 @@ class Tx_Oelib_Mapper_BackEndUser extends Tx_Oelib_DataMapper {
 	/**
 	 * @var string the model class name for this mapper, must not be empty
 	 */
-	protected $modelClassName = 'Tx_Oelib_Model_BackEndUser';
+	protected $modelClassName = Tx_Oelib_Model_BackEndUser::class;
 
 	/**
 	 * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
