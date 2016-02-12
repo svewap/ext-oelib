@@ -216,9 +216,11 @@ class Tx_Oelib_Tests_Unit_FrontEndLoginManagerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getLoggedInUserWithLoadedModelOfUserNotInDatabaseReturnsThatInstance() {
 		$this->testingFramework->createFakeFrontEnd();
-		$user = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUser::class)->getNewGhost();
-		$user->setData(array());
-		$this->testingFramework->loginFrontEndUser($user->getUid());
+
+		$nonExistentUid = $this->testingFramework->getAutoIncrement('fe_users');
+		$user = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUser::class)->find($nonExistentUid);
+
+		$this->testingFramework->loginFrontEndUser($nonExistentUid);
 
 		self::assertSame(
 			$user,

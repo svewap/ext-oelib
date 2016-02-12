@@ -5,6 +5,7 @@ Features:
 - [#5239] Add a composer.json
 
 Bug fixes:
+- [#5411] Test failure if no FE user records are in the DB
 - [#5505] Drop autoload-dev
 - [#5467] Skip storage_pid related tests for TYPO3 7
 - [#5412] Port changes from phpunit to oelib
