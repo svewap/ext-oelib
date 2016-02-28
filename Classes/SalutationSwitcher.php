@@ -13,6 +13,7 @@
  */
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
+use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * This class provides functions for localization.
@@ -220,7 +221,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin {
 	/**
 	 * Returns $GLOBALS['LANG'].
 	 *
-	 * @return language|NULL
+	 * @return LanguageService|null
 	 */
 	protected function getLanguageService() {
 		return isset($GLOBALS['LANG']) ? $GLOBALS['LANG'] : NULL;

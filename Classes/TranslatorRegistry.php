@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * This class provides a registry for translators.
@@ -330,7 +331,7 @@ class Tx_Oelib_TranslatorRegistry {
 	/**
 	 * Returns $GLOBALS['LANG'].
 	 *
-	 * @return language|NULL
+	 * @return LanguageService|null
 	 */
 	protected function getLanguageService() {
 		return isset($GLOBALS['LANG']) ? $GLOBALS['LANG'] : NULL;
