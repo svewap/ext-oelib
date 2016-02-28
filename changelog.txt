@@ -13,6 +13,7 @@ Bug fixes:
 - [#5321] Update .htaccess to be Apache 2.4 compatible
 
 Cleanup:
+- [#5657] Remove the byte order mark from the ReST files
 - [#5508] Use Tx_Oelib_Model_BackEndUser::class
 - [#5509] Use Tx_Oelib_Model_BackEndUserGroup::class
 - [#5473] Rename tx_oelib_configurationProxy to Tx_Oelib_ConfigurationProxy
