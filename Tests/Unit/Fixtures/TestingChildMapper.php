@@ -15,27 +15,26 @@
 /**
  * This class represents a mapper for a testing child model.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper extends Tx_Oelib_DataMapper {
-	/**
-	 * @var string the name of the database table for this mapper
-	 */
-	protected $tableName = 'tx_oelib_testchild';
+class Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper extends Tx_Oelib_DataMapper
+{
+    /**
+     * @var string the name of the database table for this mapper
+     */
+    protected $tableName = 'tx_oelib_testchild';
 
-	/**
-	 * @var string the model class name for this mapper, must not be empty
-	 */
-	protected $modelClassName = 'Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel';
+    /**
+     * @var string the model class name for this mapper, must not be empty
+     */
+    protected $modelClassName = 'Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel';
 
-	/**
-	 * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
-	 */
-	protected $relations = array(
-		'parent' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
-		'tx_oelib_parent2' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
-	);
+    /**
+     * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
+     */
+    protected $relations = array(
+        'parent' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
+        'tx_oelib_parent2' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
+    );
 }

@@ -15,66 +15,68 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage oelib
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Model_BackEndUserGroupTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @var Tx_Oelib_Model_BackEndUserGroup
-	 */
-	private $subject;
+class Tx_Oelib_Tests_Unit_Model_BackEndUserGroupTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @var Tx_Oelib_Model_BackEndUserGroup
+     */
+    private $subject;
 
-	protected function setUp() {
-		$this->subject = new Tx_Oelib_Model_BackEndUserGroup();
-	}
+    protected function setUp()
+    {
+        $this->subject = new Tx_Oelib_Model_BackEndUserGroup();
+    }
 
-	////////////////////////////////
-	// Tests concerning getTitle()
-	////////////////////////////////
+    ////////////////////////////////
+    // Tests concerning getTitle()
+    ////////////////////////////////
 
-	/**
-	 * @test
-	 */
-	public function getTitleForNonEmptyGroupTitleReturnsGroupTitle() {
-		$this->subject->setData(array('title' => 'foo'));
+    /**
+     * @test
+     */
+    public function getTitleForNonEmptyGroupTitleReturnsGroupTitle()
+    {
+        $this->subject->setData(array('title' => 'foo'));
 
-		self::assertSame(
-			'foo',
-			$this->subject->getTitle()
-		);
-	}
+        self::assertSame(
+            'foo',
+            $this->subject->getTitle()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getTitleForEmptyGroupTitleReturnsEmptyString() {
-		$this->subject->setData(array('title' => ''));
+    /**
+     * @test
+     */
+    public function getTitleForEmptyGroupTitleReturnsEmptyString()
+    {
+        $this->subject->setData(array('title' => ''));
 
-		self::assertSame(
-			'',
-			$this->subject->getTitle()
-		);
-	}
+        self::assertSame(
+            '',
+            $this->subject->getTitle()
+        );
+    }
 
+    /////////////////////////////////////
+    // Tests concerning getSubgroups
+    /////////////////////////////////////
 
-	/////////////////////////////////////
-	// Tests concerning getSubgroups
-	/////////////////////////////////////
+    /**
+     * @test
+     */
+    public function getSubgroupsReturnsListFromSubgroupField()
+    {
+        $groups = new Tx_Oelib_List();
 
-	/**
-	 * @test
-	 */
-	public function getSubgroupsReturnsListFromSubgroupField() {
-		$groups = new Tx_Oelib_List();
+        $this->subject->setData(array('subgroup' => $groups));
 
-		$this->subject->setData(array('subgroup' => $groups));
-
-		self::assertSame(
-			$groups,
-			$this->subject->getSubgroups()
-		);
-	}
+        self::assertSame(
+            $groups,
+            $this->subject->getSubgroups()
+        );
+    }
 }

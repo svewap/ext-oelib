@@ -15,10 +15,9 @@
 /**
  * This exception can be used to indicate that a user has no access to a page.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class Tx_Oelib_Exception_AccessDenied extends Exception {
+class Tx_Oelib_Exception_AccessDenied extends Exception
+{
 }

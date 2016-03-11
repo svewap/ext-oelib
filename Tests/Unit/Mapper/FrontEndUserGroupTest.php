@@ -15,62 +15,64 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserGroupTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @var Tx_Oelib_TestingFramework for creating dummy records
-	 */
-	private $testingFramework;
-	/**
-	 * @var Tx_Oelib_Mapper_FrontEndUserGroup the object to test
-	 */
-	private $subject;
+class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserGroupTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @var Tx_Oelib_TestingFramework for creating dummy records
+     */
+    private $testingFramework;
+    /**
+     * @var Tx_Oelib_Mapper_FrontEndUserGroup the object to test
+     */
+    private $subject;
 
-	protected function setUp() {
-		$this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+    protected function setUp()
+    {
+        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
 
-		$this->subject = new Tx_Oelib_Mapper_FrontEndUserGroup();
-	}
+        $this->subject = new Tx_Oelib_Mapper_FrontEndUserGroup();
+    }
 
-	protected function tearDown() {
-		$this->testingFramework->cleanUp();
-	}
+    protected function tearDown()
+    {
+        $this->testingFramework->cleanUp();
+    }
 
+    /////////////////////////////////////////
+    // Tests concerning the basic functions
+    /////////////////////////////////////////
 
-	/////////////////////////////////////////
-	// Tests concerning the basic functions
-	/////////////////////////////////////////
+    /**
+     * @test
+     */
+    public function findWithUidOfExistingRecordReturnsFrontEndUserGroupInstance()
+    {
+        $uid = $this->testingFramework->createFrontEndUserGroup();
 
-	/**
-	 * @test
-	 */
-	public function findWithUidOfExistingRecordReturnsFrontEndUserGroupInstance() {
-		$uid = $this->testingFramework->createFrontEndUserGroup();
+        self::assertTrue(
+            $this->subject->find($uid)
+                instanceof Tx_Oelib_Model_FrontEndUserGroup
+        );
+    }
 
-		self::assertTrue(
-			$this->subject->find($uid)
-				instanceof Tx_Oelib_Model_FrontEndUserGroup
-		);
-	}
+    /**
+     * @test
+     */
+    public function loadForExistingUserGroupCanLoadUserGroupData()
+    {
+        /** @var Tx_Oelib_Model_FrontEndUserGroup $userGroup */
+        $userGroup = $this->subject->find(
+            $this->testingFramework->createFrontEndUserGroup(array('title' => 'foo'))
+        );
 
-	/**
-	 * @test
-	 */
-	public function loadForExistingUserGroupCanLoadUserGroupData() {
-		/** @var Tx_Oelib_Model_FrontEndUserGroup $userGroup */
-		$userGroup = $this->subject->find(
-			$this->testingFramework->createFrontEndUserGroup(array('title' => 'foo'))
-		);
+        $this->subject->load($userGroup);
 
-		$this->subject->load($userGroup);
-
-		self::assertSame(
-			'foo',
-			$userGroup->getTitle()
-		);
-	}
+        self::assertSame(
+            'foo',
+            $userGroup->getTitle()
+        );
+    }
 }

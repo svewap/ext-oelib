@@ -15,103 +15,105 @@
 /**
  * Testcase for the Tx_Oelib_Model_FederalState class.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase {
-	protected function tearDown() {
-		Tx_Oelib_MapperRegistry::purgeInstance();
-	}
+class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase
+{
+    protected function tearDown()
+    {
+        Tx_Oelib_MapperRegistry::purgeInstance();
+    }
 
-	/*
-	 * Tests regarding getting the local name
-	 */
+    /*
+     * Tests regarding getting the local name
+     */
 
-	/**
-	 * @test
-	 */
-	public function getLocalNameReturnsLocalNameOfNorthRhineWestphalia() {
-		/** @var Tx_Oelib_Mapper_FederalState $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
-		/** @var Tx_Oelib_Model_FederalState $model */
-		$model = $mapper->find(88);
+    /**
+     * @test
+     */
+    public function getLocalNameReturnsLocalNameOfNorthRhineWestphalia()
+    {
+        /** @var Tx_Oelib_Mapper_FederalState $mapper */
+        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
+        /** @var Tx_Oelib_Model_FederalState $model */
+        $model = $mapper->find(88);
 
-		self::assertSame(
-			'Nordrhein-Westfalen',
-			$model->getLocalName()
-		);
-	}
+        self::assertSame(
+            'Nordrhein-Westfalen',
+            $model->getLocalName()
+        );
+    }
 
+    /*
+     * Tests regarding getting the English name
+     */
 
-	/*
-	 * Tests regarding getting the English name
-	 */
+    /**
+     * @test
+     */
+    public function getEnglishNameReturnsLocalNameOfNorthRhineWestphalia()
+    {
+        /** @var Tx_Oelib_Mapper_FederalState $mapper */
+        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
+        /** @var Tx_Oelib_Model_FederalState $model */
+        $model = $mapper->find(88);
 
-	/**
-	 * @test
-	 */
-	public function getEnglishNameReturnsLocalNameOfNorthRhineWestphalia() {
-		/** @var Tx_Oelib_Mapper_FederalState $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
-		/** @var Tx_Oelib_Model_FederalState $model */
-		$model = $mapper->find(88);
+        self::assertSame(
+            'North Rhine-Westphalia',
+            $model->getEnglishName()
+        );
+    }
 
-		self::assertSame(
-			'North Rhine-Westphalia',
-			$model->getEnglishName()
-		);
-	}
+    /*
+     * Tests regarding getting the ISO alpha-2 code
+     */
 
+    /**
+     * @test
+     */
+    public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfNorthRhineWestphalia()
+    {
+        /** @var Tx_Oelib_Mapper_FederalState $mapper */
+        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
+        /** @var Tx_Oelib_Model_FederalState $model */
+        $model = $mapper->find(88);
 
-	/*
-	 * Tests regarding getting the ISO alpha-2 code
-	 */
+        self::assertSame(
+            'DE',
+            $model->getIsoAlpha2Code()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfNorthRhineWestphalia() {
-		/** @var Tx_Oelib_Mapper_FederalState $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
-		/** @var Tx_Oelib_Model_FederalState $model */
-		$model = $mapper->find(88);
+    /**
+     * @test
+     */
+    public function getIsoAlpha2ZoneCodeReturnsIsoAlpha2ZoneCodeOfNorthRhineWestphalia()
+    {
+        /** @var Tx_Oelib_Mapper_FederalState $mapper */
+        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
+        /** @var Tx_Oelib_Model_FederalState $model */
+        $model = $mapper->find(88);
 
-		self::assertSame(
-			'DE',
-			$model->getIsoAlpha2Code()
-		);
-	}
+        self::assertSame(
+            'NW',
+            $model->getIsoAlpha2ZoneCode()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getIsoAlpha2ZoneCodeReturnsIsoAlpha2ZoneCodeOfNorthRhineWestphalia() {
-		/** @var Tx_Oelib_Mapper_FederalState $mapper */
-		$mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
-		/** @var Tx_Oelib_Model_FederalState $model */
-		$model = $mapper->find(88);
+    /*
+     * Tests concerning isReadOnly
+     */
 
-		self::assertSame(
-			'NW',
-			$model->getIsoAlpha2ZoneCode()
-		);
-	}
+    /**
+     * @test
+     */
+    public function isReadOnlyIsTrue()
+    {
+        $model = new Tx_Oelib_Model_FederalState();
 
-
-	/*
-	 * Tests concerning isReadOnly
-	 */
-
-	/**
-	 * @test
-	 */
-	public function isReadOnlyIsTrue() {
-		$model = new Tx_Oelib_Model_FederalState();
-
-		self::assertTrue(
-			$model->isReadOnly()
-		);
-	}
+        self::assertTrue(
+            $model->isReadOnly()
+        );
+    }
 }

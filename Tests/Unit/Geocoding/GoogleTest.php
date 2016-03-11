@@ -15,297 +15,307 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @var Tx_Oelib_Geocoding_Google
-	 */
-	private $subject;
+class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @var Tx_Oelib_Geocoding_Google
+     */
+    private $subject;
 
-	protected function setUp() {
-		$this->subject = Tx_Oelib_Geocoding_Google::getInstance();
-	}
+    protected function setUp()
+    {
+        $this->subject = Tx_Oelib_Geocoding_Google::getInstance();
+    }
 
-	protected function tearDown() {
-		Tx_Oelib_Geocoding_Google::purgeInstance();
-	}
+    protected function tearDown()
+    {
+        Tx_Oelib_Geocoding_Google::purgeInstance();
+    }
 
+    //////////////////////////////////////
+    // Tests for the basic functionality
+    //////////////////////////////////////
 
-	//////////////////////////////////////
-	// Tests for the basic functionality
-	//////////////////////////////////////
+    /**
+     * @test
+     */
+    public function getInstanceCreatesGoogleMapsLookupInstance()
+    {
+        self::assertInstanceOf(
+            'Tx_Oelib_Geocoding_Google',
+            Tx_Oelib_Geocoding_Google::getInstance()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getInstanceCreatesGoogleMapsLookupInstance() {
-		self::assertInstanceOf(
-			'Tx_Oelib_Geocoding_Google',
-			Tx_Oelib_Geocoding_Google::getInstance()
-		);
-	}
+    /**
+     * @test
+     */
+    public function setInstanceSetsInstance()
+    {
+        Tx_Oelib_Geocoding_Google::purgeInstance();
 
-	/**
-	 * @test
-	 */
-	public function setInstanceSetsInstance() {
-		Tx_Oelib_Geocoding_Google::purgeInstance();
+        $instance = new Tx_Oelib_Geocoding_Dummy();
+        Tx_Oelib_Geocoding_Google::setInstance($instance);
 
-		$instance = new Tx_Oelib_Geocoding_Dummy();
-		Tx_Oelib_Geocoding_Google::setInstance($instance);
+        self::assertSame(
+            $instance,
+            Tx_Oelib_Geocoding_Google::getInstance()
+        );
+    }
 
-		self::assertSame(
-			$instance,
-			Tx_Oelib_Geocoding_Google::getInstance()
-		);
-	}
+    /////////////////////
+    // Tests for lookUp
+    /////////////////////
 
+    /**
+     * @test
+     */
+    public function lookUpForEmptyAddressSetsCoordinatesError()
+    {
+        $geo = $this->getMock(
+            'Tx_Oelib_Tests_Unit_Fixtures_TestingGeo',
+            array('setGeoError')
+        );
+        $geo->expects(self::once())->method('setGeoError');
 
-	/////////////////////
-	// Tests for lookUp
-	/////////////////////
+        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingGeo $geo */
+        $this->subject->lookUp($geo);
+    }
 
-	/**
-	 * @test
-	 */
-	public function lookUpForEmptyAddressSetsCoordinatesError() {
-		$geo = $this->getMock(
-			'Tx_Oelib_Tests_Unit_Fixtures_TestingGeo',
-			array('setGeoError')
-		);
-		$geo->expects(self::once())->method('setGeoError');
+    /**
+     * @test
+     */
+    public function lookUpForEmptyAddressWithErrorSendsNoRequest()
+    {
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoError();
 
-		/** @var Tx_Oelib_Tests_Unit_Fixtures_TestingGeo $geo */
-		$this->subject->lookUp($geo);
-	}
+        /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+        $subject = $this->getMock(
+            'Tx_Oelib_Geocoding_Google',
+            array('sendRequest', 'throttle'),
+            array(),
+            '',
+            false
+        );
+        $subject->expects(self::never())->method('sendRequest');
 
-	/**
-	 * @test
-	 */
-	public function lookUpForEmptyAddressWithErrorSendsNoRequest() {
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoError();
+        $subject->lookUp($geo);
+    }
 
-		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
-		$subject = $this->getMock(
-			'Tx_Oelib_Geocoding_Google',
-			array('sendRequest', 'throttle'),
-			array(),
-			'',
-			FALSE
-		);
-		$subject->expects(self::never())->method('sendRequest');
+    /**
+     * @test
+     */
+    public function lookUpForAFullGermanAddressSetsCoordinatesOfAddress()
+    {
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		$subject->lookUp($geo);
-	}
+        $this->subject->lookUp($geo);
+        $coordinates = $geo->getGeoCoordinates();
 
-	/**
-	 * @test
-	 */
-	public function lookUpForAFullGermanAddressSetsCoordinatesOfAddress() {
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+        self::assertEquals(
+            50.7335500,
+            $coordinates['latitude'],
+            '', 0.1
+        );
+        self::assertEquals(
+            7.1014300,
+            $coordinates['longitude'],
+            '', 0.1
+        );
+    }
 
-		$this->subject->lookUp($geo);
-		$coordinates = $geo->getGeoCoordinates();
+    /**
+     * @test
+     */
+    public function lookUpForAFullGermanAddressWithCoordinatesSendsNoRequest()
+    {
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+        $geo->setGeoCoordinates(
+            array('latitude' => 50.7335500, 'longitude' => 7.1014300)
+        );
 
-		self::assertEquals(
-			50.7335500,
-			$coordinates['latitude'],
-			'', 0.1
-		);
-		self::assertEquals(
-			7.1014300,
-			$coordinates['longitude'],
-			'', 0.1
-		);
-	}
+        /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+        $subject = $this->getMock(
+            'Tx_Oelib_Geocoding_Google',
+            array('sendRequest', 'throttle'),
+            array(),
+            '',
+            false
+        );
+        $subject->expects(self::never())->method('sendRequest');
 
-	/**
-	 * @test
-	 */
-	public function lookUpForAFullGermanAddressWithCoordinatesSendsNoRequest() {
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
-		$geo->setGeoCoordinates(
-			array('latitude' => 50.7335500, 'longitude' => 7.1014300)
-		);
+        $subject->lookUp($geo);
+    }
 
-		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
-		$subject = $this->getMock(
-			'Tx_Oelib_Geocoding_Google',
-			array('sendRequest', 'throttle'),
-			array(),
-			'',
-			FALSE
-		);
-		$subject->expects(self::never())->method('sendRequest');
+    /**
+     * @test
+     */
+    public function lookUpForAFullGermanAddressWithErrorSendsNoRequest()
+    {
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+        $geo->setGeoError();
 
-		$subject->lookUp($geo);
-	}
+        /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+        $subject = $this->getMock(
+            'Tx_Oelib_Geocoding_Google',
+            array('sendRequest', 'throttle'),
+            array(),
+            '',
+            false
+        );
+        $subject->expects(self::never())->method('sendRequest');
 
-	/**
-	 * @test
-	 */
-	public function lookUpForAFullGermanAddressWithErrorSendsNoRequest() {
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
-		$geo->setGeoError();
+        $subject->lookUp($geo);
+    }
 
-		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
-		$subject = $this->getMock(
-			'Tx_Oelib_Geocoding_Google',
-			array('sendRequest', 'throttle'),
-			array(),
-			'',
-			FALSE
-		);
-		$subject->expects(self::never())->method('sendRequest');
+    /**
+     * @test
+     */
+    public function lookUpForAFullGermanAddressWithServerErrorSetsGeoProblem()
+    {
+        $jsonResult = '{ "status" : "ZERO_RESULTS"}';
 
-		$subject->lookUp($geo);
-	}
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-	/**
-	 * @test
-	 */
-	public function lookUpForAFullGermanAddressWithServerErrorSetsGeoProblem() {
-		$jsonResult = '{ "status" : "ZERO_RESULTS"}';
+        /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+        $subject = $this->getMock(
+            'Tx_Oelib_Geocoding_Google',
+            array('sendRequest', 'throttle'),
+            array(),
+            '',
+            false
+        );
+        $subject->expects(self::any())->method('sendRequest')->will(self::returnValue($jsonResult));
 
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+        $subject->lookUp($geo);
 
-		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
-		$subject = $this->getMock(
-			'Tx_Oelib_Geocoding_Google',
-			array('sendRequest', 'throttle'),
-			array(),
-			'',
-			FALSE
-		);
-		$subject->expects(self::any())->method('sendRequest')->will(self::returnValue($jsonResult));
+        self::assertTrue(
+            $geo->hasGeoError()
+        );
+    }
 
-		$subject->lookUp($geo);
+    /**
+     * @test
+     *
+     * @expectedException RuntimeException
+     */
+    public function lookUpForAFullGermanAddressWithNetworkErrorThrowsException()
+    {
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		self::assertTrue(
-			$geo->hasGeoError()
-		);
-	}
+        /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+        $subject = $this->getMock(
+            'Tx_Oelib_Geocoding_Google',
+            array('sendRequest', 'throttle'),
+            array(),
+            '',
+            false
+        );
+        $subject->expects(self::any())->method('sendRequest')->will(self::returnValue(false));
 
-	/**
-	 * @test
-	 *
-	 * @expectedException RuntimeException
-	 */
-	public function lookUpForAFullGermanAddressWithNetworkErrorThrowsException() {
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+        $subject->lookUp($geo);
+    }
 
-		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
-		$subject = $this->getMock(
-			'Tx_Oelib_Geocoding_Google',
-			array('sendRequest', 'throttle'),
-			array(),
-			'',
-			FALSE
-		);
-		$subject->expects(self::any())->method('sendRequest')->will(self::returnValue(FALSE));
+    /**
+     * @test
+     */
+    public function lookUpSetsCoordinatesFromSendRequest()
+    {
+        $jsonResult = '{ "results" : [ { "address_components" : [ { "long_name" : "1", "short_name" : "1", ' .
+            '"types" : [ "street_number" ] }, { "long_name" : "Am Hof", "short_name" : "Am Hof", ' .
+            '"types" : [ "route" ] }, { "long_name" : "Bonn", "short_name" : "Bonn", ' .
+            '"types" : [ "sublocality", "political" ] }, { "long_name" : "Bonn", "short_name" : "Bonn", ' .
+            '"types" : [ "locality", "political" ] }, { "long_name" : "Bonn", "short_name" : "BN", ' .
+            '"types" : [ "administrative_area_level_2", "political" ] }, { "long_name" : "Nordrhein-Westfalen", ' .
+            '"short_name" : "Nordrhein-Westfalen", "types" : [ "administrative_area_level_1", "political" ] }, ' .
+            '{ "long_name" : "Germany", "short_name" : "DE", "types" : [ "country", "political" ] }, ' .
+            '{ "long_name" : "53113", "short_name" : "53113", "types" : [ "postal_code" ] } ], ' .
+            '"formatted_address" : "Am Hof 1, 53113 Bonn, Germany", "geometry" : { "location" : ' .
+            '{ "lat" : 50.733550, "lng" : 7.101430 }, "location_type" : "ROOFTOP", ' .
+            '"viewport" : { "northeast" : { "lat" : 50.73489898029150, "lng" : 7.102778980291502 }, ' .
+            '"southwest" : { "lat" : 50.73220101970850, "lng" : 7.100081019708497 } } }, ' .
+            '"types" : [ "street_address" ] } ], "status" : "OK"}';
 
-		$subject->lookUp($geo);
-	}
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-	/**
-	 * @test
-	 */
-	public function lookUpSetsCoordinatesFromSendRequest() {
-		$jsonResult = '{ "results" : [ { "address_components" : [ { "long_name" : "1", "short_name" : "1", ' .
-			'"types" : [ "street_number" ] }, { "long_name" : "Am Hof", "short_name" : "Am Hof", ' .
-			'"types" : [ "route" ] }, { "long_name" : "Bonn", "short_name" : "Bonn", ' .
-			'"types" : [ "sublocality", "political" ] }, { "long_name" : "Bonn", "short_name" : "Bonn", ' .
-			'"types" : [ "locality", "political" ] }, { "long_name" : "Bonn", "short_name" : "BN", ' .
-			'"types" : [ "administrative_area_level_2", "political" ] }, { "long_name" : "Nordrhein-Westfalen", ' .
-			'"short_name" : "Nordrhein-Westfalen", "types" : [ "administrative_area_level_1", "political" ] }, ' .
-			'{ "long_name" : "Germany", "short_name" : "DE", "types" : [ "country", "political" ] }, ' .
-			'{ "long_name" : "53113", "short_name" : "53113", "types" : [ "postal_code" ] } ], ' .
-			'"formatted_address" : "Am Hof 1, 53113 Bonn, Germany", "geometry" : { "location" : ' .
-			'{ "lat" : 50.733550, "lng" : 7.101430 }, "location_type" : "ROOFTOP", ' .
-			'"viewport" : { "northeast" : { "lat" : 50.73489898029150, "lng" : 7.102778980291502 }, ' .
-			'"southwest" : { "lat" : 50.73220101970850, "lng" : 7.100081019708497 } } }, ' .
-			'"types" : [ "street_address" ] } ], "status" : "OK"}';
+        /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+        $subject = $this->getMock(
+            'Tx_Oelib_Geocoding_Google',
+            array('sendRequest', 'throttle'),
+            array(),
+            '',
+            false
+        );
+        $subject->expects(self::any())->method('sendRequest')->will(self::returnValue($jsonResult));
 
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+        $subject->lookUp($geo);
 
-		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
-		$subject = $this->getMock(
-			'Tx_Oelib_Geocoding_Google',
-			array('sendRequest', 'throttle'),
-			array(),
-			'',
-			FALSE
-		);
-		$subject->expects(self::any())->method('sendRequest')->will(self::returnValue($jsonResult));
+        self::assertSame(
+            array(
+                'latitude' => 50.7335500,
+                'longitude' => 7.1014300,
+            ),
+            $geo->getGeoCoordinates()
+        );
+    }
 
-		$subject->lookUp($geo);
+    /**
+     * @test
+     */
+    public function lookUpThrottlesRequestsByAtLeast35Seconds()
+    {
+        self::markTestSkipped('This test usually is not executed because it takes more than 30 seconds to execute.');
 
-		self::assertSame(
-			array(
-				'latitude' => 50.7335500,
-				'longitude' => 7.1014300,
-			),
-			$geo->getGeoCoordinates()
-		);
-	}
+        $jsonResult = '{ "results" : [ { "address_components" : [ { "long_name" : "1", "short_name" : "1", ' .
+            '"types" : [ "street_number" ] }, { "long_name" : "Am Hof", "short_name" : "Am Hof", ' .
+            '"types" : [ "route" ] }, { "long_name" : "Bonn", "short_name" : "Bonn", ' .
+            '"types" : [ "sublocality", "political" ] }, { "long_name" : "Bonn", "short_name" : "Bonn", ' .
+            '"types" : [ "locality", "political" ] }, { "long_name" : "Bonn", "short_name" : "BN", ' .
+            '"types" : [ "administrative_area_level_2", "political" ] }, { "long_name" : "Nordrhein-Westfalen", ' .
+            '"short_name" : "Nordrhein-Westfalen", "types" : [ "administrative_area_level_1", "political" ] }, ' .
+            '{ "long_name" : "Germany", "short_name" : "DE", "types" : [ "country", "political" ] }, ' .
+            '{ "long_name" : "53113", "short_name" : "53113", "types" : [ "postal_code" ] } ], ' .
+            '"formatted_address" : "Am Hof 1, 53113 Bonn, Germany", "geometry" : { "location" : ' .
+            '{ "lat" : 50.733550, "lng" : 7.101430 }, "location_type" : "ROOFTOP", ' .
+            '"viewport" : { "northeast" : { "lat" : 50.73489898029150, "lng" : 7.102778980291502 }, ' .
+            '"southwest" : { "lat" : 50.73220101970850, "lng" : 7.100081019708497 } } }, ' .
+            '"types" : [ "street_address" ] } ], "status" : "OK"}';
 
-	/**
-	 * @test
-	 */
-	public function lookUpThrottlesRequestsByAtLeast35Seconds() {
-		self::markTestSkipped('This test usually is not executed because it takes more than 30 seconds to execute.');
+        $geo1 = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo1->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+        $geo2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo2->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		$jsonResult = '{ "results" : [ { "address_components" : [ { "long_name" : "1", "short_name" : "1", ' .
-			'"types" : [ "street_number" ] }, { "long_name" : "Am Hof", "short_name" : "Am Hof", ' .
-			'"types" : [ "route" ] }, { "long_name" : "Bonn", "short_name" : "Bonn", ' .
-			'"types" : [ "sublocality", "political" ] }, { "long_name" : "Bonn", "short_name" : "Bonn", ' .
-			'"types" : [ "locality", "political" ] }, { "long_name" : "Bonn", "short_name" : "BN", ' .
-			'"types" : [ "administrative_area_level_2", "political" ] }, { "long_name" : "Nordrhein-Westfalen", ' .
-			'"short_name" : "Nordrhein-Westfalen", "types" : [ "administrative_area_level_1", "political" ] }, ' .
-			'{ "long_name" : "Germany", "short_name" : "DE", "types" : [ "country", "political" ] }, ' .
-			'{ "long_name" : "53113", "short_name" : "53113", "types" : [ "postal_code" ] } ], ' .
-			'"formatted_address" : "Am Hof 1, 53113 Bonn, Germany", "geometry" : { "location" : ' .
-			'{ "lat" : 50.733550, "lng" : 7.101430 }, "location_type" : "ROOFTOP", ' .
-			'"viewport" : { "northeast" : { "lat" : 50.73489898029150, "lng" : 7.102778980291502 }, ' .
-			'"southwest" : { "lat" : 50.73220101970850, "lng" : 7.100081019708497 } } }, ' .
-			'"types" : [ "street_address" ] } ], "status" : "OK"}';
+        /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
+        $subject = $this->getMock(
+            'Tx_Oelib_Geocoding_Google',
+            array('sendRequest'),
+            array(),
+            '',
+            false
+        );
+        $subject->expects(self::any())->method('sendRequest')
+            ->will(self::returnValue($jsonResult));
 
-		$geo1 = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo1->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
-		$geo2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo2->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+        $startTime = microtime(true);
+        $subject->lookUp($geo1);
+        $subject->lookUp($geo2);
+        $endTime = microtime(true);
 
-		/** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
-		$subject = $this->getMock(
-			'Tx_Oelib_Geocoding_Google',
-			array('sendRequest'),
-			array(),
-			'',
-			FALSE
-		);
-		$subject->expects(self::any())->method('sendRequest')
-			->will(self::returnValue($jsonResult));
-
-		$startTime = microtime(TRUE);
-		$subject->lookUp($geo1);
-		$subject->lookUp($geo2);
-		$endTime = microtime(TRUE);
-
-		$timePassed = $endTime - $startTime;
-		self::assertGreaterThan(
-			35.0,
-			$timePassed
-		);
-	}
+        $timePassed = $endTime - $startTime;
+        self::assertGreaterThan(
+            35.0,
+            $timePassed
+        );
+    }
 }

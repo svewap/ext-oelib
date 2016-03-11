@@ -15,195 +15,205 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @var Tx_Oelib_Visibility_Node
-	 */
-	private $subject;
+class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @var Tx_Oelib_Visibility_Node
+     */
+    private $subject;
 
-	protected function setUp() {
-		$this->subject = new Tx_Oelib_Visibility_Node();
-	}
+    protected function setUp()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Node();
+    }
 
-	//////////////////////////////
-	// Tests for the constructor
-	//////////////////////////////
+    //////////////////////////////
+    // Tests for the constructor
+    //////////////////////////////
 
-	/**
-	 * @test
-	 */
-	public function isVisibleIfSetToVisibleConstructionReturnsVisibilityFromConstruction() {
-		$subject = new Tx_Oelib_Visibility_Node(TRUE);
+    /**
+     * @test
+     */
+    public function isVisibleIfSetToVisibleConstructionReturnsVisibilityFromConstruction()
+    {
+        $subject = new Tx_Oelib_Visibility_Node(true);
 
-		self::assertTrue(
-			$subject->isVisible()
-		);
-	}
+        self::assertTrue(
+            $subject->isVisible()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function isVisibleIfSetToHiddenConstructionReturnsVisibilityFromConstruction() {
-		$subject = new Tx_Oelib_Visibility_Node(FALSE);
+    /**
+     * @test
+     */
+    public function isVisibleIfSetToHiddenConstructionReturnsVisibilityFromConstruction()
+    {
+        $subject = new Tx_Oelib_Visibility_Node(false);
 
-		self::assertFalse(
-			$subject->isVisible()
-		);
-	}
+        self::assertFalse(
+            $subject->isVisible()
+        );
+    }
 
+    //////////////////////////////
+    // Tests concerning addChild
+    //////////////////////////////
 
-	//////////////////////////////
-	// Tests concerning addChild
-	//////////////////////////////
+    /**
+     * @test
+     */
+    public function getChildrenWithoutChildrenSetReturnsEmptyArray()
+    {
+        self::assertSame(
+            array(),
+            $this->subject->getChildren()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getChildrenWithoutChildrenSetReturnsEmptyArray() {
-		self::assertSame(
-			array(),
-			$this->subject->getChildren()
-		);
-	}
+    /**
+     * @test
+     */
+    public function addChildWithOneGivenChildrenAddsOneChildToNode()
+    {
+        $childNode = new Tx_Oelib_Visibility_Node();
+        $this->subject->addChild($childNode);
 
-	/**
-	 * @test
-	 */
-	public function addChildWithOneGivenChildrenAddsOneChildToNode() {
-		$childNode = new Tx_Oelib_Visibility_Node();
-		$this->subject->addChild($childNode);
+        self::assertSame(
+            array($childNode),
+            $this->subject->getChildren()
+        );
+    }
 
-		self::assertSame(
-			array($childNode),
-			$this->subject->getChildren()
-		);
-	}
+    /**
+     * @test
+     */
+    public function addChildForNodeWithOneChildAndAnotherChildGivenAddsAnotherChildToNode()
+    {
+        $this->subject->addChild(new Tx_Oelib_Visibility_Node());
+        $this->subject->addChild(new Tx_Oelib_Visibility_Node());
 
-	/**
-	 * @test
-	 */
-	public function addChildForNodeWithOneChildAndAnotherChildGivenAddsAnotherChildToNode() {
-		$this->subject->addChild(new Tx_Oelib_Visibility_Node());
-		$this->subject->addChild(new Tx_Oelib_Visibility_Node());
+        self::assertSame(
+            2,
+            count($this->subject->getChildren())
+        );
+    }
 
-		self::assertSame(
-			2,
-			count($this->subject->getChildren())
-		);
-	}
+    /**
+     * @test
+     */
+    public function addChildAddsParentToChild()
+    {
+        $childNode = new Tx_Oelib_Visibility_Node();
+        $this->subject->addChild($childNode);
 
-	/**
-	 * @test
-	 */
-	public function addChildAddsParentToChild() {
-		$childNode = new Tx_Oelib_Visibility_Node();
-		$this->subject->addChild($childNode);
+        self::assertSame(
+            $this->subject,
+            $childNode->getParent()
+        );
+    }
 
-		self::assertSame(
-			$this->subject,
-			$childNode->getParent()
-		);
-	}
+    ///////////////////////////////
+    // Tests concerning setParent
+    ///////////////////////////////
 
+    /**
+     * @test
+     */
+    public function getParentForNodeWithoutParentReturnsNull()
+    {
+        self::assertNull(
+            $this->subject->getParent()
+        );
+    }
 
-	///////////////////////////////
-	// Tests concerning setParent
-	///////////////////////////////
+    /**
+     * @test
+     */
+    public function setParentWithGivenParentSetsThisNodeAsParent()
+    {
+        $childNode = new Tx_Oelib_Visibility_Node();
+        $childNode->setParent($this->subject);
 
-	/**
-	 * @test
-	 */
-	public function getParentForNodeWithoutParentReturnsNull() {
-		self::assertNull(
-			$this->subject->getParent()
-		);
-	}
+        self::assertSame(
+            $this->subject,
+            $childNode->getParent()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function setParentWithGivenParentSetsThisNodeAsParent() {
-		$childNode = new Tx_Oelib_Visibility_Node();
-		$childNode->setParent($this->subject);
+    /**
+     * @test
+     */
+    public function setParentForNodeWithAlreadySetParentAndGivenParentThrowsException()
+    {
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            'This node already has a parent node.'
+        );
+        $childNode = new Tx_Oelib_Visibility_Node();
+        $childNode->setParent($this->subject);
 
-		self::assertSame(
-			$this->subject,
-			$childNode->getParent()
-		);
-	}
+        $childNode->setParent($this->subject);
+    }
 
-	/**
-	 * @test
-	 */
-	public function setParentForNodeWithAlreadySetParentAndGivenParentThrowsException() {
-		$this->setExpectedException(
-			'InvalidArgumentException',
-			'This node already has a parent node.'
-		);
-		$childNode = new Tx_Oelib_Visibility_Node();
-		$childNode->setParent($this->subject);
+    ///////////////////////////////////
+    // Tests concerning markAsVisible
+    ///////////////////////////////////
 
-		$childNode->setParent($this->subject);
-	}
+    /**
+     * @test
+     */
+    public function markAsVisibleForInvisibleNodeSetsVisibilityTrue()
+    {
+        $this->subject->markAsVisible();
 
+        self::assertTrue(
+            $this->subject->isVisible()
+        );
+    }
 
-	///////////////////////////////////
-	// Tests concerning markAsVisible
-	///////////////////////////////////
+    /**
+     * @test
+     */
+    public function markAsVisibleForVisibleNodeSetsVisibilityTrue()
+    {
+        $visibleNode = new Tx_Oelib_Visibility_Node(true);
+        $visibleNode->markAsVisible();
 
-	/**
-	 * @test
-	 */
-	public function markAsVisibleForInvisibleNodeSetsVisibilityTrue() {
-		$this->subject->markAsVisible();
+        self::assertTrue(
+            $visibleNode->isVisible()
+        );
+    }
 
-		self::assertTrue(
-			$this->subject->isVisible()
-		);
-	}
+    /**
+     * @test
+     */
+    public function markAsVisibleForNodeWithParentMarksParentAsVisible()
+    {
+        $childNode = new Tx_Oelib_Visibility_Node();
+        $childNode->setParent($this->subject);
+        $childNode->markAsVisible();
 
-	/**
-	 * @test
-	 */
-	public function markAsVisibleForVisibleNodeSetsVisibilityTrue() {
-		$visibleNode = new Tx_Oelib_Visibility_Node(TRUE);
-		$visibleNode->markAsVisible();
+        self::assertTrue(
+            $this->subject->isVisible()
+        );
+    }
 
-		self::assertTrue(
-			$visibleNode->isVisible()
-		);
-	}
+    /**
+     * @test
+     */
+    public function markAsVisibleForNodeWithParentAndGrandparentMarksGrandparentNodeAsVisible()
+    {
+        $childNode = new Tx_Oelib_Visibility_Node();
+        $grandChildNode = new Tx_Oelib_Visibility_Node();
+        $childNode->setParent($this->subject);
+        $grandChildNode->setParent($childNode);
+        $grandChildNode->markAsVisible();
 
-	/**
-	 * @test
-	 */
-	public function markAsVisibleForNodeWithParentMarksParentAsVisible() {
-		$childNode = new Tx_Oelib_Visibility_Node();
-		$childNode->setParent($this->subject);
-		$childNode->markAsVisible();
-
-		self::assertTrue(
-			$this->subject->isVisible()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function markAsVisibleForNodeWithParentAndGrandparentMarksGrandparentNodeAsVisible() {
-		$childNode = new Tx_Oelib_Visibility_Node();
-		$grandChildNode = new Tx_Oelib_Visibility_Node();
-		$childNode->setParent($this->subject);
-		$grandChildNode->setParent($childNode);
-		$grandChildNode->markAsVisible();
-
-		self::assertTrue(
-			$this->subject->isVisible()
-		);
-	}
+        self::assertTrue(
+            $this->subject->isVisible()
+        );
+    }
 }

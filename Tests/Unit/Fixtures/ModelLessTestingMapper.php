@@ -15,14 +15,13 @@
 /**
  * This class represents a mapper that is broken because it has no model name defined.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Fixtures_ModelLessTestingMapper extends Tx_Oelib_DataMapper {
-	/**
-	 * @var string the name of the database table for this mapper
-	 */
-	protected $tableName = 'tx_oelib_test';
+class Tx_Oelib_Tests_Unit_Fixtures_ModelLessTestingMapper extends Tx_Oelib_DataMapper
+{
+    /**
+     * @var string the name of the database table for this mapper
+     */
+    protected $tableName = 'tx_oelib_test';
 }

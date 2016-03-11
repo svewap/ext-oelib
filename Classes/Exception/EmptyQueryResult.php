@@ -19,26 +19,26 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
  *
  * The exception automatically will use an error message and the last query.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Exception_EmptyQueryResult extends Exception {
-	/**
-	 * The constructor.
-	 *
-	 * @param int $code error code, must be >= 0
-	 */
-	public function __construct($code = 0) {
-		$message = 'The database query returned an empty result, but should  have returned a non-empty result.';
+class Tx_Oelib_Exception_EmptyQueryResult extends Exception
+{
+    /**
+     * The constructor.
+     *
+     * @param int $code error code, must be >= 0
+     */
+    public function __construct($code = 0)
+    {
+        $message = 'The database query returned an empty result, but should  have returned a non-empty result.';
 
-		/** @var DatabaseConnection $databaseConnection */
-		$databaseConnection = $GLOBALS['TYPO3_DB'];
-		if ($databaseConnection->store_lastBuiltQuery || $databaseConnection->debugOutput) {
-			$message .= LF . 'The last built query:' . LF . $databaseConnection->debug_lastBuiltQuery;
-		}
+        /** @var DatabaseConnection $databaseConnection */
+        $databaseConnection = $GLOBALS['TYPO3_DB'];
+        if ($databaseConnection->store_lastBuiltQuery || $databaseConnection->debugOutput) {
+            $message .= LF . 'The last built query:' . LF . $databaseConnection->debug_lastBuiltQuery;
+        }
 
-		parent::__construct($message, $code);
-	}
+        parent::__construct($message, $code);
+    }
 }

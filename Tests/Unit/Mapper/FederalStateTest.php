@@ -15,69 +15,72 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Mapper_FederalStateTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @var Tx_Oelib_Mapper_FederalState
-	 */
-	private $subject = NULL;
+class Tx_Oelib_Tests_Unit_Mapper_FederalStateTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @var Tx_Oelib_Mapper_FederalState
+     */
+    private $subject = null;
 
-	protected function setUp() {
-		$this->subject = new Tx_Oelib_Mapper_FederalState();
-	}
+    protected function setUp()
+    {
+        $this->subject = new Tx_Oelib_Mapper_FederalState();
+    }
 
-	/*
-	 * Tests concerning find
-	 */
+    /*
+     * Tests concerning find
+     */
 
-	/**
-	 * @test
-	 */
-	public function findWithUidOfExistingRecordReturnsFederalStateInstance() {
-		self::assertInstanceOf(
-			'Tx_Oelib_Model_FederalState',
-			$this->subject->find(88)
-		);
-	}
+    /**
+     * @test
+     */
+    public function findWithUidOfExistingRecordReturnsFederalStateInstance()
+    {
+        self::assertInstanceOf(
+            'Tx_Oelib_Model_FederalState',
+            $this->subject->find(88)
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function findWithUidOfExistingRecordReturnsRecordAsModel() {
-		/** @var Tx_Oelib_Model_FederalState $model */
-		$model = $this->subject->find(88);
-		self::assertSame(
-			'NW',
-			$model->getIsoAlpha2ZoneCode()
-		);
-	}
+    /**
+     * @test
+     */
+    public function findWithUidOfExistingRecordReturnsRecordAsModel()
+    {
+        /** @var Tx_Oelib_Model_FederalState $model */
+        $model = $this->subject->find(88);
+        self::assertSame(
+            'NW',
+            $model->getIsoAlpha2ZoneCode()
+        );
+    }
 
+    /**
+     * Tests concerning findByIsoAlpha2Code
+     *
 
-	/**
-	 * Tests concerning findByIsoAlpha2Code
-	 *
+    /**
+     * @test
+     */
+    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithIsoAlpha2CodeOfExistingRecordReturnsFederalStateInstance()
+    {
+        self::assertInstanceOf(
+            'Tx_Oelib_Model_FederalState',
+            $this->subject->findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode('DE', 'NW')
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithIsoAlpha2CodeOfExistingRecordReturnsFederalStateInstance() {
-		self::assertInstanceOf(
-			'Tx_Oelib_Model_FederalState',
-			$this->subject->findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode('DE', 'NW')
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithIsoAlpha2CodeOfExistingRecordReturnsRecordAsModel() {
-		self::assertSame(
-			'NW',
-			$this->subject->findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode('DE', 'NW')->getIsoAlpha2ZoneCode()
-		);
-	}
+    /**
+     * @test
+     */
+    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithIsoAlpha2CodeOfExistingRecordReturnsRecordAsModel()
+    {
+        self::assertSame(
+            'NW',
+            $this->subject->findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode('DE', 'NW')->getIsoAlpha2ZoneCode()
+        );
+    }
 }

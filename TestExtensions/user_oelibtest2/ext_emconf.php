@@ -11,36 +11,36 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Second test extension for tx_oelib',
-	'description' => 'Second test extension for tx_oelib',
-	'category' => 'example',
-	'author' => 'Niels Pardon',
-	'author_email' => 'mail@niels-pardon.de',
-	'shy' => '',
-	'dependencies' => 'oelib,user_oelibtest',
-	'conflicts' => '',
-	'priority' => '',
-	'module' => '',
-	'state' => 'alpha',
-	'internal' => '',
-	'uploadfolder' => 0,
-	'createDirs' => '',
-	'modify_tables' => '',
-	'clearCacheOnLoad' => 0,
-	'lockType' => '',
-	'author_company' => '',
-	'version' => '0.0.0',
-	'constraints' => array(
-		'depends' => array(
-			'oelib' => '',
-			'user_oelibtest' => '',
-		),
-		'conflicts' => array(
-		),
-		'suggests' => array(
-		),
-	),
-	'_md5_values_when_last_written' => '',
-	'suggests' => array(
-	),
+    'title' => 'Second test extension for tx_oelib',
+    'description' => 'Second test extension for tx_oelib',
+    'category' => 'example',
+    'author' => 'Niels Pardon',
+    'author_email' => 'mail@niels-pardon.de',
+    'shy' => '',
+    'dependencies' => 'oelib,user_oelibtest',
+    'conflicts' => '',
+    'priority' => '',
+    'module' => '',
+    'state' => 'alpha',
+    'internal' => '',
+    'uploadfolder' => 0,
+    'createDirs' => '',
+    'modify_tables' => '',
+    'clearCacheOnLoad' => 0,
+    'lockType' => '',
+    'author_company' => '',
+    'version' => '0.0.0',
+    'constraints' => array(
+        'depends' => array(
+            'oelib' => '',
+            'user_oelibtest' => '',
+        ),
+        'conflicts' => array(
+        ),
+        'suggests' => array(
+        ),
+    ),
+    '_md5_values_when_last_written' => '',
+    'suggests' => array(
+    ),
 );

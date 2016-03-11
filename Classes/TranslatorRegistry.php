@@ -20,320 +20,334 @@ use TYPO3\CMS\Lang\LanguageService;
 /**
  * This class provides a registry for translators.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Benjamin Schulte <benj@minschulte.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_TranslatorRegistry {
-	/**
-	 * @var Tx_Oelib_TranslatorRegistry the Singleton instance
-	 */
-	private static $instance = NULL;
+class Tx_Oelib_TranslatorRegistry
+{
+    /**
+     * @var Tx_Oelib_TranslatorRegistry the Singleton instance
+     */
+    private static $instance = null;
 
-	/**
-	 * extension name => Translator entries
-	 *
-	 * @var Tx_Oelib_Translator[]
-	 */
-	private $translators = array();
+    /**
+     * extension name => Translator entries
+     *
+     * @var Tx_Oelib_Translator[]
+     */
+    private $translators = array();
 
-	/**
-	 * @var string the key of the language to load the translations for
-	 */
-	private $languageKey = 'default';
+    /**
+     * @var string the key of the language to load the translations for
+     */
+    private $languageKey = 'default';
 
-	/**
-	 * @var string the key of the alternative language to load the translations for
-	 */
-	private $alternativeLanguageKey = '';
+    /**
+     * @var string the key of the alternative language to load the translations for
+     */
+    private $alternativeLanguageKey = '';
 
-	/**
-	 * @var string the charset the localized labels should be rendered in
-	 */
-	private $renderCharset = 'utf-8';
+    /**
+     * @var string the charset the localized labels should be rendered in
+     */
+    private $renderCharset = 'utf-8';
 
-	/**
-	 * @var CharsetConverter helper for charset conversion
-	 */
-	private $charsetConversion = NULL;
+    /**
+     * @var CharsetConverter helper for charset conversion
+     */
+    private $charsetConversion = null;
 
-	/**
-	 * @var string the path to the locallang.xml file, relative to an
-	 *             extension's root directory
-	 */
-	const LANGUAGE_FILE_PATH = 'Resources/Private/Language/locallang.xml';
+    /**
+     * @var string the path to the locallang.xml file, relative to an
+     *             extension's root directory
+     */
+    const LANGUAGE_FILE_PATH = 'Resources/Private/Language/locallang.xml';
 
-	/**
-	 * @var string the default render charset (both front end and back end)
-	 */
-	const DEFAULT_CHARSET = 'utf-8';
+    /**
+     * @var string the default render charset (both front end and back end)
+     */
+    const DEFAULT_CHARSET = 'utf-8';
 
-	/**
-	 * The constructor.
-	 */
-	private function __construct() {
-		if ($this->getFrontEndController() !== NULL) {
-			$this->initializeFrontEnd();
-		} elseif ($this->getLanguageService() !== NULL) {
-			$this->initializeBackEnd();
-		} else {
-			throw new BadMethodCallException('There was neither a front end nor a back end detected.', 1331489564);
-		}
-	}
+    /**
+     * The constructor.
+     */
+    private function __construct()
+    {
+        if ($this->getFrontEndController() !== null) {
+            $this->initializeFrontEnd();
+        } elseif ($this->getLanguageService() !== null) {
+            $this->initializeBackEnd();
+        } else {
+            throw new BadMethodCallException('There was neither a front end nor a back end detected.', 1331489564);
+        }
+    }
 
-	/**
-	 * Frees as much memory that has been used by this object as possible.
-	 */
-	public function __destruct() {
-		unset($this->charsetConversion, $this->translators);
-	}
+    /**
+     * Frees as much memory that has been used by this object as possible.
+     */
+    public function __destruct()
+    {
+        unset($this->charsetConversion, $this->translators);
+    }
 
-	/**
-	 * Initializes the TranslatorRegistry for the front end.
-	 *
-	 * @return void
-	 */
-	private function initializeFrontEnd() {
-		$this->setLanguageKeyFromConfiguration(Tx_Oelib_ConfigurationRegistry::get('config'));
-		$this->setLanguageKeyFromConfiguration(Tx_Oelib_ConfigurationRegistry::get('page.config'));
+    /**
+     * Initializes the TranslatorRegistry for the front end.
+     *
+     * @return void
+     */
+    private function initializeFrontEnd()
+    {
+        $this->setLanguageKeyFromConfiguration(Tx_Oelib_ConfigurationRegistry::get('config'));
+        $this->setLanguageKeyFromConfiguration(Tx_Oelib_ConfigurationRegistry::get('page.config'));
 
-		$this->renderCharset = $this->getFrontEndController()->renderCharset;
-		$this->charsetConversion = $this->getFrontEndController()->csConvObj;
-	}
+        $this->renderCharset = $this->getFrontEndController()->renderCharset;
+        $this->charsetConversion = $this->getFrontEndController()->csConvObj;
+    }
 
-	/**
-	 * Reads the language key from a configuration and sets it as current language.
-	 * Also sets the alternate language if one is configured.
-	 *
-	 * The language key is read from the "language" key and the alternate language is read
-	 * from the language_alt key.
-	 *
-	 * @param Tx_Oelib_Configuration $configuration the configuration to read
-	 *
-	 * @return void
-	 */
-	private function setLanguageKeyFromConfiguration(Tx_Oelib_Configuration $configuration) {
-		if (!$configuration->hasString('language')) {
-			return;
-		}
+    /**
+     * Reads the language key from a configuration and sets it as current language.
+     * Also sets the alternate language if one is configured.
+     *
+     * The language key is read from the "language" key and the alternate language is read
+     * from the language_alt key.
+     *
+     * @param Tx_Oelib_Configuration $configuration the configuration to read
+     *
+     * @return void
+     */
+    private function setLanguageKeyFromConfiguration(Tx_Oelib_Configuration $configuration)
+    {
+        if (!$configuration->hasString('language')) {
+            return;
+        }
 
-		$this->languageKey = $configuration->getAsString('language');
-		if ($configuration->hasString('language_alt')) {
-			$this->alternativeLanguageKey = $configuration->getAsString('language_alt');
-		}
-	}
+        $this->languageKey = $configuration->getAsString('language');
+        if ($configuration->hasString('language_alt')) {
+            $this->alternativeLanguageKey = $configuration->getAsString('language_alt');
+        }
+    }
 
-	/**
-	 * Initializes the TranslatorRegistry for the back end.
-	 *
-	 * @return void
-	 */
-	private function initializeBackEnd() {
-		$backEndUser = Tx_Oelib_BackEndLoginManager::getInstance()->
-			getLoggedInUser(Tx_Oelib_Mapper_BackEndUser::class);
-		$this->languageKey = $backEndUser->getLanguage();
-		$this->renderCharset = $this->getLanguageService()->charSet;
-		$this->charsetConversion = $this->getLanguageService()->csConvObj;
-	}
+    /**
+     * Initializes the TranslatorRegistry for the back end.
+     *
+     * @return void
+     */
+    private function initializeBackEnd()
+    {
+        $backEndUser = Tx_Oelib_BackEndLoginManager::getInstance()->
+            getLoggedInUser(Tx_Oelib_Mapper_BackEndUser::class);
+        $this->languageKey = $backEndUser->getLanguage();
+        $this->renderCharset = $this->getLanguageService()->charSet;
+        $this->charsetConversion = $this->getLanguageService()->csConvObj;
+    }
 
-	/**
-	 * Returns the instance of this class.
-	 *
-	 * @return Tx_Oelib_TranslatorRegistry the current Singleton instance
-	 */
-	public static function getInstance() {
-		if (self::$instance === NULL) {
-			self::$instance = new Tx_Oelib_TranslatorRegistry();
-		}
+    /**
+     * Returns the instance of this class.
+     *
+     * @return Tx_Oelib_TranslatorRegistry the current Singleton instance
+     */
+    public static function getInstance()
+    {
+        if (self::$instance === null) {
+            self::$instance = new Tx_Oelib_TranslatorRegistry();
+        }
 
-		return self::$instance;
-	}
+        return self::$instance;
+    }
 
-	/**
-	 * Purges the current instance so that getInstance will create a new instance.
-	 *
-	 * @return void
-	 */
-	public static function purgeInstance() {
-		self::$instance = NULL;
-	}
+    /**
+     * Purges the current instance so that getInstance will create a new instance.
+     *
+     * @return void
+     */
+    public static function purgeInstance()
+    {
+        self::$instance = null;
+    }
 
-	/**
-	 * Gets a Translator by its extension name.
-	 *
-	 * This is a wrapper for self::getInstance()->getByExtensionName().
-	 *
-	 * @param string $extensionName
-	 *        the extension name to get the Translator for, must not be empty, the corresponding extension must be loaded
-	 *
-	 * @return Tx_Oelib_Translator the Translator for the specified extension
-	 *
-	 * @see getByExtensionName()
-	 */
-	public static function get($extensionName) {
-		return self::getInstance()->getByExtensionName($extensionName);
-	}
+    /**
+     * Gets a Translator by its extension name.
+     *
+     * This is a wrapper for self::getInstance()->getByExtensionName().
+     *
+     * @param string $extensionName
+     *        the extension name to get the Translator for, must not be empty, the corresponding extension must be loaded
+     *
+     * @return Tx_Oelib_Translator the Translator for the specified extension
+     *
+     * @see getByExtensionName()
+     */
+    public static function get($extensionName)
+    {
+        return self::getInstance()->getByExtensionName($extensionName);
+    }
 
-	/**
-	 * Gets a Translator by its extension name.
-	 *
-	 * @param string $extensionName
-	 *        the extension name to get the Translator for, must not be empty, the corresponding extension must be loaded
-	 *
-	 * @return Tx_Oelib_Translator the Translator for the specified extension
-	 *                             name
-	 */
-	private function getByExtensionName($extensionName) {
-		if ($extensionName === '') {
-			throw new InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489578);
-		}
+    /**
+     * Gets a Translator by its extension name.
+     *
+     * @param string $extensionName
+     *        the extension name to get the Translator for, must not be empty, the corresponding extension must be loaded
+     *
+     * @return Tx_Oelib_Translator the Translator for the specified extension
+     *                             name
+     */
+    private function getByExtensionName($extensionName)
+    {
+        if ($extensionName === '') {
+            throw new InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489578);
+        }
 
-		if (!ExtensionManagementUtility::isLoaded($extensionName)) {
-			throw new BadMethodCallException('The extension with the name "' . $extensionName . '" is not loaded.', 1331489598);
-		}
+        if (!ExtensionManagementUtility::isLoaded($extensionName)) {
+            throw new BadMethodCallException('The extension with the name "' . $extensionName . '" is not loaded.', 1331489598);
+        }
 
-		if (!isset($this->translators[$extensionName])) {
-			$localizedLabels = $this->getLocalizedLabelsFromFile($extensionName);
-			// Overrides the localized labels with labels from TypoScript only
-			// in the front end.
+        if (!isset($this->translators[$extensionName])) {
+            $localizedLabels = $this->getLocalizedLabelsFromFile($extensionName);
+            // Overrides the localized labels with labels from TypoScript only
+            // in the front end.
 
-			if (($this->getFrontEndController() !== NULL)
-				&& isset($localizedLabels[$this->languageKey]) && is_array($localizedLabels[$this->languageKey])
-			) {
-				$labelsFromTyposcript = $this->getLocalizedLabelsFromTypoScript($extensionName);
+            if (($this->getFrontEndController() !== null)
+                && isset($localizedLabels[$this->languageKey]) && is_array($localizedLabels[$this->languageKey])
+            ) {
+                $labelsFromTyposcript = $this->getLocalizedLabelsFromTypoScript($extensionName);
 
-				foreach ($labelsFromTyposcript as $labelKey => $labelFromTyposcript) {
-					$localizedLabels[$this->languageKey][$labelKey][0]['target'] = $labelFromTyposcript;
-				}
-			}
+                foreach ($labelsFromTyposcript as $labelKey => $labelFromTyposcript) {
+                    $localizedLabels[$this->languageKey][$labelKey][0]['target'] = $labelFromTyposcript;
+                }
+            }
 
-			/** @var Tx_Oelib_Translator $translator */
-			$translator = GeneralUtility::makeInstance(
-				'Tx_Oelib_Translator',
-				$this->languageKey,
-				$this->alternativeLanguageKey,
-				$localizedLabels
-			);
-			$this->translators[$extensionName] = $translator;
-		}
+            /** @var Tx_Oelib_Translator $translator */
+            $translator = GeneralUtility::makeInstance(
+                'Tx_Oelib_Translator',
+                $this->languageKey,
+                $this->alternativeLanguageKey,
+                $localizedLabels
+            );
+            $this->translators[$extensionName] = $translator;
+        }
 
-		return $this->translators[$extensionName];
-	}
+        return $this->translators[$extensionName];
+    }
 
-	/**
-	 * Returns the localized labels from an extension's language file.
-	 *
-	 * @param string $extensionName
-	 *        the extension name to get the localized labels from file for,
-	 *        must not be empty, the corresponding extension must be loaded
-	 *
-	 * @return string[] the localized labels from an extension's language file, will be empty if there are none
-	 */
-	private function getLocalizedLabelsFromFile($extensionName) {
-		if ($extensionName === '') {
-			throw new InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489618);
-		}
+    /**
+     * Returns the localized labels from an extension's language file.
+     *
+     * @param string $extensionName
+     *        the extension name to get the localized labels from file for,
+     *        must not be empty, the corresponding extension must be loaded
+     *
+     * @return string[] the localized labels from an extension's language file, will be empty if there are none
+     */
+    private function getLocalizedLabelsFromFile($extensionName)
+    {
+        if ($extensionName === '') {
+            throw new InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489618);
+        }
 
-		$languageFile = ExtensionManagementUtility::extPath($extensionName) . self::LANGUAGE_FILE_PATH;
-		$localizedLabels = GeneralUtility::readLLfile(
-			$languageFile,
-			$this->languageKey,
-			$this->renderCharset
-		);
+        $languageFile = ExtensionManagementUtility::extPath($extensionName) . self::LANGUAGE_FILE_PATH;
+        $localizedLabels = GeneralUtility::readLLfile(
+            $languageFile,
+            $this->languageKey,
+            $this->renderCharset
+        );
 
-		if ($this->alternativeLanguageKey !== '') {
-			$alternativeLocalizedLabels = GeneralUtility::readLLfile(
-				$languageFile,
-				$this->alternativeLanguageKey,
-				$this->renderCharset
-			);
-			$localizedLabels = array_merge(
-				$alternativeLocalizedLabels,
-				(is_array($localizedLabels) ? $localizedLabels : array())
-			);
-		}
+        if ($this->alternativeLanguageKey !== '') {
+            $alternativeLocalizedLabels = GeneralUtility::readLLfile(
+                $languageFile,
+                $this->alternativeLanguageKey,
+                $this->renderCharset
+            );
+            $localizedLabels = array_merge(
+                $alternativeLocalizedLabels,
+                (is_array($localizedLabels) ? $localizedLabels : array())
+            );
+        }
 
-		return $localizedLabels;
-	}
+        return $localizedLabels;
+    }
 
-	/**
-	 * Returns the localized labels from an extension's TypoScript setup.
-	 *
-	 * Returns only the labels set for the language stored in $this->languageKey
-	 *
-	 * @param string $extensionName
-	 *        the extension name to get the localized labels from TypoScript setup for,
-	 *        must not be empty, the corresponding extension must be loaded
-	 *
-	 * @return string[] the localized labels from the extension's TypoScript setup, will be empty if there are none
-	 */
-	private function getLocalizedLabelsFromTypoScript($extensionName) {
-		if ($extensionName === '') {
-			throw new InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489630);
-		}
+    /**
+     * Returns the localized labels from an extension's TypoScript setup.
+     *
+     * Returns only the labels set for the language stored in $this->languageKey
+     *
+     * @param string $extensionName
+     *        the extension name to get the localized labels from TypoScript setup for,
+     *        must not be empty, the corresponding extension must be loaded
+     *
+     * @return string[] the localized labels from the extension's TypoScript setup, will be empty if there are none
+     */
+    private function getLocalizedLabelsFromTypoScript($extensionName)
+    {
+        if ($extensionName === '') {
+            throw new InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489630);
+        }
 
-		$result = array();
-		$namespace = 'plugin.tx_' . $extensionName . '._LOCAL_LANG.' . $this->languageKey;
+        $result = array();
+        $namespace = 'plugin.tx_' . $extensionName . '._LOCAL_LANG.' . $this->languageKey;
 
-		$configuration = Tx_Oelib_ConfigurationRegistry::get($namespace);
-		foreach ($configuration->getArrayKeys() as $key) {
-			// Converts the label from the source charset to the render
-			// charset.
-			$result[$key] =	$this->charsetConversion->conv(
-				$configuration->getAsString($key),
-				'utf-8',
-				$this->renderCharset,
-				TRUE
-			);
-		}
+        $configuration = Tx_Oelib_ConfigurationRegistry::get($namespace);
+        foreach ($configuration->getArrayKeys() as $key) {
+            // Converts the label from the source charset to the render
+            // charset.
+            $result[$key] =    $this->charsetConversion->conv(
+                $configuration->getAsString($key),
+                'utf-8',
+                $this->renderCharset,
+                true
+            );
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Sets the language for the translator.
-	 *
-	 * @param string $languageKey the language key to set for the translator,
-	 *        must not be empty
-	 *
-	 * @return void
-	 */
-	public function setLanguageKey($languageKey) {
-		if ($languageKey === '') {
-			throw new InvalidArgumentException('The given language key must not be empty.', 1331489643);
-		}
+    /**
+     * Sets the language for the translator.
+     *
+     * @param string $languageKey the language key to set for the translator,
+     *        must not be empty
+     *
+     * @return void
+     */
+    public function setLanguageKey($languageKey)
+    {
+        if ($languageKey === '') {
+            throw new InvalidArgumentException('The given language key must not be empty.', 1331489643);
+        }
 
-		$this->languageKey = $languageKey;
-	}
+        $this->languageKey = $languageKey;
+    }
 
-	/**
-	 * Returns the language key set for the translator.
-	 *
-	 * @return string the language key of the translator, will not be
-	 *         empty
-	 */
-	public function getLanguageKey() {
-		return $this->languageKey;
-	}
+    /**
+     * Returns the language key set for the translator.
+     *
+     * @return string the language key of the translator, will not be
+     *         empty
+     */
+    public function getLanguageKey()
+    {
+        return $this->languageKey;
+    }
 
-	/**
-	 * Returns $GLOBALS['TSFE'].
-	 *
-	 * @return TypoScriptFrontendController|null
-	 */
-	protected function getFrontEndController() {
-		return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : NULL;
-	}
+    /**
+     * Returns $GLOBALS['TSFE'].
+     *
+     * @return TypoScriptFrontendController|null
+     */
+    protected function getFrontEndController()
+    {
+        return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : null;
+    }
 
-	/**
-	 * Returns $GLOBALS['LANG'].
-	 *
-	 * @return LanguageService|null
-	 */
-	protected function getLanguageService() {
-		return isset($GLOBALS['LANG']) ? $GLOBALS['LANG'] : NULL;
-	}
+    /**
+     * Returns $GLOBALS['LANG'].
+     *
+     * @return LanguageService|null
+     */
+    protected function getLanguageService()
+    {
+        return isset($GLOBALS['LANG']) ? $GLOBALS['LANG'] : null;
+    }
 }

@@ -15,257 +15,273 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Visibility_TreeTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @var Tx_Oelib_Visibility_Tree
-	 */
-	private $subject;
+class Tx_Oelib_Tests_Unit_Visibility_TreeTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @var Tx_Oelib_Visibility_Tree
+     */
+    private $subject;
 
-	////////////////////////////////////////////////////////
-	// Tests concerning the building of the tree structure
-	////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    // Tests concerning the building of the tree structure
+    ////////////////////////////////////////////////////////
 
-	/**
-	 * @test
-	 */
-	public function constructWithEmptyArrayCreatesRootNodeWithoutChildren() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array());
+    /**
+     * @test
+     */
+    public function constructWithEmptyArrayCreatesRootNodeWithoutChildren()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array());
 
-		self::assertSame(
-			array(),
-			$this->subject->getRootNode()->getChildren()
-		);
-	}
+        self::assertSame(
+            array(),
+            $this->subject->getRootNode()->getChildren()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function constructWithOneElementInArrayAddsOneChildToRootNode() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => FALSE));
+    /**
+     * @test
+     */
+    public function constructWithOneElementInArrayAddsOneChildToRootNode()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => false));
 
-		$children = $this->subject->getRootNode()->getChildren();
+        $children = $this->subject->getRootNode()->getChildren();
 
-		self::assertInstanceOf(Tx_Oelib_Visibility_Node::class, $children[0]);
-	}
+        self::assertInstanceOf(Tx_Oelib_Visibility_Node::class, $children[0]);
+    }
 
-	/**
-	 * @test
-	 */
-	public function constructWithTwoElementsInFirstArrayLevelAddsTwoChildrenToRootNode() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => FALSE, 'testNode2' => FALSE));
+    /**
+     * @test
+     */
+    public function constructWithTwoElementsInFirstArrayLevelAddsTwoChildrenToRootNode()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => false, 'testNode2' => false));
 
-		self::assertSame(
-			2,
-			count($this->subject->getRootNode()->getChildren())
-		);
-	}
+        self::assertSame(
+            2,
+            count($this->subject->getRootNode()->getChildren())
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function constructWithTwoElementsInArrayOneFirstOneSecondLevelAddsGrandChildToRootNode() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('child' => array('grandChild' => FALSE)));
+    /**
+     * @test
+     */
+    public function constructWithTwoElementsInArrayOneFirstOneSecondLevelAddsGrandChildToRootNode()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('child' => array('grandChild' => false)));
 
-		$children = $this->subject->getRootNode()->getChildren();
-		self::assertSame(
-			1,
-			count($children[0]->getChildren())
-		);
-	}
+        $children = $this->subject->getRootNode()->getChildren();
+        self::assertSame(
+            1,
+            count($children[0]->getChildren())
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function constructForOneVisibleElementStoresVisibilityStatus() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('visibleNode' => TRUE));
+    /**
+     * @test
+     */
+    public function constructForOneVisibleElementStoresVisibilityStatus()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('visibleNode' => true));
 
-		$children = $this->subject->getRootNode()->getChildren();
+        $children = $this->subject->getRootNode()->getChildren();
 
-		self::assertTrue(
-			$children[0]->isVisible()
-		);
-	}
+        self::assertTrue(
+            $children[0]->isVisible()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function constructForOneInvisibleElementStoresVisibilityStatus() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('hiddenNode' => FALSE));
+    /**
+     * @test
+     */
+    public function constructForOneInvisibleElementStoresVisibilityStatus()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('hiddenNode' => false));
 
-		$children = $this->subject->getRootNode()->getChildren();
+        $children = $this->subject->getRootNode()->getChildren();
 
-		self::assertFalse(
-			$children[0]->isVisible()
-		);
-	}
+        self::assertFalse(
+            $children[0]->isVisible()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function rootNodeWithoutChildIsInvisible() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array());
+    /**
+     * @test
+     */
+    public function rootNodeWithoutChildIsInvisible()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array());
 
-		self::assertFalse(
-			$this->subject->getRootNode()->isVisible()
-		);
-	}
+        self::assertFalse(
+            $this->subject->getRootNode()->isVisible()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function rootNodeWithOneInvisibleChildIsInvisible() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => FALSE));
+    /**
+     * @test
+     */
+    public function rootNodeWithOneInvisibleChildIsInvisible()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => false));
 
-		self::assertFalse(
-			$this->subject->getRootNode()->isVisible()
-		);
-	}
+        self::assertFalse(
+            $this->subject->getRootNode()->isVisible()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function rootNodeWithOneVisibleChildIsVisible() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => TRUE));
+    /**
+     * @test
+     */
+    public function rootNodeWithOneVisibleChildIsVisible()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => true));
 
-		self::assertTrue(
-			$this->subject->getRootNode()->isVisible()
-		);
-	}
+        self::assertTrue(
+            $this->subject->getRootNode()->isVisible()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function rootNodeWithOneVisibleGrandChildIsVisible() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('child' => array('grandChild' => TRUE)));
+    /**
+     * @test
+     */
+    public function rootNodeWithOneVisibleGrandChildIsVisible()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('child' => array('grandChild' => true)));
 
-		self::assertTrue(
-			$this->subject->getRootNode()->isVisible()
-		);
-	}
+        self::assertTrue(
+            $this->subject->getRootNode()->isVisible()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function childOfRootNodeWithOneVisibleChildIsVisible() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('child' => array('grandChild' => TRUE)));
+    /**
+     * @test
+     */
+    public function childOfRootNodeWithOneVisibleChildIsVisible()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('child' => array('grandChild' => true)));
 
-		$children = $this->subject->getRootNode()->getChildren();
+        $children = $this->subject->getRootNode()->getChildren();
 
-		self::assertTrue(
-			$children[0]->isVisible()
-		);
-	}
+        self::assertTrue(
+            $children[0]->isVisible()
+        );
+    }
 
+    //////////////////////////////////////
+    // Tests concerning makeNodesVisible
+    //////////////////////////////////////
 
-	//////////////////////////////////////
-	// Tests concerning makeNodesVisible
-	//////////////////////////////////////
+    /**
+     * @test
+     */
+    public function makeNodesVisibleForEmptyArrayGivenDoesNotMakeRootVisible()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array());
+        $this->subject->makeNodesVisible(array());
 
-	/**
-	 * @test
-	 */
-	public function makeNodesVisibleForEmptyArrayGivenDoesNotMakeRootVisible() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array());
-		$this->subject->makeNodesVisible(array());
+        self::assertFalse(
+            $this->subject->getRootNode()->isVisible()
+        );
+    }
 
-		self::assertFalse(
-			$this->subject->getRootNode()->isVisible()
-		);
-	}
+    /**
+     * @test
+     */
+    public function makeNodesVisibleForGivenNodeMakesThisNodeVisible()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => false));
+        $this->subject->makeNodesVisible(array('testNode'));
 
-	/**
-	 * @test
-	 */
-	public function makeNodesVisibleForGivenNodeMakesThisNodeVisible() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => FALSE));
-		$this->subject->makeNodesVisible(array('testNode'));
+        $this->subject->getRootNode()->getChildren();
 
-		$this->subject->getRootNode()->getChildren();
+        self::assertSame(
+            array(),
+            $this->subject->getKeysOfHiddenSubparts()
+        );
+    }
 
-		self::assertSame(
-			array(),
-			$this->subject->getKeysOfHiddenSubparts()
-		);
-	}
+    /**
+     * @test
+     */
+    public function makeNodesVisibleForInexistentNodeGivenDoesNotCrash()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => false));
+        $this->subject->makeNodesVisible(array('foo'));
+    }
 
-	/**
-	 * @test
-	 */
-	public function makeNodesVisibleForInexistentNodeGivenDoesNotCrash() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => FALSE));
-		$this->subject->makeNodesVisible(array('foo'));
-	}
+    /**
+     * @test
+     */
+    public function makeNodesVisibleForInexistentNodeGivenDoesNotMakeExistingNodeVisible()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => false));
+        $this->subject->makeNodesVisible(array('foo'));
 
-	/**
-	 * @test
-	 */
-	public function makeNodesVisibleForInexistentNodeGivenDoesNotMakeExistingNodeVisible() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => FALSE));
-		$this->subject->makeNodesVisible(array('foo'));
+        $this->subject->getRootNode()->getChildren();
 
-		$this->subject->getRootNode()->getChildren();
+        self::assertSame(
+            array('testNode'),
+            $this->subject->getKeysOfHiddenSubparts()
+        );
+    }
 
-		self::assertSame(
-			array('testNode'),
-			$this->subject->getKeysOfHiddenSubparts()
-		);
-	}
+    /////////////////////////////////////////////
+    // Tests concerning getKeysOfHiddenSubparts
+    /////////////////////////////////////////////
 
+    /**
+     * @test
+     */
+    public function getKeysOfHiddenSubpartsForTreeWithoutNodesReturnsEmptyArray()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array());
 
-	/////////////////////////////////////////////
-	// Tests concerning getKeysOfHiddenSubparts
-	/////////////////////////////////////////////
+        self::assertSame(
+            array(),
+            $this->subject->getKeysOfHiddenSubparts()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getKeysOfHiddenSubpartsForTreeWithoutNodesReturnsEmptyArray() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array());
+    /**
+     * @test
+     */
+    public function getKeysOfHiddenSubpartsForTreeWithOneHiddenNodeReturnsArrayWithNodeName()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => false));
 
-		self::assertSame(
-			array(),
-			$this->subject->getKeysOfHiddenSubparts()
-		);
-	}
+        self::assertSame(
+            array('testNode'),
+            $this->subject->getKeysOfHiddenSubparts()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getKeysOfHiddenSubpartsForTreeWithOneHiddenNodeReturnsArrayWithNodeName() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => FALSE));
+    /**
+     * @test
+     */
+    public function getKeysOfHiddenSubpartsForTreeWithOneHiddenParentNodeAndOneHiddenChildNodeReturnsArrayWithBothNodeNames()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('child' => array('parent' => false)));
 
-		self::assertSame(
-			array('testNode'),
-			$this->subject->getKeysOfHiddenSubparts()
-		);
-	}
+        self::assertSame(
+            array('parent', 'child'),
+            $this->subject->getKeysOfHiddenSubparts()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getKeysOfHiddenSubpartsForTreeWithOneHiddenParentNodeAndOneHiddenChildNodeReturnsArrayWithBothNodeNames() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('child' => array('parent' => FALSE)));
+    /**
+     * @test
+     */
+    public function getKeysOfHiddenSubpartsForTreeWithVisibleParentNodeAndOneHiddenChildNodeReturnsArrayWithChildNodeName()
+    {
+        $this->subject = new Tx_Oelib_Visibility_Tree(array('parent' => array('hidden' => false, 'visible' => true)));
 
-		self::assertSame(
-			array('parent', 'child'),
-			$this->subject->getKeysOfHiddenSubparts()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function getKeysOfHiddenSubpartsForTreeWithVisibleParentNodeAndOneHiddenChildNodeReturnsArrayWithChildNodeName() {
-		$this->subject = new Tx_Oelib_Visibility_Tree(array('parent' => array('hidden' => FALSE, 'visible' => TRUE)));
-
-		self::assertSame(
-			array('hidden'),
-			$this->subject->getKeysOfHiddenSubparts()
-		);
-	}
+        self::assertSame(
+            array('hidden'),
+            $this->subject->getKeysOfHiddenSubparts()
+        );
+    }
 }

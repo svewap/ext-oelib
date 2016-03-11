@@ -15,134 +15,141 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @var Tx_Oelib_Geocoding_Dummy
-	 */
-	private $subject;
+class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @var Tx_Oelib_Geocoding_Dummy
+     */
+    private $subject;
 
-	protected function setUp() {
-		$this->subject = new Tx_Oelib_Geocoding_Dummy();
-	}
+    protected function setUp()
+    {
+        $this->subject = new Tx_Oelib_Geocoding_Dummy();
+    }
 
-	/////////////////////
-	// Tests for lookUp
-	/////////////////////
+    /////////////////////
+    // Tests for lookUp
+    /////////////////////
 
-	/**
-	 * @test
-	 */
-	public function lookUpForEmptyAddressSetsCoordinatesError() {
-		$geo = $this->getMock(
-			'Tx_Oelib_Tests_Unit_Fixtures_TestingGeo',
-			array('setGeoError')
-		);
-		$geo->expects(self::once())->method('setGeoError');
+    /**
+     * @test
+     */
+    public function lookUpForEmptyAddressSetsCoordinatesError()
+    {
+        $geo = $this->getMock(
+            'Tx_Oelib_Tests_Unit_Fixtures_TestingGeo',
+            array('setGeoError')
+        );
+        $geo->expects(self::once())->method('setGeoError');
 
-		/** @var Tx_Oelib_Tests_Unit_Fixtures_TestingGeo $geo */
-		$this->subject->lookUp($geo);
-	}
+        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingGeo $geo */
+        $this->subject->lookUp($geo);
+    }
 
-	/**
-	 * @test
-	 */
-	public function lookUpForAFullGermanAddressSetsCoordinatesFromSetCoordinates() {
-		$coordinates = array('latitude' => 50.7335500, 'longitude' => 7.1014300);
-		$this->subject->setCoordinates(
-			$coordinates['latitude'], $coordinates['longitude']
-		);
+    /**
+     * @test
+     */
+    public function lookUpForAFullGermanAddressSetsCoordinatesFromSetCoordinates()
+    {
+        $coordinates = array('latitude' => 50.7335500, 'longitude' => 7.1014300);
+        $this->subject->setCoordinates(
+            $coordinates['latitude'], $coordinates['longitude']
+        );
 
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		$this->subject->lookUp($geo);
+        $this->subject->lookUp($geo);
 
-		self::assertSame(
-			$coordinates,
-			$geo->getGeoCoordinates()
-		);
-	}
+        self::assertSame(
+            $coordinates,
+            $geo->getGeoCoordinates()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function lookUpForAFullGermanAddressWithoutSetCoordinatesSetsNoCoordinates() {
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+    /**
+     * @test
+     */
+    public function lookUpForAFullGermanAddressWithoutSetCoordinatesSetsNoCoordinates()
+    {
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		$this->subject->lookUp($geo);
+        $this->subject->lookUp($geo);
 
-		self::assertFalse(
-			$geo->hasGeoCoordinates()
-		);
-	}
+        self::assertFalse(
+            $geo->hasGeoCoordinates()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function lookUpForAFullGermanAddressWithoutSetCoordinatesNotClearsExistingCoordinates() {
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+    /**
+     * @test
+     */
+    public function lookUpForAFullGermanAddressWithoutSetCoordinatesNotClearsExistingCoordinates()
+    {
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		$this->subject->lookUp($geo);
+        $this->subject->lookUp($geo);
 
-		self::assertFalse(
-			$geo->hasGeoCoordinates()
-		);
-	}
+        self::assertFalse(
+            $geo->hasGeoCoordinates()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function lookUpForAFullGermanAddressWithoutSetCoordinatesSetsGeoError() {
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+    /**
+     * @test
+     */
+    public function lookUpForAFullGermanAddressWithoutSetCoordinatesSetsGeoError()
+    {
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		$this->subject->lookUp($geo);
+        $this->subject->lookUp($geo);
 
-		self::assertTrue(
-			$geo->hasGeoError()
-		);
-	}
+        self::assertTrue(
+            $geo->hasGeoError()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function lookUpForAFullGermanAddressWithCoordinatesNotOverwritesCoordinates() {
-		$this->subject->setCoordinates(42.0, 42.0);
+    /**
+     * @test
+     */
+    public function lookUpForAFullGermanAddressWithCoordinatesNotOverwritesCoordinates()
+    {
+        $this->subject->setCoordinates(42.0, 42.0);
 
-		$coordinates = array('latitude' => 50.7335500, 'longitude' => 7.1014300);
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
-		$geo->setGeoCoordinates($coordinates);
+        $coordinates = array('latitude' => 50.7335500, 'longitude' => 7.1014300);
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+        $geo->setGeoCoordinates($coordinates);
 
-		$this->subject->lookUp($geo);
+        $this->subject->lookUp($geo);
 
-		self::assertSame(
-			$coordinates,
-			$geo->getGeoCoordinates()
-		);
-	}
+        self::assertSame(
+            $coordinates,
+            $geo->getGeoCoordinates()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function lookUpAfterClearCoordinatesSetsNoCoordinates() {
-		$this->subject->setCoordinates(42.0, 42.0);
-		$this->subject->clearCoordinates();
+    /**
+     * @test
+     */
+    public function lookUpAfterClearCoordinatesSetsNoCoordinates()
+    {
+        $this->subject->setCoordinates(42.0, 42.0);
+        $this->subject->clearCoordinates();
 
-		$geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-		$geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-		$this->subject->lookUp($geo);
+        $this->subject->lookUp($geo);
 
-		self::assertFalse(
-			$geo->hasGeoCoordinates()
-		);
-	}
+        self::assertFalse(
+            $geo->hasGeoCoordinates()
+        );
+    }
 }

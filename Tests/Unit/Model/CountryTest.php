@@ -15,122 +15,125 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_oelib
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase {
-	protected function tearDown() {
-		Tx_Oelib_MapperRegistry::purgeInstance();
-	}
+class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase
+{
+    protected function tearDown()
+    {
+        Tx_Oelib_MapperRegistry::purgeInstance();
+    }
 
+    //////////////////////////////////////////////////
+    // Tests regarding getting the local short name.
+    //////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////
-	// Tests regarding getting the local short name.
-	//////////////////////////////////////////////////
+    /**
+     * @test
+     */
+    public function getLocalShortNameReturnsLocalShortNameOfGermany()
+    {
+        /** @var Tx_Oelib_Model_Country $subject */
+        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(54);
 
-	/**
-	 * @test
-	 */
-	public function getLocalShortNameReturnsLocalShortNameOfGermany() {
-		/** @var Tx_Oelib_Model_Country $subject */
-		$subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(54);
+        self::assertSame(
+            'Deutschland',
+            $subject->getLocalShortName()
+        );
+    }
 
-		self::assertSame(
-			'Deutschland',
-			$subject->getLocalShortName()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getLocalShortNameReturnsLocalShortNameOfUnitedKingdomOfGreatBritain()
+    {
+        /** @var Tx_Oelib_Model_Country $subject */
+        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(74);
 
-	/**
-	 * @test
-	 */
-	public function getLocalShortNameReturnsLocalShortNameOfUnitedKingdomOfGreatBritain() {
-		/** @var Tx_Oelib_Model_Country $subject */
-		$subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(74);
+        self::assertSame(
+            'United Kingdom',
+            $subject->getLocalShortName()
+        );
+    }
 
-		self::assertSame(
-			'United Kingdom',
-			$subject->getLocalShortName()
-		);
-	}
+    //////////////////////////////////////////////////
+    // Tests regarding getting the ISO alpha-2 code.
+    //////////////////////////////////////////////////
 
+    /**
+     * @test
+     */
+    public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfGermany()
+    {
+        /** @var Tx_Oelib_Model_Country $subject */
+        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(54);
 
-	//////////////////////////////////////////////////
-	// Tests regarding getting the ISO alpha-2 code.
-	//////////////////////////////////////////////////
+        self::assertSame(
+            'DE',
+            $subject->getIsoAlpha2Code()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfGermany() {
-		/** @var Tx_Oelib_Model_Country $subject */
-		$subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(54);
+    /**
+     * @test
+     */
+    public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfUnitedKingdomOfGreatBritain()
+    {
+        /** @var Tx_Oelib_Model_Country $subject */
+        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(74);
 
-		self::assertSame(
-			'DE',
-			$subject->getIsoAlpha2Code()
-		);
-	}
+        self::assertSame(
+            'GB',
+            $subject->getIsoAlpha2Code()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfUnitedKingdomOfGreatBritain() {
-		/** @var Tx_Oelib_Model_Country $subject */
-		$subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(74);
+    //////////////////////////////////////////////////
+    // Tests regarding getting the ISO alpha-3 code.
+    //////////////////////////////////////////////////
 
-		self::assertSame(
-			'GB',
-			$subject->getIsoAlpha2Code()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getIsoAlpha3CodeReturnsIsoAlpha3CodeOfGermany()
+    {
+        /** @var Tx_Oelib_Model_Country $subject */
+        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(54);
 
+        self::assertSame(
+            'DEU',
+            $subject->getIsoAlpha3Code()
+        );
+    }
 
-	//////////////////////////////////////////////////
-	// Tests regarding getting the ISO alpha-3 code.
-	//////////////////////////////////////////////////
+    /**
+     * @test
+     */
+    public function getIsoAlpha3CodeReturnsIsoAlpha3CodeOfUnitedKingdomOfGreatBritain()
+    {
+        /** @var Tx_Oelib_Model_Country $subject */
+        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(74);
 
-	/**
-	 * @test
-	 */
-	public function getIsoAlpha3CodeReturnsIsoAlpha3CodeOfGermany() {
-		/** @var Tx_Oelib_Model_Country $subject */
-		$subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(54);
+        self::assertSame(
+            'GBR',
+            $subject->getIsoAlpha3Code()
+        );
+    }
 
-		self::assertSame(
-			'DEU',
-			$subject->getIsoAlpha3Code()
-		);
-	}
+    ////////////////////////////////
+    // Tests concerning isReadOnly
+    ////////////////////////////////
 
-	/**
-	 * @test
-	 */
-	public function getIsoAlpha3CodeReturnsIsoAlpha3CodeOfUnitedKingdomOfGreatBritain() {
-		/** @var Tx_Oelib_Model_Country $subject */
-		$subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(74);
+    /**
+     * @test
+     */
+    public function isReadOnlyIsTrue()
+    {
+        $model = new Tx_Oelib_Model_Country();
 
-		self::assertSame(
-			'GBR',
-			$subject->getIsoAlpha3Code()
-		);
-	}
-
-
-	////////////////////////////////
-	// Tests concerning isReadOnly
-	////////////////////////////////
-
-	/**
-	 * @test
-	 */
-	public function isReadOnlyIsTrue() {
-		$model = new Tx_Oelib_Model_Country();
-
-		self::assertTrue(
-			$model->isReadOnly()
-		);
-	}
+        self::assertTrue(
+            $model->isReadOnly()
+        );
+    }
 }
