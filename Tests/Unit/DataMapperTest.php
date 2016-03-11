@@ -1204,6 +1204,19 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function oneToManyRelationsWithOneRelatedModelNotLoadsDeletedModel() {
+		$uid = $this->testingFramework->createRecord('tx_oelib_test', ['composition' => 1]);
+		$this->testingFramework->createRecord('tx_oelib_testchild', ['parent' => $uid, 'deleted' => 1]);
+
+		/** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+		$model = $this->subject->find($uid);
+
+		self::assertTrue($model->getComposition()->isEmpty());
+	}
+
+	/**
+	 * @test
+	 */
 	public function oneToManyRelationsWithTwoRelatedModelsReturnsListWithBothRelatedModels() {
 		$uid = $this->testingFramework->createRecord(
 			'tx_oelib_test', array('composition' => 2)
