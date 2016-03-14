@@ -66,11 +66,7 @@ class Tx_Oelib_Model_BackEndUser extends Tx_Oelib_Model implements Tx_Oelib_Inte
     public function getLanguage()
     {
         $configuration = $this->getConfiguration();
-        if (isset($configuration['lang']) && ($configuration['lang'] !== '')) {
-            $result = $configuration['lang'];
-        } else {
-            $result = $this->getDefaultLanguage();
-        }
+        $result = isset($configuration['lang']) ? $configuration['lang'] : $this->getDefaultLanguage();
 
         return ($result !== '') ? $result : 'default';
     }

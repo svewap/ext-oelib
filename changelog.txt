@@ -6,6 +6,7 @@ Features:
 - [#5239] Add a composer.json
 
 Bug fixes:
+- [#5683] E-mail salutation is in German even for English BE
 - [#5668] 1:n associations also load deleted models
 - [#5661] Fix the static-info-tables dependency in the composer.json
 - [#5411] Test failure if no FE user records are in the DB

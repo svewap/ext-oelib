@@ -151,6 +151,20 @@ class Tx_Oelib_Tests_Unit_Model_BackEndUserTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
+    public function getLanguageForSetDefaultLanguageAndEmptyLanguageSetInUserConfigurationReturnsDefaultLanguage()
+    {
+        $this->subject->setData(array('uc' => serialize(array('lang' => ''))));
+        $this->subject->setDefaultLanguage('de');
+
+        self::assertSame(
+            'default',
+            $this->subject->getLanguage()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getDefaultLanguageSetsLanguage()
     {
         $this->subject->setDefaultLanguage('de');
