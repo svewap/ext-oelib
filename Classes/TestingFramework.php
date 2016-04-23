@@ -16,11 +16,11 @@ use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\Utility\File\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * This class provides various functions to handle dummy records in unit tests.
- *
  *
  * @author Mario Rimann <typo3-coding@rimann.org>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
@@ -1289,6 +1289,10 @@ final class Tx_Oelib_TestingFramework
         );
         $GLOBALS['TSFE'] = null;
         $GLOBALS['TT'] = null;
+        unset(
+            $GLOBALS['TYPO3_CONF_VARS']['FE']['dontSetCookie'],
+            $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][FrontendUserAuthentication::class]
+        );
 
         $this->hasFakeFrontEnd = false;
     }
@@ -1316,10 +1320,9 @@ final class Tx_Oelib_TestingFramework
 
         $GLOBALS['_POST']['FE_SESSION_KEY'] = '';
         $GLOBALS['_GET']['FE_SESSION_KEY'] = '';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['dontSetCookie'] = 1;
 
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Frontend\\Authentication\\FrontendUserAuthentication']
-            = array('className' => 'Tx_Oelib_FrontEnd_UserWithoutCookies');
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][FrontendUserAuthentication::class]
+            = ['className' => \Tx_Oelib_FrontEnd_UserWithoutCookies::class];
     }
 
     /*
