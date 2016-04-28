@@ -6,6 +6,7 @@ Features:
 - [#5239] Add a composer.json
 
 Bug fixes:
+- [#5696] Framework crashes with Redis rootline cache
 - [#5691] Warning about headers already sent when running the tests
 - [#5683] E-mail salutation is in German even for English BE
 - [#5668] 1:n associations also load deleted models

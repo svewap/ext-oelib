@@ -197,9 +197,10 @@ final class Tx_Oelib_TestingFramework
         $this->determineAndSetAutoIncrementThreshold();
 
         /** @var array $rootLineCacheConfiguration */
-        $rootLineCacheConfiguration = (array) $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_rootline'];
+        $rootLineCacheConfiguration = (array)$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_rootline'];
         $rootLineCacheConfiguration['backend'] = NullBackend::class;
-        $cacheConfigurations = array('cache_rootline' => $rootLineCacheConfiguration);
+        $rootLineCacheConfiguration['options'] = [];
+        $cacheConfigurations = ['cache_rootline' => $rootLineCacheConfiguration];
         /** @var CacheManager $cacheManager */
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         $cacheManager->setCacheConfigurations($cacheConfigurations);
