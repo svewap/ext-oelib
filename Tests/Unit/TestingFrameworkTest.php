@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -34,13 +35,6 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
      * @var Tx_Oelib_TestingFramework
      */
     protected $subject = null;
-
-    /**
-     * @var string absolute path to a "foreign" file which was created for test
-     *             purposes and which should be deleted in tearDown(); this is
-     *             needed for testDeleteDummyFileWithForeignFileThrowsException
-     */
-    protected $foreignFileToDelete = '';
 
     /**
      * @var string absolute path to a "foreign" folder which was created for
@@ -77,7 +71,6 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->setResetAutoIncrementThreshold(1);
         $this->subject->cleanUp();
         $this->subject->purgeHooks();
-        $this->deleteForeignFile();
         $this->deleteForeignFolder();
 
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'] = $this->extConfBackup;
@@ -149,21 +142,6 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
                 'The extension user_oelibtest2 is not installed, but needs to be installed. Please install it.'
             );
         }
-    }
-
-    /**
-     * Deletes a "foreign" file which was created for test purposes.
-     *
-     * @return void
-     */
-    protected function deleteForeignFile()
-    {
-        if ($this->foreignFileToDelete === '') {
-            return;
-        }
-
-        @unlink($this->foreignFileToDelete);
-        $this->foreignFileToDelete = '';
     }
 
     /**
@@ -3928,20 +3906,15 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
+     *
+     * @expectedException \InvalidArgumentException
      */
     public function deleteDummyFileWithForeignFileThrowsException()
     {
-        $uniqueFileName = $this->subject->getUniqueFileOrFolderPath('test.txt');
-        GeneralUtility::writeFile($uniqueFileName, '');
-        $this->foreignFileToDelete = $uniqueFileName;
+        vfsStream::setup('root/');
+        $testFileUrl = vfsStream::url('root/test.txt');
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
-            'The file "' . $uniqueFileName . '" which you are ' .
-                'trying to delete was not created by this instance of the testing framework.'
-        );
-
-        $this->subject->deleteDummyFile(basename($uniqueFileName));
+        $this->subject->deleteDummyFile($testFileUrl);
     }
 
     /*

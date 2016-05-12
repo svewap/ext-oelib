@@ -1180,11 +1180,11 @@ final class Tx_Oelib_TestingFramework
      */
     public function getUniqueFileOrFolderPath($path)
     {
-        if (empty($path)) {
+        if ($path === '') {
             throw new InvalidArgumentException('The first parameter $path must not be empty.', 1331490775);
         }
 
-        if (!self::$fileNameProcessor) {
+        if (self::$fileNameProcessor === null) {
             self::$fileNameProcessor = GeneralUtility::makeInstance(BasicFileUtility::class);
         }
 
