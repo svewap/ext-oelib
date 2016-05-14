@@ -434,7 +434,7 @@ as bold.
          tx\_oelib\_FileFunctions::rmdir
 
    Successor
-         t3lib\_div::rmdir
+         GeneralUtility::rmdir
 
    Deprecated
          2010-07-22
@@ -494,7 +494,7 @@ as bold.
          Tx\_Oelib\_ObjectFactory::make
 
    Successor
-         t3lib\_div::makeInstance
+         GeneralUtility::makeInstance
 
    Deprecated
          2014-04-11

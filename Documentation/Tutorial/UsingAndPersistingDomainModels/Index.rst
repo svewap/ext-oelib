@@ -190,7 +190,7 @@ modified looks like this:
 
 Creating a new model in memory and saving it looks like this:
 
-$tender=t3lib\_div::makeInstance('tx\_geotenders\_Model\_Tender');
+$tender = GeneralUtility::makeInstance('tx\_geotenders\_Model\_Tender');
 
 $tender->setData(array(
 
