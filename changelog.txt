@@ -18,6 +18,7 @@ Bug fixes:
 - [#5321] Update .htaccess to be Apache 2.4 compatible
 
 Cleanup:
+- [#5704] Remove any references to t3lib in the documentation
 - [#5701] Use vfsStream for checking foreign files
 - [#5360] Reformat the code to PSR-2
 - [#5658] Replace "language" in the PHPDoc
