@@ -75,6 +75,7 @@ return [
             'label' => 'Friend (n:1 relation within the same table):',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_oelib_test',
                 'size' => 1,
                 'minitems' => 0,
@@ -99,6 +100,7 @@ return [
             'label' => 'Children (m:n relation using a comma-separated list)',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingleBox',
                 'foreign_table' => 'tx_oelib_test',
                 'size' => 4,
                 'minitems' => 0,
@@ -111,6 +113,7 @@ return [
             'label' => 'Related records (m:n relation using an m:n table)',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingleBox',
                 'foreign_table' => 'tx_oelib_test',
                 'size' => 4,
                 'minitems' => 0,
@@ -152,6 +155,7 @@ return [
             'label' => 'Related records (m:n relation using an m:n table)',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingleBox',
                 'foreign_table' => 'tx_oelib_test',
                 'size' => 4,
                 'minitems' => 0,
@@ -169,7 +173,7 @@ return [
         ],
     ],
     'types' => [
-        '0' => ['showitem' => 'title;;;;2-2-2, friend, owner, children, related_records, composition'],
+        '0' => ['showitem' => 'title, friend, owner, children, related_records, composition'],
     ],
     'palettes' => [
         '1' => ['showitem' => 'starttime, endtime'],

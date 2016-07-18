@@ -4524,10 +4524,11 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function getStoragePidForNoSetGrspReturnsZero()
     {
-        self::assertSame(
-            0,
-            $this->subject->getStoragePid()
-        );
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7000000) {
+            self::markTestSkipped('This test is only applicable for TYPO3 below version 7');
+        }
+
+        self::assertSame(0, $this->subject->getStoragePid());
     }
 
     /**
@@ -4536,7 +4537,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getStoragePidForGrspSetReturnsThisId()
     {
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7000000) {
-            $this->markTestSkipped('This test is only applicable for TYPO3 below version 7');
+            self::markTestSkipped('This test is only applicable for TYPO3 below version 7');
         }
 
         $pageUid = $this->testingFramework->createFrontEndPage(
@@ -4556,7 +4557,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function hasStoragePidForGrspSetReturnsTrue()
     {
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7000000) {
-            $this->markTestSkipped('This test is only applicable for TYPO3 below version 7');
+            self::markTestSkipped('This test is only applicable for TYPO3 below version 7');
         }
 
         $pageUid = $this->testingFramework->createFrontEndPage(
@@ -4574,6 +4575,10 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function hasStoragePidForNoGrspSetReturnsFalse()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7000000) {
+            self::markTestSkipped('This test is only applicable for TYPO3 below version 7');
+        }
+
         self::assertFalse(
             $this->subject->hasStoragePid()
         );

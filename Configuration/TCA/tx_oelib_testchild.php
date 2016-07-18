@@ -46,6 +46,6 @@ return [
         ],
     ],
     'types' => [
-        '0' => ['showitem' => 'title;;;;2-2-2'],
+        '0' => ['showitem' => 'title'],
     ],
 ];
