@@ -697,4 +697,17 @@ as bold.
    Removed
          0.9.0 + 2
 
+.. container:: table-row
+
+   Classmethod
+         Tx\_Oelib\_Double3Validator
+
+   Successor
+
+   Deprecated
+         2016-07-18
+
+   Removed
+         1.0.0 + 2
+
 .. ###### END~OF~TABLE ######

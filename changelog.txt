@@ -33,6 +33,7 @@ Cleanup:
 - [#5407] Drop the old XCLASS footers
 
 Changes:
+- [#5732] Deprecate the Double3Validator
 - [#5507] Rename tx_oelib_Mapper_BackEndUser to Tx_Oelib_Mapper_BackEndUser
 - [#5501] Rename tx_oelib_Interface_GeocodingLookup to Tx_Oelib_Interface_GeocodingLookup
 - [#5500] Rename tx_oelib_Interface_MapPoint to Tx_Oelib_Interface_MapPoint
