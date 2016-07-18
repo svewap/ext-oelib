@@ -11,7 +11,9 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+
 use TYPO3\CMS\Core\Charset\CharsetConverter;
+use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -19,7 +21,6 @@ use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * This class provides a registry for translators.
- *
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Benjamin Schulte <benj@minschulte.de>
@@ -60,10 +61,9 @@ class Tx_Oelib_TranslatorRegistry
     private $charsetConversion = null;
 
     /**
-     * @var string the path to the locallang.xml file, relative to an
-     *             extension's root directory
+     * @var string the path to the locallang.xlf file, relative to an extension's root directory
      */
-    const LANGUAGE_FILE_PATH = 'Resources/Private/Language/locallang.xml';
+    const LANGUAGE_FILE_PATH = 'Resources/Private/Language/locallang.xlf';
 
     /**
      * @var string the default render charset (both front end and back end)
@@ -234,34 +234,28 @@ class Tx_Oelib_TranslatorRegistry
     /**
      * Returns the localized labels from an extension's language file.
      *
-     * @param string $extensionName
-     *        the extension name to get the localized labels from file for,
-     *        must not be empty, the corresponding extension must be loaded
+     * @param string $extensionKey
+     *        key of the extension to get the localized labels from,
+     *        must not be empty, and the corresponding extension must be loaded
      *
      * @return string[] the localized labels from an extension's language file, will be empty if there are none
      */
-    private function getLocalizedLabelsFromFile($extensionName)
+    private function getLocalizedLabelsFromFile($extensionKey)
     {
-        if ($extensionName === '') {
-            throw new InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489618);
+        if ($extensionKey === '') {
+            throw new InvalidArgumentException('$extensionKey must not be empty.', 1331489618);
         }
 
-        $languageFile = ExtensionManagementUtility::extPath($extensionName) . self::LANGUAGE_FILE_PATH;
-        $localizedLabels = GeneralUtility::readLLfile(
-            $languageFile,
-            $this->languageKey,
-            $this->renderCharset
-        );
+        /** @var LocalizationFactory $languageFactory */
+        $languageFactory = GeneralUtility::makeInstance(LocalizationFactory::class);
+        $languageFile = 'EXT:' . $extensionKey . '/' . self::LANGUAGE_FILE_PATH;
+        $localizedLabels = $languageFactory->getParsedData($languageFile, $this->languageKey, $this->renderCharset, 0);
 
         if ($this->alternativeLanguageKey !== '') {
-            $alternativeLocalizedLabels = GeneralUtility::readLLfile(
-                $languageFile,
-                $this->alternativeLanguageKey,
-                $this->renderCharset
-            );
+            $alternativeLabels = $languageFactory->getParsedData($languageFile, $this->languageKey, $this->renderCharset, 0);
             $localizedLabels = array_merge(
-                $alternativeLocalizedLabels,
-                (is_array($localizedLabels) ? $localizedLabels : array())
+                $alternativeLabels,
+                is_array($localizedLabels) ? $localizedLabels : []
             );
         }
 

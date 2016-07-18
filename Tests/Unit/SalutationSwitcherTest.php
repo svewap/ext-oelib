@@ -313,13 +313,13 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function fallbackToDefault()
+    public function fallbackForInexistentLanguageIsLanguageKey()
     {
-        $this->subject->setLanguage('xy');
-        self::assertSame(
-            'default_not_fallback default',
-            $this->subject->translate('default_not_fallback')
-        );
+        $key = 'default_not_fallback';
+        $inexistentLanguage = 'xy';
+        $this->subject->setLanguage($inexistentLanguage);
+
+        self::assertSame($key, $this->subject->translate($key));
     }
 
     /**

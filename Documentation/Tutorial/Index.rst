@@ -26,7 +26,6 @@ Tutorial
 
    UsingAndPersistingDomainModels/Index
    UsingTheTemplateHelperAndSalutationSwitching/Index
-   UsingLocallangxmlInTheBackEnd/Index
    UsingTheAutomaticConfigurationCheckForExtensions/Index
    UsingTheTestingFrameworkForUnitTests/Index
    UsingTheConfigurationProxy/Index

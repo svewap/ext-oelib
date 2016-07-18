@@ -1,6 +1,7 @@
 1.0.0 - currently working on
 
 Features:
+- [#5453] Add unit tests for XLIFF language files
 - [#5654] Add ClassAliasMap file for autoloading
 - [#5653] Add a configuration for PDF rendering of the manual
 - [#5239] Add a composer.json
