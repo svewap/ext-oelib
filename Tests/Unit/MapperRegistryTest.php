@@ -34,9 +34,9 @@ class Tx_Oelib_Tests_Unit_MapperRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceReturnsMapperRegistryInstance()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_MapperRegistry::class,
             Tx_Oelib_MapperRegistry::getInstance()
-                instanceof Tx_Oelib_MapperRegistry
         );
     }
 
@@ -110,9 +110,9 @@ class Tx_Oelib_Tests_Unit_MapperRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getForExistingClassReturnsObjectOfRequestedClass()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
             Tx_Oelib_MapperRegistry::get('Tx_Oelib_Tests_Unit_Fixtures_TestingMapper')
-                instanceof Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
         );
     }
 
@@ -121,9 +121,9 @@ class Tx_Oelib_Tests_Unit_MapperRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getForExistingClassWithExtbaseCapitalizationReturnsObjectOfRequestedClass()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
             Tx_Oelib_MapperRegistry::get('Tx_Oelib_Tests_Unit_Fixtures_TestingMapper')
-            instanceof Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
         );
     }
 
@@ -132,9 +132,9 @@ class Tx_Oelib_Tests_Unit_MapperRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getForExistingClassWithAllLowercaseReturnsObjectOfRequestedClass()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
             Tx_Oelib_MapperRegistry::get('tx_oelib_tests_unit_fixtures_testingmapper')
-            instanceof Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
         );
     }
 
@@ -201,9 +201,9 @@ class Tx_Oelib_Tests_Unit_MapperRegistryTest extends Tx_Phpunit_TestCase
             new Tx_Oelib_TestingFramework('tx_oelib')
         );
 
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
             Tx_Oelib_MapperRegistry::get('Tx_Oelib_Tests_Unit_Fixtures_TestingMapper')
-                instanceof Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
         );
     }
 

@@ -174,8 +174,7 @@ class Tx_Oelib_ConfigurationRegistry
      * @param string $namespace
      *        the namespace of the configuration to retrieve, must not be empty
      *
-     * @return array the TypoScript configuration for that namespace, might be
-     *               empty
+     * @return Tx_Oelib_Configuration the TypoScript configuration for that namespace, might be empty
      */
     private function retrieveConfigurationFromTypoScriptSetup($namespace)
     {

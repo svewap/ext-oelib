@@ -66,29 +66,6 @@ final class Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper extends Tx_Oelib_
     }
 
     /**
-     * Returns the localized label of the LOCAL_LANG key $key, simulating an FE
-     * environment.
-     *
-     * @param string $key
-     *        the key from the LOCAL_LANG array for which to return the value
-     * @param string $alternativeString
-     *        alternative string to return if no value is found for the key,
-     *        neither for the local language nor the default.
-     * @param bool $useHtmlSpecialChars
-     *        If TRUE, the output label is passed through htmlspecialchars().
-     *
-     * @return string the value from LOCAL_LANG
-     */
-    public function translate($key, $alternativeString = '', $useHtmlSpecialChars = false)
-    {
-        return parent::translate(
-            $key,
-            $alternativeString,
-            $useHtmlSpecialChars
-        );
-    }
-
-    /**
      * Retrieves the configuration (TS setup) of the page with the PID provided
      * as the parameter $pageId.
      *

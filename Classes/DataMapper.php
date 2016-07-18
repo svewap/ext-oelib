@@ -378,7 +378,7 @@ abstract class Tx_Oelib_DataMapper
     private function isManyToOneRelationConfigured($key)
     {
         $relationConfiguration = $this->getRelationConfigurationFromTca($key);
-        $cardinality = (isset($relationConfiguration['maxitems'])) ? (int)$relationConfiguration['maxitems'] : 1;
+        $cardinality = isset($relationConfiguration['maxitems']) ? (int)$relationConfiguration['maxitems'] : 1;
 
         return ($cardinality === 1);
     }

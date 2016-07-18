@@ -171,7 +171,7 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
     {
         $baseUrlWithAddress = self::BASE_URL . '&address=';
 
-        return GeneralUtility::getURL($baseUrlWithAddress . urlencode($address));
+        return GeneralUtility::getUrl($baseUrlWithAddress . urlencode($address));
     }
 
     /**

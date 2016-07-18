@@ -52,9 +52,9 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserGroupTest extends Tx_Phpunit_TestCa
     {
         $uid = $this->testingFramework->createFrontEndUserGroup();
 
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model_FrontEndUserGroup::class,
             $this->subject->find($uid)
-                instanceof Tx_Oelib_Model_FrontEndUserGroup
         );
     }
 

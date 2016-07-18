@@ -325,7 +325,7 @@ class Tx_Oelib_Template
     {
         $condition = ((int)$content) !== 0;
         if ($condition) {
-            $this->setMarker($markerName, ((string) $content), $markerPrefix);
+            $this->setMarker($markerName, (string)$content, $markerPrefix);
         }
         return $condition;
     }
@@ -566,7 +566,7 @@ class Tx_Oelib_Template
         return $this->setOrDeleteMarker(
             $markerName,
             ((int)$content) !== 0,
-            ((string)$content),
+            (string)$content,
             $markerPrefix,
             $wrapperPrefix
         );
@@ -599,7 +599,7 @@ class Tx_Oelib_Template
     ) {
         return $this->setOrDeleteMarker(
             $markerName,
-            (!empty($content)),
+            !empty($content),
             $content,
             $markerPrefix,
             $wrapperPrefix

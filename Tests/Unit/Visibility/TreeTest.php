@@ -61,9 +61,9 @@ class Tx_Oelib_Tests_Unit_Visibility_TreeTest extends Tx_Phpunit_TestCase
     {
         $this->subject = new Tx_Oelib_Visibility_Tree(array('testNode' => false, 'testNode2' => false));
 
-        self::assertSame(
+        self::assertCount(
             2,
-            count($this->subject->getRootNode()->getChildren())
+            $this->subject->getRootNode()->getChildren()
         );
     }
 
@@ -75,9 +75,9 @@ class Tx_Oelib_Tests_Unit_Visibility_TreeTest extends Tx_Phpunit_TestCase
         $this->subject = new Tx_Oelib_Visibility_Tree(array('child' => array('grandChild' => false)));
 
         $children = $this->subject->getRootNode()->getChildren();
-        self::assertSame(
+        self::assertCount(
             1,
-            count($children[0]->getChildren())
+            $children[0]->getChildren()
         );
     }
 

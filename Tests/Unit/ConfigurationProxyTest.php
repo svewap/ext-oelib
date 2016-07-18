@@ -104,8 +104,9 @@ class Tx_Oelib_Tests_Unit_ConfigurationProxyTest extends Tx_Phpunit_TestCase
      */
     public function extendsPublicObject()
     {
-        self::assertTrue(
-            $this->subject instanceof Tx_Oelib_PublicObject
+        self::assertInstanceOf(
+            Tx_Oelib_PublicObject::class,
+            $this->subject
         );
     }
 

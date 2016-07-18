@@ -32,7 +32,7 @@ class Tx_Oelib_Tests_Unit_BackEndLoginManagerTest extends Tx_Phpunit_TestCase
     private $testingFramework = null;
 
     /**
-     * @var Tx_Oelib_BackEndLoginManager
+     * @var Tx_Oelib_Mapper_BackEndUser
      */
     private $backEndUserMapper = null;
 
@@ -147,9 +147,9 @@ class Tx_Oelib_Tests_Unit_BackEndLoginManagerTest extends Tx_Phpunit_TestCase
      */
     public function getLoggedInUserWithLoggedInUserReturnsBackEndUserInstance()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model_BackEndUser::class,
             $this->subject->getLoggedInUser()
-                instanceof Tx_Oelib_Model_BackEndUser
         );
     }
 
@@ -158,9 +158,9 @@ class Tx_Oelib_Tests_Unit_BackEndLoginManagerTest extends Tx_Phpunit_TestCase
      */
     public function getLoggedInUserWithOtherMapperNameAndLoggedInUserReturnsCorrespondingModel()
     {
-        self::assertTrue(
-            $this->subject->getLoggedInUser('Tx_Oelib_Tests_Unit_Fixtures_TestingMapper')
-                instanceof Tx_Oelib_Tests_Unit_Fixtures_TestingModel
+        self::assertInstanceOf(
+            Tx_Oelib_Tests_Unit_Fixtures_TestingModel::class,
+            $this->subject->getLoggedInUser(Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class)
         );
     }
 

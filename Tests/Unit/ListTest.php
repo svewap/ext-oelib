@@ -629,8 +629,8 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function isIterator()
     {
-        self::assertTrue(
-            $this->subject instanceof Iterator
+        self::assertInstanceOf(
+            Iterator::class, $this->subject
         );
     }
 

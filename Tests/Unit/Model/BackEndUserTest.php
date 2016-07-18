@@ -298,8 +298,9 @@ class Tx_Oelib_Tests_Unit_Model_BackEndUserTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setData(array('usergroup' => new Tx_Oelib_List()));
 
-        self::assertTrue(
-            $this->subject->getAllGroups() instanceof Tx_Oelib_List
+        self::assertInstanceOf(
+            Tx_Oelib_List::class,
+            $this->subject->getAllGroups()
         );
     }
 

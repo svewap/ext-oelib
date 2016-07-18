@@ -89,7 +89,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
         if (isset($this->translationCache[$key])) {
             $result = $this->translationCache[$key];
         } else {
-            if (($this->getFrontEndController() !== null) && is_array($this->LOCAL_LANG)) {
+            if (is_array($this->LOCAL_LANG) && ($this->getFrontEndController() !== null)) {
                 $result = $this->translateInFrontEnd($key);
             } elseif ($this->getLanguageService() !== null) {
                 $result = $this->translateInBackEnd($key);
@@ -142,8 +142,8 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
 
         $availableLanguages = $this->getAvailableLanguages();
         foreach ($this->getSuffixesToTry() as $suffix) {
+            $completeKey = $key . $suffix;
             foreach ($availableLanguages as $language) {
-                $completeKey = $key . $suffix;
                 if (isset($this->LOCAL_LANG[$language][$completeKey])) {
                     $result = parent::pi_getLL($completeKey);
                     $hasFoundATranslation = true;

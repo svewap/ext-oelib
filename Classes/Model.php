@@ -136,7 +136,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
                         $newDataItem->add(clone $childModel);
                     }
                 } else {
-                    $newDataItem = clone($dataItem);
+                    $newDataItem = clone $dataItem;
                 }
                 $newDataItem->setParentModel($this);
                 $this->set($key, $newDataItem);
@@ -355,7 +355,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
         $this->checkForNonEmptyKey($key);
 
         $result = $this->get($key);
-        if (!$this->existsKey($key) || ($result === null)) {
+        if (($result === null) || !$this->existsKey($key)) {
             return null;
         }
 

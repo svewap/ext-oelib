@@ -35,8 +35,9 @@ class Tx_Oelib_Tests_Unit_Double3ValidatorTest extends Tx_Phpunit_TestCase
      */
     public function returnFieldJSReturnsNonEmptyString()
     {
-        self::assertTrue(
-            $this->subject->returnFieldJS() !== ''
+        self::assertNotSame(
+            '',
+            $this->subject->returnFieldJS()
         );
     }
 

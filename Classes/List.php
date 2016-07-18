@@ -122,8 +122,7 @@ class Tx_Oelib_List extends SplObjectStorage
      *
      * Note: This method rewinds the iterator.
      *
-     * @return Tx_Oelib_Model the first item, will be NULL if this list is
-     *                        empty
+     * @return Tx_Oelib_Model the first item, will be NULL if this list is empty
      */
     public function first()
     {

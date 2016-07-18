@@ -201,9 +201,9 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function getModelForNonMappedUidReturnsModelInstance()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model::class,
             $this->subject->getModel(array('uid' => 2))
-                instanceof Tx_Oelib_Model
         );
     }
 
@@ -224,9 +224,9 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $mappedUid = $this->subject->getNewGhost()->getUid();
 
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model::class,
             $this->subject->getModel(array('uid' => $mappedUid))
-                instanceof Tx_Oelib_Model
         );
     }
 
@@ -364,9 +364,9 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function getListOfModelsReturnsInstanceOfList()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_List::class,
             $this->subject->getListOfModels(array(array('uid' => 1)))
-                instanceof Tx_Oelib_List
         );
     }
 
@@ -407,9 +407,9 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function getListOfModelsReturnsListOfModelInstances()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model::class,
             $this->subject->getListOfModels(array(array('uid' => 1)))->current()
-                instanceof Tx_Oelib_Model
         );
     }
 
@@ -1366,8 +1366,9 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function getNewGhostReturnsModel()
     {
-        self::assertTrue(
-            $this->subject->getNewGhost() instanceof Tx_Oelib_Model
+        self::assertInstanceOf(
+            Tx_Oelib_Model::class,
+            $this->subject->getNewGhost()
         );
     }
 
@@ -1429,9 +1430,9 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $this->subject->disableDatabaseAccess();
 
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model::class,
             $this->subject->getLoadedTestingModel(array())
-                instanceof Tx_Oelib_Model
         );
     }
 

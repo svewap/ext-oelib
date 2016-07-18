@@ -588,9 +588,7 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
      */
     public function getFirstOrFullName()
     {
-        return ($this->hasFirstName())
-            ? $this->getFirstName()
-            : $this->getName();
+        return $this->hasFirstName() ? $this->getFirstName() : $this->getName();
     }
 
     /**
@@ -602,9 +600,7 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
      */
     public function getLastOrFullName()
     {
-        return ($this->hasLastName())
-            ? $this->getLastName()
-            : $this->getName();
+        return $this->hasLastName() ? $this->getLastName() : $this->getName();
     }
 
     /**

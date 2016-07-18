@@ -756,9 +756,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
         $this->subject->send($eMail);
         $children = $this->subject->getFirstSentEmail()->getChildren();
 
-        self::assertSame(
+        self::assertCount(
             2,
-            count($children)
+            $children
         );
     }
 }

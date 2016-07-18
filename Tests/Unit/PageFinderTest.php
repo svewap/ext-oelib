@@ -50,9 +50,9 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceReturnsPageFinderInstance()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_PageFinder::class,
             Tx_Oelib_PageFinder::getInstance()
-                instanceof Tx_Oelib_PageFinder
         );
     }
 

@@ -39,8 +39,9 @@ class Tx_Oelib_Tests_Unit_Mapper_CurrencyTest extends Tx_Phpunit_TestCase
      */
     public function findWithUidOfExistingRecordReturnsCurrencyInstance()
     {
-        self::assertTrue(
-            $this->subject->find(49) instanceof Tx_Oelib_Model_Currency
+        self::assertInstanceOf(
+            Tx_Oelib_Model_Currency::class,
+            $this->subject->find(49)
         );
     }
 
@@ -53,9 +54,9 @@ class Tx_Oelib_Tests_Unit_Mapper_CurrencyTest extends Tx_Phpunit_TestCase
      */
     public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsCurrencyInstance()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model_Currency::class,
             $this->subject->findByIsoAlpha3Code('EUR')
-                instanceof Tx_Oelib_Model_Currency
         );
     }
 

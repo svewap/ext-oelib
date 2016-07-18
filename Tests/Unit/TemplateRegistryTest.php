@@ -29,9 +29,9 @@ class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceReturnsTemplateRegistryInstance()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_TemplateRegistry::class,
             Tx_Oelib_TemplateRegistry::getInstance()
-                instanceof Tx_Oelib_TemplateRegistry
         );
     }
 

@@ -368,8 +368,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
             'listView.', array('test' => '1')
         );
 
-        self::assertSame(
-            true,
+        self::assertTrue(
             $this->subject->getListViewConfValueBoolean('test')
         );
     }
@@ -383,8 +382,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
             'listView.', array('test' => '123')
         );
 
-        self::assertSame(
-            true,
+        self::assertTrue(
             $this->subject->getListViewConfValueBoolean('test')
         );
     }
@@ -398,8 +396,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
             'listView.', array('test' => '0')
         );
 
-        self::assertSame(
-            false,
+        self::assertFalse(
             $this->subject->getListViewConfValueBoolean('test')
         );
     }
@@ -413,8 +410,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
             'listView.', array('test' => '')
         );
 
-        self::assertSame(
-            false,
+        self::assertFalse(
             $this->subject->getListViewConfValueBoolean('test')
         );
     }
@@ -428,8 +424,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
             'listView.', array()
         );
 
-        self::assertSame(
-            false,
+        self::assertFalse(
             $this->subject->getListViewConfValueBoolean('test')
         );
     }
@@ -4652,8 +4647,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
         $this->subject->piVars['foo'] = array('Hallo');
         $this->subject->ensureIntegerArrayValues(array('foo'));
 
-        self::assertTrue(
-            empty($this->subject->piVars['foo'])
+        self::assertEmpty(
+            $this->subject->piVars['foo']
         );
     }
 
@@ -4693,8 +4688,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
         $this->subject->piVars['foo'] = array(0);
         $this->subject->ensureIntegerArrayValues(array('foo'));
 
-        self::assertTrue(
-            empty($this->subject->piVars['foo'])
+        self::assertEmpty(
+            $this->subject->piVars['foo']
         );
     }
 

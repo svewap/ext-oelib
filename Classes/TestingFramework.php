@@ -11,11 +11,13 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\Utility\File\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -683,8 +685,7 @@ final class Tx_Oelib_TestingFramework
         $recordData = array(
             'uid_local' => $uidLocal,
             'uid_foreign' => $uidForeign,
-            'sorting' => (($sorting > 0) ?
-                $sorting : $this->getRelationSorting($table, $uidLocal)),
+            'sorting' => ($sorting > 0 ? $sorting : $this->getRelationSorting($table, $uidLocal)),
             $this->getDummyColumnName($table) => 1
         );
 
@@ -831,11 +832,11 @@ final class Tx_Oelib_TestingFramework
     protected function cleanUpTableSet($useSystemTables, $performDeepCleanUp)
     {
         if ($useSystemTables) {
-            $tablesToCleanUp = ($performDeepCleanUp)
+            $tablesToCleanUp = $performDeepCleanUp
                 ? $this->allowedSystemTables
                 : $this->dirtySystemTables;
         } else {
-            $tablesToCleanUp = ($performDeepCleanUp)
+            $tablesToCleanUp = $performDeepCleanUp
                 ? $this->ownAllowedTables
                 : $this->dirtyTables;
         }
@@ -1243,7 +1244,9 @@ final class Tx_Oelib_TestingFramework
         $frontEnd->initTemplate();
         $frontEnd->config = array();
 
-        $frontEnd->tmpl->getFileName_backPath = PATH_site;
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 7000000) {
+            $frontEnd->tmpl->getFileName_backPath = PATH_site;
+        }
 
         if (($pageUid > 0) && in_array('sys_template', $this->dirtySystemTables, true)) {
             $frontEnd->tmpl->runThroughTemplates($frontEnd->sys_page->getRootLine($pageUid), 0);

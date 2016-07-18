@@ -53,9 +53,9 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserGroupTest extends Tx_Phpunit_TestCas
     {
         $uid = $this->subject->getNewGhost()->getUid();
 
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model_BackEndUserGroup::class,
             $this->subject->find($uid)
-                instanceof Tx_Oelib_Model_BackEndUserGroup
         );
     }
 
@@ -93,9 +93,9 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserGroupTest extends Tx_Phpunit_TestCas
 
         /** @var Tx_Oelib_Model_BackEndUserGroup $group */
         $group = $this->subject->find($group->getUid());
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model_BackEndUserGroup::class,
             $group->getSubgroups()->first()
-                instanceof Tx_Oelib_Model_BackEndUserGroup
         );
     }
 }

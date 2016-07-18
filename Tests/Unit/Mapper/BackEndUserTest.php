@@ -51,9 +51,9 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
      */
     public function findWithUidOfExistingRecordReturnsBackEndUserInstance()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model_BackEndUser::class,
             $this->subject->find($this->testingFramework->createBackEndUser())
-                instanceof Tx_Oelib_Model_BackEndUser
         );
     }
 
@@ -94,9 +94,9 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
     {
         $this->testingFramework->createBackEndUser(array('username' => 'foo'));
 
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model_BackEndUser::class,
             $this->subject->findByUserName('foo')
-                instanceof Tx_Oelib_Model_BackEndUser
         );
     }
 
@@ -177,8 +177,9 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']
             ['cliKeys'][TYPO3_cliKey][1] = 'foo';
 
-        self::assertTrue(
-            $this->subject->findByCliKey() instanceof Tx_Oelib_Model_BackEndUser
+        self::assertInstanceOf(
+            Tx_Oelib_Model_BackEndUser::class,
+            $this->subject->findByCliKey()
         );
     }
 

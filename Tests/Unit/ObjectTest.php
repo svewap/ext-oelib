@@ -419,8 +419,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
      */
     public function getAsBooleanWithInexistentKeyReturnsFalse()
     {
-        self::assertSame(
-            false,
+        self::assertFalse(
             $this->subject->getAsBoolean('foo')
         );
     }
@@ -432,8 +431,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setAsBoolean('foo', true);
 
-        self::assertSame(
-            true,
+        self::assertTrue(
             $this->subject->getAsBoolean('foo')
         );
     }
@@ -445,8 +443,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setAsBoolean('foo', false);
 
-        self::assertSame(
-            false,
+        self::assertFalse(
             $this->subject->getAsBoolean('foo')
         );
     }
@@ -458,8 +455,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setAsBoolean('foo', 'bar');
 
-        self::assertSame(
-            true,
+        self::assertTrue(
             $this->subject->getAsBoolean('foo')
         );
     }
@@ -471,8 +467,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setAsBoolean('foo', '');
 
-        self::assertSame(
-            false,
+        self::assertFalse(
             $this->subject->getAsBoolean('foo')
         );
     }
@@ -510,8 +505,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setAsInteger('foo', 42);
 
-        self::assertSame(
-            true,
+        self::assertTrue(
             $this->subject->getAsBoolean('foo')
         );
     }
@@ -523,8 +517,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setAsInteger('foo', -42);
 
-        self::assertSame(
-            true,
+        self::assertTrue(
             $this->subject->getAsBoolean('foo')
         );
     }
@@ -536,8 +529,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setAsInteger('foo', 0);
 
-        self::assertSame(
-            false,
+        self::assertFalse(
             $this->subject->getAsBoolean('foo')
         );
     }

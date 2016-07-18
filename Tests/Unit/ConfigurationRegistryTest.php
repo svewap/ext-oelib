@@ -45,9 +45,9 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceReturnsConfigurationRegistryInstance()
     {
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_ConfigurationRegistry::class,
             Tx_Oelib_ConfigurationRegistry::getInstance()
-                instanceof Tx_Oelib_ConfigurationRegistry
         );
     }
 
@@ -102,9 +102,9 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
             $this->testingFramework->createFrontEndPage()
         );
 
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Configuration::class,
             Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
-                instanceof Tx_Oelib_Configuration
         );
     }
 

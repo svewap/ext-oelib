@@ -77,9 +77,9 @@ class Tx_Oelib_Tests_Unit_TranslatorRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceReturnsTranslatorRegistryInstance()
     {
-        self::assertTrue(
-            Tx_Oelib_TranslatorRegistry::getInstance() instanceof
-                Tx_Oelib_TranslatorRegistry
+        self::assertInstanceOf(
+            Tx_Oelib_TranslatorRegistry::class,
+            Tx_Oelib_TranslatorRegistry::getInstance()
         );
     }
 
@@ -143,9 +143,8 @@ class Tx_Oelib_Tests_Unit_TranslatorRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getWithLoadedExtensionNameReturnsTranslatorInstance()
     {
-        self::assertTrue(
-            Tx_Oelib_TranslatorRegistry::get('oelib') instanceof
-                Tx_Oelib_Translator
+        self::assertInstanceOf(
+            Tx_Oelib_Translator::class, Tx_Oelib_TranslatorRegistry::get('oelib')
         );
     }
 
@@ -459,7 +458,7 @@ class Tx_Oelib_Tests_Unit_TranslatorRegistryTest extends Tx_Phpunit_TestCase
 
         self::assertSame(
             'de',
-            Tx_Oelib_TranslatorRegistry::getInstance()->getLanguageKey('de')
+            Tx_Oelib_TranslatorRegistry::getInstance()->getLanguageKey()
         );
     }
 

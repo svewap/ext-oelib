@@ -52,8 +52,9 @@ class Tx_Oelib_Tests_Unit_FrontEndLoginManagerTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceReturnsFrontEndLoginManagerInstance()
     {
-        self::assertTrue(
-            $this->subject instanceof Tx_Oelib_FrontEndLoginManager
+        self::assertInstanceOf(
+            Tx_Oelib_FrontEndLoginManager::class,
+            $this->subject
         );
     }
 
@@ -170,9 +171,9 @@ class Tx_Oelib_Tests_Unit_FrontEndLoginManagerTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createFakeFrontEnd();
         $this->testingFramework->createAndLoginFrontEndUser();
 
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Model_FrontEndUser::class,
             $this->subject->getLoggedInUser()
-                instanceof Tx_Oelib_Model_FrontEndUser
         );
     }
 
@@ -184,9 +185,9 @@ class Tx_Oelib_Tests_Unit_FrontEndLoginManagerTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createFakeFrontEnd();
         $this->testingFramework->createAndLoginFrontEndUser();
 
-        self::assertTrue(
-            $this->subject->getLoggedInUser('Tx_Oelib_Tests_Unit_Fixtures_TestingMapper')
-                instanceof Tx_Oelib_Tests_Unit_Fixtures_TestingModel
+        self::assertInstanceOf(
+            Tx_Oelib_Tests_Unit_Fixtures_TestingModel::class,
+            $this->subject->getLoggedInUser(Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class)
         );
     }
 

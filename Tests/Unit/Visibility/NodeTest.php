@@ -95,9 +95,9 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
         $this->subject->addChild(new Tx_Oelib_Visibility_Node());
         $this->subject->addChild(new Tx_Oelib_Visibility_Node());
 
-        self::assertSame(
+        self::assertCount(
             2,
-            count($this->subject->getChildren())
+            $this->subject->getChildren()
         );
     }
 

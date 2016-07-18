@@ -76,9 +76,9 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
     {
         $this->testingFramework->createFakeFrontEnd();
 
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Session::class,
             Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_USER)
-                instanceof Tx_Oelib_Session
         );
     }
 
@@ -89,9 +89,9 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
     {
         $this->testingFramework->createFakeFrontEnd();
 
-        self::assertTrue(
+        self::assertInstanceOf(
+            Tx_Oelib_Session::class,
             Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_TEMPORARY)
-                instanceof Tx_Oelib_Session
         );
     }
 
