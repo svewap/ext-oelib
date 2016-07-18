@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "4751e62284ce6316e1cd01f245bdcb20",
+    "content-hash": "6c8373b465b6c85a85a8d7918e48156e",
     "packages": [
         {
             "name": "pelago/emogrifier",
@@ -12,23 +13,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jjriv/emogrifier.git",
-                "reference": "217b3055129558ac6b922cb1e8942c72b09f52e6"
+                "reference": "cb0f68300b118e44e59822e0a8bb9059e37a0459"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/217b3055129558ac6b922cb1e8942c72b09f52e6",
-                "reference": "217b3055129558ac6b922cb1e8942c72b09f52e6",
+                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/cb0f68300b118e44e59822e0a8bb9059e37a0459",
+                "reference": "cb0f68300b118e44e59822e0a8bb9059e37a0459",
                 "shasum": ""
             },
             "require": {
-                "ext-mbstring": "*",
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.4.0",
-                "squizlabs/php_codesniffer": "~2.0"
+                "phpunit/phpunit": "4.8.24",
+                "squizlabs/php_codesniffer": "2.6.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Pelago\\": "Classes/"
@@ -60,7 +65,7 @@
             ],
             "description": "Converts CSS styles into inline style attributes in your HTML code",
             "homepage": "http://www.pelagodesign.com/sidecar/emogrifier/",
-            "time": "2014-12-30 20:07:10"
+            "time": "2016-07-13 21:32:27"
         }
     ],
     "packages-dev": [],

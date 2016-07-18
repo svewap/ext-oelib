@@ -535,19 +535,15 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setCssFile(ExtensionManagementUtility::extPath('oelib') . 'Tests/Unit/Fixtures/test.css');
         $this->subject->setHTMLMessage(
+            '<!DOCTYPE html>' . LF .
             '<html>' .
-                '<head><title>foo</title></head>' .
+                '<head><title>foo</title></head>' . LF .
                 '<body><h3>Bar</h3></body>' .
             '</html>'
         );
 
-        self::assertSame(
-            '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"' .
-                ' "http://www.w3.org/TR/REC-html40/loose.dtd">' . LF .
-            '<html>' . LF .
-                '<head><title>foo</title></head>' . LF .
-                '<body><h3 style="font-weight: bold;">Bar</h3></body>' . LF .
-            '</html>',
+        self::assertContains(
+            '<h3 style="font-weight: bold;">Bar</h3>',
             $this->subject->getHTMLMessage()
         );
     }
