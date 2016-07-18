@@ -1,7 +1,7 @@
 {
   "name": "oliverklee/oelib",
   "type": "typo3-cms-extension",
-  "version": "0.9.54",
+  "version": "1.0.0",
   "description": "This extension provides useful stuff for extension development: helper functions for unit testing, templating and automatic configuration checks.",
   "keywords": ["TYPO3", "extension", "oelib", "seminars", "realty", "onetimeaccount", "library"],
   "homepage": "https://www.oliverklee.de",

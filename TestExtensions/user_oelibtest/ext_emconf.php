@@ -29,7 +29,7 @@ $EM_CONF[$_EXTKEY] = [
     'clearCacheOnLoad' => 0,
     'lockType' => '',
     'author_company' => '',
-    'version' => '0.0.0',
+    'version' => '1.0.0',
     'constraints' => [
         'depends' => [
             'oelib' => '',
@@ -40,6 +40,4 @@ $EM_CONF[$_EXTKEY] = [
         ],
     ],
     '_md5_values_when_last_written' => '',
-    'suggests' => [
-    ],
 ];

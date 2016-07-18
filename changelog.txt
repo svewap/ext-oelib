@@ -1,4 +1,4 @@
-1.0.0 - currently working on
+1.0.0 - released 2016-07-18
 
 Features:
 - [#5736] Update Emogrifier

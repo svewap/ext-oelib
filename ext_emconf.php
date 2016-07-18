@@ -32,7 +32,7 @@ $EM_CONF[$_EXTKEY] = [
     'CGLcompliance' => '',
     'CGLcompliance_note' => '',
     'author_company' => 'oliverklee.de',
-    'version' => '0.9.54',
+    'version' => '1.0.0',
     '_md5_values_when_last_written' => '',
     'constraints' => [
         'depends' => [
@@ -43,10 +43,7 @@ $EM_CONF[$_EXTKEY] = [
         'conflicts' => [
         ],
         'suggests' => [
-            'extbase' => '6.2.0-6.2.99',
         ],
-    ],
-    'suggests' => [
     ],
     'autoload' => [
         'classmap' => [
