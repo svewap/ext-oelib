@@ -29,15 +29,15 @@ class Tx_Oelib_Tests_Unit_ConfigurationProxyTest extends Tx_Phpunit_TestCase
     /**
      * @var array
      */
-    private $testConfiguration = array(
+    private $testConfiguration = [
         'testValueString' => 'foo',
         'testValueEmptyString' => '',
         'testValuePositiveInteger' => 2,
         'testValueNegativeInteger' => -1,
         'testValueZeroInteger' => 0,
         'testValueTrue' => 1,
-        'testValueFalse' => 0
-    );
+        'testValueFalse' => 0,
+    ];
 
     protected function setUp()
     {

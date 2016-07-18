@@ -169,7 +169,7 @@ abstract class Tx_Oelib_Object
         $stringValue = $this->getAsString($key);
 
         if ($stringValue === '') {
-            return array();
+            return [];
         }
 
         return GeneralUtility::intExplode(',', $stringValue);

@@ -34,14 +34,14 @@ class Tx_Oelib_Mapper_FrontEndUser extends Tx_Oelib_DataMapper
     /**
      * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
      */
-    protected $relations = array(
+    protected $relations = [
         'usergroup' => Tx_Oelib_Mapper_FrontEndUserGroup::class,
-    );
+    ];
 
     /**
      * @var string[] the column names of additional string keys
      */
-    protected $additionalKeys = array('username');
+    protected $additionalKeys = ['username'];
 
     /**
      * Finds a front-end user by user name. Hidden user records will be

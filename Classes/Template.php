@@ -44,21 +44,21 @@ class Tx_Oelib_Template
      *
      * @var string[]
      */
-    private $subparts = array();
+    private $subparts = [];
 
     /**
      * all uppercased marker names in the current template without the hashes, for example ("FOO", "BAR")
      *
      * @var string[]
      */
-    private $markerNames = array();
+    private $markerNames = [];
 
     /**
      * all lowercased label marker names in the current template without the hashes, for example ("label_foo", "label_bar")
      *
      * @var string[]
      */
-    private $labelMarkerNames = array();
+    private $labelMarkerNames = [];
 
     /**
      * associative array of *populated* markers and their contents
@@ -66,7 +66,7 @@ class Tx_Oelib_Template
      *
      * @var string[]
      */
-    private $markers = array();
+    private $markers = [];
 
     /**
      * Subpart names that shouldn't be displayed. Set a subpart key like "FIELD_DATE"
@@ -74,7 +74,7 @@ class Tx_Oelib_Template
      *
      * @var string[]
      */
-    private $subpartsToHide = array();
+    private $subpartsToHide = [];
 
     /**
      * @var Tx_Oelib_Translator
@@ -154,7 +154,7 @@ class Tx_Oelib_Template
             return;
         }
 
-        $matches = array();
+        $matches = [];
         preg_match_all(
             self::SUBPART_PATTERN,
             $templateCode, $matches, PREG_SET_ORDER
@@ -179,7 +179,7 @@ class Tx_Oelib_Template
      */
     private function findMarkers()
     {
-        $matches = array();
+        $matches = [];
 
         preg_match_all(
             '/###([A-Z0-9_]+)###/',
@@ -214,7 +214,7 @@ class Tx_Oelib_Template
 
         $upperCasePrefix = strtoupper($prefix) . '_';
 
-        $result = array();
+        $result = [];
         foreach ($this->markerNames as $marker) {
             if (strpos($marker, $upperCasePrefix) === 0) {
                 $result[] = $marker;
@@ -484,7 +484,7 @@ class Tx_Oelib_Template
      * @return void
      */
     public function unhideSubpartsArray(
-        array $subparts, array $permanentlyHiddenSubparts = array(), $prefix = ''
+        array $subparts, array $permanentlyHiddenSubparts = [], $prefix = ''
     ) {
         foreach ($subparts as $currentSubpartName) {
             // Only unhide the current subpart if it is not on the list of
@@ -824,6 +824,6 @@ class Tx_Oelib_Template
      */
     public function resetSubpartsHiding()
     {
-        $this->subpartsToHide = array();
+        $this->subpartsToHide = [];
     }
 }

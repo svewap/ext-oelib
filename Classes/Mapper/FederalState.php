@@ -33,7 +33,7 @@ class Tx_Oelib_Mapper_FederalState extends Tx_Oelib_DataMapper
     /**
      * @var string[] the column names of additional combined keys
      */
-    protected $compoundKeyParts = array('zn_country_iso_2', 'zn_code');
+    protected $compoundKeyParts = ['zn_country_iso_2', 'zn_code'];
 
     /**
      * Finds a federal state by its ISO 3166-1 and ISO 3166-2 code.
@@ -47,6 +47,6 @@ class Tx_Oelib_Mapper_FederalState extends Tx_Oelib_DataMapper
      */
     public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode($isoAlpha2CountryCode, $isoAlpha2ZoneCode)
     {
-        return $this->findOneByCompoundKey(array('zn_country_iso_2' => $isoAlpha2CountryCode, 'zn_code' => $isoAlpha2ZoneCode));
+        return $this->findOneByCompoundKey(['zn_country_iso_2' => $isoAlpha2CountryCode, 'zn_code' => $isoAlpha2ZoneCode]);
     }
 }

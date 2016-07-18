@@ -173,7 +173,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
         $feUserGroupUid = $this->testingFramework->createFrontEndUserGroup();
         $this->testingFramework->createFrontEndUser(
             $feUserGroupUid,
-            array('deleted' => 1)
+            ['deleted' => 1]
         );
 
         self::assertTrue(
@@ -189,7 +189,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
         $feUserGroupUid = $this->testingFramework->createFrontEndUserGroup();
         $this->testingFramework->createFrontEndUser(
             $feUserGroupUid,
-            array('disable' => 1)
+            ['disable' => 1]
         );
 
         self::assertTrue(
@@ -367,7 +367,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
     public function findByUserNameWithNameOfExistingUserReturnsFrontEndUserInstance()
     {
         $this->testingFramework->createFrontEndUser(
-            '', array('username' => 'foo')
+            '', ['username' => 'foo']
         );
 
         self::assertInstanceOf(
@@ -383,7 +383,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
     {
         self::assertSame(
             $this->testingFramework->createFrontEndUser(
-                '', array('username' => 'foo')
+                '', ['username' => 'foo']
             ),
             $this->subject->findByUserName('foo')->getUid()
         );
@@ -396,7 +396,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
     {
         self::assertSame(
             $this->testingFramework->createFrontEndUser(
-                '', array('username' => 'foo')
+                '', ['username' => 'foo']
             ),
             $this->subject->findByUserName('FOO')->getUid()
         );
@@ -409,7 +409,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
     {
         self::assertSame(
             $this->testingFramework->createFrontEndUser(
-                '', array('username' => 'FOO')
+                '', ['username' => 'FOO']
             ),
             $this->subject->findByUserName('FOO')->getUid()
         );
@@ -422,7 +422,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
     {
         self::assertSame(
             $this->testingFramework->createFrontEndUser(
-                '', array('username' => 'FOO')
+                '', ['username' => 'FOO']
             ),
             $this->subject->findByUserName('foo')->getUid()
         );
@@ -437,7 +437,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
     {
         $this->testingFramework->createFrontEndUser(
             '',
-            array('username' => 'foo', 'deleted' => 1)
+            ['username' => 'foo', 'deleted' => 1]
         );
 
         $this->subject->findByUserName('foo');

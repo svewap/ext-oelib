@@ -377,7 +377,7 @@ class Tx_Oelib_ConfigCheck
         }
 
         $frontEndController = $this->getFrontEndController();
-        $typoScriptSetupPage =& $frontEndController->tmpl->setup['page.'];
+        $typoScriptSetupPage = & $frontEndController->tmpl->setup['page.'];
         $fileName = $typoScriptSetupPage['includeCSS.'][$this->objectToCheck->prefixId];
         if (!empty($fileName)) {
             $fileName = $frontEndController->tmpl->getFileName($fileName);
@@ -599,7 +599,7 @@ class Tx_Oelib_ConfigCheck
             $canUseFlexforms,
             $sheet,
             $explanation,
-            array('0', '1')
+            ['0', '1']
         );
     }
 
@@ -1084,7 +1084,7 @@ class Tx_Oelib_ConfigCheck
             'This variable controls the salutation mode (formal or informal). '
                 . 'If it is not set correctly, some output cannot be created '
                 . 'at all.',
-            array('formal', 'informal')
+            ['formal', 'informal']
         );
     }
 
@@ -1103,7 +1103,7 @@ class Tx_Oelib_ConfigCheck
         }
 
         $result = 'plugin.tx_' . $this->objectToCheck->extKey;
-        $matches = array();
+        $matches = [];
         if (preg_match('/_pi[0-9]+$/', $this->className, $matches)) {
             $result .= $matches[0];
         }
@@ -1667,7 +1667,7 @@ class Tx_Oelib_ConfigCheck
                     . 'descending). '
                     . 'If this value is not set correctly, the list view might '
                     . 'be sorted the wrong way round.',
-                array('0', '1')
+                ['0', '1']
             );
             $this->checkListViewIfPositiveInteger(
                 'results_at_a_time',

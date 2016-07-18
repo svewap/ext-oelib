@@ -29,7 +29,6 @@
  * http://www.php-fig.org/psr/psr-2/
  * http://cs.sensiolabs.org
  */
-
 if (PHP_SAPI !== 'cli') {
     die('This script supports command line usage only. Please check your command.');
 }

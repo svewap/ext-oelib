@@ -50,7 +50,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $additionalTablePrefixes = array();
+    protected $additionalTablePrefixes = [];
 
     /**
      * all own DB table names to which this instance of the testing framework
@@ -58,7 +58,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $ownAllowedTables = array();
+    protected $ownAllowedTables = [];
 
     /**
      * all additional DB table names to which this instance of the testing
@@ -66,7 +66,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $additionalAllowedTables = array();
+    protected $additionalAllowedTables = [];
 
     /**
      * all system table names to which this instance of the testing framework
@@ -74,11 +74,11 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $allowedSystemTables = array(
+    protected $allowedSystemTables = [
         'be_users', 'fe_groups', 'fe_users', 'pages', 'sys_template',
         'tt_content', 'be_groups', 'sys_file', 'sys_file_collection',
-        'sys_file_reference', 'sys_category', 'sys_category_record_mm'
-    );
+        'sys_file_reference', 'sys_category', 'sys_category_record_mm',
+    ];
 
     /**
      * all "dirty" non-system tables (i.e. all tables that were used for testing
@@ -86,7 +86,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $dirtyTables = array();
+    protected $dirtyTables = [];
 
     /**
      * all "dirty" system tables (i.e. all tables that were used for testing and
@@ -94,14 +94,14 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $dirtySystemTables = array();
+    protected $dirtySystemTables = [];
 
     /**
      * sorting values of all relation tables
      *
      * @var array[]
      */
-    protected $relationSorting = array();
+    protected $relationSorting = [];
 
     /**
      * The number of unusable UIDs after the maximum UID in a table before the auto increment value will be reset by
@@ -123,7 +123,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $dummyFiles = array();
+    protected $dummyFiles = [];
 
     /**
      * the names of the created dummy folders relative to the upload folder of
@@ -131,7 +131,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $dummyFolders = array();
+    protected $dummyFolders = [];
 
     /**
      * the absolute path to the upload folder of the extension to test
@@ -159,7 +159,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var array
      */
-    protected static $hooks = array();
+    protected static $hooks = [];
 
     /**
      * whether the hooks in self::hooks have been retrieved
@@ -188,7 +188,7 @@ final class Tx_Oelib_TestingFramework
      *        used, may be empty
      */
     public function __construct(
-        $tablePrefix, array $additionalTablePrefixes = array()
+        $tablePrefix, array $additionalTablePrefixes = []
     ) {
         $this->tablePrefix = $tablePrefix;
         $this->additionalTablePrefixes = $additionalTablePrefixes;
@@ -237,7 +237,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @throws InvalidArgumentException
      */
-    public function createRecord($table, array $recordData = array())
+    public function createRecord($table, array $recordData = [])
     {
         if (!$this->isNoneSystemTableNameAllowed($table)) {
             throw new InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331489666);
@@ -297,7 +297,7 @@ final class Tx_Oelib_TestingFramework
      * @return int the UID of the new page, will be > 0
      */
     public function createFrontEndPage(
-        $parentId = 0, array $recordData = array()
+        $parentId = 0, array $recordData = []
     ) {
         return $this->createGeneralPageRecord(1, $parentId, $recordData);
     }
@@ -315,7 +315,7 @@ final class Tx_Oelib_TestingFramework
      * @return int the UID of the new system folder, will be > 0
      */
     public function createSystemFolder(
-        $parentId = 0, array $recordData = array()
+        $parentId = 0, array $recordData = []
     ) {
         return $this->createGeneralPageRecord(254, $parentId, $recordData);
     }
@@ -380,7 +380,7 @@ final class Tx_Oelib_TestingFramework
      * @throws InvalidArgumentException
      */
     public function createContentElement(
-        $pageId = 0, array $recordData = array()
+        $pageId = 0, array $recordData = []
     ) {
         if (isset($recordData['uid'])) {
             throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489735);
@@ -415,7 +415,7 @@ final class Tx_Oelib_TestingFramework
      * @throws InvalidArgumentException
      */
     public function createTemplate(
-        $pageId, array $recordData = array()
+        $pageId, array $recordData = []
     ) {
         if ($pageId <= 0) {
             throw new InvalidArgumentException('$pageId must be > 0.', 1331489774);
@@ -446,7 +446,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @throws InvalidArgumentException
      */
-    public function createFrontEndUserGroup(array $recordData = array())
+    public function createFrontEndUserGroup(array $recordData = [])
     {
         if (isset($recordData['uid'])) {
             throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489807);
@@ -472,7 +472,7 @@ final class Tx_Oelib_TestingFramework
      * @throws InvalidArgumentException
      */
     public function createFrontEndUser(
-        $frontEndUserGroups = '', array $recordData = array()
+        $frontEndUserGroups = '', array $recordData = []
     ) {
         $frontEndUserGroupsWithoutSpaces = str_replace(' ', '', $frontEndUserGroups);
 
@@ -513,7 +513,7 @@ final class Tx_Oelib_TestingFramework
      * @return int the UID of the new FE user, will be > 0
      */
     public function createAndLoginFrontEndUser(
-        $frontEndUserGroups = '', array $recordData = array()
+        $frontEndUserGroups = '', array $recordData = []
     ) {
         $frontEndUserUid = $this->createFrontEndUser(
             $frontEndUserGroups, $recordData
@@ -533,7 +533,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new BE user, will be > 0
      */
-    public function createBackEndUser(array $recordData = array())
+    public function createBackEndUser(array $recordData = [])
     {
         if (isset($recordData['uid'])) {
             throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489905);
@@ -553,7 +553,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new user group, will be > 0
      */
-    public function createBackEndUserGroup(array $recordData = array())
+    public function createBackEndUserGroup(array $recordData = [])
     {
         if (isset($recordData['uid'])) {
             throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489919);
@@ -682,12 +682,12 @@ final class Tx_Oelib_TestingFramework
 
         $this->markTableAsDirty($table);
 
-        $recordData = array(
+        $recordData = [
             'uid_local' => $uidLocal,
             'uid_foreign' => $uidForeign,
             'sorting' => ($sorting > 0 ? $sorting : $this->getRelationSorting($table, $uidLocal)),
-            $this->getDummyColumnName($table) => 1
-        );
+            $this->getDummyColumnName($table) => 1,
+        ];
 
         Tx_Oelib_Db::insert(
             $table, $recordData
@@ -857,7 +857,7 @@ final class Tx_Oelib_TestingFramework
         }
 
         // Resets the list of dirty tables.
-        $this->dirtyTables = array();
+        $this->dirtyTables = [];
     }
 
     /**
@@ -871,8 +871,8 @@ final class Tx_Oelib_TestingFramework
         // removed at once.
         if (isset($this->dummyFolders['uploadFolder'])) {
             GeneralUtility::rmdir($this->getUploadFolderPath(), true);
-            $this->dummyFolders = array();
-            $this->dummyFiles = array();
+            $this->dummyFolders = [];
+            $this->dummyFiles = [];
         } else {
             foreach ($this->dummyFiles as $dummyFile) {
                 $this->deleteDummyFile($dummyFile);
@@ -935,7 +935,7 @@ final class Tx_Oelib_TestingFramework
      * @throws UnexpectedValueException
      */
     public function createDummyZipArchive(
-        $fileName = 'test.zip', array $filesToAddToArchive = array()
+        $fileName = 'test.zip', array $filesToAddToArchive = []
     ) {
         $this->checkForZipArchive();
 
@@ -949,7 +949,7 @@ final class Tx_Oelib_TestingFramework
 
         $contents = !empty($filesToAddToArchive)
             ? $filesToAddToArchive
-            : array($this->createDummyFile());
+            : [$this->createDummyFile()];
 
         foreach ($contents as $pathToFile) {
             if (!file_exists($pathToFile)) {
@@ -1039,7 +1039,7 @@ final class Tx_Oelib_TestingFramework
         // Adds the created dummy folder to the top of $this->dummyFolders so
         // it gets deleted before previously created folders through
         // $this->cleanUpFolders(). This is needed for nested dummy folders.
-        $this->dummyFolders = array($relativeUniqueFolderName => $relativeUniqueFolderName) + $this->dummyFolders;
+        $this->dummyFolders = [$relativeUniqueFolderName => $relativeUniqueFolderName] + $this->dummyFolders;
 
         return $uniqueFolderName;
     }
@@ -1242,7 +1242,7 @@ final class Tx_Oelib_TestingFramework
         $frontEnd->initFEuser();
         $frontEnd->determineId();
         $frontEnd->initTemplate();
-        $frontEnd->config = array();
+        $frontEnd->config = [];
 
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 7000000) {
             $frontEnd->tmpl->getFileName_backPath = PATH_site;
@@ -1380,7 +1380,7 @@ final class Tx_Oelib_TestingFramework
         // pass an empty array to improve performance (e.g. no session record
         // will be written to the database).
         $frontEnd = $this->getFrontEndController();
-        $frontEnd->fe_user->createUserSession(array('uid' => $userId, 'disableIPlock' => true));
+        $frontEnd->fe_user->createUserSession(['uid' => $userId, 'disableIPlock' => true]);
         $frontEnd->fe_user->user = $dataToSet;
         $frontEnd->fe_user->fetchGroupData();
         $frontEnd->loginUser = true;
@@ -1449,7 +1449,7 @@ final class Tx_Oelib_TestingFramework
      */
     protected function createListOfOwnAllowedTables()
     {
-        $this->ownAllowedTables = array();
+        $this->ownAllowedTables = [];
         $allTables = Tx_Oelib_Db::getAllTableNames();
         $length = strlen($this->tablePrefix);
 
@@ -1478,7 +1478,7 @@ final class Tx_Oelib_TestingFramework
         $allTables = implode(',', Tx_Oelib_Db::getAllTableNames());
         $additionalTablePrefixes = implode('|', $this->additionalTablePrefixes);
 
-        $matches = array();
+        $matches = [];
 
         preg_match_all(
             '/((' . $additionalTablePrefixes . ')_[a-z0-9]+[a-z0-9_]*)(,|$)/',
@@ -2040,7 +2040,7 @@ final class Tx_Oelib_TestingFramework
      */
     public function purgeHooks()
     {
-        self::$hooks = array();
+        self::$hooks = [];
         self::$hooksHaveBeenRetrieved = false;
     }
 

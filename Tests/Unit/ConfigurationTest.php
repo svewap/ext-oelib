@@ -52,7 +52,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
      */
     public function setDataWithEmptyArrayIsAllowed()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
     }
 
     /**
@@ -74,7 +74,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
     public function getAfterSetDataReturnsTheSetValue()
     {
         $this->subject->setData(
-            array('foo' => 'bar')
+            ['foo' => 'bar']
         );
 
         self::assertSame(
@@ -89,10 +89,10 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
     public function setDataCalledTwoTimesDoesNotFail()
     {
         $this->subject->setData(
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
         $this->subject->setData(
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
     }
 
@@ -105,10 +105,10 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
      */
     public function getArrayKeysWithEmptyKeyReturnsKeysOfDataArray()
     {
-        $this->subject->setData(array('first' => 'test', 'second' => 'test'));
+        $this->subject->setData(['first' => 'test', 'second' => 'test']);
 
         self::assertSame(
-            array('first', 'second'),
+            ['first', 'second'],
             $this->subject->getArrayKeys()
         );
     }
@@ -119,7 +119,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
     public function getArrayKeysForInexistentKeyReturnEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getArrayKeys('key')
         );
     }
@@ -129,10 +129,10 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
      */
     public function getArrayKeysForKeyOfStringDataItemReturnsEmptyArray()
     {
-        $this->subject->setData(array('key' => 'blub'));
+        $this->subject->setData(['key' => 'blub']);
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->getArrayKeys('key')
         );
     }
@@ -142,10 +142,10 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
      */
     public function getArrayKeysForKeyOfDataItemWithOneArrayElementReturnsKeyOfArrayElement()
     {
-        $this->subject->setData(array('key' => array('test' => 'child')));
+        $this->subject->setData(['key' => ['test' => 'child']]);
 
         self::assertSame(
-            array('test'),
+            ['test'],
             $this->subject->getArrayKeys('key')
         );
     }
@@ -156,11 +156,11 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
     public function getArrayKeysForKeyOfDataItemWithTwoArrayElementsReturnsKeysOfArrayElements()
     {
         $this->subject->setData(
-            array('key' => array('first' => 'child', 'second' => 'child'))
+            ['key' => ['first' => 'child', 'second' => 'child']]
         );
 
         self::assertSame(
-            array('first', 'second'),
+            ['first', 'second'],
             $this->subject->getArrayKeys('key')
         );
     }
@@ -171,11 +171,11 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
     public function getAsMultidimensionalArrayReturnsMultidimensionalArray()
     {
         $this->subject->setData(
-            array('1' => array('1.1' => array('1.1.1' => 'child')))
+            ['1' => ['1.1' => ['1.1.1' => 'child']]]
         );
 
         self::assertSame(
-            array('1.1' => array('1.1.1' => 'child')),
+            ['1.1' => ['1.1.1' => 'child']],
             $this->subject->getAsMultidimensionalArray('1')
         );
     }
@@ -185,10 +185,10 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
      */
     public function getAsMultidimensionalArrayForInexistentKeyReturnsEmptyArray()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsMultidimensionalArray('1')
         );
     }
@@ -199,11 +199,11 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
     public function getAsMultidimensionalArrayForStringReturnsEmptyArray()
     {
         $this->subject->setData(
-            array('1' => 'child')
+            ['1' => 'child']
         );
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsMultidimensionalArray('1')
         );
     }
@@ -214,11 +214,11 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
     public function getAsMultidimensionalArrayForIntegerReturnsEmptyArray()
     {
         $this->subject->setData(
-            array('1' => 42)
+            ['1' => 42]
         );
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsMultidimensionalArray('1')
         );
     }
@@ -229,11 +229,11 @@ class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
     public function getAsMultidimensionalArrayForFloatReturnsEmptyArray()
     {
         $this->subject->setData(
-            array('1' => 42.42)
+            ['1' => 42.42]
         );
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsMultidimensionalArray('1')
         );
     }

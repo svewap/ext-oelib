@@ -179,7 +179,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
         $pageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createTemplate(
             $pageUid,
-            array('config' => 'plugin.tx_oelib.test = 42')
+            ['config' => 'plugin.tx_oelib.test = 42']
         );
 
         Tx_Oelib_PageFinder::getInstance()->setPageUid($pageUid);
@@ -199,7 +199,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
         $pageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createTemplate(
             $pageUid,
-            array('config' => 'plugin.tx_oelib.test = 42')
+            ['config' => 'plugin.tx_oelib.test = 42']
         );
         $_POST['id'] = $pageUid;
 
@@ -224,7 +224,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
         $pageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createTemplate(
             $pageUid,
-            array('config' => 'plugin.tx_oelib.test = 42')
+            ['config' => 'plugin.tx_oelib.test = 42']
         );
 
         $this->testingFramework->createFakeFrontEnd($pageUid);
@@ -247,7 +247,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
         $pageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createTemplate(
             $pageUid,
-            array('config' => 'plugin.tx_oelib.test = 42')
+            ['config' => 'plugin.tx_oelib.test = 42']
         );
 
         $this->testingFramework->createFakeFrontEnd($pageUid);
@@ -258,7 +258,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
         $frontEndController = $GLOBALS['TSFE'];
         $frontEndController->tmpl->rootId = 0;
         $frontEndController->tmpl->rootLine = false;
-        $frontEndController->tmpl->setup = array();
+        $frontEndController->tmpl->setup = [];
         $frontEndController->tmpl->loaded = 0;
 
         self::assertSame(
@@ -276,7 +276,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
         $pageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createTemplate(
             $pageUid,
-            array('config' => 'plugin.tx_oelib.bar = 42')
+            ['config' => 'plugin.tx_oelib.bar = 42']
         );
         Tx_Oelib_PageFinder::getInstance()->setPageUid($pageUid);
 

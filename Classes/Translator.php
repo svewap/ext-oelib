@@ -37,7 +37,7 @@ class Tx_Oelib_Translator
      *      the localized labels in a nested associative array:
      *      'languageKey' => array('labelkey' => array(0 => array('source' => 'label', 'target' => 'label')
      */
-    private $localizedLabels = array();
+    private $localizedLabels = [];
 
     /**
      * The constructor.

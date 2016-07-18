@@ -149,10 +149,10 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
         if ($status === self::STATUS_OK) {
             $coordinates = $resultParts['results'][0]['geometry']['location'];
             $geoObject->setGeoCoordinates(
-                array(
+                [
                     'latitude' => (float)$coordinates['lat'],
                     'longitude' => (float)$coordinates['lng'],
-                )
+                ]
             );
         } else {
             $geoObject->setGeoError();

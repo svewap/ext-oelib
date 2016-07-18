@@ -23,7 +23,7 @@ final class Tx_Oelib_Tests_Unit_Fixtures_TestingObject extends Tx_Oelib_PublicOb
     /**
      * @var array the data for this object
      */
-    private $data = array();
+    private $data = [];
 
     /**
      * Frees as much memory that has been used by this object as possible.

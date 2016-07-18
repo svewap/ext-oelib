@@ -23,7 +23,7 @@ class Tx_Oelib_IdentityMap
     /**
      * @var Tx_Oelib_Model[] the items in this map with their UIDs as keys
      */
-    protected $items = array();
+    protected $items = [];
 
     /**
      * @var int the highest used UID

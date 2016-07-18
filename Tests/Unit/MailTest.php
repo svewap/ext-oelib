@@ -98,7 +98,7 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
     public function getRecipientsInitiallyReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getRecipients()
         );
     }
@@ -114,7 +114,7 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
         $this->subject->addRecipient($recipient);
 
         self::assertSame(
-            array($recipient),
+            [$recipient],
             $this->subject->getRecipients()
         );
     }
@@ -134,7 +134,7 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
         $this->subject->addRecipient($recipient2);
 
         self::assertSame(
-            array($recipient1, $recipient2),
+            [$recipient1, $recipient2],
             $this->subject->getRecipients()
         );
     }
@@ -355,7 +355,7 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
     public function getAttachmentsInitiallyReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAttachments()
         );
     }
@@ -372,7 +372,7 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
         $this->subject->addAttachment($attachment);
 
         self::assertSame(
-            array($attachment),
+            [$attachment],
             $this->subject->getAttachments()
         );
     }
@@ -395,7 +395,7 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
         $this->subject->addAttachment($otherAttachment);
 
         self::assertSame(
-            array($attachment, $otherAttachment),
+            [$attachment, $otherAttachment],
             $this->subject->getAttachments()
         );
     }

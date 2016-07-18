@@ -26,7 +26,7 @@ class Tx_Oelib_Geocoding_Dummy implements Tx_Oelib_Interface_GeocodingLookup
      *
      * @var float[]
      */
-    private $coordinates = array();
+    private $coordinates = [];
 
     /**
      * The constructor.
@@ -78,9 +78,9 @@ class Tx_Oelib_Geocoding_Dummy implements Tx_Oelib_Interface_GeocodingLookup
      */
     public function setCoordinates($latitude, $longitude)
     {
-        $this->coordinates = array(
+        $this->coordinates = [
             'latitude' => $latitude, 'longitude' => $longitude,
-        );
+        ];
     }
 
     /**
@@ -90,6 +90,6 @@ class Tx_Oelib_Geocoding_Dummy implements Tx_Oelib_Interface_GeocodingLookup
      */
     public function clearCoordinates()
     {
-        $this->coordinates = array();
+        $this->coordinates = [];
     }
 }

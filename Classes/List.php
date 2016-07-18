@@ -25,7 +25,7 @@ class Tx_Oelib_List extends SplObjectStorage
     /**
      * @var int[] the UIDs in the list using the UIDs as both the keys and values
      */
-    private $uids = array();
+    private $uids = [];
 
     /**
      * The model this List belongs to.
@@ -65,7 +65,7 @@ class Tx_Oelib_List extends SplObjectStorage
             $this->detach($model);
         }
 
-        $this->uids = array();
+        $this->uids = [];
         unset($this->parentModel);
     }
 
@@ -338,7 +338,7 @@ class Tx_Oelib_List extends SplObjectStorage
      */
     public function sortBySorting()
     {
-        $this->sort(array($this, 'compareSortings'));
+        $this->sort([$this, 'compareSortings']);
     }
 
     /**
@@ -425,7 +425,7 @@ class Tx_Oelib_List extends SplObjectStorage
      */
     public function toArray()
     {
-        $elements = array();
+        $elements = [];
         /** @var Tx_Oelib_Model $model */
         foreach ($this as $model) {
             $elements[] = $model;

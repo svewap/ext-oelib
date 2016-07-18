@@ -33,7 +33,7 @@ class Tx_Oelib_MapperRegistry
     /**
      * @var Tx_Oelib_DataMapper[] already created mappers (by class name)
      */
-    private $mappers = array();
+    private $mappers = [];
 
     /**
      * @var bool whether database access should be denied for mappers

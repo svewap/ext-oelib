@@ -36,14 +36,14 @@ class Tx_Oelib_Db
      *
      * @var array[]
      */
-    private static $enableFieldsCache = array();
+    private static $enableFieldsCache = [];
 
     /**
      * @var array[] cache for the results of existsTable with the table names
      *            as keys and the table SHOW STATUS information (in an array)
      *            as values
      */
-    private static $tableNameCache = array();
+    private static $tableNameCache = [];
 
     /**
      * cache for the results of hasTableColumn with the column names as keys and
@@ -51,14 +51,14 @@ class Tx_Oelib_Db
      *
      * @var array[]
      */
-    private static $tableColumnCache = array();
+    private static $tableColumnCache = [];
 
     /**
      * cache for all TCA arrays
      *
      * @var array[]
      */
-    private static $tcaCache = array();
+    private static $tcaCache = [];
 
     /**
      * Enables query logging in TYPO3's DB class.
@@ -99,12 +99,12 @@ class Tx_Oelib_Db
      * @return string the WHERE clause starting like " AND ...=... AND ...=..."
      */
     public static function enableFields(
-        $table, $showHidden = -1, array $ignoreArray = array(),
+        $table, $showHidden = -1, array $ignoreArray = [],
         $noVersionPreview = false
     ) {
         $intShowHidden = (int)$showHidden;
 
-        if (!in_array($intShowHidden, array(-1, 0, 1), true)) {
+        if (!in_array($intShowHidden, [-1, 0, 1], true)) {
             throw new InvalidArgumentException('$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331319963);
         }
 
@@ -183,7 +183,7 @@ class Tx_Oelib_Db
             'pid IN (' . $startPages . ')' . self::enableFields('pages')
         );
 
-        $subPages = array();
+        $subPages = [];
         $databaseConnection = self::getDatabaseConnection();
         while (($row = $databaseConnection->sql_fetch_assoc($dbResult))) {
             $subPages[] = $row['uid'];
@@ -389,7 +389,7 @@ class Tx_Oelib_Db
         $fieldNames, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '',
         $limit = ''
     ) {
-        $result = array();
+        $result = [];
         $dbResult = self::select(
             $fieldNames, $tableNames, $whereClause, $groupBy, $orderBy, $limit
         );
@@ -426,7 +426,7 @@ class Tx_Oelib_Db
             $fieldName, $tableNames, $whereClause, $groupBy, $orderBy, $limit
         );
 
-        $result = array();
+        $result = [];
         foreach ($rows as $row) {
             $result[] = $row[$fieldName];
         }

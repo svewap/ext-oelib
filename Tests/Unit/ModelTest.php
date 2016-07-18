@@ -53,7 +53,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     {
         $subject = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $subject->setData(
-            array('foo' => $subject)
+            ['foo' => $subject]
         );
     }
 
@@ -66,10 +66,10 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
         $subject2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
 
         $subject1->setData(
-            array('foo' => $subject2)
+            ['foo' => $subject2]
         );
         $subject2->setData(
-            array('foo' => $subject1)
+            ['foo' => $subject1]
         );
     }
 
@@ -92,7 +92,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function setDataWithEmptyArrayIsAllowed()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
     }
 
     /**
@@ -114,7 +114,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function getAfterSetDataReturnsTheSetValue()
     {
         $this->subject->setData(
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
 
         self::assertSame(
@@ -134,10 +134,10 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
         );
 
         $this->subject->setData(
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
         $this->subject->setData(
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
     }
 
@@ -147,7 +147,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function isHiddenForLoadedHiddenObjectReturnsTrue()
     {
         $this->subject->setData(
-            array('hidden' => 1)
+            ['hidden' => 1]
         );
 
         self::assertTrue(
@@ -161,7 +161,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function isHiddenForLoadedNonHiddenObjectReturnsFalse()
     {
         $this->subject->setData(
-            array('hidden' => 0)
+            ['hidden' => 0]
         );
 
         self::assertFalse(
@@ -178,7 +178,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function existsKeyForInexistentKeyReturnsFalse()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
 
         self::assertFalse(
             $this->subject->existsKey('foo')
@@ -191,7 +191,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function existsKeyForExistingKeyWithNonEmptyDataReturnsTrue()
     {
         $this->subject->setData(
-            array('foo' => 'bar')
+            ['foo' => 'bar']
         );
 
         self::assertTrue(
@@ -205,7 +205,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function existsKeyForExistingKeyWithEmptyStringDataReturnsTrue()
     {
         $this->subject->setData(
-            array('foo' => '')
+            ['foo' => '']
         );
 
         self::assertTrue(
@@ -219,7 +219,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function existsKeyForExistingKeyWithZeroDataReturnsTrue()
     {
         $this->subject->setData(
-            array('foo' => 0)
+            ['foo' => 0]
         );
 
         self::assertTrue(
@@ -233,7 +233,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function existsKeyForExistingKeyWithNullDataReturnsTrue()
     {
         $this->subject->setData(
-            array('foo' => null)
+            ['foo' => null]
         );
 
         self::assertTrue(
@@ -263,7 +263,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function getAsModelWithInexistentKeyReturnsNull()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
 
         self::assertNull(
             $this->subject->getAsModel('foo')
@@ -280,7 +280,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
             'The data item for the key "foo" is no model instance.'
         );
 
-        $this->subject->setData(array('foo' => 'bar'));
+        $this->subject->setData(['foo' => 'bar']);
 
         $this->subject->getAsModel('foo');
     }
@@ -291,7 +291,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function getAsModelReturnsNullSetViaSetData()
     {
         $this->subject->setData(
-            array('foo' => null)
+            ['foo' => null]
         );
 
         self::assertNull(
@@ -306,7 +306,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     {
         $otherModel = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $this->subject->setData(
-            array('foo' => $otherModel)
+            ['foo' => $otherModel]
         );
 
         self::assertSame(
@@ -321,7 +321,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function getAsModelForSelfReturnsSelf()
     {
         $this->subject->setData(
-            array('foo' => $this->subject)
+            ['foo' => $this->subject]
         );
 
         self::assertSame(
@@ -357,7 +357,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
             'The data item for the key "foo" is no list instance.'
         );
 
-        $this->subject->setData(array());
+        $this->subject->setData([]);
 
         self::assertNull(
             $this->subject->getAsList('foo')
@@ -374,7 +374,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
             'The data item for the key "foo" is no list instance.'
         );
 
-        $this->subject->setData(array('foo' => 'bar'));
+        $this->subject->setData(['foo' => 'bar']);
 
         $this->subject->getAsList('foo');
     }
@@ -386,7 +386,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     {
         $list = new Tx_Oelib_List();
         $this->subject->setData(
-            array('foo' => $list)
+            ['foo' => $list]
         );
 
         self::assertSame(
@@ -404,7 +404,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function getUidForNoUidReturnsZero()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
 
         self::assertSame(
             0,
@@ -430,7 +430,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function getUidForSetUidViaSetDataReturnsTheSetUid()
     {
-        $this->subject->setData(array('uid' => 42));
+        $this->subject->setData(['uid' => 42]);
 
         self::assertSame(
             42,
@@ -443,7 +443,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function getUidForSetStringUidViaSetDataReturnsTheSetIntegerUid()
     {
-        $this->subject->setData(array('uid' => '42'));
+        $this->subject->setData(['uid' => '42']);
 
         self::assertSame(
             42,
@@ -456,7 +456,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function hasUidForNoUidReturnsFalse()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
 
         self::assertFalse(
             $this->subject->hasUid()
@@ -498,7 +498,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
             'The UID of a model cannot be set a second time.'
         );
 
-        $this->subject->setData(array('uid' => 1));
+        $this->subject->setData(['uid' => 1]);
         $this->subject->setUid(42);
     }
 
@@ -507,7 +507,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function setUidForAModelWithoutUidDoesNotFail()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
         $this->subject->setUid(42);
     }
 
@@ -530,7 +530,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function afterSettingDataWithoutUidHasLoadedState()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
 
         self::assertTrue(
             $this->subject->isLoaded()
@@ -542,7 +542,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function afterSettingDataWithUidHasLoadedState()
     {
-        $this->subject->setData(array('uid' => 1));
+        $this->subject->setData(['uid' => 1]);
 
         self::assertTrue(
             $this->subject->isLoaded()
@@ -554,7 +554,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function afterSettingDataWithUidNotHasDeadState()
     {
-        $this->subject->setData(array('uid' => 1));
+        $this->subject->setData(['uid' => 1]);
 
         self::assertFalse(
             $this->subject->isDead()
@@ -661,7 +661,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function isEmptyForLoadedEmptyObjectReturnsTrue()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
 
         self::assertTrue(
             $this->subject->isEmpty()
@@ -674,7 +674,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function isEmptyForLoadedNotEmptyObjectReturnsFalse()
     {
         $this->subject->setData(
-            array('foo' => 'bar')
+            ['foo' => 'bar']
         );
 
         self::assertFalse(
@@ -687,9 +687,9 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function isEmptyForGhostLoadsModel()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
         $this->subject->setUid(1);
-        $this->subject->setLoadCallback(array($this, 'load'));
+        $this->subject->setLoadCallback([$this, 'load']);
         $this->subject->isEmpty();
 
         self::assertTrue(
@@ -703,10 +703,10 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function isEmptyForGhostWithLoadedDataReturnsFalse()
     {
         $this->subject->setData(
-            array('foo' => 'bar')
+            ['foo' => 'bar']
         );
         $this->subject->setUid(1);
-        $this->subject->setLoadCallback(array($this, 'load'));
+        $this->subject->setLoadCallback([$this, 'load']);
 
         self::assertFalse(
             $this->subject->isEmpty()
@@ -719,7 +719,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function isEmptyForGhostWithoutLoadedDataReturnsTrue()
     {
         $this->subject->setUid(1);
-        $this->subject->setLoadCallback(array($this, 'load'));
+        $this->subject->setLoadCallback([$this, 'load']);
 
         self::assertTrue(
             $this->subject->isEmpty()
@@ -781,7 +781,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function isDirtyAfterSetDataWithUidAndOtherDataReturnsFalse()
     {
-        $this->subject->setData(array('uid' => 42, 'title' => 'foo'));
+        $this->subject->setData(['uid' => 42, 'title' => 'foo']);
 
         self::assertFalse(
             $this->subject->isDirty()
@@ -793,7 +793,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function isDirtyAfterSetDataOnlyWithUidReturnsFalse()
     {
-        $this->subject->setData(array('uid' => 42, 'title' => 'foo'));
+        $this->subject->setData(['uid' => 42, 'title' => 'foo']);
 
         self::assertFalse(
             $this->subject->isDirty()
@@ -806,7 +806,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function isDirtyAfterSetDataForAModelAlreadyHavingAUidReturnsFalse()
     {
         $this->subject->setUid(42);
-        $this->subject->setData(array('title' => 'foo'));
+        $this->subject->setData(['title' => 'foo']);
 
         self::assertFalse(
             $this->subject->isDirty()
@@ -818,7 +818,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function isDirtyAfterSetDataWithoutUidReturnsTrue()
     {
-        $this->subject->setData(array('title' => 'foo'));
+        $this->subject->setData(['title' => 'foo']);
 
         self::assertTrue(
             $this->subject->isDirty()
@@ -928,7 +928,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function setToDeletedOnLoadedModelMarksModelAsDirty()
     {
-        $this->subject->setData(array('uid' => 1));
+        $this->subject->setData(['uid' => 1]);
 
         self::assertTrue(
             $this->subject->isLoaded()
@@ -946,7 +946,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function setToDeletedOnLoadedModelMarksModelAsDeleted()
     {
-        $this->subject->setData(array('uid' => 1));
+        $this->subject->setData(['uid' => 1]);
 
         self::assertTrue(
             $this->subject->isLoaded()
@@ -977,7 +977,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function isDeletedForModelSetToDeletedReturnsTrue()
     {
-        $this->subject->setData(array('uid' => 1));
+        $this->subject->setData(['uid' => 1]);
 
         $this->subject->setToDeleted();
 
@@ -991,7 +991,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function isDeletedForNonDeletedModelReturnsFalse()
     {
-        $this->subject->setData(array('uid' => 1));
+        $this->subject->setData(['uid' => 1]);
 
         self::assertFalse(
             $this->subject->isDeleted()
@@ -1030,7 +1030,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function setDataOnReadOnlyModelDoesNotFail()
     {
         $model = new Tx_Oelib_Tests_Unit_Fixtures_ReadOnlyModel();
-        $model->setData(array());
+        $model->setData([]);
     }
 
     /**
@@ -1057,7 +1057,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function getDataForNoDataSetReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getData()
         );
     }
@@ -1067,7 +1067,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function getDataReturnsArrayWithTheSetData()
     {
-        $data = array('foo' => 'bar');
+        $data = ['foo' => 'bar'];
         $this->subject->setData($data);
 
         self::assertSame(
@@ -1081,10 +1081,10 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function getDataReturnsArrayWithoutKeyUid()
     {
-        $this->subject->setData(array('uid' => 1));
+        $this->subject->setData(['uid' => 1]);
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->getData()
         );
     }
@@ -1098,7 +1098,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function setTimestampForLoadedModelSetsTheTimestamp()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
         $this->subject->setTimestamp();
 
         self::assertSame(
@@ -1117,7 +1117,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
             'Only new objects (without UID) may receive "crdate".'
         );
 
-        $this->subject->setData(array('uid' => 1));
+        $this->subject->setData(['uid' => 1]);
         $this->subject->setCreationDate();
     }
 
@@ -1126,7 +1126,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function setCreationDateForLoadedModelWithoutUidSetsCrdate()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
         $this->subject->setCreationDate();
 
         self::assertSame(
@@ -1144,7 +1144,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function getPageUidForNoPageUidSetReturnsZero()
     {
-        $this->subject->setData(array());
+        $this->subject->setData([]);
 
         self::assertSame(
             0,
@@ -1157,7 +1157,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function getPageUidReturnsPageUid()
     {
-        $this->subject->setData(array('pid' => 42));
+        $this->subject->setData(['pid' => 42]);
 
         self::assertSame(
             42,
@@ -1205,7 +1205,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function markAsHiddenMarksVisibleModelAsHidden()
     {
-        $this->subject->setData(array('hidden' => false));
+        $this->subject->setData(['hidden' => false]);
 
         $this->subject->markAsHidden();
 
@@ -1219,7 +1219,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function markAsVisibleMarksHiddenModelAsNotHidden()
     {
-        $this->subject->setData(array('hidden' => true));
+        $this->subject->setData(['hidden' => true]);
 
         $this->subject->markAsVisible();
 
@@ -1248,14 +1248,15 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function uncloneableStatusDataProvider()
     {
-        return array(
-            'loading' => array(Tx_Oelib_Model::STATUS_LOADING),
-            'deleted' => array(Tx_Oelib_Model::STATUS_DEAD),
-        );
+        return [
+            'loading' => [Tx_Oelib_Model::STATUS_LOADING],
+            'deleted' => [Tx_Oelib_Model::STATUS_DEAD],
+        ];
     }
 
     /**
      * @test
+     *
      * @param string $status
      * @dataProvider uncloneableStatusDataProvider
      * @expectedException \BadMethodCallException

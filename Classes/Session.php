@@ -37,10 +37,10 @@ class Tx_Oelib_Session extends Tx_Oelib_PublicObject
     /**
      * @var string[] available type codes for the FE session functions
      */
-    private static $types = array(
+    private static $types = [
         self::TYPE_USER => 'user',
         self::TYPE_TEMPORARY => 'ses',
-    );
+    ];
 
     /**
      * @var int the type of this session (::TYPE_USER or ::TYPE_TEMPORARY)
@@ -50,7 +50,7 @@ class Tx_Oelib_Session extends Tx_Oelib_PublicObject
     /**
      * @var Tx_Oelib_Session[] the instances, using the type as key
      */
-    private static $instances = array();
+    private static $instances = [];
 
     /**
      * The constructor. Use getInstance() instead.
@@ -128,7 +128,7 @@ class Tx_Oelib_Session extends Tx_Oelib_PublicObject
      */
     public static function purgeInstances()
     {
-        self::$instances = array();
+        self::$instances = [];
     }
 
     /**

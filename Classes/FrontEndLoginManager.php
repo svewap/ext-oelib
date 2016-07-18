@@ -122,7 +122,7 @@ class Tx_Oelib_FrontEndLoginManager implements Tx_Oelib_Interface_LoginManager
      *
      * This function is intended to be used for unit test only. Don't use it in the production code.
      *
-     * @param Tx_Oelib_Model_FrontEndUser|NULL $user the user to log in, set to NULL for no logged-in user
+     * @param Tx_Oelib_Model_FrontEndUser|null $user the user to log in, set to NULL for no logged-in user
      *
      * @return void
      */

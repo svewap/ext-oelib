@@ -24,7 +24,7 @@ class Tx_Oelib_Configuration extends Tx_Oelib_PublicObject
     /**
      * @var array the data for this configuration
      */
-    private $data = array();
+    private $data = [];
 
     /**
      * The (empty) constructor.
@@ -130,7 +130,7 @@ class Tx_Oelib_Configuration extends Tx_Oelib_PublicObject
         }
 
         if (!$this->existsKey($key) || !is_array($this->data[$key])) {
-            return array();
+            return [];
         }
 
         return array_keys($this->data[$key]);
@@ -154,7 +154,7 @@ class Tx_Oelib_Configuration extends Tx_Oelib_PublicObject
     public function getAsMultidimensionalArray($key)
     {
         if (!isset($this->data[$key]) || !is_array($this->data[$key])) {
-            return array();
+            return [];
         }
 
         return $this->data[$key];

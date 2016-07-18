@@ -68,7 +68,7 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
     public function getChildrenWithoutChildrenSetReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getChildren()
         );
     }
@@ -82,7 +82,7 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
         $this->subject->addChild($childNode);
 
         self::assertSame(
-            array($childNode),
+            [$childNode],
             $this->subject->getChildren()
         );
     }

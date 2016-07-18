@@ -66,7 +66,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      *
      * @var array[]
      */
-    private static $cachedConfigurations = array();
+    private static $cachedConfigurations = [];
 
     /**
      * Frees as much memory that has been used by this object as possible.
@@ -89,7 +89,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      * If the parameter is omitted, the configuration for plugin.tx_[extkey] is
      * used instead, e.g. plugin.tx_seminars.
      *
-     * @param array|NULL $configuration TypoScript configuration for the plugin, set to NULL to load the configuration from a BE page
+     * @param array|null $configuration TypoScript configuration for the plugin, set to NULL to load the configuration from a BE page
      *
      * @return void
      */
@@ -101,7 +101,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
 
         $frontEnd = $this->getFrontEndController();
         if ($frontEnd !== null && !isset($frontEnd->config['config'])) {
-            $frontEnd->config['config'] = array();
+            $frontEnd->config['config'] = [];
         }
 
         // Calls the base class's constructor manually as this isn't done automatically.
@@ -210,7 +210,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
         if (isset($template->setup['plugin.']['tx_' . $this->extKey . '.'])) {
             $result = $template->setup['plugin.']['tx_' . $this->extKey . '.'];
         } else {
-            $result = array();
+            $result = [];
         }
 
         return $result;
@@ -422,7 +422,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
         $pageUid = Tx_Oelib_PageFinder::getInstance()->getPageUid();
 
         if (!isset(self::$cachedConfigurations[$pageUid])) {
-            self::$cachedConfigurations[$pageUid] = array();
+            self::$cachedConfigurations[$pageUid] = [];
         }
 
         self::$cachedConfigurations[$pageUid][$key] = $value;
@@ -437,7 +437,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      */
     public static function purgeCachedConfigurations()
     {
-        self::$cachedConfigurations = array();
+        self::$cachedConfigurations = [];
     }
 
     /**
@@ -459,7 +459,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
     private function ensureConfigurationArray()
     {
         if (!is_array($this->conf)) {
-            $this->conf = array();
+            $this->conf = [];
         }
     }
 
@@ -558,7 +558,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
         try {
             return $this->getTemplate()->getPrefixedMarkers($prefix);
         } catch (Exception $exception) {
-            return array();
+            return [];
         }
     }
 
@@ -784,7 +784,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      * @return void
      */
     public function unhideSubpartsArray(
-        array $subparts, array $permanentlyHiddenSubparts = array(), $prefix = ''
+        array $subparts, array $permanentlyHiddenSubparts = [], $prefix = ''
     ) {
         $this->getTemplate()->unhideSubpartsArray(
             $subparts, $permanentlyHiddenSubparts, $prefix
@@ -969,7 +969,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
         try {
             $labels = $template->getLabelMarkerNames();
         } catch (Exception $exception) {
-            $labels = array();
+            $labels = [];
         }
 
         foreach ($labels as $label) {
@@ -995,7 +995,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
         try {
             $cssEntries = $this->getTemplate()->getPrefixedMarkers('class');
         } catch (Exception $exception) {
-            $cssEntries = array();
+            $cssEntries = [];
         }
 
         foreach ($cssEntries as $currentCssEntry) {
@@ -1071,14 +1071,14 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      *
      * @return void
      */
-    protected function ensureIntegerPiVars(array $additionalPiVars = array())
+    protected function ensureIntegerPiVars(array $additionalPiVars = [])
     {
         if (!is_array($this->piVars)) {
-            $this->piVars = array();
+            $this->piVars = [];
         }
 
         foreach (array_merge(
-            array('showUid', 'pointer', 'mode'), $additionalPiVars
+            ['showUid', 'pointer', 'mode'], $additionalPiVars
         ) as $key) {
             if (isset($this->piVars[$key])) {
                 $this->piVars[$key] = (int)$this->piVars[$key];

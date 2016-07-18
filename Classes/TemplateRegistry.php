@@ -29,7 +29,7 @@ class Tx_Oelib_TemplateRegistry
     /**
      * @var Tx_Oelib_Template[] already created templates (by file name)
      */
-    private $templates = array();
+    private $templates = [];
 
     /**
      * The constructor. Use getInstance() instead.
@@ -43,7 +43,7 @@ class Tx_Oelib_TemplateRegistry
      */
     public function __destruct()
     {
-        $this->templates = array();
+        $this->templates = [];
     }
 
     /**

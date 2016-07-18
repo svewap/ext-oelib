@@ -92,7 +92,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
      */
     public function findByUserNameWithNameOfExistingUserReturnsBackEndUserInstance()
     {
-        $this->testingFramework->createBackEndUser(array('username' => 'foo'));
+        $this->testingFramework->createBackEndUser(['username' => 'foo']);
 
         self::assertInstanceOf(
             Tx_Oelib_Model_BackEndUser::class,
@@ -106,7 +106,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
     public function findByUserNameWithNameOfExistingUserReturnsModelWithThatUid()
     {
         self::assertSame(
-            $this->testingFramework->createBackEndUser(array('username' => 'foo')),
+            $this->testingFramework->createBackEndUser(['username' => 'foo']),
             $this->subject->findByUserName('foo')->getUid()
         );
     }
@@ -117,7 +117,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
     public function findByUserNameWithUppercasedNameOfExistingLowercasedUserReturnsModelWithThatUid()
     {
         self::assertSame(
-            $this->testingFramework->createBackEndUser(array('username' => 'foo')),
+            $this->testingFramework->createBackEndUser(['username' => 'foo']),
             $this->subject->findByUserName('FOO')->getUid()
         );
     }
@@ -128,7 +128,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
     public function findByUserNameWithUppercasedNameOfExistingUppercasedUserReturnsModelWithThatUid()
     {
         self::assertSame(
-            $this->testingFramework->createBackEndUser(array('username' => 'FOO')),
+            $this->testingFramework->createBackEndUser(['username' => 'FOO']),
             $this->subject->findByUserName('FOO')->getUid()
         );
     }
@@ -139,7 +139,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
     public function findByUserNameWithLowercaseNameOfExistingUppercaseUserReturnsModelWithThatUid()
     {
         self::assertSame(
-            $this->testingFramework->createBackEndUser(array('username' => 'FOO')),
+            $this->testingFramework->createBackEndUser(['username' => 'FOO']),
             $this->subject->findByUserName('foo')->getUid()
         );
     }
@@ -152,7 +152,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
     public function findByUserNameWithNameOfNonExistentUserThrowsException()
     {
         $this->testingFramework->createBackEndUser(
-            array('username' => 'foo', 'deleted' => 1)
+            ['username' => 'foo', 'deleted' => 1]
         );
 
         $this->subject->findByUserName('foo');
@@ -167,8 +167,8 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
      */
     public function findByCliKeyForCliKeyDefinedReturnsBackEndUserInstance()
     {
-        $this->testingFramework->createBackEndUser(array('username' => 'foo'));
-        /**
+        $this->testingFramework->createBackEndUser(['username' => 'foo']);
+        /*
          * fakes the CLI definition
          *
          * @var string
@@ -195,7 +195,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
         /** @var Tx_Oelib_Model_BackEndUserGroup $group */
         $group = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getNewGhost();
         $groupUid = $group->getUid();
-        $userUid = $this->subject->getLoadedTestingModel(array('usergroup' => $groupUid))->getUid();
+        $userUid = $this->subject->getLoadedTestingModel(['usergroup' => $groupUid])->getUid();
 
         /** @var Tx_Oelib_Model_BackEndUser $user */
         $user = $this->subject->find($userUid);

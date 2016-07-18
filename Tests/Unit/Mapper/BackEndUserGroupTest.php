@@ -66,7 +66,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserGroupTest extends Tx_Phpunit_TestCas
     {
         /** @var Tx_Oelib_Model_FrontEndUserGroup $userGroup */
         $userGroup = $this->subject->find(
-            $this->testingFramework->createBackEndUserGroup(array('title' => 'foo'))
+            $this->testingFramework->createBackEndUserGroup(['title' => 'foo'])
         );
 
         $this->subject->load($userGroup);
@@ -88,7 +88,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserGroupTest extends Tx_Phpunit_TestCas
     {
         $subgroup = $this->subject->getNewGhost();
         $group = $this->subject->getLoadedTestingModel(
-            array('subgroup' => $subgroup->getUid())
+            ['subgroup' => $subgroup->getUid()]
         );
 
         /** @var Tx_Oelib_Model_BackEndUserGroup $group */

@@ -24,7 +24,7 @@ class Tx_Oelib_Visibility_Tree
     /**
      * @var Tx_Oelib_Visibility_Node[] all nodes within the tree referenced by their keys
      */
-    private $nodes = array();
+    private $nodes = [];
 
     /**
      * @var Tx_Oelib_Visibility_Node
@@ -101,7 +101,7 @@ class Tx_Oelib_Visibility_Tree
      */
     public function getKeysOfHiddenSubparts()
     {
-        $keysToHide = array();
+        $keysToHide = [];
 
         foreach ($this->nodes as $key => $node) {
             if (!$node->isVisible()) {

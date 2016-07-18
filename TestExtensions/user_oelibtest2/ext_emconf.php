@@ -10,7 +10,7 @@
  * writing. "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'Second test extension for tx_oelib',
     'description' => 'Second test extension for tx_oelib',
     'category' => 'example',
@@ -30,17 +30,17 @@ $EM_CONF[$_EXTKEY] = array(
     'lockType' => '',
     'author_company' => '',
     'version' => '0.0.0',
-    'constraints' => array(
-        'depends' => array(
+    'constraints' => [
+        'depends' => [
             'oelib' => '',
             'user_oelibtest' => '',
-        ),
-        'conflicts' => array(
-        ),
-        'suggests' => array(
-        ),
-    ),
+        ],
+        'conflicts' => [
+        ],
+        'suggests' => [
+        ],
+    ],
     '_md5_values_when_last_written' => '',
-    'suggests' => array(
-    ),
-);
+    'suggests' => [
+    ],
+];

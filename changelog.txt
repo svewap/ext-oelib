@@ -21,6 +21,7 @@ Bug fixes:
 - [#5321] Update .htaccess to be Apache 2.4 compatible
 
 Cleanup:
+- [#5735] Use the short array syntax
 - [#5731] Fix code inspection warnings
 - [#5067] Make the TCA cacheable
 - [#5704] Remove any references to t3lib in the documentation

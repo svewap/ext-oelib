@@ -10,7 +10,7 @@
  * writing. "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'One is Enough Library',
     'description' => 'This extension provides useful stuff for extension development: helper functions for unit testing, templating and automatic configuration checks.',
     'category' => 'services',
@@ -34,24 +34,24 @@ $EM_CONF[$_EXTKEY] = array(
     'author_company' => 'oliverklee.de',
     'version' => '0.9.54',
     '_md5_values_when_last_written' => '',
-    'constraints' => array(
-        'depends' => array(
+    'constraints' => [
+        'depends' => [
             'php' => '5.5.0-7.0.99',
             'typo3' => '6.2.0-7.9.99',
             'static_info_tables' => '6.2.0-',
-        ),
-        'conflicts' => array(
-        ),
-        'suggests' => array(
+        ],
+        'conflicts' => [
+        ],
+        'suggests' => [
             'extbase' => '6.2.0-6.2.99',
-        ),
-    ),
-    'suggests' => array(
-    ),
-    'autoload' => array(
-        'classmap' => array(
+        ],
+    ],
+    'suggests' => [
+    ],
+    'autoload' => [
+        'classmap' => [
             'Classes',
             'Tests',
-        ),
-    ),
-);
+        ],
+    ],
+];

@@ -30,22 +30,22 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
     /**
      * @var Tx_Oelib_Interface_MailRole[] the recipients of the e-mail
      */
-    private $recipients = array();
+    private $recipients = [];
 
     /**
      * @var array the data of this object
      */
-    private $data = array();
+    private $data = [];
 
     /**
      * @var Tx_Oelib_Attachment[] attachments of the e-mail
      */
-    private $attachments = array();
+    private $attachments = [];
 
     /**
      * @var string[] the CSS files which already have been read
      */
-    private static $cssFileCache = array();
+    private static $cssFileCache = [];
 
     /**
      * @var string the return path for the e-mails
@@ -247,7 +247,7 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
     protected function loadEmogrifierClass()
     {
         if (!class_exists('Pelago\\Emogrifier', true)) {
-            require_once(ExtensionManagementUtility::extPath('oelib') . 'Packages/vendor/pelago/emogrifier/Classes/Emogrifier.php');
+            require_once ExtensionManagementUtility::extPath('oelib') . 'Packages/vendor/pelago/emogrifier/Classes/Emogrifier.php';
         }
     }
 

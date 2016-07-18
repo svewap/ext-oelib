@@ -34,7 +34,7 @@ class Tx_Oelib_Mapper_Language extends Tx_Oelib_DataMapper
     /**
      * @var string[] the column names of additional string keys
      */
-    protected $additionalKeys = array('lg_iso_2');
+    protected $additionalKeys = ['lg_iso_2'];
 
     /**
      * Finds a language by its ISO 639-1 alpha-2 code.

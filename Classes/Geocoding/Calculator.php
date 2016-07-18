@@ -144,10 +144,10 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
         $longitudeDelta = $xDeltaInKilometers / $oneDegreeLongitudeInKilometers;
 
         $object->setGeoCoordinates(
-            array(
+            [
                 'latitude' => $originalLatitude + $latitudeDelta,
                 'longitude' => $originalLongitude + $longitudeDelta,
-            )
+            ]
         );
     }
 

@@ -34,7 +34,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
     /**
      * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
      */
-    protected $relations = array(
+    protected $relations = [
         'friend' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
         'owner' => Tx_Oelib_Mapper_FrontEndUser::class,
         'children' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
@@ -42,22 +42,22 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
         'composition' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper',
         'composition2' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper',
         'bidirectional' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
-    );
+    ];
 
     /**
      * @var string[] the column names of additional string keys
      */
-    protected $additionalKeys = array('title');
+    protected $additionalKeys = ['title'];
 
     /**
      * @var string[] the column names of an additional compound key
      */
-    protected $compoundKeyParts = array('title', 'header');
+    protected $compoundKeyParts = ['title', 'header'];
 
     /**
      * @var Tx_Oelib_Model[]
      */
-    protected $cachedModels = array();
+    protected $cachedModels = [];
 
     /**
      * Gets the cached models.
@@ -207,7 +207,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
      */
     public function findOneByTitleAndHeader($title, $header)
     {
-        $value = array();
+        $value = [];
         $value['title'] = $title;
         $value['header'] = $header;
 

@@ -281,7 +281,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
             '$key must not be empty.'
         );
 
-        $this->subject->setAsArray('', array('bar'));
+        $this->subject->setAsArray('', ['bar']);
     }
 
     /**
@@ -290,7 +290,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
     public function getAsTrimmedArrayWithInexistentKeyReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsTrimmedArray('foo')
         );
     }
@@ -301,7 +301,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
     public function getAsIntegerArrayWithInexistentKeyReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsIntegerArray('foo')
         );
     }
@@ -311,10 +311,10 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
      */
     public function getAsTrimmedArrayReturnsNonEmptyArraySetViaSetAsArray()
     {
-        $this->subject->setAsArray('foo', array('foo', 'bar'));
+        $this->subject->setAsArray('foo', ['foo', 'bar']);
 
         self::assertSame(
-            array('foo', 'bar'),
+            ['foo', 'bar'],
             $this->subject->getAsTrimmedArray('foo')
         );
     }
@@ -324,10 +324,10 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
      */
     public function getAsIntegerArrayReturnsNonEmptyArraySetViaSetAsArray()
     {
-        $this->subject->setAsArray('foo', array(1, -2));
+        $this->subject->setAsArray('foo', [1, -2]);
 
         self::assertSame(
-            array(1, -2),
+            [1, -2],
             $this->subject->getAsIntegerArray('foo')
         );
     }
@@ -337,10 +337,10 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
      */
     public function getAsTrimmedArrayReturnsEmptyArraySetViaSetAsArray()
     {
-        $this->subject->setAsArray('foo', array());
+        $this->subject->setAsArray('foo', []);
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsTrimmedArray('foo')
         );
     }
@@ -350,10 +350,10 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
      */
     public function getAsIntegerArrayReturnsEmptyArraySetViaSetAsArray()
     {
-        $this->subject->setAsArray('foo', array());
+        $this->subject->setAsArray('foo', []);
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsIntegerArray('foo')
         );
     }
@@ -363,10 +363,10 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
      */
     public function getAsTrimmedArrayReturnsTrimmedValues()
     {
-        $this->subject->setAsArray('foo', array(' foo '));
+        $this->subject->setAsArray('foo', [' foo ']);
 
         self::assertSame(
-            array('foo'),
+            ['foo'],
             $this->subject->getAsTrimmedArray('foo')
         );
     }
@@ -376,10 +376,10 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
      */
     public function getAsIntegerArrayReturnsIntvaledValues()
     {
-        $this->subject->setAsArray('foo', array('asdf'));
+        $this->subject->setAsArray('foo', ['asdf']);
 
         self::assertSame(
-            array(0),
+            [0],
             $this->subject->getAsIntegerArray('foo')
         );
     }
@@ -580,7 +580,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
      */
     public function getAsFloatCanReturnPositiveFloatFromFloat()
     {
-        $this->subject->setData(array('foo' => 42.5));
+        $this->subject->setData(['foo' => 42.5]);
 
         self::assertSame(
             42.5,
@@ -658,7 +658,7 @@ class Tx_Oelib_Tests_Unit_ObjectTest extends Tx_Phpunit_TestCase
      */
     public function getAsFloatCanReturnPositiveFloatFromString()
     {
-        $this->subject->setData(array('foo' => '42.5'));
+        $this->subject->setData(['foo' => '42.5']);
 
         self::assertSame(
             42.5,

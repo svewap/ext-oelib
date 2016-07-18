@@ -49,17 +49,17 @@ abstract class Tx_Oelib_DataMapper
      * @var int[] UIDs of models that are memory-only models that must not be
      *            saved, using the UIDs as keys and TRUE as value
      */
-    protected $uidsOfMemoryOnlyDummyModels = array();
+    protected $uidsOfMemoryOnlyDummyModels = [];
 
     /**
      * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
      */
-    protected $relations = array();
+    protected $relations = [];
 
     /**
      * @var string[] the column names of additional string keys
      */
-    protected $additionalKeys = array();
+    protected $additionalKeys = [];
 
     /**
      * The column names of an additional compound key.
@@ -67,13 +67,13 @@ abstract class Tx_Oelib_DataMapper
      *
      * @var string[]
      */
-    protected $compoundKeyParts = array();
+    protected $compoundKeyParts = [];
 
     /**
      * @var array[] two-dimensional cache for the objects by key:
      *            [key name][key value] => model
      */
-    private $cacheByKey = array();
+    private $cacheByKey = [];
 
     /**
      * Cache for the objects by compound key:
@@ -82,7 +82,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @var Tx_Oelib_Model[]
      */
-    protected $cacheByCompoundKey = array();
+    protected $cacheByCompoundKey = [];
 
     /**
      * @var bool whether database access is denied for this mapper
@@ -107,7 +107,7 @@ abstract class Tx_Oelib_DataMapper
         $this->map = GeneralUtility::makeInstance('Tx_Oelib_IdentityMap');
 
         foreach ($this->additionalKeys as $key) {
-            $this->cacheByKey[$key] = array();
+            $this->cacheByKey[$key] = [];
         }
     }
 
@@ -416,7 +416,7 @@ abstract class Tx_Oelib_DataMapper
      */
     private function createOneToManyRelation(array &$data, $key, Tx_Oelib_Model $model)
     {
-        $modelData = array();
+        $modelData = [];
 
         if ((int)$data[$key] > 0) {
             if ($this->isModelAMemoryOnlyDummy($model)) {
@@ -566,7 +566,7 @@ abstract class Tx_Oelib_DataMapper
         }
 
         $databaseConnection = Tx_Oelib_Db::getDatabaseConnection();
-        $whereClauses = array($this->getUniversalWhereClause(true));
+        $whereClauses = [$this->getUniversalWhereClause(true)];
         foreach ($whereClauseParts as $key => $value) {
             $columnDefinition = Tx_Oelib_Db::getColumnDefinition($this->getTableName(), $key);
 
@@ -602,7 +602,7 @@ abstract class Tx_Oelib_DataMapper
      */
     protected function retrieveRecordByUid($uid)
     {
-        return $this->retrieveRecord(array('uid' => $uid));
+        return $this->retrieveRecord(['uid' => $uid]);
     }
 
     /**
@@ -617,7 +617,7 @@ abstract class Tx_Oelib_DataMapper
         /** @var Tx_Oelib_Model $model */
         $model = GeneralUtility::makeInstance($this->modelClassName);
         $model->setUid($uid);
-        $model->setLoadCallback(array($this, 'load'));
+        $model->setLoadCallback([$this, 'load']);
         $this->map->add($model);
 
         return $model;
@@ -997,11 +997,11 @@ abstract class Tx_Oelib_DataMapper
      */
     protected function getManyToManyRelationIntermediateRecordData($mnTable, $uidLocal, $uidForeign, $sorting)
     {
-        return array(
+        return [
             'uid_local' => $uidLocal,
             'uid_foreign' => $uidForeign,
             'sorting' => $sorting,
-        );
+        ];
     }
 
     /**
@@ -1149,7 +1149,7 @@ abstract class Tx_Oelib_DataMapper
         if ($sorting !== '') {
             $orderBy = $sorting;
         } elseif (isset($tca['ctrl']['default_sortby'])) {
-            $matches = array();
+            $matches = [];
             if (preg_match(
                 '/^ORDER BY (.+)$/', $tca['ctrl']['default_sortby'],
                 $matches
@@ -1322,7 +1322,7 @@ abstract class Tx_Oelib_DataMapper
                 'The compound key parts are not defined.', 1363806895
             );
         }
-        $values = array();
+        $values = [];
         foreach ($this->compoundKeyParts as $key) {
             if (isset($data[$key])) {
                 $values[] = $data[$key];
@@ -1356,7 +1356,7 @@ abstract class Tx_Oelib_DataMapper
         try {
             $model = $this->findOneByKeyFromCache($key, $value);
         } catch (Tx_Oelib_Exception_NotFound $exception) {
-            $model = $this->findSingleByWhereClause(array($key => $value));
+            $model = $this->findSingleByWhereClause([$key => $value]);
         }
 
         return $model;
@@ -1408,7 +1408,7 @@ abstract class Tx_Oelib_DataMapper
      */
     protected function extractCompoundKeyValues(array $compoundKeyValues)
     {
-        $values = array();
+        $values = [];
         foreach ($this->compoundKeyParts as $key) {
             if (!isset($compoundKeyValues[$key])) {
                 throw new InvalidArgumentException(get_class($this) . '::keyValue does not contain all compound keys.', 1354976661);

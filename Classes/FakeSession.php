@@ -26,7 +26,7 @@ class Tx_Oelib_FakeSession extends Tx_Oelib_Session
     /**
      * @var array the data for this session
      */
-    private $sessionData = array();
+    private $sessionData = [];
 
     /**
      * The constructor.

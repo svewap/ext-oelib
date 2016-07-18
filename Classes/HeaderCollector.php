@@ -28,7 +28,7 @@ class Tx_Oelib_HeaderCollector extends Tx_Oelib_AbstractHeaderProxy
      *
      * @var string[]
      */
-    private $headers = array();
+    private $headers = [];
 
     /**
      * Stores a HTTP header which was meant to be sent.

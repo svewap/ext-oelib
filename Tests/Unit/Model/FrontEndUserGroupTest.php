@@ -39,7 +39,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserGroupTest extends Tx_Phpunit_TestCas
      */
     public function getTitleForNonEmptyGroupTitleReturnsGroupTitle()
     {
-        $this->subject->setData(array('title' => 'foo'));
+        $this->subject->setData(['title' => 'foo']);
 
         self::assertSame(
             'foo',
@@ -52,7 +52,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserGroupTest extends Tx_Phpunit_TestCas
      */
     public function getTitleForEmptyGroupTitleReturnsEmptyString()
     {
-        $this->subject->setData(array('title' => ''));
+        $this->subject->setData(['title' => '']);
 
         self::assertSame(
             '',
@@ -69,7 +69,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserGroupTest extends Tx_Phpunit_TestCas
      */
     public function getDescriptionForNonEmptyGroupDescriptionReturnsGroupDescription()
     {
-        $this->subject->setData(array('description' => 'foo'));
+        $this->subject->setData(['description' => 'foo']);
 
         self::assertSame(
             'foo',
@@ -82,7 +82,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserGroupTest extends Tx_Phpunit_TestCas
      */
     public function getDescriptionForEmptyGroupDescriptionReturnsEmptyString()
     {
-        $this->subject->setData(array('description' => ''));
+        $this->subject->setData(['description' => '']);
 
         self::assertSame(
             '',

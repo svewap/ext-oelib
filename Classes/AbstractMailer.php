@@ -71,7 +71,7 @@ abstract class Tx_Oelib_AbstractMailer
         $swiftMail->setSubject($email->getSubject());
 
         $sender = $email->getSender();
-        $swiftMail->setFrom(array($sender->getEmailAddress() => $sender->getName()));
+        $swiftMail->setFrom([$sender->getEmailAddress() => $sender->getName()]);
         $swiftMail->setCharset('utf-8');
 
         $returnPath = $email->getReturnPath();
@@ -101,7 +101,7 @@ abstract class Tx_Oelib_AbstractMailer
         }
 
         foreach ($email->getRecipients() as $recipient) {
-            $swiftMail->setTo(array($recipient->getEmailAddress() => $recipient->getName()));
+            $swiftMail->setTo([$recipient->getEmailAddress() => $recipient->getName()]);
             $this->sendSwiftMail($swiftMail);
         }
     }

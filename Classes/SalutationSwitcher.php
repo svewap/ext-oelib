@@ -27,7 +27,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      * A list of language keys for which the localizations have been loaded
      * (or NULL if the list has not been compiled yet).
      *
-     * @var string[]|NULL
+     * @var string[]|null
      */
     private $availableLanguages = null;
 
@@ -36,21 +36,21 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      * localizations in the preferred order of formality (or NULL if the list
      * has not been compiled yet).
      *
-     * @var string[]|NULL
+     * @var string[]|null
      */
     private $suffixesToTry = null;
 
     /**
      * @var string[]
      */
-    protected $translationCache = array();
+    protected $translationCache = [];
 
     /**
      * Frees as much memory that has been used by this object as possible.
      */
     public function __destruct()
     {
-        $this->translationCache = array();
+        $this->translationCache = [];
 
         unset(
             $this->availableLanguages, $this->suffixesToTry, $this->conf,
@@ -167,7 +167,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
     private function getAvailableLanguages()
     {
         if ($this->availableLanguages === null) {
-            $this->availableLanguages = array();
+            $this->availableLanguages = [];
 
             if (!empty($this->LLkey)) {
                 $this->availableLanguages[] = $this->LLkey;
@@ -200,7 +200,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
     private function getSuffixesToTry()
     {
         if ($this->suffixesToTry === null) {
-            $this->suffixesToTry = array();
+            $this->suffixesToTry = [];
 
             if (isset($this->conf['salutation'])) {
                 if ($this->conf['salutation'] === 'informal') {

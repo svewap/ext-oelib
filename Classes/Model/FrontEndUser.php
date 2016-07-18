@@ -503,7 +503,7 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
      */
     public function setGender($genderKey)
     {
-        $validGenderKeys = array(self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_UNKNOWN);
+        $validGenderKeys = [self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_UNKNOWN];
         if (!in_array($genderKey, $validGenderKeys, true)) {
             throw new InvalidArgumentException(
                 '$genderKey must be one of the predefined constants, but actually is: ' . $genderKey, 1393329321

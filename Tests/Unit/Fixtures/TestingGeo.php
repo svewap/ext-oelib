@@ -39,7 +39,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingGeo extends Tx_Oelib_Model implements 
      *
      * @var float[]
      */
-    private $coordinates = array();
+    private $coordinates = [];
 
     /**
      * Returns this object's address formatted for a geo lookup, for example
@@ -127,7 +127,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingGeo extends Tx_Oelib_Model implements 
      */
     public function clearGeoCoordinates()
     {
-        $this->coordinates = array();
+        $this->coordinates = [];
     }
 
     /**

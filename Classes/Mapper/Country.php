@@ -34,7 +34,7 @@ class Tx_Oelib_Mapper_Country extends Tx_Oelib_DataMapper
     /**
      * @var string[] the column names of additional string keys
      */
-    protected $additionalKeys = array('cn_iso_2', 'cn_iso_3');
+    protected $additionalKeys = ['cn_iso_2', 'cn_iso_3'];
 
     /**
      * Finds a country by its ISO 3166-1 alpha-2 code.

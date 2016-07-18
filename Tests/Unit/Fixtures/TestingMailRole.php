@@ -23,7 +23,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole extends Tx_Oelib_Object imple
     /**
      * @var string[] the data of this object
      */
-    private $data = array();
+    private $data = [];
 
     /**
      * The constructor. Sets the name and the e-mail address of the e-mail role.

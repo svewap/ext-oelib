@@ -33,7 +33,7 @@ class Tx_Oelib_ConfigurationRegistry
     /**
      * @var Tx_Oelib_Configuration[] already created configurations (by namespace)
      */
-    private $configurations = array();
+    private $configurations = [];
 
     /**
      * The constructor. Use getInstance() instead.
@@ -183,7 +183,7 @@ class Tx_Oelib_ConfigurationRegistry
         $namespaceParts = explode('.', $namespace);
         foreach ($namespaceParts as $namespacePart) {
             if (!array_key_exists($namespacePart . '.', $data)) {
-                $data = array();
+                $data = [];
                 break;
             }
 
@@ -207,7 +207,7 @@ class Tx_Oelib_ConfigurationRegistry
     {
         $pageUid = Tx_Oelib_PageFinder::getInstance()->getPageUid();
         if ($pageUid === 0) {
-            return array();
+            return [];
         }
 
         if ($this->existsFrontEnd()) {

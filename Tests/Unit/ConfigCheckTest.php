@@ -49,13 +49,13 @@ class Tx_Oelib_Tests_Unit_ConfigCheckTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createFakeFrontEnd();
 
         $this->objectToCheck = new Tx_Oelib_Tests_Unit_Fixtures_DummyObjectToCheck(
-            array(
+            [
                 'emptyString' => '',
                 'nonEmptyString' => 'foo',
                 'validEmail' => 'any-address@valid-email.org',
                 'existingColumn' => 'title',
                 'inexistentColumn' => 'does_not_exist',
-            )
+            ]
         );
         $this->subject = new Tx_Oelib_ConfigCheck($this->objectToCheck);
     }

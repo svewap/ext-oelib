@@ -39,7 +39,7 @@ class Tx_Oelib_Tests_Unit_Model_LanguageTest extends Tx_Phpunit_TestCase
      */
     public function getLocalNameReturnsLocalNameOfGerman()
     {
-        $this->subject->setData(array('lg_name_local' => 'Deutsch'));
+        $this->subject->setData(['lg_name_local' => 'Deutsch']);
 
         self::assertSame(
             'Deutsch',
@@ -52,7 +52,7 @@ class Tx_Oelib_Tests_Unit_Model_LanguageTest extends Tx_Phpunit_TestCase
      */
     public function getLocalNameReturnsLocalNameOfEnglish()
     {
-        $this->subject->setData(array('lg_name_local' => 'English'));
+        $this->subject->setData(['lg_name_local' => 'English']);
 
         self::assertSame(
             'English',
@@ -69,7 +69,7 @@ class Tx_Oelib_Tests_Unit_Model_LanguageTest extends Tx_Phpunit_TestCase
      */
     public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfGerman()
     {
-        $this->subject->setData(array('lg_iso_2' => 'DE'));
+        $this->subject->setData(['lg_iso_2' => 'DE']);
 
         self::assertSame(
             'DE',
@@ -82,7 +82,7 @@ class Tx_Oelib_Tests_Unit_Model_LanguageTest extends Tx_Phpunit_TestCase
      */
     public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfEnglish()
     {
-        $this->subject->setData(array('lg_iso_2' => 'EN'));
+        $this->subject->setData(['lg_iso_2' => 'EN']);
 
         self::assertSame(
             'EN',

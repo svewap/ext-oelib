@@ -38,7 +38,7 @@ class Tx_Oelib_TranslatorRegistry
      *
      * @var Tx_Oelib_Translator[]
      */
-    private $translators = array();
+    private $translators = [];
 
     /**
      * @var string the key of the language to load the translations for
@@ -279,7 +279,7 @@ class Tx_Oelib_TranslatorRegistry
             throw new InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489630);
         }
 
-        $result = array();
+        $result = [];
         $namespace = 'plugin.tx_' . $extensionName . '._LOCAL_LANG.' . $this->languageKey;
 
         $configuration = Tx_Oelib_ConfigurationRegistry::get($namespace);

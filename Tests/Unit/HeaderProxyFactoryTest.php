@@ -140,7 +140,7 @@ class Tx_Oelib_Tests_Unit_HeaderProxyFactoryTest extends Tx_Phpunit_TestCase
         $this->subject->addHeader('123: bar.');
 
         self::assertSame(
-            array('123: foo.', '123: bar.'),
+            ['123: foo.', '123: bar.'],
             $this->subject->getAllAddedHeaders()
         );
     }

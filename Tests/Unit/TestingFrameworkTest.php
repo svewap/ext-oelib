@@ -49,21 +49,21 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
      *
      * @var array
      */
-    protected $extConfBackup = array();
+    protected $extConfBackup = [];
 
     /**
      * backed-up T3_VAR configuration
      *
      * @var array
      */
-    protected $t3VarBackup = array();
+    protected $t3VarBackup = [];
 
     protected function setUp()
     {
         $this->extConfBackup = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'];
         $this->t3VarBackup = $GLOBALS['T3_VAR']['getUserObj'];
 
-        $this->subject = new Tx_Oelib_TestingFramework('tx_oelib', array('user_oelibtest'));
+        $this->subject = new Tx_Oelib_TestingFramework('tx_oelib', ['user_oelibtest']);
     }
 
     protected function tearDown()
@@ -184,15 +184,15 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function markTableAsDirty()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getListOfDirtyTables()
         );
 
-        $this->subject->createRecord('tx_oelib_test', array());
+        $this->subject->createRecord('tx_oelib_test', []);
         self::assertSame(
-            array(
-                'tx_oelib_test' => 'tx_oelib_test'
-            ),
+            [
+                'tx_oelib_test' => 'tx_oelib_test',
+            ],
             $this->subject->getListOfDirtyTables()
         );
     }
@@ -203,7 +203,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function markTableAsDirtyWillCleanUpNonSystemTable()
     {
         $uid = Tx_Oelib_Db::insert(
-            'tx_oelib_test', array('is_dummy_record' => 1)
+            'tx_oelib_test', ['is_dummy_record' => 1]
         );
 
         $this->subject->markTableAsDirty('tx_oelib_test');
@@ -220,7 +220,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function markTableAsDirtyWillCleanUpSystemTable()
     {
         $uid = Tx_Oelib_Db::insert(
-            'pages', array('tx_oelib_is_dummy_record' => 1)
+            'pages', ['tx_oelib_is_dummy_record' => 1]
         );
 
         $this->subject->markTableAsDirty('pages');
@@ -239,7 +239,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->checkIfExtensionUserOelibtestIsLoaded();
 
         $uid = Tx_Oelib_Db::insert(
-            'user_oelibtest_test', array('tx_oelib_is_dummy_record' => 1)
+            'user_oelibtest_test', ['tx_oelib_is_dummy_record' => 1]
         );
 
         $this->subject->markTableAsDirty('user_oelibtest_test');
@@ -305,10 +305,10 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     {
         $this->subject->markTableAsDirty('tx_oelib_test' . ',' . 'tx_oelib_test_article_mm');
         self::assertSame(
-            array(
+            [
                 'tx_oelib_test' => 'tx_oelib_test',
-                'tx_oelib_test_article_mm' => 'tx_oelib_test_article_mm'
-            ),
+                'tx_oelib_test_article_mm' => 'tx_oelib_test_article_mm',
+            ],
             $this->subject->getListOfDirtyTables()
         );
     }
@@ -324,7 +324,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     {
         self::assertNotSame(
             0,
-            $this->subject->createRecord('tx_oelib_test', array())
+            $this->subject->createRecord('tx_oelib_test', [])
         );
     }
 
@@ -336,9 +336,9 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $title = 'TEST record';
         $uid = $this->subject->createRecord(
             'tx_oelib_test',
-            array(
-                'title' => $title
-            )
+            [
+                'title' => $title,
+            ]
         );
         self::assertNotSame(
             0,
@@ -366,7 +366,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The table name "tx_oelib_DOESNOTEXIST" is not allowed.'
         );
-        $this->subject->createRecord('tx_oelib_DOESNOTEXIST', array());
+        $this->subject->createRecord('tx_oelib_DOESNOTEXIST', []);
     }
 
     /**
@@ -378,7 +378,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The table name "" is not allowed.'
         );
-        $this->subject->createRecord('', array());
+        $this->subject->createRecord('', []);
     }
 
     /**
@@ -391,7 +391,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'The column "uid" must not be set in $recordData.'
         );
         $this->subject->createRecord(
-            'tx_oelib_test', array('uid' => 99999)
+            'tx_oelib_test', ['uid' => 99999]
         );
     }
 
@@ -405,9 +405,9 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $title = 'TEST record';
         $this->subject->createRecord(
             'user_oelibtest_test',
-            array(
-                'title' => $title
-            )
+            [
+                'title' => $title,
+            ]
         );
     }
 
@@ -422,13 +422,13 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createRecord(
             'tx_oelib_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         $this->subject->changeRecord(
             'tx_oelib_test',
             $uid,
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
 
         $row = Tx_Oelib_Db::selectSingle(
@@ -455,7 +455,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->changeRecord(
             'tx_seminars_seminars',
             99999,
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
     }
 
@@ -471,7 +471,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->changeRecord(
             'tx_oelib_DOESNOTEXIST',
             99999,
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
     }
 
@@ -480,12 +480,12 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
      */
     public function changeRecordOnAllowedSystemTableForPages()
     {
-        $pid = $this->subject->createFrontEndPage(0, array('title' => 'foo'));
+        $pid = $this->subject->createFrontEndPage(0, ['title' => 'foo']);
 
         $this->subject->changeRecord(
             'pages',
             $pid,
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
 
         self::assertSame(
@@ -499,16 +499,16 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
      */
     public function changeRecordOnAllowedSystemTableForContent()
     {
-        $pid = $this->subject->createFrontEndPage(0, array('title' => 'foo'));
+        $pid = $this->subject->createFrontEndPage(0, ['title' => 'foo']);
         $uid = $this->subject->createContentElement(
             $pid,
-            array('header' => 'foo')
+            ['header' => 'foo']
         );
 
         $this->subject->changeRecord(
             'tt_content',
             $uid,
-            array('header' => 'bar')
+            ['header' => 'bar']
         );
 
         self::assertSame(
@@ -529,7 +529,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->changeRecord(
             'sys_domain',
             1,
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
     }
 
@@ -542,13 +542,13 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
 
         $uid = $this->subject->createRecord(
             'user_oelibtest_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         $this->subject->changeRecord(
             'user_oelibtest_test',
             $uid,
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
     }
 
@@ -561,7 +561,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The parameter $uid must not be zero.'
         );
-        $this->subject->changeRecord('tx_oelib_test', 0, array('title' => 'foo'));
+        $this->subject->changeRecord('tx_oelib_test', 0, ['title' => 'foo']);
     }
 
     /**
@@ -573,10 +573,10 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The array with the new record data must not be empty.'
         );
-        $uid = $this->subject->createRecord('tx_oelib_test', array());
+        $uid = $this->subject->createRecord('tx_oelib_test', []);
 
         $this->subject->changeRecord(
-            'tx_oelib_test', $uid, array()
+            'tx_oelib_test', $uid, []
         );
     }
 
@@ -589,10 +589,10 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The parameter $recordData must not contain changes to the UID of a record.'
         );
-        $uid = $this->subject->createRecord('tx_oelib_test', array());
+        $uid = $this->subject->createRecord('tx_oelib_test', []);
 
         $this->subject->changeRecord(
-            'tx_oelib_test', $uid, array('uid' => '55742')
+            'tx_oelib_test', $uid, ['uid' => '55742']
         );
     }
 
@@ -606,10 +606,10 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'The parameter $recordData must not contain changes to the field ' .
                 '"is_dummy_record". It is impossible to convert a dummy record into a regular record.'
         );
-        $uid = $this->subject->createRecord('tx_oelib_test', array());
+        $uid = $this->subject->createRecord('tx_oelib_test', []);
 
         $this->subject->changeRecord(
-            'tx_oelib_test', $uid, array('is_dummy_record' => 0)
+            'tx_oelib_test', $uid, ['is_dummy_record' => 0]
         );
     }
 
@@ -618,14 +618,14 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
      */
     public function changeRecordFailsOnInexistentRecord()
     {
-        $uid = $this->subject->createRecord('tx_oelib_test', array());
+        $uid = $this->subject->createRecord('tx_oelib_test', []);
         $this->setExpectedException(
             'BadMethodCallException',
             'There is no record with UID ' . ($uid + 1) . ' on table "tx_oelib_test".'
         );
 
         $this->subject->changeRecord(
-            'tx_oelib_test', $uid + 1, array('title' => 'foo')
+            'tx_oelib_test', $uid + 1, ['title' => 'foo']
         );
     }
 
@@ -639,7 +639,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function deleteRecordOnValidDummyRecord()
     {
         // Creates and directly destroys a dummy record.
-        $uid = $this->subject->createRecord('tx_oelib_test', array());
+        $uid = $this->subject->createRecord('tx_oelib_test', []);
         $this->subject->deleteRecord('tx_oelib_test', $uid);
 
         // Checks whether the record really was removed from the database.
@@ -657,7 +657,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->checkIfExtensionUserOelibtestIsLoaded();
 
         // Creates and directly destroys a dummy record.
-        $uid = $this->subject->createRecord('user_oelibtest_test', array());
+        $uid = $this->subject->createRecord('user_oelibtest_test', []);
         $this->subject->deleteRecord('user_oelibtest_test', $uid);
     }
 
@@ -733,10 +733,10 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         // is_dummy_record flag is set to 0.
         $uid = Tx_Oelib_Db::insert(
             'tx_oelib_test',
-            array(
+            [
                 'title' => 'TEST',
-                'is_dummy_record' => 0
-            )
+                'is_dummy_record' => 0,
+            ]
         );
 
         // Runs our delete method which should NOT affect the record created
@@ -964,7 +964,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     {
         $firstRecordUid = $this->subject->createRecord(
             'tx_oelib_test',
-            array('related_records' => 1)
+            ['related_records' => 1]
         );
         $secondRecordUid = $this->subject->createRecord('tx_oelib_test');
 
@@ -1226,11 +1226,11 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         // is_dummy_record flag is set to 0.
         Tx_Oelib_Db::insert(
             'tx_oelib_test_article_mm',
-            array(
+            [
                 'uid_local' => $uidLocal,
                 'uid_foreign' => $uidForeign,
-                'is_dummy_record' => 0
-            )
+                'is_dummy_record' => 0,
+            ]
         );
 
         // Runs our delete method which should NOT affect the record created
@@ -1279,7 +1279,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         // Creates a dummy record directly in the database, without putting this
         // table name to the list of dirty tables.
         Tx_Oelib_Db::insert(
-            'tx_oelib_test_article_mm', array('is_dummy_record' => 1)
+            'tx_oelib_test_article_mm', ['is_dummy_record' => 1]
         );
 
         // Runs a regular clean up. This should now delete only the first record
@@ -1317,7 +1317,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         // Creates a dummy record directly in the database without putting this
         // table name to the list of dirty tables.
         Tx_Oelib_Db::insert(
-            'tx_oelib_test_article_mm', array('is_dummy_record' => 1)
+            'tx_oelib_test_article_mm', ['is_dummy_record' => 1]
         );
 
         // Deletes all dummy records.
@@ -1399,7 +1399,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     {
         $hookClassName = uniqid('cleanUpHook');
         $cleanUpHookMock = $this->getMock(
-            $hookClassName, array('cleanUp')
+            $hookClassName, ['cleanUp']
         );
         $cleanUpHookMock->expects(self::atLeastOnce())->method('cleanUp');
 
@@ -1481,7 +1481,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->checkIfExtensionUserOelibtest2IsLoaded();
 
         $subject = new Tx_Oelib_TestingFramework(
-            'tx_oelib', array('user_oelibtest', 'user_oelibtest2')
+            'tx_oelib', ['user_oelibtest', 'user_oelibtest2']
         );
 
         $allowedTables = $subject->getListOfAdditionalAllowedTableNames();
@@ -1810,7 +1810,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function countRecordsReturnsOneForOneDummyRecordMatch()
     {
         $this->subject->createRecord(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
 
         self::assertSame(
@@ -1825,7 +1825,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function countRecordsWithMissingWhereClauseReturnsOneForOneDummyRecordMatch()
     {
         $this->subject->createRecord(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
 
         self::assertSame(
@@ -1840,10 +1840,10 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function countRecordsReturnsTwoForTwoMatches()
     {
         $this->subject->createRecord(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
         $this->subject->createRecord(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
 
         self::assertSame(
@@ -1866,7 +1866,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function countRecordsIgnoresNonDummyRecords()
     {
         Tx_Oelib_Db::insert(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
 
         $testResult = $this->subject->countRecords(
@@ -1950,7 +1950,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function existsRecordForOneMatchReturnsTrue()
     {
         $this->subject->createRecord(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
 
         self::assertTrue(
@@ -1964,10 +1964,10 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function existsRecordForTwoMatchesReturnsTrue()
     {
         $this->subject->createRecord(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
         $this->subject->createRecord(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
 
         self::assertTrue(
@@ -1981,7 +1981,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function existsRecordIgnoresNonDummyRecords()
     {
         Tx_Oelib_Db::insert(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
 
         $testResult = $this->subject->existsRecord(
@@ -2091,7 +2091,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function existsRecordWithUidIgnoresNonDummyRecords()
     {
         $uid = Tx_Oelib_Db::insert(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
 
         $testResult = $this->subject->existsRecordWithUid(
@@ -2175,7 +2175,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function existsExactlyOneRecordForOneMatchReturnsTrue()
     {
         $this->subject->createRecord(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
 
         self::assertTrue(
@@ -2191,10 +2191,10 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function existsExactlyOneRecordForTwoMatchesReturnsFalse()
     {
         $this->subject->createRecord(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
         $this->subject->createRecord(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
 
         self::assertFalse(
@@ -2208,7 +2208,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function existsExactlyOneRecordIgnoresNonDummyRecords()
     {
         Tx_Oelib_Db::insert(
-            'tx_oelib_test', array('title' => 'foo')
+            'tx_oelib_test', ['title' => 'foo']
         );
 
         $testResult = $this->subject->existsExactlyOneRecord(
@@ -2779,7 +2779,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createFrontEndPage(
             0,
-            array('title' => 'Test title')
+            ['title' => 'Test title']
         );
 
         $row = Tx_Oelib_Db::selectSingle(
@@ -2803,7 +2803,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "pid" must not be set in $recordData.'
         );
-        $this->subject->createFrontEndPage(0, array('pid' => 0));
+        $this->subject->createFrontEndPage(0, ['pid' => 0]);
     }
 
     /**
@@ -2815,7 +2815,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "pid" must not be set in $recordData.'
         );
-        $this->subject->createFrontEndPage(0, array('pid' => 99999));
+        $this->subject->createFrontEndPage(0, ['pid' => 99999]);
     }
 
     /**
@@ -2827,7 +2827,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "uid" must not be set in $recordData.'
         );
-        $this->subject->createFrontEndPage(0, array('uid' => 0));
+        $this->subject->createFrontEndPage(0, ['uid' => 0]);
     }
 
     /**
@@ -2839,7 +2839,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "uid" must not be set in $recordData.'
         );
-        $this->subject->createFrontEndPage(0, array('uid' => 99999));
+        $this->subject->createFrontEndPage(0, ['uid' => 99999]);
     }
 
     /**
@@ -2851,7 +2851,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "doktype" must not be set in $recordData.'
         );
-        $this->subject->createFrontEndPage(0, array('doktype' => 0));
+        $this->subject->createFrontEndPage(0, ['doktype' => 0]);
     }
 
     /**
@@ -2863,7 +2863,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "doktype" must not be set in $recordData.'
         );
-        $this->subject->createFrontEndPage(0, array('doktype' => 99999));
+        $this->subject->createFrontEndPage(0, ['doktype' => 99999]);
     }
 
     /*
@@ -3030,7 +3030,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createSystemFolder(
             0,
-            array('title' => 'Test title')
+            ['title' => 'Test title']
         );
 
         $row = Tx_Oelib_Db::selectSingle(
@@ -3054,7 +3054,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "pid" must not be set in $recordData.'
         );
-        $this->subject->createSystemFolder(0, array('pid' => 0));
+        $this->subject->createSystemFolder(0, ['pid' => 0]);
     }
 
     /**
@@ -3066,7 +3066,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "pid" must not be set in $recordData.'
         );
-        $this->subject->createSystemFolder(0, array('pid' => 99999));
+        $this->subject->createSystemFolder(0, ['pid' => 99999]);
     }
 
     /**
@@ -3078,7 +3078,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "uid" must not be set in $recordData.'
         );
-        $this->subject->createSystemFolder(0, array('uid' => 0));
+        $this->subject->createSystemFolder(0, ['uid' => 0]);
     }
 
     /**
@@ -3090,7 +3090,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "uid" must not be set in $recordData.'
         );
-        $this->subject->createSystemFolder(0, array('uid' => 99999));
+        $this->subject->createSystemFolder(0, ['uid' => 99999]);
     }
 
     /**
@@ -3102,7 +3102,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "doktype" must not be set in $recordData.'
         );
-        $this->subject->createSystemFolder(0, array('doktype' => 0));
+        $this->subject->createSystemFolder(0, ['doktype' => 0]);
     }
 
     /**
@@ -3114,7 +3114,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "doktype" must not be set in $recordData.'
         );
-        $this->subject->createSystemFolder(0, array('doktype' => 99999));
+        $this->subject->createSystemFolder(0, ['doktype' => 99999]);
     }
 
     /*
@@ -3257,7 +3257,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createContentElement(
             0,
-            array('header' => 'Test header')
+            ['header' => 'Test header']
         );
 
         $row = Tx_Oelib_Db::selectSingle(
@@ -3298,7 +3298,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createContentElement(
             0,
-            array('CType' => 'list')
+            ['CType' => 'list']
         );
 
         $row = Tx_Oelib_Db::selectSingle(
@@ -3322,7 +3322,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "pid" must not be set in $recordData.'
         );
-        $this->subject->createContentElement(0, array('pid' => 0));
+        $this->subject->createContentElement(0, ['pid' => 0]);
     }
 
     /**
@@ -3334,7 +3334,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "pid" must not be set in $recordData.'
         );
-        $this->subject->createContentElement(0, array('pid' => 99999));
+        $this->subject->createContentElement(0, ['pid' => 99999]);
     }
 
     /**
@@ -3346,7 +3346,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "uid" must not be set in $recordData.'
         );
-        $this->subject->createContentElement(0, array('uid' => 0));
+        $this->subject->createContentElement(0, ['uid' => 0]);
     }
 
     /**
@@ -3358,7 +3358,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "uid" must not be set in $recordData.'
         );
-        $this->subject->createContentElement(0, array('uid' => 99999));
+        $this->subject->createContentElement(0, ['uid' => 99999]);
     }
 
     /*
@@ -3482,7 +3482,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate(
             $pageId,
-            array('config' => 'plugin.tx_oelib.test = 1')
+            ['config' => 'plugin.tx_oelib.test = 1']
         );
         $row = Tx_Oelib_Db::selectSingle(
             'config',
@@ -3504,9 +3504,9 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $pageId = $this->subject->createFrontEndPage();
         $this->subject->createTemplate(
             $pageId,
-            array('config' => 'plugin.tx_oelib.test = 42')
+            ['config' => 'plugin.tx_oelib.test = 42']
         );
-        $templateHelper = new Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper(array());
+        $templateHelper = new Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper([]);
         $configuration = $templateHelper->retrievePageConfig($pageId);
 
         self::assertTrue(
@@ -3544,7 +3544,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate(
             $pageId,
-            array('constants' => 'plugin.tx_oelib.test = 1')
+            ['constants' => 'plugin.tx_oelib.test = 1']
         );
         $row = Tx_Oelib_Db::selectSingle(
             'constants',
@@ -3566,12 +3566,12 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $pageId = $this->subject->createFrontEndPage();
         $this->subject->createTemplate(
             $pageId,
-            array(
+            [
                 'constants' => 'plugin.tx_oelib.test = 42',
-                'config' => 'plugin.tx_oelib.test = {$plugin.tx_oelib.test}'
-            )
+                'config' => 'plugin.tx_oelib.test = {$plugin.tx_oelib.test}',
+            ]
         );
-        $templateHelper = new Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper(array());
+        $templateHelper = new Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper([]);
         $configuration = $templateHelper->retrievePageConfig($pageId);
 
         self::assertTrue(
@@ -3592,7 +3592,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "pid" must not be set in $recordData.'
         );
-        $this->subject->createTemplate(42, array('pid' => 0));
+        $this->subject->createTemplate(42, ['pid' => 0]);
     }
 
     /**
@@ -3604,7 +3604,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "pid" must not be set in $recordData.'
         );
-        $this->subject->createTemplate(42, array('pid' => 99999));
+        $this->subject->createTemplate(42, ['pid' => 99999]);
     }
 
     /**
@@ -3616,7 +3616,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "uid" must not be set in $recordData.'
         );
-        $this->subject->createTemplate(42, array('uid' => 0));
+        $this->subject->createTemplate(42, ['uid' => 0]);
     }
 
     /**
@@ -3628,7 +3628,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'The column "uid" must not be set in $recordData.'
         );
-        $this->subject->createTemplate(42, array('uid' => 99999));
+        $this->subject->createTemplate(42, ['uid' => 99999]);
     }
 
     /*
@@ -3753,7 +3753,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
 
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         $dummyFile = $this->subject->createDummyZipArchive(
-            'foo.zip', array($this->subject->createDummyFile('bar.txt'))
+            'foo.zip', [$this->subject->createDummyFile('bar.txt')]
         );
         $zip = new ZipArchive();
         $zip->open($dummyFile);
@@ -3774,7 +3774,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
 
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         $dummyFile = $this->subject->createDummyZipArchive(
-            'foo.zip', array($this->subject->createDummyFile('bar.txt', 'foo bar'))
+            'foo.zip', [$this->subject->createDummyFile('bar.txt', 'foo bar')]
         );
         $zip = new ZipArchive();
         $zip->open($dummyFile);
@@ -3796,10 +3796,10 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
 
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         $dummyFile = $this->subject->createDummyZipArchive(
-            'foo.zip', array(
+            'foo.zip', [
                 $this->subject->createDummyFile('foo.txt'),
                 $this->subject->createDummyFile('bar.txt'),
-            )
+            ]
         );
         $zip = new ZipArchive();
         $zip->open($dummyFile);
@@ -3824,7 +3824,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         $this->subject->createDummyFolder('sub-folder');
         $dummyFile = $this->subject->createDummyZipArchive(
-            'foo.zip', array($this->subject->createDummyFile('sub-folder/foo.txt'))
+            'foo.zip', [$this->subject->createDummyFile('sub-folder/foo.txt')]
         );
         $zip = new ZipArchive();
         $zip->open($dummyFile);
@@ -4234,7 +4234,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function frontEndUserGroupCanHaveTitle()
     {
         $uid = $this->subject->createFrontEndUserGroup(
-            array('title' => 'Test title')
+            ['title' => 'Test title']
         );
 
         $row = Tx_Oelib_Db::selectSingle(
@@ -4259,7 +4259,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'The column "uid" must not be set in $recordData.'
         );
 
-        $this->subject->createFrontEndUserGroup(array('uid' => 0));
+        $this->subject->createFrontEndUserGroup(['uid' => 0]);
     }
 
     /**
@@ -4272,7 +4272,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'The column "uid" must not be set in $recordData.'
         );
 
-        $this->subject->createFrontEndUserGroup(array('uid' => 99999));
+        $this->subject->createFrontEndUserGroup(['uid' => 99999]);
     }
 
     /*
@@ -4366,7 +4366,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createFrontEndUser(
             '',
-            array('username' => 'Test name')
+            ['username' => 'Test name']
         );
 
         $row = Tx_Oelib_Db::selectSingle(
@@ -4416,7 +4416,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'The column "uid" must not be set in $recordData.'
         );
 
-        $this->subject->createFrontEndUser('', array('uid' => 0));
+        $this->subject->createFrontEndUser('', ['uid' => 0]);
     }
 
     /**
@@ -4429,7 +4429,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'The column "uid" must not be set in $recordData.'
         );
 
-        $this->subject->createFrontEndUser('', array('uid' => 99999));
+        $this->subject->createFrontEndUser('', ['uid' => 99999]);
     }
 
     /**
@@ -4442,7 +4442,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'The column "usergroup" must not be set in $recordData.'
         );
 
-        $this->subject->createFrontEndUser('', array('usergroup' => 0));
+        $this->subject->createFrontEndUser('', ['usergroup' => 0]);
     }
 
     /**
@@ -4455,7 +4455,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'The column "usergroup" must not be set in $recordData.'
         );
 
-        $this->subject->createFrontEndUser('', array('usergroup' => 99999));
+        $this->subject->createFrontEndUser('', ['usergroup' => 99999]);
     }
 
     /**
@@ -4469,7 +4469,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         );
 
         $this->subject->createFrontEndUser(
-            '', array('usergroup' => '1,2,4,5')
+            '', ['usergroup' => '1,2,4,5']
         );
     }
 
@@ -4600,7 +4600,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
      */
     public function createBackEndUserForUserNameProvidedCreatesRecordWithUserName()
     {
-        $uid = $this->subject->createBackEndUser(array('username' => 'Test name'));
+        $uid = $this->subject->createBackEndUser(['username' => 'Test name']);
 
         $row = Tx_Oelib_Db::selectSingle('username', 'be_users', 'uid = ' . $uid);
 
@@ -4620,7 +4620,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'The column "uid" must not be set in $recordData.'
         );
 
-        $this->subject->createBackEndUser(array('uid' => 0));
+        $this->subject->createBackEndUser(['uid' => 0]);
     }
 
     /**
@@ -4633,7 +4633,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
             'The column "uid" must not be set in $recordData.'
         );
 
-        $this->subject->createBackEndUser(array('uid' => 999999));
+        $this->subject->createBackEndUser(['uid' => 999999]);
     }
 
     /*
@@ -4750,7 +4750,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $pageUid = $this->subject->createFrontEndPage();
         $this->subject->createTemplate(
             $pageUid,
-            array('config' => 'foo = bar')
+            ['config' => 'foo = bar']
         );
 
         $this->subject->createFakeFrontEnd($pageUid);
@@ -4769,7 +4769,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $pageUid = $this->subject->createFrontEndPage();
         $this->subject->createTemplate(
             $pageUid,
-            array('config' => 'foo = 42')
+            ['config' => 'foo = 42']
         );
 
         $this->subject->createFakeFrontEnd($pageUid);
@@ -5036,7 +5036,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         $feUserId = $this->subject->createFrontEndUser(
-            '', array('name' => 'John Doe')
+            '', ['name' => 'John Doe']
         );
         $this->subject->loginFrontEndUser($feUserId);
 
@@ -5085,13 +5085,13 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         $feUserGroupUid = $this->subject->createFrontEndUserGroup(
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
         $feUserId = $this->subject->createFrontEndUser($feUserGroupUid);
         $this->subject->loginFrontEndUser($feUserId);
 
         self::assertSame(
-            array($feUserGroupUid => 'foo'),
+            [$feUserGroupUid => 'foo'],
             $this->getFrontEndController()->fe_user->groupData['title']
         );
     }
@@ -5155,7 +5155,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
 
         $feUser = Tx_Oelib_MapperRegistry
             ::get(Tx_Oelib_Mapper_FrontEndUser::class)->getNewGhost();
-        $feUser->setData(array());
+        $feUser->setData([]);
         $this->subject->loginFrontEndUser($feUser->getUid());
 
         self::assertTrue(
@@ -5173,7 +5173,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
 
         $feUser = Tx_Oelib_MapperRegistry
             ::get(Tx_Oelib_Mapper_FrontEndUser::class)->getNewGhost();
-        $feUser->setData(array());
+        $feUser->setData([]);
         $this->subject->loginFrontEndUser($feUser->getUid());
 
         self::assertTrue(
@@ -5191,7 +5191,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
 
         $feUser = Tx_Oelib_MapperRegistry
             ::get(Tx_Oelib_Mapper_FrontEndUser::class)->getNewGhost();
-        $feUser->setData(array('name' => 'John Doe'));
+        $feUser->setData(['name' => 'John Doe']);
         $this->subject->loginFrontEndUser($feUser->getUid());
 
         self::assertSame(
@@ -5212,7 +5212,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
 
         $feUser = Tx_Oelib_MapperRegistry
             ::get(Tx_Oelib_Mapper_FrontEndUser::class)->getNewGhost();
-        $feUser->setData(array());
+        $feUser->setData([]);
         $this->subject->loginFrontEndUser($feUser->getUid());
     }
 
@@ -5225,7 +5225,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         $feUserGroupUid = $this->subject->createFrontEndUserGroup(
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
         /** @var Tx_Oelib_Mapper_FrontEndUser $mapper */
         $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUser::class);
@@ -5234,7 +5234,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->loginFrontEndUser($user->getUid());
 
         self::assertSame(
-            array($feUserGroupUid => 'foo'),
+            [$feUserGroupUid => 'foo'],
             $this->getFrontEndController()->fe_user->groupData['title']
         );
     }
@@ -5287,7 +5287,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
         $this->subject->createAndLoginFrontEndUser(
-            '', array('name' => 'John Doe')
+            '', ['name' => 'John Doe']
         );
 
         self::assertSame(
@@ -5394,7 +5394,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createRecord(
             'tx_oelib_test',
-            array('related_records' => 41)
+            ['related_records' => 41]
         );
 
         $this->subject->increaseRelationCounter(
@@ -5500,7 +5500,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->checkIfExtensionUserOelibtestIsLoaded();
 
         $testingFramework = new Tx_Oelib_TestingFramework(
-            'user_oelibtest', array('user_oelibtest2')
+            'user_oelibtest', ['user_oelibtest2']
         );
         self::assertSame(
             'user_oelibtest_is_dummy_record',
@@ -5517,7 +5517,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
      */
     public function createBackEndUserGroupForNoDataGivenCreatesBackEndGroup()
     {
-        $this->subject->createBackEndUserGroup(array());
+        $this->subject->createBackEndUserGroup([]);
 
         self::assertTrue(
             $this->subject->existsRecord('be_groups')
@@ -5529,7 +5529,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
      */
     public function createBackEndUserGroupForNoDataGivenReturnsUidOfCreatedBackEndGroup()
     {
-        $backendGroupUid = $this->subject->createBackEndUserGroup(array());
+        $backendGroupUid = $this->subject->createBackEndUserGroup([]);
 
         self::assertTrue(
             $this->subject->existsRecord(
@@ -5544,7 +5544,7 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     public function createBackEndUserGroupForTitleGivenStoresTitleInGroupRecord()
     {
         $this->subject->createBackEndUserGroup(
-            array('title' => 'foo group')
+            ['title' => 'foo group']
         );
 
         self::assertTrue(

@@ -71,7 +71,7 @@ class Tx_Oelib_Tests_Unit_IdentityMapTest extends Tx_Phpunit_TestCase
         );
 
         $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
-        $model->setData(array());
+        $model->setData([]);
 
         $this->subject->add($model);
     }

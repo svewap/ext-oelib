@@ -248,14 +248,14 @@ class Tx_Oelib_Tests_Unit_FrontEndLoginManagerTest extends Tx_Phpunit_TestCase
     {
         $this->testingFramework->createFakeFrontEnd();
         $feUserUid = $this->testingFramework->createAndLoginFrontEndUser(
-            '', array('name' => 'John Doe')
+            '', ['name' => 'John Doe']
         );
 
         /** @var TypoScriptFrontendController $frontEndController */
         $frontEndController = $GLOBALS['TSFE'];
         $frontEndController->fe_user->user['name'] = 'Jane Doe';
         $this->testingFramework->changeRecord(
-            'fe_users', $feUserUid, array('name' => 'James Doe')
+            'fe_users', $feUserUid, ['name' => 'James Doe']
         );
 
         self::assertSame(

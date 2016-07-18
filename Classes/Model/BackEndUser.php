@@ -25,7 +25,7 @@ class Tx_Oelib_Model_BackEndUser extends Tx_Oelib_Model implements Tx_Oelib_Inte
     /**
      * @var string[] the user's configuration (unserialized)
      */
-    private $configuration = array();
+    private $configuration = [];
 
     /**
      * Gets this user's user name.

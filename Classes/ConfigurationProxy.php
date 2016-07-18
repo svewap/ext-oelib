@@ -24,13 +24,13 @@ class Tx_Oelib_ConfigurationProxy extends Tx_Oelib_PublicObject
     /**
      * @var Tx_Oelib_ConfigurationProxy[] the singleton configuration proxy objects
      */
-    private static $instances = array();
+    private static $instances = [];
 
     /**
      * @var array stored configuration data for each extension which currently
      *            uses the configuration proxy
      */
-    private $configuration = array();
+    private $configuration = [];
 
     /**
      * @var string key of the extension for which the EM configuration is stored
@@ -95,7 +95,7 @@ class Tx_Oelib_ConfigurationProxy extends Tx_Oelib_PublicObject
      */
     public static function purgeInstances()
     {
-        self::$instances = array();
+        self::$instances = [];
     }
 
     /**

@@ -38,12 +38,12 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 
     protected function setUp()
     {
-        $this->mockFrontEnd = $this->getMock(TypoScriptFrontendController::class, array('dummy'), array(), '', false);
+        $this->mockFrontEnd = $this->getMock(TypoScriptFrontendController::class, ['dummy'], [], '', false);
         $GLOBALS['TSFE'] = $this->mockFrontEnd;
         $this->mapPointWithCoordinates = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $this->mapPointWithCoordinates->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $this->mapPointWithCoordinates->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
 
         $this->subject = new Tx_Oelib_ViewHelpers_GoogleMapsViewHelper();
     }
@@ -59,9 +59,9 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     public function twoMapsAfterRenderingHaveDifferentMapIds()
     {
         $map1 = new Tx_Oelib_ViewHelpers_GoogleMapsViewHelper();
-        $map1->render(array($this->mapPointWithCoordinates));
+        $map1->render([$this->mapPointWithCoordinates]);
         $map2 = new Tx_Oelib_ViewHelpers_GoogleMapsViewHelper();
-        $map2->render(array($this->mapPointWithCoordinates));
+        $map2->render([$this->mapPointWithCoordinates]);
 
         self::assertNotSame(
             $map1->getMapId(),
@@ -76,7 +76,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     {
         self::assertSame(
             '',
-            $this->subject->render(array())
+            $this->subject->render([])
         );
     }
 
@@ -90,7 +90,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
 
         self::assertSame(
             '',
-            $this->subject->render(array($mapPoint))
+            $this->subject->render([$mapPoint])
         );
     }
 
@@ -102,10 +102,10 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(false));
 
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertSame(
-            array(),
+            [],
             $this->mockFrontEnd->additionalHeaderData
         );
     }
@@ -117,7 +117,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     {
         self::assertContains(
             '<div id="' . Tx_Oelib_ViewHelpers_GoogleMapsViewHelper::MAP_HTML_ID_PREFIX,
-            $this->subject->render(array($this->mapPointWithCoordinates))
+            $this->subject->render([$this->mapPointWithCoordinates])
         );
     }
 
@@ -126,7 +126,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderReturnsDivWithIdWithSpecificMapId()
     {
-        $result = $this->subject->render(array($this->mapPointWithCoordinates));
+        $result = $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertContains(
             '<div id="' . $this->subject->getMapId(),
@@ -141,7 +141,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     {
         self::assertContains(
             'width: 600px;',
-            $this->subject->render(array($this->mapPointWithCoordinates))
+            $this->subject->render([$this->mapPointWithCoordinates])
         );
     }
 
@@ -152,7 +152,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     {
         self::assertContains(
             'height: 400px;',
-            $this->subject->render(array($this->mapPointWithCoordinates))
+            $this->subject->render([$this->mapPointWithCoordinates])
         );
     }
 
@@ -163,7 +163,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderWithEmptyWidthThrowsException()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates), '', '42px');
+        $this->subject->render([$this->mapPointWithCoordinates], '', '42px');
     }
 
     /**
@@ -173,7 +173,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderWithInvalidWidthThrowsException()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates), 'foo', '42px');
+        $this->subject->render([$this->mapPointWithCoordinates], 'foo', '42px');
     }
 
     /**
@@ -183,7 +183,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderWithEmptyHeightThrowsException()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates), '42px', '');
+        $this->subject->render([$this->mapPointWithCoordinates], '42px', '');
     }
 
     /**
@@ -193,7 +193,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderWithInvalidHeightThrowsException()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates), '42px', 'foo');
+        $this->subject->render([$this->mapPointWithCoordinates], '42px', 'foo');
     }
 
     /**
@@ -201,7 +201,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderWithWithAndHeightInPixelsNotThrowsException()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates), '42px', '91px');
+        $this->subject->render([$this->mapPointWithCoordinates], '42px', '91px');
     }
 
     /**
@@ -209,7 +209,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderWithWithAndHeightInPercentNotThrowsException()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates), '42%', '91%');
+        $this->subject->render([$this->mapPointWithCoordinates], '42%', '91%');
     }
 
     /**
@@ -219,7 +219,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     {
         self::assertContains(
             'width: 142px;',
-            $this->subject->render(array($this->mapPointWithCoordinates), '142px')
+            $this->subject->render([$this->mapPointWithCoordinates], '142px')
         );
     }
 
@@ -230,7 +230,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     {
         self::assertContains(
             'height: 99px;',
-            $this->subject->render(array($this->mapPointWithCoordinates), '142px', '99px')
+            $this->subject->render([$this->mapPointWithCoordinates], '142px', '99px')
         );
     }
 
@@ -239,7 +239,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderIncludesGoogleMapsLibraryInHeader()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates));
+        $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertContains(
             '<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>',
@@ -252,7 +252,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderIncludesJavaScriptInHeader()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates));
+        $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertTrue(
             isset($this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()])
@@ -264,7 +264,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderIncludesJavaScriptWithGoogleMapInitializationInHeader()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates));
+        $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertContains(
             'new google.maps.Map(',
@@ -279,7 +279,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     {
         self::assertRegExp(
             '/initializeGoogleMap_\d+/',
-            $this->subject->render(array($this->mapPointWithCoordinates))
+            $this->subject->render([$this->mapPointWithCoordinates])
         );
     }
 
@@ -292,7 +292,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     {
         $element = new stdClass();
 
-        $this->subject->render(array($element));
+        $this->subject->render([$element]);
     }
 
     /**
@@ -300,7 +300,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderForElementWithCoordinatesCreatesMapMarker()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates));
+        $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertContains(
             'new google.maps.Marker(',
@@ -313,7 +313,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderForElementWithCoordinatesCreatesMapPointCoordinates()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates));
+        $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertContains(
             'new google.maps.LatLng(1.200000, 3.400000)',
@@ -326,7 +326,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderForElementWithCoordinatesWithoutIdentityNotCreatesUidProperty()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates));
+        $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertNotContains(
             'uid:',
@@ -341,7 +341,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     {
         $mapPoint = new Tx_Oelib_Tests_Unit_Fixtures_TestingMapPoint();
         $mapPoint->setUid(0);
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertNotContains(
             'uid:',
@@ -357,7 +357,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $uid = 42;
         $mapPoint = new Tx_Oelib_Tests_Unit_Fixtures_TestingMapPoint();
         $mapPoint->setUid($uid);
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             'uid: ' . $uid,
@@ -370,7 +370,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderForElementWithCoordinatesWithoutIdentityNotCreatesEntryInMapMarkersByUid()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates));
+        $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertNotContains(
             'mapMarkersByUid.' . $this->subject->getMapId() . '[',
@@ -385,7 +385,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     {
         $mapPoint = new Tx_Oelib_Tests_Unit_Fixtures_TestingMapPoint();
         $mapPoint->setUid(0);
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertNotContains(
             'mapMarkersByUid.' . $this->subject->getMapId() . '[',
@@ -401,7 +401,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $uid = 42;
         $mapPoint = new Tx_Oelib_Tests_Unit_Fixtures_TestingMapPoint();
         $mapPoint->setUid($uid);
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             'mapMarkersByUid.' . $this->subject->getMapId() . '[' . $uid . '] = marker_',
@@ -414,7 +414,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
      */
     public function renderForOneElementWithCoordinatesUsesMapPointCoordinatesAsCenter()
     {
-        $this->subject->render(array($this->mapPointWithCoordinates));
+        $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertContains(
             'var center = new google.maps.LatLng(1.200000, 3.400000);',
@@ -430,13 +430,13 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint1 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint1->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint1->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint2 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint2->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint2->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 5.6, 'longitude' => 7.8)));
+            ->will(self::returnValue(['latitude' => 5.6, 'longitude' => 7.8]));
 
-        $this->subject->render(array($mapPoint1, $mapPoint2));
+        $this->subject->render([$mapPoint1, $mapPoint2]);
 
         self::assertContains(
             'var center = new google.maps.LatLng(1.200000, 3.400000);',
@@ -452,13 +452,13 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint1 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint1->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint1->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint2 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint2->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint2->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 5.6, 'longitude' => 7.8)));
+            ->will(self::returnValue(['latitude' => 5.6, 'longitude' => 7.8]));
 
-        $this->subject->render(array($mapPoint1, $mapPoint2));
+        $this->subject->render([$mapPoint1, $mapPoint2]);
 
         self::assertSame(
             2,
@@ -477,12 +477,12 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint1 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint1->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint1->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint2 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint2->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint2->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 5.6, 'longitude' => 7.8)));
-        $this->subject->render(array($mapPoint1, $mapPoint2));
+            ->will(self::returnValue(['latitude' => 5.6, 'longitude' => 7.8]));
+        $this->subject->render([$mapPoint1, $mapPoint2]);
 
         self::assertSame(
             2,
@@ -501,12 +501,12 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint1 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint1->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint1->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint2 = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint2->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint2->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 5.6, 'longitude' => 7.8)));
-        $this->subject->render(array($mapPoint1, $mapPoint2));
+            ->will(self::returnValue(['latitude' => 5.6, 'longitude' => 7.8]));
+        $this->subject->render([$mapPoint1, $mapPoint2]);
 
         self::assertContains(
             'map.fitBounds(',
@@ -522,10 +522,10 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasTooltipTitle')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getTooltipTitle')->will(self::returnValue('Hello world!'));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             'title: "Hello world!"',
@@ -541,10 +541,10 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasTooltipTitle')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getTooltipTitle')->will(self::returnValue('The "B" side'));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             'title: "The \\"B\\" side"',
@@ -560,10 +560,10 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasTooltipTitle')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getTooltipTitle')->will(self::returnValue('Here' . LF . 'There'));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             'title: "Here\\nThere"',
@@ -579,10 +579,10 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasTooltipTitle')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getTooltipTitle')->will(self::returnValue('Here' . CR . 'There'));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             'title: "Here\\rThere"',
@@ -598,10 +598,10 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasTooltipTitle')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getTooltipTitle')->will(self::returnValue('Here\\There'));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             'title: "Here\\\\There"',
@@ -617,9 +617,9 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasTooltipTitle')->will(self::returnValue(false));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertNotContains(
             'title: ',
@@ -635,10 +635,10 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasInfoWindowContent')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getInfoWindowContent')->will(self::returnValue('Hello world!'));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             'new google.maps.InfoWindow',
@@ -654,10 +654,10 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasInfoWindowContent')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getInfoWindowContent')->will(self::returnValue('The "B" side'));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             '"The \\"B\\" side"',
@@ -673,10 +673,10 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasInfoWindowContent')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getInfoWindowContent')->will(self::returnValue('Here' . LF . 'There'));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             '"Here\\nThere"',
@@ -692,10 +692,10 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasInfoWindowContent')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getInfoWindowContent')->will(self::returnValue('Here' . CR . 'There'));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             '"Here\\rThere"',
@@ -711,10 +711,10 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasInfoWindowContent')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getInfoWindowContent')->will(self::returnValue('Here\\There'));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertContains(
             '"Here\\\\There"',
@@ -730,9 +730,9 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
         $mapPoint = $this->getMock(Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
         $mapPoint->expects(self::any())->method('getGeoCoordinates')
-            ->will(self::returnValue(array('latitude' => 1.2, 'longitude' => 3.4)));
+            ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
         $mapPoint->expects(self::any())->method('hasInfoWindowContent')->will(self::returnValue(false));
-        $this->subject->render(array($mapPoint));
+        $this->subject->render([$mapPoint]);
 
         self::assertNotContains(
             'new google.maps.InfoWindow',

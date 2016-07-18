@@ -31,12 +31,12 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
      *
      * @var array[]
      */
-    private $emailData = array();
+    private $emailData = [];
 
     /**
      * @var MailMessage[]
      */
-    protected $sentEmails = array();
+    protected $sentEmails = [];
 
     /**
      * The destructor.
@@ -53,7 +53,7 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
      */
     public function cleanUp()
     {
-        $this->sentEmails = array();
+        $this->sentEmails = [];
     }
 
     /**
@@ -79,7 +79,7 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
     public function getLastEmail()
     {
         if (empty($this->emailData)) {
-            return array();
+            return [];
         }
 
         return end($this->emailData);
@@ -161,7 +161,7 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
      */
     private function getElementFromLastEmail($key)
     {
-        if (!in_array($key, array('recipient', 'subject', 'message', 'headers'), true)) {
+        if (!in_array($key, ['recipient', 'subject', 'message', 'headers'], true)) {
             throw new InvalidArgumentException(
                 'The key "' . $key . '" is invalid. It must be "recipient", "subject", "message" or "headers".', 1331488710
             );

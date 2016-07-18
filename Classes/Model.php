@@ -58,7 +58,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
     /**
      * @var array the data for this object (without the UID column)
      */
-    private $data = array();
+    private $data = [];
 
     /**
      * @var int this model's load status, will be STATUS_VIRGIN,
@@ -74,7 +74,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
     /**
      * @var array the callback function that fills this model with data
      */
-    private $loadCallback = array();
+    private $loadCallback = [];
 
     /**
      * The (empty) constructor.
@@ -98,7 +98,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
             $this->markAsDead();
         }
 
-        $this->loadCallback = array();
+        $this->loadCallback = [];
         unset($this->data);
     }
 

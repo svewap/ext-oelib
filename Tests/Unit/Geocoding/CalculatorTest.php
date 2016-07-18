@@ -36,7 +36,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
         $this->subject = new Tx_Oelib_Geocoding_Calculator();
 
         $this->geoObject = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
-        $this->geoObject->setGeoCoordinates(array('latitude' => 50.733585499999997, 'longitude' => 7.1012733999999993));
+        $this->geoObject->setGeoCoordinates(['latitude' => 50.733585499999997, 'longitude' => 7.1012733999999993]);
     }
 
     /**
@@ -65,7 +65,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
         $noCoordinates->clearGeoCoordinates();
         $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
 
         $this->subject->calculateDistanceInKilometers($noCoordinates, $bonn);
@@ -80,7 +80,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     {
         $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
         $noCoordinates = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $noCoordinates->clearGeoCoordinates();
@@ -97,12 +97,12 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     {
         $brokenBonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $brokenBonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
         $brokenBonn->setGeoError();
         $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
 
         $this->subject->calculateDistanceInKilometers($brokenBonn, $bonn);
@@ -117,11 +117,11 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     {
         $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
         $brokenBonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $brokenBonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
         $brokenBonn->setGeoError();
 
@@ -135,7 +135,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     {
         $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
 
         self::assertSame(
@@ -151,11 +151,11 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     {
         $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
         $cologne = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $cologne->setGeoCoordinates(
-            array('latitude' => 50.94458443, 'longitude' => 6.9543457)
+            ['latitude' => 50.94458443, 'longitude' => 6.9543457]
         );
 
         self::assertEquals(
@@ -173,11 +173,11 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     {
         $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
         $cologne = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $cologne->setGeoCoordinates(
-            array('latitude' => 50.94458443, 'longitude' => 6.9543457)
+            ['latitude' => 50.94458443, 'longitude' => 6.9543457]
         );
 
         self::assertSame(
@@ -197,11 +197,11 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     {
         $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
         $cologne = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $cologne->setGeoCoordinates(
-            array('latitude' => 50.94458443, 'longitude' => 6.9543457)
+            ['latitude' => 50.94458443, 'longitude' => 6.9543457]
         );
 
         $list = new Tx_Oelib_List();
@@ -228,11 +228,11 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     {
         $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
         $cologne = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $cologne->setGeoCoordinates(
-            array('latitude' => 50.94458443, 'longitude' => 6.9543457)
+            ['latitude' => 50.94458443, 'longitude' => 6.9543457]
         );
 
         $list = new Tx_Oelib_List();
@@ -254,11 +254,11 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     {
         $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
-            array('latitude' => 50.72254683, 'longitude' => 7.07519531)
+            ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
         $cologne = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $cologne->setGeoCoordinates(
-            array('latitude' => 50.94458443, 'longitude' => 6.9543457)
+            ['latitude' => 50.94458443, 'longitude' => 6.9543457]
         );
 
         $list = new Tx_Oelib_List();
@@ -352,16 +352,16 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      */
     public function directionDataProvider()
     {
-        return array(
-            'E' => array(0),
-            'NE' => array(45),
-            'N' => array(90),
-            'NW' => array(135),
-            'W' => array(180),
-            'SW' => array(225),
-            'S' => array(270),
-            'SE' => array(315),
-        );
+        return [
+            'E' => [0],
+            'NE' => [45],
+            'N' => [90],
+            'NW' => [135],
+            'W' => [180],
+            'SW' => [225],
+            'S' => [270],
+            'SE' => [315],
+        ];
     }
 
     /**

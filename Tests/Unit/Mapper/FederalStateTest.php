@@ -61,8 +61,8 @@ class Tx_Oelib_Tests_Unit_Mapper_FederalStateTest extends Tx_Phpunit_TestCase
     /**
      * Tests concerning findByIsoAlpha2Code
      *
-
-    /**
+     
+     /**
      * @test
      */
     public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithIsoAlpha2CodeOfExistingRecordReturnsFederalStateInstance()

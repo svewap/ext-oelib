@@ -70,7 +70,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapPoint implements Tx_Oelib_Interface
      */
     public function getGeoCoordinates()
     {
-        return array('latitude' => 11.2, 'longitude' => 4.9);
+        return ['latitude' => 11.2, 'longitude' => 4.9];
     }
 
     /**

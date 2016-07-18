@@ -249,7 +249,7 @@ class Tx_Oelib_Tests_Unit_MapperRegistryTest extends Tx_Phpunit_TestCase
         $className = 'Tx_Oelib_AnotherTestingMapper';
 
         /** @var $mapper Tx_Oelib_Tests_Unit_Fixtures_TestingMapper */
-        $mapper = $this->getMock('Tx_Oelib_Tests_Unit_Fixtures_TestingMapper', array(), array(), $className);
+        $mapper = $this->getMock('Tx_Oelib_Tests_Unit_Fixtures_TestingMapper', [], [], $className);
         Tx_Oelib_MapperRegistry::set($className, $mapper);
 
         self::assertSame(
@@ -266,7 +266,7 @@ class Tx_Oelib_Tests_Unit_MapperRegistryTest extends Tx_Phpunit_TestCase
         $className = 'Tx_Oelib_AnotherTestingMapper';
 
         /** @var $mapper Tx_Oelib_Tests_Unit_Fixtures_TestingMapper */
-        $mapper = $this->getMock('Tx_Oelib_Tests_Unit_Fixtures_TestingMapper', array(), array(), $className);
+        $mapper = $this->getMock('Tx_Oelib_Tests_Unit_Fixtures_TestingMapper', [], [], $className);
         Tx_Oelib_MapperRegistry::set(strtolower($className), $mapper);
 
         self::assertSame(

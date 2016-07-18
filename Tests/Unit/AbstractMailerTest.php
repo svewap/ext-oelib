@@ -36,12 +36,12 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
     /**
      * @var string[]
      */
-    private $email = array(
+    private $email = [
         'recipient' => 'any-recipient@email-address.org',
         'subject' => 'any subject',
         'message' => 'any message',
         'headers' => '',
-    );
+    ];
 
     /**
      * @var bool
@@ -54,7 +54,7 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
 
         $this->subject = new Tx_Oelib_EmailCollector();
 
-        $this->message1 = $this->getMock(MailMessage::class, array('send', '__destruct'));
+        $this->message1 = $this->getMock(MailMessage::class, ['send', '__destruct']);
         GeneralUtility::addInstance(MailMessage::class, $this->message1);
     }
 
@@ -78,7 +78,7 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
     public function getSentEmailsWithoutAnyEmailReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getSentEmails()
         );
     }
@@ -305,7 +305,7 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
 
         $sentEmail = $this->subject->getFirstSentEmail();
         self::assertSame(
-            array($sender->getEmailAddress() => $sender->getName()),
+            [$sender->getEmailAddress() => $sender->getName()],
             $sentEmail->getFrom()
         );
     }
@@ -327,7 +327,7 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
 
         $sentEmail = $this->subject->getFirstSentEmail();
         self::assertSame(
-            array($recipient->getEmailAddress() => $recipient->getName()),
+            [$recipient->getEmailAddress() => $recipient->getName()],
             $sentEmail->getTo()
         );
     }

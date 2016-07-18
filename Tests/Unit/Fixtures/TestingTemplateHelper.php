@@ -36,7 +36,7 @@ final class Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper extends Tx_Oelib_
      * @param array $configuration
      *        TS setup configuration, may be empty
      */
-    public function __construct(array $configuration = array())
+    public function __construct(array $configuration = [])
     {
         parent::init($configuration);
     }
@@ -97,7 +97,7 @@ final class Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper extends Tx_Oelib_
      *
      * @return void
      */
-    public function ensureIntegerPiVars(array $additionalPiVars = array())
+    public function ensureIntegerPiVars(array $additionalPiVars = [])
     {
         parent::ensureIntegerPiVars($additionalPiVars);
     }

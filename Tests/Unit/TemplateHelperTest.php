@@ -47,7 +47,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createFakeFrontEnd($pageUid);
         Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
 
-        $this->subject = new Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper(array());
+        $this->subject = new Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper([]);
     }
 
     protected function tearDown()
@@ -186,7 +186,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function configurationInitiallyIsAnEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getConfiguration()
         );
     }
@@ -211,7 +211,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setConfigurationValue('test', 'This is a test.');
         self::assertSame(
-            array('test' => 'This is a test.'),
+            ['test' => 'This is a test.'],
             $this->subject->getConfiguration()
         );
     }
@@ -223,7 +223,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setConfigurationValue('test', '');
         self::assertSame(
-            array('test' => ''),
+            ['test' => ''],
             $this->subject->getConfiguration()
         );
     }
@@ -245,7 +245,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueStringReturnsAString()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array('test' => 'This is a test.')
+            'listView.', ['test' => 'This is a test.']
         );
 
         self::assertSame(
@@ -260,7 +260,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueStringReturnsATrimmedString()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array('test' => ' string ')
+            'listView.', ['test' => ' string ']
         );
 
         self::assertSame(
@@ -275,7 +275,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueStringReturnsEmptyStringWhichWasSet()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array('test' => '')
+            'listView.', ['test' => '']
         );
 
         self::assertSame(
@@ -290,7 +290,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueStringReturnsEmptyStringIfNoValueSet()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array()
+            'listView.', []
         );
 
         self::assertSame(
@@ -305,7 +305,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueIntegerReturnsNumber()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array('test' => '123')
+            'listView.', ['test' => '123']
         );
 
         self::assertSame(
@@ -320,7 +320,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueIntegerReturnsZeroIfTheValueWasEmpty()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array('test' => '')
+            'listView.', ['test' => '']
         );
 
         self::assertSame(
@@ -335,7 +335,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueIntegerReturnsZeroIfTheValueWasNoInteger()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array('test' => 'string')
+            'listView.', ['test' => 'string']
         );
 
         self::assertSame(
@@ -350,7 +350,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueIntegerReturnsZeroIfNoValueWasSet()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array()
+            'listView.', []
         );
 
         self::assertSame(
@@ -365,7 +365,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueBooleanReturnsTrue()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array('test' => '1')
+            'listView.', ['test' => '1']
         );
 
         self::assertTrue(
@@ -379,7 +379,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueBooleanReturnsTrueIfTheValueWasAPositiveInteger()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array('test' => '123')
+            'listView.', ['test' => '123']
         );
 
         self::assertTrue(
@@ -393,7 +393,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueBooleanReturnsFalseIfTheValueWasZero()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array('test' => '0')
+            'listView.', ['test' => '0']
         );
 
         self::assertFalse(
@@ -407,7 +407,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueBooleanReturnsFalseIfTheValueWasAnEmptyString()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array('test' => '')
+            'listView.', ['test' => '']
         );
 
         self::assertFalse(
@@ -421,7 +421,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function getListViewConfigurationValueBooleanReturnsFalseIfTheValueWasNotSet()
     {
         $this->subject->setConfigurationValue(
-            'listView.', array()
+            'listView.', []
         );
 
         self::assertFalse(
@@ -771,7 +771,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 'Some text. ' .
                 '<!-- ###MY_SUBPART### -->'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
 
         self::assertSame(
             '',
@@ -2171,7 +2171,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
             'Even more text.',
@@ -2194,7 +2194,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 'Even more text.'
         );
         $this->subject->setSubpart('MY_SUBPART', 'More text. ');
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
                 'Even more text.',
@@ -2217,7 +2217,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART### -->' .
                 'Even more text.'
         );
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->unhideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
                 'More text. ' .
@@ -2241,8 +2241,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
+        $this->subject->unhideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
                 'More text. ' .
@@ -2268,7 +2268,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 'Even more text.' .
                 '<!-- ###OUTER_SUBPART### -->'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
                 'Even more text.',
@@ -2295,7 +2295,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###FIELD_WRAPPER_TITLE### -->' .
                 '<!-- ###SINGLE_VIEW###  -->'
         );
-        $this->subject->hideSubpartsArray(array('FIELD_WRAPPER_SUBTITLE'));
+        $this->subject->hideSubpartsArray(['FIELD_WRAPPER_SUBTITLE']);
         self::assertSame(
             '<h3 class="seminars-item-title">Title' .
                 '</h3>',
@@ -2320,7 +2320,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 'Even more text.' .
                 '<!-- ###OUTER_SUBPART### -->'
         );
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->unhideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
                 'More text. ' .
@@ -2346,8 +2346,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 'Even more text.' .
                 '<!-- ###OUTER_SUBPART### -->'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
+        $this->subject->unhideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
                 'More text. ' .
@@ -2374,8 +2374,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART_2### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART_1'));
-        $this->subject->hideSubpartsArray(array('MY_SUBPART_2'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART_1']);
+        $this->subject->hideSubpartsArray(['MY_SUBPART_2']);
         self::assertSame(
             'Some text. ' .
                 'Even more text.',
@@ -2401,7 +2401,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART_2### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART_1', 'MY_SUBPART_2'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
         self::assertSame(
             'Some text. ' .
                 'Even more text.',
@@ -2427,7 +2427,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART_2### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART_2', 'MY_SUBPART_1'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART_2', 'MY_SUBPART_1']);
         self::assertSame(
             'Some text. ' .
                 'Even more text.',
@@ -2453,10 +2453,10 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART_2### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART_1'));
-        $this->subject->hideSubpartsArray(array('MY_SUBPART_2'));
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART_1'));
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART_2'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART_1']);
+        $this->subject->hideSubpartsArray(['MY_SUBPART_2']);
+        $this->subject->unhideSubpartsArray(['MY_SUBPART_1']);
+        $this->subject->unhideSubpartsArray(['MY_SUBPART_2']);
         self::assertSame(
             'Some text. ' .
                 'More text here.' .
@@ -2484,8 +2484,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART_2### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART_1', 'MY_SUBPART_2'));
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART_1', 'MY_SUBPART_2'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
+        $this->subject->unhideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
         self::assertSame(
             'Some text. ' .
                 'More text here.' .
@@ -2513,8 +2513,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART_2### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART_1', 'MY_SUBPART_2'));
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART_2', 'MY_SUBPART_1'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
+        $this->subject->unhideSubpartsArray(['MY_SUBPART_2', 'MY_SUBPART_1']);
         self::assertSame(
             'Some text. ' .
                 'More text here.' .
@@ -2542,8 +2542,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART_2### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART_1', 'MY_SUBPART_2'));
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART_1'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
+        $this->subject->unhideSubpartsArray(['MY_SUBPART_1']);
         self::assertSame(
             'Some text. ' .
                 'More text here.' .
@@ -2570,8 +2570,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART_2### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART_1', 'MY_SUBPART_2'));
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART_2'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
+        $this->subject->unhideSubpartsArray(['MY_SUBPART_2']);
         self::assertSame(
             'Some text. ' .
                 'More text there. ' .
@@ -2595,9 +2595,9 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
-            array('MY_SUBPART'), array('MY_SUBPART')
+            ['MY_SUBPART'], ['MY_SUBPART']
         );
         self::assertSame(
             'Some text. ' .
@@ -2621,9 +2621,9 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
-            array('MY_SUBPART'), array('MY_SUBPART', 'MY_OTHER_SUBPART')
+            ['MY_SUBPART'], ['MY_SUBPART', 'MY_OTHER_SUBPART']
         );
         self::assertSame(
             'Some text. ' .
@@ -2647,9 +2647,9 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
-            array('MY_SUBPART'), array('MY_OTHER_SUBPART')
+            ['MY_SUBPART'], ['MY_OTHER_SUBPART']
         );
         self::assertSame(
             'Some text. ' .
@@ -2676,9 +2676,9 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
-            array('SUBPART'), array('SUBPART'), 'MY'
+            ['SUBPART'], ['SUBPART'], 'MY'
         );
         self::assertSame(
             'Some text. ' .
@@ -2704,9 +2704,9 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
-            array('SUBPART'), array('SUBPART', 'OTHER_SUBPART'), 'MY'
+            ['SUBPART'], ['SUBPART', 'OTHER_SUBPART'], 'MY'
         );
         self::assertSame(
             'Some text. ' .
@@ -2732,9 +2732,9 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
-            array('SUBPART'), array('OTHER_SUBPART'), 'MY'
+            ['SUBPART'], ['OTHER_SUBPART'], 'MY'
         );
         self::assertSame(
             'Some text. ' .
@@ -2756,7 +2756,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
             '<!-- ###MY_SUBPART### -->' .
                 '<!-- ###MY_SUBPART### -->'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
         self::assertFalse(
             $this->subject->isSubpartVisible('MY_SUBPART')
         );
@@ -2771,8 +2771,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
             '<!-- ###MY_SUBPART### -->' .
                 '<!-- ###MY_SUBPART### -->'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
+        $this->subject->unhideSubpartsArray(['MY_SUBPART']);
         self::assertTrue(
             $this->subject->isSubpartVisible('MY_SUBPART')
         );
@@ -2787,9 +2787,9 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
             '<!-- ###MY_SUBPART### -->' .
                 '<!-- ###MY_SUBPART### -->'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->setSubpart('MY_SUBPART', 'foo');
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART'));
+        $this->subject->unhideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'foo',
             $this->subject->getSubpart('MY_SUBPART')
@@ -3402,7 +3402,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('MY_SUBPART'), 'FIRST');
+        $this->subject->hideSubpartsArray(['MY_SUBPART'], 'FIRST');
         self::assertSame(
             'Some text. ' .
                 'More text there. ' .
@@ -3430,7 +3430,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 'Even more text.'
         );
         $this->subject->hideSubpartsArray(
-            array('1', '2'), 'FIRST_MY_SUBPART'
+            ['1', '2'], 'FIRST_MY_SUBPART'
         );
         self::assertSame(
             'Some text. ' .
@@ -3457,8 +3457,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###MY_SUBPART### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('FIRST_MY_SUBPART'));
-        $this->subject->unhideSubpartsArray(array('MY_SUBPART'), array(''), 'FIRST');
+        $this->subject->hideSubpartsArray(['FIRST_MY_SUBPART']);
+        $this->subject->unhideSubpartsArray(['MY_SUBPART'], [''], 'FIRST');
         self::assertSame(
             'Some text. ' .
                 'More text here. ' .
@@ -3486,10 +3486,10 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
                 '<!-- ###FIRST_MY_SUBPART_2### -->' .
                 'Even more text.'
         );
-        $this->subject->hideSubpartsArray(array('FIRST_MY_SUBPART_1'));
-        $this->subject->hideSubpartsArray(array('FIRST_MY_SUBPART_2'));
+        $this->subject->hideSubpartsArray(['FIRST_MY_SUBPART_1']);
+        $this->subject->hideSubpartsArray(['FIRST_MY_SUBPART_2']);
         $this->subject->unhideSubpartsArray(
-            array('1', '2'), array(''), 'FIRST_MY_SUBPART'
+            ['1', '2'], [''], 'FIRST_MY_SUBPART'
         );
         self::assertSame(
             'Some text. ' .
@@ -4386,7 +4386,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     {
         $pageId = $this->testingFramework->createFrontEndPage();
         self::assertSame(
-            array(),
+            [],
             $this->subject->retrievePageConfig($pageId)
         );
     }
@@ -4404,7 +4404,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
         $this->subject->ensureIntegerPiVars();
 
         self::assertSame(
-            array('showUid' => 0, 'pointer' => 0, 'mode' => 0),
+            ['showUid' => 0, 'pointer' => 0, 'mode' => 0],
             $this->subject->piVars
         );
     }
@@ -4414,11 +4414,11 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function ensureIntegerPiVarsDefinesProvidedAdditionalParameterIfPiVarsWasUndefined()
     {
-        $this->subject->piVars = array();
-        $this->subject->ensureIntegerPiVars(array('additionalParameter'));
+        $this->subject->piVars = [];
+        $this->subject->ensureIntegerPiVars(['additionalParameter']);
 
         self::assertSame(
-            array('showUid' => 0, 'pointer' => 0, 'mode' => 0, 'additionalParameter' => 0),
+            ['showUid' => 0, 'pointer' => 0, 'mode' => 0, 'additionalParameter' => 0],
             $this->subject->piVars
         );
     }
@@ -4428,17 +4428,17 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function ensureIntegerPiVarsIntvalsAnAlreadyDefinedAdditionalParameter()
     {
-        $this->subject->piVars = array();
+        $this->subject->piVars = [];
         $this->subject->piVars['additionalParameter'] = 1.1;
-        $this->subject->ensureIntegerPiVars(array('additionalParameter'));
+        $this->subject->ensureIntegerPiVars(['additionalParameter']);
 
         self::assertSame(
-            array(
+            [
                 'additionalParameter' => 1,
                 'showUid' => 0,
                 'pointer' => 0,
-                'mode' => 0
-            ),
+                'mode' => 0,
+            ],
             $this->subject->piVars
         );
     }
@@ -4448,12 +4448,12 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function ensureIntegerPiVarsDoesNotIntvalsDefinedPiVarWhichIsNotInTheListOfPiVarsToSecure()
     {
-        $this->subject->piVars = array();
+        $this->subject->piVars = [];
         $this->subject->piVars['non-integer'] = 'foo';
         $this->subject->ensureIntegerPiVars();
 
         self::assertSame(
-            array('non-integer' => 'foo', 'showUid' => 0, 'pointer' => 0, 'mode' => 0),
+            ['non-integer' => 'foo', 'showUid' => 0, 'pointer' => 0, 'mode' => 0],
             $this->subject->piVars
         );
     }
@@ -4463,12 +4463,12 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function ensureIntegerPiVarsIntvalsAlreadyDefinedShowUid()
     {
-        $this->subject->piVars = array();
+        $this->subject->piVars = [];
         $this->subject->piVars['showUid'] = 1.1;
         $this->subject->ensureIntegerPiVars();
 
         self::assertSame(
-            array('showUid' => 1, 'pointer' => 0, 'mode' => 0),
+            ['showUid' => 1, 'pointer' => 0, 'mode' => 0],
             $this->subject->piVars
         );
     }
@@ -4536,7 +4536,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
         }
 
         $pageUid = $this->testingFramework->createFrontEndPage(
-            0, array('storage_pid' => 42)
+            0, ['storage_pid' => 42]
         );
         $this->testingFramework->createFakeFrontEnd($pageUid);
 
@@ -4556,7 +4556,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
         }
 
         $pageUid = $this->testingFramework->createFrontEndPage(
-            0, array('storage_pid' => 42)
+            0, ['storage_pid' => 42]
         );
         $this->testingFramework->createFakeFrontEnd($pageUid);
 
@@ -4589,7 +4589,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function ensureIntegerArrayValuesForEmptyArrayGivenDoesNotAddAnyPiVars()
     {
         $originalPiVars = $this->subject->piVars;
-        $this->subject->ensureIntegerArrayValues(array());
+        $this->subject->ensureIntegerArrayValues([]);
 
         self::assertSame(
             $originalPiVars,
@@ -4603,7 +4603,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function ensureIntegerArrayValuesForNotSetPiVarGivenDoesNotAddThisPiVar()
     {
         $originalPiVars = $this->subject->piVars;
-        $this->subject->ensureIntegerArrayValues(array('foo'));
+        $this->subject->ensureIntegerArrayValues(['foo']);
 
         self::assertSame(
             $originalPiVars,
@@ -4617,7 +4617,7 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     public function ensureIntegerArrayValuesForPiVarNotArrayDoesNotModifyThisPiVar()
     {
         $this->subject->piVars['foo'] = 'Hallo';
-        $this->subject->ensureIntegerArrayValues(array('foo'));
+        $this->subject->ensureIntegerArrayValues(['foo']);
 
         self::assertSame(
             'Hallo',
@@ -4630,8 +4630,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function ensureIntegerArrayValuesForValidIntegerInArrayDoesNotModifyThisArrayElement()
     {
-        $this->subject->piVars['foo'] = array(10);
-        $this->subject->ensureIntegerArrayValues(array('foo'));
+        $this->subject->piVars['foo'] = [10];
+        $this->subject->ensureIntegerArrayValues(['foo']);
 
         self::assertSame(
             10,
@@ -4644,8 +4644,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function ensureIntegerArrayValuesForStringInArrayRemovesThisArrayElement()
     {
-        $this->subject->piVars['foo'] = array('Hallo');
-        $this->subject->ensureIntegerArrayValues(array('foo'));
+        $this->subject->piVars['foo'] = ['Hallo'];
+        $this->subject->ensureIntegerArrayValues(['foo']);
 
         self::assertEmpty(
             $this->subject->piVars['foo']
@@ -4657,8 +4657,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function ensureIntegerArrayValuesForIntegerFollowedByStringInArrayRemovesStringFromArrayElement()
     {
-        $this->subject->piVars['foo'] = array('2;blubb');
-        $this->subject->ensureIntegerArrayValues(array('foo'));
+        $this->subject->piVars['foo'] = ['2;blubb'];
+        $this->subject->ensureIntegerArrayValues(['foo']);
 
         self::assertSame(
             2,
@@ -4671,8 +4671,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function ensureIntegerArrayValuesForSingleInArrayRemovesNumbersAfterDecimalPoint()
     {
-        $this->subject->piVars['foo'] = array(2.3);
-        $this->subject->ensureIntegerArrayValues(array('foo'));
+        $this->subject->piVars['foo'] = [2.3];
+        $this->subject->ensureIntegerArrayValues(['foo']);
 
         self::assertSame(
             2,
@@ -4685,8 +4685,8 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function ensureIntegerArrayValuesForZeroInArrayRemovesThisArrayElement()
     {
-        $this->subject->piVars['foo'] = array(0);
-        $this->subject->ensureIntegerArrayValues(array('foo'));
+        $this->subject->piVars['foo'] = [0];
+        $this->subject->ensureIntegerArrayValues(['foo']);
 
         self::assertEmpty(
             $this->subject->piVars['foo']
@@ -4698,10 +4698,10 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function ensureIntegerArrayValuesMultiplePiKeysGivenValidatesElementsOfAllPiVars()
     {
-        $this->subject->piVars['foo'] = array('2;blubb');
-        $this->subject->piVars['bar'] = array('42');
+        $this->subject->piVars['foo'] = ['2;blubb'];
+        $this->subject->piVars['bar'] = ['42'];
 
-        $this->subject->ensureIntegerArrayValues(array('foo', 'bar'));
+        $this->subject->ensureIntegerArrayValues(['foo', 'bar']);
 
         self::assertSame(
             2,

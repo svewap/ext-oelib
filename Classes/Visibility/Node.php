@@ -25,7 +25,7 @@ class Tx_Oelib_Visibility_Node
     /**
      * @var Tx_Oelib_Visibility_Node[] numeric array with all direct children of this node
      */
-    private $children = array();
+    private $children = [];
 
     /**
      * @var Tx_Oelib_Visibility_Node the parent node of this node

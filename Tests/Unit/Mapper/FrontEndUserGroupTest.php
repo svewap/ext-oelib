@@ -65,7 +65,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserGroupTest extends Tx_Phpunit_TestCa
     {
         /** @var Tx_Oelib_Model_FrontEndUserGroup $userGroup */
         $userGroup = $this->subject->find(
-            $this->testingFramework->createFrontEndUserGroup(array('title' => 'foo'))
+            $this->testingFramework->createFrontEndUserGroup(['title' => 'foo'])
         );
 
         $this->subject->load($userGroup);

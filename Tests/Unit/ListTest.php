@@ -28,7 +28,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
     /**
      * @var Tx_Oelib_Model[] models that need to be cleaned up during tearDown.
      */
-    private $modelStorage = array();
+    private $modelStorage = [];
 
     protected function setUp()
     {
@@ -74,7 +74,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      *
      * @return void
      */
-    private function addModelsToFixture(array $titles = array(''))
+    private function addModelsToFixture(array $titles = [''])
     {
         foreach ($titles as $title) {
             $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
@@ -202,7 +202,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function addModelsToFixtureForOneGivenTitleAddsOneModelToFixture()
     {
-        $this->addModelsToFixture(array('foo'));
+        $this->addModelsToFixture(['foo']);
 
         self::assertSame(
             1,
@@ -215,7 +215,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function addModelsToFixtureForOneGivenTitleAddsModelWithTitleGiven()
     {
-        $this->addModelsToFixture(array('foo'));
+        $this->addModelsToFixture(['foo']);
 
         /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $firstItem */
         $firstItem = $this->subject->first();
@@ -230,7 +230,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function addModelsToFixtureForTwoGivenTitlesAddsTwoModelsToFixture()
     {
-        $this->addModelsToFixture(array('foo', 'bar'));
+        $this->addModelsToFixture(['foo', 'bar']);
 
         self::assertSame(
             2,
@@ -243,7 +243,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function addModelsToFixtureForTwoGivenTitlesAddsFirstTitleToFirstModelFixture()
     {
-        $this->addModelsToFixture(array('bar', 'foo'));
+        $this->addModelsToFixture(['bar', 'foo']);
 
         /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $firstItem */
         $firstItem = $this->subject->first();
@@ -258,7 +258,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function addModelsToFixtureForThreeGivenTitlesAddsThreeModelsToFixture()
     {
-        $this->addModelsToFixture(array('foo', 'bar', 'fooBar'));
+        $this->addModelsToFixture(['foo', 'bar', 'fooBar']);
 
         self::assertSame(
             3,
@@ -340,7 +340,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function countWithTwoDifferentModelsReturnsTwo()
     {
-        $this->addModelsToFixture(array('', ''));
+        $this->addModelsToFixture(['', '']);
 
         self::assertSame(
             2,
@@ -799,8 +799,8 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function sortWithTwoModelsAndSortByTitleAscendingFunctionSortsModelsByTitleAscending()
     {
-        $this->addModelsToFixture(array('Beta', 'Alpha'));
-        $this->subject->sort(array($this, 'sortByTitleAscending'));
+        $this->addModelsToFixture(['Beta', 'Alpha']);
+        $this->subject->sort([$this, 'sortByTitleAscending']);
 
         /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $firstItem */
         $firstItem = $this->subject->first();
@@ -815,8 +815,8 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function sortWithThreeModelsAndSortByTitleAscendingFunctionSortsModelsByTitleAscending()
     {
-        $this->addModelsToFixture(array('Zeta', 'Beta', 'Alpha'));
-        $this->subject->sort(array($this, 'sortByTitleAscending'));
+        $this->addModelsToFixture(['Zeta', 'Beta', 'Alpha']);
+        $this->subject->sort([$this, 'sortByTitleAscending']);
 
         /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $firstItem */
         $firstItem = $this->subject->first();
@@ -831,8 +831,8 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function sortWithTwoModelsAndSortByTitleDescendingFunctionSortsModelsByTitleDescending()
     {
-        $this->addModelsToFixture(array('Alpha', 'Beta'));
-        $this->subject->sort(array($this, 'sortByTitleDescending'));
+        $this->addModelsToFixture(['Alpha', 'Beta']);
+        $this->subject->sort([$this, 'sortByTitleDescending']);
 
         /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $firstItem */
         $firstItem = $this->subject->first();
@@ -848,10 +848,10 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
     public function sortMakesListDirty()
     {
         /** @var Tx_Oelib_List|PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock('Tx_Oelib_List', array('markAsDirty'));
+        $subject = $this->getMock('Tx_Oelib_List', ['markAsDirty']);
         $subject->expects(self::once())->method('markAsDirty');
 
-        $subject->sort(array($this, 'sortByTitleAscending'));
+        $subject->sort([$this, 'sortByTitleAscending']);
     }
 
     ////////////////////////////
@@ -895,7 +895,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function appendEmptyListToTwoItemListMakesTwoItemList()
     {
-        $this->addModelsToFixture(array('First', 'Second'));
+        $this->addModelsToFixture(['First', 'Second']);
 
         $otherList = new Tx_Oelib_List();
         $this->subject->append($otherList);
@@ -1028,7 +1028,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function purgeCurrentForFirstOfTwoElementsMakesOneItemList()
     {
-        $this->addModelsToFixture(array('', ''));
+        $this->addModelsToFixture(['', '']);
 
         $this->subject->rewind();
         $this->subject->purgeCurrent();
@@ -1044,7 +1044,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function purgeCurrentForSecondOfTwoElementsMakesOneItemList()
     {
-        $this->addModelsToFixture(array('', ''));
+        $this->addModelsToFixture(['', '']);
 
         $this->subject->rewind();
         $this->subject->next();
@@ -1080,7 +1080,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
      */
     public function purgeCurrentForSecondOfTwoElementsInWhileLoopDoesNotChangeNumberOfIterations()
     {
-        $this->addModelsToFixture(array('', ''));
+        $this->addModelsToFixture(['', '']);
 
         $completedIterations = 0;
 
@@ -1382,7 +1382,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
     public function toArrayForNoElementsReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->toArray()
         );
     }
@@ -1396,7 +1396,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
         $this->subject->add($model);
 
         self::assertSame(
-            array($model),
+            [$model],
             $this->subject->toArray()
         );
     }
@@ -1412,7 +1412,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
         $this->subject->add($model2);
 
         self::assertSame(
-            array($model1, $model2),
+            [$model1, $model2],
             $this->subject->toArray()
         );
     }

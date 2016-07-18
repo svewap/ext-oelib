@@ -30,7 +30,7 @@ class Tx_Oelib_Tests_Unit_TranslatorTest extends Tx_Phpunit_TestCase
      */
     public function translateForInexistentLabelReturnsLabelKey()
     {
-        $subject = new Tx_Oelib_Translator('default', '', array());
+        $subject = new Tx_Oelib_Translator('default', '', []);
 
         self::assertSame(
             'label_test',
@@ -43,10 +43,10 @@ class Tx_Oelib_Tests_Unit_TranslatorTest extends Tx_Phpunit_TestCase
      */
     public function translateWithLanguageEnglishReturnsEnglishLabel()
     {
-        $localizedLabels = array(
-            'default' => array('label_test' => array(0 => array('source' => 'English', 'target' => 'English'))),
-            'de' => array('label_test' => array(0 => array('source' => 'English', 'target' => 'Deutsch'))),
-        );
+        $localizedLabels = [
+            'default' => ['label_test' => [0 => ['source' => 'English', 'target' => 'English']]],
+            'de' => ['label_test' => [0 => ['source' => 'English', 'target' => 'Deutsch']]],
+        ];
         $subject = new Tx_Oelib_Translator('default', '', $localizedLabels);
 
         self::assertSame(
@@ -60,10 +60,10 @@ class Tx_Oelib_Tests_Unit_TranslatorTest extends Tx_Phpunit_TestCase
      */
     public function translateWithLanguageGermanReturnsGermanLabel()
     {
-        $localizedLabels = array(
-            'default' => array('label_test' => array(0 => array('source' => 'English', 'target' => 'English'))),
-            'de' => array('label_test' => array(0 => array('source' => 'English', 'target' => 'Deutsch'))),
-        );
+        $localizedLabels = [
+            'default' => ['label_test' => [0 => ['source' => 'English', 'target' => 'English']]],
+            'de' => ['label_test' => [0 => ['source' => 'English', 'target' => 'Deutsch']]],
+        ];
         $subject = new Tx_Oelib_Translator('de', '', $localizedLabels);
 
         self::assertSame(
@@ -77,9 +77,9 @@ class Tx_Oelib_Tests_Unit_TranslatorTest extends Tx_Phpunit_TestCase
      */
     public function translateForLabelInexistentInGermanWithEmptyAlternativeLanguageWithLanguageGermanReturnsEnglishLabel()
     {
-        $localizedLabels = array(
-            'default' => array('label_test' => array(0 => array('source' => 'English', 'target' => 'English'))),
-        );
+        $localizedLabels = [
+            'default' => ['label_test' => [0 => ['source' => 'English', 'target' => 'English']]],
+        ];
         $subject = new Tx_Oelib_Translator('de', '', $localizedLabels);
 
         self::assertSame(
@@ -93,9 +93,9 @@ class Tx_Oelib_Tests_Unit_TranslatorTest extends Tx_Phpunit_TestCase
      */
     public function translateForLabelInexistentInEnglishAndAlternativeLanguageGermanReturnsGermanLabel()
     {
-        $localizedLabels = array(
-            'de' => array('label_test' => array(0 => array('source' => 'English', 'target' => 'Deutsch'))),
-        );
+        $localizedLabels = [
+            'de' => ['label_test' => [0 => ['source' => 'English', 'target' => 'Deutsch']]],
+        ];
         $subject = new Tx_Oelib_Translator('default', 'de', $localizedLabels);
 
         self::assertSame(

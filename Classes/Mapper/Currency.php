@@ -34,7 +34,7 @@ class Tx_Oelib_Mapper_Currency extends Tx_Oelib_DataMapper
     /**
      * @var string[] the column names of additional string keys
      */
-    protected $additionalKeys = array('cu_iso_3');
+    protected $additionalKeys = ['cu_iso_3'];
 
     /**
      * Finds a language by its ISO 4217 alpha-3 code.

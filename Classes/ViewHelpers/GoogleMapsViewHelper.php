@@ -96,7 +96,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      *         HTML for the Google Map, will be empty if there are no map points
      *         with coordinates
      */
-    public function render(array $mapPoints = array(), $width = '600px', $height = '400px')
+    public function render(array $mapPoints = [], $width = '600px', $height = '400px')
     {
         if (!preg_match('/^\d+(px|%)$/', $width)) {
             throw new InvalidArgumentException(
@@ -182,7 +182,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      */
     protected function findMapPointsWithCoordinates(array $mapPoints)
     {
-        $mapPointsWithCoordinates = array();
+        $mapPointsWithCoordinates = [];
 
         foreach ($mapPoints as $mapPoint) {
             if (!($mapPoint instanceof Tx_Oelib_Interface_MapPoint)) {
@@ -223,12 +223,12 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
                 number_format($coordinates['longitude'], 6, '.', '') . ');' . LF .
                 'bounds.extend(' . $positionVariableName . ');';
 
-            $markerParts = array(
+            $markerParts = [
                 'position: ' . $positionVariableName,
                 'map: map',
-            );
+            ];
             $escapedTooltipTitle = str_replace(
-                array('\\', '"', LF, CR), array('\\\\', '\"', '\n', '\r'),
+                ['\\', '"', LF, CR], ['\\\\', '\"', '\n', '\r'],
                 $mapPoint->getTooltipTitle()
             );
             if ($mapPoint->hasTooltipTitle()) {
@@ -281,7 +281,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
 
         $infoWindowVariableName = 'infoWindow_' . $index;
         $escapedInfoWindowContent = str_replace(
-            array('\\', '"', LF, CR), array('\\\\', '\"', '\n', '\r'),
+            ['\\', '"', LF, CR], ['\\\\', '\"', '\n', '\r'],
             $mapPoint->getInfoWindowContent()
         );
 

@@ -33,8 +33,8 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper extends Tx_Oelib_DataMappe
     /**
      * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
      */
-    protected $relations = array(
+    protected $relations = [
         'parent' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
         'tx_oelib_parent2' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
-    );
+    ];
 }
