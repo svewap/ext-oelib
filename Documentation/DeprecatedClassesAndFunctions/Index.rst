@@ -485,7 +485,7 @@ as bold.
          2010-10-11
 
    Removed
-         0.9.0 + 1
+         1.0.0
 
 
 .. container:: table-row
@@ -500,7 +500,7 @@ as bold.
          2014-04-11
 
    Removed
-         0.9.0 + 1
+         1.0.0
 
 
 .. container:: table-row
@@ -515,7 +515,7 @@ as bold.
          2014-04-12
 
    Removed
-         0.9.0 + 1
+         1.0.0
 
 
 .. container:: table-row
@@ -530,7 +530,7 @@ as bold.
          2014-08-28
 
    Removed
-         0.9.0 + 1
+         1.0.0
 
 
 .. container:: table-row
@@ -545,7 +545,7 @@ as bold.
          2014-08-28
 
    Removed
-         0.9.0 + 1
+         1.0.0
 
 
 .. container:: table-row
@@ -560,7 +560,7 @@ as bold.
          2014-08-28
 
    Removed
-         0.9.0 + 1
+         1.0.0
 
 
 .. container:: table-row
@@ -575,7 +575,7 @@ as bold.
          2014-09-01
 
    Removed
-         0.9.0 + 1
+         1.0.0
 
 
 .. container:: table-row
@@ -590,7 +590,7 @@ as bold.
          2014-09-01
 
    Removed
-         0.9.0 + 1
+         1.0.0
 
 
 .. container:: table-row
@@ -604,7 +604,7 @@ as bold.
          2015-01-12
 
    Removed
-         0.9.0 + 1
+         1.0.0
 
 .. container:: table-row
 
@@ -617,7 +617,7 @@ as bold.
          2015-02-28
 
    Removed
-         0.9.0 + 1
+         1.0.0
 
 .. container:: table-row
 
@@ -630,7 +630,7 @@ as bold.
          2015-03-01
 
    Removed
-         0.9.0 + 1
+         1.0.0
 
 .. container:: table-row
 
@@ -643,7 +643,7 @@ as bold.
          2015-12-28
 
    Removed
-         0.9.0 + 2
+         2.0.0
 
 .. container:: table-row
 
@@ -656,7 +656,7 @@ as bold.
          2015-03-01
 
    Removed
-         0.9.0 + 2
+         2.0.0
 
 .. container:: table-row
 
@@ -669,7 +669,7 @@ as bold.
          2015-03-01
 
    Removed
-         0.9.0 + 2
+         2.0.0
 
 .. container:: table-row
 
@@ -682,7 +682,7 @@ as bold.
          2015-12-28
 
    Removed
-         0.9.0 + 2
+         2.0.0
 
 .. container:: table-row
 
@@ -695,7 +695,7 @@ as bold.
          2015-12-28
 
    Removed
-         0.9.0 + 2
+         2.0.0
 
 .. container:: table-row
 
@@ -708,6 +708,6 @@ as bold.
          2016-07-18
 
    Removed
-         1.0.0 + 2
+         3.0.0
 
 .. ###### END~OF~TABLE ######
