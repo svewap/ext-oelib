@@ -1,5 +1,8 @@
 2.0.0 - not released yet
 
+Bug fixes:
+- [#5753] Misleading Exception type for missing mapper class
+
 
 1.0.0 - released 2016-07-18
 

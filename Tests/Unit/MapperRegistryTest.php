@@ -98,9 +98,9 @@ class Tx_Oelib_Tests_Unit_MapperRegistryTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException Tx_Oelib_Exception_NotFound
+     * @expectedException \InvalidArgumentException
      */
-    public function getForInexistentClassThrowsNotFoundException()
+    public function getForInexistentClassThrowsException()
     {
         Tx_Oelib_MapperRegistry::get('Tx_Oelib_InexistentMapper');
     }
