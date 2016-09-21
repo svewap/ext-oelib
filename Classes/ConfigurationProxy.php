@@ -27,8 +27,7 @@ class Tx_Oelib_ConfigurationProxy extends Tx_Oelib_PublicObject
     private static $instances = [];
 
     /**
-     * @var array stored configuration data for each extension which currently
-     *            uses the configuration proxy
+     * @var string[] stored configuration data for each extension which currently uses the configuration proxy
      */
     private $configuration = [];
 
@@ -71,8 +70,9 @@ class Tx_Oelib_ConfigurationProxy extends Tx_Oelib_PublicObject
      *        configuration and as identifier for an extension's instance of
      *        this class, must not be empty
      *
-     * @return Tx_Oelib_ConfigurationProxy the singleton configuration
-     *                                     proxy object
+     * @return Tx_Oelib_ConfigurationProxy the singleton configuration proxy object
+     *
+     * @throws InvalidArgumentException
      */
     public static function getInstance($extensionKey)
     {
@@ -80,9 +80,8 @@ class Tx_Oelib_ConfigurationProxy extends Tx_Oelib_PublicObject
             throw new InvalidArgumentException('The extension key was not set.', 1331318826);
         }
 
-        if (!is_object(self::$instances[$extensionKey])) {
-            self::$instances[$extensionKey]
-                = new Tx_Oelib_ConfigurationProxy($extensionKey);
+        if (!isset(self::$instances[$extensionKey])) {
+            self::$instances[$extensionKey] = new Tx_Oelib_ConfigurationProxy($extensionKey);
         }
 
         return self::$instances[$extensionKey];
@@ -122,9 +121,13 @@ class Tx_Oelib_ConfigurationProxy extends Tx_Oelib_PublicObject
      */
     public function retrieveConfiguration()
     {
-        $this->configuration = unserialize(
-            $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey]
-        );
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey])) {
+            $this->configuration = unserialize(
+                $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey]
+            );
+        } else {
+            $this->configuration = [];
+        }
         $this->isConfigurationLoaded = true;
     }
 
