@@ -191,7 +191,7 @@ class Tx_Oelib_ConfigurationProxy extends Tx_Oelib_PublicObject
     /**
      * Returns an extension's complete configuration.
      *
-     * @return array|bool an extension's configuration, empty if the configuration was not retrieved before
+     * @return array an extension's configuration, empty if the configuration was not retrieved before
      */
     public function getCompleteConfiguration()
     {

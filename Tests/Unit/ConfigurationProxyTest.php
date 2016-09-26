@@ -124,14 +124,13 @@ class Tx_Oelib_Tests_Unit_ConfigurationProxyTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function retrieveConfigurationIfThereIsNone()
+    public function retrieveConfigurationForNoConfigurationReturnsEmptyArray()
     {
         unset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['oelib']);
+
         $this->subject->retrieveConfiguration();
 
-        self::assertFalse(
-            $this->subject->getCompleteConfiguration()
-        );
+        self::assertSame([], $this->subject->getCompleteConfiguration());
     }
 
     /**
