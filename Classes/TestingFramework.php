@@ -15,7 +15,6 @@
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
-use TYPO3\CMS\Core\Utility\File\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
@@ -134,18 +133,11 @@ final class Tx_Oelib_TestingFramework
     protected $dummyFolders = [];
 
     /**
-     * the absolute path to the upload folder of the extension to test
+     * the absolute path to the upload folder of the extension to test (with the trailing slash)
      *
      * @var string
      */
     protected $uploadFolderPath = '';
-
-    /**
-     * an instance used for retrieving a unique file name
-     *
-     * @var BasicFileUtility
-     */
-    protected static $fileNameProcessor = null;
 
     /**
      * whether a fake front end has been created
@@ -186,10 +178,15 @@ final class Tx_Oelib_TestingFramework
      * @param string[] $additionalTablePrefixes
      *        the additional table name prefixes of the extensions for which this instance of the testing framework should be
      *        used, may be empty
+     *
+     * @throws \UnexpectedValueException if PATH_site is not defined
      */
-    public function __construct(
-        $tablePrefix, array $additionalTablePrefixes = []
-    ) {
+    public function __construct($tablePrefix, array $additionalTablePrefixes = [])
+    {
+        if (!defined('PATH_site')) {
+            throw new \UnexpectedValueException('PATH_site is not set.', 1475862825228);
+        }
+
         $this->tablePrefix = $tablePrefix;
         $this->additionalTablePrefixes = $additionalTablePrefixes;
         $this->createListOfOwnAllowedTables();
@@ -994,7 +991,7 @@ final class Tx_Oelib_TestingFramework
      */
     public function deleteDummyFile($fileName)
     {
-        $absolutePathToFile = $this->uploadFolderPath . $fileName;
+        $absolutePathToFile = $this->getUploadFolderPath() . $fileName;
         $fileExists = file_exists($absolutePathToFile);
 
         if (!isset($this->dummyFiles[$fileName])) {
@@ -1055,7 +1052,7 @@ final class Tx_Oelib_TestingFramework
      */
     public function deleteDummyFolder($folderName)
     {
-        $absolutePathToFolder = $this->uploadFolderPath . $folderName;
+        $absolutePathToFolder = $this->getUploadFolderPath() . $folderName;
 
         if (!is_dir($absolutePathToFolder)) {
             throw new InvalidArgumentException(
@@ -1173,7 +1170,8 @@ final class Tx_Oelib_TestingFramework
     /**
      * Returns a unique absolute path of a file or folder.
      *
-     * @param string $path the path of a file or folder relative to the calling extension's upload directory, must not be empty
+     * @param string $path the path of a file or folder relative to the calling extension's upload directory,
+     *                     must not be empty
      *
      * @return string the unique absolute path of a file or folder
      *
@@ -1185,14 +1183,24 @@ final class Tx_Oelib_TestingFramework
             throw new InvalidArgumentException('The first parameter $path must not be empty.', 1331490775);
         }
 
-        if (self::$fileNameProcessor === null) {
-            self::$fileNameProcessor = GeneralUtility::makeInstance(BasicFileUtility::class);
+        $pathInformation = pathinfo($path);
+        $fileNameWithoutExtension = $pathInformation['filename'];
+        if ($pathInformation['dirname'] !== '.') {
+            $absoluteDirectoryWithTrailingSlash = $this->getUploadFolderPath() . $pathInformation['dirname'] . '/';
+        } else {
+            $absoluteDirectoryWithTrailingSlash = $this->getUploadFolderPath();
         }
 
-        return self::$fileNameProcessor->getUniqueName(
-            basename($path),
-            $this->uploadFolderPath . GeneralUtility::dirname($path)
-        );
+        $extension = isset($pathInformation['extension']) ? ('.' . $pathInformation['extension']) : '';
+
+        $suffixCounter = 0;
+        do {
+            $suffix = ($suffixCounter > 0) ? ('-' . $suffixCounter) : '';
+            $newPath = $absoluteDirectoryWithTrailingSlash . $fileNameWithoutExtension . $suffix . $extension;
+            $suffixCounter++;
+        } while (is_file($newPath));
+
+        return $newPath;
     }
 
     /*

@@ -1,6 +1,7 @@
 2.0.0 - not released yet
 
 Bug fixes:
+- [#5767] Stop using the deprecated BasicFileUtility::getUniqueName
 - [#5766] Test failure in ConfigurationProxyTest
 - [#5761] Warning when using the ConfigurationProxy in unit tests
 - [#5753] Misleading Exception type for missing mapper class

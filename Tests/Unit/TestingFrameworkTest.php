@@ -3648,12 +3648,11 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function createDummyFileCreatesFileInSubfolder()
+    public function createDummyFileCreatesFileInSubFolder()
     {
         $dummyFolder = $this->subject->createDummyFolder('test_folder');
         $dummyFile = $this->subject->createDummyFile(
-            $this->subject->getPathRelativeToUploadDirectory($dummyFolder) .
-                '/test.txt'
+            $this->subject->getPathRelativeToUploadDirectory($dummyFolder) . '/test.txt'
         );
 
         self::assertFileExists($dummyFile);
@@ -4142,6 +4141,136 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         );
 
         $this->subject->getUniqueFileOrFolderPath('');
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathReturnsNonEmptyString()
+    {
+        $result = $this->subject->getUniqueFileOrFolderPath('foo.txt');
+
+        self::assertNotSame('', $result);
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathForPathWithoutExtensionReturnsPathWithoutExtension()
+    {
+        $result = $this->subject->getUniqueFileOrFolderPath('foo');
+
+        self::assertRegExp('/\/foo(\\-\\d+})?$/', $result);
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathForPathWithExtensionReturnsPathWithSameExtension()
+    {
+        $result = $this->subject->getUniqueFileOrFolderPath('foo.txt');
+
+        self::assertRegExp('/.+\\.txt$/', $result);
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathReturnsPathWithSameBaseName()
+    {
+        $result = $this->subject->getUniqueFileOrFolderPath('foo.txt');
+
+        self::assertRegExp('/foo.*\\.txt$/', $result);
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathForPathWithFolderReturnsPathWithSameFolder()
+    {
+        $result = $this->subject->getUniqueFileOrFolderPath('foo/bar.txt');
+
+        self::assertRegExp('/foo\\/bar.*\.txt$/', $result);
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathForPathWithoutExtensionReturnsNoExtension()
+    {
+        $result = $this->subject->getUniqueFileOrFolderPath('foo');
+
+        self::assertNotRegExp('/\\.[a-z]+$/', $result);
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathForFileWithExtensionReturnsPathWithSingleSeparators()
+    {
+        $path = $this->subject->getUniqueFileOrFolderPath('test.txt');
+
+        self::assertNotContains('//', $path);
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathForFileWithoutExtensionReturnsPathWithSingleSeparators()
+    {
+        $path = $this->subject->getUniqueFileOrFolderPath('test');
+
+        self::assertNotContains('//', $path);
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathReturnsPathToNonexistentFile()
+    {
+        $path = $this->subject->getUniqueFileOrFolderPath('foo.txt');
+
+        self::assertFileNotExists($path);
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathWithPathOfInexistentFileReturnsThatFile()
+    {
+        $path = $this->subject->createDummyFile();
+        $baseName = basename($path);
+        $this->subject->deleteDummyFile($baseName);
+
+        $uniquePath = $this->subject->getUniqueFileOrFolderPath($baseName);
+
+        self::assertSame($path, $uniquePath);
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathWithPathOfExistingFileReturnsNewPathWithSuffix()
+    {
+        $path = $this->subject->createDummyFile('test.txt');
+        $baseName = basename($path);
+
+        $uniquePath = $this->subject->getUniqueFileOrFolderPath($baseName);
+
+        self::assertRegExp('/\\-\\d+\\.txt/', $uniquePath);
+    }
+
+    /**
+     * @test
+     */
+    public function getUniqueFileOrFolderPathWithPathOfExistingFileReturnsNewPathOfInexistentFile()
+    {
+        $path = $this->subject->createDummyFile();
+        $baseName = basename($path);
+
+        $uniquePath = $this->subject->getUniqueFileOrFolderPath($baseName);
+
+        self::assertFileNotExists($uniquePath);
     }
 
     /*
