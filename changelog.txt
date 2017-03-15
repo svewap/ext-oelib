@@ -1,4 +1,4 @@
-2.0.0 - not released yet
+1.1.0 - released 2017-03-15
 
 Bug fixes:
 - [#5759] Make oelib compatible with MySQL in strict mode
