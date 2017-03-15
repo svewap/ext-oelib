@@ -11,10 +11,10 @@ CREATE TABLE user_oelibtest_test (
 	hidden tinyint(4) DEFAULT '0' NOT NULL,
 	starttime int(11) DEFAULT '0' NOT NULL,
 	endtime int(11) DEFAULT '0' NOT NULL,
-	title tinytext NOT NULL,
+	title varchar(255) DEFAULT '' NOT NULL,
 
 	tx_oelib_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	
+
 	PRIMARY KEY (uid),
 	KEY parent (pid),
 	KEY dummy (tx_oelib_is_dummy_record)
