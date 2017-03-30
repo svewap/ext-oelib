@@ -89,11 +89,11 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      * If the parameter is omitted, the configuration for plugin.tx_[extkey] is
      * used instead, e.g. plugin.tx_seminars.
      *
-     * @param array|null $configuration TypoScript configuration for the plugin, set to NULL to load the configuration from a BE page
+     * @param array|null $configuration TypoScript configuration for the plugin, set to null to load the configuration from a BE page
      *
      * @return void
      */
-    public function init(array $configuration = null)
+    public function init($configuration = null)
     {
         if ($this->isInitialized) {
             return;
