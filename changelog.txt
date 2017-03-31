@@ -5,6 +5,7 @@ Bug fixes:
 - [#5787] seminars FE editor crash with PHP 7
 
 Changes:
+- [#5789] Update the php-cs-fixer configuration
 - [#5788] Change the static_info_tables requirement to a recommendation
 
 

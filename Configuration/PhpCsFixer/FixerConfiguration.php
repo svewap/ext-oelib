@@ -17,11 +17,11 @@
  * automatic checks of coding guidelines
  * Install @fabpot's great php-cs-fixer tool via
  *
- *  $ composer global require fabpot/php-cs-fixer
+ *  $ composer global require friendsofphp/php-cs-fixer
  *
  * And then simply run
  *
- *  $ php-cs-fixer fix --config-file Configuration/PhpCsFixer/FixerConfiguration.php .
+ *  $ php-cs-fixer fix . --config Configuration/PhpCsFixer/FixerConfiguration.php
  *
  * inside the directory. Warning: This may take some time.
  *
@@ -33,48 +33,54 @@ if (PHP_SAPI !== 'cli') {
     die('This script supports command line usage only. Please check your command.');
 }
 
-// Return a Code Sniffing configuration using
-// all sniffers needed for PSR-2
-// and additionally:
-//  - Remove leading slashes in use clauses.
-//  - PHP single-line arrays should not have trailing comma.
-//  - Single-line whitespace before closing semicolon are prohibited.
-//  - Remove unused use statements in the PHP source code
-//  - Ensure Concatenation to have at least one whitespace around
-//  - Remove trailing whitespace at the end of blank lines.
-return Symfony\CS\Config\Config::create()
-    ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
-    ->fixers([
-        'concat_with_spaces',
-        'duplicate_semicolon',
-        'extra_empty_lines',
-        'no_empty_lines_after_phpdocs',
-        'ordered_use',
-        'phpdoc_no_package',
-        'phpdoc_scalar',
-        'remove_leading_slash_use',
-        'single_array_no_trailing_comma',
-        'single_quote',
-        'spaces_before_semicolon',
-        'unused_use',
-        'whitespacy_lines',
-
-        'array_element_no_space_before_comma',
-        'function_typehint_space',
-        'include',
-        'list_commas',
-        'multiline_array_trailing_comma',
-        'namespace_no_leading_whitespace',
-        'new_with_braces',
-        'no_blank_lines_after_class_opening',
-        'operators_spaces',
-        'phpdoc_indent',
-        'phpdoc_separation',
-        'phpdoc_to_comment',
-        'phpdoc_type_to_var',
-        'phpdoc_types',
-        'remove_lines_between_uses',
-        'standardize_not_equal',
-
-        'short_array_syntax',
+return \PhpCsFixer\Config::create()
+    ->setRiskyAllowed(true)
+    ->setRules([
+        '@PSR2' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'concat_space' => ['spacing' => 'one'],
+        'dir_constant' => true,
+        'function_typehint_space' => true,
+        'hash_to_slash_comment' => true,
+        'is_null' => true,
+        'linebreak_after_opening_tag' => true,
+        'lowercase_cast' => true,
+        'method_separation' => true,
+        'modernize_types_casting' => true,
+        'native_function_casing' => true,
+        'new_with_braces' => true,
+        'no_alias_functions' => true,
+        'no_blank_lines_after_class_opening' => true,
+        'no_blank_lines_before_namespace' => true,
+        'no_empty_comment' => true,
+        'no_empty_phpdoc' => true,
+        'no_empty_statement' => true,
+        'no_extra_consecutive_blank_lines' => true,
+        'no_leading_import_slash' => true,
+        'no_leading_namespace_whitespace' => true,
+        'no_multiline_whitespace_before_semicolons' => true,
+        'no_php4_constructor' => true,
+        'no_short_bool_cast' => true,
+        'no_short_echo_tag' => true,
+        'no_singleline_whitespace_before_semicolons' => true,
+        'no_spaces_after_function_name' => true,
+        'no_spaces_inside_parenthesis' => true,
+        'no_trailing_comma_in_singleline_array' => true,
+        'no_unneeded_control_parentheses' => true,
+        'no_unused_imports' => true,
+        'no_useless_return' => true,
+        'no_whitespace_before_comma_in_array' => true,
+        'no_whitespace_in_blank_line' => true,
+        'ordered_imports' => true,
+        'phpdoc_no_package' => true,
+        'short_scalar_cast' => true,
+        'single_quote' => true,
+        'space_after_semicolon' => true,
+        'standardize_not_equals' => true,
+        'phpdoc_scalar' => true,
+        'phpdoc_types' => true,
+        'psr4' => true,
+        'ternary_operator_spaces' => true,
+        'trailing_comma_in_multiline_array' => true,
+        'whitespace_after_comma_in_array' => true,
     ]);
