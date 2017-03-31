@@ -38,11 +38,11 @@ $EM_CONF[$_EXTKEY] = [
         'depends' => [
             'php' => '5.5.0-7.0.99',
             'typo3' => '6.2.0-7.9.99',
-            'static_info_tables' => '6.2.0-',
         ],
         'conflicts' => [
         ],
         'suggests' => [
+            'static_info_tables' => '6.2.0-',
         ],
     ],
     'autoload' => [
