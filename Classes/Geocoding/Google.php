@@ -33,7 +33,7 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
      *
      * @var string
      */
-    const BASE_URL = 'http://maps.google.com/maps/api/geocode/json?sensor=false';
+    const BASE_URL = 'https://maps.google.com/maps/api/geocode/json?sensor=false';
 
     /**
      * the Singleton instance
