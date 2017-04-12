@@ -1,6 +1,7 @@
 1.1.1 - not released yet
 
 Bug fixes:
+- [#5791] Test failure in Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest
 - [#5786] Use HTTPS for Google Maps and the geocoding
 - [#5787] seminars FE editor crash with PHP 7
 

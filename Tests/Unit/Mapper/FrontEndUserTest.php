@@ -350,14 +350,11 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $value must not be empty.
      */
     public function findByUserNameForEmptyUserNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
-            '$value must not be empty.'
-        );
-
         $this->subject->findByUserName('');
     }
 
@@ -366,13 +363,12 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function findByUserNameWithNameOfExistingUserReturnsFrontEndUserInstance()
     {
-        $this->testingFramework->createFrontEndUser(
-            '', ['username' => 'foo']
-        );
+        $userName = uniqid('user', true);
+        $this->testingFramework->createFrontEndUser('', ['username' => $userName]);
 
         self::assertInstanceOf(
             Tx_Oelib_Model_FrontEndUser::class,
-            $this->subject->findByUserName('foo')
+            $this->subject->findByUserName($userName)
         );
     }
 
@@ -381,11 +377,10 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function findByUserNameWithNameOfExistingUserReturnsModelWithThatUid()
     {
+        $userName = uniqid('user', true);
         self::assertSame(
-            $this->testingFramework->createFrontEndUser(
-                '', ['username' => 'foo']
-            ),
-            $this->subject->findByUserName('foo')->getUid()
+            $this->testingFramework->createFrontEndUser('', ['username' => $userName]),
+            $this->subject->findByUserName($userName)->getUid()
         );
     }
 
@@ -394,11 +389,10 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function findByUserNameWithUppercasedNameOfExistingLowercasedUserReturnsModelWithThatUid()
     {
+        $userName = uniqid('user', true);
         self::assertSame(
-            $this->testingFramework->createFrontEndUser(
-                '', ['username' => 'foo']
-            ),
-            $this->subject->findByUserName('FOO')->getUid()
+            $this->testingFramework->createFrontEndUser('', ['username' => $userName]),
+            $this->subject->findByUserName(strtoupper($userName))->getUid()
         );
     }
 
@@ -407,11 +401,10 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function findByUserNameWithUppercasedNameOfExistingUppercasedUserReturnsModelWithThatUid()
     {
+        $userName = strtoupper(uniqid('user', true));
         self::assertSame(
-            $this->testingFramework->createFrontEndUser(
-                '', ['username' => 'FOO']
-            ),
-            $this->subject->findByUserName('FOO')->getUid()
+            $this->testingFramework->createFrontEndUser('', ['username' => $userName]),
+            $this->subject->findByUserName($userName)->getUid()
         );
     }
 
@@ -420,11 +413,10 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function findByUserNameWithLowercasedNameOfExistingUppercasedUserReturnsModelWithThatUid()
     {
+        $userName = uniqid('user', true);
         self::assertSame(
-            $this->testingFramework->createFrontEndUser(
-                '', ['username' => 'FOO']
-            ),
-            $this->subject->findByUserName('foo')->getUid()
+            $this->testingFramework->createFrontEndUser('', ['username' => strtoupper($userName)]),
+            $this->subject->findByUserName($userName)->getUid()
         );
     }
 
@@ -435,11 +427,9 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function findByUserNameWithNameOfNonExistentUserThrowsException()
     {
-        $this->testingFramework->createFrontEndUser(
-            '',
-            ['username' => 'foo', 'deleted' => 1]
-        );
+        $userName = uniqid('user', true);
+        $this->testingFramework->createFrontEndUser('', ['username' => $userName, 'deleted' => 1]);
 
-        $this->subject->findByUserName('foo');
+        $this->subject->findByUserName($userName);
     }
 }
