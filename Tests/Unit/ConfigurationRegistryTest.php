@@ -134,7 +134,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
         );
 
         Tx_Oelib_ConfigurationRegistry::getInstance()->set(
-            '',  new Tx_Oelib_Configuration()
+            '', new Tx_Oelib_Configuration()
         );
     }
 
@@ -160,10 +160,10 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
     public function setTwoTimesForTheSameNamespaceDoesNotFail()
     {
         Tx_Oelib_ConfigurationRegistry::getInstance()->set(
-            'foo',  new Tx_Oelib_Configuration()
+            'foo', new Tx_Oelib_Configuration()
         );
         Tx_Oelib_ConfigurationRegistry::getInstance()->set(
-            'foo',  new Tx_Oelib_Configuration()
+            'foo', new Tx_Oelib_Configuration()
         );
     }
 

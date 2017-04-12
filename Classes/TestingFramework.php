@@ -1640,7 +1640,7 @@ final class Tx_Oelib_TestingFramework
      */
     public function existsRecord($table, $whereClause = '')
     {
-        return ($this->countRecords($table, $whereClause) > 0);
+        return $this->countRecords($table, $whereClause) > 0;
     }
 
     /**
@@ -1658,7 +1658,7 @@ final class Tx_Oelib_TestingFramework
             throw new InvalidArgumentException('$uid must be > 0.', 1331490872);
         }
 
-        return ($this->countRecords($table, 'uid = ' . $uid) > 0);
+        return $this->countRecords($table, 'uid = ' . $uid) > 0;
     }
 
     /**
@@ -1673,7 +1673,7 @@ final class Tx_Oelib_TestingFramework
      */
     public function existsExactlyOneRecord($table, $whereClause = '')
     {
-        return ($this->countRecords($table, $whereClause) === 1);
+        return $this->countRecords($table, $whereClause) === 1;
     }
 
     /**

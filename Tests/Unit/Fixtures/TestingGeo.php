@@ -77,7 +77,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingGeo extends Tx_Oelib_Model implements 
      */
     public function hasGeoAddress()
     {
-        return ($this->address !== '');
+        return $this->address !== '';
     }
 
     /**

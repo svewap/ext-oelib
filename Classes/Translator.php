@@ -81,7 +81,7 @@ class Tx_Oelib_Translator
 
         $translation = $this->translateForNewTypo3($key);
 
-        return ($useHtmlSpecialChars ? htmlspecialchars($translation) : $translation);
+        return $useHtmlSpecialChars ? htmlspecialchars($translation) : $translation;
     }
 
     /**

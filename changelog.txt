@@ -8,6 +8,9 @@ Changes:
 - [#5789] Update the php-cs-fixer configuration
 - [#5788] Change the static_info_tables requirement to a recommendation
 
+Cleanup:
+- [#5790] Clean up the code with php-cs-fixer
+
 
 1.1.0 - released 2017-03-15
 

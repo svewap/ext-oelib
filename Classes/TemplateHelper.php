@@ -325,12 +325,12 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
     public function hasConfValueString(
         $fieldName, $sheet = 'sDEF', $ignoreFlexform = false
     ) {
-        return ($this->getConfValueString(
+        return $this->getConfValueString(
             $fieldName,
             $sheet,
             false,
-            $ignoreFlexform) !== ''
-        );
+            $ignoreFlexform
+        ) !== '';
     }
 
     /**

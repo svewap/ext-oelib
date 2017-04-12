@@ -82,7 +82,7 @@ abstract class Tx_Oelib_Object
      */
     protected function hasString($key)
     {
-        return ($this->getAsString($key) !== '');
+        return $this->getAsString($key) !== '';
     }
 
     /**
@@ -125,7 +125,7 @@ abstract class Tx_Oelib_Object
      */
     protected function hasInteger($key)
     {
-        return ($this->getAsInteger($key) !== 0);
+        return $this->getAsInteger($key) !== 0;
     }
 
     /**
@@ -250,7 +250,7 @@ abstract class Tx_Oelib_Object
      */
     protected function hasFloat($key)
     {
-        return ($this->getAsFloat($key) !== 0.00);
+        return $this->getAsFloat($key) !== 0.00;
     }
 
     /**

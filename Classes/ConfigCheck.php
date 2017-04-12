@@ -377,7 +377,7 @@ class Tx_Oelib_ConfigCheck
         }
 
         $frontEndController = $this->getFrontEndController();
-        $typoScriptSetupPage = & $frontEndController->tmpl->setup['page.'];
+        $typoScriptSetupPage = &$frontEndController->tmpl->setup['page.'];
         $fileName = $typoScriptSetupPage['includeCSS.'][$this->objectToCheck->prefixId];
         if (!empty($fileName)) {
             $fileName = $frontEndController->tmpl->getFileName($fileName);

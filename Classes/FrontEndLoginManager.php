@@ -84,7 +84,7 @@ class Tx_Oelib_FrontEndLoginManager implements Tx_Oelib_Interface_LoginManager
         $isSimulatedLoggedIn = ($this->loggedInUser !== null);
         $isReallyLoggedIn = ($this->getFrontEndController() !== null) && is_array($this->getFrontEndController()->fe_user->user);
 
-        return ($isSimulatedLoggedIn || $isReallyLoggedIn);
+        return $isSimulatedLoggedIn || $isReallyLoggedIn;
     }
 
     /**

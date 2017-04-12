@@ -368,8 +368,8 @@ class Tx_Oelib_Template
             return false;
         }
 
-        return (isset($this->subparts[$subpartName])
-            && !isset($this->subpartsToHide[$subpartName]));
+        return isset($this->subparts[$subpartName])
+            && !isset($this->subpartsToHide[$subpartName]);
     }
 
     /**

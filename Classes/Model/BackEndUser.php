@@ -100,7 +100,7 @@ class Tx_Oelib_Model_BackEndUser extends Tx_Oelib_Model implements Tx_Oelib_Inte
      */
     public function hasLanguage()
     {
-        return ($this->getLanguage() !== 'default');
+        return $this->getLanguage() !== 'default';
     }
 
     /**

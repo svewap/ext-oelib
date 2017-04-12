@@ -123,8 +123,8 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
      */
     public function hasName()
     {
-        return ($this->hasString('name') || $this->hasFirstName()
-            || $this->hasLastName());
+        return $this->hasString('name') || $this->hasFirstName()
+            || $this->hasLastName();
     }
 
     /**

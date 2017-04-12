@@ -219,7 +219,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
             $coordinates = $mapPoint->getGeoCoordinates();
             $positionVariableName = 'markerPosition_' . $index;
             $javaScript .= 'var ' . $positionVariableName . ' = new google.maps.LatLng(' .
-                number_format($coordinates['latitude'], 6, '.', '')  . ', ' .
+                number_format($coordinates['latitude'], 6, '.', '') . ', ' .
                 number_format($coordinates['longitude'], 6, '.', '') . ');' . LF .
                 'bounds.extend(' . $positionVariableName . ');';
 

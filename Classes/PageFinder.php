@@ -196,7 +196,7 @@ class Tx_Oelib_PageFinder
      */
     private function hasManualPageUid()
     {
-        return ($this->storedPageUid > 0);
+        return $this->storedPageUid > 0;
     }
 
     /**

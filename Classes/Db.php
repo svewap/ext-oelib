@@ -479,7 +479,7 @@ class Tx_Oelib_Db
      */
     public static function existsRecord($table, $whereClause = '')
     {
-        return (self::count($table, $whereClause) > 0);
+        return self::count($table, $whereClause) > 0;
     }
 
     /**
@@ -496,7 +496,7 @@ class Tx_Oelib_Db
      */
     public static function existsExactlyOneRecord($table, $whereClause = '')
     {
-        return (self::count($table, $whereClause) === 1);
+        return self::count($table, $whereClause) === 1;
     }
 
     /**
@@ -521,9 +521,7 @@ class Tx_Oelib_Db
             throw new InvalidArgumentException('$uid must be > 0.', 1331488284);
         }
 
-        return (
-            self::count($table, 'uid = ' . $uid . $additionalWhereClause) > 0
-        );
+        return self::count($table, 'uid = ' . $uid . $additionalWhereClause) > 0;
     }
 
     /////////////////////////////////////

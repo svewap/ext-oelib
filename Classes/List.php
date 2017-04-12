@@ -114,7 +114,7 @@ class Tx_Oelib_List extends SplObjectStorage
      */
     public function isEmpty()
     {
-        return ($this->count() === 0);
+        return $this->count() === 0;
     }
 
     /**

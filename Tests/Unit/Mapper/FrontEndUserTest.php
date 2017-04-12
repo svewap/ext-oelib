@@ -236,7 +236,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
     {
         $feUserGroupUid = $this->testingFramework->createFrontEndUserGroup();
         $userGroups = $this->testingFramework->createFrontEndUserGroup() .
-            ',' .    $feUserGroupUid . ',' .
+            ',' . $feUserGroupUid . ',' .
             $this->testingFramework->createFrontEndUserGroup();
         $this->testingFramework->createFrontEndUser($userGroups);
 

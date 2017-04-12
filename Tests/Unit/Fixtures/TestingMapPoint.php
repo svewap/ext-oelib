@@ -44,7 +44,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapPoint implements Tx_Oelib_Interface
      */
     public function hasUid()
     {
-        return ($this->getUid() !== 0);
+        return $this->getUid() !== 0;
     }
 
     /**

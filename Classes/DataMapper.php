@@ -380,7 +380,7 @@ abstract class Tx_Oelib_DataMapper
         $relationConfiguration = $this->getRelationConfigurationFromTca($key);
         $cardinality = isset($relationConfiguration['maxitems']) ? (int)$relationConfiguration['maxitems'] : 1;
 
-        return ($cardinality === 1);
+        return $cardinality === 1;
     }
 
     /**
