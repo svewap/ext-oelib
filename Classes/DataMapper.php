@@ -255,10 +255,14 @@ abstract class Tx_Oelib_DataMapper
      * If a model's data cannot be retrieved from the DB, the model will be set
      * to the "dead" state.
      *
+     * Note: This method may only be called at most once per model instance.
+     *
      * @param Tx_Oelib_Model $model
      *        the model to fill, must already have a UID
      *
      * @return void
+     *
+     * @throws InvalidArgumentException if $model has no UID or has been created via getNewGhost
      */
     public function load(Tx_Oelib_Model $model)
     {
@@ -278,9 +282,53 @@ abstract class Tx_Oelib_DataMapper
     }
 
     /**
+     * Reloads a model's data from the database (retrieved by using the
+     * model's UID) and fills the model with it.
+     *
+     * If the model already has been loaded, any data in it will be overwritten
+     * (even it the data has not been persisted yet).
+     *
+     * If a model's data cannot be retrieved from the DB, the model will be set
+     * to the "dead" state.
+     *
+     * This method may be called more than once per model instance.
+     *
+     * @param Tx_Oelib_Model $model
+     *        the model to fill, must already have a UID
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException if $model has no UID or has been created via getNewGhost
+     */
+    public function reload(Tx_Oelib_Model $model)
+    {
+        if ($this->isModelAMemoryOnlyDummy($model)) {
+            throw new InvalidArgumentException(
+                'This ghost was created via getNewGhost and must not be loaded.',
+                1498659785232
+            );
+        }
+        if (!$model->hasUid()) {
+            throw new InvalidArgumentException(
+                'load must only be called with models that already have a UID.',
+                1498659789105
+            );
+        }
+
+        try {
+            $data = $this->retrieveRecordByUid($model->getUid());
+            $this->refillModel($model, $data);
+        } catch (Tx_Oelib_Exception_NotFound $exception) {
+            $model->markAsDead();
+        }
+    }
+
+    /**
      * Fills a model with data, including the relations.
      *
      * This function also updates the cache-by-key.
+     *
+     * This method must be called at most once per model instance.
      *
      * @param Tx_Oelib_Model $model
      *        the model to fill, needs to have a UID
@@ -294,6 +342,27 @@ abstract class Tx_Oelib_DataMapper
         $this->cacheModelByKeys($model, $data);
         $this->createRelations($data, $model);
         $model->setData($data);
+    }
+
+    /**
+     * Fills a model with data, including the relations.
+     *
+     * This function also updates the cache-by-key.
+     *
+     * This method may be called more than once per model instance.
+     *
+     * @param Tx_Oelib_Model $model
+     *        the model to fill, needs to have a UID
+     * @param array &$data
+     *        the model data to process as it comes from the DB, will be modified
+     *
+     * @return void
+     */
+    private function refillModel(Tx_Oelib_Model $model, array &$data)
+    {
+        $this->cacheModelByKeys($model, $data);
+        $this->createRelations($data, $model);
+        $model->resetData($data);
     }
 
     /**

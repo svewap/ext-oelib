@@ -425,9 +425,9 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         );
     }
 
-    //////////////////////////
-    // Tests concerning load
-    //////////////////////////
+    /*
+     * Tests concerning load and reload
+     */
 
     /**
      * @test
@@ -534,6 +534,102 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             12.5,
             $model->getFloatFromStringData()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function reloadForTestingOnlyGhostThrowsException()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $model = $this->subject->getNewGhost();
+        $this->subject->load($model);
+    }
+
+    /**
+     * @test
+     */
+    public function reloadForModelWithoutUidThrowsException()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $this->subject->load($model);
+    }
+
+
+    /**
+     * @test
+     */
+    public function reloadCanLoadGhostFromDisk()
+    {
+        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => 'foo']);
+        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        $model = $this->subject->find($uid);
+        self::assertTrue($model->isGhost());
+
+        $newTitle = 'bar';
+        $this->testingFramework->changeRecord('tx_oelib_test', $uid, ['title' => $newTitle]);
+
+        $this->subject->reload($model);
+
+        self::assertSame($newTitle, $model->getTitle());
+    }
+
+    /**
+     * @test
+     */
+    public function reloadCanReloadCleanLoadedModelFromDisk()
+    {
+        $oldTitle = 'foo';
+        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => $oldTitle]);
+        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        $model = $this->subject->find($uid);
+        self::assertSame($oldTitle, $model->getTitle());
+        self::assertTrue($model->isLoaded());
+
+        $newTitle = 'bar';
+        $this->testingFramework->changeRecord('tx_oelib_test', $uid, ['title' => $newTitle]);
+
+        $this->subject->reload($model);
+
+        self::assertSame($newTitle, $model->getTitle());
+    }
+
+    /**
+     * @test
+     */
+    public function reloadCanReloadDirtyModelFromDisk()
+    {
+        $oldTitle = 'foo';
+        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => '']);
+        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        $model = $this->subject->find($uid);
+        $model->setTitle($oldTitle);
+        self::assertTrue($model->isLoaded());
+        self::assertTrue($model->isDirty());
+
+        $newTitle = 'bar';
+        $this->testingFramework->changeRecord('tx_oelib_test', $uid, ['title' => $newTitle]);
+
+        $this->subject->reload($model);
+
+        self::assertSame($newTitle, $model->getTitle());
+    }
+
+    /**
+     * @test
+     */
+    public function reloadWithModelWithInexistentUidMarksModelAsDead()
+    {
+        $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
+
+        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model->setUid($uid);
+        $this->subject->reload($model);
+
+        self::assertTrue($model->isDead());
     }
 
     //////////////////////////////////////

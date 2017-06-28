@@ -171,6 +171,20 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
             throw new BadMethodCallException('setData must only be called once per model instance.', 1331489244);
         }
 
+        $this->resetData($data);
+    }
+
+    /**
+     * Sets the complete data for this model.
+     *
+     * This function may be called more than once.
+     *
+     * @param array $data the data for this model, may be empty
+     *
+     * @return void
+     */
+    public function resetData(array $data)
+    {
         $this->data = $data;
         if ($this->existsKey('uid')) {
             if (!$this->hasUid()) {

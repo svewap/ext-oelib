@@ -1,4 +1,10 @@
-1.1.1 - not released yet
+1.2.0 - not released yet
+
+Features:
+- [#5804] Add Mapper.reload($model)
+
+
+1.1.1 - released 2017-04-12
 
 Bug fixes:
 - [#5791] Test failure in Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest
