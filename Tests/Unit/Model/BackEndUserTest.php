@@ -15,7 +15,6 @@
 /**
  * Test case.
  *
- *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -154,10 +153,10 @@ class Tx_Oelib_Tests_Unit_Model_BackEndUserTest extends Tx_Phpunit_TestCase
     public function getLanguageForSetDefaultLanguageAndEmptyLanguageSetInUserConfigurationReturnsDefaultLanguage()
     {
         $this->subject->setData(['uc' => serialize(['lang' => ''])]);
-        $this->subject->setDefaultLanguage('de');
+        $this->subject->setDefaultLanguage('fr');
 
         self::assertSame(
-            'default',
+            'fr',
             $this->subject->getLanguage()
         );
     }

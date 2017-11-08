@@ -3,6 +3,9 @@
 Features:
 - [#5804] Add Mapper.reload($model)
 
+Bug fixes:
+- [#5819] Fix fallback to default language for back-end users
+
 
 1.1.1 - released 2017-04-12
 

@@ -16,7 +16,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This class represents a back-end user.
  *
- *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -66,7 +65,7 @@ class Tx_Oelib_Model_BackEndUser extends Tx_Oelib_Model implements Tx_Oelib_Inte
     public function getLanguage()
     {
         $configuration = $this->getConfiguration();
-        $result = isset($configuration['lang']) ? $configuration['lang'] : $this->getDefaultLanguage();
+        $result = !empty($configuration['lang']) ? $configuration['lang'] : $this->getDefaultLanguage();
 
         return ($result !== '') ? $result : 'default';
     }
