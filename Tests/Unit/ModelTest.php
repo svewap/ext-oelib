@@ -15,7 +15,6 @@
 /**
  * Test case.
  *
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
@@ -1115,6 +1114,27 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
+    public function getModificationDateAsUnixTimeStampByDefaultReturnsZero()
+    {
+        $this->subject->setData([]);
+
+        self::assertSame(0, $this->subject->getModificationDateAsUnixTimeStamp());
+    }
+
+    /**
+     * @test
+     */
+    public function getModificationDateAsUnixTimeStampReturnsModificationDate()
+    {
+        $date = 124445;
+        $this->subject->setData(['tstamp' => $date]);
+
+        self::assertSame($date, $this->subject->getModificationDateAsUnixTimeStamp());
+    }
+
+    /**
+     * @test
+     */
     public function setTimestampForLoadedModelSetsTheTimestamp()
     {
         $this->subject->setData([]);
@@ -1122,9 +1142,31 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
 
         self::assertSame(
             $GLOBALS['SIM_EXEC_TIME'],
-            $this->subject->getAsInteger('tstamp')
+            $this->subject->getModificationDateAsUnixTimeStamp()
         );
     }
+
+    /**
+     * @test
+     */
+    public function getCreationDateAsUnixTimeStampByDefaultReturnsZero()
+    {
+        $this->subject->setData([]);
+
+        self::assertSame(0, $this->subject->getCreationDateAsUnixTimeStamp());
+    }
+
+    /**
+     * @test
+     */
+    public function getCreationDateAsUnixTimeStampReturnsCreationDate()
+    {
+        $date = 124445;
+        $this->subject->setData(['crdate' => $date]);
+
+        self::assertSame($date, $this->subject->getCreationDateAsUnixTimeStamp());
+    }
+
 
     /**
      * @test
@@ -1143,14 +1185,14 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function setCreationDateForLoadedModelWithoutUidSetsCrdate()
+    public function setCreationDateForLoadedModelWithoutUidSetsCreation()
     {
         $this->subject->setData([]);
         $this->subject->setCreationDate();
 
         self::assertSame(
             $GLOBALS['SIM_EXEC_TIME'],
-            $this->subject->getAsInteger('crdate')
+            $this->subject->getCreationDateAsUnixTimeStamp()
         );
     }
 

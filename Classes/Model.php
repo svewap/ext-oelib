@@ -17,7 +17,6 @@
  *
  * A model can have one of the following states: dead, ghost, loading, loaded, virgin.
  *
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
@@ -644,6 +643,14 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
     }
 
     /**
+     * @return int
+     */
+    public function getModificationDateAsUnixTimeStamp()
+    {
+        return $this->getAsInteger('tstamp');
+    }
+
+    /**
      * Sets the the modification date and time.
      *
      * @return void
@@ -651,6 +658,14 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
     public function setTimestamp()
     {
         $this->setAsInteger('tstamp', $GLOBALS['SIM_EXEC_TIME']);
+    }
+
+    /**
+     * @return int
+     */
+    public function getCreationDateAsUnixTimeStamp()
+    {
+        return $this->getAsInteger('crdate');
     }
 
     /**
