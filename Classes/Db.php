@@ -19,7 +19,6 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 /**
  * This class provides some static database-related functions.
  *
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Oelib_Db
@@ -110,17 +109,19 @@ class Tx_Oelib_Db
 
         // maps $showHidden (-1..1) to (0..2) which ensures valid array keys
         $showHiddenKey = (string)($intShowHidden + 1);
-        $ignoresKey = serialize($ignoreArray);
+        $enrichedIgnores = $ignoreArray;
+        if ($showHidden > 0) {
+            $enrichedIgnores['starttime'] = true;
+            $enrichedIgnores['endtime'] = true;
+            $enrichedIgnores['fe_group'] = true;
+        }
+
+        $ignoresKey = serialize($enrichedIgnores);
         $previewKey = (int)$noVersionPreview;
         if (!isset(self::$enableFieldsCache[$table][$showHiddenKey][$ignoresKey][$previewKey])) {
             self::retrievePageForEnableFields();
             self::$enableFieldsCache[$table][$showHiddenKey][$ignoresKey][$previewKey]
-                = self::$pageForEnableFields->enableFields(
-                    $table,
-                    $showHidden,
-                    $ignoreArray,
-                    $noVersionPreview
-                );
+                = self::$pageForEnableFields->enableFields($table, $showHidden, $enrichedIgnores, $noVersionPreview);
         }
 
         return self::$enableFieldsCache[$table][$showHiddenKey][$ignoresKey][$previewKey];

@@ -16,7 +16,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Test case.
  *
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
@@ -188,6 +187,86 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
                 'tx_oelib_test', 0, ['endtime' => true]
             )
         );
+    }
+
+    /**
+     * @test
+     */
+    public function enableFieldsWithHiddenNotAllowedFindsDefaultRecord()
+    {
+        $this->testingFramework->createRecord('tx_oelib_test');
+
+        $result = \Tx_Oelib_Db::selectMultiple(
+            '*',
+            'tx_oelib_test',
+            '1 = 1' . Tx_Oelib_Db::enableFields('tx_oelib_test')
+        );
+
+        self::assertCount(1, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function enableFieldsWithHiddenAllowedFindsDefaultRecord()
+    {
+        $this->testingFramework->createRecord('tx_oelib_test');
+
+        $result = \Tx_Oelib_Db::selectMultiple(
+            '*',
+            'tx_oelib_test',
+            '1 = 1' . Tx_Oelib_Db::enableFields('tx_oelib_test', 1)
+        );
+
+        self::assertCount(1, $result);
+    }
+
+    /**
+     * @return int[][]
+     */
+    public function hiddenRecordDataProvider()
+    {
+        return [
+            'hidden' => [['hidden' => 1]],
+            'start time in future' => [['starttime' => $GLOBALS['SIM_EXEC_TIME'] + 1000]],
+            'end time in past' => [['endtime' => $GLOBALS['SIM_EXEC_TIME'] - 1000]],
+        ];
+    }
+
+    /**
+     * @test
+     * @param array $recordData
+     * @dataProvider hiddenRecordDataProvider
+     */
+    public function enableFieldsWithHiddenNotAllowedIgnoresHiddenRecord(array $recordData)
+    {
+        $this->testingFramework->createRecord('tx_oelib_test', $recordData);
+
+        $result = \Tx_Oelib_Db::selectMultiple(
+            '*',
+            'tx_oelib_test',
+            '1 = 1' . Tx_Oelib_Db::enableFields('tx_oelib_test')
+        );
+
+        self::assertCount(0, $result);
+    }
+
+    /**
+     * @test
+     * @param array $recordData
+     * @dataProvider hiddenRecordDataProvider
+     */
+    public function enableFieldsWithHiddenAllowedFindsHiddenRecord(array $recordData)
+    {
+        $this->testingFramework->createRecord('tx_oelib_test', $recordData);
+
+        $result = \Tx_Oelib_Db::selectMultiple(
+            '*',
+            'tx_oelib_test',
+            '1 = 1' . Tx_Oelib_Db::enableFields('tx_oelib_test', 1)
+        );
+
+        self::assertCount(1, $result);
     }
 
     /*
