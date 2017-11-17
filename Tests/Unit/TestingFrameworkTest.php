@@ -23,7 +23,6 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 /**
  * Test case.
  *
- *
  * @author Mario Rimann <typo3-coding@rimann.org>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Saskia Metzler <saskia@merlin.owl.de>
@@ -1397,15 +1396,14 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
      */
     public function cleanUpExecutesCleanUpHook()
     {
-        $hookClassName = uniqid('cleanUpHook');
-        $cleanUpHookMock = $this->getMock(
-            $hookClassName, ['cleanUp']
-        );
+        $this->subject->purgeHooks();
+
+        $hookClassName = 'OliverKlee\\Oelib\\TestingFramework\\CleanupHook';
+        $cleanUpHookMock = $this->getMock($hookClassName, ['cleanUp']);
         $cleanUpHookMock->expects(self::atLeastOnce())->method('cleanUp');
 
-        $GLOBALS['T3_VAR']['getUserObj'][$hookClassName] = $cleanUpHookMock;
-        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oelib']
-            ['testingFrameworkCleanUp'][$hookClassName] = $hookClassName;
+        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oelib']['testingFrameworkCleanUp'][$hookClassName] = $hookClassName;
+        GeneralUtility::addInstance($hookClassName, $cleanUpHookMock);
 
         $this->subject->cleanUp();
     }
