@@ -14,6 +14,7 @@
 
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
@@ -1235,9 +1236,8 @@ final class Tx_Oelib_TestingFramework
         $this->suppressFrontEndCookies();
         $this->discardFakeFrontEnd();
 
-        /** @var NullTimeTracker $timeTrack */
-        $timeTrack = GeneralUtility::makeInstance(NullTimeTracker::class);
-        $GLOBALS['TT'] = $timeTrack;
+        $this->registerNullPageCache();
+        $GLOBALS['TT'] = GeneralUtility::makeInstance(NullTimeTracker::class);
 
         /** @var TypoScriptFrontendController $frontEnd */
         $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
@@ -2062,5 +2062,23 @@ final class Tx_Oelib_TestingFramework
     protected function getFrontEndController()
     {
         return $GLOBALS['TSFE'];
+    }
+
+    /**
+     * @return void
+     */
+    private function registerNullPageCache()
+    {
+        /** @var CacheManager $cacheManager */
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        if ($cacheManager->hasCache('cache_pages')) {
+            return;
+        }
+
+        /** @var NullBackend $backEnd */
+        $backEnd = GeneralUtility::makeInstance(NullBackend::class, 'Testing');
+        /** @var VariableFrontend $cache */
+        $frontEnd = GeneralUtility::makeInstance(VariableFrontend::class, 'cache_pages', $backEnd);
+        $cacheManager->registerCache($frontEnd);
     }
 }
