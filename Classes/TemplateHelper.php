@@ -624,7 +624,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
                 '</strong>. If you are using a modified HTML template, please ' .
                 'fix it. If you are using the original HTML template file, ' .
                 'please file a bug report in the ' .
-                '<a href="https://bugs.oliverklee.com/">bug tracker</a>.'
+                '<a href="https://github.com/oliverklee/ext-oelib/issues">issue tracker</a>.'
             );
         }
     }
@@ -914,7 +914,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
                 '</strong>. If you are using a modified HTML template, please ' .
                 'fix it. If you are using the original HTML template file, ' .
                 'please file a bug report in the ' .
-                '<a href="https://bugs.oliverklee.com/">bug tracker</a>.'
+                '<a href="https://github.com/oliverklee/ext-oelib/issues">issue tracker</a>.'
             );
 
             return '';

@@ -24,9 +24,9 @@ facilitating learning from other coders.
 
 #. Make sure to always use the latest code and documentation from GIT.
 
-#. Look in the `bug tracker <https://bugs.oliverklee.com/>`_ if your
-   specific bug or feature request already has been reported. If this is
-   not the case, enter a new bug report/feature request.
+#. Look in the `issue tracker <https://github.com/oliverklee/ext-oelib/issues>`_
+   if your specific bug or feature request already has been reported.
+   If this is not the case, enter a new bug report/feature request.
 
 #. Set yourself as the bug's assignee to show you'd like to work on this
    bug. At this point, the bug status still is NEW.

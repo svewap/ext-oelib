@@ -24,6 +24,5 @@ Getting in touch with development
    :titlesonly:
    :glob:
 
-   GettingTheExtensionFromGit/Index
    FoundABug/Index
 
