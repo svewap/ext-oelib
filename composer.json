@@ -1,7 +1,7 @@
 {
     "name": "oliverklee/oelib",
-    "type": "typo3-cms-extension",
     "description": "This extension provides useful stuff for extension development: helper functions for unit testing, templating and automatic configuration checks.",
+    "type": "typo3-cms-extension",
     "keywords": [
         "TYPO3",
         "extension",
@@ -12,6 +12,7 @@
         "library"
     ],
     "homepage": "https://www.oliverklee.de",
+    "license": "GPL-3.0+",
     "authors": [
         {
             "name": "Oliver Klee",
@@ -23,17 +24,16 @@
         "issues": "https://github.com/oliverklee/ext-oelib/issues",
         "source": "https://github.com/oliverklee/ext-oelib"
     },
-    "license": "GPL-3.0+",
-    "replace": {
-        "oelib": "self.version",
-        "typo3-ter/oelib": "self.version"
-    },
     "require": {
         "php": ">=5.5.0,<8.0",
         "typo3/cms-core": ">=6.2.0,<8.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.8.0"
+    },
+    "replace": {
+        "oelib": "self.version",
+        "typo3-ter/oelib": "self.version"
     },
     "suggest": {
         "sjbr/static-info-tables": "^6.2.0"
