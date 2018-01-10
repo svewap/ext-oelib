@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'One is Enough Library',
-    'description' => 'This extension provides useful stuff for extension development: helper functions for unit testing, templating and automatic configuration checks.',
+    'description' => 'Useful stuff for TYPO3 extension development: helper functions for unit testing, templating and automatic configuration checks.',
     'category' => 'services',
     'author' => 'Oliver Klee',
     'author_email' => 'typo3-coding@oliverklee.de',
@@ -48,6 +48,10 @@ $EM_CONF[$_EXTKEY] = [
     'autoload' => [
         'classmap' => [
             'Classes',
+        ],
+    ],
+    'autoload-dev' => [
+        'classmap' => [
             'Tests',
         ],
     ],
