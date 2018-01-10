@@ -25,6 +25,5 @@ Introduction
 
    WhatDoesItDo/Index
    KeyFeatures/Index
-   SystemRequirements/Index
    Examples/Index
    Credits/Index

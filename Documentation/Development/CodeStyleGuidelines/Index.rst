@@ -168,12 +168,3 @@ Naming
 
 - Test functions that do *not* refer to a particular function should
   read like a sentence. Example: configurationIsReadAfterInitialization
-
-
-Language features
-"""""""""""""""""
-
-- We already require PHP5 and don't need to be PHP4-compliant anymore.
-  So please use type hinting, exceptions and access modifiers like
-  *public* or *private* and don't use @access anymore. Also use
-  *public/private/protected* instead of *var* for member variables.
