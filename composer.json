@@ -36,7 +36,7 @@
         "typo3-ter/oelib": "self.version"
     },
     "suggest": {
-        "sjbr/static-info-tables": "^6.2.0"
+        "sjbr/static-info-tables": "^6.3.7"
     },
     "autoload": {
         "classmap": [
