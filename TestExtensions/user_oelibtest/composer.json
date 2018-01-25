@@ -1,13 +1,16 @@
 {
-  "name": "oliverklee/user-oelibtest",
-  "type": "typo3-cms-extension",
-  "description": "Test extension for oelib",
-  "license": "GPL-3.0+",
-  "replace": {
-    "user-oelibtest": "self.version",
-    "typo3-ter/user-oelibtest": "self.version"
-  },
-  "require": {
-    "oliverklee/oelib": "*"
-  }
+    "name": "oliverklee/user-oelibtest",
+    "type": "typo3-cms-extension",
+    "description": "Test extension for oelib",
+    "license": "GPL-3.0+",
+    "require": {
+        "oliverklee/oelib": "@dev"
+    },
+    "replace": {
+        "user_oelibtest": "self.version",
+        "typo3-ter/user-oelibtest": "self.version"
+    },
+    "require": {
+        "oliverklee/oelib": "@dev"
+    }
 }

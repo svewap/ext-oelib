@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- fix the "replace" section in the composer.json of the test extensions
 - provide null page cache in the testing framework
 - test failure about the framework hook in 8.7
 - Db::enableFields should be able to find expired records

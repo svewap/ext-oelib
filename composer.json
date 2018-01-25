@@ -28,6 +28,8 @@
         "typo3/cms-fluid": "^6.2.14 || ^7.6.23"
     },
     "require-dev": {
+        "oliverklee/user-oelibtest": "@dev",
+        "oliverklee/user-oelibtest2": "@dev",
         "helhum/typo3-composer-setup": "^0.5.1",
         "phpunit/phpunit": "~4.8.0"
     },
