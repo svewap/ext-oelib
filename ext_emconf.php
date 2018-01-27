@@ -48,10 +48,6 @@ $EM_CONF[$_EXTKEY] = [
     'autoload' => [
         'classmap' => [
             'Classes',
-        ],
-    ],
-    'autoload-dev' => [
-        'classmap' => [
             'Tests',
         ],
     ],

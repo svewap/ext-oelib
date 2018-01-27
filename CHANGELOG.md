@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - remove obsolete TypoScript files
 
 ### Fixed
+- fix autoloading when running the tests in the BE module in non-composer mode (#9)
 - fix the "replace" section in the composer.json of the test extensions
 - provide null page cache in the testing framework
 - test failure about the framework hook in 8.7
