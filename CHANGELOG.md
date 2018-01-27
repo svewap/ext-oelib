@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- remove obsolete TypoScript files
 
 ### Fixed
 - fix the "replace" section in the composer.json of the test extensions
