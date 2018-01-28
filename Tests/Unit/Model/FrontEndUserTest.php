@@ -12,9 +12,10 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 /**
  * Test case.
- *
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -1662,6 +1663,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function getCountryWithInvalidCountryCodeReturnsNull()
     {
+        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
+            self::markTestSkipped('This tests needs the static_info_tables extension.');
+        }
+
         $this->subject->setData(['static_info_country' => 'xyz']);
 
         self::assertNull(
@@ -1674,6 +1679,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function getCountryWithCountryReturnsCountryAsModel()
     {
+        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
+            self::markTestSkipped('This tests needs the static_info_tables extension.');
+        }
+
         /** @var Tx_Oelib_Mapper_Country $mapper */
         $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class);
         /** @var Tx_Oelib_Model_Country $country */
@@ -1734,6 +1743,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function hasCountryWithInvalidCountryReturnsFalse()
     {
+        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
+            self::markTestSkipped('This tests needs the static_info_tables extension.');
+        }
+
         $this->subject->setData(['static_info_country' => 'xyz']);
 
         self::assertFalse(

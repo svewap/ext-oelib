@@ -15,7 +15,6 @@
 /**
  * Test case.
  *
- *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
 class Tx_Oelib_Tests_Unit_Mapper_LanguageTest extends Tx_Phpunit_TestCase

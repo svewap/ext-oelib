@@ -12,9 +12,10 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 /**
- * Testcase for the Tx_Oelib_Model_FederalState class.
- *
+ * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -22,6 +23,10 @@ class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase
 {
     protected function tearDown()
     {
+        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
+            self::markTestSkipped('This tests needs the static_info_tables extension.');
+        }
+
         Tx_Oelib_MapperRegistry::purgeInstance();
     }
 
