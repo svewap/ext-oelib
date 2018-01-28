@@ -1651,6 +1651,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function getCountryWithoutCountryReturnsNull()
     {
+        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
+            self::markTestSkipped('This tests needs the static_info_tables extension.');
+        }
+
         $this->subject->setData([]);
 
         self::assertNull(
@@ -1702,6 +1706,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function setCountrySetsCountry()
     {
+        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
+            self::markTestSkipped('This tests needs the static_info_tables extension.');
+        }
+
         /** @var Tx_Oelib_Mapper_Country $mapper */
         $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class);
         /** @var Tx_Oelib_Model_Country $country */
@@ -1719,6 +1727,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function countryCanBeSetToNull()
     {
+        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
+            self::markTestSkipped('This tests needs the static_info_tables extension.');
+        }
+
         $this->subject->setCountry(null);
 
         self::assertNull(
@@ -1731,6 +1743,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function hasCountryWithoutCountryReturnsFalse()
     {
+        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
+            self::markTestSkipped('This tests needs the static_info_tables extension.');
+        }
+
         $this->subject->setData([]);
 
         self::assertFalse(
@@ -1759,6 +1775,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function hasCountryWithCountryReturnsTrue()
     {
+        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
+            self::markTestSkipped('This tests needs the static_info_tables extension.');
+        }
+
         /** @var Tx_Oelib_Mapper_Country $mapper */
         $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class);
         /** @var Tx_Oelib_Model_Country $country */

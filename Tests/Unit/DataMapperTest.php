@@ -12,9 +12,10 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 /**
  * Test case.
- *
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -2891,6 +2892,10 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function findAllCanBeUsedForStaticTables()
     {
+        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
+            self::markTestSkipped('This tests needs the static_info_tables extension.');
+        }
+
         Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->findAll();
     }
 

@@ -18,7 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - remove obsolete TypoScript files (#8)
 
 ### Fixed
-- skip tests that require static_info_tables if the extension is not installed (#11)
+- skip tests that require static_info_tables if the extension is not installed (#11, #12)
 - fix autoloading when running the tests in the BE module in non-composer mode (#9)
 - fix the "replace" section in the composer.json of the test extensions
 - provide null page cache in the testing framework

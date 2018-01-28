@@ -21,12 +21,15 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  */
 class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase
 {
-    protected function tearDown()
+    protected function setUp()
     {
         if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
             self::markTestSkipped('This tests needs the static_info_tables extension.');
         }
+    }
 
+    protected function tearDown()
+    {
         Tx_Oelib_MapperRegistry::purgeInstance();
     }
 
