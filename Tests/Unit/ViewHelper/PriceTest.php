@@ -12,9 +12,10 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 /**
  * Test case.
- *
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
@@ -28,6 +29,10 @@ class Tx_Oelib_Tests_Unit_ViewHelper_PriceTest extends Tx_Phpunit_TestCase
 
     protected function setUp()
     {
+        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
+            self::markTestSkipped('This tests needs the static_info_tables extension.');
+        }
+
         $this->subject = new Tx_Oelib_ViewHelper_Price();
     }
 
