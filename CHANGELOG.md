@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - add TravisCI builds
 
 ### Changed
+- Update Emogrifier to 2.0.0 and move it to Resources/Private/Php (#20)
 - move the extension to GitHub
 
 ### Deprecated

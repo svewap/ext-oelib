@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -159,7 +160,10 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
         }
 
         if ((strpos($subject, CR) !== false) || (strpos($subject, LF) !== false)) {
-            throw new InvalidArgumentException('$subject must not contain any line breaks or carriage returns.', 1331488817);
+            throw new InvalidArgumentException(
+                '$subject must not contain any line breaks or carriage returns.',
+                1331488817
+            );
         }
 
         $this->setAsString('subject', $subject);
@@ -240,14 +244,15 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
     }
 
     /**
-     * Makes the Emogrifier class loadable via the autoloader.
+     * Loads the Emogrifier class.
      *
      * @return void
      */
     protected function loadEmogrifierClass()
     {
         if (!class_exists('Pelago\\Emogrifier', true)) {
-            require_once ExtensionManagementUtility::extPath('oelib') . 'Packages/vendor/pelago/emogrifier/Classes/Emogrifier.php';
+            require_once ExtensionManagementUtility::extPath('oelib') .
+                'Resources/Private/Php/vendor/pelago/emogrifier/Classes/Emogrifier.php';
         }
     }
 
