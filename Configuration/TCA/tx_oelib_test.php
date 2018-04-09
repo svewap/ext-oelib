@@ -3,55 +3,39 @@ defined('TYPO3_MODE') or die('Access denied.');
 
 return [
     'ctrl' => [
-        'title' => 'oelib test record',
-        'readOnly' => 1,
-        'adminOnly' => 1,
-        'rootLevel' => 1,
-        'label' => 'title',
+        'hideTable' => true,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'versioningWS' => false,
-        'default_sortby' => 'ORDER BY uid',
         'delete' => 'deleted',
         'enablecolumns' => [
             'disabled' => 'hidden',
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'iconfile' => 'EXT:oelib/Resources/Public/Icons/Test.gif',
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden,starttime,endtime,title,friend,owner,children,related_records,composition',
+        'showRecordFieldList' => '',
     ],
     'columns' => [
         'hidden' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
                 'default' => '0',
             ],
         ],
         'starttime' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'none',
-                'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'default' => '0',
                 'checkbox' => '0',
             ],
         ],
         'endtime' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'none',
-                'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'checkbox' => '0',
                 'default' => '0',
@@ -62,16 +46,12 @@ return [
             ],
         ],
         'title' => [
-            'exclude' => 0,
-            'label' => 'Title',
             'config' => [
                 'type' => 'none',
-                'size' => '30',
             ],
         ],
         'friend' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
             'label' => 'Friend (n:1 relation within the same table):',
             'config' => [
                 'type' => 'select',
@@ -84,7 +64,6 @@ return [
         ],
         'owner' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
             'label' => 'Owner (n:1 relation to another table):',
             'config' => [
                 'type' => 'group',
@@ -96,7 +75,6 @@ return [
         ],
         'children' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
             'label' => 'Children (m:n relation using a comma-separated list)',
             'config' => [
                 'type' => 'select',
@@ -109,7 +87,6 @@ return [
         ],
         'related_records' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
             'label' => 'Related records (m:n relation using an m:n table)',
             'config' => [
                 'type' => 'select',
@@ -123,7 +100,6 @@ return [
         ],
         'composition' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
             'label' => 'Related records (1:n relation using a foreign field)',
             'config' => [
                 'type' => 'inline',
@@ -137,7 +113,6 @@ return [
         ],
         'composition2' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
             'label' => 'Related records (1:n relation using a foreign field with prefix)',
             'config' => [
                 'type' => 'inline',
@@ -151,7 +126,6 @@ return [
         ],
         'bidirectional' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
             'label' => 'Related records (m:n relation using an m:n table)',
             'config' => [
                 'type' => 'select',
@@ -165,17 +139,15 @@ return [
             ],
         ],
         'header' => [
-            'exclude' => 0,
             'config' => [
                 'type' => 'none',
-                'size' => '30',
             ],
         ],
     ],
     'types' => [
-        '0' => ['showitem' => 'title, friend, owner, children, related_records, composition'],
+        '0' => ['showitem' => ''],
     ],
     'palettes' => [
-        '1' => ['showitem' => 'starttime, endtime'],
+        '1' => ['showitem' => ''],
     ],
 ];
