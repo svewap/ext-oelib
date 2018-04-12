@@ -11,11 +11,11 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+use TYPO3\CMS\Core\Http\HttpRequest;
 
 /**
  * This class represents a service to look up geo coordinates via Google Maps.
- *
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -46,9 +46,16 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
      * the amount of time (in seconds) that need to pass between subsequent
      * geocoding requests
      *
+     * @see https://developers.google.com/maps/documentation/javascript/geocoding#UsageLimits
+     *
      * @var float
      */
-    const GEOCODING_THROTTLING = 35.0;
+    const THROTTLING_IN_SECONDS = 1.0;
+
+    /**
+     * @var int
+     */
+    const MAXIMUM_ATTEMPTS = 5;
 
     /**
      * the timestamp of the last geocoding request (will be 0.00 before the
@@ -56,7 +63,7 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
      *
      * @var float
      */
-    private static $lastGeocodingTimestamp = 0.00;
+    private static $lastGeocodingTimestamp = 0.0;
 
     /**
      * The constructor. Do not call this constructor directly. Use getInstance()
@@ -71,7 +78,7 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
      */
     public function __destruct()
     {
-        self::$lastGeocodingTimestamp = 0.00;
+        self::$lastGeocodingTimestamp = 0.0;
     }
 
     /**
@@ -117,13 +124,13 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
     }
 
     /**
-     * Looks up the geo coordinates of the address of an object and sets its
-     * geo coordinates.
+     * Looks up the geo coordinates of the address of an object and sets its geo coordinates.
      *
      * @param Tx_Oelib_Interface_Geo $geoObject
-     *        the object for which the geo coordinates will be looked up and set
      *
      * @return void
+     *
+     * @throws \RuntimeException
      */
     public function lookUp(Tx_Oelib_Interface_Geo $geoObject)
     {
@@ -138,15 +145,35 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
         $address = $geoObject->getGeoAddress();
 
         $this->throttle();
-        $rawResult = $this->sendRequest($address);
-        if ($rawResult === false) {
-            throw new RuntimeException('There was an error connecting to the Google geocoding server.', 1331488446);
+        $attempts = 0;
+
+        do {
+            $lookupError = false;
+
+            $retry = false;
+            $response = $this->sendRequest($address);
+
+            $httpError = $response->getStatus() !== 200;
+            if (!$httpError) {
+                $resultParts = json_decode($response->getBody(), true);
+                $status = $resultParts['status'];
+                $lookupError = $status !== self::STATUS_OK;
+            }
+
+            if ($httpError || $lookupError) {
+                $attempts++;
+                if ($attempts < static::MAXIMUM_ATTEMPTS) {
+                    $retry = true;
+                    $this->throttle();
+                }
+            }
+        } while ($retry);
+
+        if ($httpError) {
+            throw new \RuntimeException('There was an error connecting to the Google geocoding server.', 1331488446);
         }
 
-        $resultParts = json_decode($rawResult, true);
-        $status = $resultParts['status'];
-
-        if ($status === self::STATUS_OK) {
+        if (!$lookupError) {
             $coordinates = $resultParts['results'][0]['geometry']['location'];
             $geoObject->setGeoCoordinates(
                 [
@@ -164,14 +191,14 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
      *
      * @param string $address the address to look up, must not be empty
      *
-     * @return mixed a string with the CSV result from the Google Maps server,
-     *               or FALSE if an error has occurred
+     * @return \HTTP_Request2_Response
      */
     protected function sendRequest($address)
     {
         $baseUrlWithAddress = self::BASE_URL . '&address=';
-
-        return GeneralUtility::getUrl($baseUrlWithAddress . urlencode($address));
+        $url = $baseUrlWithAddress . urlencode($address);
+        $request = new HttpRequest($url);
+        return $request->send();
     }
 
     /**
@@ -184,8 +211,8 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
     {
         if (self::$lastGeocodingTimestamp > 0.00) {
             $secondsSinceLastRequest = microtime(true) - self::$lastGeocodingTimestamp;
-            if ($secondsSinceLastRequest < self::GEOCODING_THROTTLING) {
-                usleep(1000000 * (self::GEOCODING_THROTTLING - $secondsSinceLastRequest));
+            if ($secondsSinceLastRequest < self::THROTTLING_IN_SECONDS) {
+                usleep(1000000 * (self::THROTTLING_IN_SECONDS - $secondsSinceLastRequest));
             }
         }
 

@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - remove obsolete TypoScript files (#8)
 
 ### Fixed
+- Use multiple attempts for failed geocoding (#22)
 - Do not consider anonymous FE sessions as "logged in" (#17)
 - Do not allow creation of test records in the BE (#21)
 - Use $GLOBALS['TYPO3_CONF_VARS'] instead of $TYPO3_CONF_VARS (#16)
