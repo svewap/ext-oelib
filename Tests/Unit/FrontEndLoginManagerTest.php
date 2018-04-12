@@ -111,6 +111,20 @@ class Tx_Oelib_Tests_Unit_FrontEndLoginManagerTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
+    public function isLoggedInForAnonymousFrontEndSessionReturnsFalse()
+    {
+        $this->testingFramework->createFakeFrontEnd();
+
+        /** @var TypoScriptFrontendController $frontEndController */
+        $frontEndController = $GLOBALS['TSFE'];
+        $frontEndController->fe_user->setAndSaveSessionData('oelib_test', 1);
+
+        self::assertFalse($this->subject->isLoggedIn());
+    }
+
+    /**
+     * @test
+     */
     public function isLoggedInWithLoggedInFrontEndUserReturnsTrue()
     {
         $this->testingFramework->createFakeFrontEnd();
