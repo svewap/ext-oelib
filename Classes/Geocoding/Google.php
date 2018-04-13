@@ -144,10 +144,10 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
 
         $address = $geoObject->getGeoAddress();
 
-        $this->throttle();
         $attempts = 0;
 
         do {
+            $this->throttle();
             $lookupError = false;
 
             $retry = false;
@@ -164,7 +164,6 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
                 $attempts++;
                 if ($attempts < static::MAXIMUM_ATTEMPTS) {
                     $retry = true;
-                    $this->throttle();
                 }
             }
         } while ($retry);
