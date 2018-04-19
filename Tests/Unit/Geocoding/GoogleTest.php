@@ -119,12 +119,14 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
         self::assertEquals(
             50.7335500,
             $coordinates['latitude'],
-            '', 0.1
+            '',
+            0.1
         );
         self::assertEquals(
             7.1014300,
             $coordinates['longitude'],
-            '', 0.1
+            '',
+            0.1
         );
     }
 
@@ -204,7 +206,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      */
     public function lookUpForAFullGermanAddressWithNetworkErrorThrowsException()
     {

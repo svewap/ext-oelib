@@ -1167,7 +1167,6 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
         self::assertSame($date, $this->subject->getCreationDateAsUnixTimeStamp());
     }
 
-
     /**
      * @test
      */
@@ -1250,7 +1249,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function setPageUidWithNegativePageUidThrowsException()
     {

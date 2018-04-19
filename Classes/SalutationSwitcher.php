@@ -174,7 +174,9 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
             }
             // The key for English is "default", not "en".
             $this->availableLanguages = str_replace(
-                'en', 'default', $this->availableLanguages
+                'en',
+                'default',
+                $this->availableLanguages
             );
             // Remove duplicates in case the default language is the same as the fall-back language.
             $this->availableLanguages = array_unique($this->availableLanguages);

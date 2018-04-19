@@ -74,7 +74,8 @@ class Tx_Oelib_Visibility_Tree
      * @return void
      */
     private function buildTreeFromArray(
-        array $treeStructure, Tx_Oelib_Visibility_Node $parentNode
+        array $treeStructure,
+        Tx_Oelib_Visibility_Node $parentNode
     ) {
         foreach ($treeStructure as $nodeKey => $nodeContents) {
             /** @var Tx_Oelib_Visibility_Node $childNode */

@@ -26,7 +26,7 @@ class Tx_Oelib_Template
     /**
      * @var string the regular expression used to find subparts
      */
-    const SUBPART_PATTERN = '/<!-- *###([A-Z0-9_]+)###.*-->(.*)<!-- *###\1###.*-->/msU';
+    const SUBPART_PATTERN = '/<!-- *###([A-Z0-9_]+)###.*-->(.*)<!-- *###\\1###.*-->/msU';
 
     /**
      * @var string the regular expression used to find subparts
@@ -157,7 +157,9 @@ class Tx_Oelib_Template
         $matches = [];
         preg_match_all(
             self::SUBPART_PATTERN,
-            $templateCode, $matches, PREG_SET_ORDER
+            $templateCode,
+            $matches,
+            PREG_SET_ORDER
         );
         foreach ($matches as $match) {
             $subpartName = $match[1];
@@ -297,7 +299,8 @@ class Tx_Oelib_Template
     public function setSubpart($subpartName, $content, $prefix = '')
     {
         $subpartName = $this->createMarkerNameWithoutHashes(
-            $subpartName, $prefix
+            $subpartName,
+            $prefix
         );
 
         if (!$this->isMarkerNameValidWithoutHashes($subpartName)) {
@@ -449,12 +452,16 @@ class Tx_Oelib_Template
      * @return void
      */
     public function unhideSubparts(
-        $subparts, $permanentlyHiddenSubparts = '', $prefix = ''
+        $subparts,
+        $permanentlyHiddenSubparts = '',
+        $prefix = ''
     ) {
         $subpartNames = GeneralUtility::trimExplode(',', $subparts, true);
 
         $hiddenSubpartNames = GeneralUtility::trimExplode(
-            ',', $permanentlyHiddenSubparts, true
+            ',',
+            $permanentlyHiddenSubparts,
+            true
         );
 
         $this->unhideSubpartsArray($subpartNames, $hiddenSubpartNames, $prefix);
@@ -484,14 +491,17 @@ class Tx_Oelib_Template
      * @return void
      */
     public function unhideSubpartsArray(
-        array $subparts, array $permanentlyHiddenSubparts = [], $prefix = ''
+        array $subparts,
+        array $permanentlyHiddenSubparts = [],
+        $prefix = ''
     ) {
         foreach ($subparts as $currentSubpartName) {
             // Only unhide the current subpart if it is not on the list of
             // permanently hidden subparts (e.g. by configuration).
             if (!in_array($currentSubpartName, $permanentlyHiddenSubparts, true)) {
                 $currentMarkerName = $this->createMarkerNameWithoutHashes(
-                    $currentSubpartName, $prefix
+                    $currentSubpartName,
+                    $prefix
                 );
                 unset($this->subpartsToHide[$currentMarkerName]);
             }
@@ -522,8 +532,12 @@ class Tx_Oelib_Template
      * @see setMarkerContent
      * @see hideSubparts
      */
-    public function setOrDeleteMarker($markerName, $condition, $content,
-        $markerPrefix = '', $wrapperPrefix = ''
+    public function setOrDeleteMarker(
+        $markerName,
+        $condition,
+        $content,
+        $markerPrefix = '',
+        $wrapperPrefix = ''
     ) {
         if ($condition) {
             $this->setMarker($markerName, $content, $markerPrefix);
@@ -560,8 +574,11 @@ class Tx_Oelib_Template
      * @see setMarkerContent
      * @see hideSubparts
      */
-    public function setOrDeleteMarkerIfNotZero($markerName, $content,
-        $markerPrefix = '', $wrapperPrefix = ''
+    public function setOrDeleteMarkerIfNotZero(
+        $markerName,
+        $content,
+        $markerPrefix = '',
+        $wrapperPrefix = ''
     ) {
         return $this->setOrDeleteMarker(
             $markerName,
@@ -594,8 +611,11 @@ class Tx_Oelib_Template
      * @see setMarkerContent
      * @see hideSubparts
      */
-    public function setOrDeleteMarkerIfNotEmpty($markerName, $content,
-        $markerPrefix = '', $wrapperPrefix = ''
+    public function setOrDeleteMarkerIfNotEmpty(
+        $markerName,
+        $content,
+        $markerPrefix = '',
+        $wrapperPrefix = ''
     ) {
         return $this->setOrDeleteMarker(
             $markerName,

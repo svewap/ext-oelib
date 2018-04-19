@@ -47,7 +47,8 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
      * @throws InvalidArgumentException
      */
     public function calculateDistanceInKilometers(
-        Tx_Oelib_Interface_Geo $object1, Tx_Oelib_Interface_Geo $object2
+        Tx_Oelib_Interface_Geo $object1,
+        Tx_Oelib_Interface_Geo $object2
     ) {
         if ($object1->hasGeoError()) {
             throw new InvalidArgumentException('$object1 has a geo error.');
@@ -73,7 +74,8 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
         $latitude2 = deg2rad($coordinates2['latitude']);
         $longitude2 = deg2rad($coordinates2['longitude']);
 
-        return acos(sin($latitude1) * sin($latitude2)
+        return acos(
+            sin($latitude1) * sin($latitude2)
             + cos($latitude1) * cos($latitude2) * cos($longitude2 - $longitude1)
         ) * self::EARTH_RADIUS_IN_KILOMETERS;
     }

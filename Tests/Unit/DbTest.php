@@ -115,7 +115,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function enableFieldsThrowsExceptionForTooSmallShowHidden()
     {
@@ -125,7 +125,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function enableFieldsThrowsExceptionForTooBigShowHidden()
     {
@@ -184,7 +184,9 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         self::assertNotSame(
             Tx_Oelib_Db::enableFields('tx_oelib_test', 0, []),
             Tx_Oelib_Db::enableFields(
-                'tx_oelib_test', 0, ['endtime' => true]
+                'tx_oelib_test',
+                0,
+                ['endtime' => true]
             )
         );
     }
@@ -235,6 +237,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
+     *
      * @param array $recordData
      * @dataProvider hiddenRecordDataProvider
      */
@@ -253,6 +256,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
+     *
      * @param array $recordData
      * @dataProvider hiddenRecordDataProvider
      */
@@ -309,7 +313,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function createRecursivePageListThrowsWithNegativeRecursion()
     {
@@ -325,8 +329,8 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createSystemFolder($uid);
 
         self::assertSame(
-            (string) $uid,
-            Tx_Oelib_Db::createRecursivePageList((string) $uid, 0)
+            (string)$uid,
+            Tx_Oelib_Db::createRecursivePageList((string)$uid, 0)
         );
     }
 
@@ -371,7 +375,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createSystemFolder();
 
         self::assertSame(
-            (string) $uid,
+            (string)$uid,
             Tx_Oelib_Db::createRecursivePageList($uid, 0)
         );
     }
@@ -420,7 +424,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         $subFolderUid = $this->testingFramework->createSystemFolder($uid);
 
         self::assertSame(
-            (string) $uid,
+            (string)$uid,
             Tx_Oelib_Db::createRecursivePageList($uid, 0)
         );
         self::assertSame(
@@ -442,7 +446,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
             $this->sortExplode(Tx_Oelib_Db::createRecursivePageList($uid, 1))
         );
         self::assertSame(
-            (string) $uid,
+            (string)$uid,
             Tx_Oelib_Db::createRecursivePageList($uid, 0)
         );
     }
@@ -454,7 +458,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function getColumnsInTableForEmptyTableNameThrowsException()
     {
@@ -464,7 +468,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function getColumnsInTableForInexistentTableNameThrowsException()
     {
@@ -502,7 +506,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function getColumnDefinitionForEmptyTableNameThrowsException()
     {
@@ -529,7 +533,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function tableHasColumnUidForEmptyTableNameThrowsException()
     {
@@ -578,7 +582,8 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     {
         self::assertTrue(
             Tx_Oelib_Db::tableHasColumn(
-                'tx_oelib_test', 'title'
+                'tx_oelib_test',
+                'title'
             )
         );
     }
@@ -590,7 +595,8 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     {
         self::assertFalse(
             Tx_Oelib_Db::tableHasColumn(
-                'tx_oelib_test', 'inexistent_column'
+                'tx_oelib_test',
+                'inexistent_column'
             )
         );
     }
@@ -598,12 +604,13 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function tableHasColumnThrowsExceptionOnEmptyTableName()
     {
         Tx_Oelib_Db::tableHasColumn(
-            '', 'title'
+            '',
+            'title'
         );
     }
 
@@ -614,7 +621,8 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     {
         self::assertFalse(
             Tx_Oelib_Db::tableHasColumn(
-                'tx_oelib_test', ''
+                'tx_oelib_test',
+                ''
             )
         );
     }
@@ -626,12 +634,13 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function deleteForEmptyTableNameThrowsException()
     {
         Tx_Oelib_Db::delete(
-            '', 'uid = 0'
+            '',
+            'uid = 0'
         );
     }
 
@@ -643,12 +652,14 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
         Tx_Oelib_Db::delete(
-            'tx_oelib_test', 'uid = ' . $uid
+            'tx_oelib_test',
+            'uid = ' . $uid
         );
 
         self::assertFalse(
             $this->testingFramework->existsRecordWithUid(
-                'tx_oelib_test', $uid
+                'tx_oelib_test',
+                $uid
             )
         );
     }
@@ -661,7 +672,8 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         self::assertSame(
             0,
             Tx_Oelib_Db::delete(
-                'tx_oelib_test', 'uid = 0'
+                'tx_oelib_test',
+                'uid = 0'
             )
         );
     }
@@ -676,7 +688,8 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         self::assertSame(
             1,
             Tx_Oelib_Db::delete(
-                'tx_oelib_test', 'uid = ' . $uid
+                'tx_oelib_test',
+                'uid = ' . $uid
             )
         );
     }
@@ -705,12 +718,14 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function updateForEmptyTableNameThrowsException()
     {
         Tx_Oelib_Db::update(
-            '', 'uid = 0', []
+            '',
+            'uid = 0',
+            []
         );
     }
 
@@ -722,12 +737,15 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
         Tx_Oelib_Db::update(
-            'tx_oelib_test', 'uid = ' . $uid, ['title' => 'foo']
+            'tx_oelib_test',
+            'uid = ' . $uid,
+            ['title' => 'foo']
         );
 
         self::assertTrue(
             $this->testingFramework->existsRecord(
-                'tx_oelib_test', 'title = "foo"'
+                'tx_oelib_test',
+                'title = "foo"'
             )
         );
     }
@@ -740,7 +758,9 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         self::assertSame(
             0,
             Tx_Oelib_Db::update(
-                'tx_oelib_test', 'uid = 0', ['title' => 'foo']
+                'tx_oelib_test',
+                'uid = 0',
+                ['title' => 'foo']
             )
         );
     }
@@ -755,7 +775,9 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         self::assertSame(
             1,
             Tx_Oelib_Db::update(
-                'tx_oelib_test', 'uid = ' . $uid, ['title' => 'foo']
+                'tx_oelib_test',
+                'uid = ' . $uid,
+                ['title' => 'foo']
             )
         );
     }
@@ -785,24 +807,26 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function insertForEmptyTableNameThrowsException()
     {
         Tx_Oelib_Db::insert(
-            '', ['is_dummy_record' => 1]
+            '',
+            ['is_dummy_record' => 1]
         );
     }
 
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function insertForEmptyRecordDataThrowsException()
     {
         Tx_Oelib_Db::insert(
-            'tx_oelib_test', []
+            'tx_oelib_test',
+            []
         );
     }
 
@@ -812,13 +836,15 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     public function insertInsertsRecord()
     {
         Tx_Oelib_Db::insert(
-            'tx_oelib_test', ['title' => 'foo', 'is_dummy_record' => 1]
+            'tx_oelib_test',
+            ['title' => 'foo', 'is_dummy_record' => 1]
         );
         $this->testingFramework->markTableAsDirty('tx_oelib_test');
 
         self::assertTrue(
             $this->testingFramework->existsRecord(
-                'tx_oelib_test', 'title = "foo"'
+                'tx_oelib_test',
+                'title = "foo"'
             )
         );
     }
@@ -829,13 +855,15 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     public function insertForTableWithUidReturnsUidOfCreatedRecord()
     {
         $uid = Tx_Oelib_Db::insert(
-            'tx_oelib_test', ['is_dummy_record' => 1]
+            'tx_oelib_test',
+            ['is_dummy_record' => 1]
         );
         $this->testingFramework->markTableAsDirty('tx_oelib_test');
 
         self::assertTrue(
             $this->testingFramework->existsRecordWithUid(
-                'tx_oelib_test', $uid
+                'tx_oelib_test',
+                $uid
             )
         );
     }
@@ -850,7 +878,8 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         self::assertSame(
             0,
             Tx_Oelib_Db::insert(
-                'tx_oelib_test_article_mm', ['is_dummy_record' => 1]
+                'tx_oelib_test_article_mm',
+                ['is_dummy_record' => 1]
             )
         );
     }
@@ -862,7 +891,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectForEmptyTableNameThrowsException()
     {
@@ -872,7 +901,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectForEmptyFieldListThrowsException()
     {
@@ -893,7 +922,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectSingleForEmptyTableNameThrowsException()
     {
@@ -903,7 +932,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectSingleForEmptyFieldListThrowsException()
     {
@@ -920,7 +949,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         );
 
         self::assertSame(
-            ['uid' => (string) $uid],
+            ['uid' => (string)$uid],
             Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', 'uid = ' . $uid)
         );
     }
@@ -928,7 +957,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException Tx_Oelib_Exception_EmptyQueryResult
+     * @expectedException \Tx_Oelib_Exception_EmptyQueryResult
      */
     public function selectSingleForNoResultsThrowsEmptyQueryResultException()
     {
@@ -941,14 +970,16 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     public function selectSingleCanOrderTheResults()
     {
         $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'Title A']
+            'tx_oelib_test',
+            ['title' => 'Title A']
         );
         $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'Title B']
+            'tx_oelib_test',
+            ['title' => 'Title B']
         );
 
         self::assertSame(
-            ['uid' => (string) $uid],
+            ['uid' => (string)$uid],
             Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', '', '', 'title DESC')
         );
     }
@@ -959,14 +990,16 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     public function selectSingleCanUseOffset()
     {
         $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'Title A']
+            'tx_oelib_test',
+            ['title' => 'Title A']
         );
         $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'Title B']
+            'tx_oelib_test',
+            ['title' => 'Title B']
         );
 
         self::assertSame(
-            ['uid' => (string) $uid],
+            ['uid' => (string)$uid],
             Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', '', '', 'title', 1)
         );
     }
@@ -974,7 +1007,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectMultipleForEmptyTableNameThrowsException()
     {
@@ -984,7 +1017,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectMultipleForEmptyFieldListThrowsException()
     {
@@ -999,7 +1032,9 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         self::assertSame(
             [],
             Tx_Oelib_Db::selectMultiple(
-                'uid', 'tx_oelib_test', 'title = "nothing"'
+                'uid',
+                'tx_oelib_test',
+                'title = "nothing"'
             )
         );
     }
@@ -1014,7 +1049,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         );
 
         self::assertSame(
-            [['uid' => (string) $uid]],
+            [['uid' => (string)$uid]],
             Tx_Oelib_Db::selectMultiple('uid', 'tx_oelib_test', 'uid = ' . $uid)
         );
     }
@@ -1025,10 +1060,12 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     public function selectMultipleCanFindTwoRows()
     {
         $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'foo']
+            'tx_oelib_test',
+            ['title' => 'foo']
         );
         $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'foo']
+            'tx_oelib_test',
+            ['title' => 'foo']
         );
 
         self::assertSame(
@@ -1037,7 +1074,9 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
                 ['title' => 'foo'],
             ],
             Tx_Oelib_Db::selectMultiple(
-                'title', 'tx_oelib_test', 'title = "foo"'
+                'title',
+                'tx_oelib_test',
+                'title = "foo"'
             )
         );
     }
@@ -1050,7 +1089,9 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
         self::assertSame(
             [],
             Tx_Oelib_Db::selectColumnForMultiple(
-                'title', 'tx_oelib_test', 'title = "nothing"'
+                'title',
+                'tx_oelib_test',
+                'title = "nothing"'
             )
         );
     }
@@ -1061,13 +1102,16 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     public function selectColumnForMultipleForOneMatchReturnsArrayWithColumnContent()
     {
         $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'foo']
+            'tx_oelib_test',
+            ['title' => 'foo']
         );
 
         self::assertSame(
             ['foo'],
             Tx_Oelib_Db::selectColumnForMultiple(
-                'title', 'tx_oelib_test', 'uid = ' . $uid
+                'title',
+                'tx_oelib_test',
+                'uid = ' . $uid
             )
         );
     }
@@ -1078,14 +1122,18 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     public function selectColumnForMultipleForTwoMatchReturnsArrayWithColumnContents()
     {
         $uid1 = $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'foo']
+            'tx_oelib_test',
+            ['title' => 'foo']
         );
         $uid2 = $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'bar']
+            'tx_oelib_test',
+            ['title' => 'bar']
         );
 
         $result = Tx_Oelib_Db::selectColumnForMultiple(
-            'title', 'tx_oelib_test', 'uid = ' . $uid1 . ' OR uid = ' . $uid2
+            'title',
+            'tx_oelib_test',
+            'uid = ' . $uid1 . ' OR uid = ' . $uid2
         );
         sort($result);
         self::assertSame(
@@ -1125,7 +1173,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsTableWithEmptyTableNameThrowsException()
     {
@@ -1173,7 +1221,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function getTcaForTableWithEmptyTableNameThrowsExceptionTca()
     {
@@ -1183,7 +1231,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function getTcaForTableWithInexistentTableNameThrowsExceptionTca()
     {
@@ -1193,7 +1241,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function getTcaForTableThrowsExceptionOnTableWithoutTca()
     {
@@ -1296,7 +1344,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function countWithInvalidTableNameThrowsException()
     {
@@ -1314,7 +1362,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithoutTables()
     {
@@ -1324,7 +1372,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithOnlyOneTableOnTheLeft()
     {
@@ -1334,7 +1382,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithOnlyOneTableOnTheRight()
     {
@@ -1364,7 +1412,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithEmptyTableNameThrowsException()
     {
@@ -1374,7 +1422,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function existsRecordWithInvalidTableNameThrowsException()
     {
@@ -1411,10 +1459,12 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     public function existsRecordForTwoMatchesReturnsTrue()
     {
         $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'foo']
+            'tx_oelib_test',
+            ['title' => 'foo']
         );
         $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'foo']
+            'tx_oelib_test',
+            ['title' => 'foo']
         );
 
         self::assertTrue(
@@ -1445,7 +1495,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsExactlyOneRecordWithEmptyTableNameThrowsException()
     {
@@ -1455,7 +1505,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function existsExactlyOneRecordWithInvalidTableNameThrowsException()
     {
@@ -1492,10 +1542,12 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     public function existsExactlyOneRecordForTwoMatchesReturnsFalse()
     {
         $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'foo']
+            'tx_oelib_test',
+            ['title' => 'foo']
         );
         $this->testingFramework->createRecord(
-            'tx_oelib_test', ['title' => 'foo']
+            'tx_oelib_test',
+            ['title' => 'foo']
         );
 
         self::assertFalse(
@@ -1510,7 +1562,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithZeroUidThrowsException()
     {
@@ -1520,7 +1572,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithNegativeUidThrowsException()
     {
@@ -1530,7 +1582,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithEmptyTableNameThrowsException()
     {
@@ -1540,7 +1592,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function existsRecordWithUidWithInvalidTableNameThrowsException()
     {
@@ -1577,12 +1629,15 @@ class Tx_Oelib_Tests_Unit_DbTest extends Tx_Phpunit_TestCase
     public function existsRecordWithUidUsesAdditionalNonEmptyWhereClause()
     {
         $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test', ['deleted' => 1]
+            'tx_oelib_test',
+            ['deleted' => 1]
         );
 
         self::assertFalse(
             Tx_Oelib_Db::existsRecordWithUid(
-                'tx_oelib_test', $uid, ' AND deleted = 0'
+                'tx_oelib_test',
+                $uid,
+                ' AND deleted = 0'
             )
         );
     }

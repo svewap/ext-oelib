@@ -54,7 +54,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     public function initialLanguage()
     {
         self::assertSame(
-            'default', $this->subject->getLanguage()
+            'default',
+            $this->subject->getLanguage()
         );
     }
 
@@ -65,7 +66,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setLanguage('default');
         self::assertSame(
-            'default', $this->subject->getLanguage()
+            'default',
+            $this->subject->getLanguage()
         );
     }
 
@@ -76,7 +78,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setLanguage('de');
         self::assertSame(
-            'de', $this->subject->getLanguage()
+            'de',
+            $this->subject->getLanguage()
         );
     }
 
@@ -87,7 +90,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setLanguage('');
         self::assertSame(
-            '', $this->subject->getLanguage()
+            '',
+            $this->subject->getLanguage()
         );
     }
 
@@ -102,7 +106,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setSalutationMode('formal');
         self::assertSame(
-            'formal', $this->subject->getSalutationMode()
+            'formal',
+            $this->subject->getSalutationMode()
         );
     }
 
@@ -113,7 +118,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setSalutationMode('informal');
         self::assertSame(
-            'informal', $this->subject->getSalutationMode()
+            'informal',
+            $this->subject->getSalutationMode()
         );
     }
 
@@ -198,7 +204,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     public function translateWithoutLanguageOnlyInDefault()
     {
         self::assertSame(
-            'only in default', $this->subject->translate('only_in_default')
+            'only in default',
+            $this->subject->translate('only_in_default')
         );
     }
 
@@ -208,7 +215,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     public function translateWithoutLanguageInBoth()
     {
         self::assertSame(
-            'in both languages', $this->subject->translate('in_both')
+            'in both languages',
+            $this->subject->translate('in_both')
         );
     }
 
@@ -219,7 +227,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setLanguage('default');
         self::assertSame(
-            'missing_key', $this->subject->translate('missing_key')
+            'missing_key',
+            $this->subject->translate('missing_key')
         );
     }
 
@@ -230,7 +239,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setLanguage('de');
         self::assertSame(
-            'missing_key', $this->subject->translate('missing_key')
+            'missing_key',
+            $this->subject->translate('missing_key')
         );
     }
 
@@ -241,7 +251,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setLanguage('default');
         self::assertSame(
-            'only in default', $this->subject->translate('only_in_default')
+            'only in default',
+            $this->subject->translate('only_in_default')
         );
     }
 
@@ -251,7 +262,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     public function onlyInDefaultUsingNothing()
     {
         self::assertSame(
-            'only in default', $this->subject->translate('only_in_default')
+            'only in default',
+            $this->subject->translate('only_in_default')
         );
     }
 
@@ -262,7 +274,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setLanguage('de');
         self::assertSame(
-            'only in default', $this->subject->translate('only_in_default')
+            'only in default',
+            $this->subject->translate('only_in_default')
         );
     }
 
@@ -273,7 +286,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setLanguage('default');
         self::assertSame(
-            'in both languages', $this->subject->translate('in_both')
+            'in both languages',
+            $this->subject->translate('in_both')
         );
     }
 
@@ -284,7 +298,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setLanguage('de');
         self::assertSame(
-            'in beiden Sprachen', $this->subject->translate('in_both')
+            'in beiden Sprachen',
+            $this->subject->translate('in_both')
         );
     }
 
@@ -295,7 +310,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setLanguage('default');
         self::assertSame(
-            '', $this->subject->translate('empty_string_in_default')
+            '',
+            $this->subject->translate('empty_string_in_default')
         );
     }
 
@@ -306,7 +322,8 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
     {
         $this->subject->setLanguage('de');
         self::assertSame(
-            '', $this->subject->translate('empty_string_in_default')
+            '',
+            $this->subject->translate('empty_string_in_default')
         );
     }
 

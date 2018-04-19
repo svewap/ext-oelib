@@ -98,7 +98,9 @@ class Tx_Oelib_Db
      * @return string the WHERE clause starting like " AND ...=... AND ...=..."
      */
     public static function enableFields(
-        $table, $showHidden = -1, array $ignoreArray = [],
+        $table,
+        $showHidden = -1,
+        array $ignoreArray = [],
         $noVersionPreview = false
     ) {
         $intShowHidden = (int)$showHidden;
@@ -166,13 +168,14 @@ class Tx_Oelib_Db
      * @throws InvalidArgumentException
      */
     public static function createRecursivePageList(
-        $startPages, $recursionDepth = 0
+        $startPages,
+        $recursionDepth = 0
     ) {
         if ($recursionDepth < 0) {
             throw new InvalidArgumentException('$recursionDepth must be >= 0.', 1331319974);
         }
         if ($recursionDepth === 0) {
-            return (string) $startPages;
+            return (string)$startPages;
         }
         if ($startPages === '') {
             return '';
@@ -225,7 +228,8 @@ class Tx_Oelib_Db
 
         self::enableQueryLogging();
         $dbResult = self::getDatabaseConnection()->exec_DELETEquery(
-            $tableName, $whereClause
+            $tableName,
+            $whereClause
         );
         if (!$dbResult) {
             throw new Tx_Oelib_Exception_Database();
@@ -257,7 +261,9 @@ class Tx_Oelib_Db
 
         self::enableQueryLogging();
         $dbResult = self::getDatabaseConnection()->exec_UPDATEquery(
-            $tableName, $whereClause, $fields
+            $tableName,
+            $whereClause,
+            $fields
         );
         if (!$dbResult) {
             throw new Tx_Oelib_Exception_Database();
@@ -290,7 +296,8 @@ class Tx_Oelib_Db
 
         self::enableQueryLogging();
         $dbResult = self::getDatabaseConnection()->exec_INSERTquery(
-            $tableName, $recordData
+            $tableName,
+            $recordData
         );
         if (!$dbResult) {
             throw new Tx_Oelib_Exception_Database();
@@ -315,7 +322,11 @@ class Tx_Oelib_Db
      * @throws Tx_Oelib_Exception_Database if an error has occurred
      */
     public static function select(
-        $fields, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '',
+        $fields,
+        $tableNames,
+        $whereClause = '',
+        $groupBy = '',
+        $orderBy = '',
         $limit = ''
     ) {
         if ($tableNames === '') {
@@ -327,7 +338,12 @@ class Tx_Oelib_Db
 
         self::enableQueryLogging();
         $dbResult = self::getDatabaseConnection()->exec_SELECTquery(
-            $fields, $tableNames, $whereClause, $groupBy, $orderBy, $limit
+            $fields,
+            $tableNames,
+            $whereClause,
+            $groupBy,
+            $orderBy,
+            $limit
         );
         if (!$dbResult) {
             throw new Tx_Oelib_Exception_Database();
@@ -363,8 +379,12 @@ class Tx_Oelib_Db
         $offset = 0
     ) {
         $result = self::selectMultiple(
-            $fields, $tableNames, $whereClause,
-            $groupBy, $orderBy, $offset . ',' . 1
+            $fields,
+            $tableNames,
+            $whereClause,
+            $groupBy,
+            $orderBy,
+            $offset . ',' . 1
         );
         if (empty($result)) {
             throw new Tx_Oelib_Exception_EmptyQueryResult();
@@ -387,12 +407,21 @@ class Tx_Oelib_Db
      * @return array[] the query result rows, will be empty if there are no matching records
      */
     public static function selectMultiple(
-        $fieldNames, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '',
+        $fieldNames,
+        $tableNames,
+        $whereClause = '',
+        $groupBy = '',
+        $orderBy = '',
         $limit = ''
     ) {
         $result = [];
         $dbResult = self::select(
-            $fieldNames, $tableNames, $whereClause, $groupBy, $orderBy, $limit
+            $fieldNames,
+            $tableNames,
+            $whereClause,
+            $groupBy,
+            $orderBy,
+            $limit
         );
 
         $databaseConnection = self::getDatabaseConnection();
@@ -420,11 +449,20 @@ class Tx_Oelib_Db
      * @return string[] one column from the the query result rows, will be empty if there are no matching records
      */
     public static function selectColumnForMultiple(
-        $fieldName, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '',
+        $fieldName,
+        $tableNames,
+        $whereClause = '',
+        $groupBy = '',
+        $orderBy = '',
         $limit = ''
     ) {
         $rows = self::selectMultiple(
-            $fieldName, $tableNames, $whereClause, $groupBy, $orderBy, $limit
+            $fieldName,
+            $tableNames,
+            $whereClause,
+            $groupBy,
+            $orderBy,
+            $limit
         );
 
         $result = [];
@@ -460,7 +498,9 @@ class Tx_Oelib_Db
         }
 
         $result = self::selectSingle(
-            'COUNT(' . $columns . ') AS oelib_counter', $tableNames, $whereClause
+            'COUNT(' . $columns . ') AS oelib_counter',
+            $tableNames,
+            $whereClause
         );
 
         return (int)$result['oelib_counter'];
@@ -516,7 +556,9 @@ class Tx_Oelib_Db
      * @return bool TRUE if there is a matching record, FALSE otherwise
      */
     public static function existsRecordWithUid(
-        $table, $uid, $additionalWhereClause = ''
+        $table,
+        $uid,
+        $additionalWhereClause = ''
     ) {
         if ($uid <= 0) {
             throw new InvalidArgumentException('$uid must be > 0.', 1331488284);

@@ -69,7 +69,7 @@ abstract class Tx_Oelib_Object
     {
         $this->checkForNonEmptyKey($key);
 
-        return trim((string) $this->get($key));
+        return trim((string)$this->get($key));
     }
 
     /**
@@ -97,7 +97,7 @@ abstract class Tx_Oelib_Object
     {
         $this->checkForNonEmptyKey($key);
 
-        $this->set($key, (string) $value);
+        $this->set($key, (string)$value);
     }
 
     /**
@@ -237,7 +237,7 @@ abstract class Tx_Oelib_Object
     {
         $this->checkForNonEmptyKey($key);
 
-        return (float) $this->get($key);
+        return (float)$this->get($key);
     }
 
     /**
@@ -265,6 +265,6 @@ abstract class Tx_Oelib_Object
     {
         $this->checkForNonEmptyKey($key);
 
-        $this->set($key, (float) $value);
+        $this->set($key, (float)$value);
     }
 }

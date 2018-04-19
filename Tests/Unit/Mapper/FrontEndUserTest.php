@@ -423,7 +423,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException Tx_Oelib_Exception_NotFound
+     * @expectedException \Tx_Oelib_Exception_NotFound
      */
     public function findByUserNameWithNameOfNonExistentUserThrowsException()
     {

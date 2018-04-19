@@ -51,7 +51,8 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
     public function getSenderForNonEmptySenderReturnsSender()
     {
         $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
-            'John Doe', 'foo@bar.com'
+            'John Doe',
+            'foo@bar.com'
         );
 
         $this->subject->setSender($sender);
@@ -78,7 +79,8 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
     public function hasSenderWithSenderReturnsTrue()
     {
         $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
-            'John Doe', 'foo@bar.com'
+            'John Doe',
+            'foo@bar.com'
         );
 
         $this->subject->setSender($sender);
@@ -109,7 +111,8 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
     public function getRecipientsWithOneRecipientReturnsOneRecipient()
     {
         $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
-            'John Doe', 'foo@bar.com'
+            'John Doe',
+            'foo@bar.com'
         );
         $this->subject->addRecipient($recipient);
 
@@ -125,10 +128,12 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
     public function getRecipientsWithTwoRecipientsReturnsTwoRecipients()
     {
         $recipient1 = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
-            'John Doe', 'foo@bar.com'
+            'John Doe',
+            'foo@bar.com'
         );
         $recipient2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
-            'John Doe', 'foo@bar.com'
+            'John Doe',
+            'foo@bar.com'
         );
         $this->subject->addRecipient($recipient1);
         $this->subject->addRecipient($recipient2);

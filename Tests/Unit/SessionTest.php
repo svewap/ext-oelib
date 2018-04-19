@@ -170,7 +170,8 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
     {
         $instance = new Tx_Oelib_FakeSession();
         Tx_Oelib_Session::setInstance(
-            Tx_Oelib_Session::TYPE_TEMPORARY, $instance
+            Tx_Oelib_Session::TYPE_TEMPORARY,
+            $instance
         );
 
         self::assertSame(

@@ -56,7 +56,8 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
     {
         $coordinates = ['latitude' => 50.7335500, 'longitude' => 7.1014300];
         $this->subject->setCoordinates(
-            $coordinates['latitude'], $coordinates['longitude']
+            $coordinates['latitude'],
+            $coordinates['longitude']
         );
 
         $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();

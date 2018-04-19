@@ -93,7 +93,9 @@ abstract class Tx_Oelib_AbstractMailer
             } else {
                 $fileName = $attachment->getFileName() !== '' ? $attachment->getFileName() : null;
                 $swiftAttachment = Swift_Attachment::newInstance(
-                    $attachment->getContent(), $fileName, $attachment->getContentType()
+                    $attachment->getContent(),
+                    $fileName,
+                    $attachment->getContentType()
                 );
             }
 
@@ -120,12 +122,14 @@ abstract class Tx_Oelib_AbstractMailer
     {
         if ($emailAddress === '') {
             throw new InvalidArgumentException(
-                'The ' . $roleDescription . ' e-mail address "' . $emailAddress . '" was empty.', 1409601561
+                'The ' . $roleDescription . ' e-mail address "' . $emailAddress . '" was empty.',
+                1409601561
             );
         }
         if (!$this->isLocalhostAddress($emailAddress) && !GeneralUtility::validEmail($emailAddress)) {
             throw new InvalidArgumentException(
-                'The ' . $roleDescription . ' e-mail address "' . $emailAddress . '" was not valid.', 1409601561
+                'The ' . $roleDescription . ' e-mail address "' . $emailAddress . '" was not valid.',
+                1409601561
             );
         }
     }
@@ -139,7 +143,7 @@ abstract class Tx_Oelib_AbstractMailer
      */
     protected function isLocalhostAddress($emailAddress)
     {
-        return (bool)preg_match('/[\-_\.a-zA-Z0-9]+@localhost/', $emailAddress);
+        return (bool)preg_match('/[\\-_\\.a-zA-Z0-9]+@localhost/', $emailAddress);
     }
 
     /**
@@ -184,7 +188,7 @@ abstract class Tx_Oelib_AbstractMailer
 
         $body = str_replace(CRLF, LF, $rawEmailBody);
         $body = str_replace(CR, LF, $body);
-        $body = preg_replace('/\n{2,}/', LF . LF, $body);
+        $body = preg_replace('/\\n{2,}/', LF . LF, $body);
 
         return trim($body);
     }

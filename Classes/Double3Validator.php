@@ -30,7 +30,7 @@ class Tx_Oelib_Double3Validator
     public function returnFieldJS()
     {
         $result = 'var theVal = "" + value;';
-        $result .= 'theVal = theVal.replace(/[^0-9,\.-]/g, "");';
+        $result .= 'theVal = theVal.replace(/[^0-9,\\.-]/g, "");';
         $result .= 'var negative = theVal.substring(0, 1) === \'-\';';
         $result .= 'theVal = theVal.replace(/-/g, "");';
         $result .= 'theVal = theVal.replace(/,/g, ".");';
@@ -58,7 +58,7 @@ class Tx_Oelib_Double3Validator
      */
     public function evaluateFieldValue($value)
     {
-        $cleanValue = preg_replace('/[^0-9,\.-]/', '', $value);
+        $cleanValue = preg_replace('/[^0-9,\\.-]/', '', $value);
         $isNegative = $cleanValue{0}
         === '-';
         $veryCleanValue = strtr($cleanValue, [',' => '.', '-' => '']);

@@ -123,7 +123,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
 
         $this->resetUid();
 
-        /** @var int|string|bool|float|null|Tx_Oelib_List|Tx_Oelib_Model $dataItem */
+        /** @var int|string|bool|float|Tx_Oelib_List|Tx_Oelib_Model|null $dataItem */
         foreach ($this->data as $key => $dataItem) {
             if ($dataItem instanceof Tx_Oelib_List) {
                 /** Tx_Oelib_List $dataItem */
@@ -418,7 +418,8 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
         if ($this->isGhost()) {
             if (!$this->hasLoadCallBack()) {
                 throw new BadMethodCallException(
-                    'Ghosts need a load callback function before their data can be accessed.', 1331489414
+                    'Ghosts need a load callback function before their data can be accessed.',
+                    1331489414
                 );
             }
 

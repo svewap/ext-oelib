@@ -245,7 +245,8 @@ final class Tx_Oelib_TestingFramework
         }
 
         return $this->createRecordWithoutTableNameChecks(
-            $table, $recordData
+            $table,
+            $recordData
         );
     }
 
@@ -268,13 +269,15 @@ final class Tx_Oelib_TestingFramework
      * @return int the UID of the new record, will be > 0
      */
     protected function createRecordWithoutTableNameChecks(
-        $table, array $recordData
+        $table,
+        array $recordData
     ) {
         $dummyColumnName = $this->getDummyColumnName($table);
         $recordData[$dummyColumnName] = 1;
 
         $uid = Tx_Oelib_Db::insert(
-            $table, $recordData
+            $table,
+            $recordData
         );
 
         $this->markTableAsDirty($table);
@@ -295,7 +298,8 @@ final class Tx_Oelib_TestingFramework
      * @return int the UID of the new page, will be > 0
      */
     public function createFrontEndPage(
-        $parentId = 0, array $recordData = []
+        $parentId = 0,
+        array $recordData = []
     ) {
         return $this->createGeneralPageRecord(1, $parentId, $recordData);
     }
@@ -313,7 +317,8 @@ final class Tx_Oelib_TestingFramework
      * @return int the UID of the new system folder, will be > 0
      */
     public function createSystemFolder(
-        $parentId = 0, array $recordData = []
+        $parentId = 0,
+        array $recordData = []
     ) {
         return $this->createGeneralPageRecord(254, $parentId, $recordData);
     }
@@ -338,7 +343,9 @@ final class Tx_Oelib_TestingFramework
      * @throws InvalidArgumentException
      */
     protected function createGeneralPageRecord(
-        $documentType, $parentId, array $recordData
+        $documentType,
+        $parentId,
+        array $recordData
     ) {
         if (isset($recordData['uid'])) {
             throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489697);
@@ -355,7 +362,8 @@ final class Tx_Oelib_TestingFramework
         $completeRecordData['doktype'] = $documentType;
 
         return $this->createRecordWithoutTableNameChecks(
-            'pages', $completeRecordData
+            'pages',
+            $completeRecordData
         );
     }
 
@@ -378,7 +386,8 @@ final class Tx_Oelib_TestingFramework
      * @throws InvalidArgumentException
      */
     public function createContentElement(
-        $pageId = 0, array $recordData = []
+        $pageId = 0,
+        array $recordData = []
     ) {
         if (isset($recordData['uid'])) {
             throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489735);
@@ -394,7 +403,8 @@ final class Tx_Oelib_TestingFramework
         }
 
         return $this->createRecordWithoutTableNameChecks(
-            'tt_content', $completeRecordData
+            'tt_content',
+            $completeRecordData
         );
     }
 
@@ -413,7 +423,8 @@ final class Tx_Oelib_TestingFramework
      * @throws InvalidArgumentException
      */
     public function createTemplate(
-        $pageId, array $recordData = []
+        $pageId,
+        array $recordData = []
     ) {
         if ($pageId <= 0) {
             throw new InvalidArgumentException('$pageId must be > 0.', 1331489774);
@@ -429,7 +440,8 @@ final class Tx_Oelib_TestingFramework
         $completeRecordData['pid'] = $pageId;
 
         return $this->createRecordWithoutTableNameChecks(
-            'sys_template', $completeRecordData
+            'sys_template',
+            $completeRecordData
         );
     }
 
@@ -451,7 +463,8 @@ final class Tx_Oelib_TestingFramework
         }
 
         return $this->createRecordWithoutTableNameChecks(
-            'fe_groups', $recordData
+            'fe_groups',
+            $recordData
         );
     }
 
@@ -470,7 +483,8 @@ final class Tx_Oelib_TestingFramework
      * @throws InvalidArgumentException
      */
     public function createFrontEndUser(
-        $frontEndUserGroups = '', array $recordData = []
+        $frontEndUserGroups = '',
+        array $recordData = []
     ) {
         $frontEndUserGroupsWithoutSpaces = str_replace(' ', '', $frontEndUserGroups);
 
@@ -480,7 +494,8 @@ final class Tx_Oelib_TestingFramework
         if (!preg_match('/^(?:[1-9]+[0-9]*,?)+$/', $frontEndUserGroupsWithoutSpaces)
         ) {
             throw new InvalidArgumentException(
-                '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.', 1331489824
+                '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.',
+                1331489824
             );
         }
         if (isset($recordData['uid'])) {
@@ -494,7 +509,8 @@ final class Tx_Oelib_TestingFramework
         $completeRecordData['usergroup'] = $frontEndUserGroupsWithoutSpaces;
 
         return $this->createRecordWithoutTableNameChecks(
-            'fe_users', $completeRecordData
+            'fe_users',
+            $completeRecordData
         );
     }
 
@@ -511,10 +527,12 @@ final class Tx_Oelib_TestingFramework
      * @return int the UID of the new FE user, will be > 0
      */
     public function createAndLoginFrontEndUser(
-        $frontEndUserGroups = '', array $recordData = []
+        $frontEndUserGroups = '',
+        array $recordData = []
     ) {
         $frontEndUserUid = $this->createFrontEndUser(
-            $frontEndUserGroups, $recordData
+            $frontEndUserGroups,
+            $recordData
         );
 
         $this->loginFrontEndUser($frontEndUserUid);
@@ -538,7 +556,8 @@ final class Tx_Oelib_TestingFramework
         }
 
         return $this->createRecordWithoutTableNameChecks(
-            'be_users', $recordData
+            'be_users',
+            $recordData
         );
     }
 
@@ -558,7 +577,8 @@ final class Tx_Oelib_TestingFramework
         }
 
         return $this->createRecordWithoutTableNameChecks(
-            'be_groups', $recordData
+            'be_groups',
+            $recordData
         );
     }
 
@@ -597,7 +617,8 @@ final class Tx_Oelib_TestingFramework
         }
         if (isset($recordData['uid'])) {
             throw new InvalidArgumentException(
-                'The parameter $recordData must not contain changes to the UID of a record.', 1331490017
+                'The parameter $recordData must not contain changes to the UID of a record.',
+                1331490017
             );
         }
         if (isset($recordData[$dummyColumnName])) {
@@ -669,12 +690,14 @@ final class Tx_Oelib_TestingFramework
         // Checks that the two given UIDs are valid.
         if ((int)$uidLocal <= 0) {
             throw new InvalidArgumentException(
-                '$uidLocal must be an integer > 0, but actually is "' . $uidLocal . '"', 1331490370
+                '$uidLocal must be an integer > 0, but actually is "' . $uidLocal . '"',
+                1331490370
             );
         }
         if ((int)$uidForeign <= 0) {
             throw new InvalidArgumentException(
-                '$uidForeign must be an integer > 0, but actually is "' . $uidForeign . '"', 1331490378
+                '$uidForeign must be an integer > 0, but actually is "' . $uidForeign . '"',
+                1331490378
             );
         }
 
@@ -688,7 +711,8 @@ final class Tx_Oelib_TestingFramework
         ];
 
         Tx_Oelib_Db::insert(
-            $table, $recordData
+            $table,
+            $recordData
         );
     }
 
@@ -707,7 +731,10 @@ final class Tx_Oelib_TestingFramework
      * @throws BadMethodCallException
      */
     public function createRelationAndUpdateCounter(
-        $tableName, $uidLocal, $uidForeign, $columnName
+        $tableName,
+        $uidLocal,
+        $uidForeign,
+        $columnName
     ) {
         if (!$this->isTableNameAllowed($tableName)) {
             throw new InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1331490419);
@@ -933,7 +960,8 @@ final class Tx_Oelib_TestingFramework
      * @throws UnexpectedValueException
      */
     public function createDummyZipArchive(
-        $fileName = 'test.zip', array $filesToAddToArchive = []
+        $fileName = 'test.zip',
+        array $filesToAddToArchive = []
     ) {
         $this->checkForZipArchive();
 
@@ -952,11 +980,13 @@ final class Tx_Oelib_TestingFramework
         foreach ($contents as $pathToFile) {
             if (!file_exists($pathToFile)) {
                 throw new UnexpectedValueException(
-                    'The provided path "' . $pathToFile . '" does not point to an exisiting file.', 1331490528
+                    'The provided path "' . $pathToFile . '" does not point to an exisiting file.',
+                    1331490528
                 );
             }
             $zip->addFile(
-                $pathToFile, $this->getPathRelativeToUploadDirectory($pathToFile)
+                $pathToFile,
+                $this->getPathRelativeToUploadDirectory($pathToFile)
             );
         }
 
@@ -1057,7 +1087,8 @@ final class Tx_Oelib_TestingFramework
 
         if (!is_dir($absolutePathToFolder)) {
             throw new InvalidArgumentException(
-                'The folder "' . $absolutePathToFolder . '" which you are trying to delete does not exist.', 1331490646
+                'The folder "' . $absolutePathToFolder . '" which you are trying to delete does not exist.',
+                1331490646
             );
         }
 
@@ -1093,7 +1124,8 @@ final class Tx_Oelib_TestingFramework
         $creationSuccessful = GeneralUtility::mkdir($uploadFolderPath);
         if (!$creationSuccessful) {
             throw new RuntimeException(
-                'The upload folder ' . $uploadFolderPath . ' could not be created.', 1331490723
+                'The upload folder ' . $uploadFolderPath . ' could not be created.',
+                1331490723
             );
         }
 
@@ -1118,7 +1150,8 @@ final class Tx_Oelib_TestingFramework
     {
         if (!empty($this->dummyFiles) || !empty($this->dummyFolders)) {
             throw new BadMethodCallException(
-                'The upload folder path must not be changed if there are already dummy files or folders.', 1331490745
+                'The upload folder path must not be changed if there are already dummy files or folders.',
+                1331490745
             );
         }
 
@@ -1157,7 +1190,8 @@ final class Tx_Oelib_TestingFramework
                 $absolutePath
         )) {
             throw new InvalidArgumentException(
-                'The first parameter $absolutePath is not within the calling extension\'s upload directory.', 1331490760
+                'The first parameter $absolutePath is not within the calling extension\'s upload directory.',
+                1331490760
             );
         }
 
@@ -1792,7 +1826,8 @@ final class Tx_Oelib_TestingFramework
     protected function getMaximumUidFromTable($table)
     {
         $row = Tx_Oelib_Db::selectSingle(
-            'MAX(uid) AS uid', $table
+            'MAX(uid) AS uid',
+            $table
         );
 
         return (int)$row['uid'];
@@ -1883,7 +1918,8 @@ final class Tx_Oelib_TestingFramework
                 $this->dirtySystemTables[$currentTable] = $currentTable;
             } else {
                 throw new InvalidArgumentException(
-                    'The table name "' . $currentTable . '" is not allowed for markTableAsDirty.', 1331490947
+                    'The table name "' . $currentTable . '" is not allowed for markTableAsDirty.',
+                    1331490947
                 );
             }
         }
@@ -1996,7 +2032,8 @@ final class Tx_Oelib_TestingFramework
 
         if ($databaseConnection->sql_affected_rows() === 0) {
             throw new BadMethodCallException(
-                'The table ' . $tableName . ' does not contain a record with UID ' . $uid . '.', 1331491003
+                'The table ' . $tableName . ' does not contain a record with UID ' . $uid . '.',
+                1331491003
             );
         }
 

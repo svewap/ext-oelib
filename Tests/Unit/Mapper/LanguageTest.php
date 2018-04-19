@@ -45,7 +45,8 @@ class Tx_Oelib_Tests_Unit_Mapper_LanguageTest extends Tx_Phpunit_TestCase
     public function findWithUidOfExistingRecordReturnsLanguageInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model_Language::class, $this->subject->find(43)
+            Tx_Oelib_Model_Language::class,
+            $this->subject->find(43)
         );
     }
 

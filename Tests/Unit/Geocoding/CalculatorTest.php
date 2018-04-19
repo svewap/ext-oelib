@@ -57,7 +57,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function calculateDistanceInKilometersForFirstObjectWithoutCoordinatesThrowsException()
     {
@@ -74,7 +74,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function calculateDistanceInKilometersForSecondObjectWithoutCoordinatesThrowsException()
     {
@@ -91,7 +91,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function calculateDistanceInKilometersForFirstObjectWithGeoErrorThrowsException()
     {
@@ -111,7 +111,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function calculateDistanceInKilometersForSecondObjectWithGeoErrorThrowsException()
     {
@@ -208,7 +208,9 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
         $list->add($bonn);
 
         $filteredList = $this->subject->filterByDistance(
-            $list, $cologne, 27.0
+            $list,
+            $cologne,
+            27.0
         );
 
         self::assertSame(
@@ -239,7 +241,9 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
         $list->add($bonn);
 
         $filteredList = $this->subject->filterByDistance(
-            $list, $cologne, 25.0
+            $list,
+            $cologne,
+            25.0
         );
 
         self::assertTrue(
@@ -266,7 +270,9 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
         $list->add($cologne);
 
         $filteredList = $this->subject->filterByDistance(
-            $list, $cologne, 27.0
+            $list,
+            $cologne,
+            27.0
         );
 
         self::assertSame(
@@ -369,6 +375,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      * @dataProvider directionDataProvider
      *
      * @param int
+     * @param mixed $direction
      */
     public function moveMovesByGivenDistanceWithPositiveDistance($direction)
     {
@@ -389,6 +396,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      * @dataProvider directionDataProvider
      *
      * @param int
+     * @param mixed $direction
      */
     public function moveMovesByGivenDistanceWithNegativeDistance($direction)
     {
@@ -407,7 +415,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function moveByRandomDistanceWithNegativeNumberThrowsException()
     {
@@ -427,6 +435,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      * @dataProvider directionDataProvider
      *
      * @param int
+     * @param mixed $direction
      */
     public function moveByRandomDistanceChangesCoordinates($direction)
     {
@@ -446,6 +455,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      * @dataProvider directionDataProvider
      *
      * @param int
+     * @param mixed $direction
      */
     public function moveByRandomDistanceMovesAtMostByGivenDistanceWithPositiveDistance($direction)
     {
@@ -529,7 +539,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function moveInRandomDirectionAndDistanceWithNegativeNumberThrowsException()
     {

@@ -159,7 +159,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function renderWithEmptyWidthThrowsException()
     {
@@ -169,7 +169,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function renderWithInvalidWidthThrowsException()
     {
@@ -179,7 +179,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function renderWithEmptyHeightThrowsException()
     {
@@ -189,7 +189,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function renderWithInvalidHeightThrowsException()
     {
@@ -278,7 +278,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     public function renderReturnsInitializationCallWithMapNumber()
     {
         self::assertRegExp(
-            '/initializeGoogleMap_\d+/',
+            '/initializeGoogleMap_\\d+/',
             $this->subject->render([$this->mapPointWithCoordinates])
         );
     }
@@ -286,7 +286,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends Tx_Phpuni
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function renderForMapPointsOfNonMapPointClassThrowsException()
     {

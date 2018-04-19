@@ -144,7 +144,8 @@ class Tx_Oelib_Tests_Unit_TranslatorRegistryTest extends Tx_Phpunit_TestCase
     public function getWithLoadedExtensionNameReturnsTranslatorInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Translator::class, Tx_Oelib_TranslatorRegistry::get('oelib')
+            Tx_Oelib_Translator::class,
+            Tx_Oelib_TranslatorRegistry::get('oelib')
         );
     }
 

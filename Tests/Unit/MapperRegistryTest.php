@@ -232,7 +232,8 @@ class Tx_Oelib_Tests_Unit_MapperRegistryTest extends Tx_Phpunit_TestCase
     {
         $mapper = new Tx_Oelib_Tests_Unit_Fixtures_TestingMapper();
         Tx_Oelib_MapperRegistry::set(
-            'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper', $mapper
+            'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
+            $mapper
         );
 
         self::assertSame(
@@ -278,20 +279,21 @@ class Tx_Oelib_Tests_Unit_MapperRegistryTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function setThrowsExceptionForMismatchingWrapperClass()
     {
         $mapper = new Tx_Oelib_Tests_Unit_Fixtures_TestingMapper();
         Tx_Oelib_MapperRegistry::set(
-            'Tx_Oelib_Mapper_Foo', $mapper
+            'Tx_Oelib_Mapper_Foo',
+            $mapper
         );
     }
 
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function setThrowsExceptionIfTheMapperTypeAlreadyIsRegistered()
     {
@@ -299,7 +301,8 @@ class Tx_Oelib_Tests_Unit_MapperRegistryTest extends Tx_Phpunit_TestCase
 
         $mapper = new Tx_Oelib_Tests_Unit_Fixtures_TestingMapper();
         Tx_Oelib_MapperRegistry::set(
-            'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper', $mapper
+            'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
+            $mapper
         );
     }
 }

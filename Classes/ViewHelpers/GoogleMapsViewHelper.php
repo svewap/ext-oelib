@@ -98,14 +98,16 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      */
     public function render(array $mapPoints = [], $width = '600px', $height = '400px')
     {
-        if (!preg_match('/^\d+(px|%)$/', $width)) {
+        if (!preg_match('/^\\d+(px|%)$/', $width)) {
             throw new InvalidArgumentException(
-                '$width must be a valid CSS length, but actually is: ' . $width, 1319058935
+                '$width must be a valid CSS length, but actually is: ' . $width,
+                1319058935
             );
         }
-        if (!preg_match('/^\d+(px|%)$/', $height)) {
+        if (!preg_match('/^\\d+(px|%)$/', $height)) {
             throw new InvalidArgumentException(
-                '$height must be a valid CSS length, but actually is: ' . $height, 1319058966
+                '$height must be a valid CSS length, but actually is: ' . $height,
+                1319058966
             );
         }
 
@@ -228,7 +230,8 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
                 'map: map',
             ];
             $escapedTooltipTitle = str_replace(
-                ['\\', '"', LF, CR], ['\\\\', '\"', '\n', '\r'],
+                ['\\', '"', LF, CR],
+                ['\\\\', '\\"', '\\n', '\\r'],
                 $mapPoint->getTooltipTitle()
             );
             if ($mapPoint->hasTooltipTitle()) {
@@ -273,7 +276,9 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      *         does not have info window content
      */
     protected function createInfoWindowJavaScript(
-        Tx_Oelib_Interface_MapPoint $mapPoint, $markerVariableName, $index
+        Tx_Oelib_Interface_MapPoint $mapPoint,
+        $markerVariableName,
+        $index
     ) {
         if (!$mapPoint->hasInfoWindowContent()) {
             return '';
@@ -281,7 +286,8 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
 
         $infoWindowVariableName = 'infoWindow_' . $index;
         $escapedInfoWindowContent = str_replace(
-            ['\\', '"', LF, CR], ['\\\\', '\"', '\n', '\r'],
+            ['\\', '"', LF, CR],
+            ['\\\\', '\\"', '\\n', '\\r'],
             $mapPoint->getInfoWindowContent()
         );
 

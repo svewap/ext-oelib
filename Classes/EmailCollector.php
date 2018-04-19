@@ -163,7 +163,8 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
     {
         if (!in_array($key, ['recipient', 'subject', 'message', 'headers'], true)) {
             throw new InvalidArgumentException(
-                'The key "' . $key . '" is invalid. It must be "recipient", "subject", "message" or "headers".', 1331488710
+                'The key "' . $key . '" is invalid. It must be "recipient", "subject", "message" or "headers".',
+                1331488710
             );
         }
         if (empty($this->emailData)) {

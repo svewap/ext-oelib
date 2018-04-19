@@ -630,7 +630,8 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
     public function isIterator()
     {
         self::assertInstanceOf(
-            Iterator::class, $this->subject
+            Iterator::class,
+            $this->subject
         );
     }
 
@@ -1150,7 +1151,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function atForNegativePositionThrowsException()
     {
@@ -1253,7 +1254,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function inRangeWithNegativeStartThrowsException()
     {
@@ -1263,7 +1264,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function inRangeWithNegativeLengthThrowsException()
     {

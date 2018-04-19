@@ -231,7 +231,10 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      * @return string the value of the corresponding flexforms or TS setup
      *                entry (may be empty)
      */
-    private function getConfValue($fieldName, $sheet = 'sDEF', $isFileName = false,
+    private function getConfValue(
+        $fieldName,
+        $sheet = 'sDEF',
+        $isFileName = false,
         $ignoreFlexform = false
     ) {
         $flexformsValue = '';
@@ -298,13 +301,18 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      *                TS setup entry (may be empty)
      */
     public function getConfValueString(
-        $fieldName, $sheet = 'sDEF', $isFileName = false, $ignoreFlexform = false
+        $fieldName,
+        $sheet = 'sDEF',
+        $isFileName = false,
+        $ignoreFlexform = false
     ) {
-        return trim($this->getConfValue(
+        return trim(
+            $this->getConfValue(
             $fieldName,
             $sheet,
             $isFileName,
-            $ignoreFlexform)
+            $ignoreFlexform
+        )
         );
     }
 
@@ -323,7 +331,9 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      *                 corresponding flexforms or TS setup entry
      */
     public function hasConfValueString(
-        $fieldName, $sheet = 'sDEF', $ignoreFlexform = false
+        $fieldName,
+        $sheet = 'sDEF',
+        $ignoreFlexform = false
     ) {
         return $this->getConfValueString(
             $fieldName,
@@ -616,10 +626,13 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
         try {
             $this->getTemplate()->setSubpart($subpartName, $content, $prefix);
         } catch (Exception $exception) {
-            $this->setErrorMessage('The subpart <strong>' . $subpartName .
+            $this->setErrorMessage(
+                'The subpart <strong>' . $subpartName .
                 '</strong> is missing in the HTML template file <strong>' .
                 $this->getConfValueString(
-                    'templateFile', 's_template_special', true
+                    'templateFile',
+                    's_template_special',
+                    true
                 ) .
                 '</strong>. If you are using a modified HTML template, please ' .
                 'fix it. If you are using the original HTML template file, ' .
@@ -646,7 +659,9 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
     public function setMarkerIfNotZero($markerName, $content, $markerPrefix = '')
     {
         return $this->getTemplate()->setMarkerIfNotZero(
-            $markerName, $content, $markerPrefix
+            $markerName,
+            $content,
+            $markerPrefix
         );
     }
 
@@ -666,7 +681,9 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
     public function setMarkerIfNotEmpty($markerName, $content, $markerPrefix = '')
     {
         return $this->getTemplate()->setMarkerIfNotEmpty(
-            $markerName, $content, $markerPrefix
+            $markerName,
+            $content,
+            $markerPrefix
         );
     }
 
@@ -753,10 +770,14 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      * @return void
      */
     public function unhideSubparts(
-        $subparts, $permanentlyHiddenSubparts = '', $prefix = ''
+        $subparts,
+        $permanentlyHiddenSubparts = '',
+        $prefix = ''
     ) {
         $this->getTemplate()->unhideSubparts(
-            $subparts, $permanentlyHiddenSubparts, $prefix
+            $subparts,
+            $permanentlyHiddenSubparts,
+            $prefix
         );
     }
 
@@ -784,10 +805,14 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      * @return void
      */
     public function unhideSubpartsArray(
-        array $subparts, array $permanentlyHiddenSubparts = [], $prefix = ''
+        array $subparts,
+        array $permanentlyHiddenSubparts = [],
+        $prefix = ''
     ) {
         $this->getTemplate()->unhideSubpartsArray(
-            $subparts, $permanentlyHiddenSubparts, $prefix
+            $subparts,
+            $permanentlyHiddenSubparts,
+            $prefix
         );
     }
 
@@ -815,11 +840,19 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      * @see setMarkerContent
      * @see hideSubparts
      */
-    public function setOrDeleteMarker($markerName, $condition, $content,
-        $markerPrefix = '', $wrapperPrefix = ''
+    public function setOrDeleteMarker(
+        $markerName,
+        $condition,
+        $content,
+        $markerPrefix = '',
+        $wrapperPrefix = ''
     ) {
         return $this->getTemplate()->setOrDeleteMarker(
-            $markerName, $condition, $content, $markerPrefix, $wrapperPrefix
+            $markerName,
+            $condition,
+            $content,
+            $markerPrefix,
+            $wrapperPrefix
         );
     }
 
@@ -849,11 +882,17 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      * @see setMarkerContent
      * @see hideSubparts
      */
-    public function setOrDeleteMarkerIfNotZero($markerName, $content,
-        $markerPrefix = '', $wrapperPrefix = ''
+    public function setOrDeleteMarkerIfNotZero(
+        $markerName,
+        $content,
+        $markerPrefix = '',
+        $wrapperPrefix = ''
     ) {
         return $this->getTemplate()->setOrDeleteMarkerIfNotZero(
-            $markerName, $content, $markerPrefix, $wrapperPrefix
+            $markerName,
+            $content,
+            $markerPrefix,
+            $wrapperPrefix
         );
     }
 
@@ -878,11 +917,17 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      * @see setMarkerContent
      * @see hideSubparts
      */
-    public function setOrDeleteMarkerIfNotEmpty($markerName, $content,
-        $markerPrefix = '', $wrapperPrefix = ''
+    public function setOrDeleteMarkerIfNotEmpty(
+        $markerName,
+        $content,
+        $markerPrefix = '',
+        $wrapperPrefix = ''
     ) {
         return $this->getTemplate()->setOrDeleteMarkerIfNotEmpty(
-            $markerName, $content, $markerPrefix, $wrapperPrefix
+            $markerName,
+            $content,
+            $markerPrefix,
+            $wrapperPrefix
         );
     }
 
@@ -906,10 +951,13 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
         try {
             return $this->getTemplate()->getSubpart($key);
         } catch (Exception $exception) {
-            $this->setErrorMessage('The subpart <strong>' . $key .
+            $this->setErrorMessage(
+                'The subpart <strong>' . $key .
                 '</strong> is missing in the HTML template file <strong>' .
                 $this->getConfValueString(
-                    'templateFile', 's_template_special', true
+                    'templateFile',
+                    's_template_special',
+                    true
                 ) .
                 '</strong>. If you are using a modified HTML template, please ' .
                 'fix it. If you are using the original HTML template file, ' .
@@ -1078,7 +1126,8 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
         }
 
         foreach (array_merge(
-            ['showUid', 'pointer', 'mode'], $additionalPiVars
+            ['showUid', 'pointer', 'mode'],
+            $additionalPiVars
         ) as $key) {
             if (isset($this->piVars[$key])) {
                 $this->piVars[$key] = (int)$this->piVars[$key];

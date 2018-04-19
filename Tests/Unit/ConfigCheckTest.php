@@ -206,7 +206,11 @@ class Tx_Oelib_Tests_Unit_ConfigCheckTest extends Tx_Phpunit_TestCase
     public function checkIfSingleInTableNotEmptyForValueNotInTableComplains()
     {
         $this->subject->checkIfSingleInTableNotEmpty(
-            'inexistentColumn', false, '', '', 'tx_oelib_test'
+            'inexistentColumn',
+            false,
+            '',
+            '',
+            'tx_oelib_test'
         );
 
         self::assertContains(
@@ -221,7 +225,11 @@ class Tx_Oelib_Tests_Unit_ConfigCheckTest extends Tx_Phpunit_TestCase
     public function checkIfSingleInTableNotEmptyForValueNotInTableNotComplains()
     {
         $this->subject->checkIfSingleInTableNotEmpty(
-            'existingColumn', false, '', '', 'tx_oelib_test'
+            'existingColumn',
+            false,
+            '',
+            '',
+            'tx_oelib_test'
         );
 
         self::assertSame(

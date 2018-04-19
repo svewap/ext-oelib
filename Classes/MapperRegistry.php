@@ -257,7 +257,8 @@ class Tx_Oelib_MapperRegistry
     {
         if (!($mapper instanceof $className)) {
             throw new InvalidArgumentException(
-                'The provided mapper is not an instance of ' . $className . '.', 1331488915
+                'The provided mapper is not an instance of ' . $className . '.',
+                1331488915
             );
         }
         if (isset($this->mappers[$className])) {

@@ -409,7 +409,8 @@ abstract class Tx_Oelib_DataMapper
 
         if (!isset($tca['columns'][$key])) {
             throw new BadMethodCallException(
-                'In the table ' . $this->getTableName() . ', the column ' . $key . ' does not have a TCA entry.', 1331319627
+                'In the table ' . $this->getTableName() . ', the column ' . $key . ' does not have a TCA entry.',
+                1331319627
             );
         }
 
@@ -430,8 +431,7 @@ abstract class Tx_Oelib_DataMapper
     {
         $relationConfiguration = $this->getRelationConfigurationFromTca($key);
 
-        return isset($relationConfiguration['foreign_field'])
-            && isset($relationConfiguration['foreign_table']);
+        return isset($relationConfiguration['foreign_field'], $relationConfiguration['foreign_table']);
     }
 
     /**
@@ -490,7 +490,8 @@ abstract class Tx_Oelib_DataMapper
         if ((int)$data[$key] > 0) {
             if ($this->isModelAMemoryOnlyDummy($model)) {
                 throw new InvalidArgumentException(
-                    'This is a memory-only dummy which must not load any one-to-many relations from the database.', 1331319658
+                    'This is a memory-only dummy which must not load any one-to-many relations from the database.',
+                    1331319658
                 );
             }
 
@@ -595,11 +596,19 @@ abstract class Tx_Oelib_DataMapper
 
             if (!isset($relationConfiguration['MM_opposite_field'])) {
                 $relationUids = Tx_Oelib_Db::selectColumnForMultiple(
-                    'uid_foreign', $mnTable, 'uid_local = ' . $data['uid'], '', 'sorting'
+                    'uid_foreign',
+                    $mnTable,
+                    'uid_local = ' . $data['uid'],
+                    '',
+                    'sorting'
                 );
             } else {
                 $relationUids = Tx_Oelib_Db::selectColumnForMultiple(
-                    'uid_local', $mnTable, 'uid_foreign = ' . $data['uid'], '', 'uid_local'
+                    'uid_local',
+                    $mnTable,
+                    'uid_foreign = ' . $data['uid'],
+                    '',
+                    'uid_local'
                 );
             }
 
@@ -840,7 +849,8 @@ abstract class Tx_Oelib_DataMapper
 
                 if ($data[$key] instanceof Tx_Oelib_Model) {
                     $this->saveManyToOneRelatedModels(
-                        $data[$key], Tx_Oelib_MapperRegistry::get($relation)
+                        $data[$key],
+                        Tx_Oelib_MapperRegistry::get($relation)
                     );
                 }
             } else {
@@ -852,7 +862,8 @@ abstract class Tx_Oelib_DataMapper
 
                 if ($data[$key] instanceof Tx_Oelib_List) {
                     $this->saveManyToManyAndCommaSeparatedRelatedModels(
-                        $data[$key], Tx_Oelib_MapperRegistry::get($relation)
+                        $data[$key],
+                        Tx_Oelib_MapperRegistry::get($relation)
                     );
                 }
             }
@@ -884,7 +895,8 @@ abstract class Tx_Oelib_DataMapper
      * @return void
      */
     private function saveManyToOneRelatedModels(
-        Tx_Oelib_Model $model, Tx_Oelib_DataMapper $mapper
+        Tx_Oelib_Model $model,
+        Tx_Oelib_DataMapper $mapper
     ) {
         $mapper->save($model);
     }
@@ -969,7 +981,10 @@ abstract class Tx_Oelib_DataMapper
                     Tx_Oelib_Db::insert(
                         $mnTable,
                         $this->getManyToManyRelationIntermediateRecordData(
-                            $mnTable, $uidLocal, $uidForeign, $sorting
+                            $mnTable,
+                            $uidLocal,
+                            $uidForeign,
+                            $sorting
                         )
                     );
                     $sorting++;
@@ -1002,7 +1017,8 @@ abstract class Tx_Oelib_DataMapper
                 $this->getRelationConfigurationFromTca($key);
             if (!isset($relationConfiguration['foreign_field'])) {
                 throw new BadMethodCallException(
-                    'The relation ' . $this->getTableName() . ':' . $key . ' is missing the "foreign_field" setting.', 1331319719
+                    'The relation ' . $this->getTableName() . ':' . $key . ' is missing the "foreign_field" setting.',
+                    1331319719
                 );
             }
 
@@ -1036,13 +1052,15 @@ abstract class Tx_Oelib_DataMapper
                 }
                 if ($relatedModel->$getter() !== $model) {
                     // Only sets the model if this would change anything. This
-                     // avoids marking unchanged models as dirty.
+                    // avoids marking unchanged models as dirty.
                     $relatedModel->$setter($model);
                 }
                 $relatedMapper->save($relatedModel);
 
                 $unconnectedModels = $relatedMapper->findAllByRelation(
-                    $model, $foreignField, $relatedModels
+                    $model,
+                    $foreignField,
+                    $relatedModels
                 );
                 /** @var Tx_Oelib_Model $unconnectedModel */
                 foreach ($unconnectedModels as $unconnectedModel) {
@@ -1220,7 +1238,8 @@ abstract class Tx_Oelib_DataMapper
         } elseif (isset($tca['ctrl']['default_sortby'])) {
             $matches = [];
             if (preg_match(
-                '/^ORDER BY (.+)$/', $tca['ctrl']['default_sortby'],
+                '/^ORDER BY (.+)$/',
+                $tca['ctrl']['default_sortby'],
                 $matches
             )) {
                 $orderBy = $matches[1];
@@ -1388,7 +1407,8 @@ abstract class Tx_Oelib_DataMapper
     {
         if (empty($this->compoundKeyParts)) {
             throw new BadMethodCallException(
-                'The compound key parts are not defined.', 1363806895
+                'The compound key parts are not defined.',
+                1363806895
             );
         }
         $values = [];
@@ -1473,7 +1493,6 @@ abstract class Tx_Oelib_DataMapper
      * @throws InvalidArgumentException
      *
      * @return string Contains the values for the compound key parts concatenated with a dot.
-     *
      */
     protected function extractCompoundKeyValues(array $compoundKeyValues)
     {
@@ -1502,7 +1521,9 @@ abstract class Tx_Oelib_DataMapper
      * @return Tx_Oelib_List<Tx_Oelib_Model> the related models, will be empty if there are no matches
      */
     public function findAllByRelation(
-        Tx_Oelib_Model $model, $relationKey, Tx_Oelib_List $ignoreList = null
+        Tx_Oelib_Model $model,
+        $relationKey,
+        Tx_Oelib_List $ignoreList = null
     ) {
         if (!$model->hasUid()) {
             throw new InvalidArgumentException('$model must have a UID.', 1331319915);
@@ -1515,7 +1536,7 @@ abstract class Tx_Oelib_DataMapper
         if (($ignoreList !== null) && !$ignoreList->isEmpty()) {
             $ignoreUids = $ignoreList->getUids();
             // deals with the case of $ignoreList having only models without UIDs
-            if ((string) $ignoreUids !== '') {
+            if ((string)$ignoreUids !== '') {
                 $ignoreClause = ' AND uid NOT IN(' . $ignoreUids . ')';
             }
         }

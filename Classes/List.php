@@ -90,7 +90,8 @@ class Tx_Oelib_List extends SplObjectStorage
             // This should never happen, but still seems to happen sometimes. This exception should help debugging the problem.
             if (!is_array($this->uids)) {
                 throw new \UnexpectedValueException(
-                    '$this->uids was expected to be an array, but actually is: ' . gettype($this->uids), 1440104082
+                    '$this->uids was expected to be an array, but actually is: ' . gettype($this->uids),
+                    1440104082
                 );
             }
 
