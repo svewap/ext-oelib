@@ -35,7 +35,7 @@
 
         "helhum/typo3-console": "^4.6.1",
 
-        "oliverklee/phpunit": "^4.8.36",
+        "oliverklee/phpunit": "^4.8.37",
         "phpunit/phpunit": "^4.8.0",
         "phpunit/phpunit-selenium": "^2.0.0",
         "mikey179/vfsStream": "^1.0.0"
