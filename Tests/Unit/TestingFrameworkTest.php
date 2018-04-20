@@ -4994,8 +4994,9 @@ class Tx_Oelib_Tests_Unit_TestingFrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        self::assertTrue(
-            is_array($this->getFrontEndController()->config)
+        self::assertInternalType(
+            'array',
+            $this->getFrontEndController()->config
         );
     }
 

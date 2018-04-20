@@ -58,8 +58,9 @@ class Tx_Oelib_Tests_Unit_ConfigurationProxyTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceReturnsObject()
     {
-        self::assertTrue(
-            is_object($this->subject)
+        self::assertInternalType(
+            'object',
+            $this->subject
         );
     }
 
