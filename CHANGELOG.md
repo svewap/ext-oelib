@@ -22,6 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - remove obsolete TypoScript files (#8)
 
 ### Fixed
+- Require typo3-minimal for installing TYPO3 on Travis (#28)
 - Use multiple attempts for failed geocoding (#22)
 - Do not consider anonymous FE sessions as "logged in" (#17)
 - Do not allow creation of test records in the BE (#21)
