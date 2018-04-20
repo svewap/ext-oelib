@@ -2865,14 +2865,8 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $model->setData(['float_data' => 9.5]);
         $this->subject->save($model);
 
-        self::assertSame(
-            ['float_data' => '9.500000'],
-            Tx_Oelib_Db::selectSingle(
-                'float_data',
-                'tx_oelib_test',
-                'uid = ' . $model->getUid()
-            )
-        );
+        $row = \Tx_Oelib_Db::selectSingle('*', 'tx_oelib_test', 'uid = ' . $model->getUid());
+        self::assertSame('9.5', rtrim($row['float_data'], '0'));
     }
 
     /**
@@ -2884,14 +2878,8 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $model->setData(['decimal_data' => 9.5]);
         $this->subject->save($model);
 
-        self::assertSame(
-            ['decimal_data' => '9.500'],
-            Tx_Oelib_Db::selectSingle(
-                'decimal_data',
-                'tx_oelib_test',
-                'uid = ' . $model->getUid()
-            )
-        );
+        $row = \Tx_Oelib_Db::selectSingle('*', 'tx_oelib_test', 'uid = ' . $model->getUid());
+        self::assertSame('9.5', rtrim($row['decimal_data'], '0'));
     }
 
     /**
@@ -2903,14 +2891,8 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $model->setData(['string_data' => 9.5]);
         $this->subject->save($model);
 
-        self::assertSame(
-            ['string_data' => '9.5'],
-            Tx_Oelib_Db::selectSingle(
-                'string_data',
-                'tx_oelib_test',
-                'uid = ' . $model->getUid()
-            )
-        );
+        $row = \Tx_Oelib_Db::selectSingle('*', 'tx_oelib_test', 'uid = ' . $model->getUid());
+        self::assertSame('9.5', rtrim($row['string_data'], '0'));
     }
 
     /////////////////////////////
