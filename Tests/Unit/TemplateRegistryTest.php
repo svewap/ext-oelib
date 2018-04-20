@@ -70,7 +70,7 @@ class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
     public function getForEmptyTemplateFileNameReturnsTemplateInstance()
     {
         self::assertInstanceOf(
-            'Tx_Oelib_Template',
+            \Tx_Oelib_Template::class,
             Tx_Oelib_TemplateRegistry::get('')
         );
     }
@@ -92,7 +92,7 @@ class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
     public function getForExistingTemplateFileNameReturnsTemplate()
     {
         self::assertInstanceOf(
-            'Tx_Oelib_Template',
+            \Tx_Oelib_Template::class,
             Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Unit/Fixtures/oelib.html')
         );
     }

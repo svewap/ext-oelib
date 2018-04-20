@@ -15,7 +15,6 @@
 /**
  * Test case.
  *
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
@@ -40,7 +39,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
     public function lookUpForEmptyAddressSetsCoordinatesError()
     {
         $geo = $this->getMock(
-            'Tx_Oelib_Tests_Unit_Fixtures_TestingGeo',
+            \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo::class,
             ['setGeoError']
         );
         $geo->expects(self::once())->method('setGeoError');

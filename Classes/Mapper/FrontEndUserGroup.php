@@ -28,5 +28,5 @@ class Tx_Oelib_Mapper_FrontEndUserGroup extends Tx_Oelib_DataMapper
     /**
      * @var string the model class name for this mapper, must not be empty
      */
-    protected $modelClassName = 'Tx_Oelib_Model_FrontEndUserGroup';
+    protected $modelClassName = \Tx_Oelib_Model_FrontEndUserGroup::class;
 }

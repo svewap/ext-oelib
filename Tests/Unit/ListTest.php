@@ -15,7 +15,6 @@
 /**
  * Test case.
  *
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
@@ -849,7 +848,7 @@ class Tx_Oelib_Tests_Unit_ListTest extends Tx_Phpunit_TestCase
     public function sortMakesListDirty()
     {
         /** @var Tx_Oelib_List|PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock('Tx_Oelib_List', ['markAsDirty']);
+        $subject = $this->getMock(\Tx_Oelib_List::class, ['markAsDirty']);
         $subject->expects(self::once())->method('markAsDirty');
 
         $subject->sort([$this, 'sortByTitleAscending']);

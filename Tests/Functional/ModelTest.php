@@ -44,7 +44,7 @@ class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
     {
         $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
         Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);
-        $this->dataMapper = Tx_Oelib_MapperRegistry::get('Tx_Oelib_Tests_Unit_Fixtures_TestingMapper');
+        $this->dataMapper = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class);
 
         $uid = $this->createTestRecord();
         $this->subject = $this->dataMapper->find($uid);

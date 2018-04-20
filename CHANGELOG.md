@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - add TravisCI builds
 
 ### Changed
+- Always use ::class (#34)
 - Move the PHP CS Fixer configuration directly into the Configuration/ folder (#29)
 - Update the PHP CS Fixer configuration (#26)
 - Update Emogrifier to 2.0.0 and move it to Resources/Private/Php (#20)

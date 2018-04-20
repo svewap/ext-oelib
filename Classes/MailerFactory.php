@@ -79,9 +79,9 @@ class Tx_Oelib_MailerFactory implements \TYPO3\CMS\Core\SingletonInterface
     public function getMailer()
     {
         if ($this->isTestMode) {
-            $className = 'Tx_Oelib_EmailCollector';
+            $className = \Tx_Oelib_EmailCollector::class;
         } else {
-            $className = 'Tx_Oelib_RealMailer';
+            $className = \Tx_Oelib_RealMailer::class;
         }
 
         if (!is_object($this->mailer) || (get_class($this->mailer) !== $className)) {

@@ -35,7 +35,7 @@ class Tx_Oelib_Tests_Functional_DataMapperTest extends Tx_Phpunit_TestCase
 
         Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);
 
-        $this->subject = Tx_Oelib_MapperRegistry::get('Tx_Oelib_Tests_Unit_Fixtures_TestingMapper');
+        $this->subject = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class);
     }
 
     protected function tearDown()

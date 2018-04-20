@@ -44,7 +44,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
     public function getInstanceCreatesGoogleMapsLookupInstance()
     {
         self::assertInstanceOf(
-            'Tx_Oelib_Geocoding_Google',
+            \Tx_Oelib_Geocoding_Google::class,
             Tx_Oelib_Geocoding_Google::getInstance()
         );
     }
@@ -75,7 +75,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
     public function lookUpForEmptyAddressSetsCoordinatesError()
     {
         $geo = $this->getMock(
-            'Tx_Oelib_Tests_Unit_Fixtures_TestingGeo',
+            \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo::class,
             ['setGeoError']
         );
         $geo->expects(self::once())->method('setGeoError');
@@ -94,7 +94,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
 
         /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
-            'Tx_Oelib_Geocoding_Google',
+            \Tx_Oelib_Geocoding_Google::class,
             ['sendRequest', 'throttle'],
             [],
             '',
@@ -143,7 +143,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
 
         /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
-            'Tx_Oelib_Geocoding_Google',
+            \Tx_Oelib_Geocoding_Google::class,
             ['sendRequest', 'throttle'],
             [],
             '',
@@ -165,7 +165,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
 
         /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
-            'Tx_Oelib_Geocoding_Google',
+            \Tx_Oelib_Geocoding_Google::class,
             ['sendRequest', 'throttle'],
             [],
             '',
@@ -188,7 +188,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
 
         /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
-            'Tx_Oelib_Geocoding_Google',
+            \Tx_Oelib_Geocoding_Google::class,
             ['sendRequest', 'throttle'],
             [],
             '',
@@ -215,7 +215,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
 
         /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
-            'Tx_Oelib_Geocoding_Google',
+            \Tx_Oelib_Geocoding_Google::class,
             ['sendRequest', 'throttle'],
             [],
             '',
@@ -252,7 +252,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
 
         /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
-            'Tx_Oelib_Geocoding_Google',
+            \Tx_Oelib_Geocoding_Google::class,
             ['sendRequest', 'throttle'],
             [],
             '',
@@ -300,7 +300,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_GoogleTest extends Tx_Phpunit_TestCase
 
         /** @var Tx_Oelib_Geocoding_Google|PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
-            'Tx_Oelib_Geocoding_Google',
+            \Tx_Oelib_Geocoding_Google::class,
             ['sendRequest'],
             [],
             '',

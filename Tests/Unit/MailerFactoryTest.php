@@ -77,10 +77,7 @@ class Tx_Oelib_Tests_Unit_MailerFactoryTest extends Tx_Phpunit_TestCase
     public function getMailerInTestModeReturnsEmailCollector()
     {
         $this->subject->enableTestMode();
-        self::assertSame(
-            'Tx_Oelib_EmailCollector',
-            get_class($this->subject->getMailer())
-        );
+        self::assertInstanceOf(\Tx_Oelib_EmailCollector::class, $this->subject->getMailer());
     }
 
     /**

@@ -220,7 +220,7 @@ class Tx_Oelib_TranslatorRegistry
 
             /** @var Tx_Oelib_Translator $translator */
             $translator = GeneralUtility::makeInstance(
-                'Tx_Oelib_Translator',
+                \Tx_Oelib_Translator::class,
                 $this->languageKey,
                 $this->alternativeLanguageKey,
                 $localizedLabels

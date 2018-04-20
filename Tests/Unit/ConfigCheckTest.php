@@ -135,7 +135,7 @@ class Tx_Oelib_Tests_Unit_ConfigCheckTest extends Tx_Phpunit_TestCase
     public function objectToCheckIsCheckable()
     {
         self::assertInstanceOf(
-            'Tx_Oelib_Interface_ConfigurationCheckable',
+            \Tx_Oelib_Interface_ConfigurationCheckable::class,
             $this->objectToCheck
         );
     }

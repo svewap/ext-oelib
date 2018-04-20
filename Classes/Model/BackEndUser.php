@@ -11,7 +11,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a back-end user.
@@ -121,13 +120,11 @@ class Tx_Oelib_Model_BackEndUser extends Tx_Oelib_Model implements Tx_Oelib_Inte
      */
     public function getAllGroups()
     {
-        /** @var Tx_Oelib_List $result */
-        $result = GeneralUtility::makeInstance('Tx_Oelib_List');
+        $result = new \Tx_Oelib_List();
         $groupsToProcess = $this->getGroups();
 
         do {
-            /** @var Tx_Oelib_List $groupsForNextStep */
-            $groupsForNextStep = GeneralUtility::makeInstance('Tx_Oelib_List');
+            $groupsForNextStep = new \Tx_Oelib_List();
             $result->append($groupsToProcess);
             /** @var Tx_Oelib_Model_BackEndUserGroup $group */
             foreach ($groupsToProcess as $group) {

@@ -29,19 +29,19 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
     /**
      * @var string the model class name for this mapper, must not be empty
      */
-    protected $modelClassName = 'Tx_Oelib_Tests_Unit_Fixtures_TestingModel';
+    protected $modelClassName = \Tx_Oelib_Tests_Unit_Fixtures_TestingModel::class;
 
     /**
      * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
      */
     protected $relations = [
-        'friend' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
+        'friend' => \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
         'owner' => Tx_Oelib_Mapper_FrontEndUser::class,
-        'children' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
-        'related_records' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
-        'composition' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper',
-        'composition2' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper',
-        'bidirectional' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
+        'children' => \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
+        'related_records' => \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
+        'composition' => \Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class,
+        'composition2' => \Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class,
+        'bidirectional' => \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
     ];
 
     /**

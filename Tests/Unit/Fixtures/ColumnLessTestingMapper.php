@@ -33,5 +33,5 @@ class Tx_Oelib_Tests_Unit_Fixtures_ColumnLessTestingMapper extends Tx_Oelib_Data
     /**
      * @var string the model class name for this mapper, must not be empty
      */
-    protected $modelClassName = 'Tx_Oelib_Tests_Unit_Fixtures_TestingModel';
+    protected $modelClassName = \Tx_Oelib_Tests_Unit_Fixtures_TestingModel::class;
 }

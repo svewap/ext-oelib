@@ -11,7 +11,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a list of models.
@@ -384,8 +383,7 @@ class Tx_Oelib_List extends SplObjectStorage
             throw new InvalidArgumentException('$length must be >= 0.');
         }
 
-        /** @var Tx_Oelib_List $result */
-        $result = GeneralUtility::makeInstance('Tx_Oelib_List');
+        $result = new \Tx_Oelib_List();
 
         $lastPosition = $start + $length - 1;
         $currentIndex = 0;

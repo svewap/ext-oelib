@@ -105,7 +105,7 @@ class Tx_Oelib_TemplateRegistry
     {
         if (!isset($this->templates[$fileName])) {
             /** @var Tx_Oelib_Template $template */
-            $template = GeneralUtility::makeInstance('Tx_Oelib_Template');
+            $template = GeneralUtility::makeInstance(\Tx_Oelib_Template::class);
 
             if ($fileName !== '') {
                 $template->processTemplateFromFile($fileName);

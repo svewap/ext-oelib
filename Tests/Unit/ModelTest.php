@@ -637,7 +637,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function getOnDeadModelThrowsException()
     {
         $this->setExpectedException(
-            'Tx_Oelib_Exception_NotFound',
+            \Tx_Oelib_Exception_NotFound::class,
             'The Tx_Oelib_Tests_Unit_Fixtures_TestingModel with the UID 0' .
                 ' either has been deleted (or has never existed), but still is accessed.'
         );
@@ -661,7 +661,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
     public function isHiddenOnDeadModelThrowsException()
     {
         $this->setExpectedException(
-            'Tx_Oelib_Exception_NotFound',
+            \Tx_Oelib_Exception_NotFound::class,
             'The Tx_Oelib_Tests_Unit_Fixtures_TestingModel with the UID 0' .
                 ' either has been deleted (or has never existed), but still is accessed.'
         );

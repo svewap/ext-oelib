@@ -41,7 +41,7 @@ class Tx_Oelib_TestingFrameworkCleanup
         Tx_Oelib_TranslatorRegistry::purgeInstance();
 
         /** @var Tx_Oelib_MailerFactory $mailerFactory */
-        $mailerFactory = GeneralUtility::makeInstance('Tx_Oelib_MailerFactory');
+        $mailerFactory = GeneralUtility::makeInstance(\Tx_Oelib_MailerFactory::class);
         $mailerFactory->cleanUp();
     }
 }

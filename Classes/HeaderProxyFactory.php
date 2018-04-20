@@ -77,9 +77,9 @@ class Tx_Oelib_HeaderProxyFactory
     public function getHeaderProxy()
     {
         if ($this->isTestMode) {
-            $className = 'Tx_Oelib_HeaderCollector';
+            $className = \Tx_Oelib_HeaderCollector::class;
         } else {
-            $className = 'Tx_Oelib_RealHeaderProxy';
+            $className = \Tx_Oelib_RealHeaderProxy::class;
         }
 
         if (!is_object($this->headerProxy) || (get_class($this->headerProxy) !== $className)) {

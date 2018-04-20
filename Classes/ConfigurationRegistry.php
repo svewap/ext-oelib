@@ -191,7 +191,7 @@ class Tx_Oelib_ConfigurationRegistry
         }
 
         /** @var Tx_Oelib_Configuration $configuration */
-        $configuration = GeneralUtility::makeInstance('Tx_Oelib_Configuration');
+        $configuration = GeneralUtility::makeInstance(\Tx_Oelib_Configuration::class);
         $configuration->setData($data);
         return $configuration;
     }

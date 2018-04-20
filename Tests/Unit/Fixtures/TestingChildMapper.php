@@ -28,13 +28,13 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper extends Tx_Oelib_DataMappe
     /**
      * @var string the model class name for this mapper, must not be empty
      */
-    protected $modelClassName = 'Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel';
+    protected $modelClassName = \Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel::class;
 
     /**
      * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
      */
     protected $relations = [
-        'parent' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
-        'tx_oelib_parent2' => 'Tx_Oelib_Tests_Unit_Fixtures_TestingMapper',
+        'parent' => \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
+        'tx_oelib_parent2' => \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
     ];
 }

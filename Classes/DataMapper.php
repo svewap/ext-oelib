@@ -104,7 +104,7 @@ abstract class Tx_Oelib_DataMapper
             throw new InvalidArgumentException(get_class($this) . '::modelClassName must not be empty.', 1331319378);
         }
 
-        $this->map = GeneralUtility::makeInstance('Tx_Oelib_IdentityMap');
+        $this->map = new \Tx_Oelib_IdentityMap();
 
         foreach ($this->additionalKeys as $key) {
             $this->cacheByKey[$key] = [];
@@ -192,8 +192,7 @@ abstract class Tx_Oelib_DataMapper
      */
     public function getListOfModels(array $dataOfModels)
     {
-        /** @var Tx_Oelib_List $list */
-        $list = GeneralUtility::makeInstance('Tx_Oelib_List');
+        $list = new \Tx_Oelib_List();
 
         foreach ($dataOfModels as $modelRecord) {
             $list->add($this->getModel($modelRecord));
@@ -547,8 +546,7 @@ abstract class Tx_Oelib_DataMapper
      */
     private function createCommaSeparatedRelation(array &$data, $key, Tx_Oelib_Model $model)
     {
-        /** @var Tx_Oelib_List $list */
-        $list = GeneralUtility::makeInstance('Tx_Oelib_List');
+        $list = new \Tx_Oelib_List();
         $list->setParentModel($model);
 
         $uidList = isset($data[$key]) ? trim($data[$key]) : '';
@@ -585,8 +583,7 @@ abstract class Tx_Oelib_DataMapper
      */
     private function createMToNRelation(array &$data, $key, Tx_Oelib_Model $model)
     {
-        /** @var Tx_Oelib_List $list */
-        $list = GeneralUtility::makeInstance('Tx_Oelib_List');
+        $list = new \Tx_Oelib_List();
         $list->setParentModel($model);
 
         if ($data[$key] > 0) {

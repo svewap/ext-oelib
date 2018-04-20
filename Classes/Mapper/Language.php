@@ -29,7 +29,7 @@ class Tx_Oelib_Mapper_Language extends Tx_Oelib_DataMapper
     /**
      * @var string the model class name for this mapper, must not be empty
      */
-    protected $modelClassName = 'Tx_Oelib_Model_Language';
+    protected $modelClassName = \Tx_Oelib_Model_Language::class;
 
     /**
      * @var string[] the column names of additional string keys

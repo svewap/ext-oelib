@@ -28,7 +28,7 @@ class Tx_Oelib_Mapper_FederalState extends Tx_Oelib_DataMapper
     /**
      * @var string
      */
-    protected $modelClassName = 'Tx_Oelib_Model_FederalState';
+    protected $modelClassName = \Tx_Oelib_Model_FederalState::class;
 
     /**
      * @var string[] the column names of additional combined keys
