@@ -17,7 +17,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * This class represents a HTML template with markers (###MARKER###) and
  * subparts (<!-- ###SUBPART### --><!-- ###SUBPART### -->).
  *
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
@@ -204,7 +203,7 @@ class Tx_Oelib_Template
      *
      * If there are no matches, an empty array is returned.
      *
-     * @deprecated 2015-03-01
+     * @deprecated will be removed in oelib 2.0.0
      *
      * @param string $prefix case-insensitive prefix for the marker names to look for
      *

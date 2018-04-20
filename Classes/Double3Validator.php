@@ -16,7 +16,7 @@
  * This class represents a validator for a float number with three decimal
  * digits. It is called by TCEmain.
  *
- * @deprecated 2016-07-18
+ * @deprecated will be removed in oelib 3.0.0
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */

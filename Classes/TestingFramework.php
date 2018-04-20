@@ -1982,7 +1982,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return array[] associative array with the TCA description for this table
      *
-     * @deprecated 2009-02-12 use Tx_Oelib_Db::getTcaForTable instead
+     * @deprecated will be removed in oelib 2.0.0, use Tx_Oelib_Db::getTcaForTable instead
      */
     public function getTcaForTable($tableName)
     {

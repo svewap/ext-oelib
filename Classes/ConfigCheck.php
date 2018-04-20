@@ -32,7 +32,6 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * The correct functioning of this class does not rely on any HTML templates or
  * language files so it works even under the worst of circumstances.
  *
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Oelib_ConfigCheck
@@ -1721,7 +1720,7 @@ class Tx_Oelib_ConfigCheck
      * This function does not do anything anymore. It used to check whether css_styled_content was installed,
      * but nowadays we can safely assume that it's always installed.
      *
-     * @deprecated 2015-12-28
+     * @deprecated will be removed in oelib 2.0.0
      *
      * @return void
      */

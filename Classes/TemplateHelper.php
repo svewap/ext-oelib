@@ -20,7 +20,6 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  * This utility class provides some commonly-used functions for handling
  * templates (in addition to all functionality provided by the base classes).
  *
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
@@ -555,7 +554,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      *
      * If there are no matches, an empty array is returned.
      *
-     * @deprecated 2015-03-01
+     * @deprecated will be removed in oelib 2.0.0
      *
      * @param string $prefix case-insensitive prefix for the marker names to look for
      *
@@ -1032,7 +1031,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      * Classes are set only if they are set via TS, else the marker will be an
      * empty string.
      *
-     * @deprecated 2015-02-28
+     * @deprecated will be removed in oelib 2.0.0
      *
      * @return void
      */
@@ -1359,7 +1358,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      *
      * This function must only be called in the front end or when a front end is present.
      *
-     * @deprecated 2015-12-28
+     * @deprecated will be removed in oelib 2.0.0
      *
      * @return int the general record storage PID for the current page, will be 0 if the page has no storage page set
      */
@@ -1375,9 +1374,9 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
     /**
      * Checks whether the current page has a general record storage PID set.
      *
-     * @deprecated 2015-12-28
+     * @deprecated will be removed in oelib 2.0.0
      *
-     * @return bool TRUE if the current page has a general record storage PID set, FALSE otherwise
+     * @return bool true if the current page has a general record storage PID set, false otherwise
      */
     public function hasStoragePid()
     {

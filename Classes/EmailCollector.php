@@ -17,7 +17,6 @@ use TYPO3\CMS\Core\Mail\MailMessage;
  * This class stores all parameters which were meant to be sent as an e-mail and
  * provides various functions to get them for testing purposes.
  *
- *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
@@ -71,7 +70,7 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
     /**
      * Returns the last e-mail or an empty array if there is none.
      *
-     * @deprecated 2014-08-28 use getSentEmails instead
+     * @deprecated will be removed in oelib 2.0.0, use getSentEmails instead
      *
      * @return array e-mail address, subject, message and headers of the last e-mail in an array, will be empty if there is
      *               no e-mail
@@ -88,7 +87,7 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
     /**
      * Returns all e-mails sent with this instance or an empty array if there is none.
      *
-     * @deprecated 2014-08-28 use getSentEmails instead
+     * @deprecated will be removed in oelib 2.0.0, use getSentEmails instead
      *
      * @return array[] two-dimensional array with one element for each e-mail, each inner array has four elements
      *               'recipient', 'subject', 'message' and 'headers', will be empty if there are no e-mails
@@ -103,7 +102,7 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
     /**
      * Returns the last e-mail's recipient.
      *
-     * @deprecated 2014-08-28 use getSentEmails instead
+     * @deprecated will be removed in oelib 2.0.0, use getSentEmails instead
      *
      * @return string recipient of the last sent e-mail or an empty string if there is none
      */
@@ -115,7 +114,7 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
     /**
      * Returns the last e-mail's subject.
      *
-     * @deprecated 2014-08-28 use getSentEmails instead
+     * @deprecated will be removed in oelib 2.0.0, use getSentEmails instead
      *
      * @return string subject of the last sent e-mail or an empty string if there is none
      */
@@ -127,7 +126,7 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
     /**
      * Returns the last e-mail's body.
      *
-     * @deprecated 2014-08-28 use getSentEmails instead
+     * @deprecated will be removed in oelib 2.0.0, use getSentEmails instead
      *
      * @return string body of the last sent e-mail or an empty string if there is none
      */
@@ -139,7 +138,7 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
     /**
      * Returns the last e-mail's additional headers.
      *
-     * @deprecated 2014-08-28 use getSentEmails instead
+     * @deprecated will be removed in oelib 2.0.0, use getSentEmails instead
      *
      * @return string headers of the last sent e-mail or an empty string if there are none
      */
@@ -151,7 +150,7 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
     /**
      * Returns an element from the array with the last e-mail.
      *
-     * @deprecated 2014-08-28 use getSentEmails instead
+     * @deprecated will be removed in oelib 2.0.0, use getSentEmails instead
      *
      * @param string $key key of the element to return, must be "recipient", "subject", "message" or "headers"
      *
