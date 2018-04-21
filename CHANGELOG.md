@@ -23,6 +23,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop the incorrect TYPO3 Core license headers (#38)
 - remove obsolete TypoScript files (#8)
 
 ### Fixed
