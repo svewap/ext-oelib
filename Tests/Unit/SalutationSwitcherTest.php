@@ -31,6 +31,14 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends \Tx_Phpunit_TestCase
         $this->testingFramework->cleanUp();
     }
 
+    /**
+     * @test
+     */
+    public function canBeSerialized()
+    {
+        static::assertNotSame('', serialize($this->subject));
+    }
+
     ////////////////////////////////////
     // Tests for setting the language.
     ////////////////////////////////////

@@ -1,5 +1,6 @@
 <?php
 
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 use TYPO3\CMS\Lang\LanguageService;
@@ -44,6 +45,34 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
             $this->availableLanguages, $this->suffixesToTry, $this->conf,
             $this->pi_EPtemp_cObj, $this->cObj, $this->LOCAL_LANG
         );
+    }
+
+    /**
+     * Makes this object serializable.
+     *
+     * @return array
+     */
+    public function __sleep()
+    {
+        $fieldsToSave = \get_object_vars($this);
+        unset($fieldsToSave['frontendController'], $fieldsToSave['databaseConnection']);
+
+        return \array_keys($fieldsToSave);
+    }
+
+    /**
+     * Restores data that got lost during the serialization.
+     *
+     * @return void
+     */
+    public function __wakeup()
+    {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 7006000) {
+            return;
+        }
+
+        $this->databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
+        $this->frontendController = $this->getFrontEndController();
     }
 
     /**

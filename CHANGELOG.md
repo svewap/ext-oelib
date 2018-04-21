@@ -28,6 +28,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - remove obsolete TypoScript files (#8)
 
 ### Fixed
+- Allow serialization of FE plugins for mkforms caching (#43)
 - Make the geocoding compatible with TYPO3 8LTS (#39)
 - Provide cli_dispatch.phpsh for 8.7 on Travis (#37)
 - Fix the DataMapper tests in TYPO3 8.7 (#32)
