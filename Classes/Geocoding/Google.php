@@ -1,13 +1,13 @@
 <?php
 
-use TYPO3\CMS\Core\Http\HttpRequest;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a service to look up geo coordinates via Google Maps.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
+class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
 {
     /**
      * status code for: okay, address was parsed
@@ -26,19 +26,18 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
     /**
      * the Singleton instance
      *
-     * @var Tx_Oelib_Interface_GeocodingLookup
+     * @var \Tx_Oelib_Interface_GeocodingLookup
      */
     private static $instance = null;
 
     /**
-     * the amount of time (in seconds) that need to pass between subsequent
-     * geocoding requests
+     * the amount of time (in seconds) that need to pass between subsequent geocoding requests
      *
      * @see https://developers.google.com/maps/documentation/javascript/geocoding#UsageLimits
      *
-     * @var float
+     * @var int
      */
-    const THROTTLING_IN_SECONDS = 1.0;
+    const THROTTLING_IN_SECONDS = 1;
 
     /**
      * @var int
@@ -46,41 +45,28 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
     const MAXIMUM_ATTEMPTS = 5;
 
     /**
-     * the timestamp of the last geocoding request (will be 0.00 before the
-     * first request)
+     * the timestamp of the last geocoding request (will be 0.0 before the first request)
      *
      * @var float
      */
     private static $lastGeocodingTimestamp = 0.0;
 
     /**
-     * The constructor. Do not call this constructor directly. Use getInstance()
-     * instead.
+     * The constructor. Do not call this constructor directly. Use getInstance() instead.
      */
     protected function __construct()
     {
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        self::$lastGeocodingTimestamp = 0.0;
-    }
-
-    /**
      * Retrieves the Singleton instance of the GoogleMaps look-up.
      *
-     * Note: There will always be only one instance, even if this function is
-     * called with different parameters.
-     *
-     * @return Tx_Oelib_Interface_GeocodingLookup the Singleton GoogleMaps look-up
+     * @return \Tx_Oelib_Interface_GeocodingLookup the Singleton GoogleMaps look-up
      */
     public static function getInstance()
     {
-        if (!is_object(self::$instance)) {
-            self::$instance = new Tx_Oelib_Geocoding_Google();
+        if (self::$instance === null) {
+            self::$instance = new \Tx_Oelib_Geocoding_Google();
         }
 
         return self::$instance;
@@ -91,12 +77,11 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
      *
      * Note: This function is to be used for testing only.
      *
-     * @param Tx_Oelib_Interface_GeocodingLookup $instance
-     *        the instance which getInstance() should return
+     * @param \Tx_Oelib_Interface_GeocodingLookup $instance the instance which getInstance() should return
      *
      * @return void
      */
-    public static function setInstance(Tx_Oelib_Interface_GeocodingLookup $instance)
+    public static function setInstance(\Tx_Oelib_Interface_GeocodingLookup $instance)
     {
         self::$instance = $instance;
     }
@@ -114,13 +99,13 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
     /**
      * Looks up the geo coordinates of the address of an object and sets its geo coordinates.
      *
-     * @param Tx_Oelib_Interface_Geo $geoObject
+     * @param \Tx_Oelib_Interface_Geo $geoObject
      *
      * @return void
      *
      * @throws \RuntimeException
      */
-    public function lookUp(Tx_Oelib_Interface_Geo $geoObject)
+    public function lookUp(\Tx_Oelib_Interface_Geo $geoObject)
     {
         if ($geoObject->hasGeoError() || $geoObject->hasGeoCoordinates()) {
             return;
@@ -133,7 +118,6 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
         $address = $geoObject->getGeoAddress();
 
         $attempts = 0;
-
         do {
             $this->throttle();
             $lookupError = false;
@@ -141,9 +125,9 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
             $retry = false;
             $response = $this->sendRequest($address);
 
-            $httpError = $response->getStatus() !== 200;
+            $httpError = $response === false;
             if (!$httpError) {
-                $resultParts = json_decode($response->getBody(), true);
+                $resultParts = json_decode($response, true);
                 $status = $resultParts['status'];
                 $lookupError = $status !== self::STATUS_OK;
             }
@@ -178,14 +162,13 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
      *
      * @param string $address the address to look up, must not be empty
      *
-     * @return \HTTP_Request2_Response
+     * @return string|bool string with the JSON result from the Google Maps server, or false if an error has occurred
      */
     protected function sendRequest($address)
     {
         $baseUrlWithAddress = self::BASE_URL . '&address=';
-        $url = $baseUrlWithAddress . urlencode($address);
-        $request = new HttpRequest($url);
-        return $request->send();
+
+        return GeneralUtility::getUrl($baseUrlWithAddress . urlencode($address));
     }
 
     /**
@@ -196,10 +179,10 @@ class Tx_Oelib_Geocoding_Google implements Tx_Oelib_Interface_GeocodingLookup
      */
     protected function throttle()
     {
-        if (self::$lastGeocodingTimestamp > 0.00) {
-            $secondsSinceLastRequest = microtime(true) - self::$lastGeocodingTimestamp;
+        if (self::$lastGeocodingTimestamp > 0.0) {
+            $secondsSinceLastRequest = (microtime(true) - self::$lastGeocodingTimestamp);
             if ($secondsSinceLastRequest < self::THROTTLING_IN_SECONDS) {
-                usleep(1000000 * (self::THROTTLING_IN_SECONDS - $secondsSinceLastRequest));
+                sleep((int)ceil(self::THROTTLING_IN_SECONDS - $secondsSinceLastRequest));
             }
         }
 
