@@ -7,10 +7,10 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Model_FrontEndUser
+     * @var \Tx_Oelib_Model_FrontEndUser
      */
     protected $subject = null;
 
@@ -21,7 +21,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_Model_FrontEndUser();
+        $this->subject = new \Tx_Oelib_Model_FrontEndUser();
 
         $this->globalExecTimeBackup = $GLOBALS['EXEC_TIME'];
     }
@@ -995,7 +995,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function getUserGroupsForReturnsUserGroups()
     {
-        $userGroups = new Tx_Oelib_List();
+        $userGroups = new \Tx_Oelib_List();
 
         $this->subject->setData(['usergroup' => $userGroups]);
 
@@ -1010,7 +1010,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function setUserGroupsSetsUserGroups()
     {
-        $userGroups = new Tx_Oelib_List();
+        $userGroups = new \Tx_Oelib_List();
 
         $this->subject->setUserGroups($userGroups);
 
@@ -1025,10 +1025,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function addUserGroupAddsUserGroup()
     {
-        $userGroups = new Tx_Oelib_List();
+        $userGroups = new \Tx_Oelib_List();
         $this->subject->setUserGroups($userGroups);
 
-        $userGroup = new Tx_Oelib_Model_FrontEndUserGroup();
+        $userGroup = new \Tx_Oelib_Model_FrontEndUserGroup();
         $this->subject->addUserGroup($userGroup);
 
         self::assertTrue(
@@ -1054,9 +1054,9 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function hasGroupMembershipForUserOnlyInProvidedGroupReturnsTrue()
     {
-        $userGroup = Tx_Oelib_MapperRegistry
-            ::get(Tx_Oelib_Mapper_FrontEndUserGroup::class)->getNewGhost();
-        $list = new Tx_Oelib_List();
+        $userGroup = \Tx_Oelib_MapperRegistry
+            ::get(\Tx_Oelib_Mapper_FrontEndUserGroup::class)->getNewGhost();
+        $list = new \Tx_Oelib_List();
         $list->add($userGroup);
 
         $this->subject->setData(['usergroup' => $list]);
@@ -1071,9 +1071,9 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function hasGroupMembershipForUserInProvidedGroupAndInAnotherReturnsTrue()
     {
-        $groupMapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUserGroup::class);
+        $groupMapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUserGroup::class);
         $userGroup = $groupMapper->getNewGhost();
-        $list = new Tx_Oelib_List();
+        $list = new \Tx_Oelib_List();
         $list->add($groupMapper->getNewGhost());
         $list->add($userGroup);
 
@@ -1089,9 +1089,9 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function hasGroupMembershipForUserInOneOfTheProvidedGroupsReturnsTrue()
     {
-        $groupMapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUserGroup::class);
+        $groupMapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUserGroup::class);
         $userGroup = $groupMapper->getNewGhost();
-        $list = new Tx_Oelib_List();
+        $list = new \Tx_Oelib_List();
         $list->add($userGroup);
 
         $this->subject->setData(['usergroup' => $list]);
@@ -1108,8 +1108,8 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function hasGroupMembershipForUserNoneOfTheProvidedGroupsReturnsFalse()
     {
-        $groupMapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUserGroup::class);
-        $list = new Tx_Oelib_List();
+        $groupMapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUserGroup::class);
+        $list = new \Tx_Oelib_List();
         $list->add($groupMapper->getNewGhost());
         $list->add($groupMapper->getNewGhost());
 
@@ -1131,12 +1131,12 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
      */
     public function getGenderForNotInstalledSrFeUserRegisterReturnsGenderUnknown()
     {
-        if (Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
+        if (\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
             self::markTestSkipped('This test is only applicable if no FrontEndUser.gender field exists.');
         }
 
         self::assertSame(
-            Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN,
+            \Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN,
             $this->subject->getGender()
         );
     }
@@ -1152,7 +1152,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
         $this->subject->setData(['gender' => 0]);
 
         self::assertSame(
-            Tx_Oelib_Model_FrontEndUser::GENDER_MALE,
+            \Tx_Oelib_Model_FrontEndUser::GENDER_MALE,
             $this->subject->getGender()
         );
     }
@@ -1168,7 +1168,7 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
         $this->subject->setData(['gender' => 1]);
 
         self::assertSame(
-            Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE,
+            \Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE,
             $this->subject->getGender()
         );
     }
@@ -1182,10 +1182,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
         }
         $this->subject->setData([]);
-        $this->subject->setGender(Tx_Oelib_Model_FrontEndUser::GENDER_MALE);
+        $this->subject->setGender(\Tx_Oelib_Model_FrontEndUser::GENDER_MALE);
 
         self::assertSame(
-            Tx_Oelib_Model_FrontEndUser::GENDER_MALE,
+            \Tx_Oelib_Model_FrontEndUser::GENDER_MALE,
             $this->subject->getGender()
         );
     }
@@ -1199,10 +1199,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
         }
         $this->subject->setData([]);
-        $this->subject->setGender(Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE);
+        $this->subject->setGender(\Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE);
 
         self::assertSame(
-            Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE,
+            \Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE,
             $this->subject->getGender()
         );
     }
@@ -1216,10 +1216,10 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
         }
         $this->subject->setData([]);
-        $this->subject->setGender(Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN);
+        $this->subject->setGender(\Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN);
 
         self::assertSame(
-            Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN,
+            \Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN,
             $this->subject->getGender()
         );
     }
@@ -1675,9 +1675,9 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This tests needs the static_info_tables extension.');
         }
 
-        /** @var Tx_Oelib_Mapper_Country $mapper */
-        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class);
-        /** @var Tx_Oelib_Model_Country $country */
+        /** @var \Tx_Oelib_Mapper_Country $mapper */
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class);
+        /** @var \Tx_Oelib_Model_Country $country */
         $country = $mapper->find(54);
         $this->subject->setData(
             ['static_info_country' => $country->getIsoAlpha3Code()]
@@ -1698,9 +1698,9 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This tests needs the static_info_tables extension.');
         }
 
-        /** @var Tx_Oelib_Mapper_Country $mapper */
-        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class);
-        /** @var Tx_Oelib_Model_Country $country */
+        /** @var \Tx_Oelib_Mapper_Country $mapper */
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class);
+        /** @var \Tx_Oelib_Model_Country $country */
         $country = $mapper->find(54);
         $this->subject->setCountry($country);
 
@@ -1767,9 +1767,9 @@ class Tx_Oelib_Tests_Unit_Model_FrontEndUserTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This tests needs the static_info_tables extension.');
         }
 
-        /** @var Tx_Oelib_Mapper_Country $mapper */
-        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class);
-        /** @var Tx_Oelib_Model_Country $country */
+        /** @var \Tx_Oelib_Mapper_Country $mapper */
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class);
+        /** @var \Tx_Oelib_Model_Country $country */
         $country = $mapper->find(54);
         $this->subject->setCountry($country);
 

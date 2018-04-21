@@ -6,7 +6,7 @@
  * @author Bernd Schönbach <bernd@oliverklee.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Model_BackEndUserGroup extends Tx_Oelib_Model
+class Tx_Oelib_Model_BackEndUserGroup extends \Tx_Oelib_Model
 {
     /**
      * Gets this group's title.
@@ -22,7 +22,7 @@ class Tx_Oelib_Model_BackEndUserGroup extends Tx_Oelib_Model
     /**
      * Returns this group's direct subgroups.
      *
-     * @return Tx_Oelib_List<Tx_Oelib_Model_BackEndUserGroup> this group's direct subgroups, will be empty if
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> this group's direct subgroups, will be empty if
      *                       this group has no subgroups
      */
     public function getSubgroups()

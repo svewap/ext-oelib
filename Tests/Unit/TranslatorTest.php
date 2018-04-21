@@ -6,7 +6,7 @@
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_TranslatorTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_TranslatorTest extends \Tx_Phpunit_TestCase
 {
     /////////////////////////////////
     // Tests regarding translate().
@@ -17,7 +17,7 @@ class Tx_Oelib_Tests_Unit_TranslatorTest extends Tx_Phpunit_TestCase
      */
     public function translateForInexistentLabelReturnsLabelKey()
     {
-        $subject = new Tx_Oelib_Translator('default', '', []);
+        $subject = new \Tx_Oelib_Translator('default', '', []);
 
         self::assertSame(
             'label_test',
@@ -34,7 +34,7 @@ class Tx_Oelib_Tests_Unit_TranslatorTest extends Tx_Phpunit_TestCase
             'default' => ['label_test' => [0 => ['source' => 'English', 'target' => 'English']]],
             'de' => ['label_test' => [0 => ['source' => 'English', 'target' => 'Deutsch']]],
         ];
-        $subject = new Tx_Oelib_Translator('default', '', $localizedLabels);
+        $subject = new \Tx_Oelib_Translator('default', '', $localizedLabels);
 
         self::assertSame(
             'English',
@@ -51,7 +51,7 @@ class Tx_Oelib_Tests_Unit_TranslatorTest extends Tx_Phpunit_TestCase
             'default' => ['label_test' => [0 => ['source' => 'English', 'target' => 'English']]],
             'de' => ['label_test' => [0 => ['source' => 'English', 'target' => 'Deutsch']]],
         ];
-        $subject = new Tx_Oelib_Translator('de', '', $localizedLabels);
+        $subject = new \Tx_Oelib_Translator('de', '', $localizedLabels);
 
         self::assertSame(
             'Deutsch',
@@ -67,7 +67,7 @@ class Tx_Oelib_Tests_Unit_TranslatorTest extends Tx_Phpunit_TestCase
         $localizedLabels = [
             'default' => ['label_test' => [0 => ['source' => 'English', 'target' => 'English']]],
         ];
-        $subject = new Tx_Oelib_Translator('de', '', $localizedLabels);
+        $subject = new \Tx_Oelib_Translator('de', '', $localizedLabels);
 
         self::assertSame(
             'English',
@@ -83,7 +83,7 @@ class Tx_Oelib_Tests_Unit_TranslatorTest extends Tx_Phpunit_TestCase
         $localizedLabels = [
             'de' => ['label_test' => [0 => ['source' => 'English', 'target' => 'Deutsch']]],
         ];
-        $subject = new Tx_Oelib_Translator('default', 'de', $localizedLabels);
+        $subject = new \Tx_Oelib_Translator('default', 'de', $localizedLabels);
 
         self::assertSame(
             'Deutsch',

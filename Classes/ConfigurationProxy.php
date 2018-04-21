@@ -6,10 +6,10 @@
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class Tx_Oelib_ConfigurationProxy extends Tx_Oelib_PublicObject
+class Tx_Oelib_ConfigurationProxy extends \Tx_Oelib_PublicObject
 {
     /**
-     * @var Tx_Oelib_ConfigurationProxy[] the singleton configuration proxy objects
+     * @var \Tx_Oelib_ConfigurationProxy[] the singleton configuration proxy objects
      */
     private static $instances = [];
 
@@ -57,18 +57,18 @@ class Tx_Oelib_ConfigurationProxy extends Tx_Oelib_PublicObject
      *        configuration and as identifier for an extension's instance of
      *        this class, must not be empty
      *
-     * @return Tx_Oelib_ConfigurationProxy the singleton configuration proxy object
+     * @return \Tx_Oelib_ConfigurationProxy the singleton configuration proxy object
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public static function getInstance($extensionKey)
     {
         if ($extensionKey === '') {
-            throw new InvalidArgumentException('The extension key was not set.', 1331318826);
+            throw new \InvalidArgumentException('The extension key was not set.', 1331318826);
         }
 
         if (!isset(self::$instances[$extensionKey])) {
-            self::$instances[$extensionKey] = new Tx_Oelib_ConfigurationProxy($extensionKey);
+            self::$instances[$extensionKey] = new \Tx_Oelib_ConfigurationProxy($extensionKey);
         }
 
         return self::$instances[$extensionKey];

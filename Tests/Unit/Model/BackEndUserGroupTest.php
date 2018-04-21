@@ -6,16 +6,16 @@
  * @author Bernd Schönbach <bernd@oliverklee.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Model_BackEndUserGroupTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Model_BackEndUserGroupTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Model_BackEndUserGroup
+     * @var \Tx_Oelib_Model_BackEndUserGroup
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_Model_BackEndUserGroup();
+        $this->subject = new \Tx_Oelib_Model_BackEndUserGroup();
     }
 
     ////////////////////////////////
@@ -57,7 +57,7 @@ class Tx_Oelib_Tests_Unit_Model_BackEndUserGroupTest extends Tx_Phpunit_TestCase
      */
     public function getSubgroupsReturnsListFromSubgroupField()
     {
-        $groups = new Tx_Oelib_List();
+        $groups = new \Tx_Oelib_List();
 
         $this->subject->setData(['subgroup' => $groups]);
 

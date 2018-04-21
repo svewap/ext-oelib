@@ -28,7 +28,7 @@ abstract class Tx_Oelib_DataMapper
     protected $modelClassName = '';
 
     /**
-     * @var Tx_Oelib_IdentityMap a map that holds the models that already
+     * @var \Tx_Oelib_IdentityMap a map that holds the models that already
      *                           have been retrieved
      */
     protected $map = null;
@@ -68,7 +68,7 @@ abstract class Tx_Oelib_DataMapper
      * [compound key value] => model
      * The column values are concatenated via a dot as compound key value.
      *
-     * @var Tx_Oelib_Model[]
+     * @var \Tx_Oelib_Model[]
      */
     protected $cacheByCompoundKey = [];
 
@@ -83,13 +83,13 @@ abstract class Tx_Oelib_DataMapper
     public function __construct()
     {
         if ($this->getTableName() === '') {
-            throw new InvalidArgumentException(get_class($this) . '::tableName must not be empty.', 1331319361);
+            throw new \InvalidArgumentException(get_class($this) . '::tableName must not be empty.', 1331319361);
         }
         if ($this->columns === '') {
-            throw new InvalidArgumentException(get_class($this) . '::columns must not be empty.', 1331319374);
+            throw new \InvalidArgumentException(get_class($this) . '::columns must not be empty.', 1331319374);
         }
         if ($this->modelClassName === '') {
-            throw new InvalidArgumentException(get_class($this) . '::modelClassName must not be empty.', 1331319378);
+            throw new \InvalidArgumentException(get_class($this) . '::modelClassName must not be empty.', 1331319378);
         }
 
         $this->map = new \Tx_Oelib_IdentityMap();
@@ -120,13 +120,13 @@ abstract class Tx_Oelib_DataMapper
      * @param int $uid
      *        the UID of the record to retrieve, must be > 0
      *
-     * @return Tx_Oelib_Model the model with the UID $uid
+     * @return \Tx_Oelib_Model the model with the UID $uid
      */
     public function find($uid)
     {
         try {
             $model = $this->map->get($uid);
-        } catch (Tx_Oelib_Exception_NotFound $exception) {
+        } catch (\Tx_Oelib_Exception_NotFound $exception) {
             $model = $this->createGhost($uid);
         }
 
@@ -143,14 +143,14 @@ abstract class Tx_Oelib_DataMapper
      *        data for the model to return, must at least contain an element
      *        with the key "uid"
      *
-     * @return Tx_Oelib_Model model for the provided UID, filled with the data
+     * @return \Tx_Oelib_Model model for the provided UID, filled with the data
      *                        provided in case it did not have any data in
      *                        memory before
      */
     public function getModel(array $data)
     {
         if (!isset($data['uid'])) {
-            throw new InvalidArgumentException('$data must contain an element "uid".', 1331319491);
+            throw new \InvalidArgumentException('$data must contain an element "uid".', 1331319491);
         }
 
         $model = $this->find($data['uid']);
@@ -170,7 +170,7 @@ abstract class Tx_Oelib_DataMapper
      *        two-dimensional array, each inner array must at least contain the
      *        element "uid", may be empty
      *
-     * @return Tx_Oelib_List<Tx_Oelib_Model>
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model>
      *         Models with the UIDs provided. The models will be filled with the
      *         data provided in case they did not have any data before,
      *         otherwise the already loaded data will be used. If $dataOfModels
@@ -193,7 +193,7 @@ abstract class Tx_Oelib_DataMapper
      * Retrieves a model based on the WHERE clause given in the parameter
      * $whereClauseParts. Hidden records will be retrieved as well.
      *
-     * @throws Tx_Oelib_Exception_NotFound if there is no record in the DB
+     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB
      *                                     which matches the WHERE clause
      *
      * @param string[] $whereClauseParts
@@ -201,12 +201,12 @@ abstract class Tx_Oelib_DataMapper
      *        consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
      *
-     * @return Tx_Oelib_Model the model
+     * @return \Tx_Oelib_Model the model
      */
     protected function findSingleByWhereClause(array $whereClauseParts)
     {
         if (empty($whereClauseParts)) {
-            throw new InvalidArgumentException('The parameter $whereClauseParts must not be empty.', 1331319506);
+            throw new \InvalidArgumentException('The parameter $whereClauseParts must not be empty.', 1331319506);
         }
 
         return $this->getModel($this->retrieveRecord($whereClauseParts));
@@ -244,26 +244,26 @@ abstract class Tx_Oelib_DataMapper
      *
      * Note: This method may only be called at most once per model instance.
      *
-     * @param Tx_Oelib_Model $model
+     * @param \Tx_Oelib_Model $model
      *        the model to fill, must already have a UID
      *
      * @return void
      *
-     * @throws InvalidArgumentException if $model has no UID or has been created via getNewGhost
+     * @throws \InvalidArgumentException if $model has no UID or has been created via getNewGhost
      */
-    public function load(Tx_Oelib_Model $model)
+    public function load(\Tx_Oelib_Model $model)
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
-            throw new InvalidArgumentException('This ghost was created via getNewGhost and must not be loaded.', 1331319529);
+            throw new \InvalidArgumentException('This ghost was created via getNewGhost and must not be loaded.', 1331319529);
         }
         if (!$model->hasUid()) {
-            throw new InvalidArgumentException('load must only be called with models that already have a UID.', 1331319554);
+            throw new \InvalidArgumentException('load must only be called with models that already have a UID.', 1331319554);
         }
 
         try {
             $data = $this->retrieveRecordByUid($model->getUid());
             $this->fillModel($model, $data);
-        } catch (Tx_Oelib_Exception_NotFound $exception) {
+        } catch (\Tx_Oelib_Exception_NotFound $exception) {
             $model->markAsDead();
         }
     }
@@ -280,23 +280,23 @@ abstract class Tx_Oelib_DataMapper
      *
      * This method may be called more than once per model instance.
      *
-     * @param Tx_Oelib_Model $model
+     * @param \Tx_Oelib_Model $model
      *        the model to fill, must already have a UID
      *
      * @return void
      *
-     * @throws InvalidArgumentException if $model has no UID or has been created via getNewGhost
+     * @throws \InvalidArgumentException if $model has no UID or has been created via getNewGhost
      */
-    public function reload(Tx_Oelib_Model $model)
+    public function reload(\Tx_Oelib_Model $model)
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'This ghost was created via getNewGhost and must not be loaded.',
                 1498659785232
             );
         }
         if (!$model->hasUid()) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'load must only be called with models that already have a UID.',
                 1498659789105
             );
@@ -305,7 +305,7 @@ abstract class Tx_Oelib_DataMapper
         try {
             $data = $this->retrieveRecordByUid($model->getUid());
             $this->refillModel($model, $data);
-        } catch (Tx_Oelib_Exception_NotFound $exception) {
+        } catch (\Tx_Oelib_Exception_NotFound $exception) {
             $model->markAsDead();
         }
     }
@@ -317,14 +317,14 @@ abstract class Tx_Oelib_DataMapper
      *
      * This method must be called at most once per model instance.
      *
-     * @param Tx_Oelib_Model $model
+     * @param \Tx_Oelib_Model $model
      *        the model to fill, needs to have a UID
      * @param array &$data
      *        the model data to process as it comes from the DB, will be modified
      *
      * @return void
      */
-    private function fillModel(Tx_Oelib_Model $model, array &$data)
+    private function fillModel(\Tx_Oelib_Model $model, array &$data)
     {
         $this->cacheModelByKeys($model, $data);
         $this->createRelations($data, $model);
@@ -338,14 +338,14 @@ abstract class Tx_Oelib_DataMapper
      *
      * This method may be called more than once per model instance.
      *
-     * @param Tx_Oelib_Model $model
+     * @param \Tx_Oelib_Model $model
      *        the model to fill, needs to have a UID
      * @param array &$data
      *        the model data to process as it comes from the DB, will be modified
      *
      * @return void
      */
-    private function refillModel(Tx_Oelib_Model $model, array &$data)
+    private function refillModel(\Tx_Oelib_Model $model, array &$data)
     {
         $this->cacheModelByKeys($model, $data);
         $this->createRelations($data, $model);
@@ -358,12 +358,12 @@ abstract class Tx_Oelib_DataMapper
      *
      * @param array &$data
      *        the model data to process, might be modified
-     * @param Tx_Oelib_Model $model
+     * @param \Tx_Oelib_Model $model
      *        the model to create the relations for
      *
      * @return void
      */
-    protected function createRelations(array &$data, Tx_Oelib_Model $model)
+    protected function createRelations(array &$data, \Tx_Oelib_Model $model)
     {
         foreach (array_keys($this->relations) as $key) {
             if ($this->isOneToManyRelationConfigured($key)) {
@@ -388,14 +388,14 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return array configuration for that relation, will not be empty if the TCA is valid
      *
-     * @throws BadMethodCallException
+     * @throws \BadMethodCallException
      */
     private function getRelationConfigurationFromTca($key)
     {
-        $tca = Tx_Oelib_Db::getTcaForTable($this->getTableName());
+        $tca = \Tx_Oelib_Db::getTcaForTable($this->getTableName());
 
         if (!isset($tca['columns'][$key])) {
-            throw new BadMethodCallException(
+            throw new \BadMethodCallException(
                 'In the table ' . $this->getTableName() . ', the column ' . $key . ' does not have a TCA entry.',
                 1331319627
             );
@@ -465,18 +465,18 @@ abstract class Tx_Oelib_DataMapper
      * @param string $key
      *        the key of the data item for which the relation should be created,
      *        must not be empty
-     * @param Tx_Oelib_Model $model
+     * @param \Tx_Oelib_Model $model
      *        the model to create the relation for
      *
      * @return void
      */
-    private function createOneToManyRelation(array &$data, $key, Tx_Oelib_Model $model)
+    private function createOneToManyRelation(array &$data, $key, \Tx_Oelib_Model $model)
     {
         $modelData = [];
 
         if ((int)$data[$key] > 0) {
             if ($this->isModelAMemoryOnlyDummy($model)) {
-                throw new InvalidArgumentException(
+                throw new \InvalidArgumentException(
                     'This is a memory-only dummy which must not load any one-to-many relations from the database.',
                     1331319658
                 );
@@ -486,17 +486,17 @@ abstract class Tx_Oelib_DataMapper
             $foreignTable = $relationConfiguration['foreign_table'];
             $foreignField = $relationConfiguration['foreign_field'];
             $foreignSortBy = $relationConfiguration['foreign_sortby'];
-            $modelData = Tx_Oelib_Db::selectMultiple(
+            $modelData = \Tx_Oelib_Db::selectMultiple(
                 '*',
                 $foreignTable,
-                $foreignField . ' = ' . (int)$data['uid'] . Tx_Oelib_Db::enableFields($foreignTable, 1),
+                $foreignField . ' = ' . (int)$data['uid'] . \Tx_Oelib_Db::enableFields($foreignTable, 1),
                 '',
                 $foreignSortBy
             );
         }
 
-        /** @var Tx_Oelib_List $models */
-        $models = Tx_Oelib_MapperRegistry::get($this->relations[$key])->getListOfModels($modelData);
+        /** @var \Tx_Oelib_List $models */
+        $models = \Tx_Oelib_MapperRegistry::get($this->relations[$key])->getListOfModels($modelData);
         $models->setParentModel($model);
         $models->markAsOwnedByParent();
         $data[$key] = $models;
@@ -517,7 +517,7 @@ abstract class Tx_Oelib_DataMapper
         $uid = isset($data[$key]) ? (int)$data[$key] : 0;
 
         $data[$key] = ($uid > 0)
-            ? Tx_Oelib_MapperRegistry::get($this->relations[$key])->find($uid)
+            ? \Tx_Oelib_MapperRegistry::get($this->relations[$key])->find($uid)
             : null;
     }
 
@@ -528,18 +528,18 @@ abstract class Tx_Oelib_DataMapper
      *        the model data to process, will be modified
      * @param string $key
      *        the key of the data item for which the relation should be created, must not be empty
-     * @param Tx_Oelib_Model $model the model to create the relation for
+     * @param \Tx_Oelib_Model $model the model to create the relation for
      *
      * @return void
      */
-    private function createCommaSeparatedRelation(array &$data, $key, Tx_Oelib_Model $model)
+    private function createCommaSeparatedRelation(array &$data, $key, \Tx_Oelib_Model $model)
     {
         $list = new \Tx_Oelib_List();
         $list->setParentModel($model);
 
         $uidList = isset($data[$key]) ? trim($data[$key]) : '';
         if ($uidList !== '') {
-            $mapper = Tx_Oelib_MapperRegistry::get($this->relations[$key]);
+            $mapper = \Tx_Oelib_MapperRegistry::get($this->relations[$key]);
             $uids = GeneralUtility::intExplode(',', $uidList);
 
             foreach ($uids as $uid) {
@@ -565,22 +565,22 @@ abstract class Tx_Oelib_DataMapper
      *        the model data to process, will be modified
      * @param string $key
      *        the key of the data item for which the relation should be created, must not be empty
-     * @param Tx_Oelib_Model $model the model to create the relation for
+     * @param \Tx_Oelib_Model $model the model to create the relation for
      *
      * @return void
      */
-    private function createMToNRelation(array &$data, $key, Tx_Oelib_Model $model)
+    private function createMToNRelation(array &$data, $key, \Tx_Oelib_Model $model)
     {
         $list = new \Tx_Oelib_List();
         $list->setParentModel($model);
 
         if ($data[$key] > 0) {
-            $mapper = Tx_Oelib_MapperRegistry::get($this->relations[$key]);
+            $mapper = \Tx_Oelib_MapperRegistry::get($this->relations[$key]);
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
             $mnTable = $relationConfiguration['MM'];
 
             if (!isset($relationConfiguration['MM_opposite_field'])) {
-                $relationUids = Tx_Oelib_Db::selectColumnForMultiple(
+                $relationUids = \Tx_Oelib_Db::selectColumnForMultiple(
                     'uid_foreign',
                     $mnTable,
                     'uid_local = ' . $data['uid'],
@@ -588,7 +588,7 @@ abstract class Tx_Oelib_DataMapper
                     'sorting'
                 );
             } else {
-                $relationUids = Tx_Oelib_Db::selectColumnForMultiple(
+                $relationUids = \Tx_Oelib_Db::selectColumnForMultiple(
                     'uid_local',
                     $mnTable,
                     'uid_foreign = ' . $data['uid'],
@@ -609,9 +609,9 @@ abstract class Tx_Oelib_DataMapper
      * Reads a record from the database (from this mapper's table) by the
      * WHERE clause provided. Hidden records will be retrieved as well.
      *
-     * @throws Tx_Oelib_Exception_NotFound if there is no record in the DB
+     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB
      *                                     which matches the WHERE clause
-     * @throws Tx_Oelib_Exception_NotFound if database access is disabled
+     * @throws \Tx_Oelib_Exception_NotFound if database access is disabled
      *
      * @param string[] $whereClauseParts
      *        WHERE clause parts for the record to retrieve, each element must consist of a column name as key and a value to
@@ -622,16 +622,16 @@ abstract class Tx_Oelib_DataMapper
     protected function retrieveRecord(array $whereClauseParts)
     {
         if (!$this->hasDatabaseAccess()) {
-            throw new Tx_Oelib_Exception_NotFound(
+            throw new \Tx_Oelib_Exception_NotFound(
                 'No record can be retrieved from the database because database' .
                     ' access is disabled for this mapper instance.'
             );
         }
 
-        $databaseConnection = Tx_Oelib_Db::getDatabaseConnection();
+        $databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
         $whereClauses = [$this->getUniversalWhereClause(true)];
         foreach ($whereClauseParts as $key => $value) {
-            $columnDefinition = Tx_Oelib_Db::getColumnDefinition($this->getTableName(), $key);
+            $columnDefinition = \Tx_Oelib_Db::getColumnDefinition($this->getTableName(), $key);
 
             $whereClauses[] = $key . ' = ' . (
                 (strpos($columnDefinition['Type'], 'int') !== false)
@@ -642,9 +642,9 @@ abstract class Tx_Oelib_DataMapper
         $whereClause = implode(' AND ', $whereClauses);
 
         try {
-            $data = Tx_Oelib_Db::selectSingle($this->columns, $this->getTableName(), $whereClause);
-        } catch (Tx_Oelib_Exception_EmptyQueryResult $exception) {
-            throw new Tx_Oelib_Exception_NotFound(
+            $data = \Tx_Oelib_Db::selectSingle($this->columns, $this->getTableName(), $whereClause);
+        } catch (\Tx_Oelib_Exception_EmptyQueryResult $exception) {
+            throw new \Tx_Oelib_Exception_NotFound(
                 'The record where "' . $whereClause . '" could not be retrieved from the table ' . $this->getTableName() . '.'
             );
         }
@@ -656,7 +656,7 @@ abstract class Tx_Oelib_DataMapper
      * Reads a record from the database by UID (from this mapper's table).
      * Hidden records will be retrieved as well.
      *
-     * @throws Tx_Oelib_Exception_NotFound if there is no record in the DB
+     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB
      *                                     with the UID $uid
      *
      * @param int $uid the UID of the record to retrieve, must be > 0
@@ -673,11 +673,11 @@ abstract class Tx_Oelib_DataMapper
      *
      * @param int $uid the UID of the to-create ghost
      *
-     * @return Tx_Oelib_Model a ghost model with the UID $uid
+     * @return \Tx_Oelib_Model a ghost model with the UID $uid
      */
     protected function createGhost($uid)
     {
-        /** @var Tx_Oelib_Model $model */
+        /** @var \Tx_Oelib_Model $model */
         $model = GeneralUtility::makeInstance($this->modelClassName);
         $model->setUid($uid);
         $model->setLoadCallback([$this, 'load']);
@@ -693,7 +693,7 @@ abstract class Tx_Oelib_DataMapper
      * Important: As this ghost's UID has nothing to do with the real UIDs in
      * the database, this ghost must not be loaded or saved.
      *
-     * @return Tx_Oelib_Model a new ghost
+     * @return \Tx_Oelib_Model a new ghost
      */
     public function getNewGhost()
     {
@@ -711,7 +711,7 @@ abstract class Tx_Oelib_DataMapper
      * eg. m:1 relations are provided as the foreign UID, not as the constituded
      * model.
      *
-     * (Tx_Oelib_Model::setData works differently: There you need to provide the
+     * (\Tx_Oelib_Model::setData works differently: There you need to provide the
      * data with the relations already being the model/list objects.)
      *
      * This function should only be used in unit tests for mappers (to avoid
@@ -727,7 +727,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @param string[] $data the data as it would come from the database, may be empty
      *
-     * @return Tx_Oelib_Model a new model loaded with $data
+     * @return \Tx_Oelib_Model a new model loaded with $data
      */
     public function getLoadedTestingModel(array $data)
     {
@@ -766,14 +766,14 @@ abstract class Tx_Oelib_DataMapper
      * denied, if the model is clean, if the model has status dead, virgin or
      * ghost, if the model is read-only or if there is no data to set.
      *
-     * @param Tx_Oelib_Model $model the model to write to the database
+     * @param \Tx_Oelib_Model $model the model to write to the database
      *
      * @return void
      */
-    public function save(Tx_Oelib_Model $model)
+    public function save(\Tx_Oelib_Model $model)
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
-            throw new InvalidArgumentException('This model is a memory-only dummy that must not be saved.', 1331319682);
+            throw new \InvalidArgumentException('This model is a memory-only dummy that must not be saved.', 1331319682);
         }
 
         if (!$this->hasDatabaseAccess()
@@ -788,11 +788,11 @@ abstract class Tx_Oelib_DataMapper
         $this->cacheModelByKeys($model, $data);
 
         if ($model->hasUid()) {
-            Tx_Oelib_Db::update($this->getTableName(), 'uid = ' . $model->getUid(), $data);
+            \Tx_Oelib_Db::update($this->getTableName(), 'uid = ' . $model->getUid(), $data);
             $this->deleteManyToManyRelationIntermediateRecords($model);
         } else {
             $this->prepareDataForNewRecord($data);
-            $model->setUid(Tx_Oelib_Db::insert($this->getTableName(), $data));
+            $model->setUid(\Tx_Oelib_Db::insert($this->getTableName(), $data));
             $this->map->add($model);
         }
 
@@ -813,11 +813,11 @@ abstract class Tx_Oelib_DataMapper
      * database-applicable format. Sets the timestamp and sets the "crdate" for
      * new models.
      *
-     * @param Tx_Oelib_Model $model the model to write to the database
+     * @param \Tx_Oelib_Model $model the model to write to the database
      *
      * @return array the model's data prepared for the database, will not be empty
      */
-    private function getPreparedModelData(Tx_Oelib_Model $model)
+    private function getPreparedModelData(\Tx_Oelib_Model $model)
     {
         if (!$model->hasUid()) {
             $model->setCreationDate();
@@ -832,10 +832,10 @@ abstract class Tx_Oelib_DataMapper
             } elseif ($this->isManyToOneRelationConfigured($key)) {
                 $functionName = 'getUid';
 
-                if ($data[$key] instanceof Tx_Oelib_Model) {
+                if ($data[$key] instanceof \Tx_Oelib_Model) {
                     $this->saveManyToOneRelatedModels(
                         $data[$key],
-                        Tx_Oelib_MapperRegistry::get($relation)
+                        \Tx_Oelib_MapperRegistry::get($relation)
                     );
                 }
             } else {
@@ -845,10 +845,10 @@ abstract class Tx_Oelib_DataMapper
                     $functionName = 'getUids';
                 }
 
-                if ($data[$key] instanceof Tx_Oelib_List) {
+                if ($data[$key] instanceof \Tx_Oelib_List) {
                     $this->saveManyToManyAndCommaSeparatedRelatedModels(
                         $data[$key],
-                        Tx_Oelib_MapperRegistry::get($relation)
+                        \Tx_Oelib_MapperRegistry::get($relation)
                     );
                 }
             }
@@ -874,14 +874,14 @@ abstract class Tx_Oelib_DataMapper
     /**
      * Saves the related model of an n:1-relation.
      *
-     * @param Tx_Oelib_Model $model the model to save
-     * @param Tx_Oelib_DataMapper $mapper the mapper to use for saving
+     * @param \Tx_Oelib_Model $model the model to save
+     * @param \Tx_Oelib_DataMapper $mapper the mapper to use for saving
      *
      * @return void
      */
     private function saveManyToOneRelatedModels(
-        Tx_Oelib_Model $model,
-        Tx_Oelib_DataMapper $mapper
+        \Tx_Oelib_Model $model,
+        \Tx_Oelib_DataMapper $mapper
     ) {
         $mapper->save($model);
     }
@@ -889,14 +889,14 @@ abstract class Tx_Oelib_DataMapper
     /**
      * Saves the related models of a comma-separated and a regular m:n relation.
      *
-     * @param Tx_Oelib_List<Tx_Oelib_Model> $list the list of models to save
-     * @param Tx_Oelib_DataMapper $mapper the mapper to use for saving
+     * @param \Tx_Oelib_List<\Tx_Oelib_Model> $list the list of models to save
+     * @param \Tx_Oelib_DataMapper $mapper the mapper to use for saving
      *
      * @return void
      */
-    private function saveManyToManyAndCommaSeparatedRelatedModels(Tx_Oelib_List $list, Tx_Oelib_DataMapper $mapper)
+    private function saveManyToManyAndCommaSeparatedRelatedModels(\Tx_Oelib_List $list, \Tx_Oelib_DataMapper $mapper)
     {
-        /** @var Tx_Oelib_Model $model */
+        /** @var \Tx_Oelib_Model $model */
         foreach ($list as $model) {
             $mapper->save($model);
         }
@@ -906,13 +906,13 @@ abstract class Tx_Oelib_DataMapper
      * Deletes the records in the intermediate table of m:n relations for a
      * given model.
      *
-     * @param Tx_Oelib_Model $model the model to delete the records in the
+     * @param \Tx_Oelib_Model $model the model to delete the records in the
      *                              intermediate table of m:n relations for
      *
      * @return void
      */
     private function deleteManyToManyRelationIntermediateRecords(
-        Tx_Oelib_Model $model
+        \Tx_Oelib_Model $model
     ) {
         foreach (array_keys($this->relations) as $key) {
             if ($this->isManyToManyRelationConfigured($key)) {
@@ -925,7 +925,7 @@ abstract class Tx_Oelib_DataMapper
                 } else {
                     $where = 'uid_local=' . $model->getUid();
                 }
-                Tx_Oelib_Db::delete($mnTable, $where);
+                \Tx_Oelib_Db::delete($mnTable, $where);
             }
         }
     }
@@ -934,27 +934,27 @@ abstract class Tx_Oelib_DataMapper
      * Creates records in the intermediate table of m:n relations for a given
      * model.
      *
-     * @param Tx_Oelib_Model $model the model to create the records in the
+     * @param \Tx_Oelib_Model $model the model to create the records in the
      *                              intermediate table of m:n relations for
      *
      * @return void
      */
     private function createManyToManyRelationIntermediateRecords(
-        Tx_Oelib_Model $model
+        \Tx_Oelib_Model $model
     ) {
         $data = $model->getData();
 
         foreach (array_keys($this->relations) as $key) {
             if (
                 $this->isManyToManyRelationConfigured($key)
-                && ($data[$key] instanceof Tx_Oelib_List)
+                && ($data[$key] instanceof \Tx_Oelib_List)
             ) {
                 $sorting = 0;
                 $relationConfiguration =
                     $this->getRelationConfigurationFromTca($key);
                 $mnTable = $relationConfiguration['MM'];
 
-                /** @var Tx_Oelib_Model $relatedModel */
+                /** @var \Tx_Oelib_Model $relatedModel */
                 foreach ($data[$key] as $relatedModel) {
                     if (isset($relationConfiguration['MM_opposite_field'])) {
                         $uidLocal = $relatedModel->getUid();
@@ -963,7 +963,7 @@ abstract class Tx_Oelib_DataMapper
                         $uidLocal = $model->getUid();
                         $uidForeign = $relatedModel->getUid();
                     }
-                    Tx_Oelib_Db::insert(
+                    \Tx_Oelib_Db::insert(
                         $mnTable,
                         $this->getManyToManyRelationIntermediateRecordData(
                             $mnTable,
@@ -981,11 +981,11 @@ abstract class Tx_Oelib_DataMapper
     /**
      * Saves records that this model relates to as 1:n.
      *
-     * @param Tx_Oelib_Model $model the model to save the related records for
+     * @param \Tx_Oelib_Model $model the model to save the related records for
      *
      * @return void
      */
-    private function saveOneToManyRelationRecords(Tx_Oelib_Model $model)
+    private function saveOneToManyRelationRecords(\Tx_Oelib_Model $model)
     {
         $data = $model->getData();
 
@@ -994,20 +994,20 @@ abstract class Tx_Oelib_DataMapper
                 continue;
             }
             $relatedModels = $data[$key];
-            if (!($relatedModels instanceof Tx_Oelib_List)) {
+            if (!($relatedModels instanceof \Tx_Oelib_List)) {
                 continue;
             }
 
             $relationConfiguration =
                 $this->getRelationConfigurationFromTca($key);
             if (!isset($relationConfiguration['foreign_field'])) {
-                throw new BadMethodCallException(
+                throw new \BadMethodCallException(
                     'The relation ' . $this->getTableName() . ':' . $key . ' is missing the "foreign_field" setting.',
                     1331319719
                 );
             }
 
-            $relatedMapper = Tx_Oelib_MapperRegistry::get($relation);
+            $relatedMapper = \Tx_Oelib_MapperRegistry::get($relation);
             $foreignField = $relationConfiguration['foreign_field'];
             if (strpos($foreignField, 'tx_') === 0) {
                 $foreignKey = ucfirst(
@@ -1019,17 +1019,17 @@ abstract class Tx_Oelib_DataMapper
             $getter = 'get' . $foreignKey;
             $setter = 'set' . $foreignKey;
 
-            /** @var Tx_Oelib_Model $relatedModel */
+            /** @var \Tx_Oelib_Model $relatedModel */
             foreach ($relatedModels->toArray() as $relatedModel) {
                 if (!method_exists($relatedModel, $getter)) {
-                    throw new BadMethodCallException(
+                    throw new \BadMethodCallException(
                         'The class ' . get_class($relatedModel) . ' is missing the function ' . $getter .
                             ' which is needed for saving a 1:n relation.',
                         1331319751
                     );
                 }
                 if (!method_exists($relatedModel, $setter)) {
-                    throw new BadMethodCallException(
+                    throw new \BadMethodCallException(
                         'The class ' . get_class($relatedModel) . ' is missing the function ' . $setter .
                             ' which is needed for saving a 1:n relation.',
                         1331319803
@@ -1047,7 +1047,7 @@ abstract class Tx_Oelib_DataMapper
                     $foreignField,
                     $relatedModels
                 );
-                /** @var Tx_Oelib_Model $unconnectedModel */
+                /** @var \Tx_Oelib_Model $unconnectedModel */
                 foreach ($unconnectedModels as $unconnectedModel) {
                     $relatedMapper->delete($unconnectedModel);
                 }
@@ -1079,19 +1079,19 @@ abstract class Tx_Oelib_DataMapper
     /**
      * Marks $model as deleted and saves it to the DB (if it has a UID).
      *
-     * @param Tx_Oelib_Model $model
+     * @param \Tx_Oelib_Model $model
      *        the model to delete, must not be a memory-only dummy, must not be
      *        read-only
      *
      * @return void
      */
-    public function delete(Tx_Oelib_Model $model)
+    public function delete(\Tx_Oelib_Model $model)
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
-            throw new InvalidArgumentException('This model is a memory-only dummy that must not be deleted.', 1331319817);
+            throw new \InvalidArgumentException('This model is a memory-only dummy that must not be deleted.', 1331319817);
         }
         if ($model->isReadOnly()) {
-            throw new InvalidArgumentException('This model is read-only and must not be deleted.', 1331319836);
+            throw new \InvalidArgumentException('This model is read-only and must not be deleted.', 1331319836);
         }
         if ($model->isDead()) {
             return;
@@ -1111,12 +1111,12 @@ abstract class Tx_Oelib_DataMapper
     /**
      * Deletes all one-to-many related models of this model.
      *
-     * @param Tx_Oelib_Model $model
+     * @param \Tx_Oelib_Model $model
      *        the model for which to delete the related models
      *
      * @return void
      */
-    private function deleteOneToManyRelations(Tx_Oelib_Model $model)
+    private function deleteOneToManyRelations(\Tx_Oelib_Model $model)
     {
         $data = $model->getData();
 
@@ -1127,8 +1127,8 @@ abstract class Tx_Oelib_DataMapper
                     continue;
                 }
 
-                $mapper = Tx_Oelib_MapperRegistry::get($mapperName);
-                /** @var Tx_Oelib_Model $relatedModel */
+                $mapper = \Tx_Oelib_MapperRegistry::get($mapperName);
+                /** @var \Tx_Oelib_Model $relatedModel */
                 foreach ($relatedModels as $relatedModel) {
                     $mapper->delete($relatedModel);
                 }
@@ -1146,7 +1146,7 @@ abstract class Tx_Oelib_DataMapper
      *        optionally followed by "ASC" or "DESC" or may
      *        be empty
      *
-     * @return Tx_Oelib_List<Tx_Oelib_Model> all models from the DB, already loaded
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model> all models from the DB, already loaded
      */
     public function findAll($sorting = '')
     {
@@ -1163,17 +1163,17 @@ abstract class Tx_Oelib_DataMapper
      */
     protected function getUniversalWhereClause($allowHiddenRecords = false)
     {
-        return '1 = 1' . Tx_Oelib_Db::enableFields($this->getTableName(), ($allowHiddenRecords ? 1 : -1));
+        return '1 = 1' . \Tx_Oelib_Db::enableFields($this->getTableName(), ($allowHiddenRecords ? 1 : -1));
     }
 
     /**
      * Registers a model as a memory-only dummy that must not be saved.
      *
-     * @param Tx_Oelib_Model $model the model to register
+     * @param \Tx_Oelib_Model $model the model to register
      *
      * @return void
      */
-    private function registerModelAsMemoryOnlyDummy(Tx_Oelib_Model $model)
+    private function registerModelAsMemoryOnlyDummy(\Tx_Oelib_Model $model)
     {
         if (!$model->hasUid()) {
             return;
@@ -1185,11 +1185,11 @@ abstract class Tx_Oelib_DataMapper
     /**
      * Checks whether $model is a memory-only dummy that must not be saved
      *
-     * @param Tx_Oelib_Model $model the model to check
+     * @param \Tx_Oelib_Model $model the model to check
      *
      * @return bool TRUE if $model is a memory-only dummy, FALSE otherwise
      */
-    private function isModelAMemoryOnlyDummy(Tx_Oelib_Model $model)
+    private function isModelAMemoryOnlyDummy(\Tx_Oelib_Model $model)
     {
         if (!$model->hasUid()) {
             return false;
@@ -1210,14 +1210,14 @@ abstract class Tx_Oelib_DataMapper
      *        optionally followed by "ASC" or "DESC", may be empty
      * @param string $limit the LIMIT value ([begin,]max), may be empty
      *
-     * @return Tx_Oelib_List<Tx_Oelib_Model> all models found in DB for the given where clause,
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model> all models found in DB for the given where clause,
      *                       will be an empty list if no models were found
      */
     protected function findByWhereClause($whereClause = '', $sorting = '', $limit = '')
     {
         $orderBy = '';
 
-        $tca = Tx_Oelib_Db::getTcaForTable($this->getTableName());
+        $tca = \Tx_Oelib_Db::getTcaForTable($this->getTableName());
         if ($sorting !== '') {
             $orderBy = $sorting;
         } elseif (isset($tca['ctrl']['default_sortby'])) {
@@ -1235,7 +1235,7 @@ abstract class Tx_Oelib_DataMapper
             ? ''
             : $whereClause . ' AND ';
 
-        $rows = Tx_Oelib_Db::selectMultiple(
+        $rows = \Tx_Oelib_Db::selectMultiple(
             '*',
             $this->getTableName(),
             $completeWhereClause . $this->getUniversalWhereClause(),
@@ -1258,7 +1258,7 @@ abstract class Tx_Oelib_DataMapper
      *        optionally followed by "ASC" or "DESC", may be empty
      * @param string $limit the LIMIT value ([begin,]max), may be empty
      *
-     * @return Tx_Oelib_List<Tx_Oelib_Model> all records with the matching page UIDs, will be
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model> all records with the matching page UIDs, will be
      *                       empty if no records have been found
      */
     public function findByPageUid($pageUids, $sorting = '', $limit = '')
@@ -1280,25 +1280,25 @@ abstract class Tx_Oelib_DataMapper
      * @param string $value
      *        the value for the key of the model to find, must not be empty
      *
-     * @throws InvalidArgumentException
-     * @throws Tx_Oelib_Exception_NotFound if there is no match in the cache yet
+     * @throws \InvalidArgumentException
+     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
      *
-     * @return Tx_Oelib_Model the cached model
+     * @return \Tx_Oelib_Model the cached model
      */
     protected function findOneByKeyFromCache($key, $value)
     {
         if ($key === '') {
-            throw new InvalidArgumentException('$key must not be empty.', 1416847364);
+            throw new \InvalidArgumentException('$key must not be empty.', 1416847364);
         }
         if (!isset($this->cacheByKey[$key])) {
-            throw new InvalidArgumentException('"' . $key . '" is not a valid key for this mapper.', 1331319882);
+            throw new \InvalidArgumentException('"' . $key . '" is not a valid key for this mapper.', 1331319882);
         }
         if ($value === '') {
-            throw new InvalidArgumentException('$value must not be empty.', 1331319892);
+            throw new \InvalidArgumentException('$value must not be empty.', 1331319892);
         }
 
         if (!isset($this->cacheByKey[$key][$value])) {
-            throw new Tx_Oelib_Exception_NotFound();
+            throw new \Tx_Oelib_Exception_NotFound();
         }
 
         return $this->cacheByKey[$key][$value];
@@ -1313,19 +1313,19 @@ abstract class Tx_Oelib_DataMapper
      * @param string $value
      *        the value for the compound key of the model to find, must not be empty
      *
-     * @throws InvalidArgumentException
-     * @throws Tx_Oelib_Exception_NotFound if there is no match in the cache yet
+     * @throws \InvalidArgumentException
+     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
      *
-     * @return Tx_Oelib_Model the cached model
+     * @return \Tx_Oelib_Model the cached model
      */
     public function findOneByCompoundKeyFromCache($value)
     {
         if ($value === '') {
-            throw new InvalidArgumentException('$value must not be empty.', 1331319992);
+            throw new \InvalidArgumentException('$value must not be empty.', 1331319992);
         }
 
         if (!isset($this->cacheByCompoundKey[$value])) {
-            throw new Tx_Oelib_Exception_NotFound();
+            throw new \Tx_Oelib_Exception_NotFound();
         }
 
         return $this->cacheByCompoundKey[$value];
@@ -1335,12 +1335,12 @@ abstract class Tx_Oelib_DataMapper
      * Puts a model in the cache-by-keys (if the model has any non-empty
      * additional keys).
      *
-     * @param Tx_Oelib_Model $model the model to cache
+     * @param \Tx_Oelib_Model $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      */
-    private function cacheModelByKeys(Tx_Oelib_Model $model, array $data)
+    private function cacheModelByKeys(\Tx_Oelib_Model $model, array $data)
     {
         foreach ($this->additionalKeys as $key) {
             if (isset($data[$key])) {
@@ -1363,14 +1363,14 @@ abstract class Tx_Oelib_DataMapper
      * This method needs to be overwritten in subclasses to work. However, it is recommended to use cacheModelByCompoundKey
      * instead. So this method primarily is here for backwards compatibility.
      *
-     * @param Tx_Oelib_Model $model the model to cache
+     * @param \Tx_Oelib_Model $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      *
      * @see cacheModelByCompoundKey
      */
-    protected function cacheModelByCombinedKeys(Tx_Oelib_Model $model, array $data)
+    protected function cacheModelByCombinedKeys(\Tx_Oelib_Model $model, array $data)
     {
     }
 
@@ -1381,17 +1381,17 @@ abstract class Tx_Oelib_DataMapper
      *
      * This method works automatically; it is not necessary to overwrite it.
      *
-     * @param Tx_Oelib_Model $model the model to cache
+     * @param \Tx_Oelib_Model $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty
      *
-     * @throws BadMethodCallException
+     * @throws \BadMethodCallException
      *
      * @return void
      */
-    protected function cacheModelByCompoundKey(Tx_Oelib_Model $model, array $data)
+    protected function cacheModelByCompoundKey(\Tx_Oelib_Model $model, array $data)
     {
         if (empty($this->compoundKeyParts)) {
-            throw new BadMethodCallException(
+            throw new \BadMethodCallException(
                 'The compound key parts are not defined.',
                 1363806895
             );
@@ -1416,20 +1416,20 @@ abstract class Tx_Oelib_DataMapper
      * This function will first check the cache-by-key and, if there is no match,
      * will try to find the model in the database.
      *
-     * @throws Tx_Oelib_Exception_NotFound if there is no match (neither in the
+     * @throws \Tx_Oelib_Exception_NotFound if there is no match (neither in the
      *                                     cache nor in the database)
      *
      * @param string $key an existing key, must not be empty
      * @param string $value
      *        the value for the key of the model to find, must not be empty
      *
-     * @return Tx_Oelib_Model the cached model
+     * @return \Tx_Oelib_Model the cached model
      */
     public function findOneByKey($key, $value)
     {
         try {
             $model = $this->findOneByKeyFromCache($key, $value);
-        } catch (Tx_Oelib_Exception_NotFound $exception) {
+        } catch (\Tx_Oelib_Exception_NotFound $exception) {
             $model = $this->findSingleByWhereClause([$key => $value]);
         }
 
@@ -1447,20 +1447,20 @@ abstract class Tx_Oelib_DataMapper
      *        The array must have all the keys that are set in the additionalCompoundKey array.
      *        The array values contain the model data with which to look up.
      *
-     * @throws InvalidArgumentException if parameter array $keyValue is empty
-     * @throws Tx_Oelib_Exception_NotFound if there is no match (neither in the cache nor in the database)
+     * @throws \InvalidArgumentException if parameter array $keyValue is empty
+     * @throws \Tx_Oelib_Exception_NotFound if there is no match (neither in the cache nor in the database)
      *
-     * @return Tx_Oelib_Model the cached model
+     * @return \Tx_Oelib_Model the cached model
      */
     public function findOneByCompoundKey(array $compoundKeyValues)
     {
         if (empty($compoundKeyValues)) {
-            throw new InvalidArgumentException(get_class($this) . '::compoundKeyValues must not be empty.', 1354976660);
+            throw new \InvalidArgumentException(get_class($this) . '::compoundKeyValues must not be empty.', 1354976660);
         }
 
         try {
             $model = $this->findOneByCompoundKeyFromCache($this->extractCompoundKeyValues($compoundKeyValues));
-        } catch (Tx_Oelib_Exception_NotFound $exception) {
+        } catch (\Tx_Oelib_Exception_NotFound $exception) {
             $model = $this->findSingleByWhereClause($compoundKeyValues);
         }
 
@@ -1475,7 +1475,7 @@ abstract class Tx_Oelib_DataMapper
      *        The array must have all the keys that are set in the additionalCompoundKey array.
      *        The array values contain the model data with which to look up.
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return string Contains the values for the compound key parts concatenated with a dot.
      */
@@ -1484,7 +1484,7 @@ abstract class Tx_Oelib_DataMapper
         $values = [];
         foreach ($this->compoundKeyParts as $key) {
             if (!isset($compoundKeyValues[$key])) {
-                throw new InvalidArgumentException(get_class($this) . '::keyValue does not contain all compound keys.', 1354976661);
+                throw new \InvalidArgumentException(get_class($this) . '::keyValue does not contain all compound keys.', 1354976661);
             }
             $values[] = $compoundKeyValues[$key];
         }
@@ -1495,26 +1495,26 @@ abstract class Tx_Oelib_DataMapper
     /**
      * Finds all records that are related to $model via the field $key.
      *
-     * @param Tx_Oelib_Model $model
+     * @param \Tx_Oelib_Model $model
      *        the model to which the matches should be related
      * @param string $relationKey
      *        the key of the field in the matches that should contain the UID
      *        of $model
-     * @param Tx_Oelib_List<Tx_Oelib_Model> $ignoreList
+     * @param \Tx_Oelib_List<\Tx_Oelib_Model> $ignoreList
      *        related records that should _not_ be returned
      *
-     * @return Tx_Oelib_List<Tx_Oelib_Model> the related models, will be empty if there are no matches
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model> the related models, will be empty if there are no matches
      */
     public function findAllByRelation(
-        Tx_Oelib_Model $model,
+        \Tx_Oelib_Model $model,
         $relationKey,
-        Tx_Oelib_List $ignoreList = null
+        \Tx_Oelib_List $ignoreList = null
     ) {
         if (!$model->hasUid()) {
-            throw new InvalidArgumentException('$model must have a UID.', 1331319915);
+            throw new \InvalidArgumentException('$model must have a UID.', 1331319915);
         }
         if ($relationKey === '') {
-            throw new InvalidArgumentException('$key must not be empty.', 1331319921);
+            throw new \InvalidArgumentException('$key must not be empty.', 1331319921);
         }
 
         $ignoreClause = '';
@@ -1546,7 +1546,7 @@ abstract class Tx_Oelib_DataMapper
             ? ''
             : $whereClause . ' AND ';
 
-        return Tx_Oelib_Db::count($this->getTableName(), $completeWhereClause . $this->getUniversalWhereClause());
+        return \Tx_Oelib_Db::count($this->getTableName(), $completeWhereClause . $this->getUniversalWhereClause());
     }
 
     /**

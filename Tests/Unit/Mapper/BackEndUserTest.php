@@ -6,22 +6,22 @@
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_TestingFramework for creating dummy records
+     * @var \Tx_Oelib_TestingFramework for creating dummy records
      */
     private $testingFramework;
     /**
-     * @var Tx_Oelib_Mapper_BackEndUser the object to test
+     * @var \Tx_Oelib_Mapper_BackEndUser the object to test
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
-        $this->subject = new Tx_Oelib_Mapper_BackEndUser();
+        $this->subject = new \Tx_Oelib_Mapper_BackEndUser();
     }
 
     protected function tearDown()
@@ -39,7 +39,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
     public function findWithUidOfExistingRecordReturnsBackEndUserInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model_BackEndUser::class,
+            \Tx_Oelib_Model_BackEndUser::class,
             $this->subject->find($this->testingFramework->createBackEndUser())
         );
     }
@@ -82,7 +82,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createBackEndUser(['username' => 'foo']);
 
         self::assertInstanceOf(
-            Tx_Oelib_Model_BackEndUser::class,
+            \Tx_Oelib_Model_BackEndUser::class,
             $this->subject->findByUserName('foo')
         );
     }
@@ -165,7 +165,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
             ['cliKeys'][TYPO3_cliKey][1] = 'foo';
 
         self::assertInstanceOf(
-            Tx_Oelib_Model_BackEndUser::class,
+            \Tx_Oelib_Model_BackEndUser::class,
             $this->subject->findByCliKey()
         );
     }
@@ -179,15 +179,15 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends Tx_Phpunit_TestCase
      */
     public function userGroupRelationIsUserGroupList()
     {
-        /** @var Tx_Oelib_Model_BackEndUserGroup $group */
-        $group = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_BackEndUserGroup::class)->getNewGhost();
+        /** @var \Tx_Oelib_Model_BackEndUserGroup $group */
+        $group = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)->getNewGhost();
         $groupUid = $group->getUid();
         $userUid = $this->subject->getLoadedTestingModel(['usergroup' => $groupUid])->getUid();
 
-        /** @var Tx_Oelib_Model_BackEndUser $user */
+        /** @var \Tx_Oelib_Model_BackEndUser $user */
         $user = $this->subject->find($userUid);
         self::assertInstanceOf(
-            Tx_Oelib_Model_BackEndUserGroup::class,
+            \Tx_Oelib_Model_BackEndUserGroup::class,
             $user->getGroups()->first()
         );
     }

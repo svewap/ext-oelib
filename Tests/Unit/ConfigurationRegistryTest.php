@@ -7,16 +7,16 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_TestingFramework
+     * @var \Tx_Oelib_TestingFramework
      */
     private $testingFramework;
 
     protected function setUp()
     {
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
     }
 
     protected function tearDown()
@@ -34,8 +34,8 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
     public function getInstanceReturnsConfigurationRegistryInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_ConfigurationRegistry::class,
-            Tx_Oelib_ConfigurationRegistry::getInstance()
+            \Tx_Oelib_ConfigurationRegistry::class,
+            \Tx_Oelib_ConfigurationRegistry::getInstance()
         );
     }
 
@@ -45,8 +45,8 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
     public function getInstanceTwoTimesReturnsSameInstance()
     {
         self::assertSame(
-            Tx_Oelib_ConfigurationRegistry::getInstance(),
-            Tx_Oelib_ConfigurationRegistry::getInstance()
+            \Tx_Oelib_ConfigurationRegistry::getInstance(),
+            \Tx_Oelib_ConfigurationRegistry::getInstance()
         );
     }
 
@@ -55,12 +55,12 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceAfterPurgeInstanceReturnsNewInstance()
     {
-        $firstInstance = Tx_Oelib_ConfigurationRegistry::getInstance();
-        Tx_Oelib_ConfigurationRegistry::purgeInstance();
+        $firstInstance = \Tx_Oelib_ConfigurationRegistry::getInstance();
+        \Tx_Oelib_ConfigurationRegistry::purgeInstance();
 
         self::assertNotSame(
             $firstInstance,
-            Tx_Oelib_ConfigurationRegistry::getInstance()
+            \Tx_Oelib_ConfigurationRegistry::getInstance()
         );
     }
 
@@ -78,7 +78,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
             '$namespace must not be empty.'
         );
 
-        Tx_Oelib_ConfigurationRegistry::get('');
+        \Tx_Oelib_ConfigurationRegistry::get('');
     }
 
     /**
@@ -86,13 +86,13 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getForNonEmptyNamespaceReturnsConfigurationInstance()
     {
-        Tx_Oelib_PageFinder::getInstance()->setPageUid(
+        \Tx_Oelib_PageFinder::getInstance()->setPageUid(
             $this->testingFramework->createFrontEndPage()
         );
 
         self::assertInstanceOf(
-            Tx_Oelib_Configuration::class,
-            Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            \Tx_Oelib_Configuration::class,
+            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
         );
     }
 
@@ -101,13 +101,13 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getForTheSameNamespaceCalledTwoTimesReturnsTheSameInstance()
     {
-        Tx_Oelib_PageFinder::getInstance()->setPageUid(
+        \Tx_Oelib_PageFinder::getInstance()->setPageUid(
             $this->testingFramework->createFrontEndPage()
         );
 
         self::assertSame(
-            Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib'),
-            Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib'),
+            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
         );
     }
 
@@ -121,9 +121,9 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
             '$namespace must not be empty.'
         );
 
-        Tx_Oelib_ConfigurationRegistry::getInstance()->set(
+        \Tx_Oelib_ConfigurationRegistry::getInstance()->set(
             '',
-            new Tx_Oelib_Configuration()
+            new \Tx_Oelib_Configuration()
         );
     }
 
@@ -132,14 +132,14 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getAfterSetReturnsTheSetInstance()
     {
-        $configuration = new Tx_Oelib_Configuration();
+        $configuration = new \Tx_Oelib_Configuration();
 
-        Tx_Oelib_ConfigurationRegistry::getInstance()
+        \Tx_Oelib_ConfigurationRegistry::getInstance()
             ->set('foo', $configuration);
 
         self::assertSame(
             $configuration,
-            Tx_Oelib_ConfigurationRegistry::get('foo')
+            \Tx_Oelib_ConfigurationRegistry::get('foo')
         );
     }
 
@@ -148,13 +148,13 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
      */
     public function setTwoTimesForTheSameNamespaceDoesNotFail()
     {
-        Tx_Oelib_ConfigurationRegistry::getInstance()->set(
+        \Tx_Oelib_ConfigurationRegistry::getInstance()->set(
             'foo',
-            new Tx_Oelib_Configuration()
+            new \Tx_Oelib_Configuration()
         );
-        Tx_Oelib_ConfigurationRegistry::getInstance()->set(
+        \Tx_Oelib_ConfigurationRegistry::getInstance()->set(
             'foo',
-            new Tx_Oelib_Configuration()
+            new \Tx_Oelib_Configuration()
         );
     }
 
@@ -173,11 +173,11 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
             ['config' => 'plugin.tx_oelib.test = 42']
         );
 
-        Tx_Oelib_PageFinder::getInstance()->setPageUid($pageUid);
+        \Tx_Oelib_PageFinder::getInstance()->setPageUid($pageUid);
 
         self::assertSame(
             42,
-            Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
                 ->getAsInteger('test')
         );
     }
@@ -194,13 +194,13 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
         );
         $_POST['id'] = $pageUid;
 
-        Tx_Oelib_PageFinder::getInstance()->forceSource(
-            Tx_Oelib_PageFinder::SOURCE_BACK_END
+        \Tx_Oelib_PageFinder::getInstance()->forceSource(
+            \Tx_Oelib_PageFinder::SOURCE_BACK_END
         );
 
         self::assertSame(
             42,
-            Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
                 ->getAsInteger('test')
         );
 
@@ -219,13 +219,13 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
         );
 
         $this->testingFramework->createFakeFrontEnd($pageUid);
-        Tx_Oelib_PageFinder::getInstance()->forceSource(
-            Tx_Oelib_PageFinder::SOURCE_FRONT_END
+        \Tx_Oelib_PageFinder::getInstance()->forceSource(
+            \Tx_Oelib_PageFinder::SOURCE_FRONT_END
         );
 
         self::assertSame(
             42,
-            Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
                 ->getAsInteger('test')
         );
     }
@@ -242,8 +242,8 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
         );
 
         $this->testingFramework->createFakeFrontEnd($pageUid);
-        Tx_Oelib_PageFinder::getInstance()->forceSource(
-            Tx_Oelib_PageFinder::SOURCE_FRONT_END
+        \Tx_Oelib_PageFinder::getInstance()->forceSource(
+            \Tx_Oelib_PageFinder::SOURCE_FRONT_END
         );
         /** @var TypoScriptFrontendController $frontEndController */
         $frontEndController = $GLOBALS['TSFE'];
@@ -254,7 +254,7 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
 
         self::assertSame(
             42,
-            Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
                 ->getAsInteger('test')
         );
     }
@@ -269,15 +269,15 @@ class Tx_Oelib_Tests_Unit_ConfigurationRegistryTest extends Tx_Phpunit_TestCase
             $pageUid,
             ['config' => 'plugin.tx_oelib.bar = 42']
         );
-        Tx_Oelib_PageFinder::getInstance()->setPageUid($pageUid);
+        \Tx_Oelib_PageFinder::getInstance()->setPageUid($pageUid);
 
-        $configuration = new Tx_Oelib_Configuration();
-        Tx_Oelib_ConfigurationRegistry::getInstance()
+        $configuration = new \Tx_Oelib_Configuration();
+        \Tx_Oelib_ConfigurationRegistry::getInstance()
             ->set('plugin.tx_oelib', $configuration);
 
         self::assertSame(
             $configuration,
-            Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
         );
     }
 }

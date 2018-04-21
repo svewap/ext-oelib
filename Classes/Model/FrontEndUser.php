@@ -8,7 +8,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Interface_MailRole, Tx_Oelib_Interface_Address
+class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_MailRole, \Tx_Oelib_Interface_Address
 {
     /**
      * @var int represents the male gender for this user
@@ -43,12 +43,12 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setUserName($userName)
     {
         if ($userName === '') {
-            throw new InvalidArgumentException('$userName must not be empty.');
+            throw new \InvalidArgumentException('$userName must not be empty.');
         }
 
         $this->setAsString('username', $userName);
@@ -71,12 +71,12 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setPassword($password)
     {
         if ($password === '') {
-            throw new InvalidArgumentException('$password must not be empty.');
+            throw new \InvalidArgumentException('$password must not be empty.');
         }
 
         $this->setAsString('password', $password);
@@ -389,7 +389,7 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
     /**
      * Gets this user's user groups.
      *
-     * @return Tx_Oelib_List<Tx_Oelib_Model_BackEndUserGroup> this user's FE user groups, will not be empty if
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> this user's FE user groups, will not be empty if
      *                       the user data is valid
      */
     public function getUserGroups()
@@ -400,11 +400,11 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
     /**
      * Sets this user's direct user groups.
      *
-     * @param Tx_Oelib_List<Tx_Oelib_Model_BackEndUserGroup> $userGroups the user groups to set, may be empty
+     * @param \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> $userGroups the user groups to set, may be empty
      *
      * @return void
      */
-    public function setUserGroups(Tx_Oelib_List $userGroups)
+    public function setUserGroups(\Tx_Oelib_List $userGroups)
     {
         $this->set('usergroup', $userGroups);
     }
@@ -412,11 +412,11 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
     /**
      * Adds $group to this user's direct groups.
      *
-     * @param Tx_Oelib_Model_FrontEndUserGroup $group
+     * @param \Tx_Oelib_Model_FrontEndUserGroup $group
      *
      * @return void
      */
-    public function addUserGroup(Tx_Oelib_Model_FrontEndUserGroup $group)
+    public function addUserGroup(\Tx_Oelib_Model_FrontEndUserGroup $group)
     {
         $this->getUserGroups()->add($group);
     }
@@ -431,12 +431,12 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
      *
      * @return bool TRUE if the user is member of at least one of the user groups provided, FALSE otherwise
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function hasGroupMembership($uidList)
     {
         if ($uidList === '') {
-            throw new InvalidArgumentException('$uidList must not be empty.', 1331488635);
+            throw new \InvalidArgumentException('$uidList must not be empty.', 1331488635);
         }
 
         $isMember = false;
@@ -457,9 +457,9 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
      * Will return "unknown gender" if there is no FrontEndUser.gender field.
      *
      * @return int the gender of the user, will be
-     *                 Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE,
-     *                 Tx_Oelib_Model_FrontEndUser::GENDER_MALE or
-     *                 Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN
+     *                 \Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE,
+     *                 \Tx_Oelib_Model_FrontEndUser::GENDER_MALE or
+     *                 \Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN
      */
     public function getGender()
     {
@@ -487,13 +487,13 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setGender($genderKey)
     {
         $validGenderKeys = [self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_UNKNOWN];
         if (!in_array($genderKey, $validGenderKeys, true)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 '$genderKey must be one of the predefined constants, but actually is: ' . $genderKey,
                 1393329321
             );
@@ -671,11 +671,11 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
     }
 
     /**
-     * Returns the country of this user as Tx_Oelib_Model_Country.
+     * Returns the country of this user as \Tx_Oelib_Model_Country.
      *
      * Note: This function uses the "country code" field, not the free-text country field.
      *
-     * @return Tx_Oelib_Model_Country the country of this user, will be NULL if no valid country has been set
+     * @return \Tx_Oelib_Model_Country the country of this user, will be NULL if no valid country has been set
      */
     public function getCountry()
     {
@@ -685,11 +685,11 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
         }
 
         try {
-            /** @var Tx_Oelib_Mapper_Country $countryMapper */
-            $countryMapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class);
-            /** @var Tx_Oelib_Model_Country $country */
+            /** @var \Tx_Oelib_Mapper_Country $countryMapper */
+            $countryMapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class);
+            /** @var \Tx_Oelib_Model_Country $country */
             $country = $countryMapper->findByIsoAlpha3Code($countryCode);
-        } catch (Tx_Oelib_Exception_NotFound $exception) {
+        } catch (\Tx_Oelib_Exception_NotFound $exception) {
             $country = null;
         }
 
@@ -699,12 +699,12 @@ class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements Tx_Oelib_Int
     /**
      * Sets the country of this user.
      *
-     * @param Tx_Oelib_Model_Country $country
+     * @param \Tx_Oelib_Model_Country $country
      *        the country to set for this place, can be NULL for "no country"
      *
      * @return void
      */
-    public function setCountry(Tx_Oelib_Model_Country $country = null)
+    public function setCountry(\Tx_Oelib_Model_Country $country = null)
     {
         $countryCode = ($country !== null) ? $country->getIsoAlpha3Code() : '';
 

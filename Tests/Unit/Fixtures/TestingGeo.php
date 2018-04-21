@@ -5,7 +5,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Fixtures_TestingGeo extends Tx_Oelib_Model implements Tx_Oelib_Interface_Geo
+class Tx_Oelib_Tests_Unit_Fixtures_TestingGeo extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_Geo
 {
     /**
      * whether this object has a geo error

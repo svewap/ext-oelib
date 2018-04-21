@@ -6,7 +6,7 @@
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Geocoding_Dummy implements Tx_Oelib_Interface_GeocodingLookup
+class Tx_Oelib_Geocoding_Dummy implements \Tx_Oelib_Interface_GeocodingLookup
 {
     /**
      * faked coordinates with the keys "latitude" and "longitude" or empty if there are none
@@ -33,12 +33,12 @@ class Tx_Oelib_Geocoding_Dummy implements Tx_Oelib_Interface_GeocodingLookup
      * Looks up the geo coordinates of the address of an object and sets its
      * geo coordinates.
      *
-     * @param Tx_Oelib_Interface_Geo $geoObject
+     * @param \Tx_Oelib_Interface_Geo $geoObject
      *        the object for which the geo coordinates will be looked up and set
      *
      * @return void
      */
-    public function lookUp(Tx_Oelib_Interface_Geo $geoObject)
+    public function lookUp(\Tx_Oelib_Interface_Geo $geoObject)
     {
         if ($geoObject->hasGeoError() || $geoObject->hasGeoCoordinates()) {
             return;

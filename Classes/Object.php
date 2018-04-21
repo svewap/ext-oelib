@@ -33,7 +33,7 @@ abstract class Tx_Oelib_Object
     /**
      * Checks that $key is not empty.
      *
-     * @throws InvalidArgumentException if $key is empty
+     * @throws \InvalidArgumentException if $key is empty
      *
      * @param string $key the key to check
      *
@@ -42,7 +42,7 @@ abstract class Tx_Oelib_Object
     protected function checkForNonEmptyKey($key)
     {
         if ($key === '') {
-            throw new InvalidArgumentException('$key must not be empty.', 1331488963);
+            throw new \InvalidArgumentException('$key must not be empty.', 1331488963);
         }
     }
 

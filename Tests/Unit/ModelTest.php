@@ -6,26 +6,26 @@
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_ModelTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel
+     * @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $this->subject = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
     }
 
     /**
      * Loading function stub.
      *
-     * @param Tx_Oelib_Model $model
+     * @param \Tx_Oelib_Model $model
      *
      * @return void
      */
-    public function load(Tx_Oelib_Model $model)
+    public function load(\Tx_Oelib_Model $model)
     {
     }
 
@@ -38,7 +38,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function destructDoesNotCrashForRelationToSelf()
     {
-        $subject = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $subject = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $subject->setData(
             ['foo' => $subject]
         );
@@ -49,8 +49,8 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function destructDoesNotCrashForTwoModelsInACircle()
     {
-        $subject1 = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
-        $subject2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $subject1 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $subject2 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
 
         $subject1->setData(
             ['foo' => $subject2]
@@ -310,7 +310,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function getAsModelReturnsModelSetViaSetData()
     {
-        $otherModel = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $otherModel = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $this->subject->setData(
             ['foo' => $otherModel]
         );
@@ -390,7 +390,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function getAsListReturnsListSetViaSetData()
     {
-        $list = new Tx_Oelib_List();
+        $list = new \Tx_Oelib_List();
         $this->subject->setData(
             ['foo' => $list]
         );
@@ -1023,7 +1023,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function isReadOnlyOnReadOnlyModelReturnsTrue()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_ReadOnlyModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_ReadOnlyModel();
 
         self::assertTrue(
             $model->isReadOnly()
@@ -1035,7 +1035,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
      */
     public function setDataOnReadOnlyModelDoesNotFail()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_ReadOnlyModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_ReadOnlyModel();
         $model->setData([]);
     }
 
@@ -1049,7 +1049,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends Tx_Phpunit_TestCase
             'set() must not be called on a read-only model.'
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_ReadOnlyModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_ReadOnlyModel();
         $model->setTitle('foo');
     }
 

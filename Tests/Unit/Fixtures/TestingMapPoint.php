@@ -6,7 +6,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Fixtures_TestingMapPoint implements Tx_Oelib_Interface_MapPoint, Tx_Oelib_Interface_Identity
+class Tx_Oelib_Tests_Unit_Fixtures_TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interface_Identity
 {
     /**
      * @var int

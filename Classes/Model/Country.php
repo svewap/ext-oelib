@@ -5,7 +5,7 @@
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Model_Country extends Tx_Oelib_Model
+class Tx_Oelib_Model_Country extends \Tx_Oelib_Model
 {
     /**
      * @var bool whether this model is read-only

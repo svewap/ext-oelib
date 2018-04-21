@@ -7,10 +7,10 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_Model_LanguageTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Model_LanguageTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Model_Language
+     * @var \Tx_Oelib_Model_Language
      */
     private $subject;
 
@@ -20,7 +20,7 @@ class Tx_Oelib_Tests_Unit_Model_LanguageTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This tests needs the static_info_tables extension.');
         }
 
-        $this->subject = new Tx_Oelib_Model_Language();
+        $this->subject = new \Tx_Oelib_Model_Language();
     }
 
     ////////////////////////////////////////////

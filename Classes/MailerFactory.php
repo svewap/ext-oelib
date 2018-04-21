@@ -3,8 +3,8 @@
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * This class returns either an instance of the Tx_Oelib_RealMailer which sends
- * e-mails or an instance of the Tx_Oelib_EmailCollector.
+ * This class returns either an instance of the \Tx_Oelib_RealMailer which sends
+ * e-mails or an instance of the \Tx_Oelib_EmailCollector.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
@@ -16,7 +16,7 @@ class Tx_Oelib_MailerFactory implements \TYPO3\CMS\Core\SingletonInterface
     private $isTestMode = false;
 
     /**
-     * @var Tx_Oelib_AbstractMailer the mailer
+     * @var \Tx_Oelib_AbstractMailer the mailer
      */
     private $mailer = null;
 
@@ -47,14 +47,14 @@ class Tx_Oelib_MailerFactory implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @deprecated will be removed in oelib 2.0.0, Use \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance instead
      *
-     * @return Tx_Oelib_MailerFactory the singleton factory
+     * @return \Tx_Oelib_MailerFactory the singleton factory
      */
     public static function getInstance()
     {
         GeneralUtility::logDeprecatedFunction();
 
-        /** @var Tx_Oelib_MailerFactory $mailerFactory */
-        $mailerFactory = GeneralUtility::makeInstance(Tx_Oelib_MailerFactory::class);
+        /** @var \Tx_Oelib_MailerFactory $mailerFactory */
+        $mailerFactory = GeneralUtility::makeInstance(\Tx_Oelib_MailerFactory::class);
         return $mailerFactory;
     }
 
@@ -62,7 +62,7 @@ class Tx_Oelib_MailerFactory implements \TYPO3\CMS\Core\SingletonInterface
      * Retrieves the singleton mailer instance. Depending on the mode, this
      * instance is either an e-mail collector or a real mailer.
      *
-     * @return Tx_Oelib_AbstractMailer|Tx_Oelib_RealMailer|Tx_Oelib_EmailCollector the singleton mailer object
+     * @return \Tx_Oelib_AbstractMailer|\Tx_Oelib_RealMailer|\Tx_Oelib_EmailCollector the singleton mailer object
      */
     public function getMailer()
     {

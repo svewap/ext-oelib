@@ -6,7 +6,7 @@
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel extends Tx_Oelib_Model implements Tx_Oelib_Interface_Sortable
+class Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_Sortable
 {
     /**
      * Sets the "title" data item for this model.
@@ -34,7 +34,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel extends Tx_Oelib_Model impl
     /**
      * Gets the "parent" data item.
      *
-     * @return Tx_Oelib_Tests_Unit_Fixtures_TestingModel the "parent" data item,
+     * @return \Tx_Oelib_Tests_Unit_Fixtures_TestingModel the "parent" data item,
      *                                              will be NULL if this model
      *                                              has no parent
      */
@@ -46,7 +46,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel extends Tx_Oelib_Model impl
     /**
      * Gets the "tx_oelib_parent2" data item.
      *
-     * @return Tx_Oelib_Tests_Unit_Fixtures_TestingModel the "tx_oelib_parent2" data
+     * @return \Tx_Oelib_Tests_Unit_Fixtures_TestingModel the "tx_oelib_parent2" data
      *                                              item, will be NULL if this
      *                                              model has no parent2
      */
@@ -58,12 +58,12 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel extends Tx_Oelib_Model impl
     /**
      * Sets the "parent" data item.
      *
-     * @param Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent
+     * @param \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent
      *        the "parent" data item to set
      *
      * @return void
      */
-    public function setParent(Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent)
+    public function setParent(\Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent)
     {
         $this->set('parent', $parent);
     }
@@ -71,12 +71,12 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel extends Tx_Oelib_Model impl
     /**
      * Sets the "tx_oelib_parent2" data item.
      *
-     * @param Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent
+     * @param \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent
      *        the "tx_oelib_parent2" data item to set
      *
      * @return void
      */
-    public function setParent2(Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent)
+    public function setParent2(\Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent)
     {
         $this->set('tx_oelib_parent2', $parent);
     }

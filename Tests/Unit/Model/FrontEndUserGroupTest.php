@@ -5,16 +5,16 @@
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Model_FrontEndUserGroupTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Model_FrontEndUserGroupTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Model_FrontEndUserGroup
+     * @var \Tx_Oelib_Model_FrontEndUserGroup
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_Model_FrontEndUserGroup();
+        $this->subject = new \Tx_Oelib_Model_FrontEndUserGroup();
     }
 
     ////////////////////////////////

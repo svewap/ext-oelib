@@ -7,20 +7,20 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class Tx_Oelib_Tests_Unit_ConfigCheckTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_ConfigCheckTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_ConfigCheck configuration check object to be tested
+     * @var \Tx_Oelib_ConfigCheck configuration check object to be tested
      */
     private $subject = null;
 
     /**
-     * @var Tx_Oelib_Tests_Unit_Fixtures_DummyObjectToCheck dummy object to be checked by the configuration check object
+     * @var \Tx_Oelib_Tests_Unit_Fixtures_DummyObjectToCheck dummy object to be checked by the configuration check object
      */
     private $objectToCheck = null;
 
     /**
-     * @var Tx_Oelib_TestingFramework
+     * @var \Tx_Oelib_TestingFramework
      */
     private $testingFramework = null;
 
@@ -33,10 +33,10 @@ class Tx_Oelib_Tests_Unit_ConfigCheckTest extends Tx_Phpunit_TestCase
     {
         $this->deprecationLogEnabledBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'];
 
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
         $this->testingFramework->createFakeFrontEnd();
 
-        $this->objectToCheck = new Tx_Oelib_Tests_Unit_Fixtures_DummyObjectToCheck(
+        $this->objectToCheck = new \Tx_Oelib_Tests_Unit_Fixtures_DummyObjectToCheck(
             [
                 'emptyString' => '',
                 'nonEmptyString' => 'foo',
@@ -45,7 +45,7 @@ class Tx_Oelib_Tests_Unit_ConfigCheckTest extends Tx_Phpunit_TestCase
                 'inexistentColumn' => 'does_not_exist',
             ]
         );
-        $this->subject = new Tx_Oelib_ConfigCheck($this->objectToCheck);
+        $this->subject = new \Tx_Oelib_ConfigCheck($this->objectToCheck);
     }
 
     protected function tearDown()

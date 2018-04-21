@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends \Tx_Phpunit_TestCase
 {
     protected function setUp()
     {
@@ -18,7 +18,7 @@ class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase
 
     protected function tearDown()
     {
-        Tx_Oelib_MapperRegistry::purgeInstance();
+        \Tx_Oelib_MapperRegistry::purgeInstance();
     }
 
     /*
@@ -30,9 +30,9 @@ class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase
      */
     public function getLocalNameReturnsLocalNameOfNorthRhineWestphalia()
     {
-        /** @var Tx_Oelib_Mapper_FederalState $mapper */
-        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
-        /** @var Tx_Oelib_Model_FederalState $model */
+        /** @var \Tx_Oelib_Mapper_FederalState $mapper */
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FederalState::class);
+        /** @var \Tx_Oelib_Model_FederalState $model */
         $model = $mapper->find(88);
 
         self::assertSame(
@@ -50,9 +50,9 @@ class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase
      */
     public function getEnglishNameReturnsLocalNameOfNorthRhineWestphalia()
     {
-        /** @var Tx_Oelib_Mapper_FederalState $mapper */
-        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
-        /** @var Tx_Oelib_Model_FederalState $model */
+        /** @var \Tx_Oelib_Mapper_FederalState $mapper */
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FederalState::class);
+        /** @var \Tx_Oelib_Model_FederalState $model */
         $model = $mapper->find(88);
 
         self::assertSame(
@@ -70,9 +70,9 @@ class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase
      */
     public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfNorthRhineWestphalia()
     {
-        /** @var Tx_Oelib_Mapper_FederalState $mapper */
-        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
-        /** @var Tx_Oelib_Model_FederalState $model */
+        /** @var \Tx_Oelib_Mapper_FederalState $mapper */
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FederalState::class);
+        /** @var \Tx_Oelib_Model_FederalState $model */
         $model = $mapper->find(88);
 
         self::assertSame(
@@ -86,9 +86,9 @@ class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase
      */
     public function getIsoAlpha2ZoneCodeReturnsIsoAlpha2ZoneCodeOfNorthRhineWestphalia()
     {
-        /** @var Tx_Oelib_Mapper_FederalState $mapper */
-        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FederalState::class);
-        /** @var Tx_Oelib_Model_FederalState $model */
+        /** @var \Tx_Oelib_Mapper_FederalState $mapper */
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FederalState::class);
+        /** @var \Tx_Oelib_Model_FederalState $model */
         $model = $mapper->find(88);
 
         self::assertSame(
@@ -106,7 +106,7 @@ class Tx_Oelib_Tests_Unit_Model_FederalStateTest extends Tx_Phpunit_TestCase
      */
     public function isReadOnlyIsTrue()
     {
-        $model = new Tx_Oelib_Model_FederalState();
+        $model = new \Tx_Oelib_Model_FederalState();
 
         self::assertTrue(
             $model->isReadOnly()

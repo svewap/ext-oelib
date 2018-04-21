@@ -8,7 +8,7 @@
 class Tx_Oelib_IdentityMap
 {
     /**
-     * @var Tx_Oelib_Model[] the items in this map with their UIDs as keys
+     * @var \Tx_Oelib_Model[] the items in this map with their UIDs as keys
      */
     protected $items = [];
 
@@ -29,14 +29,14 @@ class Tx_Oelib_IdentityMap
     /**
      * Adds a model to the identity map.
      *
-     * @param Tx_Oelib_Model $model the model to add, must have a UID
+     * @param \Tx_Oelib_Model $model the model to add, must have a UID
      *
      * @return void
      */
-    public function add(Tx_Oelib_Model $model)
+    public function add(\Tx_Oelib_Model $model)
     {
         if (!$model->hasUid()) {
-            throw new InvalidArgumentException('Add() requires a model that has a UID.', 1331488748);
+            throw new \InvalidArgumentException('Add() requires a model that has a UID.', 1331488748);
         }
 
         $this->items[$model->getUid()] = $model;
@@ -46,21 +46,21 @@ class Tx_Oelib_IdentityMap
     /**
      * Retrieves a model from the map by UID.
      *
-     * @throws Tx_Oelib_Exception_NotFound if this map does not have a model
+     * @throws \Tx_Oelib_Exception_NotFound if this map does not have a model
      *                                     with that particular UID
      *
      * @param int $uid the UID of the model to retrieve, must be > 0
      *
-     * @return Tx_Oelib_Model the stored model with the UID $uid
+     * @return \Tx_Oelib_Model the stored model with the UID $uid
      */
     public function get($uid)
     {
         if ($uid <= 0) {
-            throw new InvalidArgumentException('$uid must be > 0.', 1331488761);
+            throw new \InvalidArgumentException('$uid must be > 0.', 1331488761);
         }
 
         if (!isset($this->items[$uid])) {
-            throw new Tx_Oelib_Exception_NotFound(
+            throw new \Tx_Oelib_Exception_NotFound(
                 'This map currently does not contain a model with the UID ' .
                     $uid . '.'
             );

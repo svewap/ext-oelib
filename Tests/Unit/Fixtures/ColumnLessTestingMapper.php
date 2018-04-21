@@ -5,7 +5,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Fixtures_ColumnLessTestingMapper extends Tx_Oelib_DataMapper
+class Tx_Oelib_Tests_Unit_Fixtures_ColumnLessTestingMapper extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string the name of the database table for this mapper

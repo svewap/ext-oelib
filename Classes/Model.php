@@ -8,7 +8,7 @@
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interface_Identity
+abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_Identity
 {
     /**
      * @var int a status indicating that this model has neither data nor UID yet
@@ -111,14 +111,14 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
 
         $this->resetUid();
 
-        /** @var int|string|bool|float|Tx_Oelib_List|Tx_Oelib_Model|null $dataItem */
+        /** @var int|string|bool|float|\Tx_Oelib_List|\Tx_Oelib_Model|null $dataItem */
         foreach ($this->data as $key => $dataItem) {
-            if ($dataItem instanceof Tx_Oelib_List) {
-                /** Tx_Oelib_List $dataItem */
+            if ($dataItem instanceof \Tx_Oelib_List) {
+                /** \Tx_Oelib_List $dataItem */
                 if ($dataItem->isRelationOwnedByParent()) {
-                    $newDataItem = new Tx_Oelib_List();
+                    $newDataItem = new \Tx_Oelib_List();
                     $newDataItem->markAsOwnedByParent();
-                    /** @var Tx_Oelib_Model $childModel */
+                    /** @var \Tx_Oelib_Model $childModel */
                     foreach ($dataItem as $childModel) {
                         $newDataItem->add(clone $childModel);
                     }
@@ -139,7 +139,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
      * The data which is set via this function is considered to be the initial
      * data. Fields with relations must already be filled with the constituted
      * models/lists, not just with the UIDs (unlike the format that
-     * Tx_Oelib_DataMapper::getLoadedTestingModel takes).
+     * \Tx_Oelib_DataMapper::getLoadedTestingModel takes).
      *
      * This function should be called directly after instantiation and must only
      * be called once. Usually, this function is called on only a few occasions:
@@ -155,7 +155,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
     public function setData(array $data)
     {
         if ($this->isLoaded()) {
-            throw new BadMethodCallException('setData must only be called once per model instance.', 1331489244);
+            throw new \BadMethodCallException('setData must only be called once per model instance.', 1331489244);
         }
 
         $this->resetData($data);
@@ -247,7 +247,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
     public function setUid($uid)
     {
         if ($this->hasUid()) {
-            throw new BadMethodCallException('The UID of a model cannot be set a second time.', 1331489260);
+            throw new \BadMethodCallException('The UID of a model cannot be set a second time.', 1331489260);
         }
         if ($this->isVirgin()) {
             $this->setLoadStatus(self::STATUS_GHOST);
@@ -277,10 +277,10 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
     protected function set($key, $value)
     {
         if ($key === 'deleted') {
-            throw new InvalidArgumentException('$key must not be "deleted". Please use setToDeleted() instead.', 1331489276);
+            throw new \InvalidArgumentException('$key must not be "deleted". Please use setToDeleted() instead.', 1331489276);
         }
         if ($this->isReadOnly()) {
-            throw new BadMethodCallException('set() must not be called on a read-only model.', 1331489292);
+            throw new \BadMethodCallException('set() must not be called on a read-only model.', 1331489292);
         }
 
         if ($this->isGhost()) {
@@ -298,7 +298,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
      * Before this function may be called, setData() or set() must have been
      * called once.
      *
-     * @throws Tx_Oelib_Exception_NotFound if this model is dead
+     * @throws \Tx_Oelib_Exception_NotFound if this model is dead
      *
      * @param string $key the key of the data item to get, must not be empty
      *
@@ -308,12 +308,12 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
     protected function get($key)
     {
         if ($key === 'uid') {
-            throw new InvalidArgumentException('The UID column needs to be accessed using the getUid function.', 1331489310);
+            throw new \InvalidArgumentException('The UID column needs to be accessed using the getUid function.', 1331489310);
         }
 
         $this->load();
         if ($this->isDead()) {
-            throw new Tx_Oelib_Exception_NotFound(
+            throw new \Tx_Oelib_Exception_NotFound(
                 'The ' . get_class($this) . ' with the UID ' . $this->getUid() .
                     ' either has been deleted (or has never existed), but still is accessed.',
                 1332446332
@@ -348,7 +348,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
-     * @return Tx_Oelib_Model the data item for the given key, will be NULL if
+     * @return \Tx_Oelib_Model the data item for the given key, will be NULL if
      *                        it has not been set
      */
     protected function getAsModel($key)
@@ -360,7 +360,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
             return null;
         }
 
-        if (!$result instanceof Tx_Oelib_Model) {
+        if (!$result instanceof \Tx_Oelib_Model) {
             throw new UnexpectedValueException('The data item for the key "' . $key . '" is no model instance.', 1331489359);
         }
 
@@ -375,14 +375,14 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
-     * @return Tx_Oelib_List<Tx_Oelib_Model> the data item for the given key
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model> the data item for the given key
      */
     public function getAsList($key)
     {
         $this->checkForNonEmptyKey($key);
 
         $result = $this->get($key);
-        if (!$result instanceof Tx_Oelib_List) {
+        if (!$result instanceof \Tx_Oelib_List) {
             throw new UnexpectedValueException('The data item for the key "' . $key . '" is no list instance.', 1331489379);
         }
 
@@ -397,7 +397,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
     private function load()
     {
         if ($this->isVirgin()) {
-            throw new BadMethodCallException(
+            throw new \BadMethodCallException(
                 get_class($this) . '#' . $this->getUid() . ': Please call setData() directly after instantiation first.',
                 1331489395
             );
@@ -405,7 +405,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
 
         if ($this->isGhost()) {
             if (!$this->hasLoadCallBack()) {
-                throw new BadMethodCallException(
+                throw new \BadMethodCallException(
                     'Ghosts need a load callback function before their data can be accessed.',
                     1331489414
                 );
@@ -665,7 +665,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
     public function setCreationDate()
     {
         if ($this->hasUid()) {
-            throw new BadMethodCallException('Only new objects (without UID) may receive "crdate".', 1331489449);
+            throw new \BadMethodCallException('Only new objects (without UID) may receive "crdate".', 1331489449);
         }
 
         $this->setAsInteger('crdate', $GLOBALS['SIM_EXEC_TIME']);
@@ -692,7 +692,7 @@ abstract class Tx_Oelib_Model extends Tx_Oelib_Object implements Tx_Oelib_Interf
     public function setPageUid($pageUid)
     {
         if ($pageUid < 0) {
-            throw new InvalidArgumentException('$pageUid must be >= 0.');
+            throw new \InvalidArgumentException('$pageUid must be >= 0.');
         }
 
         $this->setAsInteger('pid', $pageUid);

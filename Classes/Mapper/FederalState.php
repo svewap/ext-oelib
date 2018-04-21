@@ -5,7 +5,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Mapper_FederalState extends Tx_Oelib_DataMapper
+class Tx_Oelib_Mapper_FederalState extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string
@@ -30,7 +30,7 @@ class Tx_Oelib_Mapper_FederalState extends Tx_Oelib_DataMapper
      * @param string $isoAlpha2ZoneCode
      *        the ISO 3166-2 code to find, must not be empty
      *
-     * @return Tx_Oelib_Model_FederalState the federal state with the requested code
+     * @return \Tx_Oelib_Model_FederalState the federal state with the requested code
      */
     public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode($isoAlpha2CountryCode, $isoAlpha2ZoneCode)
     {

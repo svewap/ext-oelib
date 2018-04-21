@@ -10,12 +10,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class Tx_Oelib_TemplateRegistry
 {
     /**
-     * @var Tx_Oelib_TemplateRegistry the Singleton instance
+     * @var \Tx_Oelib_TemplateRegistry the Singleton instance
      */
     private static $instance = null;
 
     /**
-     * @var Tx_Oelib_Template[] already created templates (by file name)
+     * @var \Tx_Oelib_Template[] already created templates (by file name)
      */
     private $templates = [];
 
@@ -37,12 +37,12 @@ class Tx_Oelib_TemplateRegistry
     /**
      * Returns an instance of this class.
      *
-     * @return Tx_Oelib_TemplateRegistry the current Singleton instance
+     * @return \Tx_Oelib_TemplateRegistry the current Singleton instance
      */
     public static function getInstance()
     {
         if (!self::$instance) {
-            self::$instance = new Tx_Oelib_TemplateRegistry();
+            self::$instance = new \Tx_Oelib_TemplateRegistry();
         }
 
         return self::$instance;
@@ -68,7 +68,7 @@ class Tx_Oelib_TemplateRegistry
      * @param string $templateFileName
      *        the file name of the template to retrieve, may not be empty to get a template that is not related to a template file.
      *
-     * @return Tx_Oelib_Template the template for the given template file name
+     * @return \Tx_Oelib_Template the template for the given template file name
      *
      * @see getByFileName
      */
@@ -87,12 +87,12 @@ class Tx_Oelib_TemplateRegistry
      * @param string $fileName
      *        the file name of the template to retrieve, may not be empty to get a template that is not related to a template file
      *
-     * @return Tx_Oelib_Template the template for the given template file name
+     * @return \Tx_Oelib_Template the template for the given template file name
      */
     public function getByFileName($fileName)
     {
         if (!isset($this->templates[$fileName])) {
-            /** @var Tx_Oelib_Template $template */
+            /** @var \Tx_Oelib_Template $template */
             $template = GeneralUtility::makeInstance(\Tx_Oelib_Template::class);
 
             if ($fileName !== '') {

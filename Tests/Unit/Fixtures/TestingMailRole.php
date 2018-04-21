@@ -5,7 +5,7 @@
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole extends Tx_Oelib_Object implements Tx_Oelib_Interface_MailRole
+class Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_MailRole
 {
     /**
      * @var string[] the data of this object

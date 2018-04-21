@@ -10,14 +10,14 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_TemplateHelperTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper
+     * @var \Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper
      */
     protected $subject = null;
     /**
-     * @var Tx_Oelib_TestingFramework
+     * @var \Tx_Oelib_TestingFramework
      */
     protected $testingFramework = null;
 
@@ -30,12 +30,12 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     {
         $this->deprecationLogEnabledBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'];
 
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
         $pageUid = $this->testingFramework->createFrontEndPage(0);
         $this->testingFramework->createFakeFrontEnd($pageUid);
-        Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        \Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
 
-        $this->subject = new Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper([]);
+        $this->subject = new \Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper([]);
     }
 
     protected function tearDown()
@@ -65,9 +65,9 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
      */
     public function configurationCheckCreationForDisabledConfigurationCeck()
     {
-        Tx_Oelib_ConfigurationProxy::getInstance('oelib')
+        \Tx_Oelib_ConfigurationProxy::getInstance('oelib')
             ->setAsBoolean('enableConfigCheck', false);
-        $subject = new Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper();
+        $subject = new \Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper();
         $result = $subject->getConfigurationCheck();
 
         self::assertNull(
@@ -138,9 +138,9 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     {
         $this->testingFramework->discardFakeFrontEnd();
 
-        Tx_Oelib_TemplateHelper::setCachedConfigurationValue('foo', 'bar');
+        \Tx_Oelib_TemplateHelper::setCachedConfigurationValue('foo', 'bar');
 
-        $subject = new Tx_Oelib_TemplateHelper();
+        $subject = new \Tx_Oelib_TemplateHelper();
         $subject->init();
 
         self::assertSame(
@@ -156,10 +156,10 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends Tx_Phpunit_TestCase
     {
         $this->testingFramework->discardFakeFrontEnd();
 
-        Tx_Oelib_TemplateHelper::setCachedConfigurationValue('foo', 'bar');
-        Tx_Oelib_TemplateHelper::purgeCachedConfigurations();
+        \Tx_Oelib_TemplateHelper::setCachedConfigurationValue('foo', 'bar');
+        \Tx_Oelib_TemplateHelper::purgeCachedConfigurations();
 
-        $subject = new Tx_Oelib_TemplateHelper();
+        $subject = new \Tx_Oelib_TemplateHelper();
         $subject->init();
 
         self::assertSame(

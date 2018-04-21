@@ -154,7 +154,7 @@ final class Tx_Oelib_TestingFramework
      *
      * This testing framework can be instantiated for one extension at a time.
      * Example: In your testcase, you'll have something similar to this line of code:
-     * $this->subject = new Tx_Oelib_TestingFramework('tx_seminars');
+     * $this->subject = new \Tx_Oelib_TestingFramework('tx_seminars');
      * The parameter you provide is the prefix of the table names of that particular
      * extension. Like this, we ensure that the testing framework creates and
      * deletes records only on table with this prefix.
@@ -221,15 +221,15 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new record, will be > 0
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function createRecord($table, array $recordData = [])
     {
         if (!$this->isNoneSystemTableNameAllowed($table)) {
-            throw new InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331489666);
+            throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331489666);
         }
         if (isset($recordData['uid'])) {
-            throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489678);
+            throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489678);
         }
 
         return $this->createRecordWithoutTableNameChecks(
@@ -263,7 +263,7 @@ final class Tx_Oelib_TestingFramework
         $dummyColumnName = $this->getDummyColumnName($table);
         $recordData[$dummyColumnName] = 1;
 
-        $uid = Tx_Oelib_Db::insert(
+        $uid = \Tx_Oelib_Db::insert(
             $table,
             $recordData
         );
@@ -328,7 +328,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new record, will be > 0
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     protected function createGeneralPageRecord(
         $documentType,
@@ -336,13 +336,13 @@ final class Tx_Oelib_TestingFramework
         array $recordData
     ) {
         if (isset($recordData['uid'])) {
-            throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489697);
+            throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489697);
         }
         if (isset($recordData['pid'])) {
-            throw new InvalidArgumentException('The column "pid" must not be set in $recordData.', 1331489703);
+            throw new \InvalidArgumentException('The column "pid" must not be set in $recordData.', 1331489703);
         }
         if (isset($recordData['doktype'])) {
-            throw new InvalidArgumentException('The column "doktype" must not be set in $recordData.', 1331489708);
+            throw new \InvalidArgumentException('The column "doktype" must not be set in $recordData.', 1331489708);
         }
 
         $completeRecordData = $recordData;
@@ -371,17 +371,17 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new content element, will be > 0
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function createContentElement(
         $pageId = 0,
         array $recordData = []
     ) {
         if (isset($recordData['uid'])) {
-            throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489735);
+            throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489735);
         }
         if (isset($recordData['pid'])) {
-            throw new InvalidArgumentException('The column "pid" must not be set in $recordData.', 1331489741);
+            throw new \InvalidArgumentException('The column "pid" must not be set in $recordData.', 1331489741);
         }
 
         $completeRecordData = $recordData;
@@ -408,20 +408,20 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new template, will be > 0
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function createTemplate(
         $pageId,
         array $recordData = []
     ) {
         if ($pageId <= 0) {
-            throw new InvalidArgumentException('$pageId must be > 0.', 1331489774);
+            throw new \InvalidArgumentException('$pageId must be > 0.', 1331489774);
         }
         if (isset($recordData['uid'])) {
-            throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489769);
+            throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489769);
         }
         if (isset($recordData['pid'])) {
-            throw new InvalidArgumentException('The column "pid" must not be set in $recordData.', 1331489764);
+            throw new \InvalidArgumentException('The column "pid" must not be set in $recordData.', 1331489764);
         }
 
         $completeRecordData = $recordData;
@@ -442,12 +442,12 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new user group, will be > 0
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function createFrontEndUserGroup(array $recordData = [])
     {
         if (isset($recordData['uid'])) {
-            throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489807);
+            throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489807);
         }
 
         return $this->createRecordWithoutTableNameChecks(
@@ -468,7 +468,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new FE user, will be > 0
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function createFrontEndUser(
         $frontEndUserGroups = '',
@@ -481,16 +481,16 @@ final class Tx_Oelib_TestingFramework
         }
         if (!preg_match('/^(?:[1-9]+[0-9]*,?)+$/', $frontEndUserGroupsWithoutSpaces)
         ) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.',
                 1331489824
             );
         }
         if (isset($recordData['uid'])) {
-            throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489842);
+            throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489842);
         }
         if (isset($recordData['usergroup'])) {
-            throw new InvalidArgumentException('The column "usergroup" must not be set in $recordData.', 1331489846);
+            throw new \InvalidArgumentException('The column "usergroup" must not be set in $recordData.', 1331489846);
         }
 
         $completeRecordData = $recordData;
@@ -540,7 +540,7 @@ final class Tx_Oelib_TestingFramework
     public function createBackEndUser(array $recordData = [])
     {
         if (isset($recordData['uid'])) {
-            throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489905);
+            throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489905);
         }
 
         return $this->createRecordWithoutTableNameChecks(
@@ -561,7 +561,7 @@ final class Tx_Oelib_TestingFramework
     public function createBackEndUserGroup(array $recordData = [])
     {
         if (isset($recordData['uid'])) {
-            throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489919);
+            throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489919);
         }
 
         return $this->createRecordWithoutTableNameChecks(
@@ -587,40 +587,40 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws InvalidArgumentException
-     * @throws BadMethodCallException
+     * @throws \InvalidArgumentException
+     * @throws \BadMethodCallException
      */
     public function changeRecord($table, $uid, $recordData)
     {
         $dummyColumnName = $this->getDummyColumnName($table);
 
         if (!$this->isTableNameAllowed($table)) {
-            throw new InvalidArgumentException('The table "' . $table . '" is not on the lists with allowed tables.', 1331489997);
+            throw new \InvalidArgumentException('The table "' . $table . '" is not on the lists with allowed tables.', 1331489997);
         }
         if ($uid === 0) {
-            throw new InvalidArgumentException('The parameter $uid must not be zero.', 1331490003);
+            throw new \InvalidArgumentException('The parameter $uid must not be zero.', 1331490003);
         }
         if (empty($recordData)) {
-            throw new InvalidArgumentException('The array with the new record data must not be empty.', 1331490008);
+            throw new \InvalidArgumentException('The array with the new record data must not be empty.', 1331490008);
         }
         if (isset($recordData['uid'])) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The parameter $recordData must not contain changes to the UID of a record.',
                 1331490017
             );
         }
         if (isset($recordData[$dummyColumnName])) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The parameter $recordData must not contain changes to the field "' . $dummyColumnName .
                     '". It is impossible to convert a dummy record into a regular record.',
                 1331490024
             );
         }
         if (!$this->countRecords($table, 'uid=' . $uid)) {
-            throw new BadMethodCallException('There is no record with UID ' . $uid . ' on table "' . $table . '".', 1331490033);
+            throw new \BadMethodCallException('There is no record with UID ' . $uid . ' on table "' . $table . '".', 1331490033);
         }
 
-        Tx_Oelib_Db::update(
+        \Tx_Oelib_Db::update(
             $table,
             'uid = ' . $uid . ' AND ' . $dummyColumnName . ' = 1',
             $recordData
@@ -639,15 +639,15 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function deleteRecord($table, $uid)
     {
         if (!$this->isNoneSystemTableNameAllowed($table)) {
-            throw new InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490341);
+            throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490341);
         }
 
-        Tx_Oelib_Db::delete(
+        \Tx_Oelib_Db::delete(
             $table,
             'uid = ' . $uid . ' AND ' . $this->getDummyColumnName($table) .
                 ' = 1'
@@ -667,23 +667,23 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function createRelation($table, $uidLocal, $uidForeign, $sorting = 0)
     {
         if (!$this->isNoneSystemTableNameAllowed($table)) {
-            throw new InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490358);
+            throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490358);
         }
 
         // Checks that the two given UIDs are valid.
         if ((int)$uidLocal <= 0) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 '$uidLocal must be an integer > 0, but actually is "' . $uidLocal . '"',
                 1331490370
             );
         }
         if ((int)$uidForeign <= 0) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 '$uidForeign must be an integer > 0, but actually is "' . $uidForeign . '"',
                 1331490378
             );
@@ -698,7 +698,7 @@ final class Tx_Oelib_TestingFramework
             $this->getDummyColumnName($table) => 1,
         ];
 
-        Tx_Oelib_Db::insert(
+        \Tx_Oelib_Db::insert(
             $table,
             $recordData
         );
@@ -715,8 +715,8 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws InvalidArgumentException
-     * @throws BadMethodCallException
+     * @throws \InvalidArgumentException
+     * @throws \BadMethodCallException
      */
     public function createRelationAndUpdateCounter(
         $tableName,
@@ -725,21 +725,21 @@ final class Tx_Oelib_TestingFramework
         $columnName
     ) {
         if (!$this->isTableNameAllowed($tableName)) {
-            throw new InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1331490419);
+            throw new \InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1331490419);
         }
 
         if ($uidLocal <= 0) {
-            throw new InvalidArgumentException('$uidLocal must be > 0, but actually is "' . $uidLocal . '"', 1331490425);
+            throw new \InvalidArgumentException('$uidLocal must be > 0, but actually is "' . $uidLocal . '"', 1331490425);
         }
         if ($uidForeign <= 0) {
-            throw new InvalidArgumentException('$uidForeign must be  > 0, but actually is "' . $uidForeign . '"', 1331490429);
+            throw new \InvalidArgumentException('$uidForeign must be  > 0, but actually is "' . $uidForeign . '"', 1331490429);
         }
 
-        $tca = Tx_Oelib_Db::getTcaForTable($tableName);
+        $tca = \Tx_Oelib_Db::getTcaForTable($tableName);
         $relationConfiguration = $tca['columns'][$columnName];
 
         if (!isset($relationConfiguration['config']['MM']) || ($relationConfiguration['config']['MM'] === '')) {
-            throw new BadMethodCallException(
+            throw new \BadMethodCallException(
                 'The column ' . $columnName . ' in the table ' . $tableName .
                     ' is not configured to contain m:n relations using a m:n table.',
                 1331490434
@@ -779,15 +779,15 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function removeRelation($table, $uidLocal, $uidForeign)
     {
         if (!$this->isNoneSystemTableNameAllowed($table)) {
-            throw new InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490465);
+            throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490465);
         }
 
-        Tx_Oelib_Db::delete(
+        \Tx_Oelib_Db::delete(
             $table,
             'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign .
                 ' AND ' . $this->getDummyColumnName($table) . ' = 1'
@@ -860,7 +860,7 @@ final class Tx_Oelib_TestingFramework
             // Runs a delete query for each allowed table. A
             // "one-query-deletes-them-all" approach was tested but we didn't
             // find a working solution for that.
-            Tx_Oelib_Db::delete(
+            \Tx_Oelib_Db::delete(
                 $currentTable,
                 $dummyColumnName . ' = 1'
             );
@@ -911,7 +911,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return string the absolute path of the created dummy file, will not be empty
      *
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     public function createDummyFile($fileName = 'test.txt', $content = '')
     {
@@ -919,7 +919,7 @@ final class Tx_Oelib_TestingFramework
         $uniqueFileName = $this->getUniqueFileOrFolderPath($fileName);
 
         if (!GeneralUtility::writeFile($uniqueFileName, $content)) {
-            throw new RuntimeException('The file ' . $uniqueFileName . ' could not be created.', 1331490486);
+            throw new \RuntimeException('The file ' . $uniqueFileName . ' could not be created.', 1331490486);
         }
 
         $this->addToDummyFileList($uniqueFileName);
@@ -931,7 +931,7 @@ final class Tx_Oelib_TestingFramework
      * Creates a dummy ZIP archive with a unique file name in the calling
      * extension's upload directory.
      *
-     * @throws RuntimeException if the PHP installation does not provide ZIPArchive
+     * @throws \RuntimeException if the PHP installation does not provide ZIPArchive
      *
      * @param string $fileName
      *        path of the dummy ZIP archive to create, relative to the calling extension's upload directory, must not be empty
@@ -944,7 +944,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return string the absolute path of the created dummy ZIP archive, will not be empty
      *
-     * @throws RuntimeException
+     * @throws \RuntimeException
      * @throws UnexpectedValueException
      */
     public function createDummyZipArchive(
@@ -958,7 +958,7 @@ final class Tx_Oelib_TestingFramework
         $zip = new ZipArchive();
 
         if ($zip->open($uniqueFileName, ZipArchive::CREATE) !== true) {
-            throw new RuntimeException('The new ZIP archive "' . $fileName . '" could not be created.', 1331490501);
+            throw new \RuntimeException('The new ZIP archive "' . $fileName . '" could not be created.', 1331490501);
         }
 
         $contents = !empty($filesToAddToArchive)
@@ -1005,8 +1005,8 @@ final class Tx_Oelib_TestingFramework
      *
      * @param string $fileName the path to the file to delete relative to $this->uploadFolderPath, must not be empty
      *
-     * @throws RuntimeException
-     * @throws InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
      */
     public function deleteDummyFile($fileName)
     {
@@ -1014,7 +1014,7 @@ final class Tx_Oelib_TestingFramework
         $fileExists = file_exists($absolutePathToFile);
 
         if (!isset($this->dummyFiles[$fileName])) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The file "' . $absolutePathToFile . '" which you are trying to delete ' .
                     (!$fileExists ? 'does not exist and has never been ' : 'was not ') .
                     'created by this instance of the testing framework.',
@@ -1023,7 +1023,7 @@ final class Tx_Oelib_TestingFramework
         }
 
         if ($fileExists && !@unlink($absolutePathToFile)) {
-            throw new RuntimeException('The file "' . $absolutePathToFile . '" could not be deleted.', 1331490596);
+            throw new \RuntimeException('The file "' . $absolutePathToFile . '" could not be deleted.', 1331490596);
         }
 
         unset($this->dummyFiles[$fileName]);
@@ -1037,7 +1037,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return string the absolute path of the created dummy folder, will not be empty
      *
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     public function createDummyFolder($folderName)
     {
@@ -1045,7 +1045,7 @@ final class Tx_Oelib_TestingFramework
         $uniqueFolderName = $this->getUniqueFileOrFolderPath($folderName);
 
         if (!GeneralUtility::mkdir($uniqueFolderName)) {
-            throw new RuntimeException('The folder ' . $uniqueFolderName . ' could not be created.', 1331490619);
+            throw new \RuntimeException('The folder ' . $uniqueFolderName . ' could not be created.', 1331490619);
         }
 
         $relativeUniqueFolderName = $this->getPathRelativeToUploadDirectory(
@@ -1066,22 +1066,22 @@ final class Tx_Oelib_TestingFramework
      *
      * @param string $folderName the path to the folder to delete relative to $this->uploadFolderPath, must not be empty
      *
-     * @throws RuntimeException
-     * @throws InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
      */
     public function deleteDummyFolder($folderName)
     {
         $absolutePathToFolder = $this->getUploadFolderPath() . $folderName;
 
         if (!is_dir($absolutePathToFolder)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The folder "' . $absolutePathToFolder . '" which you are trying to delete does not exist.',
                 1331490646
             );
         }
 
         if (!isset($this->dummyFolders[$folderName])) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The folder "' . $absolutePathToFolder .
                     '" which you are trying to delete was not created by this instance of the testing framework.',
                 1331490670
@@ -1089,7 +1089,7 @@ final class Tx_Oelib_TestingFramework
         }
 
         if (!GeneralUtility::rmdir($absolutePathToFolder)) {
-            throw new RuntimeException('The folder "' . $absolutePathToFolder . '" could not be deleted.', 1331490702);
+            throw new \RuntimeException('The folder "' . $absolutePathToFolder . '" could not be deleted.', 1331490702);
         }
 
         unset($this->dummyFolders[$folderName]);
@@ -1100,7 +1100,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     protected function createDummyUploadFolder()
     {
@@ -1111,7 +1111,7 @@ final class Tx_Oelib_TestingFramework
 
         $creationSuccessful = GeneralUtility::mkdir($uploadFolderPath);
         if (!$creationSuccessful) {
-            throw new RuntimeException(
+            throw new \RuntimeException(
                 'The upload folder ' . $uploadFolderPath . ' could not be created.',
                 1331490723
             );
@@ -1130,14 +1130,14 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws BadMethodCallException
+     * @throws \BadMethodCallException
      *         if there are dummy files within the current upload folder as these files could not be deleted if the
      *         upload folder path has changed
      */
     public function setUploadFolderPath($absolutePath)
     {
         if (!empty($this->dummyFiles) || !empty($this->dummyFolders)) {
-            throw new BadMethodCallException(
+            throw new \BadMethodCallException(
                 'The upload folder path must not be changed if there are already dummy files or folders.',
                 1331490745
             );
@@ -1169,7 +1169,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return string the path relative to the calling extension's upload directory
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function getPathRelativeToUploadDirectory($absolutePath)
     {
@@ -1177,7 +1177,7 @@ final class Tx_Oelib_TestingFramework
                 '/^' . str_replace('/', '\\/', $this->getUploadFolderPath()) . '.*$/',
                 $absolutePath
         )) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The first parameter $absolutePath is not within the calling extension\'s upload directory.',
                 1331490760
             );
@@ -1198,12 +1198,12 @@ final class Tx_Oelib_TestingFramework
      *
      * @return string the unique absolute path of a file or folder
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function getUniqueFileOrFolderPath($path)
     {
         if ($path === '') {
-            throw new InvalidArgumentException('The first parameter $path must not be empty.', 1331490775);
+            throw new \InvalidArgumentException('The first parameter $path must not be empty.', 1331490775);
         }
 
         $pathInformation = pathinfo($path);
@@ -1241,18 +1241,18 @@ final class Tx_Oelib_TestingFramework
      * Note: This function does not set TYPO3_MODE to "FE" (because the value of
      * a constant cannot be changed after it has once been set).
      *
-     * @throws InvalidArgumentException if $pageUid is < 0
+     * @throws \InvalidArgumentException if $pageUid is < 0
      *
      * @param int $pageUid UID of a page record to use, must be >= 0
      *
      * @return int the UID of the used front-end page, will be > 0
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function createFakeFrontEnd($pageUid = 0)
     {
         if ($pageUid < 0) {
-            throw new InvalidArgumentException('$pageUid must be >= 0.', 1331490786);
+            throw new \InvalidArgumentException('$pageUid must be >= 0.', 1331490786);
         }
 
         $this->suppressFrontEndCookies();
@@ -1376,30 +1376,30 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws InvalidArgumentException
-     * @throws BadMethodCallException if no front end has been created
+     * @throws \InvalidArgumentException
+     * @throws \BadMethodCallException if no front end has been created
      */
     public function loginFrontEndUser($userId)
     {
         if ((int)$userId <= 0) {
-            throw new InvalidArgumentException('The user ID must be > 0.', 1331490798);
+            throw new \InvalidArgumentException('The user ID must be > 0.', 1331490798);
         }
         if (!$this->hasFakeFrontEnd()) {
-            throw new BadMethodCallException('Please create a front end before calling loginFrontEndUser.', 1331490812);
+            throw new \BadMethodCallException('Please create a front end before calling loginFrontEndUser.', 1331490812);
         }
 
         if ($this->isLoggedIn()) {
             $this->logoutFrontEndUser();
         }
 
-        /** @var Tx_Oelib_Mapper_FrontEndUser $mapper */
-        $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUser::class);
+        /** @var \Tx_Oelib_Mapper_FrontEndUser $mapper */
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUser::class);
         // loads the model from database if it is a ghost
         $mapper->existsModel($userId);
         $dataToSet = $mapper->find($userId)->getData();
         $dataToSet['uid'] = $userId;
         if (isset($dataToSet['usergroup'])) {
-            /** @var Tx_Oelib_List $userGroups */
+            /** @var \Tx_Oelib_List $userGroups */
             $userGroups = $dataToSet['usergroup'];
             $dataToSet['usergroup'] = $userGroups->getUids();
         }
@@ -1423,12 +1423,12 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws BadMethodCallException if no front end has been created
+     * @throws \BadMethodCallException if no front end has been created
      */
     public function logoutFrontEndUser()
     {
         if (!$this->hasFakeFrontEnd()) {
-            throw new BadMethodCallException('Please create a front end before calling logoutFrontEndUser.', 1331490825);
+            throw new \BadMethodCallException('Please create a front end before calling logoutFrontEndUser.', 1331490825);
         }
         if (!$this->isLoggedIn()) {
             return;
@@ -1439,25 +1439,25 @@ final class Tx_Oelib_TestingFramework
         $this->getFrontEndController()->fe_user->logoff();
         $this->getFrontEndController()->loginUser = false;
 
-        Tx_Oelib_FrontEndLoginManager::getInstance()->logInUser(null);
+        \Tx_Oelib_FrontEndLoginManager::getInstance()->logInUser(null);
     }
 
     /**
      * Checks whether a FE user is logged in.
      *
-     * @throws BadMethodCallException if no front end has been created
+     * @throws \BadMethodCallException if no front end has been created
      *
      * @return bool TRUE if a FE user is logged in, FALSE otherwise
      *
-     * @throws BadMethodCallException
+     * @throws \BadMethodCallException
      */
     public function isLoggedIn()
     {
         if (!$this->hasFakeFrontEnd()) {
-            throw new BadMethodCallException('Please create a front end before calling isLoggedIn.', 1331490846);
+            throw new \BadMethodCallException('Please create a front end before calling isLoggedIn.', 1331490846);
         }
 
-        return Tx_Oelib_FrontEndLoginManager::getInstance()->isLoggedIn();
+        return \Tx_Oelib_FrontEndLoginManager::getInstance()->isLoggedIn();
     }
 
     // ----------------------------------------------------------------------
@@ -1480,7 +1480,7 @@ final class Tx_Oelib_TestingFramework
     protected function createListOfOwnAllowedTables()
     {
         $this->ownAllowedTables = [];
-        $allTables = Tx_Oelib_Db::getAllTableNames();
+        $allTables = \Tx_Oelib_Db::getAllTableNames();
         $length = strlen($this->tablePrefix);
 
         foreach ($allTables as $currentTable) {
@@ -1505,7 +1505,7 @@ final class Tx_Oelib_TestingFramework
      */
     protected function createListOfAdditionalAllowedTables()
     {
-        $allTables = implode(',', Tx_Oelib_Db::getAllTableNames());
+        $allTables = implode(',', \Tx_Oelib_Db::getAllTableNames());
         $additionalTablePrefixes = implode('|', $this->additionalTablePrefixes);
 
         $matches = [];
@@ -1631,12 +1631,12 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the number of records that have been found, will be >= 0
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function countRecords($table, $whereClause = '')
     {
         if (!$this->isTableNameAllowed($table)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
                 1331490862
             );
@@ -1647,7 +1647,7 @@ final class Tx_Oelib_TestingFramework
             ? '(' . $whereClause . ') AND ' . $whereForDummyColumn
             : $whereForDummyColumn;
 
-        return Tx_Oelib_Db::count($table, $compoundWhereClause);
+        return \Tx_Oelib_Db::count($table, $compoundWhereClause);
     }
 
     /**
@@ -1677,7 +1677,7 @@ final class Tx_Oelib_TestingFramework
     public function existsRecordWithUid($table, $uid)
     {
         if ($uid <= 0) {
-            throw new InvalidArgumentException('$uid must be > 0.', 1331490872);
+            throw new \InvalidArgumentException('$uid must be > 0.', 1331490872);
         }
 
         return $this->countRecords($table, 'uid = ' . $uid) > 0;
@@ -1706,15 +1706,15 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws Tx_Oelib_Exception_Database
-     * @throws InvalidArgumentException
+     * @throws \Tx_Oelib_Exception_Database
+     * @throws \InvalidArgumentException
      *
      * @see resetAutoIncrementLazily
      */
     public function resetAutoIncrement($table)
     {
         if (!$this->isTableNameAllowed($table)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
                 1331490882
             );
@@ -1730,14 +1730,14 @@ final class Tx_Oelib_TestingFramework
 
         $newAutoIncrementValue = $this->getMaximumUidFromTable($table) + 1;
 
-        Tx_Oelib_Db::enableQueryLogging();
+        \Tx_Oelib_Db::enableQueryLogging();
         // Updates the auto increment index for this table. The index will be
         // set to one UID above the highest existing UID.
-        $dbResult = Tx_Oelib_Db::getDatabaseConnection()->sql_query(
+        $dbResult = \Tx_Oelib_Db::getDatabaseConnection()->sql_query(
             'ALTER TABLE ' . $table . ' AUTO_INCREMENT=' . $newAutoIncrementValue . ';'
         );
         if ($dbResult === false) {
-            throw new Tx_Oelib_Exception_Database(1418586244);
+            throw new \Tx_Oelib_Exception_Database(1418586244);
         }
     }
 
@@ -1758,7 +1758,7 @@ final class Tx_Oelib_TestingFramework
     public function resetAutoIncrementLazily($table)
     {
         if (!$this->isTableNameAllowed($table)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
                 1331490899
             );
@@ -1787,14 +1787,14 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @see resetAutoIncrementLazily
      */
     public function setResetAutoIncrementThreshold($threshold)
     {
         if ($threshold <= 0) {
-            throw new InvalidArgumentException('$threshold must be > 0.', 1331490913);
+            throw new \InvalidArgumentException('$threshold must be > 0.', 1331490913);
         }
 
         $this->resetAutoIncrementThreshold = $threshold;
@@ -1813,7 +1813,7 @@ final class Tx_Oelib_TestingFramework
      */
     protected function getMaximumUidFromTable($table)
     {
-        $row = Tx_Oelib_Db::selectSingle(
+        $row = \Tx_Oelib_Db::selectSingle(
             'MAX(uid) AS uid',
             $table
         );
@@ -1831,24 +1831,24 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the current auto_increment value of table $table, will be > 0
      *
-     * @throws Tx_Oelib_Exception_Database
-     * @throws InvalidArgumentException
+     * @throws \Tx_Oelib_Exception_Database
+     * @throws \InvalidArgumentException
      */
     public function getAutoIncrement($table)
     {
         if (!$this->isTableNameAllowed($table)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
                 1331490926
             );
         }
 
-        Tx_Oelib_Db::enableQueryLogging();
-        $databaseConnection = Tx_Oelib_Db::getDatabaseConnection();
+        \Tx_Oelib_Db::enableQueryLogging();
+        $databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
 
         $dbResult = $databaseConnection->sql_query('SHOW TABLE STATUS WHERE Name = \'' . $table . '\';');
         if ($dbResult === false) {
-            throw new Tx_Oelib_Exception_Database(1416848924);
+            throw new \Tx_Oelib_Exception_Database(1416848924);
         }
 
         $row = $databaseConnection->sql_fetch_assoc($dbResult);
@@ -1856,7 +1856,7 @@ final class Tx_Oelib_TestingFramework
 
         $autoIncrement = $row['Auto_increment'];
         if ($autoIncrement === null) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
                 1416849363
             );
@@ -1895,7 +1895,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function markTableAsDirty($tableNames)
     {
@@ -1905,7 +1905,7 @@ final class Tx_Oelib_TestingFramework
             } elseif ($this->isSystemTableNameAllowed($currentTable)) {
                 $this->dirtySystemTables[$currentTable] = $currentTable;
             } else {
-                throw new InvalidArgumentException(
+                throw new \InvalidArgumentException(
                     'The table name "' . $currentTable . '" is not allowed for markTableAsDirty.',
                     1331490947
                 );
@@ -1970,13 +1970,13 @@ final class Tx_Oelib_TestingFramework
      *
      * @return array[] associative array with the TCA description for this table
      *
-     * @deprecated will be removed in oelib 2.0.0, use Tx_Oelib_Db::getTcaForTable instead
+     * @deprecated will be removed in oelib 2.0.0, use \Tx_Oelib_Db::getTcaForTable instead
      */
     public function getTcaForTable($tableName)
     {
         GeneralUtility::logDeprecatedFunction();
 
-        return Tx_Oelib_Db::getTcaForTable($tableName);
+        return \Tx_Oelib_Db::getTcaForTable($tableName);
     }
 
     /**
@@ -1991,35 +1991,35 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws Tx_Oelib_Exception_Database
-     * @throws InvalidArgumentException
-     * @throws BadMethodCallException
+     * @throws \Tx_Oelib_Exception_Database
+     * @throws \InvalidArgumentException
+     * @throws \BadMethodCallException
      */
     public function increaseRelationCounter($tableName, $uid, $fieldName)
     {
         if (!$this->isTableNameAllowed($tableName)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The table name "' . $tableName .
                     '" is invalid. This means it is either empty or not in the list of allowed tables.',
                 1331490960
             );
         }
         if (!Tx_Oelib_Db::tableHasColumn($tableName, $fieldName)) {
-            throw new InvalidArgumentException('The table ' . $tableName . ' has no column ' . $fieldName . '.', 1331490986);
+            throw new \InvalidArgumentException('The table ' . $tableName . ' has no column ' . $fieldName . '.', 1331490986);
         }
 
-        Tx_Oelib_Db::enableQueryLogging();
-        $databaseConnection = Tx_Oelib_Db::getDatabaseConnection();
+        \Tx_Oelib_Db::enableQueryLogging();
+        $databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
         $dbResult = $databaseConnection->sql_query(
             'UPDATE ' . $tableName . ' SET ' . $fieldName . '=' .
             $fieldName . '+1 WHERE uid=' . $uid
         );
         if ($dbResult === false) {
-            throw new Tx_Oelib_Exception_Database(1418586263);
+            throw new \Tx_Oelib_Exception_Database(1418586263);
         }
 
         if ($databaseConnection->sql_affected_rows() === 0) {
-            throw new BadMethodCallException(
+            throw new \BadMethodCallException(
                 'The table ' . $tableName . ' does not contain a record with UID ' . $uid . '.',
                 1331491003
             );
@@ -2036,12 +2036,12 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws RuntimeException if the PHP installation does not provide ZIPArchive
+     * @throws \RuntimeException if the PHP installation does not provide ZIPArchive
      */
     public function checkForZipArchive()
     {
         if (!in_array('zip', get_loaded_extensions(), true)) {
-            throw new RuntimeException('This PHP installation does not provide the ZIPArchive class.', 1331491040);
+            throw new \RuntimeException('This PHP installation does not provide the ZIPArchive class.', 1331491040);
         }
     }
 

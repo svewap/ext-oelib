@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Mapper_FrontEndUser extends Tx_Oelib_DataMapper
+class Tx_Oelib_Mapper_FrontEndUser extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string the name of the database table for this mapper
@@ -23,7 +23,7 @@ class Tx_Oelib_Mapper_FrontEndUser extends Tx_Oelib_DataMapper
      * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
      */
     protected $relations = [
-        'usergroup' => Tx_Oelib_Mapper_FrontEndUserGroup::class,
+        'usergroup' => \Tx_Oelib_Mapper_FrontEndUserGroup::class,
     ];
 
     /**
@@ -35,14 +35,14 @@ class Tx_Oelib_Mapper_FrontEndUser extends Tx_Oelib_DataMapper
      * Finds a front-end user by user name. Hidden user records will be
      * retrieved as well.
      *
-     * @throws Tx_Oelib_Exception_NotFound
+     * @throws \Tx_Oelib_Exception_NotFound
      *         if there is no front-end user with the provided user name in the
      *         database
      *
      * @param string $userName
      *        user name, case-insensitive, must not be empty
      *
-     * @return Tx_Oelib_Model_FrontEndUser
+     * @return \Tx_Oelib_Model_FrontEndUser
      *         model of the front-end user with the provided user name
      */
     public function findByUserName($userName)
@@ -57,17 +57,17 @@ class Tx_Oelib_Mapper_FrontEndUser extends Tx_Oelib_DataMapper
      *        the UIDs of the user groups from which to get the users, must be a
      *        comma-separated list of group UIDs, must not be empty
      *
-     * @return Tx_Oelib_List<Tx_Oelib_Model_FrontEndUser> the found user models, will be empty if
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model_FrontEndUser> the found user models, will be empty if
      *                       no users were found for the given groups
      */
     public function getGroupMembers($groupUids)
     {
         if ($groupUids === '') {
-            throw new InvalidArgumentException('$groupUids must not be an empty string.', 1331488505);
+            throw new \InvalidArgumentException('$groupUids must not be an empty string.', 1331488505);
         }
 
         return $this->getListOfModels(
-            Tx_Oelib_Db::selectMultiple(
+            \Tx_Oelib_Db::selectMultiple(
                 '*',
                 $this->getTableName(),
                 $this->getUniversalWhereClause() . ' AND ' .

@@ -8,7 +8,7 @@
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class Tx_Oelib_HeaderCollector extends Tx_Oelib_AbstractHeaderProxy
+class Tx_Oelib_HeaderCollector extends \Tx_Oelib_AbstractHeaderProxy
 {
     /**
      * headers which were meant to be sent

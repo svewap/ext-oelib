@@ -28,7 +28,7 @@ class Tx_Oelib_ConfigCheck
     /**
      * the object whose configuration should be checked
      *
-     * @var Tx_Oelib_TemplateHelper|Tx_Oelib_Interface_ConfigurationCheckable
+     * @var \Tx_Oelib_TemplateHelper|\Tx_Oelib_Interface_ConfigurationCheckable
      */
     protected $objectToCheck = null;
 
@@ -51,10 +51,10 @@ class Tx_Oelib_ConfigCheck
     /**
      * The constructor.
      *
-     * @param Tx_Oelib_TemplateHelper $objectToCheck
+     * @param \Tx_Oelib_TemplateHelper $objectToCheck
      *        the object that will be checked for configuration problems
      */
-    public function __construct(Tx_Oelib_TemplateHelper $objectToCheck)
+    public function __construct(\Tx_Oelib_TemplateHelper $objectToCheck)
     {
         $this->objectToCheck = $objectToCheck;
         $this->className = get_class($this->objectToCheck);
@@ -1144,7 +1144,7 @@ class Tx_Oelib_ConfigCheck
      */
     protected function getTSSetupPath()
     {
-        if ($this->objectToCheck instanceof Tx_Oelib_Interface_ConfigurationCheckable) {
+        if ($this->objectToCheck instanceof \Tx_Oelib_Interface_ConfigurationCheckable) {
             return $this->objectToCheck->getTypoScriptNamespace();
         }
 
@@ -1169,7 +1169,7 @@ class Tx_Oelib_ConfigCheck
      */
     protected function getDbColumnNames($tableName)
     {
-        return array_keys(Tx_Oelib_Db::getColumnsInTable($tableName));
+        return array_keys(\Tx_Oelib_Db::getColumnsInTable($tableName));
     }
 
     /**
@@ -1678,11 +1678,11 @@ class Tx_Oelib_ConfigCheck
         if ($this->objectToCheck->hasConfValueString($fieldName, $sheet)) {
             $pids = $this->objectToCheck->getConfValueString($fieldName, $sheet);
 
-            $offendingPids = Tx_Oelib_Db::selectColumnForMultiple(
+            $offendingPids = \Tx_Oelib_Db::selectColumnForMultiple(
                 'uid',
                 'pages',
                 'uid IN (' . $pids . ') AND NOT (doktype' . $typeCondition . ')' .
-                    Tx_Oelib_Db::enableFields('pages')
+                    \Tx_Oelib_Db::enableFields('pages')
             );
             $dbResultCount = count($offendingPids);
 

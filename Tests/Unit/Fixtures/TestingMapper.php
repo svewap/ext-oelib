@@ -6,7 +6,7 @@
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
+class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string the name of the database table for this mapper
@@ -23,7 +23,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
      */
     protected $relations = [
         'friend' => \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
-        'owner' => Tx_Oelib_Mapper_FrontEndUser::class,
+        'owner' => \Tx_Oelib_Mapper_FrontEndUser::class,
         'children' => \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
         'related_records' => \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class,
         'composition' => \Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class,
@@ -42,7 +42,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
     protected $compoundKeyParts = ['title', 'header'];
 
     /**
-     * @var Tx_Oelib_Model[]
+     * @var \Tx_Oelib_Model[]
      */
     protected $cachedModels = [];
 
@@ -51,7 +51,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
      *
      * This function is intended for testing whether models have been cached.
      *
-     * @return Tx_Oelib_Model[]
+     * @return \Tx_Oelib_Model[]
      */
     public function getCachedModels()
     {
@@ -63,12 +63,12 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
      *
      * This function is intended to be used for testing purposes only.
      *
-     * @param Tx_Oelib_IdentityMap $map
+     * @param \Tx_Oelib_IdentityMap $map
      *        the map to set
      *
      * @return void
      */
-    public function setMap(Tx_Oelib_IdentityMap $map)
+    public function setMap(\Tx_Oelib_IdentityMap $map)
     {
         $this->map = $map;
     }
@@ -77,7 +77,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
      * Retrieves a model based on the WHERE clause given in the parameter
      * $whereClauseParts. Hidden records will be retrieved as well.
      *
-     * @throws Tx_Oelib_Exception_NotFound if there is no record in the DB
+     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB
      *                                     which matches the WHERE clause
      *
      * @param string[] $whereClauseParts
@@ -85,7 +85,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
      *        consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
      *
-     * @return Tx_Oelib_Model the model
+     * @return \Tx_Oelib_Model the model
      */
     public function findSingleByWhereClause(array $whereClauseParts)
     {
@@ -111,12 +111,12 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
      *
      * @param array &$data
      *        the model data to process, might be modified
-     * @param Tx_Oelib_Model $model
+     * @param \Tx_Oelib_Model $model
      *        the model to create the relations for
      *
      * @return void
      */
-    public function createRelations(array &$data, Tx_Oelib_Model $model)
+    public function createRelations(array &$data, \Tx_Oelib_Model $model)
     {
         parent::createRelations($data, $model);
     }
@@ -133,7 +133,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
      *        optionally followed by "ASC" or "DESC", may be empty
      * @param string $limit the LIMIT value ([begin,]max), may be empty
      *
-     * @return Tx_Oelib_List<<Tx_Oelib_Model>> all models found in DB for the given where clause,
+     * @return \Tx_Oelib_List<<\Tx_Oelib_Model>> all models found in DB for the given where clause,
      *                       will be an empty list if no models were found
      */
     public function findByWhereClause($whereClause = '', $sorting = '', $limit = '')
@@ -147,13 +147,13 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
      * When this function reports "no match", the model could still exist in the
      * database, though.
      *
-     * @throws Tx_Oelib_Exception_NotFound if there is no match in the cache yet
+     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
      *
      * @param string $key an existing key, must not be empty
      * @param string $value
      *        the value for the key of the model to find, must not be empty
      *
-     * @return Tx_Oelib_Model the cached model
+     * @return \Tx_Oelib_Model the cached model
      */
     public function findOneByKeyFromCache($key, $value)
     {
@@ -166,14 +166,14 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
      * This method needs to be overwritten in subclasses to work. However, it is recommended to use cacheModelByCompoundKey
      * instead. So this method primarily is here for backwards compatibility.
      *
-     * @param Tx_Oelib_Model $model the model to cache
+     * @param \Tx_Oelib_Model $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      *
      * @see cacheModelByCompoundKey
      */
-    protected function cacheModelByCombinedKeys(Tx_Oelib_Model $model, array $data)
+    protected function cacheModelByCombinedKeys(\Tx_Oelib_Model $model, array $data)
     {
         $this->cachedModels[] = $model;
     }
@@ -188,9 +188,9 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends Tx_Oelib_DataMapper
      * @param string $title
      * @param string $header
      *
-     * @return Tx_Oelib_Model the cached model
+     * @return \Tx_Oelib_Model the cached model
      *
-     * @throws Tx_Oelib_Exception_NotFound if there is no match in the cache yet
+     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
      */
     public function findOneByTitleAndHeader($title, $header)
     {

@@ -7,10 +7,10 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_Mapper_LanguageTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Mapper_LanguageTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Mapper_Language
+     * @var \Tx_Oelib_Mapper_Language
      */
     private $subject;
 
@@ -20,7 +20,7 @@ class Tx_Oelib_Tests_Unit_Mapper_LanguageTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This tests needs the static_info_tables extension.');
         }
 
-        $this->subject = new Tx_Oelib_Mapper_Language();
+        $this->subject = new \Tx_Oelib_Mapper_Language();
     }
 
     ///////////////////////////
@@ -33,7 +33,7 @@ class Tx_Oelib_Tests_Unit_Mapper_LanguageTest extends Tx_Phpunit_TestCase
     public function findWithUidOfExistingRecordReturnsLanguageInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model_Language::class,
+            \Tx_Oelib_Model_Language::class,
             $this->subject->find(43)
         );
     }
@@ -43,7 +43,7 @@ class Tx_Oelib_Tests_Unit_Mapper_LanguageTest extends Tx_Phpunit_TestCase
      */
     public function findWithUidOfExistingRecordReturnsRecordAsModel()
     {
-        /** @var Tx_Oelib_Model_Language $model */
+        /** @var \Tx_Oelib_Model_Language $model */
         $model = $this->subject->find(43);
         self::assertSame(
             'DE',
@@ -61,7 +61,7 @@ class Tx_Oelib_Tests_Unit_Mapper_LanguageTest extends Tx_Phpunit_TestCase
     public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsLanguageInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model_Language::class,
+            \Tx_Oelib_Model_Language::class,
             $this->subject->findByIsoAlpha2Code('DE')
         );
     }

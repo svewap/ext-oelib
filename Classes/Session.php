@@ -7,7 +7,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Session extends Tx_Oelib_PublicObject
+class Tx_Oelib_Session extends \Tx_Oelib_PublicObject
 {
     /**
      * @var int session type for persistent data that is stored for the
@@ -36,21 +36,21 @@ class Tx_Oelib_Session extends Tx_Oelib_PublicObject
     private $type = 0;
 
     /**
-     * @var Tx_Oelib_Session[] the instances, using the type as key
+     * @var \Tx_Oelib_Session[] the instances, using the type as key
      */
     private static $instances = [];
 
     /**
      * The constructor. Use getInstance() instead.
      *
-     * @throws BadMethodCallException if there is no front end
+     * @throws \BadMethodCallException if there is no front end
      *
      * @param int $type the type of the session to use; either TYPE_USER or TYPE_TEMPORARY
      */
     protected function __construct($type)
     {
         if ($this->getFrontEndController() === null) {
-            throw new BadMethodCallException('This class must not be instantiated when there is no front end.', 1331489053);
+            throw new \BadMethodCallException('This class must not be instantiated when there is no front end.', 1331489053);
         }
 
         self::checkType($type);
@@ -64,7 +64,7 @@ class Tx_Oelib_Session extends Tx_Oelib_PublicObject
      *        the type of the session to use; either TYPE_USER (persistent)
      *        or TYPE_TEMPORARY (only for the lifetime of the session cookie)
      *
-     * @return Tx_Oelib_Session the current Singleton instance for the given
+     * @return \Tx_Oelib_Session the current Singleton instance for the given
      *                          type
      */
     public static function getInstance($type)
@@ -72,7 +72,7 @@ class Tx_Oelib_Session extends Tx_Oelib_PublicObject
         self::checkType($type);
 
         if (!isset(self::$instances[$type])) {
-            self::$instances[$type] = new Tx_Oelib_Session($type);
+            self::$instances[$type] = new \Tx_Oelib_Session($type);
         }
 
         return self::$instances[$type];
@@ -82,11 +82,11 @@ class Tx_Oelib_Session extends Tx_Oelib_PublicObject
      * Sets the instance for the given type.
      *
      * @param int $type the type to set, must be either TYPE_USER or TYPE_TEMPORARY
-     * @param Tx_Oelib_Session $instance the instance to set
+     * @param \Tx_Oelib_Session $instance the instance to set
      *
      * @return void
      */
-    public static function setInstance($type, Tx_Oelib_Session $instance)
+    public static function setInstance($type, \Tx_Oelib_Session $instance)
     {
         self::checkType($type);
 
@@ -96,7 +96,7 @@ class Tx_Oelib_Session extends Tx_Oelib_PublicObject
     /**
      * Checks that a type ID is valid.
      *
-     * @throws InvalidArgumentException if $type is neither ::TYPE_USER nor ::TYPE_TEMPORARY
+     * @throws \InvalidArgumentException if $type is neither ::TYPE_USER nor ::TYPE_TEMPORARY
      *
      * @param int $type the type ID to check
      *
@@ -105,7 +105,7 @@ class Tx_Oelib_Session extends Tx_Oelib_PublicObject
     protected static function checkType($type)
     {
         if (($type !== self::TYPE_USER) && ($type !== self::TYPE_TEMPORARY)) {
-            throw new InvalidArgumentException('Only the types ::TYPE_USER and ::TYPE_TEMPORARY are allowed.', 1331489067);
+            throw new \InvalidArgumentException('Only the types ::TYPE_USER and ::TYPE_TEMPORARY are allowed.', 1331489067);
         }
     }
 

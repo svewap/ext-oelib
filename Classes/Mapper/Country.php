@@ -6,7 +6,7 @@
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Mapper_Country extends Tx_Oelib_DataMapper
+class Tx_Oelib_Mapper_Country extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string the name of the database table for this mapper
@@ -26,13 +26,13 @@ class Tx_Oelib_Mapper_Country extends Tx_Oelib_DataMapper
     /**
      * Finds a country by its ISO 3166-1 alpha-2 code.
      *
-     * @throws Tx_Oelib_Exception_NotFound if there is no record with the
+     * @throws \Tx_Oelib_Exception_NotFound if there is no record with the
      *                                     provided ISO 3166-1 alpha-2 code
      *
      * @param string $isoAlpha2Code
      *        the ISO 3166-1 alpha-2 code to find, must not be empty
      *
-     * @return Tx_Oelib_Model_Country the country
+     * @return \Tx_Oelib_Model_Country the country
      */
     public function findByIsoAlpha2Code($isoAlpha2Code)
     {
@@ -42,13 +42,13 @@ class Tx_Oelib_Mapper_Country extends Tx_Oelib_DataMapper
     /**
      * Finds a country by its ISO 3166-1 alpha-3 code.
      *
-     * @throws Tx_Oelib_Exception_NotFound if there is no record with the
+     * @throws \Tx_Oelib_Exception_NotFound if there is no record with the
      *                                     provided ISO 3166-1 alpha-3 code
      *
      * @param string $isoAlpha3Code
      *        the ISO 3166-1 alpha-3 code to find, must not be empty
      *
-     * @return Tx_Oelib_Model_Country the country
+     * @return \Tx_Oelib_Model_Country the country
      */
     public function findByIsoAlpha3Code($isoAlpha3Code)
     {

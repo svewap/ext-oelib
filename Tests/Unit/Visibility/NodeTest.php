@@ -5,16 +5,16 @@
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Visibility_Node
+     * @var \Tx_Oelib_Visibility_Node
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_Visibility_Node();
+        $this->subject = new \Tx_Oelib_Visibility_Node();
     }
 
     //////////////////////////////
@@ -26,7 +26,7 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
      */
     public function isVisibleIfSetToVisibleConstructionReturnsVisibilityFromConstruction()
     {
-        $subject = new Tx_Oelib_Visibility_Node(true);
+        $subject = new \Tx_Oelib_Visibility_Node(true);
 
         self::assertTrue(
             $subject->isVisible()
@@ -38,7 +38,7 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
      */
     public function isVisibleIfSetToHiddenConstructionReturnsVisibilityFromConstruction()
     {
-        $subject = new Tx_Oelib_Visibility_Node(false);
+        $subject = new \Tx_Oelib_Visibility_Node(false);
 
         self::assertFalse(
             $subject->isVisible()
@@ -65,7 +65,7 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
      */
     public function addChildWithOneGivenChildrenAddsOneChildToNode()
     {
-        $childNode = new Tx_Oelib_Visibility_Node();
+        $childNode = new \Tx_Oelib_Visibility_Node();
         $this->subject->addChild($childNode);
 
         self::assertSame(
@@ -79,8 +79,8 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
      */
     public function addChildForNodeWithOneChildAndAnotherChildGivenAddsAnotherChildToNode()
     {
-        $this->subject->addChild(new Tx_Oelib_Visibility_Node());
-        $this->subject->addChild(new Tx_Oelib_Visibility_Node());
+        $this->subject->addChild(new \Tx_Oelib_Visibility_Node());
+        $this->subject->addChild(new \Tx_Oelib_Visibility_Node());
 
         self::assertCount(
             2,
@@ -93,7 +93,7 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
      */
     public function addChildAddsParentToChild()
     {
-        $childNode = new Tx_Oelib_Visibility_Node();
+        $childNode = new \Tx_Oelib_Visibility_Node();
         $this->subject->addChild($childNode);
 
         self::assertSame(
@@ -121,7 +121,7 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
      */
     public function setParentWithGivenParentSetsThisNodeAsParent()
     {
-        $childNode = new Tx_Oelib_Visibility_Node();
+        $childNode = new \Tx_Oelib_Visibility_Node();
         $childNode->setParent($this->subject);
 
         self::assertSame(
@@ -139,7 +139,7 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
             'InvalidArgumentException',
             'This node already has a parent node.'
         );
-        $childNode = new Tx_Oelib_Visibility_Node();
+        $childNode = new \Tx_Oelib_Visibility_Node();
         $childNode->setParent($this->subject);
 
         $childNode->setParent($this->subject);
@@ -166,7 +166,7 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
      */
     public function markAsVisibleForVisibleNodeSetsVisibilityTrue()
     {
-        $visibleNode = new Tx_Oelib_Visibility_Node(true);
+        $visibleNode = new \Tx_Oelib_Visibility_Node(true);
         $visibleNode->markAsVisible();
 
         self::assertTrue(
@@ -179,7 +179,7 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
      */
     public function markAsVisibleForNodeWithParentMarksParentAsVisible()
     {
-        $childNode = new Tx_Oelib_Visibility_Node();
+        $childNode = new \Tx_Oelib_Visibility_Node();
         $childNode->setParent($this->subject);
         $childNode->markAsVisible();
 
@@ -193,8 +193,8 @@ class Tx_Oelib_Tests_Unit_Visibility_NodeTest extends Tx_Phpunit_TestCase
      */
     public function markAsVisibleForNodeWithParentAndGrandparentMarksGrandparentNodeAsVisible()
     {
-        $childNode = new Tx_Oelib_Visibility_Node();
-        $grandChildNode = new Tx_Oelib_Visibility_Node();
+        $childNode = new \Tx_Oelib_Visibility_Node();
+        $grandChildNode = new \Tx_Oelib_Visibility_Node();
         $childNode->setParent($this->subject);
         $grandChildNode->setParent($childNode);
         $grandChildNode->markAsVisible();

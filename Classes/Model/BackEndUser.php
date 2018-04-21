@@ -6,7 +6,7 @@
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Model_BackEndUser extends Tx_Oelib_Model implements Tx_Oelib_Interface_MailRole
+class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_MailRole
 {
     /**
      * @var string[] the user's configuration (unserialized)
@@ -69,7 +69,7 @@ class Tx_Oelib_Model_BackEndUser extends Tx_Oelib_Model implements Tx_Oelib_Inte
     public function setDefaultLanguage($language)
     {
         if ($language === '') {
-            throw new InvalidArgumentException('$language must not be empty.', 1331488621);
+            throw new \InvalidArgumentException('$language must not be empty.', 1331488621);
         }
 
         $this->setAsString(
@@ -92,7 +92,7 @@ class Tx_Oelib_Model_BackEndUser extends Tx_Oelib_Model implements Tx_Oelib_Inte
     /**
      * Returns the direct user groups of this user.
      *
-     * @return Tx_Oelib_List<Tx_Oelib_Model_BackEndUserGroup> the user's direct groups, will be empty if this
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> the user's direct groups, will be empty if this
      *                       user has no groups
      */
     public function getGroups()
@@ -103,7 +103,7 @@ class Tx_Oelib_Model_BackEndUser extends Tx_Oelib_Model implements Tx_Oelib_Inte
     /**
      * Recursively gets all groups and subgroups of this user.
      *
-     * @return Tx_Oelib_List<Tx_Oelib_Model_BackEndUserGroup> all groups and subgroups of this user, will be
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> all groups and subgroups of this user, will be
      *                       empty if this user has no groups
      */
     public function getAllGroups()
@@ -114,10 +114,10 @@ class Tx_Oelib_Model_BackEndUser extends Tx_Oelib_Model implements Tx_Oelib_Inte
         do {
             $groupsForNextStep = new \Tx_Oelib_List();
             $result->append($groupsToProcess);
-            /** @var Tx_Oelib_Model_BackEndUserGroup $group */
+            /** @var \Tx_Oelib_Model_BackEndUserGroup $group */
             foreach ($groupsToProcess as $group) {
                 $subgroups = $group->getSubgroups();
-                /** @var Tx_Oelib_Model_BackEndUserGroup $subgroup */
+                /** @var \Tx_Oelib_Model_BackEndUserGroup $subgroup */
                 foreach ($subgroups as $subgroup) {
                     if (!$result->hasUid($subgroup->getUid())) {
                         $groupsForNextStep->add($subgroup);

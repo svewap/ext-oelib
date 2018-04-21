@@ -20,7 +20,7 @@ class Tx_Oelib_PageFinder
         NO_SOURCE_FOUND = 4;
 
     /**
-     * @var Tx_Oelib_PageFinder the Singleton instance
+     * @var \Tx_Oelib_PageFinder the Singleton instance
      */
     private static $instance = null;
 
@@ -51,12 +51,12 @@ class Tx_Oelib_PageFinder
     /**
      * Returns an instance of this class.
      *
-     * @return Tx_Oelib_PageFinder the current Singleton instance
+     * @return \Tx_Oelib_PageFinder the current Singleton instance
      */
     public static function getInstance()
     {
         if (!self::$instance) {
-            self::$instance = new Tx_Oelib_PageFinder();
+            self::$instance = new \Tx_Oelib_PageFinder();
         }
 
         return self::$instance;
@@ -112,7 +112,7 @@ class Tx_Oelib_PageFinder
     public function setPageUid($uidToStore)
     {
         if ($uidToStore <= 0) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The given page UID was "' . $uidToStore . '". Only integer values greater than zero are allowed.',
                 1331489010
             );

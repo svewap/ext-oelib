@@ -9,15 +9,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Mail extends Tx_Oelib_Object
+class Tx_Oelib_Mail extends \Tx_Oelib_Object
 {
     /**
-     * @var Tx_Oelib_Interface_MailRole the sender of the e-mail
+     * @var \Tx_Oelib_Interface_MailRole the sender of the e-mail
      */
     private $sender = null;
 
     /**
-     * @var Tx_Oelib_Interface_MailRole[] the recipients of the e-mail
+     * @var \Tx_Oelib_Interface_MailRole[] the recipients of the e-mail
      */
     private $recipients = [];
 
@@ -27,7 +27,7 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
     private $data = [];
 
     /**
-     * @var Tx_Oelib_Attachment[] attachments of the e-mail
+     * @var \Tx_Oelib_Attachment[] attachments of the e-mail
      */
     private $attachments = [];
 
@@ -81,11 +81,11 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
     /**
      * Sets the sender of the e-mail.
      *
-     * @param Tx_Oelib_Interface_MailRole $sender the sender of the e-mail
+     * @param \Tx_Oelib_Interface_MailRole $sender the sender of the e-mail
      *
      * @return void
      */
-    public function setSender(Tx_Oelib_Interface_MailRole $sender)
+    public function setSender(\Tx_Oelib_Interface_MailRole $sender)
     {
         $this->sender = $sender;
     }
@@ -93,7 +93,7 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
     /**
      * Returns the sender of the e-mail.
      *
-     * @return Tx_Oelib_Interface_MailRole the sender of the e-mail, will be NULL if the sender has not been set
+     * @return \Tx_Oelib_Interface_MailRole the sender of the e-mail, will be NULL if the sender has not been set
      */
     public function getSender()
     {
@@ -113,11 +113,11 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
     /**
      * Adds a recipient for the e-mail.
      *
-     * @param Tx_Oelib_Interface_MailRole $recipient a recipient for the e-mail, must not be empty
+     * @param \Tx_Oelib_Interface_MailRole $recipient a recipient for the e-mail, must not be empty
      *
      * @return void
      */
-    public function addRecipient(Tx_Oelib_Interface_MailRole $recipient)
+    public function addRecipient(\Tx_Oelib_Interface_MailRole $recipient)
     {
         $this->recipients[] = $recipient;
     }
@@ -125,7 +125,7 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
     /**
      * Returns the recipients of the e-mail.
      *
-     * @return Tx_Oelib_Interface_MailRole[] the recipients of the e-mail, will be empty if no recipients have been set
+     * @return \Tx_Oelib_Interface_MailRole[] the recipients of the e-mail, will be empty if no recipients have been set
      */
     public function getRecipients()
     {
@@ -139,16 +139,16 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setSubject($subject)
     {
         if ($subject === '') {
-            throw new InvalidArgumentException('$subject must not be empty.', 1331488802);
+            throw new \InvalidArgumentException('$subject must not be empty.', 1331488802);
         }
 
         if ((strpos($subject, CR) !== false) || (strpos($subject, LF) !== false)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 '$subject must not contain any line breaks or carriage returns.',
                 1331488817
             );
@@ -174,12 +174,12 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setMessage($message)
     {
         if ($message === '') {
-            throw new InvalidArgumentException('$message must not be empty.', 1331488834);
+            throw new \InvalidArgumentException('$message must not be empty.', 1331488834);
         }
 
         $this->setAsString('message', $message);
@@ -212,12 +212,12 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setHTMLMessage($message)
     {
         if ($message === '') {
-            throw new InvalidArgumentException('$message must not be empty.', 1331488845);
+            throw new \InvalidArgumentException('$message must not be empty.', 1331488845);
         }
 
         if ($this->hasCssFile()) {
@@ -267,11 +267,11 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
     /**
      * Adds an attachment to the e-mail.
      *
-     * @param Tx_Oelib_Attachment $attachment the attachment to add
+     * @param \Tx_Oelib_Attachment $attachment the attachment to add
      *
      * @return void
      */
-    public function addAttachment(Tx_Oelib_Attachment $attachment)
+    public function addAttachment(\Tx_Oelib_Attachment $attachment)
     {
         $this->attachments[] = $attachment;
     }
@@ -279,7 +279,7 @@ class Tx_Oelib_Mail extends Tx_Oelib_Object
     /**
      * Returns the attachments of the e-mail.
      *
-     * @return Tx_Oelib_Attachment[] the attachments of the e-mail, might be empty
+     * @return \Tx_Oelib_Attachment[] the attachments of the e-mail, might be empty
      */
     public function getAttachments()
     {

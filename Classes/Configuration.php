@@ -6,7 +6,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Configuration extends Tx_Oelib_PublicObject
+class Tx_Oelib_Configuration extends \Tx_Oelib_PublicObject
 {
     /**
      * @var array the data for this configuration
@@ -62,7 +62,7 @@ class Tx_Oelib_Configuration extends Tx_Oelib_PublicObject
     public function set($key, $value)
     {
         if ($key === '') {
-            throw new InvalidArgumentException('$key must not be empty.', 1331318809);
+            throw new \InvalidArgumentException('$key must not be empty.', 1331318809);
         }
 
         $this->data[$key] = $value;

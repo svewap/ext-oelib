@@ -8,10 +8,10 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_ViewHelper_PriceTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_ViewHelper_PriceTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_ViewHelper_Price
+     * @var \Tx_Oelib_ViewHelper_Price
      */
     private $subject;
 
@@ -21,7 +21,7 @@ class Tx_Oelib_Tests_Unit_ViewHelper_PriceTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This tests needs the static_info_tables extension.');
         }
 
-        $this->subject = new Tx_Oelib_ViewHelper_Price();
+        $this->subject = new \Tx_Oelib_ViewHelper_Price();
     }
 
     /**

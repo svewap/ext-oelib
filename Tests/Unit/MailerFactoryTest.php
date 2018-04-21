@@ -8,10 +8,10 @@ use TYPO3\CMS\Core\SingletonInterface;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_MailerFactoryTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_MailerFactoryTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_MailerFactory
+     * @var \Tx_Oelib_MailerFactory
      */
     protected $subject = null;
 
@@ -25,7 +25,7 @@ class Tx_Oelib_Tests_Unit_MailerFactoryTest extends Tx_Phpunit_TestCase
         $this->deprecationLogEnabledBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'];
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'] = false;
 
-        $this->subject = Tx_Oelib_MailerFactory::getInstance();
+        $this->subject = \Tx_Oelib_MailerFactory::getInstance();
     }
 
     protected function tearDown()
@@ -55,7 +55,7 @@ class Tx_Oelib_Tests_Unit_MailerFactoryTest extends Tx_Phpunit_TestCase
     {
         self::assertSame(
             $this->subject,
-            Tx_Oelib_MailerFactory::getInstance()
+            \Tx_Oelib_MailerFactory::getInstance()
         );
     }
 

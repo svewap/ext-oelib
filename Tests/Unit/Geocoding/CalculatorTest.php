@@ -7,23 +7,23 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Geocoding_Calculator
+     * @var \Tx_Oelib_Geocoding_Calculator
      */
     protected $subject = null;
 
     /**
-     * @var Tx_Oelib_Tests_Unit_Fixtures_TestingGeo
+     * @var \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo
      */
     protected $geoObject = null;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_Geocoding_Calculator();
+        $this->subject = new \Tx_Oelib_Geocoding_Calculator();
 
-        $this->geoObject = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $this->geoObject = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $this->geoObject->setGeoCoordinates(['latitude' => 50.733585499999997, 'longitude' => 7.1012733999999993]);
     }
 
@@ -49,9 +49,9 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      */
     public function calculateDistanceInKilometersForFirstObjectWithoutCoordinatesThrowsException()
     {
-        $noCoordinates = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $noCoordinates = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $noCoordinates->clearGeoCoordinates();
-        $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $bonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
@@ -66,11 +66,11 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      */
     public function calculateDistanceInKilometersForSecondObjectWithoutCoordinatesThrowsException()
     {
-        $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $bonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
-        $noCoordinates = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $noCoordinates = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $noCoordinates->clearGeoCoordinates();
 
         $this->subject->calculateDistanceInKilometers($bonn, $noCoordinates);
@@ -83,12 +83,12 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      */
     public function calculateDistanceInKilometersForFirstObjectWithGeoErrorThrowsException()
     {
-        $brokenBonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $brokenBonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $brokenBonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
         $brokenBonn->setGeoError();
-        $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $bonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
@@ -103,11 +103,11 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      */
     public function calculateDistanceInKilometersForSecondObjectWithGeoErrorThrowsException()
     {
-        $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $bonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
-        $brokenBonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $brokenBonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $brokenBonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
@@ -121,7 +121,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      */
     public function calculateDistanceInKilometersForSameObjectsReturnsZero()
     {
-        $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $bonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
@@ -137,11 +137,11 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      */
     public function calculateDistanceInKilometersForBonnAndCologneReturnsActualDistance()
     {
-        $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $bonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
-        $cologne = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $cologne = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $cologne->setGeoCoordinates(
             ['latitude' => 50.94458443, 'longitude' => 6.9543457]
         );
@@ -159,11 +159,11 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      */
     public function calculateDistanceInKilometersReturnsSameDistanceForSwappedArguments()
     {
-        $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $bonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
-        $cologne = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $cologne = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $cologne->setGeoCoordinates(
             ['latitude' => 50.94458443, 'longitude' => 6.9543457]
         );
@@ -183,16 +183,16 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      */
     public function filterByDistanceKeepsElementWithinDistance()
     {
-        $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $bonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
-        $cologne = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $cologne = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $cologne->setGeoCoordinates(
             ['latitude' => 50.94458443, 'longitude' => 6.9543457]
         );
 
-        $list = new Tx_Oelib_List();
+        $list = new \Tx_Oelib_List();
         $list->add($bonn);
 
         $filteredList = $this->subject->filterByDistance(
@@ -216,16 +216,16 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      */
     public function filterByDistanceDropsElementOutOfDistance()
     {
-        $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $bonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
-        $cologne = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $cologne = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $cologne->setGeoCoordinates(
             ['latitude' => 50.94458443, 'longitude' => 6.9543457]
         );
 
-        $list = new Tx_Oelib_List();
+        $list = new \Tx_Oelib_List();
         $list->add($bonn);
 
         $filteredList = $this->subject->filterByDistance(
@@ -244,16 +244,16 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends Tx_Phpunit_TestCase
      */
     public function filterByDistanceCanReturnTwoElements()
     {
-        $bonn = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $bonn = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $bonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
-        $cologne = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $cologne = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $cologne->setGeoCoordinates(
             ['latitude' => 50.94458443, 'longitude' => 6.9543457]
         );
 
-        $list = new Tx_Oelib_List();
+        $list = new \Tx_Oelib_List();
         $list->add($bonn);
         $list->add($cologne);
 

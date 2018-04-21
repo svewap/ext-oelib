@@ -5,7 +5,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Functional_ModelTest extends \Tx_Phpunit_TestCase
 {
     /**
      * @var string
@@ -13,25 +13,25 @@ class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
     const TEST_RECORD_TITLE = 'Hello world';
 
     /**
-     * @var Tx_Oelib_TestingFramework
+     * @var \Tx_Oelib_TestingFramework
      */
     protected $testingFramework = null;
 
     /**
-     * @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel
+     * @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel
      */
     private $subject = null;
 
     /**
-     * @var Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
+     * @var \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
      */
     protected $dataMapper = null;
 
     protected function setUp()
     {
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
-        Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);
-        $this->dataMapper = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class);
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        \Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);
+        $this->dataMapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class);
 
         $uid = $this->createTestRecord();
         $this->subject = $this->dataMapper->find($uid);
@@ -107,7 +107,7 @@ class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
      */
     public function cloningVirginModelReturnsVirginModel()
     {
-        $subject = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $subject = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         self::assertTrue($subject->isVirgin());
 
         $clone = clone $subject;
@@ -167,7 +167,7 @@ class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
      */
     public function clonedModelHasNto1RelationFromOriginal()
     {
-        $relatedRecord = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $relatedRecord = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $relatedRecord->setData([]);
         $this->subject->setFriend($relatedRecord);
         $this->dataMapper->save($this->subject);
@@ -182,7 +182,7 @@ class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
      */
     public function clonedModelHasModelsFromMtoNRelationFromOriginal()
     {
-        $relatedRecord = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $relatedRecord = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $relatedRecord->setData([]);
         $this->subject->addRelatedRecord($relatedRecord);
         $this->dataMapper->save($this->subject);
@@ -197,7 +197,7 @@ class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
      */
     public function clonedModelHasNewInstanceOfMtoNRelation()
     {
-        $relatedRecord = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $relatedRecord = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $relatedRecord->setData([]);
         $this->subject->addRelatedRecord($relatedRecord);
         $this->dataMapper->save($this->subject);
@@ -212,7 +212,7 @@ class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
      */
     public function clonedModelHasMtoNRelationWithCloneAsParentModel()
     {
-        $relatedRecord = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $relatedRecord = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $relatedRecord->setData([]);
         $this->subject->addRelatedRecord($relatedRecord);
         $this->dataMapper->save($this->subject);
@@ -228,7 +228,7 @@ class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
      */
     public function clonedModelHasClonesOfModelsFrom1toNRelationFromOriginal()
     {
-        $childRecord = new Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
+        $childRecord = new \Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
         $childRecordTitle = 'bubble bobble';
         $childRecord->setTitle($childRecordTitle);
         $this->subject->addCompositionRecord($childRecord);
@@ -236,7 +236,7 @@ class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
 
         $clone = clone $this->subject;
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel $firstCloneChild */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel $firstCloneChild */
         $firstCloneChild = $clone->getComposition()->first();
         self::assertSame($childRecord->getTitle(), $firstCloneChild->getTitle());
         self::assertNotSame($childRecord, $firstCloneChild);
@@ -247,7 +247,7 @@ class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
      */
     public function clonedModelHasNewInstanceOf1toNRelation()
     {
-        $childRecord = new Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
+        $childRecord = new \Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
         $childRecord->setData([]);
         $this->subject->addCompositionRecord($childRecord);
         $this->dataMapper->save($this->subject);
@@ -262,7 +262,7 @@ class Tx_Oelib_Tests_Functional_ModelTest extends Tx_Phpunit_TestCase
      */
     public function clonedModelHas1toNRelationWithCloneAsParentModel()
     {
-        $childRecord = new Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
+        $childRecord = new \Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
         $childRecord->setData([]);
         $this->subject->addCompositionRecord($childRecord);
         $this->dataMapper->save($this->subject);

@@ -3,8 +3,8 @@
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * This class returns either an instance of the Tx_Oelib_RealHeaderProxy which
- * adds HTTP headers or an instance of the Tx_Oelib_HeaderCollector. The
+ * This class returns either an instance of the \Tx_Oelib_RealHeaderProxy which
+ * adds HTTP headers or an instance of the \Tx_Oelib_HeaderCollector. The
  * collector stores the headers that were added and does not send them. This
  * mode is for testing purposes.
  *
@@ -13,7 +13,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class Tx_Oelib_HeaderProxyFactory
 {
     /**
-     * @var Tx_Oelib_HeaderProxyFactory
+     * @var \Tx_Oelib_HeaderProxyFactory
      */
     private static $instance = null;
 
@@ -23,7 +23,7 @@ class Tx_Oelib_HeaderProxyFactory
     private $isTestMode = false;
 
     /**
-     * @var Tx_Oelib_AbstractHeaderProxy
+     * @var \Tx_Oelib_AbstractHeaderProxy
      */
     private $headerProxy = null;
 
@@ -45,12 +45,12 @@ class Tx_Oelib_HeaderProxyFactory
     /**
      * Retrieves the singleton instance of the factory.
      *
-     * @return Tx_Oelib_HeaderProxyFactory the singleton factory
+     * @return \Tx_Oelib_HeaderProxyFactory the singleton factory
      */
     public static function getInstance()
     {
         if (!is_object(self::$instance)) {
-            self::$instance = new Tx_Oelib_HeaderProxyFactory();
+            self::$instance = new \Tx_Oelib_HeaderProxyFactory();
         }
 
         return self::$instance;
@@ -60,7 +60,7 @@ class Tx_Oelib_HeaderProxyFactory
      * Retrieves the singleton header proxy instance. Depending on the mode,
      * this instance is either a header collector or a real header proxy.
      *
-     * @return Tx_Oelib_AbstractHeaderProxy|Tx_Oelib_HeaderCollector|Tx_Oelib_RealHeaderProxy the singleton header proxy
+     * @return \Tx_Oelib_AbstractHeaderProxy|\Tx_Oelib_HeaderCollector|\Tx_Oelib_RealHeaderProxy the singleton header proxy
      */
     public function getHeaderProxy()
     {

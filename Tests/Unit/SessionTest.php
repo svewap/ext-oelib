@@ -5,16 +5,16 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_SessionTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_TestingFramework for creating a fake front end
+     * @var \Tx_Oelib_TestingFramework for creating a fake front end
      */
     private $testingFramework;
 
     protected function setUp()
     {
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
     }
 
     protected function tearDown()
@@ -38,7 +38,7 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
 
         $GLOBALS['TSFE'] = null;
 
-        Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_USER);
+        \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER);
     }
 
     /**
@@ -53,7 +53,7 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
 
         $this->testingFramework->createFakeFrontEnd();
 
-        Tx_Oelib_Session::getInstance(42);
+        \Tx_Oelib_Session::getInstance(42);
     }
 
     /**
@@ -64,8 +64,8 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createFakeFrontEnd();
 
         self::assertInstanceOf(
-            Tx_Oelib_Session::class,
-            Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_USER)
+            \Tx_Oelib_Session::class,
+            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER)
         );
     }
 
@@ -77,8 +77,8 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createFakeFrontEnd();
 
         self::assertInstanceOf(
-            Tx_Oelib_Session::class,
-            Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_TEMPORARY)
+            \Tx_Oelib_Session::class,
+            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_TEMPORARY)
         );
     }
 
@@ -90,8 +90,8 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createFakeFrontEnd();
 
         self::assertSame(
-            Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_USER),
-            Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_USER)
+            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER),
+            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER)
         );
     }
 
@@ -103,8 +103,8 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createFakeFrontEnd();
 
         self::assertNotSame(
-            Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_USER),
-            Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_TEMPORARY)
+            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER),
+            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_TEMPORARY)
         );
     }
 
@@ -114,12 +114,12 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
     public function getInstanceWithSameTypesAfterPurgeInstancesReturnsNewInstance()
     {
         $this->testingFramework->createFakeFrontEnd();
-        $firstInstance = Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_USER);
-        Tx_Oelib_Session::purgeInstances();
+        $firstInstance = \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER);
+        \Tx_Oelib_Session::purgeInstances();
 
         self::assertNotSame(
             $firstInstance,
-            Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_USER)
+            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER)
         );
     }
 
@@ -133,7 +133,7 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
             'Only the types ::TYPE_USER and ::TYPE_TEMPORARY are allowed.'
         );
 
-        Tx_Oelib_Session::setInstance(42, new Tx_Oelib_FakeSession());
+        \Tx_Oelib_Session::setInstance(42, new \Tx_Oelib_FakeSession());
     }
 
     /**
@@ -141,12 +141,12 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceWithUserTypeReturnsInstanceFromSetInstance()
     {
-        $instance = new Tx_Oelib_FakeSession();
-        Tx_Oelib_Session::setInstance(Tx_Oelib_Session::TYPE_USER, $instance);
+        $instance = new \Tx_Oelib_FakeSession();
+        \Tx_Oelib_Session::setInstance(\Tx_Oelib_Session::TYPE_USER, $instance);
 
         self::assertSame(
             $instance,
-            Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_USER)
+            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER)
         );
     }
 
@@ -155,15 +155,15 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceWithTemporaryTypeReturnsInstanceFromSetInstance()
     {
-        $instance = new Tx_Oelib_FakeSession();
-        Tx_Oelib_Session::setInstance(
-            Tx_Oelib_Session::TYPE_TEMPORARY,
+        $instance = new \Tx_Oelib_FakeSession();
+        \Tx_Oelib_Session::setInstance(
+            \Tx_Oelib_Session::TYPE_TEMPORARY,
             $instance
         );
 
         self::assertSame(
             $instance,
-            Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_TEMPORARY)
+            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_TEMPORARY)
         );
     }
 
@@ -172,18 +172,18 @@ class Tx_Oelib_Tests_Unit_SessionTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceWithDifferentTypesReturnsDifferentInstancesSetViaSetInstance()
     {
-        Tx_Oelib_Session::setInstance(
-            Tx_Oelib_Session::TYPE_USER,
-            new Tx_Oelib_FakeSession()
+        \Tx_Oelib_Session::setInstance(
+            \Tx_Oelib_Session::TYPE_USER,
+            new \Tx_Oelib_FakeSession()
         );
-        Tx_Oelib_Session::setInstance(
-            Tx_Oelib_Session::TYPE_TEMPORARY,
-            new Tx_Oelib_FakeSession()
+        \Tx_Oelib_Session::setInstance(
+            \Tx_Oelib_Session::TYPE_TEMPORARY,
+            new \Tx_Oelib_FakeSession()
         );
 
         self::assertNotSame(
-            Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_USER),
-            Tx_Oelib_Session::getInstance(Tx_Oelib_Session::TYPE_TEMPORARY)
+            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER),
+            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_TEMPORARY)
         );
     }
 }

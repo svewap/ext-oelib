@@ -6,22 +6,22 @@
  * @author Bernd Schönbach <bernd@oliverklee.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Mapper_BackEndUserGroupTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Mapper_BackEndUserGroupTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_TestingFramework for creating dummy records
+     * @var \Tx_Oelib_TestingFramework for creating dummy records
      */
     private $testingFramework;
     /**
-     * @var Tx_Oelib_Mapper_BackEndUserGroup the object to test
+     * @var \Tx_Oelib_Mapper_BackEndUserGroup the object to test
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
-        $this->subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_BackEndUserGroup::class);
+        $this->subject = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class);
     }
 
     protected function tearDown()
@@ -41,7 +41,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserGroupTest extends Tx_Phpunit_TestCas
         $uid = $this->subject->getNewGhost()->getUid();
 
         self::assertInstanceOf(
-            Tx_Oelib_Model_BackEndUserGroup::class,
+            \Tx_Oelib_Model_BackEndUserGroup::class,
             $this->subject->find($uid)
         );
     }
@@ -51,7 +51,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserGroupTest extends Tx_Phpunit_TestCas
      */
     public function loadForExistingUserGroupCanLoadUserGroupData()
     {
-        /** @var Tx_Oelib_Model_FrontEndUserGroup $userGroup */
+        /** @var \Tx_Oelib_Model_FrontEndUserGroup $userGroup */
         $userGroup = $this->subject->find(
             $this->testingFramework->createBackEndUserGroup(['title' => 'foo'])
         );
@@ -78,10 +78,10 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserGroupTest extends Tx_Phpunit_TestCas
             ['subgroup' => $subgroup->getUid()]
         );
 
-        /** @var Tx_Oelib_Model_BackEndUserGroup $group */
+        /** @var \Tx_Oelib_Model_BackEndUserGroup $group */
         $group = $this->subject->find($group->getUid());
         self::assertInstanceOf(
-            Tx_Oelib_Model_BackEndUserGroup::class,
+            \Tx_Oelib_Model_BackEndUserGroup::class,
             $group->getSubgroups()->first()
         );
     }

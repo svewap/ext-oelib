@@ -5,7 +5,7 @@
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-final class Tx_Oelib_Tests_Unit_Fixtures_DummyObjectToCheck extends Tx_Oelib_TemplateHelper implements Tx_Oelib_Interface_ConfigurationCheckable
+final class Tx_Oelib_Tests_Unit_Fixtures_DummyObjectToCheck extends \Tx_Oelib_TemplateHelper implements \Tx_Oelib_Interface_ConfigurationCheckable
 {
     /**
      * The constructor.

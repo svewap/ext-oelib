@@ -6,10 +6,10 @@
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_TemplateTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Template
+     * @var \Tx_Oelib_Template
      */
     protected $subject = null;
 
@@ -22,12 +22,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends Tx_Phpunit_TestCase
     {
         $this->deprecationLogEnabledBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'];
 
-        $this->subject = new Tx_Oelib_Template();
+        $this->subject = new \Tx_Oelib_Template();
 
         $localizedLabels = [
             'default' => ['label_foo' => [0 => ['source' => 'foo', 'target' => 'foo']]],
         ];
-        $translator = new Tx_Oelib_Translator('de', '', $localizedLabels);
+        $translator = new \Tx_Oelib_Translator('de', '', $localizedLabels);
         $this->subject->injectTranslator($translator);
     }
 

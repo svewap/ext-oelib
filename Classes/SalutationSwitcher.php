@@ -71,7 +71,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
     public function translate($key, $useHtmlSpecialChars = false)
     {
         if ($key === '') {
-            throw new InvalidArgumentException('$key must not be empty.', 1331489025);
+            throw new \InvalidArgumentException('$key must not be empty.', 1331489025);
         }
 
         if (isset($this->translationCache[$key])) {

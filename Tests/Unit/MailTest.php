@@ -7,16 +7,16 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_MailTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Mail
+     * @var \Tx_Oelib_Mail
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_Mail();
+        $this->subject = new \Tx_Oelib_Mail();
     }
 
     /*
@@ -38,7 +38,7 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
      */
     public function getSenderForNonEmptySenderReturnsSender()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
@@ -66,7 +66,7 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
      */
     public function hasSenderWithSenderReturnsTrue()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
@@ -98,7 +98,7 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
      */
     public function getRecipientsWithOneRecipientReturnsOneRecipient()
     {
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
@@ -115,11 +115,11 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
      */
     public function getRecipientsWithTwoRecipientsReturnsTwoRecipients()
     {
-        $recipient1 = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
+        $recipient1 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
-        $recipient2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
+        $recipient2 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
@@ -358,7 +358,7 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
      */
     public function getAttachmentsWithOneAttachmentReturnsOneAttachment()
     {
-        $attachment = new Tx_Oelib_Attachment();
+        $attachment = new \Tx_Oelib_Attachment();
         $attachment->setFileName('test.txt');
         $attachment->setContentType('text/plain');
         $attachment->setContent('Test');
@@ -375,13 +375,13 @@ class Tx_Oelib_Tests_Unit_MailTest extends Tx_Phpunit_TestCase
      */
     public function getAttachmentsWithTwoAttachmentsReturnsTwoAttachments()
     {
-        $attachment = new Tx_Oelib_Attachment();
+        $attachment = new \Tx_Oelib_Attachment();
         $attachment->setFileName('test.txt');
         $attachment->setContentType('text/plain');
         $attachment->setContent('Test');
         $this->subject->addAttachment($attachment);
 
-        $otherAttachment = new Tx_Oelib_Attachment();
+        $otherAttachment = new \Tx_Oelib_Attachment();
         $otherAttachment->setFileName('second_test.txt');
         $otherAttachment->setContentType('text/plain');
         $otherAttachment->setContent('Second Test');

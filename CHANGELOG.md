@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - add TravisCI builds
 
 ### Changed
+- Always use a backslash for full class names (#42)
 - Use more semantic PHPUnit functions (#35)
 - Always use ::class (#34)
 - Move the PHP CS Fixer configuration directly into the Configuration/ folder (#29)

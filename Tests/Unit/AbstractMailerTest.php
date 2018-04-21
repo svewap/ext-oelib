@@ -9,10 +9,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_AbstractMailerTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_EmailCollector
+     * @var \Tx_Oelib_EmailCollector
      */
     private $subject = null;
 
@@ -40,7 +40,7 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
     {
         $this->deprecationLogEnabledBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'];
 
-        $this->subject = new Tx_Oelib_EmailCollector();
+        $this->subject = new \Tx_Oelib_EmailCollector();
 
         $this->message1 = $this->getMock(MailMessage::class, ['send', '__destruct']);
         GeneralUtility::addInstance(MailMessage::class, $this->message1);
@@ -100,11 +100,11 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendWithoutSenderThrowsException()
     {
-        $email = new Tx_Oelib_Mail();
+        $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
-        $emailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
+        $emailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
         $email->addRecipient($emailRole);
 
         $this->subject->send($email);
@@ -118,11 +118,11 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendWithoutRecipientThrowsException()
     {
-        $email = new Tx_Oelib_Mail();
+        $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
-        $emailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
+        $emailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
         $email->setSender($emailRole);
 
         $this->subject->send($email);
@@ -136,10 +136,10 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendWithoutSubjectThrowsException()
     {
-        $email = new Tx_Oelib_Mail();
+        $email = new \Tx_Oelib_Mail();
         $email->setMessage('That is the way it is.');
 
-        $emailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
+        $emailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
         $email->setSender($emailRole);
         $email->addRecipient($emailRole);
 
@@ -154,10 +154,10 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendWithoutMessageThrowsException()
     {
-        $email = new Tx_Oelib_Mail();
+        $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
 
-        $emailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
+        $emailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
         $email->setSender($emailRole);
         $email->addRecipient($emailRole);
 
@@ -169,11 +169,11 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendWithAllValidEmailAddressesNotThrowsException()
     {
-        $email = new Tx_Oelib_Mail();
+        $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
-        $emailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
+        $emailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
         $email->setSender($emailRole);
         $email->addRecipient($emailRole);
 
@@ -185,11 +185,11 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendWithAllValidLocalhostEmailAddressesNotThrowsException()
     {
-        $email = new Tx_Oelib_Mail();
+        $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
-        $emailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@localhost');
+        $emailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@localhost');
         $email->setSender($emailRole);
         $email->addRecipient($emailRole);
 
@@ -203,14 +203,14 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendWithEmptyFromAddressThrowsException()
     {
-        $email = new Tx_Oelib_Mail();
+        $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
-        $emailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
+        $emailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
         $email->addRecipient($emailRole);
 
-        $emptyEmailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', '');
+        $emptyEmailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', '');
         $email->setSender($emptyEmailRole);
 
         $this->subject->send($email);
@@ -223,14 +223,14 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendWithInvalidFromAddressThrowsException()
     {
-        $email = new Tx_Oelib_Mail();
+        $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
-        $emailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
+        $emailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
         $email->addRecipient($emailRole);
 
-        $invalidEmailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'hkqwbeqwbasgrfa asdfa');
+        $invalidEmailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'hkqwbeqwbasgrfa asdfa');
         $email->setSender($invalidEmailRole);
 
         $this->subject->send($email);
@@ -243,14 +243,14 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendWithEmptyToAddressThrowsException()
     {
-        $email = new Tx_Oelib_Mail();
+        $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
-        $emailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
+        $emailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
         $email->setSender($emailRole);
 
-        $emptyEmailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', '');
+        $emptyEmailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', '');
         $email->addRecipient($emptyEmailRole);
 
         $this->subject->send($email);
@@ -263,14 +263,14 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendWithInvalidToAddressThrowsException()
     {
-        $email = new Tx_Oelib_Mail();
+        $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
-        $emailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
+        $emailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
         $email->setSender($emailRole);
 
-        $invalidEmailRole = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'hkqwbeqwbasgrfa asdfa');
+        $invalidEmailRole = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'hkqwbeqwbasgrfa asdfa');
         $email->addRecipient($invalidEmailRole);
 
         $this->subject->send($email);
@@ -281,9 +281,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendSetsSenderNameAndEmail()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -303,9 +303,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendSetsRecipientNameAndEmail()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -325,14 +325,14 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendForTwoRecipientsSendsTwoEmails()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->setSubject($this->email['subject']);
         $eMail->setMessage($this->email['message']);
-        $recipient1 = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'joe@example.com');
+        $recipient1 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'joe@example.com');
         $eMail->addRecipient($recipient1);
-        $recipient2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('Jane Doe', 'jane@example.com');
+        $recipient2 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('Jane Doe', 'jane@example.com');
         $eMail->addRecipient($recipient2);
 
         $this->subject->send($eMail);
@@ -348,9 +348,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendSetsSubject()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -370,9 +370,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendingPlainTextMailUsesDefaultCharacterSet()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -391,9 +391,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendSetsPlainTextBody()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -413,9 +413,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendingPlainTextMailUsesPlainTextEncoding()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -434,9 +434,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendingPlainTextMailByDefaultRemovesAnyCarriageReturnFromBody()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -462,9 +462,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
     {
         $this->subject->sendFormattedEmails(true);
 
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -490,9 +490,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
     {
         $this->subject->sendFormattedEmails(false);
 
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -517,9 +517,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
     public function sendSetsHtmlBody()
     {
         $htmlMessage = '<h1>Very cool HTML message</h1>' . LF . '<p>Great to have HTML e-mails in oelib.</p>';
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -529,7 +529,7 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
         $this->subject->send($eMail);
 
         $children = $this->subject->getFirstSentEmail()->getChildren();
-        /** @var Swift_Mime_MimeEntity $firstChild */
+        /** @var \Swift_Mime_MimeEntity $firstChild */
         $firstChild = $children[0];
         self::assertSame(
             $htmlMessage,
@@ -543,9 +543,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
     public function sendSetsHtmlBodyWithTextHtmlContentType()
     {
         $htmlMessage = '<h1>Very cool HTML message</h1>' . LF . '<p>Great to have HTML e-mails in oelib.</p>';
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -555,7 +555,7 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
         $this->subject->send($eMail);
 
         $children = $this->subject->getFirstSentEmail()->getChildren();
-        /** @var Swift_Mime_MimeEntity $firstChild */
+        /** @var \Swift_Mime_MimeEntity $firstChild */
         $firstChild = $children[0];
         self::assertSame(
             'text/html',
@@ -570,9 +570,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
     {
         $returnPath = 'return@example.com';
 
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -593,9 +593,9 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendWithoutReturnPathNotSetsReturnPath()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -614,13 +614,13 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendCanAddOneAttachmentFromFile()
     {
-        $attachment = new Tx_Oelib_Attachment();
+        $attachment = new \Tx_Oelib_Attachment();
         $attachment->setFileName(ExtensionManagementUtility::extPath('oelib', 'Tests/Unit/Fixtures/test.txt'));
         $attachment->setContentType('text/plain');
 
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -630,7 +630,7 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
 
         $this->subject->send($eMail);
         $children = $this->subject->getFirstSentEmail()->getChildren();
-        /** @var Swift_Mime_Attachment $firstChild */
+        /** @var \Swift_Mime_Attachment $firstChild */
         $firstChild = $children[0];
 
         self::assertSame(
@@ -649,13 +649,13 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
     public function sendCanAddOneAttachmentFromContent()
     {
         $content = '<p>Hello world!</p>';
-        $attachment = new Tx_Oelib_Attachment();
+        $attachment = new \Tx_Oelib_Attachment();
         $attachment->setContent($content);
         $attachment->setContentType('text/html');
 
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -665,7 +665,7 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
 
         $this->subject->send($eMail);
         $children = $this->subject->getFirstSentEmail()->getChildren();
-        /** @var Swift_Mime_Attachment $firstChild */
+        /** @var \Swift_Mime_Attachment $firstChild */
         $firstChild = $children[0];
 
         self::assertSame(
@@ -685,14 +685,14 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
     {
         $content = '<p>Hello world!</p>';
         $fileName = 'greetings.html';
-        $attachment = new Tx_Oelib_Attachment();
+        $attachment = new \Tx_Oelib_Attachment();
         $attachment->setContent($content);
         $attachment->setFileName($fileName);
         $attachment->setContentType('text/html');
 
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
@@ -702,7 +702,7 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
 
         $this->subject->send($eMail);
         $children = $this->subject->getFirstSentEmail()->getChildren();
-        /** @var Swift_Mime_Attachment $firstChild */
+        /** @var \Swift_Mime_Attachment $firstChild */
         $firstChild = $children[0];
 
         self::assertSame(
@@ -724,19 +724,19 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendCanAddTwoAttachments()
     {
-        $sender = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
-        $eMail = new Tx_Oelib_Mail();
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('', 'any-sender@email-address.org');
+        $recipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', $this->email['recipient']);
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject($this->email['subject']);
         $eMail->setMessage($this->email['message']);
 
-        $attachment1 = new Tx_Oelib_Attachment();
+        $attachment1 = new \Tx_Oelib_Attachment();
         $attachment1->setFileName(ExtensionManagementUtility::extPath('oelib', 'Tests/Unit/Fixtures/test.txt'));
         $attachment1->setContentType('text/plain');
         $eMail->addAttachment($attachment1);
-        $attachment2 = new Tx_Oelib_Attachment();
+        $attachment2 = new \Tx_Oelib_Attachment();
         $attachment2->setFileName(ExtensionManagementUtility::extPath('oelib', 'Tests/Unit/Fixtures/test_2.css'));
         $attachment2->setContentType('text/css');
         $eMail->addAttachment($attachment2);

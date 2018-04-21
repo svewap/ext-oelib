@@ -11,7 +11,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
+class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
 {
     /**
      * @var string the prefix used for CSS classes
@@ -35,7 +35,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
     protected $isInitialized = false;
 
     /**
-     * @var Tx_Oelib_ConfigCheck
+     * @var \Tx_Oelib_ConfigCheck
      */
     protected $configurationCheck = null;
 
@@ -45,7 +45,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
     private $templateFileName = '';
 
     /**
-     * @var Tx_Oelib_Template this object's (only) template
+     * @var \Tx_Oelib_Template this object's (only) template
      */
     private $template = null;
 
@@ -119,7 +119,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
         $this->pi_setPiVarDefaults();
         $this->pi_loadLL();
 
-        if (($this->extKey !== '') && Tx_Oelib_ConfigurationProxy::getInstance($this->extKey)->getAsBoolean('enableConfigCheck')) {
+        if (($this->extKey !== '') && \Tx_Oelib_ConfigurationProxy::getInstance($this->extKey)->getAsBoolean('enableConfigCheck')) {
             $configurationCheckClassName = 'tx_' . $this->extKey . '_configcheck';
             if (class_exists($configurationCheckClassName, true)) {
                 $this->configurationCheck = GeneralUtility::makeInstance($configurationCheckClassName, $this);
@@ -395,7 +395,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
     public function setConfigurationValue($key, $value)
     {
         if ($key === '') {
-            throw new InvalidArgumentException('$key must not be empty', 1331489491);
+            throw new \InvalidArgumentException('$key must not be empty', 1331489491);
         }
 
         $this->ensureConfigurationArray();
@@ -417,7 +417,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      */
     public static function setCachedConfigurationValue($key, $value)
     {
-        $pageUid = Tx_Oelib_PageFinder::getInstance()->getPageUid();
+        $pageUid = \Tx_Oelib_PageFinder::getInstance()->getPageUid();
 
         if (!isset(self::$cachedConfigurations[$pageUid])) {
             self::$cachedConfigurations[$pageUid] = [];
@@ -502,13 +502,13 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      * Returns the template object from the template registry for the file name
      * in $this->templateFileName.
      *
-     * @return Tx_Oelib_Template the template object for the template file name
+     * @return \Tx_Oelib_Template the template object for the template file name
      *                           in $this->templateFileName
      */
     protected function getTemplate()
     {
         if ($this->template === null) {
-            $this->template = Tx_Oelib_TemplateRegistry::get(
+            $this->template = \Tx_Oelib_TemplateRegistry::get(
                 $this->templateFileName
             );
         }
@@ -980,7 +980,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
 
         $translator = $this;
         return preg_replace_callback(
-            Tx_Oelib_Template::LABEL_PATTERN,
+            \Tx_Oelib_Template::LABEL_PATTERN,
             function (array $matches) use ($translator) {
                 return $translator->translate(strtolower($matches[1]));
             },
@@ -1168,7 +1168,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
     private function getListViewConfigurationValue($fieldName)
     {
         if (empty($fieldName)) {
-            throw new InvalidArgumentException('$fieldName must not be empty.', 1331489528);
+            throw new \InvalidArgumentException('$fieldName must not be empty.', 1331489528);
         }
 
         if (!isset($this->conf['listView.'])
@@ -1339,7 +1339,7 @@ class Tx_Oelib_TemplateHelper extends Tx_Oelib_SalutationSwitcher
      */
     public function getCurrentBePageId()
     {
-        return Tx_Oelib_PageFinder::getInstance()->getPageUid();
+        return \Tx_Oelib_PageFinder::getInstance()->getPageUid();
     }
 
     /**

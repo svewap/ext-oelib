@@ -19,7 +19,7 @@ class Tx_Oelib_ViewHelper_Price
     protected $value = 0.000;
 
     /**
-     * @var Tx_Oelib_Model_Currency the currency of the price to render
+     * @var \Tx_Oelib_Model_Currency the currency of the price to render
      */
     protected $currency = null;
 
@@ -48,8 +48,8 @@ class Tx_Oelib_ViewHelper_Price
     public function setCurrencyFromIsoAlpha3Code($isoAlpha3Code)
     {
         try {
-            /** @var Tx_Oelib_Mapper_Currency $mapper */
-            $mapper = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Currency::class);
+            /** @var \Tx_Oelib_Mapper_Currency $mapper */
+            $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Currency::class);
             $this->currency = $mapper->findByIsoAlpha3Code($isoAlpha3Code);
         } catch (Exception $exception) {
             $this->currency = null;

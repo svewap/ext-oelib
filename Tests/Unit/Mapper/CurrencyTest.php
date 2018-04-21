@@ -7,10 +7,10 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_Mapper_CurrencyTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Mapper_CurrencyTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Mapper_Currency
+     * @var \Tx_Oelib_Mapper_Currency
      */
     private $subject;
 
@@ -20,7 +20,7 @@ class Tx_Oelib_Tests_Unit_Mapper_CurrencyTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This tests needs the static_info_tables extension.');
         }
 
-        $this->subject = new Tx_Oelib_Mapper_Currency();
+        $this->subject = new \Tx_Oelib_Mapper_Currency();
     }
 
     ///////////////////////////
@@ -33,7 +33,7 @@ class Tx_Oelib_Tests_Unit_Mapper_CurrencyTest extends Tx_Phpunit_TestCase
     public function findWithUidOfExistingRecordReturnsCurrencyInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model_Currency::class,
+            \Tx_Oelib_Model_Currency::class,
             $this->subject->find(49)
         );
     }
@@ -48,7 +48,7 @@ class Tx_Oelib_Tests_Unit_Mapper_CurrencyTest extends Tx_Phpunit_TestCase
     public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsCurrencyInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model_Currency::class,
+            \Tx_Oelib_Model_Currency::class,
             $this->subject->findByIsoAlpha3Code('EUR')
         );
     }

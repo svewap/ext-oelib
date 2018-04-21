@@ -5,16 +5,16 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_IdentityMapTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_IdentityMapTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_IdentityMap
+     * @var \Tx_Oelib_IdentityMap
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_IdentityMap();
+        $this->subject = new \Tx_Oelib_IdentityMap();
     }
 
     //////////////////////////
@@ -57,7 +57,7 @@ class Tx_Oelib_Tests_Unit_IdentityMapTest extends Tx_Phpunit_TestCase
             'Add() requires a model that has a UID.'
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setData([]);
 
         $this->subject->add($model);
@@ -68,7 +68,7 @@ class Tx_Oelib_Tests_Unit_IdentityMapTest extends Tx_Phpunit_TestCase
      */
     public function getWithExistingUidAfterAddWithModelHavingAUidReturnsSameObject()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid(42);
         $this->subject->add($model);
 
@@ -83,11 +83,11 @@ class Tx_Oelib_Tests_Unit_IdentityMapTest extends Tx_Phpunit_TestCase
      */
     public function addForExistingUidReturnsModelWithGivenUidForSeveralUids()
     {
-        $model1 = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model1 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model1->setUid(1);
         $this->subject->add($model1);
 
-        $model2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model2 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model2->setUid(4);
         $this->subject->add($model2);
 
@@ -106,11 +106,11 @@ class Tx_Oelib_Tests_Unit_IdentityMapTest extends Tx_Phpunit_TestCase
      */
     public function getForExistingUidAfterAddingTwoModelsWithSameUidReturnsTheLastAddedModel()
     {
-        $model1 = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model1 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model1->setUid(1);
         $this->subject->add($model1);
 
-        $model2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model2 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model2->setUid(1);
         $this->subject->add($model2);
 
@@ -155,7 +155,7 @@ class Tx_Oelib_Tests_Unit_IdentityMapTest extends Tx_Phpunit_TestCase
     {
         $this->setExpectedException(\Tx_Oelib_Exception_NotFound::class);
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid(1);
         $this->subject->add($model);
 
@@ -169,7 +169,7 @@ class Tx_Oelib_Tests_Unit_IdentityMapTest extends Tx_Phpunit_TestCase
      */
     public function getNewUidForNonEmptyMapReturnsUidGreaterThanGreatestUid()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid(42);
         $this->subject->add($model);
 
@@ -184,11 +184,11 @@ class Tx_Oelib_Tests_Unit_IdentityMapTest extends Tx_Phpunit_TestCase
      */
     public function getNewUidForMapWithTwoItemsInReverseOrderReturnsUidGreaterThanTheGreatesUid()
     {
-        $model2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model2 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model2->setUid(2);
         $this->subject->add($model2);
 
-        $model1 = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model1 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model1->setUid(1);
         $this->subject->add($model1);
 

@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Exception_DatabaseTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Exception_DatabaseTest extends \Tx_Phpunit_TestCase
 {
     /**
      * @var bool the saved content of $GLOBALS['TYPO3_DB']->debugOutput
@@ -43,7 +43,7 @@ class Tx_Oelib_Tests_Unit_Exception_DatabaseTest extends Tx_Phpunit_TestCase
         /** @var DatabaseConnection $databaseAdapter */
         $databaseAdapter = $GLOBALS['TYPO3_DB'];
         $databaseAdapter->exec_SELECTquery('asdf', 'tx_oelib_test', '');
-        $subject = new Tx_Oelib_Exception_Database();
+        $subject = new \Tx_Oelib_Exception_Database();
 
         self::assertContains(
             'asdf',
@@ -59,7 +59,7 @@ class Tx_Oelib_Tests_Unit_Exception_DatabaseTest extends Tx_Phpunit_TestCase
         /** @var DatabaseConnection $databaseAdapter */
         $databaseAdapter = $GLOBALS['TYPO3_DB'];
         $databaseAdapter->exec_SELECTquery('asdf', 'tx_oelib_test', '');
-        $subject = new Tx_Oelib_Exception_Database();
+        $subject = new \Tx_Oelib_Exception_Database();
 
         self::assertContains(
             'SELECT',

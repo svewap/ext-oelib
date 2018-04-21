@@ -5,7 +5,7 @@
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper extends Tx_Oelib_DataMapper
+class Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string the name of the database table for this mapper

@@ -5,7 +5,7 @@
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends \Tx_Phpunit_TestCase
 {
     ////////////////////////////////////////////
     // Tests concerning the Singleton property
@@ -17,8 +17,8 @@ class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
     public function getInstanceReturnsTemplateRegistryInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_TemplateRegistry::class,
-            Tx_Oelib_TemplateRegistry::getInstance()
+            \Tx_Oelib_TemplateRegistry::class,
+            \Tx_Oelib_TemplateRegistry::getInstance()
         );
     }
 
@@ -28,8 +28,8 @@ class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
     public function getInstanceTwoTimesReturnsSameInstance()
     {
         self::assertSame(
-            Tx_Oelib_TemplateRegistry::getInstance(),
-            Tx_Oelib_TemplateRegistry::getInstance()
+            \Tx_Oelib_TemplateRegistry::getInstance(),
+            \Tx_Oelib_TemplateRegistry::getInstance()
         );
     }
 
@@ -38,12 +38,12 @@ class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceAfterPurgeInstanceReturnsNewInstance()
     {
-        $firstInstance = Tx_Oelib_TemplateRegistry::getInstance();
-        Tx_Oelib_TemplateRegistry::purgeInstance();
+        $firstInstance = \Tx_Oelib_TemplateRegistry::getInstance();
+        \Tx_Oelib_TemplateRegistry::purgeInstance();
 
         self::assertNotSame(
             $firstInstance,
-            Tx_Oelib_TemplateRegistry::getInstance()
+            \Tx_Oelib_TemplateRegistry::getInstance()
         );
     }
 
@@ -58,7 +58,7 @@ class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
     {
         self::assertInstanceOf(
             \Tx_Oelib_Template::class,
-            Tx_Oelib_TemplateRegistry::get('')
+            \Tx_Oelib_TemplateRegistry::get('')
         );
     }
 
@@ -68,8 +68,8 @@ class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
     public function getForEmptyTemplateFileNameCalledTwoTimesReturnsNewInstance()
     {
         self::assertNotSame(
-            Tx_Oelib_TemplateRegistry::get(''),
-            Tx_Oelib_TemplateRegistry::get('')
+            \Tx_Oelib_TemplateRegistry::get(''),
+            \Tx_Oelib_TemplateRegistry::get('')
         );
     }
 
@@ -80,7 +80,7 @@ class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
     {
         self::assertInstanceOf(
             \Tx_Oelib_Template::class,
-            Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Unit/Fixtures/oelib.html')
+            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Unit/Fixtures/oelib.html')
         );
     }
 
@@ -90,8 +90,8 @@ class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
     public function getForExistingTemplateFileNameCalledTwoTimesReturnsNewInstance()
     {
         self::assertNotSame(
-            Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Unit/Fixtures/oelib.html'),
-            Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Unit/Fixtures/oelib.html')
+            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Unit/Fixtures/oelib.html'),
+            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Unit/Fixtures/oelib.html')
         );
     }
 
@@ -100,7 +100,7 @@ class Tx_Oelib_Tests_Unit_TemplateRegistryTest extends Tx_Phpunit_TestCase
      */
     public function getForExistingTemplateFileNameReturnsProcessedTemplate()
     {
-        $template = Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Unit/Fixtures/oelib.html');
+        $template = \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Unit/Fixtures/oelib.html');
 
         self::assertSame(
             'Hello world!' . LF,

@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Model_CountryTest extends \Tx_Phpunit_TestCase
 {
     protected function setUp()
     {
@@ -18,7 +18,7 @@ class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase
 
     protected function tearDown()
     {
-        Tx_Oelib_MapperRegistry::purgeInstance();
+        \Tx_Oelib_MapperRegistry::purgeInstance();
     }
 
     //////////////////////////////////////////////////
@@ -30,8 +30,8 @@ class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase
      */
     public function getLocalShortNameReturnsLocalShortNameOfGermany()
     {
-        /** @var Tx_Oelib_Model_Country $subject */
-        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(54);
+        /** @var \Tx_Oelib_Model_Country $subject */
+        $subject = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class)->find(54);
 
         self::assertSame(
             'Deutschland',
@@ -44,8 +44,8 @@ class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase
      */
     public function getLocalShortNameReturnsLocalShortNameOfUnitedKingdomOfGreatBritain()
     {
-        /** @var Tx_Oelib_Model_Country $subject */
-        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(74);
+        /** @var \Tx_Oelib_Model_Country $subject */
+        $subject = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class)->find(74);
 
         self::assertSame(
             'United Kingdom',
@@ -62,8 +62,8 @@ class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase
      */
     public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfGermany()
     {
-        /** @var Tx_Oelib_Model_Country $subject */
-        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(54);
+        /** @var \Tx_Oelib_Model_Country $subject */
+        $subject = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class)->find(54);
 
         self::assertSame(
             'DE',
@@ -76,8 +76,8 @@ class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase
      */
     public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfUnitedKingdomOfGreatBritain()
     {
-        /** @var Tx_Oelib_Model_Country $subject */
-        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(74);
+        /** @var \Tx_Oelib_Model_Country $subject */
+        $subject = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class)->find(74);
 
         self::assertSame(
             'GB',
@@ -94,8 +94,8 @@ class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase
      */
     public function getIsoAlpha3CodeReturnsIsoAlpha3CodeOfGermany()
     {
-        /** @var Tx_Oelib_Model_Country $subject */
-        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(54);
+        /** @var \Tx_Oelib_Model_Country $subject */
+        $subject = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class)->find(54);
 
         self::assertSame(
             'DEU',
@@ -108,8 +108,8 @@ class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase
      */
     public function getIsoAlpha3CodeReturnsIsoAlpha3CodeOfUnitedKingdomOfGreatBritain()
     {
-        /** @var Tx_Oelib_Model_Country $subject */
-        $subject = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->find(74);
+        /** @var \Tx_Oelib_Model_Country $subject */
+        $subject = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class)->find(74);
 
         self::assertSame(
             'GBR',
@@ -126,7 +126,7 @@ class Tx_Oelib_Tests_Unit_Model_CountryTest extends Tx_Phpunit_TestCase
      */
     public function isReadOnlyIsTrue()
     {
-        $model = new Tx_Oelib_Model_Country();
+        $model = new \Tx_Oelib_Model_Country();
 
         self::assertTrue(
             $model->isReadOnly()

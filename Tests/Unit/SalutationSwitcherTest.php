@@ -7,23 +7,23 @@
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Benjamin Schulte <benj@minschulte.de>
  */
-class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Tests_Unit_Fixtures_TestingSalutationSwitcher
+     * @var \Tx_Oelib_Tests_Unit_Fixtures_TestingSalutationSwitcher
      */
     private $subject = null;
     /**
-     * @var Tx_Oelib_TestingFramework
+     * @var \Tx_Oelib_TestingFramework
      */
     private $testingFramework = null;
 
     protected function setUp()
     {
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
         $this->testingFramework->createFakeFrontEnd();
 
-        $this->subject = new Tx_Oelib_Tests_Unit_Fixtures_TestingSalutationSwitcher([]);
+        $this->subject = new \Tx_Oelib_Tests_Unit_Fixtures_TestingSalutationSwitcher([]);
     }
 
     protected function tearDown()

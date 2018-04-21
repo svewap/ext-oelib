@@ -5,7 +5,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-final class Tx_Oelib_Tests_Unit_Fixtures_ReadOnlyModel extends Tx_Oelib_Model
+final class Tx_Oelib_Tests_Unit_Fixtures_ReadOnlyModel extends \Tx_Oelib_Model
 {
     /**
      * @var bool whether this model is read-only

@@ -5,16 +5,16 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_ConfigurationTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_ConfigurationTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Configuration the model to test
+     * @var \Tx_Oelib_Configuration the model to test
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_Configuration();
+        $this->subject = new \Tx_Oelib_Configuration();
     }
 
     //////////////////////////////////////

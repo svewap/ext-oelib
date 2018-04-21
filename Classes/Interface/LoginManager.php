@@ -10,7 +10,7 @@ interface Tx_Oelib_Interface_LoginManager
     /**
      * Returns an instance of this class.
      *
-     * @return Tx_Oelib_Interface_LoginManager the current Singleton instance
+     * @return \Tx_Oelib_Interface_LoginManager the current Singleton instance
      */
     public static function getInstance();
 
@@ -35,7 +35,7 @@ interface Tx_Oelib_Interface_LoginManager
      * @param string $mapperName
      *        the name of the mapper to use for getting the user model, must not be empty
      *
-     * @return Tx_Oelib_Model the logged-in user, will be NULL if no user is
+     * @return \Tx_Oelib_Model the logged-in user, will be NULL if no user is
      *                        logged in
      */
     public function getLoggedInUser($mapperName = '');

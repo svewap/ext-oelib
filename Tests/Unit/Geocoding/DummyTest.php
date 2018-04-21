@@ -5,16 +5,16 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Geocoding_Dummy
+     * @var \Tx_Oelib_Geocoding_Dummy
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_Geocoding_Dummy();
+        $this->subject = new \Tx_Oelib_Geocoding_Dummy();
     }
 
     /////////////////////
@@ -32,7 +32,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
         );
         $geo->expects(self::once())->method('setGeoError');
 
-        /* @var Tx_Oelib_Tests_Unit_Fixtures_TestingGeo $geo */
+        /* @var \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo $geo */
         $this->subject->lookUp($geo);
     }
 
@@ -47,7 +47,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
             $coordinates['longitude']
         );
 
-        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
         $this->subject->lookUp($geo);
@@ -63,7 +63,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
      */
     public function lookUpForAFullGermanAddressWithoutSetCoordinatesSetsNoCoordinates()
     {
-        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
         $this->subject->lookUp($geo);
@@ -78,7 +78,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
      */
     public function lookUpForAFullGermanAddressWithoutSetCoordinatesNotClearsExistingCoordinates()
     {
-        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
         $this->subject->lookUp($geo);
@@ -93,7 +93,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
      */
     public function lookUpForAFullGermanAddressWithoutSetCoordinatesSetsGeoError()
     {
-        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
         $this->subject->lookUp($geo);
@@ -111,7 +111,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
         $this->subject->setCoordinates(42.0, 42.0);
 
         $coordinates = ['latitude' => 50.7335500, 'longitude' => 7.1014300];
-        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
         $geo->setGeoCoordinates($coordinates);
 
@@ -131,7 +131,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends Tx_Phpunit_TestCase
         $this->subject->setCoordinates(42.0, 42.0);
         $this->subject->clearCoordinates();
 
-        $geo = new Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
         $this->subject->lookUp($geo);

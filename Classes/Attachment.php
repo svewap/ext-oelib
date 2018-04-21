@@ -41,7 +41,7 @@ class Tx_Oelib_Attachment
     public function setFileName($fileName)
     {
         if ($fileName === '') {
-            throw new InvalidArgumentException('$fileName must not be empty.', 1331318400);
+            throw new \InvalidArgumentException('$fileName must not be empty.', 1331318400);
         }
 
         $this->fileName = $fileName;
@@ -69,7 +69,7 @@ class Tx_Oelib_Attachment
     public function setContentType($contentType)
     {
         if ($contentType === '') {
-            throw new InvalidArgumentException('$contentType must not be empty.', 1331318411);
+            throw new \InvalidArgumentException('$contentType must not be empty.', 1331318411);
         }
 
         $this->contentType = $contentType;

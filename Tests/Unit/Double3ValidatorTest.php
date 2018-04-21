@@ -5,16 +5,16 @@
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_Double3ValidatorTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Double3ValidatorTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Double3Validator
+     * @var \Tx_Oelib_Double3Validator
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_Double3Validator();
+        $this->subject = new \Tx_Oelib_Double3Validator();
     }
 
     /**

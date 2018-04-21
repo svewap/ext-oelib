@@ -5,7 +5,7 @@
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Model_FrontEndUserGroup extends Tx_Oelib_Model
+class Tx_Oelib_Model_FrontEndUserGroup extends \Tx_Oelib_Model
 {
     /**
      * Gets this group's title.

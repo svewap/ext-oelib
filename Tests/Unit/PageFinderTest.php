@@ -5,22 +5,22 @@
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_PageFinderTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_TestingFramework
+     * @var \Tx_Oelib_TestingFramework
      */
     private $testingFramework;
 
     /**
-     * @var Tx_Oelib_PageFinder
+     * @var \Tx_Oelib_PageFinder
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
-        $this->subject = Tx_Oelib_PageFinder::getInstance();
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $this->subject = \Tx_Oelib_PageFinder::getInstance();
     }
 
     protected function tearDown()
@@ -38,8 +38,8 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
     public function getInstanceReturnsPageFinderInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_PageFinder::class,
-            Tx_Oelib_PageFinder::getInstance()
+            \Tx_Oelib_PageFinder::class,
+            \Tx_Oelib_PageFinder::getInstance()
         );
     }
 
@@ -49,8 +49,8 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
     public function getInstanceTwoTimesReturnsSameInstance()
     {
         self::assertSame(
-            Tx_Oelib_PageFinder::getInstance(),
-            Tx_Oelib_PageFinder::getInstance()
+            \Tx_Oelib_PageFinder::getInstance(),
+            \Tx_Oelib_PageFinder::getInstance()
         );
     }
 
@@ -59,12 +59,12 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
      */
     public function getInstanceAfterPurgeInstanceReturnsNewInstance()
     {
-        $firstInstance = Tx_Oelib_PageFinder::getInstance();
-        Tx_Oelib_PageFinder::purgeInstance();
+        $firstInstance = \Tx_Oelib_PageFinder::getInstance();
+        \Tx_Oelib_PageFinder::purgeInstance();
 
         self::assertNotSame(
             $firstInstance,
-            Tx_Oelib_PageFinder::getInstance()
+            \Tx_Oelib_PageFinder::getInstance()
         );
     }
 
@@ -186,7 +186,7 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
      */
     public function forceSourceWithSourceSetToFrontEndAndManuallySetPageUidReturnsFrontEndPageUid()
     {
-        $this->subject->forceSource(Tx_Oelib_PageFinder::SOURCE_FRONT_END);
+        $this->subject->forceSource(\Tx_Oelib_PageFinder::SOURCE_FRONT_END);
         $frontEndPageUid = $this->testingFramework->createFakeFrontEnd();
 
         $this->subject->setPageUid($frontEndPageUid + 1);
@@ -202,7 +202,7 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
      */
     public function forceSourceWithSourceSetToBackEndAndSetFrontEndUidReturnsBackEndEndPageUid()
     {
-        $this->subject->forceSource(Tx_Oelib_PageFinder::SOURCE_BACK_END);
+        $this->subject->forceSource(\Tx_Oelib_PageFinder::SOURCE_BACK_END);
         $this->testingFramework->createFakeFrontEnd();
 
         $_POST['id'] = 42;
@@ -220,7 +220,7 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
      */
     public function forceSourceWithSourceSetToFrontEndAndManuallySetPageUidButNoFrontEndUidSetReturnsZero()
     {
-        $this->subject->forceSource(Tx_Oelib_PageFinder::SOURCE_FRONT_END);
+        $this->subject->forceSource(\Tx_Oelib_PageFinder::SOURCE_FRONT_END);
 
         $this->subject->setPageUid(15);
 
@@ -240,7 +240,7 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
     public function getCurrentSourceForNoSourceForcedAndNoPageUidSetReturnsNoSourceFound()
     {
         self::assertSame(
-            Tx_Oelib_PageFinder::NO_SOURCE_FOUND,
+            \Tx_Oelib_PageFinder::NO_SOURCE_FOUND,
             $this->subject->getCurrentSource()
         );
     }
@@ -250,10 +250,10 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
      */
     public function getCurrentSourceForSourceForcedToFrontEndReturnsSourceFrontEnd()
     {
-        $this->subject->forceSource(Tx_Oelib_PageFinder::SOURCE_FRONT_END);
+        $this->subject->forceSource(\Tx_Oelib_PageFinder::SOURCE_FRONT_END);
 
         self::assertSame(
-            Tx_Oelib_PageFinder::SOURCE_FRONT_END,
+            \Tx_Oelib_PageFinder::SOURCE_FRONT_END,
             $this->subject->getCurrentSource()
         );
     }
@@ -263,10 +263,10 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
      */
     public function getCurrentSourceForSourceForcedToBackEndReturnsSourceBackEnd()
     {
-        $this->subject->forceSource(Tx_Oelib_PageFinder::SOURCE_BACK_END);
+        $this->subject->forceSource(\Tx_Oelib_PageFinder::SOURCE_BACK_END);
 
         self::assertSame(
-            Tx_Oelib_PageFinder::SOURCE_BACK_END,
+            \Tx_Oelib_PageFinder::SOURCE_BACK_END,
             $this->subject->getCurrentSource()
         );
     }
@@ -279,7 +279,7 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
         $this->subject->setPageUid(42);
 
         self::assertSame(
-            Tx_Oelib_PageFinder::SOURCE_MANUAL,
+            \Tx_Oelib_PageFinder::SOURCE_MANUAL,
             $this->subject->getCurrentSource()
         );
     }
@@ -292,7 +292,7 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createFakeFrontEnd();
 
         self::assertSame(
-            Tx_Oelib_PageFinder::SOURCE_FRONT_END,
+            \Tx_Oelib_PageFinder::SOURCE_FRONT_END,
             $this->subject->getCurrentSource()
         );
     }
@@ -307,7 +307,7 @@ class Tx_Oelib_Tests_Unit_PageFinderTest extends Tx_Phpunit_TestCase
         unset($_POST['id']);
 
         self::assertSame(
-            Tx_Oelib_PageFinder::SOURCE_BACK_END,
+            \Tx_Oelib_PageFinder::SOURCE_BACK_END,
             $pageSource
         );
     }

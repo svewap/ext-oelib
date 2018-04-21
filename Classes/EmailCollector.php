@@ -8,7 +8,7 @@ use TYPO3\CMS\Core\Mail\MailMessage;
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
+class Tx_Oelib_EmailCollector extends \Tx_Oelib_AbstractMailer
 {
     /**
      * Two-dimensional array of e-mail data.
@@ -145,12 +145,12 @@ class Tx_Oelib_EmailCollector extends Tx_Oelib_AbstractMailer
      *
      * @return string value of the element, will be an empty string if there was none
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function getElementFromLastEmail($key)
     {
         if (!in_array($key, ['recipient', 'subject', 'message', 'headers'], true)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The key "' . $key . '" is invalid. It must be "recipient", "subject", "message" or "headers".',
                 1331488710
             );

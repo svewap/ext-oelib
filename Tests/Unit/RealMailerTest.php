@@ -8,10 +8,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_RealMailerTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_RealMailerTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_RealMailer
+     * @var \Tx_Oelib_RealMailer
      */
     private $subject = null;
 
@@ -22,7 +22,7 @@ class Tx_Oelib_Tests_Unit_RealMailerTest extends Tx_Phpunit_TestCase
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_RealMailer();
+        $this->subject = new \Tx_Oelib_RealMailer();
 
         $this->message = $this->getMock(MailMessage::class, ['send', '__destruct']);
         GeneralUtility::addInstance(MailMessage::class, $this->message);
@@ -33,8 +33,8 @@ class Tx_Oelib_Tests_Unit_RealMailerTest extends Tx_Phpunit_TestCase
      */
     public function sendSendsEmail()
     {
-        $senderAndRecipient = new Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
-        $eMail = new Tx_Oelib_Mail();
+        $senderAndRecipient = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
+        $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($senderAndRecipient);
         $eMail->addRecipient($senderAndRecipient);
         $eMail->setSubject('Hello world!');

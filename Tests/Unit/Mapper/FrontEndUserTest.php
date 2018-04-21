@@ -5,22 +5,22 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_TestingFramework for creating dummy records
+     * @var \Tx_Oelib_TestingFramework for creating dummy records
      */
     private $testingFramework;
     /**
-     * @var Tx_Oelib_Mapper_FrontEndUser the object to test
+     * @var \Tx_Oelib_Mapper_FrontEndUser the object to test
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
-        $this->subject = new Tx_Oelib_Mapper_FrontEndUser();
+        $this->subject = new \Tx_Oelib_Mapper_FrontEndUser();
     }
 
     protected function tearDown()
@@ -40,7 +40,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
         $uid = $this->testingFramework->createFrontEndUser();
 
         self::assertInstanceOf(
-            Tx_Oelib_Model_FrontEndUser::class,
+            \Tx_Oelib_Model_FrontEndUser::class,
             $this->subject->find($uid)
         );
     }
@@ -68,7 +68,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
     public function getUserGroupsGetsRelatedGroupsAsList()
     {
         $groupMapper
-            = Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_FrontEndUserGroup::class);
+            = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUserGroup::class);
 
         $group1 = $groupMapper->getNewGhost();
         $group2 = $groupMapper->getNewGhost();
@@ -76,7 +76,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
 
         $uid = $this->testingFramework->createFrontEndUser($groupUids);
 
-        /** @var Tx_Oelib_Model_FrontEndUser $user */
+        /** @var \Tx_Oelib_Model_FrontEndUser $user */
         $user = $this->subject->find($uid);
         self::assertSame(
             $groupUids,
@@ -119,7 +119,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
     public function getGroupMembersForGroupWithNoMembersReturnsInstanceOfOelibList()
     {
         self::assertInstanceOf(
-            Tx_Oelib_List::class,
+            \Tx_Oelib_List::class,
             $this->subject->getGroupMembers(
                 $this->testingFramework->createFrontEndUserGroup()
             )
@@ -242,7 +242,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createFrontEndUser($feUserGroupUid);
 
         self::assertInstanceOf(
-            Tx_Oelib_Model_FrontEndUser::class,
+            \Tx_Oelib_Model_FrontEndUser::class,
             $this->subject->getGroupMembers($feUserGroupUid)->first()
         );
     }
@@ -354,7 +354,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends Tx_Phpunit_TestCase
         $this->testingFramework->createFrontEndUser('', ['username' => $userName]);
 
         self::assertInstanceOf(
-            Tx_Oelib_Model_FrontEndUser::class,
+            \Tx_Oelib_Model_FrontEndUser::class,
             $this->subject->findByUserName($userName)
         );
     }

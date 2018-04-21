@@ -17,14 +17,14 @@ use TYPO3\CMS\Lang\LanguageService;
 class Tx_Oelib_TranslatorRegistry
 {
     /**
-     * @var Tx_Oelib_TranslatorRegistry the Singleton instance
+     * @var \Tx_Oelib_TranslatorRegistry the Singleton instance
      */
     private static $instance = null;
 
     /**
      * extension name => Translator entries
      *
-     * @var Tx_Oelib_Translator[]
+     * @var \Tx_Oelib_Translator[]
      */
     private $translators = [];
 
@@ -68,7 +68,7 @@ class Tx_Oelib_TranslatorRegistry
         } elseif ($this->getLanguageService() !== null) {
             $this->initializeBackEnd();
         } else {
-            throw new BadMethodCallException('There was neither a front end nor a back end detected.', 1331489564);
+            throw new \BadMethodCallException('There was neither a front end nor a back end detected.', 1331489564);
         }
     }
 
@@ -87,8 +87,8 @@ class Tx_Oelib_TranslatorRegistry
      */
     private function initializeFrontEnd()
     {
-        $this->setLanguageKeyFromConfiguration(Tx_Oelib_ConfigurationRegistry::get('config'));
-        $this->setLanguageKeyFromConfiguration(Tx_Oelib_ConfigurationRegistry::get('page.config'));
+        $this->setLanguageKeyFromConfiguration(\Tx_Oelib_ConfigurationRegistry::get('config'));
+        $this->setLanguageKeyFromConfiguration(\Tx_Oelib_ConfigurationRegistry::get('page.config'));
 
         $this->renderCharset = $this->getFrontEndController()->renderCharset;
         $this->charsetConversion = $this->getFrontEndController()->csConvObj;
@@ -101,11 +101,11 @@ class Tx_Oelib_TranslatorRegistry
      * The language key is read from the "language" key and the alternate language is read
      * from the language_alt key.
      *
-     * @param Tx_Oelib_Configuration $configuration the configuration to read
+     * @param \Tx_Oelib_Configuration $configuration the configuration to read
      *
      * @return void
      */
-    private function setLanguageKeyFromConfiguration(Tx_Oelib_Configuration $configuration)
+    private function setLanguageKeyFromConfiguration(\Tx_Oelib_Configuration $configuration)
     {
         if (!$configuration->hasString('language')) {
             return;
@@ -124,8 +124,8 @@ class Tx_Oelib_TranslatorRegistry
      */
     private function initializeBackEnd()
     {
-        $backEndUser = Tx_Oelib_BackEndLoginManager::getInstance()->
-            getLoggedInUser(Tx_Oelib_Mapper_BackEndUser::class);
+        $backEndUser = \Tx_Oelib_BackEndLoginManager::getInstance()->
+            getLoggedInUser(\Tx_Oelib_Mapper_BackEndUser::class);
         $this->languageKey = $backEndUser->getLanguage();
         $this->renderCharset = $this->getLanguageService()->charSet;
         $this->charsetConversion = $this->getLanguageService()->csConvObj;
@@ -134,12 +134,12 @@ class Tx_Oelib_TranslatorRegistry
     /**
      * Returns the instance of this class.
      *
-     * @return Tx_Oelib_TranslatorRegistry the current Singleton instance
+     * @return \Tx_Oelib_TranslatorRegistry the current Singleton instance
      */
     public static function getInstance()
     {
         if (self::$instance === null) {
-            self::$instance = new Tx_Oelib_TranslatorRegistry();
+            self::$instance = new \Tx_Oelib_TranslatorRegistry();
         }
 
         return self::$instance;
@@ -163,7 +163,7 @@ class Tx_Oelib_TranslatorRegistry
      * @param string $extensionName
      *        the extension name to get the Translator for, must not be empty, the corresponding extension must be loaded
      *
-     * @return Tx_Oelib_Translator the Translator for the specified extension
+     * @return \Tx_Oelib_Translator the Translator for the specified extension
      *
      * @see getByExtensionName()
      */
@@ -178,17 +178,17 @@ class Tx_Oelib_TranslatorRegistry
      * @param string $extensionName
      *        the extension name to get the Translator for, must not be empty, the corresponding extension must be loaded
      *
-     * @return Tx_Oelib_Translator the Translator for the specified extension
+     * @return \Tx_Oelib_Translator the Translator for the specified extension
      *                             name
      */
     private function getByExtensionName($extensionName)
     {
         if ($extensionName === '') {
-            throw new InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489578);
+            throw new \InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489578);
         }
 
         if (!ExtensionManagementUtility::isLoaded($extensionName)) {
-            throw new BadMethodCallException('The extension with the name "' . $extensionName . '" is not loaded.', 1331489598);
+            throw new \BadMethodCallException('The extension with the name "' . $extensionName . '" is not loaded.', 1331489598);
         }
 
         if (!isset($this->translators[$extensionName])) {
@@ -206,7 +206,7 @@ class Tx_Oelib_TranslatorRegistry
                 }
             }
 
-            /** @var Tx_Oelib_Translator $translator */
+            /** @var \Tx_Oelib_Translator $translator */
             $translator = GeneralUtility::makeInstance(
                 \Tx_Oelib_Translator::class,
                 $this->languageKey,
@@ -231,7 +231,7 @@ class Tx_Oelib_TranslatorRegistry
     private function getLocalizedLabelsFromFile($extensionKey)
     {
         if ($extensionKey === '') {
-            throw new InvalidArgumentException('$extensionKey must not be empty.', 1331489618);
+            throw new \InvalidArgumentException('$extensionKey must not be empty.', 1331489618);
         }
 
         /** @var LocalizationFactory $languageFactory */
@@ -264,13 +264,13 @@ class Tx_Oelib_TranslatorRegistry
     private function getLocalizedLabelsFromTypoScript($extensionName)
     {
         if ($extensionName === '') {
-            throw new InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489630);
+            throw new \InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489630);
         }
 
         $result = [];
         $namespace = 'plugin.tx_' . $extensionName . '._LOCAL_LANG.' . $this->languageKey;
 
-        $configuration = Tx_Oelib_ConfigurationRegistry::get($namespace);
+        $configuration = \Tx_Oelib_ConfigurationRegistry::get($namespace);
         foreach ($configuration->getArrayKeys() as $key) {
             // Converts the label from the source charset to the render
             // charset.
@@ -296,7 +296,7 @@ class Tx_Oelib_TranslatorRegistry
     public function setLanguageKey($languageKey)
     {
         if ($languageKey === '') {
-            throw new InvalidArgumentException('The given language key must not be empty.', 1331489643);
+            throw new \InvalidArgumentException('The given language key must not be empty.', 1331489643);
         }
 
         $this->languageKey = $languageKey;

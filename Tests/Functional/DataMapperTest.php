@@ -5,31 +5,31 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Functional_DataMapperTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Functional_DataMapperTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_TestingFramework
+     * @var \Tx_Oelib_TestingFramework
      */
     protected $testingFramework = null;
     /**
-     * @var Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
+     * @var \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
-        Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);
+        \Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);
 
-        $this->subject = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class);
+        $this->subject = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class);
     }
 
     protected function tearDown()
     {
         $this->testingFramework->cleanUp();
 
-        Tx_Oelib_MapperRegistry::purgeInstance();
+        \Tx_Oelib_MapperRegistry::purgeInstance();
     }
 
     /*
@@ -47,7 +47,7 @@ class Tx_Oelib_Tests_Functional_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => $title]
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid($uid);
         $this->subject->load($model);
 
@@ -71,7 +71,7 @@ class Tx_Oelib_Tests_Functional_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             'foo',
@@ -95,7 +95,7 @@ class Tx_Oelib_Tests_Functional_DataMapperTest extends Tx_Phpunit_TestCase
             ['friend' => $friendUid]
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             $friendTitle,
@@ -119,9 +119,9 @@ class Tx_Oelib_Tests_Functional_DataMapperTest extends Tx_Phpunit_TestCase
             ['children' => (string)$childUid]
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $firstChild */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $firstChild */
         $firstChild = $model->getChildren()->first();
         self::assertSame(
             $childTitle,
@@ -148,9 +148,9 @@ class Tx_Oelib_Tests_Functional_DataMapperTest extends Tx_Phpunit_TestCase
             'related_records'
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $firstRelatedModel */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $firstRelatedModel */
         $firstRelatedModel = $model->getRelatedRecords()->first();
         self::assertSame(
             $relatedTitle,
@@ -176,7 +176,7 @@ class Tx_Oelib_Tests_Functional_DataMapperTest extends Tx_Phpunit_TestCase
             'bidirectional'
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($relatedUid);
         self::assertSame(
             (string)$uid,
@@ -203,9 +203,9 @@ class Tx_Oelib_Tests_Functional_DataMapperTest extends Tx_Phpunit_TestCase
             ['parent' => $uid, 'title' => $relatedTitle]
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $firstChildModel */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $firstChildModel */
         $firstChildModel = $model->getComposition()->first();
         self::assertSame(
             $relatedTitle,

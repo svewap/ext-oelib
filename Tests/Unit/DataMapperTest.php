@@ -7,31 +7,31 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_TestingFramework
+     * @var \Tx_Oelib_TestingFramework
      */
     protected $testingFramework = null;
     /**
-     * @var Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
+     * @var \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->testingFramework = new Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
-        Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);
+        \Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);
 
-        $this->subject = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class);
+        $this->subject = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingMapper::class);
     }
 
     protected function tearDown()
     {
         $this->testingFramework->cleanUp();
 
-        Tx_Oelib_MapperRegistry::purgeInstance();
+        \Tx_Oelib_MapperRegistry::purgeInstance();
     }
 
     ///////////////////////////////////////
@@ -48,7 +48,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'Tx_Oelib_Tests_Unit_Fixtures_TableLessTestingMapper::tableName must not be empty.'
         );
 
-        new Tx_Oelib_Tests_Unit_Fixtures_TableLessTestingMapper();
+        new \Tx_Oelib_Tests_Unit_Fixtures_TableLessTestingMapper();
     }
 
     /**
@@ -61,7 +61,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'Tx_Oelib_Tests_Unit_Fixtures_ColumnLessTestingMapper::columns must not be empty.'
         );
 
-        new Tx_Oelib_Tests_Unit_Fixtures_ColumnLessTestingMapper();
+        new \Tx_Oelib_Tests_Unit_Fixtures_ColumnLessTestingMapper();
     }
 
     /**
@@ -74,7 +74,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'Tx_Oelib_Tests_Unit_Fixtures_ModelLessTestingMapper::modelClassName must not be empty.'
         );
 
-        new Tx_Oelib_Tests_Unit_Fixtures_ModelLessTestingMapper();
+        new \Tx_Oelib_Tests_Unit_Fixtures_ModelLessTestingMapper();
     }
 
     //////////////////////////
@@ -112,10 +112,10 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function findWithUidOfCachedModelReturnsThatModel()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid(1);
 
-        $map = new Tx_Oelib_IdentityMap();
+        $map = new \Tx_Oelib_IdentityMap();
         $map->add($model);
         $this->subject->setMap($map);
 
@@ -148,7 +148,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             'foo',
@@ -192,7 +192,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     public function getModelForNonMappedUidReturnsModelInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model::class,
+            \Tx_Oelib_Model::class,
             $this->subject->getModel(['uid' => 2])
         );
     }
@@ -215,7 +215,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $mappedUid = $this->subject->getNewGhost()->getUid();
 
         self::assertInstanceOf(
-            Tx_Oelib_Model::class,
+            \Tx_Oelib_Model::class,
             $this->subject->getModel(['uid' => $mappedUid])
         );
     }
@@ -239,7 +239,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $mappedModel = $this->subject->getNewGhost();
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->getModel(['uid' => $mappedModel->getUid(), 'title' => 'new title']);
         self::assertSame(
             'new title',
@@ -282,7 +282,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $mappedModel = $this->subject->getNewGhost();
         $mappedModel->setData(['title' => 'foo']);
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->getModel(['uid' => $mappedModel->getUid()]);
         self::assertSame(
             'foo',
@@ -298,7 +298,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $mappedModel = $this->subject->getNewGhost();
         $mappedModel->setData(['title' => 'foo']);
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->getModel(['uid' => $mappedModel->getUid(), 'title' => 'new title']);
         self::assertSame(
             'foo',
@@ -324,7 +324,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function getModelForNonMappedUidReturnsModelWithChildrenList()
     {
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->getModel(['uid' => 2]);
         self::assertInstanceOf(
             \Tx_Oelib_List::class,
@@ -355,7 +355,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     public function getListOfModelsReturnsInstanceOfList()
     {
         self::assertInstanceOf(
-            Tx_Oelib_List::class,
+            \Tx_Oelib_List::class,
             $this->subject->getListOfModels([['uid' => 1]])
         );
     }
@@ -398,7 +398,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     public function getListOfModelsReturnsListOfModelInstances()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model::class,
+            \Tx_Oelib_Model::class,
             $this->subject->getListOfModels([['uid' => 1]])->current()
         );
     }
@@ -429,7 +429,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'load must only be called with models that already have a UID.'
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $this->subject->load($model);
     }
 
@@ -443,7 +443,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['hidden' => 1]
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid($uid);
         $this->subject->load($model);
 
@@ -462,7 +462,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid($uid);
         $this->subject->load($model);
 
@@ -481,7 +481,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['float_data' => 12.5]
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid($uid);
         $this->subject->load($model);
 
@@ -501,7 +501,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['decimal_data' => 12.5]
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid($uid);
         $this->subject->load($model);
 
@@ -521,7 +521,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['string_data' => 12.5]
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid($uid);
         $this->subject->load($model);
 
@@ -549,7 +549,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $this->setExpectedException(\InvalidArgumentException::class);
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $this->subject->load($model);
     }
 
@@ -559,7 +559,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     public function reloadCanLoadGhostFromDisk()
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => 'foo']);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertTrue($model->isGhost());
 
@@ -578,7 +578,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $oldTitle = 'foo';
         $uid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => $oldTitle]);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame($oldTitle, $model->getTitle());
         self::assertTrue($model->isLoaded());
@@ -598,7 +598,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $oldTitle = 'foo';
         $uid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => '']);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle($oldTitle);
         self::assertTrue($model->isLoaded());
@@ -619,7 +619,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid($uid);
         $this->subject->reload($model);
 
@@ -648,7 +648,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     public function findAndAccessingDataLoadsModel()
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => 'foo']);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->getTitle();
 
@@ -698,7 +698,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid($uid);
         $this->subject->load($model);
 
@@ -714,7 +714,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid($uid);
         $this->subject->load($model);
 
@@ -895,7 +895,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertNull(
             $model->getFriend()
@@ -913,7 +913,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['friend' => $friendUid]
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             $friendUid,
@@ -932,7 +932,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             $uid,
             ['friend' => $uid]
         );
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
 
         self::assertSame(
@@ -952,7 +952,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['owner' => $ownerUid]
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertInstanceOf(
             \Tx_Oelib_Model_FrontEndUser::class,
@@ -971,7 +971,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['friend' => $friendUid]
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->getFriend()->getTitle();
 
@@ -991,7 +991,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['friend' => $friendUid]
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             $friendUid,
@@ -1010,7 +1010,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertTrue(
             $model->getChildren()->isEmpty()
@@ -1028,7 +1028,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['children' => $childUid]
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             (string)$childUid,
@@ -1048,7 +1048,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['children' => $childUid1 . ',' . $childUid2]
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             $childUid1 . ',' . $childUid2,
@@ -1067,7 +1067,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['children' => $childUid1 . ',0']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             (string)$childUid1,
@@ -1082,7 +1082,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
 
         self::assertSame(
@@ -1098,7 +1098,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
 
         self::assertFalse(
@@ -1117,7 +1117,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertTrue(
             $model->getRelatedRecords()->isEmpty()
@@ -1138,7 +1138,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'related_records'
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             (string)$relatedUid,
@@ -1167,7 +1167,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'related_records'
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             $relatedUid1 . ',' . $relatedUid2,
@@ -1196,7 +1196,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'related_records'
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             $relatedUid2 . ',' . $relatedUid1,
@@ -1211,7 +1211,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
 
         self::assertSame(
@@ -1227,7 +1227,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
 
         self::assertFalse(
@@ -1246,7 +1246,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertTrue(
             $model->getBidirectional()->isEmpty()
@@ -1267,7 +1267,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'bidirectional'
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($relatedUid);
         self::assertSame(
             (string)$uid,
@@ -1296,7 +1296,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'bidirectional'
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($relatedUid);
         self::assertSame(
             $uid1 . ',' . $uid2,
@@ -1325,7 +1325,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'bidirectional'
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($relatedUid);
         self::assertSame(
             $uid2 . ',' . $uid1,
@@ -1340,7 +1340,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
 
         self::assertSame(
@@ -1356,7 +1356,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
 
         self::assertFalse(
@@ -1375,7 +1375,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertTrue(
             $model->getComposition()->isEmpty()
@@ -1396,7 +1396,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['parent' => $uid]
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             (string)$relatedUid,
@@ -1412,7 +1412,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $uid = $this->testingFramework->createRecord('tx_oelib_test', ['composition' => 1]);
         $this->testingFramework->createRecord('tx_oelib_testchild', ['parent' => $uid, 'deleted' => 1]);
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
 
         self::assertTrue($model->getComposition()->isEmpty());
@@ -1436,7 +1436,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['parent' => $uid, 'title' => 'relation B']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             $relatedUid1 . ',' . $relatedUid2,
@@ -1462,7 +1462,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['parent' => $uid, 'title' => 'relation A']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame(
             $relatedUid2 . ',' . $relatedUid1,
@@ -1477,7 +1477,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
 
         self::assertSame(
@@ -1493,7 +1493,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
 
         self::assertTrue(
@@ -1511,7 +1511,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     public function getNewGhostReturnsModel()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model::class,
+            \Tx_Oelib_Model::class,
             $this->subject->getNewGhost()
         );
     }
@@ -1575,7 +1575,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $this->subject->disableDatabaseAccess();
 
         self::assertInstanceOf(
-            Tx_Oelib_Model::class,
+            \Tx_Oelib_Model::class,
             $this->subject->getLoadedTestingModel([])
         );
     }
@@ -1625,7 +1625,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $this->subject->disableDatabaseAccess();
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->getLoadedTestingModel(
             ['title' => 'foo']
         );
@@ -1644,7 +1644,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $this->subject->disableDatabaseAccess();
 
         $relatedModel = $this->subject->getNewGhost();
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->getLoadedTestingModel(
             ['friend' => $relatedModel->getUid()]
         );
@@ -1696,7 +1696,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->findSingleByWhereClause(['title' => 'foo', 'is_dummy_record' => '1']);
         self::assertSame(
             'foo',
@@ -1713,11 +1713,11 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'tx_oelib_test',
             ['title' => 'foo']
         );
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model1 */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model1 */
         $model1 = $this->subject->find($uid);
         $model1->setTitle('bar');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model2 */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model2 */
         $model2 = $this->subject->findSingleByWhereClause(['title' => 'foo', 'is_dummy_record' => '1']);
         self::assertSame(
             'bar',
@@ -1836,7 +1836,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
@@ -1879,7 +1879,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $model->markAsDead();
@@ -1903,7 +1903,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $model->markAsClean();
@@ -1927,7 +1927,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
@@ -1950,7 +1950,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
@@ -1971,7 +1971,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
@@ -1991,7 +1991,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setUid($uid);
         $model->setData([]);
         $model->markAsDirty();
@@ -2011,7 +2011,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveNewModelFromMemoryAndMapperInTestingModeMarksModelAsDummyModel()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setData(['title' => 'foo']);
         $model->markAsDirty();
 
@@ -2030,7 +2030,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveNewModelFromMemoryRegistersModelInMapper()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setData(['title' => 'foo']);
         $model->markAsDirty();
 
@@ -2052,7 +2052,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
@@ -2067,7 +2067,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForDirtyLoadedModelWithoutUidAndWithoutRelationsCommitsModelToDatabase()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setData(['is_dummy_record' => '1', 'title' => 'bar']);
         $model->markAsDirty();
 
@@ -2086,7 +2086,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForDirtyLoadedModelWithoutUidAndWithRelationsCommitsModelToDatabase()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
 
         $data = ['is_dummy_record' => '1', 'title' => 'bar'];
         $this->subject->createRelations($data, $model);
@@ -2109,7 +2109,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForDirtyLoadedModelWithoutUidAddsModelToMapAfterSave()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
 
         $data = ['is_dummy_record' => '1', 'title' => 'bar'];
         $this->subject->createRelations($data, $model);
@@ -2130,7 +2130,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForDirtyLoadedModelWithoutUidSetsUidForModel()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
 
         $data = ['is_dummy_record' => '1', 'title' => 'bar'];
         $this->subject->createRelations($data, $model);
@@ -2150,7 +2150,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForDirtyLoadedModelWithoutUidSetsUidReceivedFromDatabaseForModel()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
 
         $data = ['is_dummy_record' => '1', 'title' => 'bar'];
         $this->subject->createRelations($data, $model);
@@ -2173,7 +2173,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function isDirtyAfterSaveForDirtyLoadedModelWithoutUidReturnsFalse()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
 
         $data = ['is_dummy_record' => '1', 'title' => 'bar'];
         $this->subject->createRelations($data, $model);
@@ -2193,7 +2193,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForDirtyLoadedModelWithoutUidSetsTimestamp()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
 
         $data = ['is_dummy_record' => '1', 'title' => 'bar'];
         $this->subject->createRelations($data, $model);
@@ -2216,7 +2216,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForDirtyLoadedModelWithoutUidSetsCreationDate()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
 
         $data = ['is_dummy_record' => '1', 'title' => 'bar'];
         $this->subject->createRelations($data, $model);
@@ -2273,7 +2273,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $model->setToDeleted();
@@ -2294,7 +2294,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'tx_oelib_test',
             ['friend' => $friendUid]
         );
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
@@ -2318,7 +2318,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'tx_oelib_test',
             ['children' => $childUid1 . ',' . $childUid2]
         );
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
@@ -2352,7 +2352,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'related_records'
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
@@ -2370,14 +2370,14 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForModelWithOneToManyRelationSavesNumberOfRelatedRecords()
     {
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find(
             $this->testingFramework->createRecord('tx_oelib_test')
         );
         $model->setTitle('bar');
 
         $composition = $model->getComposition();
-        $mapper = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
         $composition->add($mapper->find(
             $this->testingFramework->createRecord('tx_oelib_testchild')
         ));
@@ -2400,14 +2400,14 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForModelWithOneToManyRelationSavesDirtyRelatedRecord()
     {
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find(
             $this->testingFramework->createRecord('tx_oelib_test')
         );
         $model->setTitle('bar');
 
         $composition = $model->getComposition();
-        $mapper = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
         $component = $mapper->find(
             $this->testingFramework->createRecord('tx_oelib_testchild')
         );
@@ -2429,13 +2429,13 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForModelWith1NRelationSavesFirstNewRelatedRecord()
     {
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find(
             $this->testingFramework->createRecord('tx_oelib_test')
         );
         $model->setTitle('bar');
 
-        $component = new Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
+        $component = new \Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
         $component->markAsDummyModel();
         $model->getComposition()->add($component);
 
@@ -2455,17 +2455,17 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForModelWith1NRelationSavesSecondNewRelatedRecord()
     {
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find(
             $this->testingFramework->createRecord('tx_oelib_test')
         );
         $model->setTitle('bar');
 
-        $newComponent1 = new Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
+        $newComponent1 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
         $newComponent1->markAsDummyModel();
         $model->getComposition()->add($newComponent1);
 
-        $newComponent2 = new Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
+        $newComponent2 = new \Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
         $newComponent2->markAsDummyModel();
         $model->getComposition()->add($newComponent2);
 
@@ -2485,11 +2485,11 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForModelWith1NRelationSavesNewRelatedRecordWithPrefixInForeignKey()
     {
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($this->testingFramework->createRecord('tx_oelib_test'));
         $model->setTitle('bar');
 
-        $component = new Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
+        $component = new \Tx_Oelib_Tests_Unit_Fixtures_TestingChildModel();
         $component->markAsDummyModel();
         $model->getComposition2()->add($component);
 
@@ -2509,20 +2509,20 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForModelWithOneToManyRelationDeletesUnconnectedRecord()
     {
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find(
             $this->testingFramework->createRecord('tx_oelib_test')
         );
         $model->markAsDirty();
 
         $composition = $model->getComposition();
-        $mapper = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $component1 */
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $component1 */
         $component1 = $mapper->find(
             $this->testingFramework->createRecord('tx_oelib_testchild', ['parent' => $model->getUid()])
         );
         $composition->add($component1);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $component2 */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $component2 */
         $component2 = $mapper->find(
             $this->testingFramework->createRecord('tx_oelib_testchild', ['parent' => $model->getUid()])
         );
@@ -2547,10 +2547,10 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'tx_oelib_test',
             ['friend' => $friendUid]
         );
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $friend */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $friend */
         $friend = $this->subject->find($friendUid);
         $friend->setTitle('foo');
 
@@ -2569,12 +2569,12 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveForModelWithN1RelationSavesNewRelatedRecord()
     {
-        $friend = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $friend = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $friend->markAsDummyModel();
         $friend->setTitle('foo');
 
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setFriend($friend);
 
@@ -2599,10 +2599,10 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'tx_oelib_test',
             ['children' => $childUid1 . ',' . $childUid2]
         );
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $child */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $child */
         $child = $this->subject->find($childUid1);
         $child->setTitle('foo');
 
@@ -2626,7 +2626,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['title' => 'foo']
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
@@ -2645,7 +2645,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $parentUid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent */
         $parent = $this->subject->find($parentUid);
         $child = $this->subject->getNewGhost();
 
@@ -2663,10 +2663,10 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $parentUid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent */
         $parent = $this->subject->find($parentUid);
         $child = $this->subject->getNewGhost();
-        $list = new Tx_Oelib_List();
+        $list = new \Tx_Oelib_List();
         $list->add($child);
 
         $parent->getChildren()->append($list);
@@ -2683,7 +2683,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     {
         $parentUid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent */
         $parent = $this->subject->find($parentUid);
         $child = $this->subject->getNewGhost();
         $parent->getChildren()->add($child);
@@ -2704,7 +2704,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $parentUid = $this->testingFramework->createRecord('tx_oelib_test');
         $childUid = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent */
         $parent = $this->subject->find($parentUid);
         $child = $this->subject->find($childUid);
 
@@ -2729,7 +2729,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $childUid1 = $this->testingFramework->createRecord('tx_oelib_test');
         $childUid2 = $this->testingFramework->createRecord('tx_oelib_test');
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $parent */
         $parent = $this->subject->find($parentUid);
         $child1 = $this->subject->find($childUid1);
         $child2 = $this->subject->find($childUid2);
@@ -2756,7 +2756,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $childUid = $this->testingFramework->createRecord('tx_oelib_test');
 
         $parent = $this->subject->find($parentUid);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $child */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $child */
         $child = $this->subject->find($childUid);
 
         $child->getBidirectional()->add($parent);
@@ -2782,7 +2782,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
 
         $parent1 = $this->subject->find($parentUid1);
         $parent2 = $this->subject->find($parentUid2);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $child */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $child */
         $child = $this->subject->find($childUid);
 
         $child->getBidirectional()->add($parent1);
@@ -2849,7 +2849,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveCanSaveFloatDataToFloatColumn()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setData(['float_data' => 9.5]);
         $this->subject->save($model);
 
@@ -2862,7 +2862,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveCanSaveFloatDataToDecimalColumn()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setData(['decimal_data' => 9.5]);
         $this->subject->save($model);
 
@@ -2875,7 +2875,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function saveCanSaveFloatDataToStringColumn()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->setData(['string_data' => 9.5]);
         $this->subject->save($model);
 
@@ -2975,7 +2975,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This tests needs the static_info_tables extension.');
         }
 
-        Tx_Oelib_MapperRegistry::get(Tx_Oelib_Mapper_Country::class)->findAll();
+        \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class)->findAll();
     }
 
     /**
@@ -3370,7 +3370,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ->method('findByWhereClause')
             ->with('', '', '');
 
-        /* @var $subject Tx_Oelib_Tests_Unit_Fixtures_TestingMapper */
+        /* @var $subject \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper */
         $subject->findByPageUid('');
     }
 
@@ -3388,7 +3388,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ->method('findByWhereClause')
             ->with('', '', '1,1');
 
-        /* @var Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
+        /* @var \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
         $subject->findByPageUid('', '', '1,1');
     }
 
@@ -3406,7 +3406,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ->method('findByWhereClause')
             ->with('tx_oelib_test.pid IN (42)', '', '');
 
-        /* @var Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
+        /* @var \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
         $subject->findByPageUid('42', '', '');
     }
 
@@ -3424,7 +3424,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ->method('findByWhereClause')
             ->with('tx_oelib_test.pid IN (42)', '', '1,1');
 
-        /* @var Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
+        /* @var \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
         $subject->findByPageUid('42', '', '1,1');
     }
 
@@ -3520,7 +3520,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     public function findByKeyFindsSavedModel()
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('Earl Grey');
         $this->subject->save($model);
@@ -3537,7 +3537,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     public function findByKeyFindsLastSavedModelWithSameKey()
     {
         $uid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model1 */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model1 */
         $model1 = $this->subject->find($uid1);
         $model1->setTitle('Earl Grey');
         $this->subject->save($model1);
@@ -3546,7 +3546,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'tx_oelib_test',
             ['title' => 'Earl Grey']
         );
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model2 */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model2 */
         $model2 = $this->subject->find($uid2);
         $model2->setTitle('Earl Grey');
         $this->subject->save($model2);
@@ -3710,7 +3710,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     public function findByCompoundKeyFindsSavedModel()
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test');
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('Earl Grey');
         $model->setHeader('Tea Time');
@@ -3728,7 +3728,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
     public function findByCompoundKeyFindsLastSavedModelWithSameCompoundKey()
     {
         $uid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model1 */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model1 */
         $model1 = $this->subject->find($uid1);
         $model1->setTitle('Earl Grey');
         $model1->setHeader('Tea Time');
@@ -3738,7 +3738,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'tx_oelib_test',
             ['title' => 'Earl Grey', 'header' => 'Tea Time']
         );
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model2 */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model2 */
         $model2 = $this->subject->find($uid2);
         $model2->setTitle('Earl Grey');
         $model2->setHeader('Tea Time');
@@ -3810,7 +3810,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function deleteForDeadModelDoesNotThrowException()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
         $model->markAsDead();
 
         $this->subject->delete($model);
@@ -3821,7 +3821,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
      */
     public function deleteForModelWithoutUidMarksModelAsDead()
     {
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
 
         $this->subject->delete($model);
 
@@ -3872,7 +3872,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             'This model is read-only and must not be deleted.'
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_ReadOnlyModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_ReadOnlyModel();
         $this->subject->delete($model);
     }
 
@@ -3951,9 +3951,9 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['parent' => $uid]
         );
 
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $model */
         $model = $this->subject->find($uid);
-        /** @var Tx_Oelib_Tests_Unit_Fixtures_TestingModel $relatedModel */
+        /** @var \Tx_Oelib_Tests_Unit_Fixtures_TestingModel $relatedModel */
         $relatedModel = $model->getComposition()->first();
 
         $model->setTitle('foo');
@@ -3976,9 +3976,9 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             '$model must have a UID.'
         );
 
-        $model = new Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
+        $model = new \Tx_Oelib_Tests_Unit_Fixtures_TestingModel();
 
-        Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class)
+        \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class)
             ->findAllByRelation($model, 'parent');
     }
 
@@ -3996,7 +3996,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             $this->testingFramework->createRecord('tx_oelib_test')
         );
 
-        Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class)
+        \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class)
             ->findAllByRelation($model, '');
     }
 
@@ -4009,7 +4009,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             $this->testingFramework->createRecord('tx_oelib_test')
         );
 
-        $mapper = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
         self::assertTrue(
             $mapper->findAllByRelation($model, 'parent')->isEmpty()
         );
@@ -4031,7 +4031,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['parent' => $anotherModel->getUid()]
         );
 
-        $mapper = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
         self::assertTrue(
             $mapper->findAllByRelation($model, 'parent')->isEmpty()
         );
@@ -4045,7 +4045,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $model = $this->subject->find(
             $this->testingFramework->createRecord('tx_oelib_test')
         );
-        $mapper = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
         $relatedModel = $mapper->find(
             $this->testingFramework->createRecord(
                 'tx_oelib_testchild',
@@ -4081,7 +4081,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ['parent' => $model->getUid()]
         );
 
-        $result = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class)
+        $result = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class)
             ->findAllByRelation($model, 'parent');
         self::assertSame(
             2,
@@ -4097,7 +4097,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
         $model = $this->subject->find(
             $this->testingFramework->createRecord('tx_oelib_test')
         );
-        $mapper = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
+        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class);
         $relatedModel = $mapper->find(
             $this->testingFramework->createRecord(
                 'tx_oelib_testchild',
@@ -4111,10 +4111,10 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             )
         );
 
-        $ignoreList = new Tx_Oelib_List();
+        $ignoreList = new \Tx_Oelib_List();
         $ignoreList->add($ignoredRelatedModel);
 
-        $result = Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class)
+        $result = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_Unit_Fixtures_TestingChildMapper::class)
             ->findAllByRelation($model, 'parent', $ignoreList);
         self::assertSame(
             1,
@@ -4216,7 +4216,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ->method('countByWhereClause')
             ->with('');
 
-        /* @var Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
+        /* @var \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
         $subject->countByPageUid('');
     }
 
@@ -4233,7 +4233,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ->method('countByWhereClause')
             ->with('');
 
-        /* @var Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
+        /* @var \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
         $subject->countByPageUid('0');
     }
 
@@ -4250,7 +4250,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends Tx_Phpunit_TestCase
             ->method('countByWhereClause')
             ->with('tx_oelib_test.pid IN (42)');
 
-        /* @var Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
+        /* @var \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper $subject */
         $subject->countByPageUid('42');
     }
 

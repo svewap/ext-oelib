@@ -5,16 +5,16 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_FakeSessionTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_FakeSessionTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_FakeSession the object to test
+     * @var \Tx_Oelib_FakeSession the object to test
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_FakeSession();
+        $this->subject = new \Tx_Oelib_FakeSession();
     }
 
     /////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ class Tx_Oelib_Tests_Unit_FakeSessionTest extends Tx_Phpunit_TestCase
      */
     public function fakeSessionCanBeInstantiatedDirectly()
     {
-        new Tx_Oelib_FakeSession();
+        new \Tx_Oelib_FakeSession();
     }
 
     ////////////////////////////////////////

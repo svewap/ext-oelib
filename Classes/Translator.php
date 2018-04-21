@@ -63,7 +63,7 @@ class Tx_Oelib_Translator
     public function translate($key, $useHtmlSpecialChars = false)
     {
         if ($key === '') {
-            throw new InvalidArgumentException('The parameter $key must not be empty.', 1331489544);
+            throw new \InvalidArgumentException('The parameter $key must not be empty.', 1331489544);
         }
 
         $translation = $this->translateForNewTypo3($key);

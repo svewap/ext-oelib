@@ -5,7 +5,7 @@
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Mapper_FrontEndUserGroup extends Tx_Oelib_DataMapper
+class Tx_Oelib_Mapper_FrontEndUserGroup extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string the name of the database table for this mapper

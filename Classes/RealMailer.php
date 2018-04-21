@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Mail\MailMessage;
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class Tx_Oelib_RealMailer extends Tx_Oelib_AbstractMailer
+class Tx_Oelib_RealMailer extends \Tx_Oelib_AbstractMailer
 {
     /**
      * Sends a Swift e-mail.

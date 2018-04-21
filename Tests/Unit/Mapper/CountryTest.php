@@ -7,10 +7,10 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_Mapper_CountryTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Mapper_CountryTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Mapper_Country
+     * @var \Tx_Oelib_Mapper_Country
      */
     private $subject;
 
@@ -20,7 +20,7 @@ class Tx_Oelib_Tests_Unit_Mapper_CountryTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This tests needs the static_info_tables extension.');
         }
 
-        $this->subject = new Tx_Oelib_Mapper_Country();
+        $this->subject = new \Tx_Oelib_Mapper_Country();
     }
 
     ///////////////////////////
@@ -33,7 +33,7 @@ class Tx_Oelib_Tests_Unit_Mapper_CountryTest extends Tx_Phpunit_TestCase
     public function findWithUidOfExistingRecordReturnsCountryInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model_Country::class,
+            \Tx_Oelib_Model_Country::class,
             $this->subject->find(54)
         );
     }
@@ -43,7 +43,7 @@ class Tx_Oelib_Tests_Unit_Mapper_CountryTest extends Tx_Phpunit_TestCase
      */
     public function findWithUidOfExistingRecordReturnsRecordAsModel()
     {
-        /** @var Tx_Oelib_Model_Country $model */
+        /** @var \Tx_Oelib_Model_Country $model */
         $model = $this->subject->find(54);
         self::assertSame(
             'DE',
@@ -61,7 +61,7 @@ class Tx_Oelib_Tests_Unit_Mapper_CountryTest extends Tx_Phpunit_TestCase
     public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsCountryInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model_Country::class,
+            \Tx_Oelib_Model_Country::class,
             $this->subject->findByIsoAlpha2Code('DE')
         );
     }
@@ -87,7 +87,7 @@ class Tx_Oelib_Tests_Unit_Mapper_CountryTest extends Tx_Phpunit_TestCase
     public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsCountryInstance()
     {
         self::assertInstanceOf(
-            Tx_Oelib_Model_Country::class,
+            \Tx_Oelib_Model_Country::class,
             $this->subject->findByIsoAlpha3Code('DEU')
         );
     }

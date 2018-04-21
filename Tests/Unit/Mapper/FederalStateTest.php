@@ -7,10 +7,10 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_Unit_Mapper_FederalStateTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_Mapper_FederalStateTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Mapper_FederalState
+     * @var \Tx_Oelib_Mapper_FederalState
      */
     private $subject = null;
 
@@ -20,7 +20,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FederalStateTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('This tests needs the static_info_tables extension.');
         }
 
-        $this->subject = new Tx_Oelib_Mapper_FederalState();
+        $this->subject = new \Tx_Oelib_Mapper_FederalState();
     }
 
     /*
@@ -43,7 +43,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FederalStateTest extends Tx_Phpunit_TestCase
      */
     public function findWithUidOfExistingRecordReturnsRecordAsModel()
     {
-        /** @var Tx_Oelib_Model_FederalState $model */
+        /** @var \Tx_Oelib_Model_FederalState $model */
         $model = $this->subject->find(88);
         self::assertSame(
             'NW',

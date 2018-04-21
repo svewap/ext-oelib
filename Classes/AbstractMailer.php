@@ -26,29 +26,29 @@ abstract class Tx_Oelib_AbstractMailer
     }
 
     /**
-     * Sends an Tx_Oelib_Mail object (one separate message per recipient).
+     * Sends an \Tx_Oelib_Mail object (one separate message per recipient).
      *
-     * @param Tx_Oelib_Mail $email the Tx_Oelib_Mail object to send
+     * @param \Tx_Oelib_Mail $email the \Tx_Oelib_Mail object to send
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
-    public function send(Tx_Oelib_Mail $email)
+    public function send(\Tx_Oelib_Mail $email)
     {
         if (!$email->hasSender()) {
-            throw new InvalidArgumentException('$email must have a sender set.', 1331318718);
+            throw new \InvalidArgumentException('$email must have a sender set.', 1331318718);
         }
         $this->validateEmailAddress($email->getSender()->getEmailAddress(), 'From:');
         if ($email->getSubject() === '') {
-            throw new InvalidArgumentException('The e-mail subject must not be empty.', 1409410879);
+            throw new \InvalidArgumentException('The e-mail subject must not be empty.', 1409410879);
         }
         if (!$email->hasMessage()) {
-            throw new InvalidArgumentException('The e-mail message must not be empty.', 1409410886);
+            throw new \InvalidArgumentException('The e-mail message must not be empty.', 1409410886);
         }
         $recipients = $email->getRecipients();
         if (empty($recipients)) {
-            throw new InvalidArgumentException('The e-mail must have at least one recipient.', 1409410886);
+            throw new \InvalidArgumentException('The e-mail must have at least one recipient.', 1409410886);
         }
         foreach ($recipients as $recipient) {
             $this->validateEmailAddress($recipient->getEmailAddress(), 'To:');
@@ -74,13 +74,13 @@ abstract class Tx_Oelib_AbstractMailer
             $swiftMail->addPart($email->getHTMLMessage(), 'text/html');
         }
 
-        /** @var Tx_Oelib_Attachment $attachment */
+        /** @var \Tx_Oelib_Attachment $attachment */
         foreach ($email->getAttachments() as $attachment) {
             if (($attachment->getFileName() !== '') && ($attachment->getContent() === '')) {
-                $swiftAttachment = Swift_Attachment::fromPath($attachment->getFileName(), $attachment->getContentType());
+                $swiftAttachment = \Swift_Attachment::fromPath($attachment->getFileName(), $attachment->getContentType());
             } else {
                 $fileName = $attachment->getFileName() !== '' ? $attachment->getFileName() : null;
-                $swiftAttachment = Swift_Attachment::newInstance(
+                $swiftAttachment = \Swift_Attachment::newInstance(
                     $attachment->getContent(),
                     $fileName,
                     $attachment->getContentType()
@@ -104,18 +104,18 @@ abstract class Tx_Oelib_AbstractMailer
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     protected function validateEmailAddress($emailAddress, $roleDescription)
     {
         if ($emailAddress === '') {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The ' . $roleDescription . ' e-mail address "' . $emailAddress . '" was empty.',
                 1409601561
             );
         }
         if (!$this->isLocalhostAddress($emailAddress) && !GeneralUtility::validEmail($emailAddress)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The ' . $roleDescription . ' e-mail address "' . $emailAddress . '" was not valid.',
                 1409601561
             );

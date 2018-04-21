@@ -65,7 +65,7 @@ class Tx_Oelib_Template
     private $subpartsToHide = [];
 
     /**
-     * @var Tx_Oelib_Translator
+     * @var \Tx_Oelib_Translator
      */
     protected $translator = null;
 
@@ -79,11 +79,11 @@ class Tx_Oelib_Template
     /**
      * Injects the translator.
      *
-     * @param Tx_Oelib_Translator $translator
+     * @param \Tx_Oelib_Translator $translator
      *
      * @return void
      */
-    public function injectTranslator(Tx_Oelib_Translator $translator)
+    public function injectTranslator(\Tx_Oelib_Translator $translator)
     {
         $this->translator = $translator;
     }
@@ -292,7 +292,7 @@ class Tx_Oelib_Template
         );
 
         if (!$this->isMarkerNameValidWithoutHashes($subpartName)) {
-            throw new InvalidArgumentException('The value of the parameter $subpartName is not valid.', 1331489182);
+            throw new \InvalidArgumentException('The value of the parameter $subpartName is not valid.', 1331489182);
         }
 
         $this->subparts[$subpartName] = $content;
@@ -683,8 +683,8 @@ class Tx_Oelib_Template
      *
      * @return string the subpart content or an empty string if the subpart is hidden or the subpart name is missing
      *
-     * @throws InvalidArgumentException if $subpartKey is not valid
-     * @throws Tx_Oelib_Exception_NotFound if there is no subpart with the provided name
+     * @throws \InvalidArgumentException if $subpartKey is not valid
+     * @throws \Tx_Oelib_Exception_NotFound if there is no subpart with the provided name
      */
     public function getSubpart($subpartKey = '')
     {
@@ -692,10 +692,10 @@ class Tx_Oelib_Template
             return $this->render();
         }
         if (!$this->isMarkerNameValidWithoutHashes($subpartKey)) {
-            throw new InvalidArgumentException('The value of the parameter $key is not valid.', 1331489215);
+            throw new \InvalidArgumentException('The value of the parameter $key is not valid.', 1331489215);
         }
         if (!isset($this->subparts[$subpartKey])) {
-            throw new Tx_Oelib_Exception_NotFound(
+            throw new \Tx_Oelib_Exception_NotFound(
                 '$key contained the subpart name "' . $subpartKey . '", but only the following subparts are available: (' .
                     implode(', ', array_keys($this->subparts)) . ')'
             );

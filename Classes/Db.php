@@ -95,7 +95,7 @@ class Tx_Oelib_Db
         $intShowHidden = (int)$showHidden;
 
         if (!in_array($intShowHidden, [-1, 0, 1], true)) {
-            throw new InvalidArgumentException('$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331319963);
+            throw new \InvalidArgumentException('$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331319963);
         }
 
         // maps $showHidden (-1..1) to (0..2) which ensures valid array keys
@@ -154,14 +154,14 @@ class Tx_Oelib_Db
      *                UIDs provided in $startPages, will be empty if
      *                $startPages is empty
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public static function createRecursivePageList(
         $startPages,
         $recursionDepth = 0
     ) {
         if ($recursionDepth < 0) {
-            throw new InvalidArgumentException('$recursionDepth must be >= 0.', 1331319974);
+            throw new \InvalidArgumentException('$recursionDepth must be >= 0.', 1331319974);
         }
         if ($recursionDepth === 0) {
             return (string)$startPages;
@@ -206,13 +206,13 @@ class Tx_Oelib_Db
      *
      * @return int the number of affected rows, might be 0
      *
-     * @throws InvalidArgumentException
-     * @throws Tx_Oelib_Exception_Database if an error has occurred
+     * @throws \InvalidArgumentException
+     * @throws \Tx_Oelib_Exception_Database if an error has occurred
      */
     public static function delete($tableName, $whereClause)
     {
         if ($tableName === '') {
-            throw new InvalidArgumentException('The table name must not be empty.', 1331488193);
+            throw new \InvalidArgumentException('The table name must not be empty.', 1331488193);
         }
 
         self::enableQueryLogging();
@@ -221,7 +221,7 @@ class Tx_Oelib_Db
             $whereClause
         );
         if (!$dbResult) {
-            throw new Tx_Oelib_Exception_Database();
+            throw new \Tx_Oelib_Exception_Database();
         }
 
         return self::getDatabaseConnection()->sql_affected_rows();
@@ -239,13 +239,13 @@ class Tx_Oelib_Db
      *
      * @return int the number of affected rows, might be 0
      *
-     * @throws InvalidArgumentException
-     * @throws Tx_Oelib_Exception_Database if an error has occurred
+     * @throws \InvalidArgumentException
+     * @throws \Tx_Oelib_Exception_Database if an error has occurred
      */
     public static function update($tableName, $whereClause, array $fields)
     {
         if ($tableName === '') {
-            throw new InvalidArgumentException('The table name must not be empty.', 1331488204);
+            throw new \InvalidArgumentException('The table name must not be empty.', 1331488204);
         }
 
         self::enableQueryLogging();
@@ -255,7 +255,7 @@ class Tx_Oelib_Db
             $fields
         );
         if (!$dbResult) {
-            throw new Tx_Oelib_Exception_Database();
+            throw new \Tx_Oelib_Exception_Database();
         }
 
         return self::getDatabaseConnection()->sql_affected_rows();
@@ -271,16 +271,16 @@ class Tx_Oelib_Db
      *
      * @return int the UID of the created record, will be 0 if the table has no UID column
      *
-     * @throws InvalidArgumentException
-     * @throws Tx_Oelib_Exception_Database if an error has occurred
+     * @throws \InvalidArgumentException
+     * @throws \Tx_Oelib_Exception_Database if an error has occurred
      */
     public static function insert($tableName, array $recordData)
     {
         if ($tableName === '') {
-            throw new InvalidArgumentException('The table name must not be empty.', 1331488220);
+            throw new \InvalidArgumentException('The table name must not be empty.', 1331488220);
         }
         if (empty($recordData)) {
-            throw new InvalidArgumentException('$recordData must not be empty.', 1331488230);
+            throw new \InvalidArgumentException('$recordData must not be empty.', 1331488230);
         }
 
         self::enableQueryLogging();
@@ -289,7 +289,7 @@ class Tx_Oelib_Db
             $recordData
         );
         if (!$dbResult) {
-            throw new Tx_Oelib_Exception_Database();
+            throw new \Tx_Oelib_Exception_Database();
         }
 
         return self::getDatabaseConnection()->sql_insert_id();
@@ -307,8 +307,8 @@ class Tx_Oelib_Db
      *
      * @return \mysqli_result MySQLi result object
      *
-     * @throws InvalidArgumentException
-     * @throws Tx_Oelib_Exception_Database if an error has occurred
+     * @throws \InvalidArgumentException
+     * @throws \Tx_Oelib_Exception_Database if an error has occurred
      */
     public static function select(
         $fields,
@@ -319,10 +319,10 @@ class Tx_Oelib_Db
         $limit = ''
     ) {
         if ($tableNames === '') {
-            throw new InvalidArgumentException('The table names must not be empty.', 1331488261);
+            throw new \InvalidArgumentException('The table names must not be empty.', 1331488261);
         }
         if ($fields === '') {
-            throw new InvalidArgumentException('$fields must not be empty.', 1331488270);
+            throw new \InvalidArgumentException('$fields must not be empty.', 1331488270);
         }
 
         self::enableQueryLogging();
@@ -335,7 +335,7 @@ class Tx_Oelib_Db
             $limit
         );
         if (!$dbResult) {
-            throw new Tx_Oelib_Exception_Database();
+            throw new \Tx_Oelib_Exception_Database();
         }
 
         return $dbResult;
@@ -357,7 +357,7 @@ class Tx_Oelib_Db
      *
      * @return string[] the single result row, will not be empty
      *
-     * @throws Tx_Oelib_Exception_EmptyQueryResult if there is no matching record
+     * @throws \Tx_Oelib_Exception_EmptyQueryResult if there is no matching record
      */
     public static function selectSingle(
         $fields,
@@ -376,7 +376,7 @@ class Tx_Oelib_Db
             $offset . ',' . 1
         );
         if (empty($result)) {
-            throw new Tx_Oelib_Exception_EmptyQueryResult();
+            throw new \Tx_Oelib_Exception_EmptyQueryResult();
         }
 
         return $result[0];
@@ -466,7 +466,7 @@ class Tx_Oelib_Db
      * Counts the number of matching records in the database for a particular
      * WHERE clause.
      *
-     * @throws Tx_Oelib_Exception_Database if an error has occurred
+     * @throws \Tx_Oelib_Exception_Database if an error has occurred
      *
      * @param string $tableNames
      *        comma-separated list of existing tables from which to count, can
@@ -550,7 +550,7 @@ class Tx_Oelib_Db
         $additionalWhereClause = ''
     ) {
         if ($uid <= 0) {
-            throw new InvalidArgumentException('$uid must be > 0.', 1331488284);
+            throw new \InvalidArgumentException('$uid must be > 0.', 1331488284);
         }
 
         return self::count($table, 'uid = ' . $uid . $additionalWhereClause) > 0;
@@ -601,7 +601,7 @@ class Tx_Oelib_Db
     public static function existsTable($tableName)
     {
         if ($tableName === '') {
-            throw new InvalidArgumentException('The table name must not be empty.', 1331488301);
+            throw new \InvalidArgumentException('The table name must not be empty.', 1331488301);
         }
 
         self::retrieveTableNames();
@@ -662,7 +662,7 @@ class Tx_Oelib_Db
     {
         if (!isset(self::$tableColumnCache[$table])) {
             if (!self::existsTable($table)) {
-                throw new BadMethodCallException('The table "' . $table . '" does not exist.', 1331488327);
+                throw new \BadMethodCallException('The table "' . $table . '" does not exist.', 1331488327);
             }
 
             self::$tableColumnCache[$table] = self::getDatabaseConnection()->admin_get_fields($table);
@@ -722,11 +722,11 @@ class Tx_Oelib_Db
         }
 
         if (!self::existsTable($tableName)) {
-            throw new BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331488344);
+            throw new \BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331488344);
         }
 
         if (!isset($GLOBALS['TCA'][$tableName])) {
-            throw new BadMethodCallException('The table "' . $tableName . '" has no TCA.', 1331488350);
+            throw new \BadMethodCallException('The table "' . $tableName . '" has no TCA.', 1331488350);
         }
         self::$tcaCache[$tableName] = $GLOBALS['TCA'][$tableName];
 

@@ -5,16 +5,16 @@
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_Unit_AttachmentTest extends Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_Unit_AttachmentTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Oelib_Attachment
+     * @var \Tx_Oelib_Attachment
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Oelib_Attachment();
+        $this->subject = new \Tx_Oelib_Attachment();
     }
 
     ///////////////////////////////////////////////////////

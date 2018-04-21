@@ -14,12 +14,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class Tx_Oelib_MapperRegistry
 {
     /**
-     * @var Tx_Oelib_MapperRegistry the Singleton instance
+     * @var \Tx_Oelib_MapperRegistry the Singleton instance
      */
     private static $instance = null;
 
     /**
-     * @var Tx_Oelib_DataMapper[] already created mappers (by class name)
+     * @var \Tx_Oelib_DataMapper[] already created mappers (by class name)
      */
     private $mappers = [];
 
@@ -34,7 +34,7 @@ class Tx_Oelib_MapperRegistry
     private $testingMode = false;
 
     /**
-     * @var Tx_Oelib_TestingFramework the testingFramework to use in testing mode
+     * @var \Tx_Oelib_TestingFramework the testingFramework to use in testing mode
      */
     private $testingFramework = null;
 
@@ -56,12 +56,12 @@ class Tx_Oelib_MapperRegistry
     /**
      * Returns an instance of this class.
      *
-     * @return Tx_Oelib_MapperRegistry the current Singleton instance
+     * @return \Tx_Oelib_MapperRegistry the current Singleton instance
      */
     public static function getInstance()
     {
         if (!self::$instance) {
-            self::$instance = new Tx_Oelib_MapperRegistry();
+            self::$instance = new \Tx_Oelib_MapperRegistry();
         }
 
         return self::$instance;
@@ -81,11 +81,11 @@ class Tx_Oelib_MapperRegistry
     /**
      * Retrieves a dataMapper by class name.
      *
-     * @throws Tx_Oelib_Exception_NotFound if there is no such mapper
+     * @throws \Tx_Oelib_Exception_NotFound if there is no such mapper
      *
      * @param string $className the name of an existing mapper class, must not be empty
      *
-     * @return Tx_Oelib_DataMapper the mapper with the class $className
+     * @return \Tx_Oelib_DataMapper the mapper with the class $className
      *
      * @see getByClassName
      */
@@ -99,17 +99,17 @@ class Tx_Oelib_MapperRegistry
      *
      * @param string $className the name of an existing mapper class, must not be empty
      *
-     * @return Tx_Oelib_DataMapper the mapper with the class $className
+     * @return \Tx_Oelib_DataMapper the mapper with the class $className
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function getByClassName($className)
     {
         if ($className === '') {
-            throw new InvalidArgumentException('$className must not be empty.', 1331488868);
+            throw new \InvalidArgumentException('$className must not be empty.', 1331488868);
         }
         if (!preg_match('/^[tT]x_[A-Za-z0-9]+_[a-zA-Z_]+/', $className)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 '$className must be in the format tx_extensionname[_Folder]_ClassName, but was "' . $className . '".',
                 1331488887
             );
@@ -118,7 +118,7 @@ class Tx_Oelib_MapperRegistry
 
         if (!isset($this->mappers[$unifiedClassName])) {
             if (!class_exists($className, true)) {
-                throw new InvalidArgumentException(
+                throw new \InvalidArgumentException(
                     'No mapper class "' . $className . '" could be found.'
                 );
             }
@@ -134,7 +134,7 @@ class Tx_Oelib_MapperRegistry
                             'parent::__destruct();' .
                             'unset($this->testingFramework);' .
                             '}' .
-                            'public function setTestingFramework(Tx_Oelib_TestingFramework $testingFramework) {' .
+                            'public function setTestingFramework(\\Tx_Oelib_TestingFramework $testingFramework) {' .
                             '$this->testingFramework = $testingFramework;' .
                             '}' .
                             'protected function getManyToManyRelationIntermediateRecordData($mnTable, $uidLocal, $uidForeign, $sorting) {' .
@@ -147,23 +147,23 @@ class Tx_Oelib_MapperRegistry
                             '}' .
                             'protected function getUniversalWhereClause($allowHiddenRecords = FALSE) {' .
                             '$dummyColumnName = $this->testingFramework->getDummyColumnName($this->getTableName());' .
-                            '$additionalWhere = Tx_Oelib_Db::tableHasColumn($this->getTableName(), $dummyColumnName) ' .
+                            '$additionalWhere = \\Tx_Oelib_Db::tableHasColumn($this->getTableName(), $dummyColumnName) ' .
                             '? $dummyColumnName . \' = 1 AND \' : \'\';' .
                             'return $additionalWhere . parent::getUniversalWhereClause($allowHiddenRecords);' .
                             '}' .
                             '}'
                     );
                 }
-                /** @var Tx_Oelib_DataMapper $mapper */
+                /** @var \Tx_Oelib_DataMapper $mapper */
                 $mapper = new $testingClassName();
                 $mapper->setTestingFramework($this->testingFramework);
             } else {
-                /** @var Tx_Oelib_DataMapper $mapper */
+                /** @var \Tx_Oelib_DataMapper $mapper */
                 $mapper = GeneralUtility::makeInstance($unifiedClassName);
             }
             $this->mappers[$unifiedClassName] = $mapper;
         } else {
-            /** @var Tx_Oelib_DataMapper $mapper */
+            /** @var \Tx_Oelib_DataMapper $mapper */
             $mapper = $this->mappers[$unifiedClassName];
         }
 
@@ -199,12 +199,12 @@ class Tx_Oelib_MapperRegistry
     /**
      * Activates the testing mode of this MapperRegistry.
      *
-     * @param Tx_Oelib_TestingFramework $testingFramework the testingFramework
+     * @param \Tx_Oelib_TestingFramework $testingFramework the testingFramework
      *                                                    to use in testing mode
      *
      * @return void
      */
-    public function activateTestingMode(Tx_Oelib_TestingFramework $testingFramework)
+    public function activateTestingMode(\Tx_Oelib_TestingFramework $testingFramework)
     {
         $this->testingMode = true;
         $this->testingFramework = $testingFramework;
@@ -218,14 +218,14 @@ class Tx_Oelib_MapperRegistry
      * This function is to be used for testing purposes only.
      *
      * @param string $className the class name of the mapper to set
-     * @param Tx_Oelib_DataMapper $mapper
+     * @param \Tx_Oelib_DataMapper $mapper
      *        the mapper to set, must be an instance of $className
      *
      * @see setByClassName
      *
      * @return void
      */
-    public static function set($className, Tx_Oelib_DataMapper $mapper)
+    public static function set($className, \Tx_Oelib_DataMapper $mapper)
     {
         self::getInstance()->setByClassName(self::unifyClassName($className), $mapper);
     }
@@ -236,21 +236,21 @@ class Tx_Oelib_MapperRegistry
      * This function is to be used for testing purposes only.
      *
      * @param string $className the class name of the mapper to set
-     * @param Tx_Oelib_DataMapper $mapper
+     * @param \Tx_Oelib_DataMapper $mapper
      *        the mapper to set, must be an instance of $className
      *
      * @return void
      */
-    private function setByClassName($className, Tx_Oelib_DataMapper $mapper)
+    private function setByClassName($className, \Tx_Oelib_DataMapper $mapper)
     {
         if (!($mapper instanceof $className)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The provided mapper is not an instance of ' . $className . '.',
                 1331488915
             );
         }
         if (isset($this->mappers[$className])) {
-            throw new BadMethodCallException(
+            throw new \BadMethodCallException(
                 'There already is a ' . $className . ' mapper registered. Overwriting existing wrappers is not allowed.',
                 1331488928
             );

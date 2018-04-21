@@ -5,7 +5,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-final class Tx_Oelib_Tests_Unit_Fixtures_TestingObject extends Tx_Oelib_PublicObject
+final class Tx_Oelib_Tests_Unit_Fixtures_TestingObject extends \Tx_Oelib_PublicObject
 {
     /**
      * @var array the data for this object
@@ -68,7 +68,7 @@ final class Tx_Oelib_Tests_Unit_Fixtures_TestingObject extends Tx_Oelib_PublicOb
     /**
      * Checks that $key is not empty.
      *
-     * @throws InvalidArgumentException if $key is empty
+     * @throws \InvalidArgumentException if $key is empty
      *
      * @param string $key
      *        a key to check

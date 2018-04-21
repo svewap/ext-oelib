@@ -5,7 +5,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-final class Tx_Oelib_Tests_Unit_Fixtures_TestingSalutationSwitcher extends Tx_Oelib_SalutationSwitcher
+final class Tx_Oelib_Tests_Unit_Fixtures_TestingSalutationSwitcher extends \Tx_Oelib_SalutationSwitcher
 {
     /**
      * @var string

@@ -5,7 +5,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-final class Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper extends Tx_Oelib_TemplateHelper
+final class Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper extends \Tx_Oelib_TemplateHelper
 {
     /**
      * @var string the path of this file relative to the extension directory
@@ -32,7 +32,7 @@ final class Tx_Oelib_Tests_Unit_Fixtures_TestingTemplateHelper extends Tx_Oelib_
      * Returns the current configuration check object (or NULL if there is no
      * such object).
      *
-     * @return Tx_Oelib_ConfigCheck the current configuration check object
+     * @return \Tx_Oelib_ConfigCheck the current configuration check object
      */
     public function getConfigurationCheck()
     {
