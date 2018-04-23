@@ -27,6 +27,11 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
     const STATUS_INVALID_REQUEST = 'INVALID_REQUEST';
 
     /**
+     * @var string
+     */
+    const STATUS_OVER_QUERY_LIMIT = 'OVER_QUERY_LIMIT';
+
+    /**
      * the base URL of the Google Maps geo coding service
      *
      * @var string
@@ -50,6 +55,13 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
     const THROTTLING_IN_SECONDS = 1;
 
     /**
+     * the factor for the throttling when over the query limit
+     *
+     * @var int
+     */
+    const THROTTLING_BACK_AWAY_FACTORY = 4;
+
+    /**
      * @var int
      */
     const MAXIMUM_ATTEMPTS = 5;
@@ -59,7 +71,7 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
      *
      * @var float
      */
-    private static $lastGeocodingTimestamp = 0.0;
+    private $lastGeocodingTimestamp = 0.0;
 
     /**
      * The constructor. Do not call this constructor directly. Use getInstance() instead.
@@ -126,10 +138,11 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
         }
 
         $address = $geoObject->getGeoAddress();
+        $throttleTime = self::THROTTLING_IN_SECONDS;
 
         $attempts = 0;
         do {
-            $this->throttle();
+            $this->throttle($throttleTime);
             $lookupError = false;
 
             $retry = false;
@@ -143,6 +156,9 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
                 $addressIsInvalid = \in_array($status, [self::STATUS_ZERO_RESULTS, self::STATUS_INVALID_REQUEST], true);
                 if ($addressIsInvalid) {
                     break;
+                }
+                if ($status === self::STATUS_OVER_QUERY_LIMIT) {
+                    $throttleTime *= self::THROTTLING_BACK_AWAY_FACTORY;
                 }
             }
 
@@ -189,17 +205,19 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
      * Makes sure the necessary amount of time has passed since the last
      * geocoding request.
      *
+     * @param int $delay in seconds
+     *
      * @return void
      */
-    protected function throttle()
+    protected function throttle($delay)
     {
-        if (self::$lastGeocodingTimestamp > 0.0) {
-            $secondsSinceLastRequest = (microtime(true) - self::$lastGeocodingTimestamp);
-            if ($secondsSinceLastRequest < self::THROTTLING_IN_SECONDS) {
-                sleep((int)ceil(self::THROTTLING_IN_SECONDS - $secondsSinceLastRequest));
+        if ($this->lastGeocodingTimestamp > 0.0) {
+            $secondsSinceLastRequest = (microtime(true) - $this->lastGeocodingTimestamp);
+            if ($secondsSinceLastRequest < $delay) {
+                sleep((int)ceil($delay - $secondsSinceLastRequest));
             }
         }
 
-        self::$lastGeocodingTimestamp = microtime(true);
+        $this->lastGeocodingTimestamp = microtime(true);
     }
 }
