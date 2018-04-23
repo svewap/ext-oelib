@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Log the reason for geocoding failures (#50)
 - Document in the code when deprecated things will be removed (#36)
 - Add an SVG extension icon (#25)
 - run the unit tests on TravisCI (#10)

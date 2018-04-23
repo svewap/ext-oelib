@@ -78,9 +78,11 @@ interface Tx_Oelib_Interface_Geo
     /**
      * Marks this object as having an error with the geo coordinates.
      *
+     * @param string $reason
+     *
      * @return void
      */
-    public function setGeoError();
+    public function setGeoError($reason = '');
 
     /**
      * Marks this object as not having an error with the geo coordinates.
