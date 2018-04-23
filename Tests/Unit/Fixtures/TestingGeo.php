@@ -17,7 +17,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingGeo extends \Tx_Oelib_Model implements
     /**
      * @var string
      */
-    private $geoErrorReasen = '';
+    private $geoErrorReason = '';
 
     /**
      * the address of this object
@@ -146,7 +146,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingGeo extends \Tx_Oelib_Model implements
     public function setGeoError($reason = '')
     {
         $this->hasGeoError = true;
-        $this->geoErrorReasen = $reason;
+        $this->geoErrorReason = $reason;
     }
 
     /**
@@ -154,7 +154,7 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingGeo extends \Tx_Oelib_Model implements
      */
     public function getGeoErrorReason()
     {
-        return $this->geoErrorReasen;
+        return $this->geoErrorReason;
     }
 
     /**
@@ -165,6 +165,6 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingGeo extends \Tx_Oelib_Model implements
     public function clearGeoError()
     {
         $this->hasGeoError = false;
-        $this->geoErrorReasen = '';
+        $this->geoErrorReason = '';
     }
 }
