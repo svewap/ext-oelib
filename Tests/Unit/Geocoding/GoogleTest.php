@@ -132,11 +132,26 @@ class GoogleTest extends \Tx_Phpunit_TestCase
     }
 
     /**
-     * @test
+     * @return string[][]
      */
-    public function lookUpForAFullGermanAddressWithNoCoordinatesFoundSetsGeoProblem()
+    public function noResultsStatusDataProvider()
     {
-        $jsonResult = '{ "status": "ZERO_RESULTS" }';
+        return [
+            'zero results' => ['ZERO_RESULTS'],
+            'invalid request' => ['INVALID_REQUEST'],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @param string $status
+     *
+     * @dataProvider noResultsStatusDataProvider
+     */
+    public function lookUpForAFullGermanAddressWithNoCoordinatesFoundSetsGeoProblem($status)
+    {
+        $jsonResult = '{ "status": "' . $status . '" }';
 
         $geo = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');

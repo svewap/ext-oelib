@@ -24,6 +24,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Directly bail from the geocoding for invalid addresses (#44)
 - Drop the incorrect TYPO3 Core license headers (#38)
 - remove obsolete TypoScript files (#8)
 
