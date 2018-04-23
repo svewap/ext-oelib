@@ -29,6 +29,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - remove obsolete TypoScript files (#8)
 
 ### Fixed
+- Drop the Composer dependency on emogrifier (#49)
 - Increase the delay when over the geocoding query limit (#47)
 - Allow serialization of FE plugins for mkforms caching (#43)
 - Make the geocoding compatible with TYPO3 8LTS (#39)
