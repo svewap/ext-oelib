@@ -319,12 +319,11 @@ abstract class Tx_Oelib_DataMapper
      *
      * @param \Tx_Oelib_Model $model
      *        the model to fill, needs to have a UID
-     * @param array &$data
-     *        the model data to process as it comes from the DB, will be modified
+     * @param array $data the model data to process as it comes from the DB
      *
      * @return void
      */
-    private function fillModel(\Tx_Oelib_Model $model, array &$data)
+    private function fillModel(\Tx_Oelib_Model $model, array $data)
     {
         $this->cacheModelByKeys($model, $data);
         $this->createRelations($data, $model);
@@ -340,12 +339,11 @@ abstract class Tx_Oelib_DataMapper
      *
      * @param \Tx_Oelib_Model $model
      *        the model to fill, needs to have a UID
-     * @param array &$data
-     *        the model data to process as it comes from the DB, will be modified
+     * @param array $data the model data to process as it comes from the DB
      *
      * @return void
      */
-    private function refillModel(\Tx_Oelib_Model $model, array &$data)
+    private function refillModel(\Tx_Oelib_Model $model, array $data)
     {
         $this->cacheModelByKeys($model, $data);
         $this->createRelations($data, $model);
@@ -1521,7 +1519,7 @@ abstract class Tx_Oelib_DataMapper
         if (($ignoreList !== null) && !$ignoreList->isEmpty()) {
             $ignoreUids = $ignoreList->getUids();
             // deals with the case of $ignoreList having only models without UIDs
-            if ((string)$ignoreUids !== '') {
+            if ($ignoreUids !== '') {
                 $ignoreClause = ' AND uid NOT IN(' . $ignoreUids . ')';
             }
         }

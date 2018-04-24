@@ -42,7 +42,7 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends \Tx_Phpunit_TestCase
 
         $this->subject = new \Tx_Oelib_EmailCollector();
 
-        $this->message1 = $this->getMock(MailMessage::class, ['send', '__destruct']);
+        $this->message1 = $this->getMock(MailMessage::class, ['send']);
         GeneralUtility::addInstance(MailMessage::class, $this->message1);
     }
 

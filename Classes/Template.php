@@ -179,7 +179,7 @@ class Tx_Oelib_Template
 
         $this->markerNames = array_unique($matches[1]);
         foreach ($this->markerNames as $markerName) {
-            if (substr($markerName, 0, 6) === 'LABEL_') {
+            if (strpos($markerName, 'LABEL_') === 0) {
                 $this->labelMarkerNames[] = strtolower($markerName);
             }
         }
@@ -804,7 +804,7 @@ class Tx_Oelib_Template
     private function isMarkerNameValidWithHashes($markerName)
     {
         return isset($this->markers[$markerName])
-            || (bool)preg_match('/^###[a-zA-Z](?:[a-zA-Z0-9_]*[a-zA-Z0-9])?###$/', $markerName);
+            || (bool)preg_match('/^###[a-zA-Z](?:\\w*[a-zA-Z0-9])?###$/', $markerName);
     }
 
     /**

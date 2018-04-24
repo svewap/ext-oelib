@@ -174,8 +174,7 @@ abstract class Tx_Oelib_AbstractMailer
             return $rawEmailBody;
         }
 
-        $body = str_replace(CRLF, LF, $rawEmailBody);
-        $body = str_replace(CR, LF, $body);
+        $body = str_replace([CRLF, CR], LF, $rawEmailBody);
         $body = preg_replace('/\\n{2,}/', LF . LF, $body);
 
         return trim($body);

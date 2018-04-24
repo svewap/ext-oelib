@@ -24,7 +24,7 @@ class Tx_Oelib_Tests_Unit_RealMailerTest extends \Tx_Phpunit_TestCase
     {
         $this->subject = new \Tx_Oelib_RealMailer();
 
-        $this->message = $this->getMock(MailMessage::class, ['send', '__destruct']);
+        $this->message = $this->getMock(MailMessage::class, ['send']);
         GeneralUtility::addInstance(MailMessage::class, $this->message);
     }
 

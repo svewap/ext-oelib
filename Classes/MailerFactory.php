@@ -54,7 +54,7 @@ class Tx_Oelib_MailerFactory implements \TYPO3\CMS\Core\SingletonInterface
         GeneralUtility::logDeprecatedFunction();
 
         /** @var \Tx_Oelib_MailerFactory $mailerFactory */
-        $mailerFactory = GeneralUtility::makeInstance(\Tx_Oelib_MailerFactory::class);
+        $mailerFactory = GeneralUtility::makeInstance(__CLASS__);
         return $mailerFactory;
     }
 

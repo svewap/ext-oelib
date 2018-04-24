@@ -11,13 +11,29 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class Tx_Oelib_PageFinder
 {
     /**
-     * @var int the sources the page can come from
+     * @var int
      */
-    const SOURCE_AUTO = 0,
-        SOURCE_FRONT_END = 1,
-        SOURCE_BACK_END = 2,
-        SOURCE_MANUAL = 3,
-        NO_SOURCE_FOUND = 4;
+    const SOURCE_AUTO = 0;
+
+    /**
+     * @var int
+     */
+    const SOURCE_FRONT_END = 1;
+
+    /**
+     * @var int
+     */
+    const SOURCE_BACK_END = 2;
+
+    /**
+     * @var int
+     */
+    const SOURCE_MANUAL = 3;
+
+    /**
+     * @var int
+     */
+    const NO_SOURCE_FOUND = 4;
 
     /**
      * @var \Tx_Oelib_PageFinder the Singleton instance

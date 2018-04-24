@@ -342,7 +342,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends \Tx_Phpunit_TestCase
     }
 
     /**
-     * @return array[]
+     * @return int[][]
      */
     public function directionDataProvider()
     {
@@ -362,8 +362,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends \Tx_Phpunit_TestCase
      * @test
      * @dataProvider directionDataProvider
      *
-     * @param int
-     * @param mixed $direction
+     * @param int $direction
      */
     public function moveMovesByGivenDistanceWithPositiveDistance($direction)
     {
@@ -383,8 +382,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends \Tx_Phpunit_TestCase
      * @test
      * @dataProvider directionDataProvider
      *
-     * @param int
-     * @param mixed $direction
+     * @param int $direction
      */
     public function moveMovesByGivenDistanceWithNegativeDistance($direction)
     {
@@ -422,8 +420,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends \Tx_Phpunit_TestCase
      * @test
      * @dataProvider directionDataProvider
      *
-     * @param int
-     * @param mixed $direction
+     * @param int $direction
      */
     public function moveByRandomDistanceChangesCoordinates($direction)
     {
@@ -442,8 +439,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_CalculatorTest extends \Tx_Phpunit_TestCase
      * @test
      * @dataProvider directionDataProvider
      *
-     * @param int
-     * @param mixed $direction
+     * @param int $direction
      */
     public function moveByRandomDistanceMovesAtMostByGivenDistanceWithPositiveDistance($direction)
     {

@@ -2,7 +2,6 @@
 
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
@@ -234,7 +233,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
             );
         }
 
-        if ($isFileName && !empty($flexformsValue)) {
+        if ($isFileName && $flexformsValue !== null && $flexformsValue !== '') {
             $flexformsValue = $this->addPathToFileName($flexformsValue);
         }
         $confValue = isset($this->conf[$fieldName])
@@ -1372,15 +1371,5 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         GeneralUtility::logDeprecatedFunction();
 
         return $this->getStoragePid() > 0;
-    }
-
-    /**
-     * Returns the current front-end instance.
-     *
-     * @return TypoScriptFrontendController|null
-     */
-    protected function getFrontEndController()
-    {
-        return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : null;
     }
 }

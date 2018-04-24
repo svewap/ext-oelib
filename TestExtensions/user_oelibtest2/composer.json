@@ -4,14 +4,10 @@
     "description": "Test extension for oelib",
     "license": "GPL-3.0+",
     "require": {
-        "oliverklee/oelibtest": "@dev"
+        "oliverklee/user-oelibtest": "@dev"
     },
     "replace": {
         "user_oelibtest2": "self.version",
         "typo3-ter/user-oelibtest2": "self.version"
-    },
-    "require": {
-        "oliverklee/oelib": "@dev",
-        "oliverklee/user-oelibtest2": "@dev"
     }
 }

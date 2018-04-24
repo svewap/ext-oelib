@@ -9,8 +9,5 @@
     "replace": {
         "user_oelibtest": "self.version",
         "typo3-ter/user-oelibtest": "self.version"
-    },
-    "require": {
-        "oliverklee/oelib": "@dev"
     }
 }

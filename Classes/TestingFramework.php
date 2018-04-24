@@ -30,7 +30,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string
      */
-    protected $tablePrefix = '';
+    private $tablePrefix = '';
 
     /**
      * prefixes of additional extensions to which this instance of the testing
@@ -38,7 +38,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $additionalTablePrefixes = [];
+    private $additionalTablePrefixes = [];
 
     /**
      * all own DB table names to which this instance of the testing framework
@@ -46,7 +46,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $ownAllowedTables = [];
+    private $ownAllowedTables = [];
 
     /**
      * all additional DB table names to which this instance of the testing
@@ -54,7 +54,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $additionalAllowedTables = [];
+    private $additionalAllowedTables = [];
 
     /**
      * all system table names to which this instance of the testing framework
@@ -62,7 +62,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $allowedSystemTables = [
+    private $allowedSystemTables = [
         'be_users', 'fe_groups', 'fe_users', 'pages', 'sys_template',
         'tt_content', 'be_groups', 'sys_file', 'sys_file_collection',
         'sys_file_reference', 'sys_category', 'sys_category_record_mm',
@@ -74,7 +74,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $dirtyTables = [];
+    private $dirtyTables = [];
 
     /**
      * all "dirty" system tables (i.e. all tables that were used for testing and
@@ -82,14 +82,14 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $dirtySystemTables = [];
+    private $dirtySystemTables = [];
 
     /**
      * sorting values of all relation tables
      *
      * @var array[]
      */
-    protected $relationSorting = [];
+    private $relationSorting = [];
 
     /**
      * The number of unusable UIDs after the maximum UID in a table before the auto increment value will be reset by
@@ -103,7 +103,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var int
      */
-    protected $resetAutoIncrementThreshold = 0;
+    private $resetAutoIncrementThreshold = 0;
 
     /**
      * the names of the created dummy files relative to the upload folder of the
@@ -111,7 +111,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $dummyFiles = [];
+    private $dummyFiles = [];
 
     /**
      * the names of the created dummy folders relative to the upload folder of
@@ -119,35 +119,35 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    protected $dummyFolders = [];
+    private $dummyFolders = [];
 
     /**
      * the absolute path to the upload folder of the extension to test (with the trailing slash)
      *
      * @var string
      */
-    protected $uploadFolderPath = '';
+    private $uploadFolderPath = '';
 
     /**
      * whether a fake front end has been created
      *
      * @var bool
      */
-    protected $hasFakeFrontEnd = false;
+    private $hasFakeFrontEnd = false;
 
     /**
      * hook objects for this class
      *
      * @var array
      */
-    protected static $hooks = [];
+    private static $hooks = [];
 
     /**
      * whether the hooks in self::hooks have been retrieved
      *
      * @var bool
      */
-    protected static $hooksHaveBeenRetrieved = false;
+    private static $hooksHaveBeenRetrieved = false;
 
     /**
      * The constructor for this class.
@@ -199,7 +199,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      */
-    protected function determineAndSetAutoIncrementThreshold()
+    private function determineAndSetAutoIncrementThreshold()
     {
         $this->setResetAutoIncrementThreshold(self::AUTO_INCREMENT_THRESHOLD_WITHOUT_ROOTLINE_CACHE);
     }
@@ -256,7 +256,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new record, will be > 0
      */
-    protected function createRecordWithoutTableNameChecks(
+    private function createRecordWithoutTableNameChecks(
         $table,
         array $recordData
     ) {
@@ -330,7 +330,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @throws \InvalidArgumentException
      */
-    protected function createGeneralPageRecord(
+    private function createGeneralPageRecord(
         $documentType,
         $parentId,
         array $recordData
@@ -479,7 +479,7 @@ final class Tx_Oelib_TestingFramework
         if ($frontEndUserGroupsWithoutSpaces === '') {
             $frontEndUserGroupsWithoutSpaces = $this->createFrontEndUserGroup();
         }
-        if (!preg_match('/^(?:[1-9]+[0-9]*,?)+$/', $frontEndUserGroupsWithoutSpaces)
+        if (!preg_match('/^(?:[1-9]+\\d*,?)+$/', $frontEndUserGroupsWithoutSpaces)
         ) {
             throw new \InvalidArgumentException(
                 '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.',
@@ -694,7 +694,7 @@ final class Tx_Oelib_TestingFramework
         $recordData = [
             'uid_local' => $uidLocal,
             'uid_foreign' => $uidForeign,
-            'sorting' => ($sorting > 0 ? $sorting : $this->getRelationSorting($table, $uidLocal)),
+            'sorting' => $sorting > 0 ? $sorting : $this->getRelationSorting($table, $uidLocal),
             $this->getDummyColumnName($table) => 1,
         ];
 
@@ -842,7 +842,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      */
-    protected function cleanUpTableSet($useSystemTables, $performDeepCleanUp)
+    private function cleanUpTableSet($useSystemTables, $performDeepCleanUp)
     {
         if ($useSystemTables) {
             $tablesToCleanUp = $performDeepCleanUp
@@ -878,7 +878,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      */
-    protected function deleteAllDummyFoldersAndFiles()
+    private function deleteAllDummyFoldersAndFiles()
     {
         // If the upload folder was created by the testing framework, it can be
         // removed at once.
@@ -991,7 +991,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      */
-    protected function addToDummyFileList($uniqueFileName)
+    private function addToDummyFileList($uniqueFileName)
     {
         $relativeFileName = $this->getPathRelativeToUploadDirectory(
             $uniqueFileName
@@ -1102,7 +1102,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @throws \RuntimeException
      */
-    protected function createDummyUploadFolder()
+    private function createDummyUploadFolder()
     {
         $uploadFolderPath = $this->getUploadFolderPath();
         if (is_dir($uploadFolderPath)) {
@@ -1347,7 +1347,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      */
-    protected function suppressFrontEndCookies()
+    private function suppressFrontEndCookies()
     {
         // avoid cookies from the phpMyAdmin extension
         $GLOBALS['PHP_UNIT_TEST_RUNNING'] = true;
@@ -1477,7 +1477,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      */
-    protected function createListOfOwnAllowedTables()
+    private function createListOfOwnAllowedTables()
     {
         $this->ownAllowedTables = [];
         $allTables = \Tx_Oelib_Db::getAllTableNames();
@@ -1503,7 +1503,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      */
-    protected function createListOfAdditionalAllowedTables()
+    private function createListOfAdditionalAllowedTables()
     {
         $allTables = implode(',', \Tx_Oelib_Db::getAllTableNames());
         $additionalTablePrefixes = implode('|', $this->additionalTablePrefixes);
@@ -1530,7 +1530,7 @@ final class Tx_Oelib_TestingFramework
      * @return bool TRUE if the name of the table is in the list of
      *                 allowed tables, FALSE otherwise
      */
-    protected function isOwnTableNameAllowed($table)
+    private function isOwnTableNameAllowed($table)
     {
         return in_array($table, $this->ownAllowedTables, true);
     }
@@ -1544,7 +1544,7 @@ final class Tx_Oelib_TestingFramework
      * @return bool TRUE if the name of the table is in the list of
      *                 additional allowed tables, FALSE otherwise
      */
-    protected function isAdditionalTableNameAllowed($table)
+    private function isAdditionalTableNameAllowed($table)
     {
         return in_array($table, $this->additionalAllowedTables, true);
     }
@@ -1558,7 +1558,7 @@ final class Tx_Oelib_TestingFramework
      * @return bool TRUE if the name of the table is in the list of
      *                 allowed system tables, FALSE otherwise
      */
-    protected function isSystemTableNameAllowed($table)
+    private function isSystemTableNameAllowed($table)
     {
         return in_array($table, $this->allowedSystemTables, true);
     }
@@ -1573,7 +1573,7 @@ final class Tx_Oelib_TestingFramework
      *                 allowed tables or additional allowed tables, FALSE
      *                 otherwise
      */
-    protected function isNoneSystemTableNameAllowed($table)
+    private function isNoneSystemTableNameAllowed($table)
     {
         return $this->isOwnTableNameAllowed($table)
             || $this->isAdditionalTableNameAllowed($table);
@@ -1589,7 +1589,7 @@ final class Tx_Oelib_TestingFramework
      *                 allowed tables, additional allowed tables or allowed
      *                 system tables, FALSE otherwise
      */
-    protected function isTableNameAllowed($table)
+    private function isTableNameAllowed($table)
     {
         return $this->isNoneSystemTableNameAllowed($table)
             || $this->isSystemTableNameAllowed($table);
@@ -1811,7 +1811,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the highest UID from this table, will be >= 0
      */
-    protected function getMaximumUidFromTable($table)
+    private function getMaximumUidFromTable($table)
     {
         $row = \Tx_Oelib_Db::selectSingle(
             'MAX(uid) AS uid',
@@ -2050,7 +2050,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return array the hook objects, will be empty if no hooks have been set
      */
-    protected function getHooks()
+    private function getHooks()
     {
         if (!self::$hooksHaveBeenRetrieved) {
             $hookClasses = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oelib']['testingFrameworkCleanUp'];
@@ -2084,7 +2084,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return TypoScriptFrontendController
      */
-    protected function getFrontEndController()
+    private function getFrontEndController()
     {
         return $GLOBALS['TSFE'];
     }

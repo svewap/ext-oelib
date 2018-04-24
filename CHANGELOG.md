@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - add TravisCI builds
 
 ### Changed
+- Fix lots of PhpStorm code inspection warnings (#55)
 - Always use a backslash for full class names (#42)
 - Use more semantic PHPUnit functions (#35)
 - Always use ::class (#34)

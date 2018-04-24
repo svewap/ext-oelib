@@ -175,7 +175,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
         $this->data = $data;
         if ($this->existsKey('uid')) {
             if (!$this->hasUid()) {
-                $this->setUid($this->data['uid']);
+                $this->setUid((int)$this->data['uid']);
             }
             unset($this->data['uid']);
         }
@@ -360,7 +360,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
             return null;
         }
 
-        if (!$result instanceof \Tx_Oelib_Model) {
+        if (!$result instanceof self) {
             throw new UnexpectedValueException('The data item for the key "' . $key . '" is no model instance.', 1331489359);
         }
 

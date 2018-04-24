@@ -370,7 +370,7 @@ class Tx_Oelib_List extends SplObjectStorage
             throw new \InvalidArgumentException('$length must be >= 0.');
         }
 
-        $result = new \Tx_Oelib_List();
+        $result = new self();
 
         $lastPosition = $start + $length - 1;
         $currentIndex = 0;

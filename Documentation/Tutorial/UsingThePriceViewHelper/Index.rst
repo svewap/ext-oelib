@@ -43,3 +43,4 @@ Using the price view helper
 
       // Returns “€ 1.234,57”.
       $priceViewHelper->render();
+
