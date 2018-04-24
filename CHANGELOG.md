@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 1.4.0
+
+### Added
 - Log the reason for geocoding failures (#50)
 - Document in the code when deprecated things will be removed (#36)
 - Add an SVG extension icon (#25)
@@ -22,8 +34,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Update the PHP CS Fixer configuration (#26)
 - Update Emogrifier to 2.0.0 and move it to Resources/Private/Php (#20)
 - move the extension to GitHub
-
-### Deprecated
 
 ### Removed
 - Directly bail from the geocoding for invalid addresses (#44)
