@@ -20,6 +20,8 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
 
     protected function setUp()
     {
+        $GLOBALS['SIM_EXEC_TIME'] = 1524751343;
+
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
         \Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);

@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Make the unit tests not depend on the current time of day (#57)
 
 ## 1.4.0
 
