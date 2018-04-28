@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop support for PHP 5.5 (#58)
 
 ### Fixed
 - Make the unit tests not depend on the current time of day (#57)
