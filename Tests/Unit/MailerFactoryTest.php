@@ -25,7 +25,7 @@ class Tx_Oelib_Tests_Unit_MailerFactoryTest extends \Tx_Phpunit_TestCase
         $this->deprecationLogEnabledBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'];
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'] = false;
 
-        $this->subject = \Tx_Oelib_MailerFactory::getInstance();
+        $this->subject = new \Tx_Oelib_MailerFactory();
     }
 
     protected function tearDown()
@@ -45,17 +45,6 @@ class Tx_Oelib_Tests_Unit_MailerFactoryTest extends \Tx_Phpunit_TestCase
         self::assertInstanceOf(
             SingletonInterface::class,
             $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function callingGetInstanceTwoTimesReturnsTheSameInstance()
-    {
-        self::assertSame(
-            $this->subject,
-            \Tx_Oelib_MailerFactory::getInstance()
         );
     }
 

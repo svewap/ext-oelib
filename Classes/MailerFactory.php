@@ -43,22 +43,6 @@ class Tx_Oelib_MailerFactory implements \TYPO3\CMS\Core\SingletonInterface
     }
 
     /**
-     * Retrieves the singleton instance of the factory.
-     *
-     * @deprecated will be removed in oelib 2.0.0, Use \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance instead
-     *
-     * @return \Tx_Oelib_MailerFactory the singleton factory
-     */
-    public static function getInstance()
-    {
-        GeneralUtility::logDeprecatedFunction();
-
-        /** @var \Tx_Oelib_MailerFactory $mailerFactory */
-        $mailerFactory = GeneralUtility::makeInstance(__CLASS__);
-        return $mailerFactory;
-    }
-
-    /**
      * Retrieves the singleton mailer instance. Depending on the mode, this
      * instance is either an e-mail collector or a real mailer.
      *
