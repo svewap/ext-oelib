@@ -5,7 +5,6 @@ use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -1273,10 +1272,6 @@ final class Tx_Oelib_TestingFramework
         $frontEnd->determineId();
         $frontEnd->initTemplate();
         $frontEnd->config = [];
-
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 7000000) {
-            $frontEnd->tmpl->getFileName_backPath = PATH_site;
-        }
 
         if (($pageUid > 0) && in_array('sys_template', $this->dirtySystemTables, true)) {
             $frontEnd->tmpl->runThroughTemplates($frontEnd->sys_page->getRootLine($pageUid), 0);

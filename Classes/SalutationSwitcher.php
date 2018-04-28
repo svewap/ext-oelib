@@ -1,6 +1,5 @@
 <?php
 
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 use TYPO3\CMS\Lang\LanguageService;
@@ -67,10 +66,6 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      */
     public function __wakeup()
     {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 7006000) {
-            return;
-        }
-
         $this->databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
         $this->frontendController = $this->getFrontEndController();
     }

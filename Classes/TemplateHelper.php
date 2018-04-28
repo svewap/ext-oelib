@@ -1340,36 +1340,4 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     {
         return \Tx_Oelib_PageFinder::getInstance()->getPageUid();
     }
-
-    /**
-     * Returns the general record storage PID for the current page.
-     *
-     * This function must only be called in the front end or when a front end is present.
-     *
-     * @deprecated will be removed in oelib 2.0.0
-     *
-     * @return int the general record storage PID for the current page, will be 0 if the page has no storage page set
-     */
-    public function getStoragePid()
-    {
-        GeneralUtility::logDeprecatedFunction();
-
-        $pageData = $this->getFrontEndController()->getStorageSiterootPids();
-
-        return $pageData['_STORAGE_PID'];
-    }
-
-    /**
-     * Checks whether the current page has a general record storage PID set.
-     *
-     * @deprecated will be removed in oelib 2.0.0
-     *
-     * @return bool true if the current page has a general record storage PID set, false otherwise
-     */
-    public function hasStoragePid()
-    {
-        GeneralUtility::logDeprecatedFunction();
-
-        return $this->getStoragePid() > 0;
-    }
 }

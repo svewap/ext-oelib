@@ -1,6 +1,5 @@
 <?php
 
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -4695,77 +4694,6 @@ class Tx_Oelib_Tests_Unit_TemplateHelperTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             $frontEndController->cObj,
             $this->subject->cObj
-        );
-    }
-
-    /*
-     * Tests concerning getStoragePid
-     */
-
-    /**
-     * @test
-     */
-    public function getStoragePidForNoSetGrspReturnsZero()
-    {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7000000) {
-            self::markTestSkipped('This test is only applicable for TYPO3 below version 7');
-        }
-
-        self::assertSame(0, $this->subject->getStoragePid());
-    }
-
-    /**
-     * @test
-     */
-    public function getStoragePidForGrspSetReturnsThisId()
-    {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7000000) {
-            self::markTestSkipped('This test is only applicable for TYPO3 below version 7');
-        }
-
-        $pageUid = $this->testingFramework->createFrontEndPage(
-            0,
-            ['storage_pid' => 42]
-        );
-        $this->testingFramework->createFakeFrontEnd($pageUid);
-
-        self::assertSame(
-            42,
-            $this->subject->getStoragePid()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function hasStoragePidForGrspSetReturnsTrue()
-    {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7000000) {
-            self::markTestSkipped('This test is only applicable for TYPO3 below version 7');
-        }
-
-        $pageUid = $this->testingFramework->createFrontEndPage(
-            0,
-            ['storage_pid' => 42]
-        );
-        $this->testingFramework->createFakeFrontEnd($pageUid);
-
-        self::assertTrue(
-            $this->subject->hasStoragePid()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function hasStoragePidForNoGrspSetReturnsFalse()
-    {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7000000) {
-            self::markTestSkipped('This test is only applicable for TYPO3 below version 7');
-        }
-
-        self::assertFalse(
-            $this->subject->hasStoragePid()
         );
     }
 
