@@ -243,7 +243,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
                 'emogrifier',
                 'Resources/Private/Php/Emogrifier.phar/vendor/autoload.php'
             );
-            GeneralUtility::requireOnce('phar://' . $pharPath);
+            require_once 'phar://' . $pharPath;
         }
     }
 

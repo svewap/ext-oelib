@@ -892,26 +892,4 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends \Tx_Phpunit_TestCase
             $this->subject->pi_getLL('htmlspecialchars')
         );
     }
-
-    /**
-     * @test
-     */
-    public function piGetLlHtmlSpecialCharsWithFalse()
-    {
-        self::assertSame(
-            'a&o',
-            $this->subject->pi_getLL('htmlspecialchars', '', false)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function piGetLlHtmlSpecialCharsWithTrue()
-    {
-        self::assertSame(
-            'a&amp;o',
-            $this->subject->pi_getLL('htmlspecialchars', '', true)
-        );
-    }
 }
