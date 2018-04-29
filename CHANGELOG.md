@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Remove the deprecated ConfigCheck::checkCssStyledContent (#67)
 - Drop the deprecated TestingFramework::getTcaForTable (#66)
 - Remove Template::getPrefixedMarkers and ::setCss (#65)
 - Remove the deprecated Double3Validator (#64) 

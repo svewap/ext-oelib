@@ -1706,19 +1706,6 @@ class Tx_Oelib_ConfigCheck
     }
 
     /**
-     * This function does not do anything anymore. It used to check whether css_styled_content was installed,
-     * but nowadays we can safely assume that it's always installed.
-     *
-     * @deprecated will be removed in oelib 2.0.0
-     *
-     * @return void
-     */
-    protected function checkCssStyledContent()
-    {
-        GeneralUtility::logDeprecatedFunction();
-    }
-
-    /**
      * Checks all values within .listView (including .listView itself).
      *
      * @param string[] $allowedSortFields
