@@ -42,7 +42,7 @@ $EM_CONF[$_EXTKEY] = [
         'conflicts' => [
         ],
         'suggests' => [
-            'static_info_tables' => '6.3.7-',
+            'static_info_tables' => '6.4.0-',
         ],
     ],
     'autoload' => [

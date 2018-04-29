@@ -28,7 +28,7 @@
         "typo3/cms-fluid": "^7.6.23"
     },
     "require-dev": {
-        "sjbr/static-info-tables": "^6.3.7",
+        "sjbr/static-info-tables": "^6.4.0",
         "oliverklee/user-oelibtest": "@dev",
         "oliverklee/user-oelibtest2": "@dev",
 
@@ -43,7 +43,7 @@
         "typo3-ter/oelib": "self.version"
     },
     "suggest": {
-        "sjbr/static-info-tables": "^6.3.7"
+        "sjbr/static-info-tables": "^6.4.0"
     },
     "autoload": {
         "classmap": [
