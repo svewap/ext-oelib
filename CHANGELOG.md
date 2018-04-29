@@ -28,6 +28,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for PHP 5.5 (#58)
 
 ### Fixed
+- Indent XLF and CSS with spaces instead of tabs (#77)
 - Fix deprecation warnings in TYPO3 8.7 (#75)
 - Update the TCA for TYPO3 8.7 (#74)
 - Use the new PHPUnit test runner on TYPO3 8.7 (#70)

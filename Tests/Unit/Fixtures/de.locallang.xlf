@@ -1,116 +1,117 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2016-07-18T15:52:30Z" product-name="oelib">
-		<header/>
-		<body>
-			<trans-unit id="empty_string_in_default" xml:space="preserve" approved="yes">
-				<source></source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="only_in_default" xml:space="preserve" approved="yes">
-				<source>only in default</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="default_not_fallback" xml:space="preserve" approved="yes">
-				<source>default_not_fallback default</source>
-				<target>default_not_fallback de</target>
-			</trans-unit>
-			<trans-unit id="in_both" xml:space="preserve" approved="yes">
-				<source>in both languages</source>
-				<target>in beiden Sprachen</target>
-			</trans-unit>
-			<trans-unit id="formal_string_only_formal" xml:space="preserve" approved="yes">
-				<source>only formal</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="informal_string_only_informal" xml:space="preserve" approved="yes">
-				<source>only informal</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="formal_string_with_normal" xml:space="preserve" approved="yes">
-				<source>formal with normal, normal</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="formal_string_with_normal_formal" xml:space="preserve" approved="yes">
-				<source>formal with normal, formal</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="informal_string_with_normal" xml:space="preserve" approved="yes">
-				<source>informal with normal, normal</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="informal_string_with_normal_informal" xml:space="preserve" approved="yes">
-				<source>informal with normal, informal</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="both_without_normal" xml:space="preserve" approved="yes">
-				<source>both without normal</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="both_without_normal_formal" xml:space="preserve" approved="yes">
-				<source>both without normal, formal</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="both_without_normal_informal" xml:space="preserve" approved="yes">
-				<source>both without normal, informal</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="de_formal_string_only_formal" xml:space="preserve" approved="yes">
-				<source>only formal</source>
-				<target>de only formal</target>
-			</trans-unit>
-			<trans-unit id="de_informal_string_only_informal" xml:space="preserve" approved="yes">
-				<source>only informal</source>
-				<target>de only informal</target>
-			</trans-unit>
-			<trans-unit id="de_formal_string_with_normal" xml:space="preserve" approved="yes">
-				<source>formal with normal, normal</source>
-				<target>de formal with normal, normal</target>
-			</trans-unit>
-			<trans-unit id="de_formal_string_with_normal_formal" xml:space="preserve" approved="yes">
-				<source>formal with normal, formal</source>
-				<target>de formal with normal, formal</target>
-			</trans-unit>
-			<trans-unit id="de_informal_string_with_normal" xml:space="preserve" approved="yes">
-				<source>informal with normal, normal</source>
-				<target>de informal with normal, normal</target>
-			</trans-unit>
-			<trans-unit id="de_informal_string_with_normal_informal" xml:space="preserve" approved="yes">
-				<source>informal with normal, informal</source>
-				<target>de informal with normal, informal</target>
-			</trans-unit>
-			<trans-unit id="de_both_without_normal_formal" xml:space="preserve" approved="yes">
-				<source>both without normal, formal</source>
-				<target>de both without normal, formal</target>
-			</trans-unit>
-			<trans-unit id="de_both_without_normal_informal" xml:space="preserve" approved="yes">
-				<source>both without normal, informal</source>
-				<target>de both without normal, informal</target>
-			</trans-unit>
-			<trans-unit id="only_in_french" xml:space="preserve" approved="yes">
-				<source>only in french</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="label_foo" xml:space="preserve" approved="yes">
-				<source>foo</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="label_foo2" xml:space="preserve" approved="yes">
-				<source>foo two</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="label_bar" xml:space="preserve" approved="yes">
-				<source>bar (no salutation)</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="label_bar_formal" xml:space="preserve" approved="yes">
-				<source>bar (formal)</source>
-				<target></target>
-			</trans-unit>
-			<trans-unit id="label_bar_informal" xml:space="preserve" approved="yes">
-				<source>bar (informal)</source>
-				<target></target>
-			</trans-unit>
-		</body>
-	</file>
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2016-07-18T15:52:30Z"
+          product-name="oelib">
+        <header/>
+        <body>
+            <trans-unit id="empty_string_in_default" xml:space="preserve" approved="yes">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="only_in_default" xml:space="preserve" approved="yes">
+                <source>only in default</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="default_not_fallback" xml:space="preserve" approved="yes">
+                <source>default_not_fallback default</source>
+                <target>default_not_fallback de</target>
+            </trans-unit>
+            <trans-unit id="in_both" xml:space="preserve" approved="yes">
+                <source>in both languages</source>
+                <target>in beiden Sprachen</target>
+            </trans-unit>
+            <trans-unit id="formal_string_only_formal" xml:space="preserve" approved="yes">
+                <source>only formal</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="informal_string_only_informal" xml:space="preserve" approved="yes">
+                <source>only informal</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="formal_string_with_normal" xml:space="preserve" approved="yes">
+                <source>formal with normal, normal</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="formal_string_with_normal_formal" xml:space="preserve" approved="yes">
+                <source>formal with normal, formal</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="informal_string_with_normal" xml:space="preserve" approved="yes">
+                <source>informal with normal, normal</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="informal_string_with_normal_informal" xml:space="preserve" approved="yes">
+                <source>informal with normal, informal</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="both_without_normal" xml:space="preserve" approved="yes">
+                <source>both without normal</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="both_without_normal_formal" xml:space="preserve" approved="yes">
+                <source>both without normal, formal</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="both_without_normal_informal" xml:space="preserve" approved="yes">
+                <source>both without normal, informal</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="de_formal_string_only_formal" xml:space="preserve" approved="yes">
+                <source>only formal</source>
+                <target>de only formal</target>
+            </trans-unit>
+            <trans-unit id="de_informal_string_only_informal" xml:space="preserve" approved="yes">
+                <source>only informal</source>
+                <target>de only informal</target>
+            </trans-unit>
+            <trans-unit id="de_formal_string_with_normal" xml:space="preserve" approved="yes">
+                <source>formal with normal, normal</source>
+                <target>de formal with normal, normal</target>
+            </trans-unit>
+            <trans-unit id="de_formal_string_with_normal_formal" xml:space="preserve" approved="yes">
+                <source>formal with normal, formal</source>
+                <target>de formal with normal, formal</target>
+            </trans-unit>
+            <trans-unit id="de_informal_string_with_normal" xml:space="preserve" approved="yes">
+                <source>informal with normal, normal</source>
+                <target>de informal with normal, normal</target>
+            </trans-unit>
+            <trans-unit id="de_informal_string_with_normal_informal" xml:space="preserve" approved="yes">
+                <source>informal with normal, informal</source>
+                <target>de informal with normal, informal</target>
+            </trans-unit>
+            <trans-unit id="de_both_without_normal_formal" xml:space="preserve" approved="yes">
+                <source>both without normal, formal</source>
+                <target>de both without normal, formal</target>
+            </trans-unit>
+            <trans-unit id="de_both_without_normal_informal" xml:space="preserve" approved="yes">
+                <source>both without normal, informal</source>
+                <target>de both without normal, informal</target>
+            </trans-unit>
+            <trans-unit id="only_in_french" xml:space="preserve" approved="yes">
+                <source>only in french</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="label_foo" xml:space="preserve" approved="yes">
+                <source>foo</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="label_foo2" xml:space="preserve" approved="yes">
+                <source>foo two</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="label_bar" xml:space="preserve" approved="yes">
+                <source>bar (no salutation)</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="label_bar_formal" xml:space="preserve" approved="yes">
+                <source>bar (formal)</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="label_bar_informal" xml:space="preserve" approved="yes">
+                <source>bar (informal)</source>
+                <target></target>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>
