@@ -69,9 +69,6 @@
 			<trans-unit id="only_in_french" xml:space="preserve">
 				<source>only in french</source>
 			</trans-unit>
-			<trans-unit id="htmlspecialchars" xml:space="preserve">
-				<source>a&amp;o</source>
-			</trans-unit>
 			<trans-unit id="label_foo" xml:space="preserve">
 				<source>foo</source>
 			</trans-unit>

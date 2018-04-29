@@ -1,5 +1,6 @@
 <?php
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 use TYPO3\CMS\Lang\LanguageService;
@@ -88,7 +89,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      * 'greeting'.
      *
      * @param string $key the local language key for which to return the value, must not be empty
-     * @param bool $useHtmlSpecialChars whether the output should be passed through htmlspecialchars()
+     * @param bool $useHtmlSpecialChars @deprecated whether the output should be passed through htmlspecialchars()
      *
      * @return string the requested local language key, might be empty
      */
@@ -96,6 +97,11 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
     {
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1331489025);
+        }
+
+        if ($useHtmlSpecialChars) {
+            // will be removed in oelib 3.0.0
+            GeneralUtility::logDeprecatedFunction();
         }
 
         if (isset($this->translationCache[$key])) {
@@ -112,7 +118,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
             $this->translationCache[$key] = $result;
         }
 
-        return $useHtmlSpecialChars ? htmlspecialchars($result) : $result;
+        return $result;
     }
 
     /**

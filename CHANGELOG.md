@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Update to PHPUnit 5.3.5 (#59)
 
 ### Deprecated
+- Deprecate the `$useHtmlSpecialChars` parameter of `translate` (#76)
 
 ### Removed
 - Drop the class alias map (#71)

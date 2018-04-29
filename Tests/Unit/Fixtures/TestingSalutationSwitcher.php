@@ -25,8 +25,6 @@ final class Tx_Oelib_Tests_Unit_Fixtures_TestingSalutationSwitcher extends \Tx_O
      */
     public function __construct(array $configuration)
     {
-        // Calls the base class' constructor manually as this isn't done
-        // automatically.
         parent::__construct();
 
         $this->conf = $configuration;

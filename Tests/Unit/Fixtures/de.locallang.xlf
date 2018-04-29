@@ -91,10 +91,6 @@
 				<source>only in french</source>
 				<target></target>
 			</trans-unit>
-			<trans-unit id="htmlspecialchars" xml:space="preserve" approved="yes">
-				<source>a&amp;o</source>
-				<target></target>
-			</trans-unit>
 			<trans-unit id="label_foo" xml:space="preserve" approved="yes">
 				<source>foo</source>
 				<target></target>
