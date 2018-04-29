@@ -38,6 +38,7 @@ $EM_CONF[$_EXTKEY] = [
         'depends' => [
             'php' => '5.6.0-7.2.99',
             'typo3' => '7.6.0-8.7.99',
+            'emogrifier' => '2.0.0-2.9.99',
         ],
         'conflicts' => [
         ],

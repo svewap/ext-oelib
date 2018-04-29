@@ -1,6 +1,7 @@
 <?php
 
 use Pelago\Emogrifier;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -221,7 +222,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
 
         if ($this->hasCssFile()) {
             $this->loadEmogrifierClass();
-            $emogrifier = new \Pelago\Emogrifier($message, $this->getCssFile());
+            $emogrifier = new Emogrifier($message, $this->getCssFile());
             $messageToStore = $emogrifier->emogrify();
         } else {
             $messageToStore = $message;
@@ -237,8 +238,12 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      */
     protected function loadEmogrifierClass()
     {
-        if (!class_exists(Emogrifier::class, true)) {
-            require_once __DIR__ . '/../Resources/Private/Php/vendor/pelago/emogrifier/Classes/Emogrifier.php';
+        if (!class_exists(Emogrifier::class)) {
+            $pharPath = ExtensionManagementUtility::extPath(
+                'emogrifier',
+                'Resources/Private/Php/Emogrifier.phar/vendor/autoload.php'
+            );
+            GeneralUtility::requireOnce('phar://' . $pharPath);
         }
     }
 

@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add support for PHP 7.1 and 7.2 (#62)
 
 ### Changed
+- Use Emogrifier from an extension instead of packaging it (#72)
 - Suggest static_info_tables >= 6.4.0 (#68)
 - Update to PHPUnit 5.3.5 (#59)
 
