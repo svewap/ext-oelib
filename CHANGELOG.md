@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop the class alias map (#71)
 - Remove the deprecated ConfigCheck::checkCssStyledContent (#67)
 - Drop the deprecated TestingFramework::getTcaForTable (#66)
 - Remove Template::getPrefixedMarkers and ::setCss (#65)
