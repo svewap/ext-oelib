@@ -1,15 +1,5 @@
 <?php
 
-/***************************************************************
- * Extension Manager/Repository config file for ext "user_oelibtest2".
- *
- * Auto generated 06-01-2015 19:56
- *
- * Manual updates:
- * Only the data in the array - everything else is removed by next
- * writing. "version" and "dependencies" must not be touched!
- ***************************************************************/
-
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Second test extension for tx_oelib',
     'description' => 'Second test extension for tx_oelib',
