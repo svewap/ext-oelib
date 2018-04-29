@@ -1959,22 +1959,6 @@ final class Tx_Oelib_TestingFramework
     }
 
     /**
-     * Returns the TCA for a certain table.
-     *
-     * @param string $tableName the table name to look up, must not be empty
-     *
-     * @return array[] associative array with the TCA description for this table
-     *
-     * @deprecated will be removed in oelib 2.0.0, use \Tx_Oelib_Db::getTcaForTable instead
-     */
-    public function getTcaForTable($tableName)
-    {
-        GeneralUtility::logDeprecatedFunction();
-
-        return \Tx_Oelib_Db::getTcaForTable($tableName);
-    }
-
-    /**
      * Updates an integer field of a database table by one. This is mainly needed
      * for counting up the relation counter when creating a database relation.
      *
