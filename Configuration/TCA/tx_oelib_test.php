@@ -28,21 +28,15 @@ return [
         'starttime' => [
             'config' => [
                 'type' => 'none',
+                'renderType' => 'inputDateTime',
                 'eval' => 'date',
-                'default' => '0',
-                'checkbox' => '0',
             ],
         ],
         'endtime' => [
             'config' => [
                 'type' => 'none',
                 'eval' => 'date',
-                'checkbox' => '0',
-                'default' => '0',
-                'range' => [
-                    'upper' => mktime(0, 0, 0, 12, 31, 2020),
-                    'lower' => mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')),
-                ],
+                'renderType' => 'inputDateTime',
             ],
         ],
         'title' => [
