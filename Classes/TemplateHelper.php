@@ -536,30 +536,6 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     }
 
     /**
-     * Gets a list of markers with a given prefix.
-     * Example: If the prefix is "WRAPPER" (or "wrapper", case is not relevant),
-     * the following array might be returned: ("WRAPPER_FOO", "WRAPPER_BAR")
-     *
-     * If there are no matches, an empty array is returned.
-     *
-     * @deprecated will be removed in oelib 2.0.0
-     *
-     * @param string $prefix case-insensitive prefix for the marker names to look for
-     *
-     * @return string[] array of matching marker names, might be empty
-     */
-    public function getPrefixedMarkers($prefix)
-    {
-        GeneralUtility::logDeprecatedFunction();
-
-        try {
-            return $this->getTemplate()->getPrefixedMarkers($prefix);
-        } catch (Exception $exception) {
-            return [];
-        }
-    }
-
-    /**
      * Sets a marker's content.
      *
      * Example: If the prefix is "field" and the marker name is "one", the
@@ -1010,55 +986,6 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         foreach ($labels as $label) {
             $template->setMarker($label, $this->translate($label));
         }
-    }
-
-    /**
-     * Sets the all CSS classes from TS for the template in $this->markers.
-     * The list of needed CSS classes will be extracted from the template file.
-     *
-     * Classes are set only if they are set via TS, else the marker will be an
-     * empty string.
-     *
-     * @deprecated will be removed in oelib 2.0.0
-     *
-     * @return void
-     */
-    public function setCss()
-    {
-        GeneralUtility::logDeprecatedFunction();
-
-        try {
-            $cssEntries = $this->getTemplate()->getPrefixedMarkers('class');
-        } catch (Exception $exception) {
-            $cssEntries = [];
-        }
-
-        foreach ($cssEntries as $currentCssEntry) {
-            $this->getTemplate()->setMarker(
-                $currentCssEntry,
-                $this->createClassAttribute(
-                    $this->getConfValueString(strtolower($currentCssEntry))
-                )
-            );
-        }
-    }
-
-    /**
-     * Creates an CSS class attribute. The parameter is the class name.
-     *
-     * Example: If the parameter is 'foo', our extension is named 'bar' and we
-     * are in p1, then the return value is 'class="tx-bar-pi1-foo"'.
-     *
-     * If the parameter is an emty string, the return value is an empty string
-     * as well (not an attribute with an empty value).
-     *
-     * @param string $className a CSS class name (may be empty)
-     *
-     * @return string a CSS class attribute (may be empty)
-     */
-    private function createClassAttribute($className)
-    {
-        return !empty($className) ? $this->pi_classParam($className) : '';
     }
 
     /**

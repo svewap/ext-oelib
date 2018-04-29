@@ -13,15 +13,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     protected $subject = null;
 
-    /**
-     * @var bool
-     */
-    protected $deprecationLogEnabledBackup = false;
-
     protected function setUp()
     {
-        $this->deprecationLogEnabledBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'];
-
         $this->subject = new \Tx_Oelib_Template();
 
         $localizedLabels = [
@@ -29,11 +22,6 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         ];
         $translator = new \Tx_Oelib_Translator('de', '', $localizedLabels);
         $this->subject->injectTranslator($translator);
-    }
-
-    protected function tearDown()
-    {
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'] = $this->deprecationLogEnabledBackup;
     }
 
     /*
@@ -3887,70 +3875,6 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         );
 
         $this->subject->getSubpart('MY_SUBPART');
-    }
-
-    /*
-     * Tests concerning getPrefixedMarkers
-     */
-
-    /**
-     * @test
-     */
-    public function getPrefixedMarkersForNoMatchesReturnsEmptyArray()
-    {
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'] = false;
-
-        $this->subject->processTemplate('');
-
-        self::assertSame(
-            [],
-            $this->subject->getPrefixedMarkers('foo')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getPrefixedMarkersForOneMatchReturnsArrayWithCompleteMarkerName()
-    {
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'] = false;
-
-        $this->subject->processTemplate('###FOO_BAR###');
-
-        self::assertSame(
-            ['FOO_BAR'],
-            $this->subject->getPrefixedMarkers('foo')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getPrefixedMarkersForTwoIdenticalMatchesReturnsArrayWithCompleteMarkerNameOnce()
-    {
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'] = false;
-
-        $this->subject->processTemplate('###FOO_BAR### ###FOO_BAR###');
-
-        self::assertSame(
-            ['FOO_BAR'],
-            $this->subject->getPrefixedMarkers('foo')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getPrefixedMarkersForTwoMatchesReturnsArrayWithCompleteMarkerNames()
-    {
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'] = false;
-
-        $this->subject->processTemplate('###FOO_BAR### ###FOO_BAZ###');
-
-        self::assertSame(
-            ['FOO_BAR', 'FOO_BAZ'],
-            $this->subject->getPrefixedMarkers('foo')
-        );
     }
 
     /*

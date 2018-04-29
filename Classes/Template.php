@@ -186,35 +186,6 @@ class Tx_Oelib_Template
     }
 
     /**
-     * Gets a list of markers with a given prefix.
-     * Example: If the prefix is "WRAPPER" (or "wrapper", case is not relevant),
-     * the following array might be returned: ("WRAPPER_FOO", "WRAPPER_BAR")
-     *
-     * If there are no matches, an empty array is returned.
-     *
-     * @deprecated will be removed in oelib 2.0.0
-     *
-     * @param string $prefix case-insensitive prefix for the marker names to look for
-     *
-     * @return string[] matching marker names, might be empty
-     */
-    public function getPrefixedMarkers($prefix)
-    {
-        GeneralUtility::logDeprecatedFunction();
-
-        $upperCasePrefix = strtoupper($prefix) . '_';
-
-        $result = [];
-        foreach ($this->markerNames as $marker) {
-            if (strpos($marker, $upperCasePrefix) === 0) {
-                $result[] = $marker;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
      * Gets a list of marker names with the "LABEL" prefix.
      *
      * If there are no matches, an empty array is returned.
