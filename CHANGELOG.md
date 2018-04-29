@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Remove the deprecated Double3Validator (#64) 
 - Drop deprecated mailer functions (#61)
 - Require TYPO3 7.6 and drop support for TYPO3 6.2 (#60)
 - Drop support for PHP 5.5 (#58)
