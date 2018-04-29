@@ -31,15 +31,8 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends \Tx_Phpunit_TestCase
         'headers' => '',
     ];
 
-    /**
-     * @var bool
-     */
-    protected $deprecationLogEnabledBackup = false;
-
     protected function setUp()
     {
-        $this->deprecationLogEnabledBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'];
-
         $this->subject = new \Tx_Oelib_EmailCollector();
 
         $this->message1 = $this->getMock(MailMessage::class, ['send']);
@@ -52,8 +45,6 @@ class Tx_Oelib_Tests_Unit_AbstractMailerTest extends \Tx_Phpunit_TestCase
         GeneralUtility::makeInstance(MailMessage::class);
 
         $this->subject->cleanUp();
-
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'] = $this->deprecationLogEnabledBackup;
     }
 
     /*

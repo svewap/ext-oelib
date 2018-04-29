@@ -15,22 +15,9 @@ class Tx_Oelib_Tests_Unit_MailerFactoryTest extends \Tx_Phpunit_TestCase
      */
     protected $subject = null;
 
-    /**
-     * @var bool
-     */
-    protected $deprecationLogEnabledBackup = false;
-
     protected function setUp()
     {
-        $this->deprecationLogEnabledBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'];
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'] = false;
-
         $this->subject = new \Tx_Oelib_MailerFactory();
-    }
-
-    protected function tearDown()
-    {
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'] = $this->deprecationLogEnabledBackup;
     }
 
     /*
