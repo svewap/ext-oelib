@@ -25,6 +25,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for PHP 5.5 (#58)
 
 ### Fixed
+- Use the new PHPUnit test runner on TYPO3 8.7 (#70)
 - Make the unit tests not depend on the current time of day (#57)
 
 ## 1.4.0
