@@ -4,6 +4,7 @@ use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -1258,7 +1259,11 @@ final class Tx_Oelib_TestingFramework
         $this->discardFakeFrontEnd();
 
         $this->registerNullPageCache();
-        $GLOBALS['TT'] = GeneralUtility::makeInstance(NullTimeTracker::class);
+        if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) <= 8000000) {
+            $GLOBALS['TT'] = GeneralUtility::makeInstance(NullTimeTracker::class);
+        } else {
+            $GLOBALS['TT'] = GeneralUtility::makeInstance(TimeTracker::class, false);
+        }
 
         /** @var TypoScriptFrontendController $frontEnd */
         $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
@@ -1266,7 +1271,6 @@ final class Tx_Oelib_TestingFramework
 
         // simulates a normal FE without any logged-in FE or BE user
         $frontEnd->beUserLogin = false;
-        $frontEnd->renderCharset = 'utf-8';
         $frontEnd->workspacePreview = '';
         $frontEnd->initFEuser();
         $frontEnd->determineId();
