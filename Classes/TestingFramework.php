@@ -1314,12 +1314,6 @@ final class Tx_Oelib_TestingFramework
 
         $this->logoutFrontEndUser();
 
-        $frontEnd = $this->getFrontEndController();
-        unset(
-            $frontEnd->tmpl, $frontEnd->sys_page, $frontEnd->fe_user, $frontEnd->TYPO3_CONF_VARS, $frontEnd->config,
-            $frontEnd->TCAcachedExtras, $frontEnd->imagesOnPage, $frontEnd->cObj, $frontEnd->csConvObj,
-            $frontEnd->pagesection_lockObj, $frontEnd->pages_lockObj
-        );
         $GLOBALS['TSFE'] = null;
         $GLOBALS['TT'] = null;
         unset(

@@ -1,6 +1,5 @@
 <?php
 
-use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -39,24 +38,9 @@ class Tx_Oelib_TranslatorRegistry
     private $alternativeLanguageKey = '';
 
     /**
-     * @var string the charset the localized labels should be rendered in
-     */
-    private $renderCharset = 'utf-8';
-
-    /**
-     * @var CharsetConverter helper for charset conversion
-     */
-    private $charsetConversion = null;
-
-    /**
      * @var string the path to the locallang.xlf file, relative to an extension's root directory
      */
     const LANGUAGE_FILE_PATH = 'Resources/Private/Language/locallang.xlf';
-
-    /**
-     * @var string the default render charset (both front end and back end)
-     */
-    const DEFAULT_CHARSET = 'utf-8';
 
     /**
      * The constructor.
@@ -73,14 +57,6 @@ class Tx_Oelib_TranslatorRegistry
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->charsetConversion, $this->translators);
-    }
-
-    /**
      * Initializes the TranslatorRegistry for the front end.
      *
      * @return void
@@ -89,9 +65,6 @@ class Tx_Oelib_TranslatorRegistry
     {
         $this->setLanguageKeyFromConfiguration(\Tx_Oelib_ConfigurationRegistry::get('config'));
         $this->setLanguageKeyFromConfiguration(\Tx_Oelib_ConfigurationRegistry::get('page.config'));
-
-        $this->renderCharset = $this->getFrontEndController()->renderCharset;
-        $this->charsetConversion = $this->getFrontEndController()->csConvObj;
     }
 
     /**
@@ -127,8 +100,6 @@ class Tx_Oelib_TranslatorRegistry
         $backEndUser = \Tx_Oelib_BackEndLoginManager::getInstance()->
             getLoggedInUser(\Tx_Oelib_Mapper_BackEndUser::class);
         $this->languageKey = $backEndUser->getLanguage();
-        $this->renderCharset = $this->getLanguageService()->charSet;
-        $this->charsetConversion = $this->getLanguageService()->csConvObj;
     }
 
     /**
@@ -237,10 +208,10 @@ class Tx_Oelib_TranslatorRegistry
         /** @var LocalizationFactory $languageFactory */
         $languageFactory = GeneralUtility::makeInstance(LocalizationFactory::class);
         $languageFile = 'EXT:' . $extensionKey . '/' . self::LANGUAGE_FILE_PATH;
-        $localizedLabels = $languageFactory->getParsedData($languageFile, $this->languageKey, $this->renderCharset, 0);
+        $localizedLabels = $languageFactory->getParsedData($languageFile, $this->languageKey, 'utf-8', 0);
 
         if ($this->alternativeLanguageKey !== '') {
-            $alternativeLabels = $languageFactory->getParsedData($languageFile, $this->languageKey, $this->renderCharset, 0);
+            $alternativeLabels = $languageFactory->getParsedData($languageFile, $this->languageKey, 'utf-8', 0);
             $localizedLabels = array_merge(
                 $alternativeLabels,
                 is_array($localizedLabels) ? $localizedLabels : []
@@ -272,14 +243,7 @@ class Tx_Oelib_TranslatorRegistry
 
         $configuration = \Tx_Oelib_ConfigurationRegistry::get($namespace);
         foreach ($configuration->getArrayKeys() as $key) {
-            // Converts the label from the source charset to the render
-            // charset.
-            $result[$key] =    $this->charsetConversion->conv(
-                $configuration->getAsString($key),
-                'utf-8',
-                $this->renderCharset,
-                true
-            );
+            $result[$key] = $configuration->getAsString($key);
         }
 
         return $result;

@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix more deprecation warnings (#80)
 - Stop using the deprecated NullTimeTracker in 8.7 (#79)
 
 ## 2.0.0
