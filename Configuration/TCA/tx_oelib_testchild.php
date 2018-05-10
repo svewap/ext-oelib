@@ -3,12 +3,13 @@ defined('TYPO3_MODE') or die('Access denied.');
 
 return [
     'ctrl' => [
-        'hideTable' => true,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'versioningWS' => false,
         'delete' => 'deleted',
+        'hideTable' => true,
+        'adminOnly' => true,
     ],
     'interface' => [
         'showRecordFieldList' => 'title',

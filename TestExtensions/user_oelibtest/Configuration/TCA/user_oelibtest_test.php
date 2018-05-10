@@ -3,7 +3,6 @@ defined('TYPO3_MODE') or die('Access denied.');
 
 return [
     'ctrl' => [
-        'hideTable' => true,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -13,6 +12,8 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'hideTable' => true,
+        'adminOnly' => true,
     ],
     'columns' => [
         'hidden' => [
