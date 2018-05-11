@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Stop PHP-linting the removed Migrations/ folder (#82) 
 - Hide the test tables from BE user table permission lists (#81)
 - Fix more deprecation warnings (#80)
 - Stop using the deprecated NullTimeTracker in 8.7 (#79)
