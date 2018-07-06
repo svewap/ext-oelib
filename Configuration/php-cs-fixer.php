@@ -9,7 +9,7 @@
  *
  * And then simply run
  *
- *  $ php-cs-fixer fix . --config Configuration/PhpCsFixer/FixerConfiguration.php
+ *  $ php-cs-fixer fix . --config Configuration/php-cs-fixer.php
  *
  * inside the directory. Warning: This may take some time.
  *
