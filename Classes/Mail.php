@@ -239,11 +239,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     protected function loadEmogrifierClass()
     {
         if (!class_exists(Emogrifier::class)) {
-            $pharPath = ExtensionManagementUtility::extPath(
-                'emogrifier',
-                'Resources/Private/Php/Emogrifier.phar/vendor/autoload.php'
-            );
-            require_once 'phar://' . $pharPath;
+            require_once __DIR__ . '/../Resources/Private/Php/Emogrifier/Emogrifier.php';
         }
     }
 
