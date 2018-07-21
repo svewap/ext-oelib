@@ -14,6 +14,10 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+
+## 2.0.1
+
+### Fixed
 - Work around the PHAR inclusion problem (#84)
 - Stop PHP-linting the removed Migrations/ folder (#82) 
 - Hide the test tables from BE user table permission lists (#81)
