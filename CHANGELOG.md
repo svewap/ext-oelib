@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Update the composer package name of static-info-tables (#85)
 
 ## 2.0.1
 
