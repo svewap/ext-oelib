@@ -17,6 +17,11 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     private $sender = null;
 
     /**
+     * @var \Tx_Oelib_Interface_MailRole
+     */
+    private $replyTo = null;
+
+    /**
      * @var \Tx_Oelib_Interface_MailRole[] the recipients of the e-mail
      */
     private $recipients = [];
@@ -40,14 +45,6 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      * @var string the return path for the e-mails
      */
     private $returnPath = '';
-
-    /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->data, $this->sender, $this->recipients, $this->attachments);
-    }
 
     /**
      * Sets the value of the data item for the key $key.
@@ -108,6 +105,32 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     public function hasSender()
     {
         return is_object($this->sender);
+    }
+
+    /**
+     * @return \Tx_Oelib_Interface_MailRole|null
+     */
+    public function getReplyTo()
+    {
+        return $this->replyTo;
+    }
+
+    /**
+     * @param \Tx_Oelib_Interface_MailRole $replyTo
+     *
+     * @return void
+     */
+    public function setReplyTo(\Tx_Oelib_Interface_MailRole $replyTo)
+    {
+        $this->replyTo = $replyTo;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasReplyTo()
+    {
+        return $this->replyTo !== null;
     }
 
     /**

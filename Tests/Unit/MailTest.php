@@ -78,6 +78,52 @@ class Tx_Oelib_Tests_Unit_MailTest extends \Tx_Phpunit_TestCase
         );
     }
 
+    /**
+     * @test
+     */
+    public function getReplyToInitiallyReturnsNull()
+    {
+        self::assertNull($this->subject->getReplyTo());
+    }
+
+    /**
+     * @test
+     */
+    public function getReplyToForNonEmptyReplyToReturnsReplyTo()
+    {
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
+            'John Doe',
+            'foo@bar.com'
+        );
+
+        $this->subject->setReplyTo($sender);
+
+        self::assertSame($sender, $this->subject->getReplyTo());
+    }
+
+    /**
+     * @test
+     */
+    public function hasReplyToInitiallyReturnsFalse()
+    {
+        self::assertFalse($this->subject->hasReplyTo());
+    }
+
+    /**
+     * @test
+     */
+    public function hasReplyToWithReplyToReturnsTrue()
+    {
+        $sender = new \Tx_Oelib_Tests_Unit_Fixtures_TestingMailRole(
+            'John Doe',
+            'foo@bar.com'
+        );
+
+        $this->subject->setReplyTo($sender);
+
+        self::assertTrue($this->subject->hasReplyTo());
+    }
+
     /*
      * Tests regarding adding and getting the recipients.
      */

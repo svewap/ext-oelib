@@ -6,12 +6,14 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add the possibility to set a reply-to address for a mail object (#86)
 
 ### Changed
 
 ### Deprecated
 
 ### Removed
+- Remove no longer necessary destruct method from mail object (#86)
 
 ### Fixed
 - Update the composer package name of static-info-tables (#85)

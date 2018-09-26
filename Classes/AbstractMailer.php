@@ -60,6 +60,10 @@ abstract class Tx_Oelib_AbstractMailer
 
         $sender = $email->getSender();
         $swiftMail->setFrom([$sender->getEmailAddress() => $sender->getName()]);
+        if ($email->hasReplyTo()) {
+            $replyTo = $email->getReplyTo();
+            $swiftMail->setReplyTo([$replyTo->getEmailAddress() => $replyTo->getName()]);
+        }
         $swiftMail->setCharset('utf-8');
 
         $returnPath = $email->getReturnPath();
