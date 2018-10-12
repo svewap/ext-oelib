@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Auto-release to the TER (#108)
 - Log more details for geocoding failures (#105)
 - Add a configuration for the geocoding API key (#91, #98)
 - Add the possibility to set a reply-to address for a mail object (#86)
