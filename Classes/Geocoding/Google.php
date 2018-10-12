@@ -150,16 +150,22 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
                     break;
                 }
                 if (!\in_array($status, static::$statusCodesForRetry, true)) {
-                    $geoObject->setGeoError('Error: ' . $status);
+                    $errorText = 'Error: ' . $status;
+                    if (isset($resultParts['error_message'])) {
+                        $errorText .= ' with additional details: ' . $resultParts['error_message'];
+                    }
+                    $geoObject->setGeoError($errorText);
                     break;
                 }
             }
 
             if ($delayInMicroseconds * 2 > $this->maximumDelayInMicroseconds) {
-                $geoObject->setGeoError(
-                    'Maximum retries reached after ' . ($delayInMicroseconds / 1000000) .
-                    ' seconds delay. Last status: ' . $status
-                );
+                $errorText = 'Maximum retries reached after ' . ($delayInMicroseconds / 1000000) .
+                    ' seconds delay. Last status: ' . $status;
+                if (isset($resultParts['error_message'])) {
+                    $errorText .= ' with additional details: ' . $resultParts['error_message'];
+                }
+                $geoObject->setGeoError($errorText);
                 break;
             }
             $delayInMicroseconds *= 2;
