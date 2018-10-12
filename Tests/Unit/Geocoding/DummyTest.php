@@ -52,10 +52,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends \Tx_Phpunit_TestCase
 
         $this->subject->lookUp($geo);
 
-        self::assertSame(
-            $coordinates,
-            $geo->getGeoCoordinates()
-        );
+        self::assertSame($coordinates, $geo->getGeoCoordinates());
     }
 
     /**
@@ -68,9 +65,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends \Tx_Phpunit_TestCase
 
         $this->subject->lookUp($geo);
 
-        self::assertFalse(
-            $geo->hasGeoCoordinates()
-        );
+        self::assertFalse($geo->hasGeoCoordinates());
     }
 
     /**
@@ -83,9 +78,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends \Tx_Phpunit_TestCase
 
         $this->subject->lookUp($geo);
 
-        self::assertFalse(
-            $geo->hasGeoCoordinates()
-        );
+        self::assertFalse($geo->hasGeoCoordinates());
     }
 
     /**
@@ -98,9 +91,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends \Tx_Phpunit_TestCase
 
         $this->subject->lookUp($geo);
 
-        self::assertTrue(
-            $geo->hasGeoError()
-        );
+        self::assertTrue($geo->hasGeoError());
     }
 
     /**
@@ -117,10 +108,7 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends \Tx_Phpunit_TestCase
 
         $this->subject->lookUp($geo);
 
-        self::assertSame(
-            $coordinates,
-            $geo->getGeoCoordinates()
-        );
+        self::assertSame($coordinates, $geo->getGeoCoordinates());
     }
 
     /**
@@ -136,8 +124,6 @@ class Tx_Oelib_Tests_Unit_Geocoding_DummyTest extends \Tx_Phpunit_TestCase
 
         $this->subject->lookUp($geo);
 
-        self::assertFalse(
-            $geo->hasGeoCoordinates()
-        );
+        self::assertFalse($geo->hasGeoCoordinates());
     }
 }

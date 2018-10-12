@@ -54,16 +54,16 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
         }
 
         $coordinates1 = $object1->getGeoCoordinates();
-        $latitude1 = deg2rad($coordinates1['latitude']);
-        $longitude1 = deg2rad($coordinates1['longitude']);
+        $latitude1 = \deg2rad($coordinates1['latitude']);
+        $longitude1 = \deg2rad($coordinates1['longitude']);
         $coordinates2 = $object2->getGeoCoordinates();
-        $latitude2 = deg2rad($coordinates2['latitude']);
-        $longitude2 = deg2rad($coordinates2['longitude']);
+        $latitude2 = \deg2rad($coordinates2['latitude']);
+        $longitude2 = \deg2rad($coordinates2['longitude']);
 
-        return acos(
-            sin($latitude1) * sin($latitude2)
-            + cos($latitude1) * cos($latitude2) * cos($longitude2 - $longitude1)
-        ) * self::EARTH_RADIUS_IN_KILOMETERS;
+        return \acos(
+                \sin($latitude1) * \sin($latitude2)
+                + \cos($latitude1) * \cos($latitude2) * \cos($longitude2 - $longitude1)
+            ) * self::EARTH_RADIUS_IN_KILOMETERS;
     }
 
     /**
@@ -91,9 +91,7 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
 
         /** @var \Tx_Oelib_Interface_Geo|\Tx_Oelib_Model $object */
         foreach ($unfilteredObjects as $object) {
-            if ($this->calculateDistanceInKilometers($center, $object)
-                <= $distance
-            ) {
+            if ($this->calculateDistanceInKilometers($center, $object) <= $distance) {
                 $objectsWithinDistance->add($object);
             }
         }
@@ -114,7 +112,7 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
      */
     public function move(\Tx_Oelib_Interface_Geo $object, $direction, $distance)
     {
-        $directionInRadians = deg2rad($direction);
+        $directionInRadians = \deg2rad($direction);
 
         $originalCoordinates = $object->getGeoCoordinates();
         /** @var float $originalLatitude */
@@ -122,8 +120,8 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
         /** @var float $originalLongitude */
         $originalLongitude = $originalCoordinates['longitude'];
 
-        $xDeltaInKilometers = $distance * cos($directionInRadians);
-        $yDeltaInKilometers = $distance * sin($directionInRadians);
+        $xDeltaInKilometers = $distance * \cos($directionInRadians);
+        $yDeltaInKilometers = $distance * \sin($directionInRadians);
 
         $oneDegreeLongitudeInKilometers = 2 * M_PI * self::EARTH_RADIUS_IN_KILOMETERS * cos($originalLongitude) / 360;
 
@@ -154,12 +152,15 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
     public function moveByRandomDistance(\Tx_Oelib_Interface_Geo $object, $direction, $maximumDistance)
     {
         if ($maximumDistance < 0) {
-            throw new \InvalidArgumentException('$distance must be >= 0, but actually is: ' . $maximumDistance, 1407432668);
+            throw new \InvalidArgumentException(
+                '$distance must be >= 0, but actually is: ' . $maximumDistance,
+                1407432668
+            );
         }
 
         $distanceMultiplier = 10000;
 
-        $randomDistance = mt_rand(0, $maximumDistance * $distanceMultiplier) / $distanceMultiplier;
+        $randomDistance = \mt_rand(0, $maximumDistance * $distanceMultiplier) / $distanceMultiplier;
         $this->move($object, $direction, $randomDistance);
     }
 
@@ -175,7 +176,7 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
      */
     public function moveInRandomDirection(\Tx_Oelib_Interface_Geo $object, $distance)
     {
-        $direction = mt_rand(0, 360);
+        $direction = \mt_rand(0, 360);
         $this->move($object, $direction, $distance);
     }
 
@@ -191,7 +192,7 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
      */
     public function moveInRandomDirectionAndDistance(\Tx_Oelib_Interface_Geo $object, $maximumDistance)
     {
-        $direction = mt_rand(0, 360);
+        $direction = \mt_rand(0, 360);
         $this->moveByRandomDistance($object, $direction, $maximumDistance);
     }
 }

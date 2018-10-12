@@ -149,7 +149,7 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
             if ($lookupError) {
                 $status = 'network problem';
             } else {
-                $resultParts = json_decode($response, true);
+                $resultParts = \json_decode($response, true);
                 $status = $resultParts['status'];
                 $lookupError = $status !== self::STATUS_OK;
                 $addressIsInvalid = \in_array($status, [self::STATUS_ZERO_RESULTS, self::STATUS_INVALID_REQUEST], true);
@@ -193,7 +193,7 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
     {
         $baseUrlWithAddress = self::BASE_URL . '&address=';
 
-        return GeneralUtility::getUrl($baseUrlWithAddress . urlencode($address));
+        return GeneralUtility::getUrl($baseUrlWithAddress . \urlencode($address));
     }
 
     /**
@@ -207,9 +207,9 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
     protected function throttle($delay)
     {
         if ($this->lastGeocodingTimestamp > 0.0) {
-            $secondsSinceLastRequest = (microtime(true) - $this->lastGeocodingTimestamp);
+            $secondsSinceLastRequest = (\microtime(true) - $this->lastGeocodingTimestamp);
             if ($secondsSinceLastRequest < $delay) {
-                sleep((int)ceil($delay - $secondsSinceLastRequest));
+                \sleep((int)\ceil($delay - $secondsSinceLastRequest));
             }
         }
 

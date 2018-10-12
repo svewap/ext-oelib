@@ -66,7 +66,8 @@ class Tx_Oelib_Geocoding_Dummy implements \Tx_Oelib_Interface_GeocodingLookup
     public function setCoordinates($latitude, $longitude)
     {
         $this->coordinates = [
-            'latitude' => $latitude, 'longitude' => $longitude,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
         ];
     }
 

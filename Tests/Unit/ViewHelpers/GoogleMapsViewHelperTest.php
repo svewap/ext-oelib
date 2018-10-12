@@ -51,10 +51,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
         $map2 = new \Tx_Oelib_ViewHelpers_GoogleMapsViewHelper();
         $map2->render([$this->mapPointWithCoordinates]);
 
-        self::assertNotSame(
-            $map1->getMapId(),
-            $map2->getMapId()
-        );
+        self::assertNotSame($map1->getMapId(), $map2->getMapId());
     }
 
     /**
@@ -62,10 +59,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
      */
     public function renderForEmptyMapPointsReturnsEmptyString()
     {
-        self::assertSame(
-            '',
-            $this->subject->render([])
-        );
+        self::assertSame('', $this->subject->render([]));
     }
 
     /**
@@ -76,10 +70,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
         $mapPoint = $this->getMock(\Tx_Oelib_Interface_MapPoint::class);
         $mapPoint->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(false));
 
-        self::assertSame(
-            '',
-            $this->subject->render([$mapPoint])
-        );
+        self::assertSame('', $this->subject->render([$mapPoint]));
     }
 
     /**
@@ -92,10 +83,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
 
         $this->subject->render([$mapPoint]);
 
-        self::assertSame(
-            [],
-            $this->mockFrontEnd->additionalHeaderData
-        );
+        self::assertSame([], $this->mockFrontEnd->additionalHeaderData);
     }
 
     /**
@@ -116,10 +104,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
     {
         $result = $this->subject->render([$this->mapPointWithCoordinates]);
 
-        self::assertContains(
-            '<div id="' . $this->subject->getMapId(),
-            $result
-        );
+        self::assertContains('<div id="' . $this->subject->getMapId(), $result);
     }
 
     /**
@@ -138,10 +123,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
      */
     public function renderWithoutWidthAndWithoutHeightReturnsStyleWithDefaultHeight()
     {
-        self::assertContains(
-            'height: 400px;',
-            $this->subject->render([$this->mapPointWithCoordinates])
-        );
+        self::assertContains('height: 400px;', $this->subject->render([$this->mapPointWithCoordinates]));
     }
 
     /**
@@ -242,9 +224,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
     {
         $this->subject->render([$this->mapPointWithCoordinates]);
 
-        self::assertTrue(
-            isset($this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()])
-        );
+        self::assertTrue(isset($this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]));
     }
 
     /**
@@ -450,7 +430,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
 
         self::assertSame(
             2,
-            substr_count(
+            \substr_count(
                 $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()],
                 'new google.maps.Marker('
             )
@@ -474,7 +454,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
 
         self::assertSame(
             2,
-            substr_count(
+            \substr_count(
                 $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()],
                 'bounds.extend('
             )

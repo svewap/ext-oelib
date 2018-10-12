@@ -86,13 +86,13 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      */
     public function render(array $mapPoints = [], $width = '600px', $height = '400px')
     {
-        if (!preg_match('/^\\d+(px|%)$/', $width)) {
+        if (!\preg_match('/^\\d+(px|%)$/', $width)) {
             throw new \InvalidArgumentException(
                 '$width must be a valid CSS length, but actually is: ' . $width,
                 1319058935
             );
         }
-        if (!preg_match('/^\\d+(px|%)$/', $height)) {
+        if (!\preg_match('/^\\d+(px|%)$/', $height)) {
             throw new \InvalidArgumentException(
                 '$height must be a valid CSS length, but actually is: ' . $height,
                 1319058966
@@ -146,8 +146,8 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
 
         return 'var mapMarkersByUid = mapMarkersByUid || {};' . LF .
             'function ' . $initializeFunctionName . '() {' . LF .
-            'var center = new google.maps.LatLng(' . number_format($centerCoordinates['latitude'], 6, '.', '') . ', ' .
-            number_format($centerCoordinates['longitude'], 6, '.', '') . ');' . LF .
+            'var center = new google.maps.LatLng(' . \number_format($centerCoordinates['latitude'], 6, '.', '') . ', ' .
+            \number_format($centerCoordinates['longitude'], 6, '.', '') . ');' . LF .
             'var mapOptions = {' . LF .
             '  mapTypeId: google.maps.MapTypeId.ROADMAP,' . LF .
             '  scrollwheel: false, ' . LF .
@@ -177,7 +177,8 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
         foreach ($mapPoints as $mapPoint) {
             if (!($mapPoint instanceof \Tx_Oelib_Interface_MapPoint)) {
                 throw new \InvalidArgumentException(
-                    'All $mapPoints need to implement \\Tx_Oelib_Interface_MapPoint, but ' . get_class($mapPoint) . ' does not.',
+                    'All $mapPoints need to implement \\Tx_Oelib_Interface_MapPoint, but ' .
+                    \get_class($mapPoint) . ' does not.',
                     1318093613
                 );
             }
@@ -209,15 +210,15 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
             $coordinates = $mapPoint->getGeoCoordinates();
             $positionVariableName = 'markerPosition_' . $index;
             $javaScript .= 'var ' . $positionVariableName . ' = new google.maps.LatLng(' .
-                number_format($coordinates['latitude'], 6, '.', '') . ', ' .
-                number_format($coordinates['longitude'], 6, '.', '') . ');' . LF .
+                \number_format($coordinates['latitude'], 6, '.', '') . ', ' .
+                \number_format($coordinates['longitude'], 6, '.', '') . ');' . LF .
                 'bounds.extend(' . $positionVariableName . ');';
 
             $markerParts = [
                 'position: ' . $positionVariableName,
                 'map: map',
             ];
-            $escapedTooltipTitle = str_replace(
+            $escapedTooltipTitle = \str_replace(
                 ['\\', '"', LF, CR],
                 ['\\\\', '\\"', '\\n', '\\r'],
                 $mapPoint->getTooltipTitle()
@@ -236,13 +237,13 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
             }
 
             $javaScript .= 'var ' . $markerVariableName . ' = new google.maps.Marker({' . LF .
-                '  ' . implode(',' . LF . '  ', $markerParts) . LF .
+                '  ' . \implode(',' . LF . '  ', $markerParts) . LF .
                 '});' . LF .
                 $this->createInfoWindowJavaScript($mapPoint, $markerVariableName, $index) .
                 $mapMarkersByUidEntry;
         }
 
-        if (count($mapPoints) > 1) {
+        if (\count($mapPoints) > 1) {
             $javaScript .= 'map.fitBounds(bounds);' . LF;
         }
 
