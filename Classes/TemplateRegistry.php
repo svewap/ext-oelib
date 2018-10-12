@@ -27,14 +27,6 @@ class Tx_Oelib_TemplateRegistry
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        $this->templates = [];
-    }
-
-    /**
      * Returns an instance of this class.
      *
      * @return \Tx_Oelib_TemplateRegistry the current Singleton instance

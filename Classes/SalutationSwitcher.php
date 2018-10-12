@@ -35,19 +35,6 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
     protected $translationCache = [];
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        $this->translationCache = [];
-
-        unset(
-            $this->availableLanguages, $this->suffixesToTry, $this->conf,
-            $this->pi_EPtemp_cObj, $this->cObj, $this->LOCAL_LANG
-        );
-    }
-
-    /**
      * Makes this object serializable.
      *
      * @return array

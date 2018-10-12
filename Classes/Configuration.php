@@ -27,14 +27,6 @@ class Tx_Oelib_Configuration extends \Tx_Oelib_PublicObject
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->data);
-    }
-
-    /**
      * Sets the complete data for this configuration.
      *
      * This function can be called multiple times.

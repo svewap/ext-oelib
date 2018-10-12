@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Remove the __destruct methods (#97)
 - Remove no longer necessary destruct method from mail object (#86)
 
 ### Fixed

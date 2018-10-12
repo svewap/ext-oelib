@@ -26,14 +26,6 @@ class Tx_Oelib_FakeSession extends \Tx_Oelib_Session
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->sessionData);
-    }
-
-    /**
      * Gets the value of the data item for the key $key.
      *
      * @param string $key the key of the data item to get, must not be empty

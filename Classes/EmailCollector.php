@@ -16,14 +16,6 @@ class Tx_Oelib_EmailCollector extends \Tx_Oelib_AbstractMailer
     protected $sentEmails = [];
 
     /**
-     * The destructor.
-     */
-    public function __destruct()
-    {
-        $this->cleanUp();
-    }
-
-    /**
      * Cleans up (if necessary).
      *
      * @return void

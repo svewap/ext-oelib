@@ -35,14 +35,6 @@ class Tx_Oelib_HeaderProxyFactory
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->headerProxy);
-    }
-
-    /**
      * Retrieves the singleton instance of the factory.
      *
      * @return \Tx_Oelib_HeaderProxyFactory the singleton factory

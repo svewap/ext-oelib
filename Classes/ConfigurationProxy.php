@@ -42,13 +42,6 @@ class Tx_Oelib_ConfigurationProxy extends \Tx_Oelib_PublicObject
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-    }
-
-    /**
      * Retrieves the singleton configuration proxy instance for the extension
      * named $extensionKey. This function usually should be called statically.
      *

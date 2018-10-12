@@ -21,16 +21,6 @@ class Tx_Oelib_MailerFactory implements \TYPO3\CMS\Core\SingletonInterface
     private $mailer = null;
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        $this->cleanUp();
-
-        unset($this->mailer);
-    }
-
-    /**
      * Cleans up (if necessary).
      *
      * @return void

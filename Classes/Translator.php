@@ -43,14 +43,6 @@ class Tx_Oelib_Translator
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->localizedLabels);
-    }
-
-    /**
      * Returns the localized label for the key $key.
      *
      * @param string $key

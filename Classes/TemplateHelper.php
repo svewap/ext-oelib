@@ -56,16 +56,6 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     private static $cachedConfigurations = [];
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->template, $this->configurationCheck);
-
-        parent::__destruct();
-    }
-
-    /**
      * Initializes the FE plugin stuff and reads the configuration.
      *
      * It is harmless if this function gets called multiple times as it

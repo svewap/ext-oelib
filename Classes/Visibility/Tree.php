@@ -44,14 +44,6 @@ class Tx_Oelib_Visibility_Tree
     }
 
     /**
-     * Destructs the tree structure.
-     */
-    public function __destruct()
-    {
-        unset($this->rootNode, $this->nodes);
-    }
-
-    /**
      * Builds the node tree from the given structure.
      *
      * @param array $treeStructure

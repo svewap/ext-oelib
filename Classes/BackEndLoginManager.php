@@ -27,14 +27,6 @@ class Tx_Oelib_BackEndLoginManager implements \Tx_Oelib_Interface_LoginManager
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        $this->loggedInUser = null;
-    }
-
-    /**
      * Returns an instance of this class.
      *
      * @return \Tx_Oelib_BackEndLoginManager the current Singleton instance

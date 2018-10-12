@@ -23,14 +23,6 @@ class Tx_Oelib_Attachment
     private $content = '';
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->content);
-    }
-
-    /**
      * Sets the file name of the attachment.
      *
      * @param string $fileName

@@ -58,13 +58,6 @@ class Tx_Oelib_PageFinder
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-    }
-
-    /**
      * Returns an instance of this class.
      *
      * @return \Tx_Oelib_PageFinder the current Singleton instance

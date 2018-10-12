@@ -38,24 +38,6 @@ class Tx_Oelib_List extends SplObjectStorage
     private $hasItemWithoutUid = false;
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     *
-     * Note: The models in this list are not destructed by this function (this
-     * should happen in the data mappers).
-     */
-    public function __destruct()
-    {
-        $this->rewind();
-        /** @var \Tx_Oelib_Model $model */
-        foreach ($this as $model) {
-            $this->detach($model);
-        }
-
-        $this->uids = [];
-        unset($this->parentModel);
-    }
-
-    /**
      * Adds a model to this list (as last element) if it is not already in the
      * list.
      *

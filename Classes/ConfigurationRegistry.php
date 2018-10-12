@@ -31,16 +31,6 @@ class Tx_Oelib_ConfigurationRegistry
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        foreach (array_keys($this->configurations) as $namespace) {
-            $this->dropConfiguration($namespace);
-        }
-    }
-
-    /**
      * Destructs a configuration for a given namespace and drops the reference to
      * it.
      *

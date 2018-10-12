@@ -23,13 +23,6 @@ class Tx_Oelib_Geocoding_Dummy implements \Tx_Oelib_Interface_GeocodingLookup
     }
 
     /**
-     * The destructor.
-     */
-    public function __destruct()
-    {
-    }
-
-    /**
      * Looks up the geo coordinates of the address of an object and sets its
      * geo coordinates.
      *

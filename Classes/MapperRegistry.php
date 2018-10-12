@@ -46,14 +46,6 @@ class Tx_Oelib_MapperRegistry
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->mappers, $this->testingFramework);
-    }
-
-    /**
      * Returns an instance of this class.
      *
      * @return \Tx_Oelib_MapperRegistry the current Singleton instance
@@ -130,10 +122,6 @@ class Tx_Oelib_MapperRegistry
                         'class ' . $testingClassName . ' extends ' . $unifiedClassName .
                             ' {' .
                             'private $testingFramework;' .
-                            'public function __destruct() {' .
-                            'parent::__destruct();' .
-                            'unset($this->testingFramework);' .
-                            '}' .
                             'public function setTestingFramework(\\Tx_Oelib_TestingFramework $testingFramework) {' .
                             '$this->testingFramework = $testingFramework;' .
                             '}' .

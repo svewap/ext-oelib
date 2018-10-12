@@ -100,14 +100,6 @@ abstract class Tx_Oelib_DataMapper
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->cacheByKey, $this->map, $this->uidsOfMemoryOnlyDummyModels);
-    }
-
-    /**
      * Retrieves a model for the record with the UID $uid. If that particular
      * model already is cached in memory, the cached instance is returned.
      *

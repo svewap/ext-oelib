@@ -29,13 +29,6 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-    }
-
-    /**
      * Returns an instance of this class.
      *
      * @return \Tx_Oelib_FrontEndLoginManager the current Singleton instance

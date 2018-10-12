@@ -18,15 +18,6 @@ class Tx_Oelib_IdentityMap
     private $highestUid = 0;
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        $this->highestUid = 0;
-        unset($this->items);
-    }
-
-    /**
      * Adds a model to the identity map.
      *
      * @param \Tx_Oelib_Model $model the model to add, must have a UID

@@ -76,20 +76,6 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        // avoids infinite loops for two models in a circle
-        if (!$this->isDead()) {
-            $this->markAsDead();
-        }
-
-        $this->loadCallback = [];
-        unset($this->data);
-    }
-
-    /**
      * Clone.
      *
      * @throws \BadMethodCallException

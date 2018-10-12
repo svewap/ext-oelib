@@ -33,14 +33,6 @@ class Tx_Oelib_Visibility_Node
     }
 
     /**
-     * Destructor of this class. Tries to free as much memory as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->parentNode, $this->children);
-    }
-
-    /**
      * Adds a child to this node.
      *
      * @param \Tx_Oelib_Visibility_Node $child the child to add to this node
