@@ -3,17 +3,25 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
-## x.y.z
+## x.y.z (unreleased)
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 2.1.0
 
 ### Added
 - Auto-release to the TER (#108)
 - Log more details for geocoding failures (#105)
 - Add a configuration for the geocoding API key (#91, #98)
 - Add the possibility to set a reply-to address for a mail object (#86)
-
-### Changed
-
-### Deprecated
 
 ### Removed
 - Remove the __destruct methods (#97)
