@@ -13,8 +13,18 @@ class GoogleTest extends \Tx_Phpunit_TestCase
      */
     private $subject = null;
 
+    /**
+     * @var \Tx_Oelib_Configuration
+     */
+    private $configuration = null;
+
     protected function setUp()
     {
+        $configurationRegistry = \Tx_Oelib_ConfigurationRegistry::getInstance();
+        $configurationRegistry->set('plugin', new \Tx_Oelib_Configuration());
+        $this->configuration = new \Tx_Oelib_Configuration();
+        $configurationRegistry->set('plugin.tx_oelib', $this->configuration);
+
         $this->subject = \Tx_Oelib_Geocoding_Google::getInstance();
         $this->subject->setMaximumDelay(100000);
     }
@@ -22,6 +32,7 @@ class GoogleTest extends \Tx_Phpunit_TestCase
     protected function tearDown()
     {
         \Tx_Oelib_Geocoding_Google::purgeInstance();
+        \Tx_Oelib_ConfigurationRegistry::purgeInstance();
     }
 
     /*
@@ -247,5 +258,49 @@ class GoogleTest extends \Tx_Phpunit_TestCase
             ],
             $geo->getGeoCoordinates()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function lookUpUsesApiKey()
+    {
+        $apiKey = 'iugo7t4zq3ewrdsxc';
+        $this->configuration->setAsString('googleGeocodingApiKey', $apiKey);
+
+        $address = 'Am Hof 1, 53113 Zentrum, Bonn, DE';
+        $expectedUrl = 'https://maps.google.com/maps/api/geocode/json?sensor=false' .
+            '&key=' . $apiKey .
+            '&address=' . \urlencode($address);
+
+        $jsonResult = '{ "results": [ { "address_components": [ { "long_name": "1", "short_name": "1", ' .
+            '"types": [ "street_number" ] }, { "long_name": "Am Hof", "short_name": "Am Hof", ' .
+            '"types": [ "route" ] }, { "long_name": "Bonn", "short_name": "Bonn", ' .
+            '"types": [ "sublocality", "political" ] }, { "long_name": "Bonn", "short_name": "Bonn", ' .
+            '"types": [ "locality", "political" ] }, { "long_name": "Bonn", "short_name": "BN", ' .
+            '"types": [ "administrative_area_level_2", "political" ] }, { "long_name": "Nordrhein-Westfalen", ' .
+            '"short_name": "Nordrhein-Westfalen", "types": [ "administrative_area_level_1", "political" ] }, ' .
+            '{ "long_name": "Germany", "short_name": "DE", "types": [ "country", "political" ] }, ' .
+            '{ "long_name": "53113", "short_name": "53113", "types": [ "postal_code" ] } ], ' .
+            '"formatted_address": "Am Hof 1, 53113 Bonn, Germany", "geometry": { "location": ' .
+            '{ "lat": 50.733550, "lng": 7.101430 }, "location_type": "ROOFTOP", ' .
+            '"viewport": { "northeast": { "lat": 50.73489898029150, "lng": 7.102778980291502 }, ' .
+            '"southwest": { "lat": 50.73220101970850, "lng": 7.100081019708497 } } }, ' .
+            '"types": [ "street_address" ] } ], "status": "OK"}';
+
+        $geo = new \Tx_Oelib_Tests_Unit_Fixtures_TestingGeo();
+        $geo->setGeoAddress($address);
+
+        /** @var \tx_oelib_Geocoding_Google|\PHPUnit_Framework_MockObject_MockObject $subject */
+        $subject = $this->getMock(
+            'tx_oelib_Geocoding_Google',
+            ['sendRequest'],
+            [],
+            '',
+            false
+        );
+        $subject->method('sendRequest')->with($expectedUrl)->will(self::returnValue($jsonResult));
+
+        $subject->lookUp($geo);
     }
 }

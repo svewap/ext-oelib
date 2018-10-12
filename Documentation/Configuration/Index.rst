@@ -32,10 +32,11 @@ or
 
       salutation = informal
 
+Setting an API key for the  Google geocoding
+--------------------------------------------
 
-.. toctree::
-   :maxdepth: 5
-   :titlesonly:
-   :glob:
+You can set the API code using TypoScript:
 
-   ConfiguringCss/Index
+::
+
+     plugin.tx_oelib.googleGeocodingApiKey = ...
