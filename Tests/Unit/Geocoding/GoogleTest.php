@@ -269,8 +269,8 @@ class GoogleTest extends \Tx_Phpunit_TestCase
         $this->configuration->setAsString('googleGeocodingApiKey', $apiKey);
 
         $address = 'Am Hof 1, 53113 Zentrum, Bonn, DE';
-        $expectedUrl = 'https://maps.google.com/maps/api/geocode/json?sensor=false' .
-            '&key=' . $apiKey .
+        $expectedUrl = 'https://maps.googleapis.com/maps/api/geocode/json' .
+            '?key=' . $apiKey .
             '&address=' . \urlencode($address);
 
         $jsonResult = '{ "results": [ { "address_components": [ { "long_name": "1", "short_name": "1", ' .

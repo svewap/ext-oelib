@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove no longer necessary destruct method from mail object (#86)
 
 ### Fixed
+- Remove the "sensor" parameter from the Google geocoding (#100)
 - Rework the geocoding throttling (#87, #95)
 - Update the composer package name of static-info-tables (#85)
 

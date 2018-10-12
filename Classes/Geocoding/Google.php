@@ -26,7 +26,7 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
      *
      * @var string
      */
-    const BASE_URL = 'https://maps.google.com/maps/api/geocode/json?sensor=false';
+    const BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 
     /**
      * the Singleton instance
@@ -128,7 +128,7 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
         $address = $geoObject->getGeoAddress();
         $configuration = Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib');
         $apiKey = $configuration->getAsString('googleGeocodingApiKey');
-        $url = self::BASE_URL . '&key=' . \urlencode($apiKey) . '&address=' . \urlencode($address);
+        $url = self::BASE_URL . '?key=' . \urlencode($apiKey) . '&address=' . \urlencode($address);
         $delayInMicroseconds = self::INITIAL_DELAY_IN_MICROSECONDS;
 
         while (true) {
