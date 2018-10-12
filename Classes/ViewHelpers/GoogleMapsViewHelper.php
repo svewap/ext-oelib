@@ -41,7 +41,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      *
      * @var string
      */
-    const GOOGLE_MAPS_LIBRARY_URL = 'https://maps.google.com/maps/api/js?sensor=false';
+    const GOOGLE_MAPS_LIBRARY_URL = 'https://maps.googleapis.com/maps/api/js';
 
     /**
      * the default zoom level used when there is exactly one element with

@@ -212,7 +212,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
         $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertContains(
-            '<script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>',
+            '<script src="https://maps.googleapis.com/maps/api/js" type="text/javascript"></script>',
             $this->mockFrontEnd->additionalHeaderData[Tx_Oelib_ViewHelpers_GoogleMapsViewHelper::LIBRARY_JAVASCRIPT_HEADER_KEY]
         );
     }
