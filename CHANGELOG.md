@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Add required PHP extension to the composer.json (#88, #110)
 
 ## 2.1.0
 

@@ -23,6 +23,8 @@
     },
     "require": {
         "php": "^5.6.0 || ~7.0.0 || ~7.1.0 || ~7.2.0",
+        "ext-zip": "*",
+        "ext-json": "*",
         "typo3/cms-core": "^7.6.23 || ^8.7.9",
         "typo3/cms-frontend": "^7.6.23 || ^8.7.9",
         "typo3/cms-fluid": "^7.6.23 || ^8.7.9"
@@ -36,7 +38,9 @@
 
         "oliverklee/phpunit": "^5.3.5",
         "phpunit/phpunit": "^5.3.5",
-        "mikey179/vfsStream": "^1.6.0"
+        "mikey179/vfsStream": "^1.6.0",
+
+        "roave/security-advisories": "dev-master"
     },
     "replace": {
         "oelib": "self.version",
