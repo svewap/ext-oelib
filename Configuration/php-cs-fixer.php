@@ -80,7 +80,6 @@ return \PhpCsFixer\Config::create()
         // 'native_function_invocation' => true,
         'new_with_braces' => true,
         'no_blank_lines_after_class_opening' => true,
-        'no_blank_lines_before_namespace' => true,
         'no_empty_comment' => true,
         'no_empty_phpdoc' => true,
         'no_extra_blank_lines' => true,
