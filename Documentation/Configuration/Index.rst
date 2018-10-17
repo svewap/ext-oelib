@@ -32,7 +32,7 @@ or
 
       salutation = informal
 
-Setting an API key for the  Google geocoding
+Setting an API key for Google geocoding and Google Maps
 --------------------------------------------
 
 You can set the API code using TypoScript:
@@ -40,3 +40,4 @@ You can set the API code using TypoScript:
 ::
 
      plugin.tx_oelib.googleGeocodingApiKey = ...
+     plugin.tx_oelib.googleMapsApiKey = ...

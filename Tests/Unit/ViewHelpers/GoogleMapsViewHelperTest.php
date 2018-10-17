@@ -15,6 +15,11 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
     private $subject = null;
 
     /**
+     * @var \Tx_Oelib_Configuration
+     */
+    private $configuration = null;
+
+    /**
      * @var \Tx_Oelib_Interface_MapPoint|\PHPUnit_Framework_MockObject_MockObject
      */
     private $mapPointWithCoordinates = null;
@@ -26,10 +31,17 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
 
     protected function setUp()
     {
+        $configurationRegistry = \Tx_Oelib_ConfigurationRegistry::getInstance();
+        $configurationRegistry->set('plugin', new \Tx_Oelib_Configuration());
+        $this->configuration = new \Tx_Oelib_Configuration();
+        $configurationRegistry->set('plugin.tx_oelib', $this->configuration);
+
         $this->mockFrontEnd = $this->getMock(TypoScriptFrontendController::class, ['dummy'], [], '', false);
         $GLOBALS['TSFE'] = $this->mockFrontEnd;
         $this->mapPointWithCoordinates = $this->getMock(\Tx_Oelib_Interface_MapPoint::class);
-        $this->mapPointWithCoordinates->expects(self::any())->method('hasGeoCoordinates')->will(self::returnValue(true));
+        $this->mapPointWithCoordinates->expects(self::any())
+            ->method('hasGeoCoordinates')
+            ->will(self::returnValue(true));
         $this->mapPointWithCoordinates->expects(self::any())->method('getGeoCoordinates')
             ->will(self::returnValue(['latitude' => 1.2, 'longitude' => 3.4]));
 
@@ -39,6 +51,7 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
     protected function tearDown()
     {
         unset($GLOBALS['TSFE']);
+        \Tx_Oelib_ConfigurationRegistry::purgeInstance();
     }
 
     /**
@@ -209,10 +222,14 @@ class Tx_Oelib_Tests_Unit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpun
      */
     public function renderIncludesGoogleMapsLibraryInHeader()
     {
+        $apiKey = 'iugo7t4adasfdsq3ewrdsxc';
+        $this->configuration->setAsString('googleMapsApiKey', $apiKey);
+
         $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertContains(
-            '<script src="https://maps.googleapis.com/maps/api/js" type="text/javascript"></script>',
+            '<script src="https://maps.googleapis.com/maps/api/js?key=' . $apiKey
+            . '" type="text/javascript"></script>',
             $this->mockFrontEnd->additionalHeaderData[Tx_Oelib_ViewHelpers_GoogleMapsViewHelper::LIBRARY_JAVASCRIPT_HEADER_KEY]
         );
     }

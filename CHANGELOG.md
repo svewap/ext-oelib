@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z (unreleased)
 
 ### Added
+- Add a configuration for the Google Maps API key (#92, #112)
 
 ### Changed
 

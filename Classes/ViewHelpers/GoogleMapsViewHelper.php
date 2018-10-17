@@ -41,7 +41,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      *
      * @var string
      */
-    const GOOGLE_MAPS_LIBRARY_URL = 'https://maps.googleapis.com/maps/api/js';
+    const GOOGLE_MAPS_LIBRARY_URL = 'https://maps.googleapis.com/maps/api/js?key=';
 
     /**
      * the default zoom level used when there is exactly one element with
@@ -108,10 +108,13 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
         $this->mapNumber = self::$mapCounter;
         $mapId = $this->getMapId();
 
+        $configuration = Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib');
+        $apiKey = $configuration->getAsString('googleMapsApiKey');
+
         // pageRenderer->addJsLibrary() would not work here if this ViewHelper
         // is used in an uncached plugin on a cached page.
         $this->getFrontEndController()->additionalHeaderData[self::LIBRARY_JAVASCRIPT_HEADER_KEY]
-            = '<script src="' . self::GOOGLE_MAPS_LIBRARY_URL . '" type="text/javascript"></script>';
+            = '<script src="' . self::GOOGLE_MAPS_LIBRARY_URL . $apiKey . '" type="text/javascript"></script>';
 
         $initializeFunctionName = 'initializeGoogleMap_' . $this->mapNumber;
         $this->getFrontEndController()->additionalJavaScript[$mapId]
