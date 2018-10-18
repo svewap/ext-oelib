@@ -35,7 +35,7 @@ or
 Setting an API key for Google geocoding and Google Maps
 --------------------------------------------
 
-You can set the API code using TypoScript:
+You can set the API key using TypoScript:
 
 ::
 
