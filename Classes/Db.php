@@ -77,12 +77,12 @@ class Tx_Oelib_Db
      *        Maybe it should be set? See ContentObjectRenderer->enableFields
      *        where it's implemented correctly.
      * @param array $ignoreArray
-     *        Array you can pass where keys can be "disabled", "starttime", "endtime", "fe_group" (keys from "enablefields" in
-     *        TCA) and if set they will make sure that part of the clause is not added. Thus disables the specific part of the
-     *        clause. For previewing etc.
+     *        Array you can pass where keys can be "disabled", "starttime", "endtime", "fe_group" (keys from
+     *     "enablefields" in TCA) and if set they will make sure that part of the clause is not added. Thus disables
+     *     the specific part of the clause. For previewing etc.
      * @param bool $noVersionPreview
-     *        If set, enableFields will be applied regardless of any versioning preview settings which might otherwise disable
-     *        enableFields.
+     *        If set, enableFields will be applied regardless of any versioning preview settings which might otherwise
+     *     disable enableFields.
      *
      * @return string the WHERE clause starting like " AND ...=... AND ...=..."
      */
@@ -95,7 +95,10 @@ class Tx_Oelib_Db
         $intShowHidden = (int)$showHidden;
 
         if (!in_array($intShowHidden, [-1, 0, 1], true)) {
-            throw new \InvalidArgumentException('$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331319963);
+            throw new \InvalidArgumentException(
+                '$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden,
+                1331319963
+            );
         }
 
         // maps $showHidden (-1..1) to (0..2) which ensures valid array keys
@@ -620,8 +623,8 @@ class Tx_Oelib_Db
      *        the name of the table for which the column names should be retrieved, must not be empty
      *
      * @return array
-     *         the column data for the table $table with the column names as keys and the SHOW COLUMNS field information (in an
-     *         array) as values
+     *         the column data for the table $table with the column names as keys and the SHOW COLUMNS field
+     *     information (in an array) as values
      */
     public static function getColumnsInTable($table)
     {

@@ -53,7 +53,7 @@ class Tx_Oelib_IdentityMap
         if (!isset($this->items[$uid])) {
             throw new \Tx_Oelib_Exception_NotFound(
                 'This map currently does not contain a model with the UID ' .
-                    $uid . '.'
+                $uid . '.'
             );
         }
 

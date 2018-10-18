@@ -62,8 +62,8 @@ class Tx_Oelib_Tests_Unit_TranslatorTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function translateForLabelInexistentInGermanWithEmptyAlternativeLanguageWithLanguageGermanReturnsEnglishLabel()
-    {
+    public function translateForLabelInexistentInGermanWithEmptyAlternativeLanguageWithLanguageGermanReturnsEnglishLabel(
+    ) {
         $localizedLabels = [
             'default' => ['label_test' => [0 => ['source' => 'English', 'target' => 'English']]],
         ];

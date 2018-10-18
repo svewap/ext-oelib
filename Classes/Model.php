@@ -263,7 +263,10 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
     protected function set($key, $value)
     {
         if ($key === 'deleted') {
-            throw new \InvalidArgumentException('$key must not be "deleted". Please use setToDeleted() instead.', 1331489276);
+            throw new \InvalidArgumentException(
+                '$key must not be "deleted". Please use setToDeleted() instead.',
+                1331489276
+            );
         }
         if ($this->isReadOnly()) {
             throw new \BadMethodCallException('set() must not be called on a read-only model.', 1331489292);
@@ -294,14 +297,17 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
     protected function get($key)
     {
         if ($key === 'uid') {
-            throw new \InvalidArgumentException('The UID column needs to be accessed using the getUid function.', 1331489310);
+            throw new \InvalidArgumentException(
+                'The UID column needs to be accessed using the getUid function.',
+                1331489310
+            );
         }
 
         $this->load();
         if ($this->isDead()) {
             throw new \Tx_Oelib_Exception_NotFound(
                 'The ' . get_class($this) . ' with the UID ' . $this->getUid() .
-                    ' either has been deleted (or has never existed), but still is accessed.',
+                ' either has been deleted (or has never existed), but still is accessed.',
                 1332446332
             );
         }
@@ -347,7 +353,10 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
         }
 
         if (!$result instanceof self) {
-            throw new UnexpectedValueException('The data item for the key "' . $key . '" is no model instance.', 1331489359);
+            throw new UnexpectedValueException(
+                'The data item for the key "' . $key . '" is no model instance.',
+                1331489359
+            );
         }
 
         return $result;
@@ -357,7 +366,8 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      * Gets the value stored in under the key $key as a list of models.
      *
      * @throws UnexpectedValueException
-     *         if there is a data item stored for the key $key that is not a list instance or if that item has not been set yet
+     *         if there is a data item stored for the key $key that is not a list instance or if that item has not been
+     *     set yet
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
@@ -369,7 +379,10 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
 
         $result = $this->get($key);
         if (!$result instanceof \Tx_Oelib_List) {
-            throw new UnexpectedValueException('The data item for the key "' . $key . '" is no list instance.', 1331489379);
+            throw new UnexpectedValueException(
+                'The data item for the key "' . $key . '" is no list instance.',
+                1331489379
+            );
         }
 
         return $result;
@@ -384,7 +397,8 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
     {
         if ($this->isVirgin()) {
             throw new \BadMethodCallException(
-                get_class($this) . '#' . $this->getUid() . ': Please call setData() directly after instantiation first.',
+                get_class($this) . '#' . $this->getUid()
+                . ': Please call setData() directly after instantiation first.',
                 1331489395
             );
         }

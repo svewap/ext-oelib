@@ -70,7 +70,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends \Tx_Phpunit_TestCase
         $this->setExpectedException(
             'BadMethodCallException',
             get_class($this->subject) . '#' . $this->subject->getUid()
-                . ': Please call setData() directly after instantiation first.'
+            . ': Please call setData() directly after instantiation first.'
         );
 
         $this->subject->getTitle();
@@ -629,7 +629,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends \Tx_Phpunit_TestCase
         $this->setExpectedException(
             \Tx_Oelib_Exception_NotFound::class,
             'The Tx_Oelib_Tests_Unit_Fixtures_TestingModel with the UID 0' .
-                ' either has been deleted (or has never existed), but still is accessed.'
+            ' either has been deleted (or has never existed), but still is accessed.'
         );
 
         $this->subject->markAsDead();
@@ -653,7 +653,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends \Tx_Phpunit_TestCase
         $this->setExpectedException(
             \Tx_Oelib_Exception_NotFound::class,
             'The Tx_Oelib_Tests_Unit_Fixtures_TestingModel with the UID 0' .
-                ' either has been deleted (or has never existed), but still is accessed.'
+            ' either has been deleted (or has never existed), but still is accessed.'
         );
 
         $this->subject->markAsDead();
@@ -1308,6 +1308,7 @@ class Tx_Oelib_Tests_Unit_ModelTest extends \Tx_Phpunit_TestCase
      * @test
      *
      * @param string $status
+     *
      * @dataProvider uncloneableStatusDataProvider
      * @expectedException \BadMethodCallException
      */

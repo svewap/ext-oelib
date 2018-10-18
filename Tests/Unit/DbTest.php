@@ -230,6 +230,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends \Tx_Phpunit_TestCase
      * @test
      *
      * @param array $recordData
+     *
      * @dataProvider hiddenRecordDataProvider
      */
     public function enableFieldsWithHiddenNotAllowedIgnoresHiddenRecord(array $recordData)
@@ -249,6 +250,7 @@ class Tx_Oelib_Tests_Unit_DbTest extends \Tx_Phpunit_TestCase
      * @test
      *
      * @param array $recordData
+     *
      * @dataProvider hiddenRecordDataProvider
      */
     public function enableFieldsWithHiddenAllowedFindsHiddenRecord(array $recordData)

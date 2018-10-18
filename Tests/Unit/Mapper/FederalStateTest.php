@@ -54,12 +54,12 @@ class Tx_Oelib_Tests_Unit_Mapper_FederalStateTest extends \Tx_Phpunit_TestCase
     /**
      * Tests concerning findByIsoAlpha2Code
      *
-
-     /**
+     *
+     * /**
      * @test
      */
-    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithIsoAlpha2CodeOfExistingRecordReturnsFederalStateInstance()
-    {
+    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithIsoAlpha2CodeOfExistingRecordReturnsFederalStateInstance(
+    ) {
         self::assertInstanceOf(
             \Tx_Oelib_Model_FederalState::class,
             $this->subject->findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode('DE', 'NW')
@@ -69,8 +69,8 @@ class Tx_Oelib_Tests_Unit_Mapper_FederalStateTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithIsoAlpha2CodeOfExistingRecordReturnsRecordAsModel()
-    {
+    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithIsoAlpha2CodeOfExistingRecordReturnsRecordAsModel(
+    ) {
         self::assertSame(
             'NW',
             $this->subject->findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode('DE', 'NW')->getIsoAlpha2ZoneCode()

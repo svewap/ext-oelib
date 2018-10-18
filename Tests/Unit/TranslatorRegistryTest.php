@@ -350,8 +350,8 @@ class Tx_Oelib_Tests_Unit_TranslatorRegistryTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function initializeFrontEndWithAlternativeLanguageSetInConfigAndInPageConfigSetsAlternativeLanguageFromPageConfig()
-    {
+    public function initializeFrontEndWithAlternativeLanguageSetInConfigAndInPageConfigSetsAlternativeLanguageFromPageConfig(
+    ) {
         $testingFramework = new \Tx_Oelib_TestingFramework('oelib');
         $testingFramework->createFakeFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get('config')->setData(['language' => 'de', 'language_alt' => 'cz']);
@@ -388,11 +388,9 @@ class Tx_Oelib_Tests_Unit_TranslatorRegistryTest extends \Tx_Phpunit_TestCase
         $testingFramework->createFakeFrontEnd();
         $this->getFrontEndController()->initLLvars();
         \Tx_Oelib_ConfigurationRegistry::get('config')->set('language', 'default');
-        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->
-            setData(['default.' => []]);
+        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
         \Tx_Oelib_ConfigurationRegistry::
-            get('plugin.tx_oelib._LOCAL_LANG.default')->
-                set('label_test', 'I am from TypoScript.');
+        get('plugin.tx_oelib._LOCAL_LANG.default')->set('label_test', 'I am from TypoScript.');
 
         self::assertSame(
             'I am from TypoScript.',
@@ -407,7 +405,8 @@ class Tx_Oelib_Tests_Unit_TranslatorRegistryTest extends \Tx_Phpunit_TestCase
     public function getByExtensionNameInBackEndNotOverridesLabelsFromFileWithLabelsFromTypoScript()
     {
         \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
-        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')->set('label_test', 'I am from TypoScript.');
+        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
+            ->set('label_test', 'I am from TypoScript.');
 
         self::assertSame(
             'I am from file.',
@@ -425,7 +424,8 @@ class Tx_Oelib_Tests_Unit_TranslatorRegistryTest extends \Tx_Phpunit_TestCase
         $this->getFrontEndController()->initLLvars();
         \Tx_Oelib_ConfigurationRegistry::get('config')->set('language', 'default');
         \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
-        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')->set('label_test_2', 'I am from TypoScript.');
+        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
+            ->set('label_test_2', 'I am from TypoScript.');
 
         self::assertSame(
             'I am from file.',

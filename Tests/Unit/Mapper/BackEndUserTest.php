@@ -12,6 +12,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends \Tx_Phpunit_TestCase
      * @var \Tx_Oelib_TestingFramework for creating dummy records
      */
     private $testingFramework;
+
     /**
      * @var \Tx_Oelib_Mapper_BackEndUser the object to test
      */
@@ -162,7 +163,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserTest extends \Tx_Phpunit_TestCase
          */
         define('TYPO3_cliKey', 'oelib_mapper_test');
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']
-            ['cliKeys'][TYPO3_cliKey][1] = 'foo';
+        ['cliKeys'][TYPO3_cliKey][1] = 'foo';
 
         self::assertInstanceOf(
             \Tx_Oelib_Model_BackEndUser::class,

@@ -50,7 +50,10 @@ class Tx_Oelib_Session extends \Tx_Oelib_PublicObject
     protected function __construct($type)
     {
         if ($this->getFrontEndController() === null) {
-            throw new \BadMethodCallException('This class must not be instantiated when there is no front end.', 1331489053);
+            throw new \BadMethodCallException(
+                'This class must not be instantiated when there is no front end.',
+                1331489053
+            );
         }
 
         self::checkType($type);
@@ -105,7 +108,10 @@ class Tx_Oelib_Session extends \Tx_Oelib_PublicObject
     protected static function checkType($type)
     {
         if (($type !== self::TYPE_USER) && ($type !== self::TYPE_TEMPORARY)) {
-            throw new \InvalidArgumentException('Only the types ::TYPE_USER and ::TYPE_TEMPORARY are allowed.', 1331489067);
+            throw new \InvalidArgumentException(
+                'Only the types ::TYPE_USER and ::TYPE_TEMPORARY are allowed.',
+                1331489067
+            );
         }
     }
 

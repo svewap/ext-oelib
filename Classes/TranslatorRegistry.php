@@ -97,8 +97,8 @@ class Tx_Oelib_TranslatorRegistry
      */
     private function initializeBackEnd()
     {
-        $backEndUser = \Tx_Oelib_BackEndLoginManager::getInstance()->
-            getLoggedInUser(\Tx_Oelib_Mapper_BackEndUser::class);
+        $backEndUser =
+            \Tx_Oelib_BackEndLoginManager::getInstance()->getLoggedInUser(\Tx_Oelib_Mapper_BackEndUser::class);
         $this->languageKey = $backEndUser->getLanguage();
     }
 
@@ -132,7 +132,8 @@ class Tx_Oelib_TranslatorRegistry
      * This is a wrapper for self::getInstance()->getByExtensionName().
      *
      * @param string $extensionName
-     *        the extension name to get the Translator for, must not be empty, the corresponding extension must be loaded
+     *        the extension name to get the Translator for, must not be empty, the corresponding extension must be
+     *     loaded
      *
      * @return \Tx_Oelib_Translator the Translator for the specified extension
      *
@@ -147,7 +148,8 @@ class Tx_Oelib_TranslatorRegistry
      * Gets a Translator by its extension name.
      *
      * @param string $extensionName
-     *        the extension name to get the Translator for, must not be empty, the corresponding extension must be loaded
+     *        the extension name to get the Translator for, must not be empty, the corresponding extension must be
+     *     loaded
      *
      * @return \Tx_Oelib_Translator the Translator for the specified extension
      *                             name
@@ -159,7 +161,10 @@ class Tx_Oelib_TranslatorRegistry
         }
 
         if (!ExtensionManagementUtility::isLoaded($extensionName)) {
-            throw new \BadMethodCallException('The extension with the name "' . $extensionName . '" is not loaded.', 1331489598);
+            throw new \BadMethodCallException(
+                'The extension with the name "' . $extensionName . '" is not loaded.',
+                1331489598
+            );
         }
 
         if (!isset($this->translators[$extensionName])) {
@@ -168,7 +173,8 @@ class Tx_Oelib_TranslatorRegistry
             // in the front end.
 
             if (($this->getFrontEndController() !== null)
-                && isset($localizedLabels[$this->languageKey]) && is_array($localizedLabels[$this->languageKey])
+                && isset($localizedLabels[$this->languageKey])
+                && is_array($localizedLabels[$this->languageKey])
             ) {
                 $labelsFromTyposcript = $this->getLocalizedLabelsFromTypoScript($extensionName);
 

@@ -12,6 +12,7 @@ class Tx_Oelib_Tests_Unit_Mapper_BackEndUserGroupTest extends \Tx_Phpunit_TestCa
      * @var \Tx_Oelib_TestingFramework for creating dummy records
      */
     private $testingFramework;
+
     /**
      * @var \Tx_Oelib_Mapper_BackEndUserGroup the object to test
      */

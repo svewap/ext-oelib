@@ -34,6 +34,9 @@ class Tx_Oelib_Mapper_FederalState extends \Tx_Oelib_DataMapper
      */
     public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode($isoAlpha2CountryCode, $isoAlpha2ZoneCode)
     {
-        return $this->findOneByCompoundKey(['zn_country_iso_2' => $isoAlpha2CountryCode, 'zn_code' => $isoAlpha2ZoneCode]);
+        return $this->findOneByCompoundKey([
+            'zn_country_iso_2' => $isoAlpha2CountryCode,
+            'zn_code' => $isoAlpha2ZoneCode,
+        ]);
     }
 }

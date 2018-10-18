@@ -97,9 +97,9 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
 
         $this->subject->processTemplate(
             '<!-- ###FOO### -->' .
-                '<!-- ###FOO### -->' .
-                '<!-- ###BAR### -->' .
-                '<!-- ###BAR### -->'
+            '<!-- ###FOO### -->' .
+            '<!-- ###BAR### -->' .
+            '<!-- ###BAR### -->'
         );
 
         self::assertSame(
@@ -484,7 +484,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
         );
         self::assertSame(
             '',
@@ -499,8 +499,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
+            . 'Some text. '
+            . '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->hideSubparts('MY_SUBPART');
 
@@ -517,8 +517,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
-                'Some text. ' .
-                '<!-- ###MY_SUBPART### -->'
+            'Some text. ' .
+            '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
 
@@ -746,8 +746,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'This is some template code. ###MARKER### More text.'
-                . '<!-- ###MY_SUBPART### -->'
+            . 'This is some template code. ###MARKER### More text.'
+            . '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->setMarker('marker', 'foo');
         self::assertSame(
@@ -763,8 +763,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'This is some template code. ###MARKER### More text.'
-                . '<!-- ###MY_SUBPART### -->'
+            . 'This is some template code. ###MARKER### More text.'
+            . '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->setMarker('MARKER', 'foo');
         self::assertSame(
@@ -780,8 +780,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . '###MARKER### This is some template code. ###MARKER### More text.'
-                . '<!-- ###MY_SUBPART### -->'
+            . '###MARKER### This is some template code. ###MARKER### More text.'
+            . '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->setMarker('marker', 'foo');
         self::assertSame(
@@ -819,8 +819,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'This is some template code. ###MARKER### More text.'
-                . '<!-- ###MY_SUBPART### -->'
+            . 'This is some template code. ###MARKER### More text.'
+            . '<!-- ###MY_SUBPART### -->'
         );
 
         $this->subject->setMarker('marker', 'foo');
@@ -983,15 +983,15 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'This is some template code.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'This is some subpart code.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'More text.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'This is some subpart code.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'More text.'
         );
         self::assertSame(
             'This is some template code.'
-                . 'This is some subpart code.'
-                . 'More text.',
+            . 'This is some subpart code.'
+            . 'More text.',
             $this->subject->getSubpart()
         );
     }
@@ -1003,21 +1003,21 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'This is some template code.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'This is some subpart code.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'More text.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'This is other subpart code.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'Even more text.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'This is some subpart code.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'More text.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'This is other subpart code.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'Even more text.'
         );
         self::assertSame(
             'This is some template code.'
-                . 'This is some subpart code.'
-                . 'More text.'
-                . 'This is some subpart code.'
-                . 'Even more text.',
+            . 'This is some subpart code.'
+            . 'More text.'
+            . 'This is some subpart code.'
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1029,17 +1029,17 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'This is some template code.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'This is some subpart code.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'More text.'
-                . '<!-- ###MY_SUBPART### -->'
+            . 'This is some template code.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'This is some subpart code.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'More text.'
+            . '<!-- ###MY_SUBPART### -->'
         );
         self::assertSame(
             'This is some template code.'
-                . 'This is some subpart code.'
-                . 'More text.',
+            . 'This is some subpart code.'
+            . 'More text.',
             $this->subject->getSubpart('MY_SUBPART')
         );
     }
@@ -1051,23 +1051,23 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'This is some template code.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'This is some subpart code.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'More text.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'This is other subpart code.'
-                . '<!-- ###INNER_SUBPART### -->'
-                . 'Even more text.'
-                . '<!-- ###MY_SUBPART### -->'
+            . 'This is some template code.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'This is some subpart code.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'More text.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'This is other subpart code.'
+            . '<!-- ###INNER_SUBPART### -->'
+            . 'Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
         );
         self::assertSame(
             'This is some template code.'
-                . 'This is some subpart code.'
-                . 'More text.'
-                . 'This is some subpart code.'
-                . 'Even more text.',
+            . 'This is some subpart code.'
+            . 'More text.'
+            . 'This is some subpart code.'
+            . 'Even more text.',
             $this->subject->getSubpart('MY_SUBPART')
         );
     }
@@ -1084,12 +1084,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'foo'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Some more text. '
-                . '<!-- ###MY_SUBPART_TOO### -->'
-                . 'bar'
-                . '<!-- ###MY_SUBPART_TOO### -->'
+            . 'foo'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Some more text. '
+            . '<!-- ###MY_SUBPART_TOO### -->'
+            . 'bar'
+            . '<!-- ###MY_SUBPART_TOO### -->'
         );
         self::assertSame(
             'foo Some more text. bar',
@@ -1104,12 +1104,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'foo'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Some more text. '
-                . '<!-- ###ALSO_MY_SUBPART### -->'
-                . 'bar'
-                . '<!-- ###ALSO_MY_SUBPART### -->'
+            . 'foo'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Some more text. '
+            . '<!-- ###ALSO_MY_SUBPART### -->'
+            . 'bar'
+            . '<!-- ###ALSO_MY_SUBPART### -->'
         );
         self::assertSame(
             'foo Some more text. bar',
@@ -1124,12 +1124,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'foo'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Some more text. '
-                . '<!-- ###MY_SUBPART_TOO### -->'
-                . 'bar'
-                . '<!-- ###MY_SUBPART_TOO### -->'
+            . 'foo'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Some more text. '
+            . '<!-- ###MY_SUBPART_TOO### -->'
+            . 'bar'
+            . '<!-- ###MY_SUBPART_TOO### -->'
         );
         self::assertSame(
             'foo',
@@ -1144,12 +1144,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'foo'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Some more text. '
-                . '<!-- ###ALSO_MY_SUBPART### -->'
-                . 'bar'
-                . '<!-- ###ALSO_MY_SUBPART### -->'
+            . 'foo'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Some more text. '
+            . '<!-- ###ALSO_MY_SUBPART### -->'
+            . 'bar'
+            . '<!-- ###ALSO_MY_SUBPART### -->'
         );
         self::assertSame(
             'foo',
@@ -1164,12 +1164,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'foo'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Some more text. '
-                . '<!-- ###MY_SUBPART_TOO### -->'
-                . 'bar'
-                . '<!-- ###MY_SUBPART_TOO### -->'
+            . 'foo'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Some more text. '
+            . '<!-- ###MY_SUBPART_TOO### -->'
+            . 'bar'
+            . '<!-- ###MY_SUBPART_TOO### -->'
         );
         self::assertSame(
             'bar',
@@ -1184,12 +1184,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . 'foo'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Some more text. '
-                . '<!-- ###ALSO_MY_SUBPART### -->'
-                . 'bar'
-                . '<!-- ###ALSO_MY_SUBPART### -->'
+            . 'foo'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Some more text. '
+            . '<!-- ###ALSO_MY_SUBPART### -->'
+            . 'bar'
+            . '<!-- ###ALSO_MY_SUBPART### -->'
         );
         self::assertSame(
             'bar',
@@ -1208,15 +1208,15 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1228,15 +1228,15 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->setSubpart('MY_SUBPART', 'More text. ');
         $this->subject->hideSubparts('MY_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1248,16 +1248,16 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->unhideSubparts('MY_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'More text. '
-                . 'Even more text.',
+            . 'More text. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1269,17 +1269,17 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         $this->subject->unhideSubparts('MY_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'More text. '
-                . 'Even more text.',
+            . 'More text. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1291,17 +1291,17 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
-                . 'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
-                . '<!-- ###OUTER_SUBPART### -->'
+            . 'Some text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
+            . '<!-- ###OUTER_SUBPART### -->'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
     }
@@ -1313,19 +1313,19 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###SINGLE_VIEW###  -->'
-                . '<!-- ###FIELD_WRAPPER_TITLE### -->'
-                . '<h3 class="seminars-item-title">Title'
-                . '<!-- ###FIELD_WRAPPER_SUBTITLE### -->'
-                . '<span class="seminars-item-subtitle"> - ###SUBTITLE###</span>'
-                . '<!-- ###FIELD_WRAPPER_SUBTITLE### -->'
-                . '</h3>'
-                        . '<!-- ###FIELD_WRAPPER_TITLE### -->'
-                        . '<!-- ###SINGLE_VIEW###  -->'
+            . '<!-- ###FIELD_WRAPPER_TITLE### -->'
+            . '<h3 class="seminars-item-title">Title'
+            . '<!-- ###FIELD_WRAPPER_SUBTITLE### -->'
+            . '<span class="seminars-item-subtitle"> - ###SUBTITLE###</span>'
+            . '<!-- ###FIELD_WRAPPER_SUBTITLE### -->'
+            . '</h3>'
+            . '<!-- ###FIELD_WRAPPER_TITLE### -->'
+            . '<!-- ###SINGLE_VIEW###  -->'
         );
         $this->subject->hideSubparts('FIELD_WRAPPER_SUBTITLE');
         self::assertSame(
             '<h3 class="seminars-item-title">Title'
-                . '</h3>',
+            . '</h3>',
             $this->subject->getSubpart('SINGLE_VIEW')
         );
     }
@@ -1337,18 +1337,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
-                . 'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
-                . '<!-- ###OUTER_SUBPART### -->'
+            . 'Some text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
+            . '<!-- ###OUTER_SUBPART### -->'
         );
         $this->subject->unhideSubparts('MY_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'More text. '
-                . 'Even more text.',
+            . 'More text. '
+            . 'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
     }
@@ -1360,19 +1360,19 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
-                . 'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
-                . '<!-- ###OUTER_SUBPART### -->'
+            . 'Some text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
+            . '<!-- ###OUTER_SUBPART### -->'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         $this->subject->unhideSubparts('MY_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'More text. '
-                . 'Even more text.',
+            . 'More text. '
+            . 'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
     }
@@ -1384,19 +1384,19 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART_1### -->'
-                . 'More text here.'
-                . '<!-- ###MY_SUBPART_1### -->'
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . 'More text here.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART_1');
         $this->subject->hideSubparts('MY_SUBPART_2');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1408,18 +1408,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART_1### -->'
-                . 'More text here.'
-                . '<!-- ###MY_SUBPART_1### -->'
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . 'More text here.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART_1,MY_SUBPART_2');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1431,18 +1431,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART_1### -->'
-                . 'More text here.'
-                . '<!-- ###MY_SUBPART_1### -->'
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . 'More text here.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART_2,MY_SUBPART_1');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1454,18 +1454,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART_1### -->'
-                . 'More text here.'
-                . '<!-- ###MY_SUBPART_1### -->'
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . 'More text here.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART_1, MY_SUBPART_2');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1477,13 +1477,13 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART_1### -->'
-                . 'More text here.'
-                . '<!-- ###MY_SUBPART_1### -->'
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . 'More text here.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART_1');
         $this->subject->hideSubparts('MY_SUBPART_2');
@@ -1491,9 +1491,9 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         $this->subject->unhideSubparts('MY_SUBPART_2');
         self::assertSame(
             'Some text. '
-                . 'More text here.'
-                . 'More text there. '
-                . 'Even more text.',
+            . 'More text here.'
+            . 'More text there. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1505,21 +1505,21 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART_1### -->'
-                . 'More text here.'
-                . '<!-- ###MY_SUBPART_1### -->'
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . 'More text here.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART_1,MY_SUBPART_2');
         $this->subject->unhideSubparts('MY_SUBPART_1,MY_SUBPART_2');
         self::assertSame(
             'Some text. '
-                . 'More text here.'
-                . 'More text there. '
-                . 'Even more text.',
+            . 'More text here.'
+            . 'More text there. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1531,21 +1531,21 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART_1### -->'
-                . 'More text here.'
-                . '<!-- ###MY_SUBPART_1### -->'
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . 'More text here.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART_1,MY_SUBPART_2');
         $this->subject->unhideSubparts('MY_SUBPART_2,MY_SUBPART_1');
         self::assertSame(
             'Some text. '
-                . 'More text here.'
-                . 'More text there. '
-                . 'Even more text.',
+            . 'More text here.'
+            . 'More text there. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1557,20 +1557,20 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART_1### -->'
-                . 'More text here.'
-                . '<!-- ###MY_SUBPART_1### -->'
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . 'More text here.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART_1,MY_SUBPART_2');
         $this->subject->unhideSubparts('MY_SUBPART_1');
         self::assertSame(
             'Some text. '
-                . 'More text here.'
-                . 'Even more text.',
+            . 'More text here.'
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1582,20 +1582,20 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART_1### -->'
-                . 'More text here.'
-                . '<!-- ###MY_SUBPART_1### -->'
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART_2### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . 'More text here.'
+            . '<!-- ###MY_SUBPART_1### -->'
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART_2### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART_1,MY_SUBPART_2');
         $this->subject->unhideSubparts('MY_SUBPART_2');
         self::assertSame(
             'Some text. '
-                . 'More text there. '
-                . 'Even more text.',
+            . 'More text there. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1607,16 +1607,16 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text here. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text here. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         $this->subject->unhideSubparts('MY_SUBPART', 'MY_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1628,16 +1628,16 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text here. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text here. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         $this->subject->unhideSubparts('MY_SUBPART', 'MY_SUBPART,MY_OTHER_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1649,17 +1649,17 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text here. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text here. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         $this->subject->unhideSubparts('MY_SUBPART', 'MY_OTHER_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'More text here. '
-                . 'Even more text.',
+            . 'More text here. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1671,18 +1671,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->'
-                . 'Some text. '
-                . '<!-- ###SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text here. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . 'Some text. '
+            . '<!-- ###SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text here. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         $this->subject->unhideSubparts('SUBPART', 'SUBPART', 'MY');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1694,18 +1694,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->'
-                . 'Some text. '
-                . '<!-- ###SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text here. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . 'Some text. '
+            . '<!-- ###SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text here. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         $this->subject->unhideSubparts('SUBPART', 'SUBPART,OTHER_SUBPART', 'MY');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1717,19 +1717,19 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->'
-                . 'Some text. '
-                . '<!-- ###SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text here. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . 'Some text. '
+            . '<!-- ###SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text here. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         $this->subject->unhideSubparts('SUBPART', 'OTHER_SUBPART', 'MY');
         self::assertSame(
             'Some text. '
-                . 'More text here. '
-                . 'Even more text.',
+            . 'More text here. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1741,7 +1741,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
         );
         self::assertFalse(
             $this->subject->isSubpartVisible('')
@@ -1755,7 +1755,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
         );
         self::assertFalse(
             $this->subject->isSubpartVisible('FOO')
@@ -1769,7 +1769,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
         );
         self::assertTrue(
             $this->subject->isSubpartVisible('MY_SUBPART')
@@ -1783,7 +1783,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         self::assertFalse(
@@ -1798,7 +1798,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         $this->subject->unhideSubparts('MY_SUBPART');
@@ -1814,7 +1814,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
-                '<!-- ###MY_SUBPART### -->'
+            '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->hideSubparts('MY_SUBPART');
         $this->subject->setSubpart('MY_SUBPART', 'foo');
@@ -1832,10 +1832,10 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART### -->' .
+            'More text. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
@@ -1852,15 +1852,15 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART### -->' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->setSubpart('MY_SUBPART', 'More text. ');
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
-                'Even more text.',
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1872,16 +1872,16 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART### -->' .
+            'More text. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->unhideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
-                'More text. ' .
-                'Even more text.',
+            'More text. ' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1893,17 +1893,17 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART### -->' .
+            'More text. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
-                'More text. ' .
-                'Even more text.',
+            'More text. ' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -1915,17 +1915,17 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->' .
-                'Some text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.' .
-                '<!-- ###OUTER_SUBPART### -->'
+            'Some text. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'More text. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.' .
+            '<!-- ###OUTER_SUBPART### -->'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
-                'Even more text.',
+            'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
     }
@@ -1937,19 +1937,19 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###SINGLE_VIEW###  -->' .
-                '<!-- ###FIELD_WRAPPER_TITLE### -->' .
-                '<h3 class="seminars-item-title">Title' .
-                '<!-- ###FIELD_WRAPPER_SUBTITLE### -->' .
-                '<span class="seminars-item-subtitle"> - ###SUBTITLE###</span>' .
-                '<!-- ###FIELD_WRAPPER_SUBTITLE### -->' .
-                '</h3>' .
-                '<!-- ###FIELD_WRAPPER_TITLE### -->' .
-                '<!-- ###SINGLE_VIEW###  -->'
+            '<!-- ###FIELD_WRAPPER_TITLE### -->' .
+            '<h3 class="seminars-item-title">Title' .
+            '<!-- ###FIELD_WRAPPER_SUBTITLE### -->' .
+            '<span class="seminars-item-subtitle"> - ###SUBTITLE###</span>' .
+            '<!-- ###FIELD_WRAPPER_SUBTITLE### -->' .
+            '</h3>' .
+            '<!-- ###FIELD_WRAPPER_TITLE### -->' .
+            '<!-- ###SINGLE_VIEW###  -->'
         );
         $this->subject->hideSubpartsArray(['FIELD_WRAPPER_SUBTITLE']);
         self::assertSame(
             '<h3 class="seminars-item-title">Title' .
-                '</h3>',
+            '</h3>',
             $this->subject->getSubpart('SINGLE_VIEW')
         );
     }
@@ -1961,18 +1961,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->' .
-                'Some text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.' .
-                '<!-- ###OUTER_SUBPART### -->'
+            'Some text. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'More text. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.' .
+            '<!-- ###OUTER_SUBPART### -->'
         );
         $this->subject->unhideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
-                'More text. ' .
-                'Even more text.',
+            'More text. ' .
+            'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
     }
@@ -1984,19 +1984,19 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->' .
-                'Some text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.' .
-                '<!-- ###OUTER_SUBPART### -->'
+            'Some text. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'More text. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.' .
+            '<!-- ###OUTER_SUBPART### -->'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(['MY_SUBPART']);
         self::assertSame(
             'Some text. ' .
-                'More text. ' .
-                'Even more text.',
+            'More text. ' .
+            'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
     }
@@ -2008,19 +2008,19 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                'More text here.' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'More text there. ' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART_1### -->' .
+            'More text here.' .
+            '<!-- ###MY_SUBPART_1### -->' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'More text there. ' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART_1']);
         $this->subject->hideSubpartsArray(['MY_SUBPART_2']);
         self::assertSame(
             'Some text. ' .
-                'Even more text.',
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2032,18 +2032,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                'More text here.' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'More text there. ' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART_1### -->' .
+            'More text here.' .
+            '<!-- ###MY_SUBPART_1### -->' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'More text there. ' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
         self::assertSame(
             'Some text. ' .
-                'Even more text.',
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2055,18 +2055,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                'More text here.' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'More text there. ' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART_1### -->' .
+            'More text here.' .
+            '<!-- ###MY_SUBPART_1### -->' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'More text there. ' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART_2', 'MY_SUBPART_1']);
         self::assertSame(
             'Some text. ' .
-                'Even more text.',
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2078,13 +2078,13 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                'More text here.' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'More text there. ' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART_1### -->' .
+            'More text here.' .
+            '<!-- ###MY_SUBPART_1### -->' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'More text there. ' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART_1']);
         $this->subject->hideSubpartsArray(['MY_SUBPART_2']);
@@ -2092,9 +2092,9 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         $this->subject->unhideSubpartsArray(['MY_SUBPART_2']);
         self::assertSame(
             'Some text. ' .
-                'More text here.' .
-                'More text there. ' .
-                'Even more text.',
+            'More text here.' .
+            'More text there. ' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2106,21 +2106,21 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                'More text here.' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'More text there. ' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART_1### -->' .
+            'More text here.' .
+            '<!-- ###MY_SUBPART_1### -->' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'More text there. ' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
         $this->subject->unhideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
         self::assertSame(
             'Some text. ' .
-                'More text here.' .
-                'More text there. ' .
-                'Even more text.',
+            'More text here.' .
+            'More text there. ' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2132,21 +2132,21 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                'More text here.' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'More text there. ' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART_1### -->' .
+            'More text here.' .
+            '<!-- ###MY_SUBPART_1### -->' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'More text there. ' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
         $this->subject->unhideSubpartsArray(['MY_SUBPART_2', 'MY_SUBPART_1']);
         self::assertSame(
             'Some text. ' .
-                'More text here.' .
-                'More text there. ' .
-                'Even more text.',
+            'More text here.' .
+            'More text there. ' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2158,20 +2158,20 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                'More text here.' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'More text there. ' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART_1### -->' .
+            'More text here.' .
+            '<!-- ###MY_SUBPART_1### -->' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'More text there. ' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
         $this->subject->unhideSubpartsArray(['MY_SUBPART_1']);
         self::assertSame(
             'Some text. ' .
-                'More text here.' .
-                'Even more text.',
+            'More text here.' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2183,20 +2183,20 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                'More text here.' .
-                '<!-- ###MY_SUBPART_1### -->' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'More text there. ' .
-                '<!-- ###MY_SUBPART_2### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART_1### -->' .
+            'More text here.' .
+            '<!-- ###MY_SUBPART_1### -->' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'More text there. ' .
+            '<!-- ###MY_SUBPART_2### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART_1', 'MY_SUBPART_2']);
         $this->subject->unhideSubpartsArray(['MY_SUBPART_2']);
         self::assertSame(
             'Some text. ' .
-                'More text there. ' .
-                'Even more text.',
+            'More text there. ' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2208,10 +2208,10 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text here. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART### -->' .
+            'More text here. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
@@ -2220,7 +2220,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         );
         self::assertSame(
             'Some text. ' .
-                'Even more text.',
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2232,10 +2232,10 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text here. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART### -->' .
+            'More text here. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
@@ -2244,7 +2244,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         );
         self::assertSame(
             'Some text. ' .
-                'Even more text.',
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2256,10 +2256,10 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text here. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            '<!-- ###MY_SUBPART### -->' .
+            'More text here. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
@@ -2268,8 +2268,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         );
         self::assertSame(
             'Some text. ' .
-                'More text here. ' .
-                'Even more text.',
+            'More text here. ' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2281,12 +2281,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->' .
-                'Some text. ' .
-                '<!-- ###SUBPART### -->' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text here. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            'Some text. ' .
+            '<!-- ###SUBPART### -->' .
+            '<!-- ###MY_SUBPART### -->' .
+            'More text here. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
@@ -2296,7 +2296,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         );
         self::assertSame(
             'Some text. ' .
-                'Even more text.',
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2308,12 +2308,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->' .
-                'Some text. ' .
-                '<!-- ###SUBPART### -->' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text here. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            'Some text. ' .
+            '<!-- ###SUBPART### -->' .
+            '<!-- ###MY_SUBPART### -->' .
+            'More text here. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
@@ -2323,7 +2323,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         );
         self::assertSame(
             'Some text. ' .
-                'Even more text.',
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2335,12 +2335,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->' .
-                'Some text. ' .
-                '<!-- ###SUBPART### -->' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text here. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            'Some text. ' .
+            '<!-- ###SUBPART### -->' .
+            '<!-- ###MY_SUBPART### -->' .
+            'More text here. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(
@@ -2350,8 +2350,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         );
         self::assertSame(
             'Some text. ' .
-                'More text here. ' .
-                'Even more text.',
+            'More text here. ' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2363,7 +2363,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
-                '<!-- ###MY_SUBPART### -->'
+            '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         self::assertFalse(
@@ -2378,7 +2378,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
-                '<!-- ###MY_SUBPART### -->'
+            '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->unhideSubpartsArray(['MY_SUBPART']);
@@ -2394,7 +2394,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
-                '<!-- ###MY_SUBPART### -->'
+            '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART']);
         $this->subject->setSubpart('MY_SUBPART', 'foo');
@@ -2416,16 +2416,16 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text.'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Even more text.'
         );
         $this->subject->setSubpart('MY_SUBPART', 'foo');
         self::assertSame(
             'Some text. '
-                . 'foo'
-                . ' Even more text.',
+            . 'foo'
+            . ' Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2437,10 +2437,10 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text.'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Even more text.'
         );
         $this->subject->setSubpart('MY_SUBPART', 'foo');
         self::assertSame(
@@ -2551,12 +2551,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
-                . 'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text.'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Even more text.'
-                . '<!-- ###OUTER_SUBPART### -->'
+            . 'Some text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Even more text.'
+            . '<!-- ###OUTER_SUBPART### -->'
         );
         $this->subject->setSubpart('MY_SUBPART', 'foo');
         self::assertSame(
@@ -2572,15 +2572,15 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text.'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Even more text.'
         );
         $this->subject->setSubpart('MY_SUBPART', '');
         self::assertSame(
             'Some text. '
-                . ' Even more text.',
+            . ' Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2592,10 +2592,10 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text.'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Even more text.'
         );
         $this->subject->setSubpart('MY_SUBPART', '');
         self::assertSame(
@@ -2611,12 +2611,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
-                . 'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text.'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Even more text.'
-                . '<!-- ###OUTER_SUBPART### -->'
+            . 'Some text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Even more text.'
+            . '<!-- ###OUTER_SUBPART### -->'
         );
         $this->subject->setSubpart('MY_SUBPART', '');
         self::assertSame(
@@ -2671,16 +2671,16 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'This is some template code. ###MARKER### More text.'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'This is some template code. ###MARKER### More text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Even more text.'
         );
         $this->subject->setMarker('marker', 'foo');
         self::assertSame(
             'Some text. '
-                . 'This is some template code. foo More text.'
-                . ' Even more text.',
+            . 'This is some template code. foo More text.'
+            . ' Even more text.',
             $this->subject->render()
         );
     }
@@ -2692,18 +2692,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
-                . 'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'This is some template code. ###MARKER### More text.'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Even more text.'
-                . '<!-- ###OUTER_SUBPART### -->'
+            . 'Some text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'This is some template code. ###MARKER### More text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Even more text.'
+            . '<!-- ###OUTER_SUBPART### -->'
         );
         $this->subject->setMarker('marker', 'foo');
         self::assertSame(
             'Some text. '
-                . 'This is some template code. foo More text.'
-                . ' Even more text.',
+            . 'This is some template code. foo More text.'
+            . ' Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
     }
@@ -2715,9 +2715,9 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Even more text.'
+            . '<!-- ###MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Even more text.'
         );
         $this->subject->setSubpart(
             'MY_SUBPART',
@@ -2726,8 +2726,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         $this->subject->setMarker('marker', 'foo');
         self::assertSame(
             'Some text. '
-                . 'This is some template code. foo More text.'
-                . ' Even more text.',
+            . 'This is some template code. foo More text.'
+            . ' Even more text.',
             $this->subject->render()
         );
     }
@@ -2739,11 +2739,11 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
-                . 'Some text. '
-                . '<!-- ###MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
-                . ' Even more text.'
-                . '<!-- ###OUTER_SUBPART### -->'
+            . 'Some text. '
+            . '<!-- ###MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
+            . ' Even more text.'
+            . '<!-- ###OUTER_SUBPART### -->'
         );
         $this->subject->setSubpart(
             'MY_SUBPART',
@@ -2752,8 +2752,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         $this->subject->setMarker('marker', 'foo');
         self::assertSame(
             'Some text. '
-                . 'This is some template code. foo More text.'
-                . ' Even more text.',
+            . 'This is some template code. foo More text.'
+            . ' Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
     }
@@ -2798,7 +2798,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'This is some template code. '
-                . '###FIRST_MARKER### ###MARKER### More text.'
+            . '###FIRST_MARKER### ###MARKER### More text.'
         );
         $this->subject->setMarker('marker', 'foo', 'first');
         self::assertSame(
@@ -2814,20 +2814,20 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###FIRST_MY_SUBPART### -->'
-                . 'More text here. '
-                . '<!-- ###FIRST_MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . '<!-- ###FIRST_MY_SUBPART### -->'
+            . 'More text here. '
+            . '<!-- ###FIRST_MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->setSubpart('MY_SUBPART', 'foo', 'FIRST');
         self::assertSame(
             'Some text. '
-                . 'foo'
-                . 'More text there. '
-                . 'Even more text.',
+            . 'foo'
+            . 'More text there. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2839,19 +2839,19 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###FIRST_MY_SUBPART### -->'
-                . 'More text here. '
-                . '<!-- ###FIRST_MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . '<!-- ###FIRST_MY_SUBPART### -->'
+            . 'More text here. '
+            . '<!-- ###FIRST_MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('MY_SUBPART', 'FIRST');
         self::assertSame(
             'Some text. '
-                . 'More text there. '
-                . 'Even more text.',
+            . 'More text there. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2863,21 +2863,21 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###FIRST_MY_SUBPART### -->'
-                . 'More text here. '
-                . '<!-- ###FIRST_MY_SUBPART### -->'
-                . '<!-- ###MY_SUBPART### -->'
-                . 'More text there. '
-                . '<!-- ###MY_SUBPART### -->'
-                . 'Even more text.'
+            . '<!-- ###FIRST_MY_SUBPART### -->'
+            . 'More text here. '
+            . '<!-- ###FIRST_MY_SUBPART### -->'
+            . '<!-- ###MY_SUBPART### -->'
+            . 'More text there. '
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('FIRST_MY_SUBPART');
         $this->subject->unhideSubparts('MY_SUBPART', '', 'FIRST');
         self::assertSame(
             'Some text. '
-                . 'More text here. '
-                . 'More text there. '
-                . 'Even more text.',
+            . 'More text here. '
+            . 'More text there. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2889,18 +2889,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###FIRST_MY_SUBPART_1### -->'
-                . 'More text here. '
-                . '<!-- ###FIRST_MY_SUBPART_1### -->'
-                . '<!-- ###FIRST_MY_SUBPART_2### -->'
-                . 'More text there. '
-                . '<!-- ###FIRST_MY_SUBPART_2### -->'
-                . 'Even more text.'
+            . '<!-- ###FIRST_MY_SUBPART_1### -->'
+            . 'More text here. '
+            . '<!-- ###FIRST_MY_SUBPART_1### -->'
+            . '<!-- ###FIRST_MY_SUBPART_2### -->'
+            . 'More text there. '
+            . '<!-- ###FIRST_MY_SUBPART_2### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('1,2', 'FIRST_MY_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'Even more text.',
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2912,22 +2912,22 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. '
-                . '<!-- ###FIRST_MY_SUBPART_1### -->'
-                . 'More text here. '
-                . '<!-- ###FIRST_MY_SUBPART_1### -->'
-                . '<!-- ###FIRST_MY_SUBPART_2### -->'
-                . 'More text there. '
-                . '<!-- ###FIRST_MY_SUBPART_2### -->'
-                . 'Even more text.'
+            . '<!-- ###FIRST_MY_SUBPART_1### -->'
+            . 'More text here. '
+            . '<!-- ###FIRST_MY_SUBPART_1### -->'
+            . '<!-- ###FIRST_MY_SUBPART_2### -->'
+            . 'More text there. '
+            . '<!-- ###FIRST_MY_SUBPART_2### -->'
+            . 'Even more text.'
         );
         $this->subject->hideSubparts('FIRST_MY_SUBPART_1');
         $this->subject->hideSubparts('FIRST_MY_SUBPART_2');
         $this->subject->unhideSubparts('1,2', '', 'FIRST_MY_SUBPART');
         self::assertSame(
             'Some text. '
-                . 'More text here. '
-                . 'More text there. '
-                . 'Even more text.',
+            . 'More text here. '
+            . 'More text there. '
+            . 'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2939,19 +2939,19 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###FIRST_MY_SUBPART### -->' .
-                'More text here. ' .
-                '<!-- ###FIRST_MY_SUBPART### -->' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text there. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            '<!-- ###FIRST_MY_SUBPART### -->' .
+            'More text here. ' .
+            '<!-- ###FIRST_MY_SUBPART### -->' .
+            '<!-- ###MY_SUBPART### -->' .
+            'More text there. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['MY_SUBPART'], 'FIRST');
         self::assertSame(
             'Some text. ' .
-                'More text there. ' .
-                'Even more text.',
+            'More text there. ' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2963,13 +2963,13 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###FIRST_MY_SUBPART_1### -->' .
-                'More text here. ' .
-                '<!-- ###FIRST_MY_SUBPART_1### -->' .
-                '<!-- ###FIRST_MY_SUBPART_2### -->' .
-                'More text there. ' .
-                '<!-- ###FIRST_MY_SUBPART_2### -->' .
-                'Even more text.'
+            '<!-- ###FIRST_MY_SUBPART_1### -->' .
+            'More text here. ' .
+            '<!-- ###FIRST_MY_SUBPART_1### -->' .
+            '<!-- ###FIRST_MY_SUBPART_2### -->' .
+            'More text there. ' .
+            '<!-- ###FIRST_MY_SUBPART_2### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(
             ['1', '2'],
@@ -2977,7 +2977,7 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         );
         self::assertSame(
             'Some text. ' .
-                'Even more text.',
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -2989,21 +2989,21 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###FIRST_MY_SUBPART### -->' .
-                'More text here. ' .
-                '<!-- ###FIRST_MY_SUBPART### -->' .
-                '<!-- ###MY_SUBPART### -->' .
-                'More text there. ' .
-                '<!-- ###MY_SUBPART### -->' .
-                'Even more text.'
+            '<!-- ###FIRST_MY_SUBPART### -->' .
+            'More text here. ' .
+            '<!-- ###FIRST_MY_SUBPART### -->' .
+            '<!-- ###MY_SUBPART### -->' .
+            'More text there. ' .
+            '<!-- ###MY_SUBPART### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['FIRST_MY_SUBPART']);
         $this->subject->unhideSubpartsArray(['MY_SUBPART'], [''], 'FIRST');
         self::assertSame(
             'Some text. ' .
-                'More text here. ' .
-                'More text there. ' .
-                'Even more text.',
+            'More text here. ' .
+            'More text there. ' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -3015,13 +3015,13 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Some text. ' .
-                '<!-- ###FIRST_MY_SUBPART_1### -->' .
-                'More text here. ' .
-                '<!-- ###FIRST_MY_SUBPART_1### -->' .
-                '<!-- ###FIRST_MY_SUBPART_2### -->' .
-                'More text there. ' .
-                '<!-- ###FIRST_MY_SUBPART_2### -->' .
-                'Even more text.'
+            '<!-- ###FIRST_MY_SUBPART_1### -->' .
+            'More text here. ' .
+            '<!-- ###FIRST_MY_SUBPART_1### -->' .
+            '<!-- ###FIRST_MY_SUBPART_2### -->' .
+            'More text there. ' .
+            '<!-- ###FIRST_MY_SUBPART_2### -->' .
+            'Even more text.'
         );
         $this->subject->hideSubpartsArray(['FIRST_MY_SUBPART_1']);
         $this->subject->hideSubpartsArray(['FIRST_MY_SUBPART_2']);
@@ -3032,9 +3032,9 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
         );
         self::assertSame(
             'Some text. ' .
-                'More text here. ' .
-                'More text there. ' .
-                'Even more text.',
+            'More text here. ' .
+            'More text there. ' .
+            'Even more text.',
             $this->subject->getSubpart()
         );
     }
@@ -3230,8 +3230,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertTrue(
@@ -3256,8 +3256,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertFalse(
@@ -3282,8 +3282,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MY_MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MY_MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertTrue(
@@ -3308,8 +3308,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MY_MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MY_MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertFalse(
@@ -3334,8 +3334,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertFalse(
@@ -3359,8 +3359,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertTrue(
@@ -3384,8 +3384,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertTrue(
@@ -3409,8 +3409,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MY_MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MY_MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertFalse(
@@ -3434,8 +3434,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MY_MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MY_MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertTrue(
@@ -3459,8 +3459,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MY_MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MY_MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertTrue(
@@ -3484,8 +3484,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertFalse(
@@ -3509,8 +3509,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertTrue(
@@ -3534,8 +3534,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MY_MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MY_MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertFalse(
@@ -3559,8 +3559,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
-                . '###MY_MARKER###'
-                . '<!-- ###WRAPPER_MARKER### -->'
+            . '###MY_MARKER###'
+            . '<!-- ###WRAPPER_MARKER### -->'
         );
 
         self::assertTrue(
@@ -3588,12 +3588,12 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . '###MY_MARKER_1### '
-                . '###MY_MARKER_2 '
-                . '###MY_MARKER_3# '
-                . '###MY_MARKER_4## '
-                . '###MY_MARKER_5###'
-                . '<!-- ###MY_SUBPART### -->'
+            . '###MY_MARKER_1### '
+            . '###MY_MARKER_2 '
+            . '###MY_MARKER_3# '
+            . '###MY_MARKER_4## '
+            . '###MY_MARKER_5###'
+            . '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->setMarker('my_marker_1', 'test 1');
         $this->subject->setMarker('my_marker_2', 'test 2');
@@ -3603,18 +3603,18 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
 
         self::assertSame(
             'test 1 '
-                . '###MY_MARKER_2 '
-                . '###MY_MARKER_3# '
-                . '###MY_MARKER_4## '
-                . 'test 5',
+            . '###MY_MARKER_2 '
+            . '###MY_MARKER_3# '
+            . '###MY_MARKER_4## '
+            . 'test 5',
             $this->subject->getSubpart()
         );
         self::assertSame(
             'test 1 '
-                . '###MY_MARKER_2 '
-                . '###MY_MARKER_3# '
-                . '###MY_MARKER_4## '
-                . 'test 5',
+            . '###MY_MARKER_2 '
+            . '###MY_MARKER_3# '
+            . '###MY_MARKER_4## '
+            . 'test 5',
             $this->subject->getSubpart('MY_SUBPART')
         );
     }
@@ -3626,38 +3626,38 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Text before. '
-                . '<!-- ###UNCLOSED_SUBPART_1### -->'
-                . '<!-- ###OUTER_SUBPART### -->'
-                . '<!-- ###UNCLOSED_SUBPART_2### -->'
-                . '<!-- ###INNER_SUBPART### -->'
-                . '<!-- ###UNCLOSED_SUBPART_3### -->'
-                . 'Inner text. '
-                . '<!-- ###UNCLOSED_SUBPART_4### -->'
-                . '<!-- ###INNER_SUBPART### -->'
-                . '<!-- ###UNCLOSED_SUBPART_5### -->'
-                . '<!-- ###OUTER_SUBPART### -->'
-                . '<!-- ###UNCLOSED_SUBPART_6### -->'
-                . 'Text after.'
+            . '<!-- ###UNCLOSED_SUBPART_1### -->'
+            . '<!-- ###OUTER_SUBPART### -->'
+            . '<!-- ###UNCLOSED_SUBPART_2### -->'
+            . '<!-- ###INNER_SUBPART### -->'
+            . '<!-- ###UNCLOSED_SUBPART_3### -->'
+            . 'Inner text. '
+            . '<!-- ###UNCLOSED_SUBPART_4### -->'
+            . '<!-- ###INNER_SUBPART### -->'
+            . '<!-- ###UNCLOSED_SUBPART_5### -->'
+            . '<!-- ###OUTER_SUBPART### -->'
+            . '<!-- ###UNCLOSED_SUBPART_6### -->'
+            . 'Text after.'
         );
 
         self::assertSame(
             'Text before. '
-                . '<!-- ###UNCLOSED_SUBPART_1### -->'
-                . '<!-- ###UNCLOSED_SUBPART_2### -->'
-                . '<!-- ###UNCLOSED_SUBPART_3### -->'
-                . 'Inner text. '
-                . '<!-- ###UNCLOSED_SUBPART_4### -->'
-                . '<!-- ###UNCLOSED_SUBPART_5### -->'
-                . '<!-- ###UNCLOSED_SUBPART_6### -->'
-                . 'Text after.',
+            . '<!-- ###UNCLOSED_SUBPART_1### -->'
+            . '<!-- ###UNCLOSED_SUBPART_2### -->'
+            . '<!-- ###UNCLOSED_SUBPART_3### -->'
+            . 'Inner text. '
+            . '<!-- ###UNCLOSED_SUBPART_4### -->'
+            . '<!-- ###UNCLOSED_SUBPART_5### -->'
+            . '<!-- ###UNCLOSED_SUBPART_6### -->'
+            . 'Text after.',
             $this->subject->getSubpart()
         );
         self::assertSame(
             '<!-- ###UNCLOSED_SUBPART_2### -->'
-                . '<!-- ###UNCLOSED_SUBPART_3### -->'
-                . 'Inner text. '
-                . '<!-- ###UNCLOSED_SUBPART_4### -->'
-                . '<!-- ###UNCLOSED_SUBPART_5### -->',
+            . '<!-- ###UNCLOSED_SUBPART_3### -->'
+            . 'Inner text. '
+            . '<!-- ###UNCLOSED_SUBPART_4### -->'
+            . '<!-- ###UNCLOSED_SUBPART_5### -->',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
     }
@@ -3669,38 +3669,38 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             'Text before. '
-                . '<!-- ###UNCLOSED_SUBPART_1###'
-                . '<!-- ###OUTER_SUBPART### -->'
-                . '<!-- ###UNCLOSED_SUBPART_2 -->'
-                . '<!-- ###INNER_SUBPART### -->'
-                . '<!-- ###UNCLOSED_SUBPART_3### --'
-                . 'Inner text. '
-                . '<!-- UNCLOSED_SUBPART_4### -->'
-                . '<!-- ###INNER_SUBPART### -->'
-                . ' ###UNCLOSED_SUBPART_5### -->'
-                . '<!-- ###OUTER_SUBPART### -->'
-                . '<!-- ###UNCLOSED_SUBPART_6### -->'
-                . 'Text after.'
+            . '<!-- ###UNCLOSED_SUBPART_1###'
+            . '<!-- ###OUTER_SUBPART### -->'
+            . '<!-- ###UNCLOSED_SUBPART_2 -->'
+            . '<!-- ###INNER_SUBPART### -->'
+            . '<!-- ###UNCLOSED_SUBPART_3### --'
+            . 'Inner text. '
+            . '<!-- UNCLOSED_SUBPART_4### -->'
+            . '<!-- ###INNER_SUBPART### -->'
+            . ' ###UNCLOSED_SUBPART_5### -->'
+            . '<!-- ###OUTER_SUBPART### -->'
+            . '<!-- ###UNCLOSED_SUBPART_6### -->'
+            . 'Text after.'
         );
 
         self::assertSame(
             'Text before. '
-                . '<!-- ###UNCLOSED_SUBPART_1###'
-                . '<!-- ###UNCLOSED_SUBPART_2 -->'
-                . '<!-- ###UNCLOSED_SUBPART_3### --'
-                . 'Inner text. '
-                . '<!-- UNCLOSED_SUBPART_4### -->'
-                . ' ###UNCLOSED_SUBPART_5### -->'
-                . '<!-- ###UNCLOSED_SUBPART_6### -->'
-                . 'Text after.',
+            . '<!-- ###UNCLOSED_SUBPART_1###'
+            . '<!-- ###UNCLOSED_SUBPART_2 -->'
+            . '<!-- ###UNCLOSED_SUBPART_3### --'
+            . 'Inner text. '
+            . '<!-- UNCLOSED_SUBPART_4### -->'
+            . ' ###UNCLOSED_SUBPART_5### -->'
+            . '<!-- ###UNCLOSED_SUBPART_6### -->'
+            . 'Text after.',
             $this->subject->getSubpart()
         );
         self::assertSame(
             '<!-- ###UNCLOSED_SUBPART_2 -->'
-                . '<!-- ###UNCLOSED_SUBPART_3### --'
-                . 'Inner text. '
-                . '<!-- UNCLOSED_SUBPART_4### -->'
-                . ' ###UNCLOSED_SUBPART_5### -->',
+            . '<!-- ###UNCLOSED_SUBPART_3### --'
+            . 'Inner text. '
+            . '<!-- UNCLOSED_SUBPART_4### -->'
+            . ' ###UNCLOSED_SUBPART_5### -->',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
     }
@@ -3712,11 +3712,11 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
-                . '###MARKER 1### '
-                . '###MARKER-2### '
-                . '###marker_3### '
-                . '###MÄRKER_4### '
-                . '<!-- ###MY_SUBPART### -->'
+            . '###MARKER 1### '
+            . '###MARKER-2### '
+            . '###marker_3### '
+            . '###MÄRKER_4### '
+            . '<!-- ###MY_SUBPART### -->'
         );
         $this->subject->setMarker('marker 1', 'foo');
         $this->subject->setMarker('marker-2', 'foo');
@@ -3725,16 +3725,16 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
 
         self::assertSame(
             '###MARKER 1### '
-                . '###MARKER-2### '
-                . '###marker_3### '
-                . '###MÄRKER_4### ',
+            . '###MARKER-2### '
+            . '###marker_3### '
+            . '###MÄRKER_4### ',
             $this->subject->getSubpart()
         );
         self::assertSame(
             '###MARKER 1### '
-                . '###MARKER-2### '
-                . '###marker_3### '
-                . '###MÄRKER_4### ',
+            . '###MARKER-2### '
+            . '###marker_3### '
+            . '###MÄRKER_4### ',
             $this->subject->getSubpart('MY_SUBPART')
         );
     }
@@ -3755,8 +3755,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
 
         $this->subject->processTemplate(
             '<!-- ###MY SUBPART### -->'
-                . 'Some text.'
-                . '<!-- ###MY SUBPART### -->'
+            . 'Some text.'
+            . '<!-- ###MY SUBPART### -->'
         );
 
         $this->subject->getSubpart('MY SUBPART');
@@ -3774,8 +3774,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
 
         $this->subject->processTemplate(
             '<!-- ###MY_SÜBPART### -->'
-                . 'Some text.'
-                . '<!-- ###MY_SÜBPART### -->'
+            . 'Some text.'
+            . '<!-- ###MY_SÜBPART### -->'
         );
 
         $this->subject->getSubpart('MY_SÜBPART');
@@ -3793,8 +3793,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
 
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART_### -->'
-                . 'Some text.'
-                . '<!-- ###MY_SUBPART_### -->'
+            . 'Some text.'
+            . '<!-- ###MY_SUBPART_### -->'
         );
 
         $this->subject->getSubpart('MY_SUBPART_');
@@ -3812,8 +3812,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
 
         $this->subject->processTemplate(
             '<!-- ###_MY_SUBPART### -->'
-                . 'Some text.'
-                . '<!-- ###_MY_SUBPART### -->'
+            . 'Some text.'
+            . '<!-- ###_MY_SUBPART### -->'
         );
 
         $this->subject->getSubpart('_MY_SUBPART');
@@ -3831,8 +3831,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
 
         $this->subject->processTemplate(
             '<!-- ###1_MY_SUBPART### -->'
-                . 'Some text.'
-                . '<!-- ###1_MY_SUBPART### -->'
+            . 'Some text.'
+            . '<!-- ###1_MY_SUBPART### -->'
         );
 
         $this->subject->getSubpart('1_MY_SUBPART');
@@ -3851,8 +3851,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
 
         $this->subject->processTemplate(
             '<!-- ###my_subpart### -->' .
-                'Some text.' .
-                '<!-- ###my_subpart### -->'
+            'Some text.' .
+            '<!-- ###my_subpart### -->'
         );
 
         $this->subject->getSubpart('my_subpart');
@@ -3870,8 +3870,8 @@ class Tx_Oelib_Tests_Unit_TemplateTest extends \Tx_Phpunit_TestCase
 
         $this->subject->processTemplate(
             '<!-- ###my_subpart### -->' .
-                'Some text.' .
-                '<!-- ###my_subpart### -->'
+            'Some text.' .
+            '<!-- ###my_subpart### -->'
         );
 
         $this->subject->getSubpart('MY_SUBPART');

@@ -11,6 +11,7 @@ class Tx_Oelib_Tests_Functional_DataMapperTest extends \Tx_Phpunit_TestCase
      * @var \Tx_Oelib_TestingFramework
      */
     protected $testingFramework = null;
+
     /**
      * @var \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
      */

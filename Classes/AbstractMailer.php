@@ -81,7 +81,8 @@ abstract class Tx_Oelib_AbstractMailer
         /** @var \Tx_Oelib_Attachment $attachment */
         foreach ($email->getAttachments() as $attachment) {
             if (($attachment->getFileName() !== '') && ($attachment->getContent() === '')) {
-                $swiftAttachment = \Swift_Attachment::fromPath($attachment->getFileName(), $attachment->getContentType());
+                $swiftAttachment =
+                    \Swift_Attachment::fromPath($attachment->getFileName(), $attachment->getContentType());
             } else {
                 $fileName = $attachment->getFileName() !== '' ? $attachment->getFileName() : null;
                 $swiftAttachment = \Swift_Attachment::newInstance(

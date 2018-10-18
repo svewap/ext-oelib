@@ -284,10 +284,10 @@ class Tx_Oelib_ConfigCheck
         if (!$this->objectToCheck->getConfValueBoolean('isStaticTemplateLoaded')) {
             $this->setErrorMessage(
                 'The static template is not included. This has the effect '
-                    . 'that important default values do not get set. To fix '
-                    . 'this, please include this extension\'s template under '
-                    . '<em>Include static (from extensions)</em> in your TS '
-                    . 'template.'
+                . 'that important default values do not get set. To fix '
+                . 'this, please include this extension\'s template under '
+                . '<em>Include static (from extensions)</em> in your TS '
+                . 'template.'
             );
         }
     }
@@ -311,7 +311,7 @@ class Tx_Oelib_ConfigCheck
             $canUseFlexforms,
             's_template_special',
             'This value specifies the HTML template which is essential when ' .
-                'creating any output from this extension.'
+            'creating any output from this extension.'
         );
 
         if (($this->getFrontEndController() !== null)
@@ -1120,8 +1120,8 @@ class Tx_Oelib_ConfigCheck
             $canUseFlexforms,
             'sDEF',
             'This variable controls the salutation mode (formal or informal). '
-                . 'If it is not set correctly, some output cannot be created '
-                . 'at all.',
+            . 'If it is not set correctly, some output cannot be created '
+            . 'at all.',
             ['formal', 'informal']
         );
     }
@@ -1674,7 +1674,7 @@ class Tx_Oelib_ConfigCheck
                 'uid',
                 'pages',
                 'uid IN (' . $pids . ') AND NOT (doktype' . $typeCondition . ')' .
-                    \Tx_Oelib_Db::enableFields('pages')
+                \Tx_Oelib_Db::enableFields('pages')
             );
             $dbResultCount = count($offendingPids);
 
@@ -1714,41 +1714,41 @@ class Tx_Oelib_ConfigCheck
                 $fieldName,
                 false,
                 'The TS setup variable group <strong>' . $this->getTSSetupPath()
-                    . $fieldName . '</strong> is not set. This setting controls '
-                    . 'the list view. '
-                    . 'If this part of the setup is missing, sorting and the '
-                    . 'result browser will not work correctly.'
+                . $fieldName . '</strong> is not set. This setting controls '
+                . 'the list view. '
+                . 'If this part of the setup is missing, sorting and the '
+                . 'result browser will not work correctly.'
             );
         } else {
             $this->checkListViewIfSingleInSetNotEmpty(
                 'orderBy',
                 'This setting controls by which field the list view will be '
-                    . 'sorted. '
-                    . 'If this value is not set correctly, sorting will not '
-                    . 'work correctly.',
+                . 'sorted. '
+                . 'If this value is not set correctly, sorting will not '
+                . 'work correctly.',
                 $allowedSortFields
             );
             $this->checkListViewIfSingleInSetNotEmpty(
                 'descFlag',
                 'This setting controls the default sort order (ascending or '
-                    . 'descending). '
-                    . 'If this value is not set correctly, the list view might '
-                    . 'be sorted the wrong way round.',
+                . 'descending). '
+                . 'If this value is not set correctly, the list view might '
+                . 'be sorted the wrong way round.',
                 ['0', '1']
             );
             $this->checkListViewIfPositiveInteger(
                 'results_at_a_time',
                 'This setting controls how many events per page will be '
-                    . 'displayed in the list view. '
-                    . 'If this value is not set correctly, the wrong number of '
-                    . 'events will be displayed.'
+                . 'displayed in the list view. '
+                . 'If this value is not set correctly, the wrong number of '
+                . 'events will be displayed.'
             );
             $this->checkListViewIfPositiveInteger(
                 'maxPages',
                 'This setting controls how many result pages will be linked in '
-                    . 'the list view. '
-                    . 'If this value is not set correctly, the result browser '
-                    . 'will not work correctly.'
+                . 'the list view. '
+                . 'If this value is not set correctly, the result browser '
+                . 'will not work correctly.'
             );
         }
     }

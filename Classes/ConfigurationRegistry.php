@@ -218,7 +218,8 @@ class Tx_Oelib_ConfigurationRegistry
     private function existsFrontEnd()
     {
         $frontEndController = $this->getFrontEndController();
-        return ($frontEndController !== null) && is_object($frontEndController->tmpl) && $frontEndController->tmpl->loaded;
+        return ($frontEndController !== null) && is_object($frontEndController->tmpl)
+            && $frontEndController->tmpl->loaded;
     }
 
     /**

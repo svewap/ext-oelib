@@ -126,7 +126,8 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends \Tx_Oelib_DataMapper
      * given where clause.
      *
      * @param string $whereClause
-     *        WHERE clause for the record to retrieve, each element must  consist of a column name as key and a value to search for as value
+     *        WHERE clause for the record to retrieve, each element must  consist of a column name as key and a value
+     *     to search for as value
      *        (will automatically get quoted), may be empty
      * @param string $sorting
      *        the sorting for the found records, must be a valid DB field
@@ -163,8 +164,8 @@ class Tx_Oelib_Tests_Unit_Fixtures_TestingMapper extends \Tx_Oelib_DataMapper
     /**
      * Caches a model by an additional compound key.
      *
-     * This method needs to be overwritten in subclasses to work. However, it is recommended to use cacheModelByCompoundKey
-     * instead. So this method primarily is here for backwards compatibility.
+     * This method needs to be overwritten in subclasses to work. However, it is recommended to use
+     * cacheModelByCompoundKey instead. So this method primarily is here for backwards compatibility.
      *
      * @param \Tx_Oelib_Model $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty

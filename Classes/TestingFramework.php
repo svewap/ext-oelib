@@ -63,9 +63,18 @@ final class Tx_Oelib_TestingFramework
      * @var string[]
      */
     private $allowedSystemTables = [
-        'be_users', 'fe_groups', 'fe_users', 'pages', 'sys_template',
-        'tt_content', 'be_groups', 'sys_file', 'sys_file_collection',
-        'sys_file_reference', 'sys_category', 'sys_category_record_mm',
+        'be_users',
+        'fe_groups',
+        'fe_users',
+        'pages',
+        'sys_template',
+        'tt_content',
+        'be_groups',
+        'sys_file',
+        'sys_file_collection',
+        'sys_file_reference',
+        'sys_category',
+        'sys_category_record_mm',
     ];
 
     /**
@@ -165,8 +174,8 @@ final class Tx_Oelib_TestingFramework
      * @param string $tablePrefix
      *        the table name prefix of the extension for which this instance of the testing framework should be used
      * @param string[] $additionalTablePrefixes
-     *        the additional table name prefixes of the extensions for which this instance of the testing framework should be
-     *        used, may be empty
+     *        the additional table name prefixes of the extensions for which this instance of the testing framework
+     *     should be used, may be empty
      *
      * @throws \UnexpectedValueException if PATH_site is not defined
      */
@@ -185,7 +194,8 @@ final class Tx_Oelib_TestingFramework
         $this->determineAndSetAutoIncrementThreshold();
 
         /** @var array $rootLineCacheConfiguration */
-        $rootLineCacheConfiguration = (array)$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_rootline'];
+        $rootLineCacheConfiguration =
+            (array)$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_rootline'];
         $rootLineCacheConfiguration['backend'] = NullBackend::class;
         $rootLineCacheConfiguration['options'] = [];
         $cacheConfigurations = ['cache_rootline' => $rootLineCacheConfiguration];
@@ -217,7 +227,8 @@ final class Tx_Oelib_TestingFramework
      * @param string $table
      *        the name of the table on which the record should be created, must not be empty
      * @param array $recordData
-     *        associative array that contains the data to save in the new record, may be empty, but must not contain the key "uid"
+     *        associative array that contains the data to save in the new record, may be empty, but must not contain
+     *     the key "uid"
      *
      * @return int the UID of the new record, will be > 0
      *
@@ -252,7 +263,8 @@ final class Tx_Oelib_TestingFramework
      * @param string $table
      *        the name of the table on which the record should be created, must not be empty
      * @param array $recordData
-     *        associative array that contains the data to save in the new record, may be empty, but must not contain the key "uid"
+     *        associative array that contains the data to save in the new record, may be empty, but must not contain
+     *     the key "uid"
      *
      * @return int the UID of the new record, will be > 0
      */
@@ -595,7 +607,10 @@ final class Tx_Oelib_TestingFramework
         $dummyColumnName = $this->getDummyColumnName($table);
 
         if (!$this->isTableNameAllowed($table)) {
-            throw new \InvalidArgumentException('The table "' . $table . '" is not on the lists with allowed tables.', 1331489997);
+            throw new \InvalidArgumentException(
+                'The table "' . $table . '" is not on the lists with allowed tables.',
+                1331489997
+            );
         }
         if ($uid === 0) {
             throw new \InvalidArgumentException('The parameter $uid must not be zero.', 1331490003);
@@ -612,12 +627,15 @@ final class Tx_Oelib_TestingFramework
         if (isset($recordData[$dummyColumnName])) {
             throw new \InvalidArgumentException(
                 'The parameter $recordData must not contain changes to the field "' . $dummyColumnName .
-                    '". It is impossible to convert a dummy record into a regular record.',
+                '". It is impossible to convert a dummy record into a regular record.',
                 1331490024
             );
         }
         if (!$this->countRecords($table, 'uid=' . $uid)) {
-            throw new \BadMethodCallException('There is no record with UID ' . $uid . ' on table "' . $table . '".', 1331490033);
+            throw new \BadMethodCallException(
+                'There is no record with UID ' . $uid . ' on table "' . $table . '".',
+                1331490033
+            );
         }
 
         \Tx_Oelib_Db::update(
@@ -650,7 +668,7 @@ final class Tx_Oelib_TestingFramework
         \Tx_Oelib_Db::delete(
             $table,
             'uid = ' . $uid . ' AND ' . $this->getDummyColumnName($table) .
-                ' = 1'
+            ' = 1'
         );
     }
 
@@ -729,10 +747,16 @@ final class Tx_Oelib_TestingFramework
         }
 
         if ($uidLocal <= 0) {
-            throw new \InvalidArgumentException('$uidLocal must be > 0, but actually is "' . $uidLocal . '"', 1331490425);
+            throw new \InvalidArgumentException(
+                '$uidLocal must be > 0, but actually is "' . $uidLocal . '"',
+                1331490425
+            );
         }
         if ($uidForeign <= 0) {
-            throw new \InvalidArgumentException('$uidForeign must be  > 0, but actually is "' . $uidForeign . '"', 1331490429);
+            throw new \InvalidArgumentException(
+                '$uidForeign must be  > 0, but actually is "' . $uidForeign . '"',
+                1331490429
+            );
         }
 
         $tca = \Tx_Oelib_Db::getTcaForTable($tableName);
@@ -741,7 +765,7 @@ final class Tx_Oelib_TestingFramework
         if (!isset($relationConfiguration['config']['MM']) || ($relationConfiguration['config']['MM'] === '')) {
             throw new \BadMethodCallException(
                 'The column ' . $columnName . ' in the table ' . $tableName .
-                    ' is not configured to contain m:n relations using a m:n table.',
+                ' is not configured to contain m:n relations using a m:n table.',
                 1331490434
             );
         }
@@ -790,7 +814,7 @@ final class Tx_Oelib_TestingFramework
         \Tx_Oelib_Db::delete(
             $table,
             'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign .
-                ' AND ' . $this->getDummyColumnName($table) . ' = 1'
+            ' AND ' . $this->getDummyColumnName($table) . ' = 1'
         );
     }
 
@@ -934,13 +958,13 @@ final class Tx_Oelib_TestingFramework
      * @throws \RuntimeException if the PHP installation does not provide ZIPArchive
      *
      * @param string $fileName
-     *        path of the dummy ZIP archive to create, relative to the calling extension's upload directory, must not be empty
+     *        path of the dummy ZIP archive to create, relative to the calling extension's upload directory, must not
+     *     be empty
      * @param string[] $filesToAddToArchive
      *        Absolute paths of the files to add to the ZIP archive.
-     *        Note that the archives directory structure will be relative to the upload folder path, so only files within this
-     *        folder or in sub-folders of this folder can be added.
-     *        The provided array may be empty, but as ZIP archives cannot be empty, a content-less dummy text file will be added
-     *        to the archive then.
+     *        Note that the archives directory structure will be relative to the upload folder path, so only files
+     *     within this folder or in sub-folders of this folder can be added. The provided array may be empty, but as
+     *     ZIP archives cannot be empty, a content-less dummy text file will be added to the archive then.
      *
      * @return string the absolute path of the created dummy ZIP archive, will not be empty
      *
@@ -1016,8 +1040,8 @@ final class Tx_Oelib_TestingFramework
         if (!isset($this->dummyFiles[$fileName])) {
             throw new \InvalidArgumentException(
                 'The file "' . $absolutePathToFile . '" which you are trying to delete ' .
-                    (!$fileExists ? 'does not exist and has never been ' : 'was not ') .
-                    'created by this instance of the testing framework.',
+                (!$fileExists ? 'does not exist and has never been ' : 'was not ') .
+                'created by this instance of the testing framework.',
                 1331490556
             );
         }
@@ -1033,7 +1057,8 @@ final class Tx_Oelib_TestingFramework
      * Creates a dummy folder with a unique folder name in the calling
      * extension's upload directory.
      *
-     * @param string $folderName name of the dummy folder to create relative to $this->uploadFolderPath, must not be empty
+     * @param string $folderName name of the dummy folder to create relative to $this->uploadFolderPath, must not be
+     *     empty
      *
      * @return string the absolute path of the created dummy folder, will not be empty
      *
@@ -1083,7 +1108,7 @@ final class Tx_Oelib_TestingFramework
         if (!isset($this->dummyFolders[$folderName])) {
             throw new \InvalidArgumentException(
                 'The folder "' . $absolutePathToFolder .
-                    '" which you are trying to delete was not created by this instance of the testing framework.',
+                '" which you are trying to delete was not created by this instance of the testing framework.',
                 1331490670
             );
         }
@@ -1124,9 +1149,9 @@ final class Tx_Oelib_TestingFramework
      * Sets the upload folder path.
      *
      * @param string $absolutePath
-     *        absolute path to the folder where to work on during the tests,can be either an existing folder which will be
-     *        cleaned up after the tests or a path of a folder to be created as soon as it is needed and deleted during cleanUp,
-     *        must end with a trailing slash
+     *        absolute path to the folder where to work on during the tests,can be either an existing folder which will
+     *     be cleaned up after the tests or a path of a folder to be created as soon as it is needed and deleted during
+     *     cleanUp, must end with a trailing slash
      *
      * @return void
      *
@@ -1174,8 +1199,8 @@ final class Tx_Oelib_TestingFramework
     public function getPathRelativeToUploadDirectory($absolutePath)
     {
         if (!preg_match(
-                '/^' . str_replace('/', '\\/', $this->getUploadFolderPath()) . '.*$/',
-                $absolutePath
+            '/^' . str_replace('/', '\\/', $this->getUploadFolderPath()) . '.*$/',
+            $absolutePath
         )) {
             throw new \InvalidArgumentException(
                 'The first parameter $absolutePath is not within the calling extension\'s upload directory.',
@@ -1266,7 +1291,8 @@ final class Tx_Oelib_TestingFramework
         }
 
         /** @var TypoScriptFrontendController $frontEnd */
-        $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
+        $frontEnd =
+            GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
         $GLOBALS['TSFE'] = $frontEnd;
 
         // simulates a normal FE without any logged-in FE or BE user
@@ -1378,7 +1404,10 @@ final class Tx_Oelib_TestingFramework
             throw new \InvalidArgumentException('The user ID must be > 0.', 1331490798);
         }
         if (!$this->hasFakeFrontEnd()) {
-            throw new \BadMethodCallException('Please create a front end before calling loginFrontEndUser.', 1331490812);
+            throw new \BadMethodCallException(
+                'Please create a front end before calling loginFrontEndUser.',
+                1331490812
+            );
         }
 
         if ($this->isLoggedIn()) {
@@ -1421,7 +1450,10 @@ final class Tx_Oelib_TestingFramework
     public function logoutFrontEndUser()
     {
         if (!$this->hasFakeFrontEnd()) {
-            throw new \BadMethodCallException('Please create a front end before calling logoutFrontEndUser.', 1331490825);
+            throw new \BadMethodCallException(
+                'Please create a front end before calling logoutFrontEndUser.',
+                1331490825
+            );
         }
         if (!$this->isLoggedIn()) {
             return;
@@ -1695,7 +1727,8 @@ final class Tx_Oelib_TestingFramework
      * Eagerly resets the auto increment value for a given table to the highest
      * existing UID + 1.
      *
-     * @param string $table the name of the table on which we're going to reset the auto increment entry, must not be empty
+     * @param string $table the name of the table on which we're going to reset the auto increment entry, must not be
+     *     empty
      *
      * @return void
      *
@@ -1742,7 +1775,8 @@ final class Tx_Oelib_TestingFramework
      * The threshold is 100 by default and can be set using
      * setResetAutoIncrementThreshold.
      *
-     * @param string $table the name of the table on which we're going to reset the auto increment entry, must not be empty
+     * @param string $table the name of the table on which we're going to reset the auto increment entry, must not be
+     *     empty
      *
      * @return void
      *
@@ -1820,7 +1854,8 @@ final class Tx_Oelib_TestingFramework
      * This function is only valid for tables that actually have an auto
      * increment value.
      *
-     * @param string $table the name of the table for which the auto increment value should be retrieved, must not be empty
+     * @param string $table the name of the table for which the auto increment value should be retrieved, must not be
+     *     empty
      *
      * @return int the current auto_increment value of table $table, will be > 0
      *
@@ -1884,7 +1919,8 @@ final class Tx_Oelib_TestingFramework
      * records and thus are called "dirty" until the next clean up).
      *
      * @param string $tableNames
-     *        the table name or a comma-separated list of table names to put on the list of dirty tables, must not be empty
+     *        the table name or a comma-separated list of table names to put on the list of dirty tables, must not be
+     *     empty
      *
      * @return void
      *
@@ -1977,12 +2013,15 @@ final class Tx_Oelib_TestingFramework
         if (!$this->isTableNameAllowed($tableName)) {
             throw new \InvalidArgumentException(
                 'The table name "' . $tableName .
-                    '" is invalid. This means it is either empty or not in the list of allowed tables.',
+                '" is invalid. This means it is either empty or not in the list of allowed tables.',
                 1331490960
             );
         }
         if (!Tx_Oelib_Db::tableHasColumn($tableName, $fieldName)) {
-            throw new \InvalidArgumentException('The table ' . $tableName . ' has no column ' . $fieldName . '.', 1331490986);
+            throw new \InvalidArgumentException(
+                'The table ' . $tableName . ' has no column ' . $fieldName . '.',
+                1331490986
+            );
         }
 
         \Tx_Oelib_Db::enableQueryLogging();

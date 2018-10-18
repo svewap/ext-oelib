@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 
 /**

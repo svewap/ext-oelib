@@ -120,26 +120,28 @@ class Tx_Oelib_MapperRegistry
                 if (!class_exists($testingClassName, false)) {
                     eval(
                         'class ' . $testingClassName . ' extends ' . $unifiedClassName .
-                            ' {' .
-                            'private $testingFramework;' .
-                            'public function setTestingFramework(\\Tx_Oelib_TestingFramework $testingFramework) {' .
-                            '$this->testingFramework = $testingFramework;' .
-                            '}' .
-                            'protected function getManyToManyRelationIntermediateRecordData($mnTable, $uidLocal, $uidForeign, $sorting) {' .
-                            '$this->testingFramework->markTableAsDirty($mnTable);' .
-                            'return array_merge(parent::getManyToManyRelationIntermediateRecordData($mnTable, $uidLocal, $uidForeign, $sorting), array($this->testingFramework->getDummyColumnName($this->getTableName()) => 1));' .
-                            '}' .
-                            'protected function prepareDataForNewRecord(array &$data) {' .
-                            '$this->testingFramework->markTableAsDirty($this->getTableName());' .
-                            '$data[$this->testingFramework->getDummyColumnName($this->getTableName())] = 1;' .
-                            '}' .
-                            'protected function getUniversalWhereClause($allowHiddenRecords = FALSE) {' .
-                            '$dummyColumnName = $this->testingFramework->getDummyColumnName($this->getTableName());' .
-                            '$additionalWhere = \\Tx_Oelib_Db::tableHasColumn($this->getTableName(), $dummyColumnName) ' .
-                            '? $dummyColumnName . \' = 1 AND \' : \'\';' .
-                            'return $additionalWhere . parent::getUniversalWhereClause($allowHiddenRecords);' .
-                            '}' .
-                            '}'
+                        ' {' .
+                        'private $testingFramework;' .
+                        'public function setTestingFramework(\\Tx_Oelib_TestingFramework $testingFramework) {' .
+                        '$this->testingFramework = $testingFramework;' .
+                        '}' .
+                        'protected function getManyToManyRelationIntermediateRecordData($mnTable, $uidLocal, $uidForeign, $sorting) {'
+                        .
+                        '$this->testingFramework->markTableAsDirty($mnTable);' .
+                        'return array_merge(parent::getManyToManyRelationIntermediateRecordData($mnTable, $uidLocal, $uidForeign, $sorting), array($this->testingFramework->getDummyColumnName($this->getTableName()) => 1));'
+                        .
+                        '}' .
+                        'protected function prepareDataForNewRecord(array &$data) {' .
+                        '$this->testingFramework->markTableAsDirty($this->getTableName());' .
+                        '$data[$this->testingFramework->getDummyColumnName($this->getTableName())] = 1;' .
+                        '}' .
+                        'protected function getUniversalWhereClause($allowHiddenRecords = FALSE) {' .
+                        '$dummyColumnName = $this->testingFramework->getDummyColumnName($this->getTableName());' .
+                        '$additionalWhere = \\Tx_Oelib_Db::tableHasColumn($this->getTableName(), $dummyColumnName) ' .
+                        '? $dummyColumnName . \' = 1 AND \' : \'\';' .
+                        'return $additionalWhere . parent::getUniversalWhereClause($allowHiddenRecords);' .
+                        '}' .
+                        '}'
                     );
                 }
                 /** @var \Tx_Oelib_DataMapper $mapper */
@@ -239,7 +241,8 @@ class Tx_Oelib_MapperRegistry
         }
         if (isset($this->mappers[$className])) {
             throw new \BadMethodCallException(
-                'There already is a ' . $className . ' mapper registered. Overwriting existing wrappers is not allowed.',
+                'There already is a ' . $className
+                . ' mapper registered. Overwriting existing wrappers is not allowed.',
                 1331488928
             );
         }

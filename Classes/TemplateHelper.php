@@ -66,7 +66,8 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * If the parameter is omitted, the configuration for plugin.tx_[extkey] is
      * used instead, e.g. plugin.tx_seminars.
      *
-     * @param array|null $configuration TypoScript configuration for the plugin, set to null to load the configuration from a BE page
+     * @param array|null $configuration TypoScript configuration for the plugin, set to null to load the configuration
+     *     from a BE page
      *
      * @return void
      */
@@ -108,7 +109,9 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         $this->pi_setPiVarDefaults();
         $this->pi_loadLL();
 
-        if (($this->extKey !== '') && \Tx_Oelib_ConfigurationProxy::getInstance($this->extKey)->getAsBoolean('enableConfigCheck')) {
+        if (($this->extKey !== '')
+            && \Tx_Oelib_ConfigurationProxy::getInstance($this->extKey)
+                ->getAsBoolean('enableConfigCheck')) {
             $configurationCheckClassName = 'tx_' . $this->extKey . '_configcheck';
             if (class_exists($configurationCheckClassName, true)) {
                 $this->configurationCheck = GeneralUtility::makeInstance($configurationCheckClassName, $this);
@@ -285,11 +288,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     ) {
         return trim(
             $this->getConfValue(
-            $fieldName,
-            $sheet,
-            $isFileName,
-            $ignoreFlexform
-        )
+                $fieldName,
+                $sheet,
+                $isFileName,
+                $ignoreFlexform
+            )
         );
     }
 
@@ -313,11 +316,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         $ignoreFlexform = false
     ) {
         return $this->getConfValueString(
-            $fieldName,
-            $sheet,
-            false,
-            $ignoreFlexform
-        ) !== '';
+                $fieldName,
+                $sheet,
+                false,
+                $ignoreFlexform
+            ) !== '';
     }
 
     /**
@@ -534,7 +537,8 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * If the prefix is empty and the marker name is "one", the marker
      * "###ONE###" will be written.
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must not be empty
+     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
+     *     not be empty
      * @param string $content the marker's content, may be empty
      * @param string $prefix prefix to the marker name (may be empty, case-insensitive, will get uppercased)
      *
@@ -548,7 +552,8 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     /**
      * Gets a marker's content.
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must not be empty
+     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
+     *     not be empty
      *
      * @return string the marker's content or an empty string if the
      *                marker has not been set before
@@ -601,9 +606,10 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * If (int)$content is non-zero, this function sets the marker's content, working
      * exactly like setMarker($markerName, $content, $markerPrefix).
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must not be empty
+     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
+     *     not be empty
      * @param mixed $content content with which the marker will be filled, may be empty
-     * @param string $markerPrefix  to the marker name for setting (may be empty, case-insensitive, will get uppercased)
+     * @param string $markerPrefix to the marker name for setting (may be empty, case-insensitive, will get uppercased)
      *
      * @return bool TRUE if the marker content has been set, FALSE otherwise
      *
@@ -623,9 +629,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * If $content is non-empty, this function sets the marker's content,
      * working exactly like setMarker($markerName, $content, $markerPrefix).
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must not be empty
+     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
+     *     not be empty
      * @param string $content content with which the marker will be filled, may be empty
-     * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get uppercased)
+     * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get
+     *     uppercased)
      *
      * @return bool TRUE if the marker content has been set, FALSE otherwise
      *
@@ -666,7 +674,8 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * If the prefix is empty and the list is "one,two", the subparts
      * "###ONE###" and "###TWO###" will be hidden.
      *
-     * @param string $subparts comma-separated list of at least 1 subpart name to hide (case-insensitive, will get uppercased)
+     * @param string $subparts comma-separated list of at least 1 subpart name to hide (case-insensitive, will get
+     *     uppercased)
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
      *
      * @return void
@@ -714,7 +723,8 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * "###ONE###" and "###TWO###" will be unhidden.
      *
      * @param string $subparts
-     *        comma-separated list of at least 1 subpart name to unhide (case-insensitive, will get uppercased), must not be empty
+     *        comma-separated list of at least 1 subpart name to unhide (case-insensitive, will get uppercased), must
+     *     not be empty
      * @param string $permanentlyHiddenSubparts
      *        comma-separated list of subpart names that shouldn't get unhidden
      * @param string $prefix
@@ -858,10 +868,13 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * If $condition is empty, this function removes the wrapping subpart,
      * working exactly like hideSubparts($markerName, $wrapperPrefix).
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must not be empty
+     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
+     *     not be empty
      * @param string $content content with which the marker will be filled, may be empty
-     * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get uppercased)
-     * @param string $wrapperPrefix prefix to the subpart name for hiding (may be empty, case-insensitive, will get uppercased)
+     * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get
+     *     uppercased)
+     * @param string $wrapperPrefix prefix to the subpart name for hiding (may be empty, case-insensitive, will get
+     *     uppercased)
      *
      * @return bool TRUE if the marker content has been set, FALSE if the subpart has been hidden
      *
@@ -1029,10 +1042,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
             $this->piVars = [];
         }
 
-        foreach (array_merge(
-            ['showUid', 'pointer', 'mode'],
-            $additionalPiVars
-        ) as $key) {
+        foreach (
+            array_merge(
+                ['showUid', 'pointer', 'mode'],
+                $additionalPiVars
+            ) as $key) {
             if (isset($this->piVars[$key])) {
                 $this->piVars[$key] = (int)$this->piVars[$key];
             } else {

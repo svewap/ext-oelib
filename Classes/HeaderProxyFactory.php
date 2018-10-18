@@ -52,7 +52,8 @@ class Tx_Oelib_HeaderProxyFactory
      * Retrieves the singleton header proxy instance. Depending on the mode,
      * this instance is either a header collector or a real header proxy.
      *
-     * @return \Tx_Oelib_AbstractHeaderProxy|\Tx_Oelib_HeaderCollector|\Tx_Oelib_RealHeaderProxy the singleton header proxy
+     * @return \Tx_Oelib_AbstractHeaderProxy|\Tx_Oelib_HeaderCollector|\Tx_Oelib_RealHeaderProxy the singleton header
+     *     proxy
      */
     public function getHeaderProxy()
     {

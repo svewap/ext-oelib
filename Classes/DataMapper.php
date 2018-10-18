@@ -246,10 +246,16 @@ abstract class Tx_Oelib_DataMapper
     public function load(\Tx_Oelib_Model $model)
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
-            throw new \InvalidArgumentException('This ghost was created via getNewGhost and must not be loaded.', 1331319529);
+            throw new \InvalidArgumentException(
+                'This ghost was created via getNewGhost and must not be loaded.',
+                1331319529
+            );
         }
         if (!$model->hasUid()) {
-            throw new \InvalidArgumentException('load must only be called with models that already have a UID.', 1331319554);
+            throw new \InvalidArgumentException(
+                'load must only be called with models that already have a UID.',
+                1331319554
+            );
         }
 
         try {
@@ -604,8 +610,8 @@ abstract class Tx_Oelib_DataMapper
      * @throws \Tx_Oelib_Exception_NotFound if database access is disabled
      *
      * @param string[] $whereClauseParts
-     *        WHERE clause parts for the record to retrieve, each element must consist of a column name as key and a value to
-     *        search for as value (will automatically get quoted), must not be empty
+     *        WHERE clause parts for the record to retrieve, each element must consist of a column name as key and a
+     *     value to search for as value (will automatically get quoted), must not be empty
      *
      * @return string[] the record from the database, will not be empty
      */
@@ -614,7 +620,7 @@ abstract class Tx_Oelib_DataMapper
         if (!$this->hasDatabaseAccess()) {
             throw new \Tx_Oelib_Exception_NotFound(
                 'No record can be retrieved from the database because database' .
-                    ' access is disabled for this mapper instance.'
+                ' access is disabled for this mapper instance.'
             );
         }
 
@@ -627,7 +633,7 @@ abstract class Tx_Oelib_DataMapper
                 (strpos($columnDefinition['Type'], 'int') !== false)
                     ? $value
                     : $databaseConnection->fullQuoteStr($value, $this->getTableName())
-            );
+                );
         }
         $whereClause = implode(' AND ', $whereClauses);
 
@@ -635,7 +641,8 @@ abstract class Tx_Oelib_DataMapper
             $data = \Tx_Oelib_Db::selectSingle($this->columns, $this->getTableName(), $whereClause);
         } catch (\Tx_Oelib_Exception_EmptyQueryResult $exception) {
             throw new \Tx_Oelib_Exception_NotFound(
-                'The record where "' . $whereClause . '" could not be retrieved from the table ' . $this->getTableName() . '.'
+                'The record where "' . $whereClause . '" could not be retrieved from the table ' . $this->getTableName()
+                . '.'
             );
         }
 
@@ -763,7 +770,10 @@ abstract class Tx_Oelib_DataMapper
     public function save(\Tx_Oelib_Model $model)
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
-            throw new \InvalidArgumentException('This model is a memory-only dummy that must not be saved.', 1331319682);
+            throw new \InvalidArgumentException(
+                'This model is a memory-only dummy that must not be saved.',
+                1331319682
+            );
         }
 
         if (!$this->hasDatabaseAccess()
@@ -1014,14 +1024,14 @@ abstract class Tx_Oelib_DataMapper
                 if (!method_exists($relatedModel, $getter)) {
                     throw new \BadMethodCallException(
                         'The class ' . get_class($relatedModel) . ' is missing the function ' . $getter .
-                            ' which is needed for saving a 1:n relation.',
+                        ' which is needed for saving a 1:n relation.',
                         1331319751
                     );
                 }
                 if (!method_exists($relatedModel, $setter)) {
                     throw new \BadMethodCallException(
                         'The class ' . get_class($relatedModel) . ' is missing the function ' . $setter .
-                            ' which is needed for saving a 1:n relation.',
+                        ' which is needed for saving a 1:n relation.',
                         1331319803
                     );
                 }
@@ -1078,7 +1088,10 @@ abstract class Tx_Oelib_DataMapper
     public function delete(\Tx_Oelib_Model $model)
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
-            throw new \InvalidArgumentException('This model is a memory-only dummy that must not be deleted.', 1331319817);
+            throw new \InvalidArgumentException(
+                'This model is a memory-only dummy that must not be deleted.',
+                1331319817
+            );
         }
         if ($model->isReadOnly()) {
             throw new \InvalidArgumentException('This model is read-only and must not be deleted.', 1331319836);
@@ -1350,8 +1363,8 @@ abstract class Tx_Oelib_DataMapper
     /**
      * Caches a model by an additional compound key.
      *
-     * This method needs to be overwritten in subclasses to work. However, it is recommended to use cacheModelByCompoundKey
-     * instead. So this method primarily is here for backwards compatibility.
+     * This method needs to be overwritten in subclasses to work. However, it is recommended to use
+     * cacheModelByCompoundKey instead. So this method primarily is here for backwards compatibility.
      *
      * @param \Tx_Oelib_Model $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty
@@ -1445,7 +1458,10 @@ abstract class Tx_Oelib_DataMapper
     public function findOneByCompoundKey(array $compoundKeyValues)
     {
         if (empty($compoundKeyValues)) {
-            throw new \InvalidArgumentException(get_class($this) . '::compoundKeyValues must not be empty.', 1354976660);
+            throw new \InvalidArgumentException(
+                get_class($this) . '::compoundKeyValues must not be empty.',
+                1354976660
+            );
         }
 
         try {
@@ -1474,7 +1490,10 @@ abstract class Tx_Oelib_DataMapper
         $values = [];
         foreach ($this->compoundKeyParts as $key) {
             if (!isset($compoundKeyValues[$key])) {
-                throw new \InvalidArgumentException(get_class($this) . '::keyValue does not contain all compound keys.', 1354976661);
+                throw new \InvalidArgumentException(
+                    get_class($this) . '::keyValue does not contain all compound keys.',
+                    1354976661
+                );
             }
             $values[] = $compoundKeyValues[$key];
         }

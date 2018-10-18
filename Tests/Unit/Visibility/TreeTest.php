@@ -249,8 +249,8 @@ class Tx_Oelib_Tests_Unit_Visibility_TreeTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function getKeysOfHiddenSubpartsForTreeWithOneHiddenParentNodeAndOneHiddenChildNodeReturnsArrayWithBothNodeNames()
-    {
+    public function getKeysOfHiddenSubpartsForTreeWithOneHiddenParentNodeAndOneHiddenChildNodeReturnsArrayWithBothNodeNames(
+    ) {
         $this->subject = new \Tx_Oelib_Visibility_Tree(['child' => ['parent' => false]]);
 
         self::assertSame(
@@ -262,8 +262,8 @@ class Tx_Oelib_Tests_Unit_Visibility_TreeTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function getKeysOfHiddenSubpartsForTreeWithVisibleParentNodeAndOneHiddenChildNodeReturnsArrayWithChildNodeName()
-    {
+    public function getKeysOfHiddenSubpartsForTreeWithVisibleParentNodeAndOneHiddenChildNodeReturnsArrayWithChildNodeName(
+    ) {
         $this->subject = new \Tx_Oelib_Visibility_Tree(['parent' => ['hidden' => false, 'visible' => true]]);
 
         self::assertSame(

@@ -13,6 +13,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
      * @var \Tx_Oelib_TestingFramework
      */
     protected $testingFramework = null;
+
     /**
      * @var \Tx_Oelib_Tests_Unit_Fixtures_TestingMapper
      */
@@ -684,7 +685,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
         $this->setExpectedException(
             \Tx_Oelib_Exception_NotFound::class,
             'The Tx_Oelib_Tests_Unit_Fixtures_TestingModel with the UID ' . $uid .
-                ' either has been deleted (or has never existed), but still is accessed.'
+            ' either has been deleted (or has never existed), but still is accessed.'
         );
 
         $this->subject->find($uid)->isHidden();
@@ -1794,7 +1795,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
         $this->setExpectedException(
             \Tx_Oelib_Exception_NotFound::class,
             'No record can be retrieved from the database because database ' .
-                'access is disabled for this mapper instance.'
+            'access is disabled for this mapper instance.'
         );
 
         $this->subject->disableDatabaseAccess();
@@ -2421,7 +2422,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
             $this->testingFramework->existsRecord(
                 'tx_oelib_testchild',
                 'uid = ' . $component->getUid() .
-                    ' AND parent = ' . $model->getUid()
+                ' AND parent = ' . $model->getUid()
             )
         );
     }
@@ -2447,7 +2448,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
             $this->testingFramework->existsRecord(
                 'tx_oelib_testchild',
                 'uid = ' . $component->getUid() .
-                    ' AND parent = ' . $model->getUid()
+                ' AND parent = ' . $model->getUid()
             )
         );
     }
@@ -2501,7 +2502,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
             $this->testingFramework->existsRecord(
                 'tx_oelib_testchild',
                 'uid = ' . $component->getUid() .
-                    ' AND tx_oelib_parent2 = ' . $model->getUid()
+                ' AND tx_oelib_parent2 = ' . $model->getUid()
             )
         );
     }
@@ -2717,7 +2718,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
             $this->testingFramework->existsRecord(
                 'tx_oelib_test_article_mm',
                 'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid .
-                    ' AND sorting=0'
+                ' AND sorting=0'
             )
         );
     }
@@ -2744,7 +2745,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
             $this->testingFramework->existsRecord(
                 'tx_oelib_test_article_mm',
                 'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid2 .
-                     ' AND sorting=1'
+                ' AND sorting=1'
             )
         );
     }
@@ -2768,7 +2769,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
             $this->testingFramework->existsRecord(
                 'tx_oelib_test_article_mm',
                 'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid .
-                    ' AND sorting=0'
+                ' AND sorting=0'
             )
         );
     }
@@ -2795,7 +2796,7 @@ class Tx_Oelib_Tests_Unit_DataMapperTest extends \Tx_Phpunit_TestCase
             $this->testingFramework->existsRecord(
                 'tx_oelib_test_article_mm',
                 'uid_local=' . $parentUid2 . ' AND uid_foreign=' . $childUid .
-                    ' AND sorting=1'
+                ' AND sorting=1'
             )
         );
     }

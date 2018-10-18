@@ -556,8 +556,8 @@ class Tx_Oelib_Tests_Unit_MailTest extends \Tx_Phpunit_TestCase
     {
         $htmlMessage =
             '<html>' .
-                '<head><title>foo</title></head>' .
-                '<body><h3>Bar</h3></body>' .
+            '<head><title>foo</title></head>' .
+            '<body><h3>Bar</h3></body>' .
             '</html>';
         $this->subject->setHTMLMessage($htmlMessage);
 
@@ -576,8 +576,8 @@ class Tx_Oelib_Tests_Unit_MailTest extends \Tx_Phpunit_TestCase
         $this->subject->setHTMLMessage(
             '<!DOCTYPE html>' . LF .
             '<html>' .
-                '<head><title>foo</title></head>' . LF .
-                '<body><h3>Bar</h3></body>' .
+            '<head><title>foo</title></head>' . LF .
+            '<body><h3>Bar</h3></body>' .
             '</html>'
         );
 

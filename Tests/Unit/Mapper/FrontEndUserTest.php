@@ -11,6 +11,7 @@ class Tx_Oelib_Tests_Unit_Mapper_FrontEndUserTest extends \Tx_Phpunit_TestCase
      * @var \Tx_Oelib_TestingFramework for creating dummy records
      */
     private $testingFramework;
+
     /**
      * @var \Tx_Oelib_Mapper_FrontEndUser the object to test
      */

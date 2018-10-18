@@ -64,14 +64,15 @@ class Tx_Oelib_Mapper_BackEndUser extends \Tx_Oelib_DataMapper
     {
         if (!defined('TYPO3_cliKey')) {
             throw new \BadMethodCallException(
-                'Please make sure the constant "TYPO3_cliKey" is defined before using this function. Usually this is done ' .
-                    'automatically when executing "/typo3/cli_dispatch.phpsh".',
+                'Please make sure the constant "TYPO3_cliKey" is defined before using this function. Usually this is done '
+                .
+                'automatically when executing "/typo3/cli_dispatch.phpsh".',
                 1331488485
             );
         }
 
         $userName = $GLOBALS['TYPO3_CONF_VARS']
-            ['SC_OPTIONS']['GLOBAL']['cliKeys'][TYPO3_cliKey][1];
+        ['SC_OPTIONS']['GLOBAL']['cliKeys'][TYPO3_cliKey][1];
 
         return $this->findByUserName($userName);
     }
@@ -91,7 +92,8 @@ class Tx_Oelib_Mapper_BackEndUser extends \Tx_Oelib_DataMapper
     protected function retrieveRecordByUid($uid)
     {
         $authentication = $this->getBackEndUserAuthentication();
-        if (\Tx_Oelib_BackEndLoginManager::getInstance()->isLoggedIn() && ((int)$authentication->user['uid'] === $uid)) {
+        if (\Tx_Oelib_BackEndLoginManager::getInstance()->isLoggedIn()
+            && ((int)$authentication->user['uid'] === $uid)) {
             $data = $authentication->user;
         } else {
             $data = parent::retrieveRecordByUid($uid);

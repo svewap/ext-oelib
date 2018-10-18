@@ -13,6 +13,7 @@ class Tx_Oelib_Tests_Unit_SalutationSwitcherTest extends \Tx_Phpunit_TestCase
      * @var \Tx_Oelib_Tests_Unit_Fixtures_TestingSalutationSwitcher
      */
     private $subject = null;
+
     /**
      * @var \Tx_Oelib_TestingFramework
      */
