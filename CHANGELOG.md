@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop roave/security-advisories from the dev dependencies (#118)
 
 ### Fixed
 - Add required PHP extension to the composer.json (#88, #110)
