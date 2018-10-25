@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add a configuration for the Google Maps API key (#92, #112)
 
 ### Changed
+- Move the old tests to Tests/LegacyUnit/ and Tests/LegacyFunctional/ (#123)
 - Prefer stable/dist packages by default (#120)
 
 ### Deprecated

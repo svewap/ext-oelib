@@ -40,11 +40,11 @@ script:
 - >
   echo;
   echo "Running the unit tests";
-  composer ci:tests:unit;
+  composer ci:tests:unit-legacy;
 - >
   echo;
   echo "Running the functional tests";
-  composer ci:tests:functional;
+  composer ci:tests:functional-legacy;
 
 jobs:
   include:
