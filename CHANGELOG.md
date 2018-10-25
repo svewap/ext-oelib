@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop roave/security-advisories from the dev dependencies (#118)
 
 ### Fixed
+- Synchronize the versions of the test extensions (#122)
 - Add a conflict with a PHP-7.0-incompatible static_info_tables version (#119)
 - Add required PHP extension to the composer.json (#88, #110)
 
