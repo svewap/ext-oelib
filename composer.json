@@ -30,7 +30,7 @@
         "typo3/cms-fluid": "^7.6.23 || ^8.7.9"
     },
     "require-dev": {
-        "typo3-ter/static-info-tables": "^6.5",
+        "sjbr/static-info-tables": "^6.5",
         "oliverklee/user-oelibtest": "@dev",
         "oliverklee/user-oelibtest2": "@dev",
 
@@ -43,7 +43,7 @@
         "roave/security-advisories": "dev-master"
     },
     "conflict": {
-        "typo3-ter/static-info-tables": "6.7.1",
+        "sjbr/static-info-tables": "6.7.1",
         "typo3/cms-composer-installers": "<1.4.6"
     },
     "replace": {
@@ -51,7 +51,7 @@
         "typo3-ter/oelib": "self.version"
     },
     "suggest": {
-        "typo3-ter/static-info-tables": "^6.5"
+        "sjbr/static-info-tables": "^6.5"
     },
     "autoload": {
         "classmap": [
