@@ -43,7 +43,8 @@
         "roave/security-advisories": "dev-master"
     },
     "conflict": {
-        "typo3-ter/static-info-tables": "6.7.1"
+        "typo3-ter/static-info-tables": "6.7.1",
+        "typo3/cms-composer-installers": "<1.4.6"
     },
     "replace": {
         "oelib": "self.version",
