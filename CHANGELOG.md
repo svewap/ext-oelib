@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z (unreleased)
 
 ### Added
+- LoggingAwareTrait (#133)
 - Trait for read-only repositories (#132)
 - Starter tests with nimut/testing-framework (#129)
 - Test both with the lowest and highest dependency versions (#121)
