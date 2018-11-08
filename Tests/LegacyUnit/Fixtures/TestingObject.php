@@ -13,14 +13,6 @@ final class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingObject extends \Tx_Oelib_P
     private $data = [];
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->data);
-    }
-
-    /**
      * Sets the data of this object.
      *
      * @param array $data the data to set, may be empty

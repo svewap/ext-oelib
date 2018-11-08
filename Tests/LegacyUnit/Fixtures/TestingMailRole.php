@@ -27,14 +27,6 @@ class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMailRole extends \Tx_Oelib_Objec
     }
 
     /**
-     * Frees as much memory that has been used by this object as possible.
-     */
-    public function __destruct()
-    {
-        unset($this->data);
-    }
-
-    /**
      * Sets the value of the data item for the key $key.
      *
      * @param string $key
