@@ -31,7 +31,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Use the current composer names of static_info_tables (#127)
 - Synchronize the versions of the test extensions (#122)
 - Add a conflict with a PHP-7.0-incompatible static_info_tables version (#119)
-- Add required PHP extension to the composer.json (#88, #110)
+- Add required PHP extension to the composer.json (#88, #110, #145)
 
 ## 2.1.0
 

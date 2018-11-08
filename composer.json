@@ -25,6 +25,8 @@
         "php": "^5.6.0 || ~7.0.0 || ~7.1.0 || ~7.2.0",
         "ext-zip": "*",
         "ext-json": "*",
+        "ext-libxml": "*",
+        "ext-dom": "*",
         "typo3/cms-core": "^7.6.23 || ^8.7.9",
         "typo3/cms-frontend": "^7.6.23 || ^8.7.9",
         "typo3/cms-fluid": "^7.6.23 || ^8.7.9"
