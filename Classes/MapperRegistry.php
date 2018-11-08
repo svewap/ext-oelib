@@ -91,7 +91,7 @@ class Tx_Oelib_MapperRegistry
      *
      * @param string $className the name of an existing mapper class, must not be empty
      *
-     * @return \Tx_Oelib_DataMapper the mapper with the class $className
+     * @return \Tx_Oelib_DataMapper the requested mapper instance
      *
      * @throws \InvalidArgumentException
      */
@@ -99,12 +99,6 @@ class Tx_Oelib_MapperRegistry
     {
         if ($className === '') {
             throw new \InvalidArgumentException('$className must not be empty.', 1331488868);
-        }
-        if (!preg_match('/^[tT]x_[A-Za-z0-9]+_[a-zA-Z_]+/', $className)) {
-            throw new \InvalidArgumentException(
-                '$className must be in the format tx_extensionname[_Folder]_ClassName, but was "' . $className . '".',
-                1331488887
-            );
         }
         $unifiedClassName = self::unifyClassName($className);
 

@@ -17,15 +17,15 @@ abstract class Tx_Oelib_DataMapper
     protected $tableName = '';
 
     /**
+     * @var string the model class name for this mapper, must not be empty
+     */
+    protected $modelClassName = '';
+
+    /**
      * @var string a comma-separated list of DB column names to retrieve
      *             or "*" for all columns, must not be empty
      */
     protected $columns = '*';
-
-    /**
-     * @var string the model class name for this mapper, must not be empty
-     */
-    protected $modelClassName = '';
 
     /**
      * @var \Tx_Oelib_IdentityMap a map that holds the models that already

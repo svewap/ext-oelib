@@ -71,19 +71,6 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     */
-    public function getForMalformedKeyThrowsException()
-    {
-        $this->setExpectedException(
-            'InvalidArgumentException',
-            '$className must be in the format tx_extensionname[_Folder]_ClassName, but was "foo".'
-        );
-
-        \Tx_Oelib_MapperRegistry::get('foo');
-    }
-
-    /**
-     * @test
      *
      * @expectedException \InvalidArgumentException
      */

@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z (unreleased)
 
 ### Added
+- Support namespaced data mappers and models (#137)
 - Trait and interface for creationDate and changeDate (#136)
 - LoggingAwareTrait (#133)
 - Trait for read-only repositories (#132)
