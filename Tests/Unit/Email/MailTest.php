@@ -1,13 +1,16 @@
 <?php
 
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+namespace OliverKlee\Oelib\Tests\Unit\Email;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
 
 /**
  * Test case.
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_MailTest extends \Tx_Phpunit_TestCase
+class MailTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_Mail
@@ -38,7 +41,7 @@ class Tx_Oelib_Tests_LegacyUnit_MailTest extends \Tx_Phpunit_TestCase
      */
     public function getSenderForNonEmptySenderReturnsSender()
     {
-        $sender = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMailRole(
+        $sender = new TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
@@ -66,7 +69,7 @@ class Tx_Oelib_Tests_LegacyUnit_MailTest extends \Tx_Phpunit_TestCase
      */
     public function hasSenderWithSenderReturnsTrue()
     {
-        $sender = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMailRole(
+        $sender = new TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
@@ -91,7 +94,7 @@ class Tx_Oelib_Tests_LegacyUnit_MailTest extends \Tx_Phpunit_TestCase
      */
     public function getReplyToForNonEmptyReplyToReturnsReplyTo()
     {
-        $sender = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMailRole(
+        $sender = new TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
@@ -114,7 +117,7 @@ class Tx_Oelib_Tests_LegacyUnit_MailTest extends \Tx_Phpunit_TestCase
      */
     public function hasReplyToWithReplyToReturnsTrue()
     {
-        $sender = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMailRole(
+        $sender = new TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
@@ -144,7 +147,7 @@ class Tx_Oelib_Tests_LegacyUnit_MailTest extends \Tx_Phpunit_TestCase
      */
     public function getRecipientsWithOneRecipientReturnsOneRecipient()
     {
-        $recipient = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMailRole(
+        $recipient = new TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
@@ -161,11 +164,11 @@ class Tx_Oelib_Tests_LegacyUnit_MailTest extends \Tx_Phpunit_TestCase
      */
     public function getRecipientsWithTwoRecipientsReturnsTwoRecipients()
     {
-        $recipient1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMailRole(
+        $recipient1 = new TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
-        $recipient2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMailRole(
+        $recipient2 = new TestingMailRole(
             'John Doe',
             'foo@bar.com'
         );
@@ -440,154 +443,6 @@ class Tx_Oelib_Tests_LegacyUnit_MailTest extends \Tx_Phpunit_TestCase
     }
 
     /*
-     * Tests regarding setting and getting the CSS file.
-     */
-
-    /**
-     * @test
-     */
-    public function setCssFileForNoCssFileGivenDoesNotSetCssFile()
-    {
-        $this->subject->setCssFile('');
-
-        self::assertFalse(
-            $this->subject->hasCssFile()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setCssFileForStringGivenWhichIsNoFileDoesNotSetCssFile()
-    {
-        $this->subject->setCssFile('foo');
-
-        self::assertFalse(
-            $this->subject->hasCssFile()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setCssFileForGivenCssFileWithAbsolutePathSetsCssFile()
-    {
-        $this->subject->setCssFile(ExtensionManagementUtility::extPath('oelib') . 'Tests/LegacyUnit/Fixtures/test.css');
-
-        self::assertTrue(
-            $this->subject->hasCssFile()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setCssFileForGivenCssFileWithAbsoluteExtPathSetsCssFile()
-    {
-        $this->subject->setCssFile('EXT:oelib/Tests/LegacyUnit/Fixtures/test.css');
-
-        self::assertTrue(
-            $this->subject->hasCssFile()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setCssFileForGivenCssFileStoresContentsOfCssFile()
-    {
-        $this->subject->setCssFile('EXT:oelib/Tests/LegacyUnit/Fixtures/test.css');
-
-        self::assertContains(
-            'h3',
-            $this->subject->getCssFile()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setCssFileForSetCssFileAndThenGivenEmptyStringClearsStoredCssFileData()
-    {
-        $this->subject->setCssFile('EXT:oelib/Tests/LegacyUnit/Fixtures/test.css');
-        $this->subject->setCssFile('');
-
-        self::assertFalse(
-            $this->subject->hasCssFile()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setCssFileForSetCssFileAndThenGivenNewCssFileRemovesOldCssDataFromStorage()
-    {
-        $this->subject->setCssFile('EXT:oelib/Tests/LegacyUnit/Fixtures/test.css');
-        $this->subject->setCssFile('EXT:oelib/Tests/LegacyUnit/Fixtures/test_2.css');
-
-        self::assertNotContains(
-            'h3',
-            $this->subject->getCssFile()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setCssFileForSetCssFileAndThenGivenNewCssFileStoresNewCssData()
-    {
-        $this->subject->setCssFile('EXT:oelib/Tests/LegacyUnit/Fixtures/test.css');
-        $this->subject->setCssFile('EXT:oelib/Tests/LegacyUnit/Fixtures/test_2.css');
-
-        self::assertContains(
-            'h4',
-            $this->subject->getCssFile()
-        );
-    }
-
-    /*
-     * Tests concerning the mogrification of the HTML Messages and the CSS file
-     */
-
-    /**
-     * @test
-     */
-    public function setHtmlMessageWithNoCssFileStoredOnlyStoresTheHtmlMessage()
-    {
-        $htmlMessage =
-            '<html>' .
-            '<head><title>foo</title></head>' .
-            '<body><h3>Bar</h3></body>' .
-            '</html>';
-        $this->subject->setHTMLMessage($htmlMessage);
-
-        self::assertSame(
-            $htmlMessage,
-            $this->subject->getHTMLMessage()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setHtmlMessageWithCssFileStoredStoresAttributesFromCssInHtmlMessage()
-    {
-        $this->subject->setCssFile(ExtensionManagementUtility::extPath('oelib') . 'Tests/LegacyUnit/Fixtures/test.css');
-        $this->subject->setHTMLMessage(
-            '<!DOCTYPE html>' . LF .
-            '<html>' .
-            '<head><title>foo</title></head>' . LF .
-            '<body><h3>Bar</h3></body>' .
-            '</html>'
-        );
-
-        self::assertContains(
-            '<h3 style="font-weight: bold;">Bar</h3>',
-            $this->subject->getHTMLMessage()
-        );
-    }
-
-    /*
      * Tests concerning the return path
      */
 
@@ -605,7 +460,7 @@ class Tx_Oelib_Tests_LegacyUnit_MailTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function setReturnPathSetsMemberVariableReturnPath()
+    public function setReturnPathSetsReturnPath()
     {
         $this->subject->setReturnPath('foo@bar.com');
 

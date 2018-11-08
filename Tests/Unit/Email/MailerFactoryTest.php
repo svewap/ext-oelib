@@ -1,5 +1,8 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Email;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
@@ -8,12 +11,12 @@ use TYPO3\CMS\Core\SingletonInterface;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_MailerFactoryTest extends \Tx_Phpunit_TestCase
+class MailerFactoryTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_MailerFactory
      */
-    protected $subject = null;
+    private $subject = null;
 
     protected function setUp()
     {

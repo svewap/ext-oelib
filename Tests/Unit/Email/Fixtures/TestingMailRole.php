@@ -1,11 +1,13 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Email\Fixtures;
+
 /**
- * This class represents an e-mail role, e.g. a sender or a recipient.
+ * This class represents an e-mail role, e.g., a sender or a recipient.
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMailRole extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_MailRole
+class TestingMailRole extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_MailRole
 {
     /**
      * @var string[] the data of this object

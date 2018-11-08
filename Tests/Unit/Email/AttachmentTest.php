@@ -1,11 +1,15 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Email;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
 /**
  * Test case.
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_AttachmentTest extends \Tx_Phpunit_TestCase
+class AttachmentTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_Attachment

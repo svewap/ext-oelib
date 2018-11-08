@@ -1,5 +1,9 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Email;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -8,7 +12,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_RealMailerTest extends \Tx_Phpunit_TestCase
+class RealMailerTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_RealMailer
@@ -16,7 +20,7 @@ class Tx_Oelib_Tests_LegacyUnit_RealMailerTest extends \Tx_Phpunit_TestCase
     private $subject = null;
 
     /**
-     * @var MailMessage|PHPUnit_Framework_MockObject_MockObject
+     * @var MailMessage|\PHPUnit_Framework_MockObject_MockObject
      */
     private $message = null;
 
@@ -33,7 +37,7 @@ class Tx_Oelib_Tests_LegacyUnit_RealMailerTest extends \Tx_Phpunit_TestCase
      */
     public function sendSendsEmail()
     {
-        $senderAndRecipient = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMailRole('John Doe', 'john@example.com');
+        $senderAndRecipient = new TestingMailRole('John Doe', 'john@example.com');
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($senderAndRecipient);
         $eMail->addRecipient($senderAndRecipient);
