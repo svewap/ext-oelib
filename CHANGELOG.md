@@ -25,6 +25,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop roave/security-advisories from the dev dependencies (#118)
 
 ### Fixed
+- Allow CamelCase class names for the configuration check (#139)
 - Use the current composer names of static_info_tables (#127)
 - Synchronize the versions of the test extensions (#122)
 - Add a conflict with a PHP-7.0-incompatible static_info_tables version (#119)

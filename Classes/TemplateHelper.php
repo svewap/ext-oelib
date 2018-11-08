@@ -110,11 +110,15 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         $this->pi_loadLL();
 
         if (($this->extKey !== '')
-            && \Tx_Oelib_ConfigurationProxy::getInstance($this->extKey)
-                ->getAsBoolean('enableConfigCheck')) {
+            && \Tx_Oelib_ConfigurationProxy::getInstance($this->extKey)->getAsBoolean('enableConfigCheck')) {
             $configurationCheckClassName = 'tx_' . $this->extKey . '_configcheck';
             if (class_exists($configurationCheckClassName, true)) {
                 $this->configurationCheck = GeneralUtility::makeInstance($configurationCheckClassName, $this);
+            } else {
+                $configurationCheckClassName = 'Tx_' . ucfirst($this->extKey) . '_ConfigCheck';
+                if (class_exists($configurationCheckClassName, true)) {
+                    $this->configurationCheck = GeneralUtility::makeInstance($configurationCheckClassName, $this);
+                }
             }
         }
 
