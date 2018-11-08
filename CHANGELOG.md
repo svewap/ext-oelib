@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z (unreleased)
 
 ### Added
+- Make the configuration check class name more flexible (#140)
 - Support namespaced data mappers and models (#137)
 - Trait and interface for creationDate and changeDate (#136)
 - LoggingAwareTrait (#133)
@@ -20,6 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Prefer stable/dist packages by default (#120)
 
 ### Deprecated
+- Deprecate TemplateHelper::setFlavor (#140)
 
 ### Removed
 - Drop roave/security-advisories from the dev dependencies (#118)

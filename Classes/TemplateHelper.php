@@ -77,52 +77,109 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
             return;
         }
 
+        // Calls the base class's constructor manually as this isn't done automatically.
+        parent::__construct();
+
+        $this->initializeConfiguration($configuration);
+        $this->ensureContentObject();
+
+        if ($this->extKey !== '') {
+            $this->pi_setPiVarDefaults();
+            $this->pi_loadLL();
+            $this->initializeConfigurationCheck();
+        }
+
+        $this->isInitialized = true;
+    }
+
+    /**
+     * @param array|null $configuration
+     *
+     * @return void
+     */
+    protected function initializeConfiguration(array $configuration = null)
+    {
+        if ($configuration !== null) {
+            $this->conf = $configuration;
+            return;
+        }
+
         $frontEnd = $this->getFrontEndController();
         if ($frontEnd !== null && !isset($frontEnd->config['config'])) {
             $frontEnd->config['config'] = [];
         }
 
-        // Calls the base class's constructor manually as this isn't done automatically.
-        parent::__construct();
-
-        if ($configuration !== null) {
-            $this->conf = $configuration;
+        $pageId = $this->getCurrentBePageId();
+        if (isset(self::$cachedConfigurations[$pageId])) {
+            $this->conf = self::$cachedConfigurations[$pageId];
         } else {
-            $pageId = $this->getCurrentBePageId();
-            if (isset(self::$cachedConfigurations[$pageId])) {
-                $this->conf = self::$cachedConfigurations[$pageId];
+            // We need to create our own template setup if we are in the
+            // BE and we aren't currently creating a DirectMail page.
+            if (TYPO3_MODE === 'BE' && $frontEnd === null) {
+                $this->conf = $this->retrievePageConfig($pageId);
             } else {
-                // We need to create our own template setup if we are in the
-                // BE and we aren't currently creating a DirectMail page.
-                if ((TYPO3_MODE === 'BE') && ($frontEnd === null)) {
-                    $this->conf = $this->retrievePageConfig($pageId);
-                } else {
-                    // On the front end, we can use the provided template setup.
-                    $this->conf = $frontEnd->tmpl->setup['plugin.']['tx_' . $this->extKey . '.'];
-                }
-
-                self::$cachedConfigurations[$pageId] = $this->conf;
+                // On the front end, we can use the provided template setup.
+                $this->conf = ($this->extKey !== '')
+                    ? $frontEnd->tmpl->setup['plugin.']['tx_' . $this->extKey . '.'] : [];
             }
+
+            self::$cachedConfigurations[$pageId] = $this->conf;
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function initializeConfigurationCheck()
+    {
+        if (!$this->isConfigurationCheckEnabled()) {
+            return;
         }
 
-        $this->ensureContentObject();
-        $this->pi_setPiVarDefaults();
-        $this->pi_loadLL();
+        $className = $this->getConfigurationCheckClassName();
+        if ($className !== '') {
+            $this->configurationCheck = GeneralUtility::makeInstance($className, $this);
+        }
+    }
 
-        if (($this->extKey !== '')
-            && \Tx_Oelib_ConfigurationProxy::getInstance($this->extKey)->getAsBoolean('enableConfigCheck')) {
-            $configurationCheckClassName = 'tx_' . $this->extKey . '_configcheck';
-            if (class_exists($configurationCheckClassName, true)) {
-                $this->configurationCheck = GeneralUtility::makeInstance($configurationCheckClassName, $this);
-            } else {
-                $configurationCheckClassName = 'Tx_' . ucfirst($this->extKey) . '_ConfigCheck';
-                if (class_exists($configurationCheckClassName, true)) {
-                    $this->configurationCheck = GeneralUtility::makeInstance($configurationCheckClassName, $this);
-                }
-            }
+    /**
+     * @return bool
+     */
+    protected function isConfigurationCheckEnabled()
+    {
+        if ($this->extKey === '') {
+            return false;
         }
 
-        $this->isInitialized = true;
+        return \Tx_Oelib_ConfigurationProxy::getInstance($this->extKey)->getAsBoolean('enableConfigCheck');
+    }
+
+    /**
+     * This class is intended to be overwritten in subclasses.
+     *
+     * @return string might be empty
+     */
+    protected function getConfigurationCheckClassName()
+    {
+        return $this->getDefaultConfigurationCheckClassName();
+    }
+
+    /**
+     * @return string might be empty
+     */
+    protected function getDefaultConfigurationCheckClassName()
+    {
+        $camelCaseClassName = 'Tx_' . ucfirst($this->extKey) . '_ConfigCheck';
+        $lowercaseClassName = \strtolower($camelCaseClassName);
+        if (\class_exists($camelCaseClassName)) {
+            $className = $camelCaseClassName;
+        } elseif (\class_exists($lowercaseClassName)) {
+            $className = $lowercaseClassName;
+        } else {
+            $className = '';
+        }
+
+        return $className;
     }
 
     /**
@@ -1156,6 +1213,8 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     /**
      * Sets the "flavor" of the object to check.
      *
+     * @deprecated Will be removed in oelib 4.0. Use custom config check classes instead.
+     *
      * @param string $flavor a short string identifying the "flavor" of the object to check (may be empty)
      *
      * @return void
@@ -1216,7 +1275,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         static $hasDisplayedMessage = false;
         $result = '';
 
-        if ($this->configurationCheck) {
+        if ($this->configurationCheck !== null) {
             if (!empty($temporaryFlavor)) {
                 $oldFlavor = $this->getFlavor();
                 $this->setFlavor($temporaryFlavor);

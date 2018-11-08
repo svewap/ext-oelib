@@ -29,10 +29,7 @@ final class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingTemplateHelper extends \Tx
     }
 
     /**
-     * Returns the current configuration check object (or NULL if there is no
-     * such object).
-     *
-     * @return \Tx_Oelib_ConfigCheck the current configuration check object
+     * @return \Tx_Oelib_ConfigCheck|null
      */
     public function getConfigurationCheck()
     {

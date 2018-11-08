@@ -76,7 +76,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      * 'greeting'.
      *
      * @param string $key the local language key for which to return the value, must not be empty
-     * @param bool $useHtmlSpecialChars @deprecated whether the output should be passed through htmlspecialchars()
+     * @param bool $useHtmlSpecialChars @deprecated will be removed in oelib 3.0
      *
      * @return string the requested local language key, might be empty
      */

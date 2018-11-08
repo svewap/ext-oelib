@@ -159,13 +159,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateHelperTest extends \Tx_Phpunit_TestCase
         \Tx_Oelib_TemplateHelper::setCachedConfigurationValue('foo', 'bar');
         \Tx_Oelib_TemplateHelper::purgeCachedConfigurations();
 
-        $subject = new \Tx_Oelib_TemplateHelper();
-        $subject->init();
+        $subject = new Tx_Oelib_TemplateHelper();
+        $subject->init([]);
 
-        self::assertSame(
-            '',
-            $subject->getConfValueString('foo')
-        );
+        self::assertSame('', $subject->getConfValueString('foo'));
     }
 
     /**
