@@ -7,8 +7,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * the directory Mapper/ in each extension. Extension can use mappers from
  * other extensions as well.
  *
- * Note: This does not work with user_ extensions yet.
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Oelib_MapperRegistry
