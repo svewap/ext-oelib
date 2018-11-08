@@ -1,11 +1,15 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Visibility;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
 /**
  * Test case.
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Visibility_TreeTest extends \Tx_Phpunit_TestCase
+class TreeTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_Visibility_Tree
