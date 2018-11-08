@@ -1,13 +1,16 @@
 <?php
 
-namespace OliverKlee\Oelib\Tests\LegacyUnit\Geocoding;
+namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class GoogleTest extends \Tx_Phpunit_TestCase
+class GoogleTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_Geocoding_Google
@@ -70,10 +73,10 @@ class GoogleTest extends \Tx_Phpunit_TestCase
      */
     public function lookUpForEmptyAddressSetsCoordinatesError()
     {
-        $geo = $this->getMock(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo::class, ['setGeoError']);
+        $geo = $this->getMock(TestingGeo::class, ['setGeoError']);
         $geo->expects(self::once())->method('setGeoError');
 
-        /* @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo $geo */
+        /* @var TestingGeo $geo */
         $this->subject->lookUp($geo);
     }
 
@@ -82,7 +85,7 @@ class GoogleTest extends \Tx_Phpunit_TestCase
      */
     public function lookUpForEmptyAddressWithErrorSendsNoRequest()
     {
-        $geo = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $geo = new TestingGeo();
         $geo->setGeoError();
 
         /** @var \Tx_Oelib_Geocoding_Google|\PHPUnit_Framework_MockObject_MockObject $subject */
@@ -104,7 +107,7 @@ class GoogleTest extends \Tx_Phpunit_TestCase
      */
     public function lookUpForAFullGermanAddressWithCoordinatesSendsNoRequest()
     {
-        $geo = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
         $geo->setGeoCoordinates(
             ['latitude' => 50.7335500, 'longitude' => 7.1014300]
@@ -129,7 +132,7 @@ class GoogleTest extends \Tx_Phpunit_TestCase
      */
     public function lookUpForAFullGermanAddressWithErrorSendsNoRequest()
     {
-        $geo = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
         $geo->setGeoError();
 
@@ -173,7 +176,7 @@ class GoogleTest extends \Tx_Phpunit_TestCase
     {
         $jsonResult = '{ "status": "' . $status . '" }';
 
-        $geo = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
         /** @var \Tx_Oelib_Geocoding_Google|\PHPUnit_Framework_MockObject_MockObject $subject */
@@ -203,7 +206,7 @@ class GoogleTest extends \Tx_Phpunit_TestCase
     {
         $jsonResult = '{ "status": "' . $status . '" }';
 
-        $geo = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
         /** @var \Tx_Oelib_Geocoding_Google|\PHPUnit_Framework_MockObject_MockObject $subject */
@@ -234,7 +237,7 @@ class GoogleTest extends \Tx_Phpunit_TestCase
         $errorMessage = 'See you on the other side.';
         $jsonResult = '{ "status": "' . $status . '", "error_message": "' . $errorMessage . '" }';
 
-        $geo = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
         /** @var \Tx_Oelib_Geocoding_Google|\PHPUnit_Framework_MockObject_MockObject $subject */
@@ -258,7 +261,7 @@ class GoogleTest extends \Tx_Phpunit_TestCase
      */
     public function lookUpForAFullGermanAddressWithNetworkErrorSetsGeoProblemAndLogsError()
     {
-        $geo = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
         /** @var \Tx_Oelib_Geocoding_Google|\PHPUnit_Framework_MockObject_MockObject $subject */
@@ -298,7 +301,7 @@ class GoogleTest extends \Tx_Phpunit_TestCase
             '"southwest": { "lat": 50.73220101970850, "lng": 7.100081019708497 } } }, ' .
             '"types": [ "street_address" ] } ], "status": "OK"}';
 
-        $geo = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
         /** @var \Tx_Oelib_Geocoding_Google|\PHPUnit_Framework_MockObject_MockObject $subject */
@@ -351,7 +354,7 @@ class GoogleTest extends \Tx_Phpunit_TestCase
             '"southwest": { "lat": 50.73220101970850, "lng": 7.100081019708497 } } }, ' .
             '"types": [ "street_address" ] } ], "status": "OK"}';
 
-        $geo = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $geo = new TestingGeo();
         $geo->setGeoAddress($address);
 
         /** @var \tx_oelib_Geocoding_Google|\PHPUnit_Framework_MockObject_MockObject $subject */

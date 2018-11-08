@@ -1,5 +1,9 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
@@ -7,7 +11,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_TestCase
+class CalculatorTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_Geocoding_Calculator
@@ -15,7 +19,7 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
     protected $subject = null;
 
     /**
-     * @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo
+     * @var TestingGeo
      */
     protected $geoObject = null;
 
@@ -23,7 +27,7 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
     {
         $this->subject = new \Tx_Oelib_Geocoding_Calculator();
 
-        $this->geoObject = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $this->geoObject = new TestingGeo();
         $this->geoObject->setGeoCoordinates(['latitude' => 50.733585499999997, 'longitude' => 7.1012733999999993]);
     }
 
@@ -46,9 +50,9 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
      */
     public function calculateDistanceInKilometersForFirstObjectWithoutCoordinatesThrowsException()
     {
-        $noCoordinates = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $noCoordinates = new TestingGeo();
         $noCoordinates->clearGeoCoordinates();
-        $bonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
 
         $this->subject->calculateDistanceInKilometers($noCoordinates, $bonn);
@@ -61,9 +65,9 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
      */
     public function calculateDistanceInKilometersForSecondObjectWithoutCoordinatesThrowsException()
     {
-        $bonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
-        $noCoordinates = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $noCoordinates = new TestingGeo();
         $noCoordinates->clearGeoCoordinates();
 
         $this->subject->calculateDistanceInKilometers($bonn, $noCoordinates);
@@ -76,10 +80,10 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
      */
     public function calculateDistanceInKilometersForFirstObjectWithGeoErrorThrowsException()
     {
-        $brokenBonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $brokenBonn = new TestingGeo();
         $brokenBonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
         $brokenBonn->setGeoError();
-        $bonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
 
         $this->subject->calculateDistanceInKilometers($brokenBonn, $bonn);
@@ -92,9 +96,9 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
      */
     public function calculateDistanceInKilometersForSecondObjectWithGeoErrorThrowsException()
     {
-        $bonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
-        $brokenBonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $brokenBonn = new TestingGeo();
         $brokenBonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
         $brokenBonn->setGeoError();
 
@@ -106,7 +110,7 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
      */
     public function calculateDistanceInKilometersForSameObjectsReturnsZero()
     {
-        $bonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
 
         self::assertSame(0.0, $this->subject->calculateDistanceInKilometers($bonn, $bonn));
@@ -117,11 +121,11 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
      */
     public function calculateDistanceInKilometersForBonnAndCologneReturnsActualDistance()
     {
-        $bonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(
             ['latitude' => 50.72254683, 'longitude' => 7.07519531]
         );
-        $cologne = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
         self::assertEquals(
@@ -137,9 +141,9 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
      */
     public function calculateDistanceInKilometersReturnsSameDistanceForSwappedArguments()
     {
-        $bonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
-        $cologne = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
         self::assertSame(
@@ -157,9 +161,9 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
      */
     public function filterByDistanceKeepsElementWithinDistance()
     {
-        $bonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
-        $cologne = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
         $list = new \Tx_Oelib_List();
@@ -180,9 +184,9 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
      */
     public function filterByDistanceDropsElementOutOfDistance()
     {
-        $bonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
-        $cologne = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
         $list = new \Tx_Oelib_List();
@@ -202,9 +206,9 @@ class Tx_Oelib_Tests_LegacyUnit_Geocoding_CalculatorTest extends \Tx_Phpunit_Tes
      */
     public function filterByDistanceCanReturnTwoElements()
     {
-        $bonn = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
-        $cologne = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo();
+        $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
         $list = new \Tx_Oelib_List();

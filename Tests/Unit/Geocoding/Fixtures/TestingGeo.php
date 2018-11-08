@@ -1,11 +1,13 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures;
+
 /**
  * This class represents an testing object that can have an address and geo coordinates.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingGeo extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_Geo
+class TestingGeo extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_Geo
 {
     /**
      * whether this object has a geo error
