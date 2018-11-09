@@ -1,15 +1,20 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Model;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_ModelTest extends \Tx_Phpunit_TestCase
+class AbstractModelTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel
+     * @var TestingModel
      */
     private $subject = null;
 
@@ -17,7 +22,7 @@ class Tx_Oelib_Tests_LegacyUnit_ModelTest extends \Tx_Phpunit_TestCase
     {
         $GLOBALS['SIM_EXEC_TIME'] = 1524751343;
 
-        $this->subject = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $this->subject = new TestingModel();
     }
 
     /**
@@ -40,7 +45,7 @@ class Tx_Oelib_Tests_LegacyUnit_ModelTest extends \Tx_Phpunit_TestCase
      */
     public function destructDoesNotCrashForRelationToSelf()
     {
-        $subject = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $subject = new TestingModel();
         $subject->setData(
             ['foo' => $subject]
         );
@@ -51,8 +56,8 @@ class Tx_Oelib_Tests_LegacyUnit_ModelTest extends \Tx_Phpunit_TestCase
      */
     public function destructDoesNotCrashForTwoModelsInACircle()
     {
-        $subject1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
-        $subject2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $subject1 = new TestingModel();
+        $subject2 = new TestingModel();
 
         $subject1->setData(
             ['foo' => $subject2]
@@ -312,7 +317,7 @@ class Tx_Oelib_Tests_LegacyUnit_ModelTest extends \Tx_Phpunit_TestCase
      */
     public function getAsModelReturnsModelSetViaSetData()
     {
-        $otherModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $otherModel = new TestingModel();
         $this->subject->setData(
             ['foo' => $otherModel]
         );
@@ -626,11 +631,7 @@ class Tx_Oelib_Tests_LegacyUnit_ModelTest extends \Tx_Phpunit_TestCase
      */
     public function getOnDeadModelThrowsException()
     {
-        $this->setExpectedException(
-            \Tx_Oelib_Exception_NotFound::class,
-            'The Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel with the UID 0' .
-            ' either has been deleted (or has never existed), but still is accessed.'
-        );
+        $this->setExpectedException(\Tx_Oelib_Exception_NotFound::class);
 
         $this->subject->markAsDead();
         $this->subject->getTitle();
@@ -650,11 +651,7 @@ class Tx_Oelib_Tests_LegacyUnit_ModelTest extends \Tx_Phpunit_TestCase
      */
     public function isHiddenOnDeadModelThrowsException()
     {
-        $this->setExpectedException(
-            \Tx_Oelib_Exception_NotFound::class,
-            'The Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel with the UID 0' .
-            ' either has been deleted (or has never existed), but still is accessed.'
-        );
+        $this->setExpectedException(\Tx_Oelib_Exception_NotFound::class);
 
         $this->subject->markAsDead();
         $this->subject->isHidden();
@@ -1299,8 +1296,8 @@ class Tx_Oelib_Tests_LegacyUnit_ModelTest extends \Tx_Phpunit_TestCase
     public function uncloneableStatusDataProvider()
     {
         return [
-            'loading' => [Tx_Oelib_Model::STATUS_LOADING],
-            'deleted' => [Tx_Oelib_Model::STATUS_DEAD],
+            'loading' => [\Tx_Oelib_Model::STATUS_LOADING],
+            'deleted' => [\Tx_Oelib_Model::STATUS_DEAD],
         ];
     }
 

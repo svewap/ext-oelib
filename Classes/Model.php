@@ -335,13 +335,12 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
     /**
      * Gets the value stored in under the key $key as a model.
      *
-     * @throws UnexpectedValueException
-     *         if there is a data item stored for the key $key that is not a model instance
-     *
      * @param string $key the key of the element to retrieve, must not be empty
      *
-     * @return \Tx_Oelib_Model the data item for the given key, will be NULL if
-     *                        it has not been set
+     * @return \Tx_Oelib_Model|null
+     *
+     * @throws UnexpectedValueException
+     *         if there is a data item stored for the key $key that is not a model instance
      */
     protected function getAsModel($key)
     {
