@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Oelib\Tests\Unit\Domain\Model\Fixtures;
+namespace OliverKlee\Oelib\Tests\Unit\Domain\Fixtures;
 
 use OliverKlee\Oelib\Domain\Model\Interfaces\CreationDate;
 

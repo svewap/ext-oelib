@@ -4,7 +4,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Domain\Repository\Traits;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Domain\Model\Interfaces\ChangeDate;
-use OliverKlee\Oelib\Tests\Unit\Domain\Model\Fixtures\ChangedModel;
+use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\ChangedModel;
 
 /**
  * Test case.
