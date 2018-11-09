@@ -1,11 +1,16 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Mapper;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_IdentityMapTest extends \Tx_Phpunit_TestCase
+class IdentityMapTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_IdentityMap
@@ -57,7 +62,7 @@ class Tx_Oelib_Tests_LegacyUnit_IdentityMapTest extends \Tx_Phpunit_TestCase
             'Add() requires a model that has a UID.'
         );
 
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $model->setData([]);
 
         $this->subject->add($model);
@@ -68,7 +73,7 @@ class Tx_Oelib_Tests_LegacyUnit_IdentityMapTest extends \Tx_Phpunit_TestCase
      */
     public function getWithExistingUidAfterAddWithModelHavingAUidReturnsSameObject()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $model->setUid(42);
         $this->subject->add($model);
 
@@ -83,11 +88,11 @@ class Tx_Oelib_Tests_LegacyUnit_IdentityMapTest extends \Tx_Phpunit_TestCase
      */
     public function addForExistingUidReturnsModelWithGivenUidForSeveralUids()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $model1->setUid(1);
         $this->subject->add($model1);
 
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $model2->setUid(4);
         $this->subject->add($model2);
 
@@ -106,11 +111,11 @@ class Tx_Oelib_Tests_LegacyUnit_IdentityMapTest extends \Tx_Phpunit_TestCase
      */
     public function getForExistingUidAfterAddingTwoModelsWithSameUidReturnsTheLastAddedModel()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $model1->setUid(1);
         $this->subject->add($model1);
 
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $model2->setUid(1);
         $this->subject->add($model2);
 
@@ -142,10 +147,7 @@ class Tx_Oelib_Tests_LegacyUnit_IdentityMapTest extends \Tx_Phpunit_TestCase
      */
     public function getNewUidForEmptyMapReturnsOne()
     {
-        self::assertSame(
-            1,
-            $this->subject->getNewUid()
-        );
+        self::assertSame(1, $this->subject->getNewUid());
     }
 
     /**
@@ -155,7 +157,7 @@ class Tx_Oelib_Tests_LegacyUnit_IdentityMapTest extends \Tx_Phpunit_TestCase
     {
         $this->setExpectedException(\Tx_Oelib_Exception_NotFound::class);
 
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $model->setUid(1);
         $this->subject->add($model);
 
@@ -169,14 +171,11 @@ class Tx_Oelib_Tests_LegacyUnit_IdentityMapTest extends \Tx_Phpunit_TestCase
      */
     public function getNewUidForNonEmptyMapReturnsUidGreaterThanGreatestUid()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $model->setUid(42);
         $this->subject->add($model);
 
-        self::assertGreaterThan(
-            42,
-            $this->subject->getNewUid()
-        );
+        self::assertGreaterThan(42, $this->subject->getNewUid());
     }
 
     /**
@@ -184,17 +183,14 @@ class Tx_Oelib_Tests_LegacyUnit_IdentityMapTest extends \Tx_Phpunit_TestCase
      */
     public function getNewUidForMapWithTwoItemsInReverseOrderReturnsUidGreaterThanTheGreatesUid()
     {
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $model2->setUid(2);
         $this->subject->add($model2);
 
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $model1->setUid(1);
         $this->subject->add($model1);
 
-        self::assertGreaterThan(
-            2,
-            $this->subject->getNewUid()
-        );
+        self::assertGreaterThan(2, $this->subject->getNewUid());
     }
 }
