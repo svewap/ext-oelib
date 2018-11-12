@@ -53,42 +53,6 @@ class TestingModel extends \Tx_Oelib_Model
         $this->readOnly = true;
     }
 
-    /*
-     * proxy methods
-     */
-
-    /**
-     * @param string $key
-     *
-     * @return bool
-     */
-    public function existsKey($key)
-    {
-        return parent::existsKey($key);
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return \Tx_Oelib_Model|null
-     *
-     * @throws \UnexpectedValueException
-     */
-    public function getAsModel($key)
-    {
-        return parent::getAsModel($key);
-    }
-
-    /**
-     * @param int $status
-     *
-     * @return void
-     */
-    public function setLoadStatus($status)
-    {
-        parent::setLoadStatus($status);
-    }
-
     /**
      * Gets the "friend" data item. This is an n:1 relation.
      *
@@ -97,6 +61,18 @@ class TestingModel extends \Tx_Oelib_Model
     public function getFriend()
     {
         return $this->getAsModel('friend');
+    }
+
+    /**
+     * Sets the "friend" data item. This is an n:1 relation.
+     *
+     * @param TestingModel $friend
+     *
+     * @return void
+     */
+    public function setFriend(TestingModel $friend)
+    {
+        $this->set('friend', $friend);
     }
 
     /**
@@ -144,10 +120,58 @@ class TestingModel extends \Tx_Oelib_Model
     /**
      * Gets the "composition" data item. This is an 1:n relation.
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingChildModel>
+     * @return \Tx_Oelib_List<TestingChildModel>
      */
     public function getComposition()
     {
         return $this->getAsList('composition');
+    }
+
+    /**
+     * Adds $model to the "composition" relation.
+     *
+     * @param TestingChildModel $model
+     *
+     * @return void
+     */
+    public function addCompositionRecord(TestingChildModel $model)
+    {
+        $this->getComposition()->add($model);
+    }
+
+    /*
+     * proxy methods
+     */
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function existsKey($key)
+    {
+        return parent::existsKey($key);
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return \Tx_Oelib_Model|null
+     *
+     * @throws \UnexpectedValueException
+     */
+    public function getAsModel($key)
+    {
+        return parent::getAsModel($key);
+    }
+
+    /**
+     * @param int $status
+     *
+     * @return void
+     */
+    public function setLoadStatus($status)
+    {
+        parent::setLoadStatus($status);
     }
 }

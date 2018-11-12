@@ -29,8 +29,8 @@ class TestingMapper extends \Tx_Oelib_DataMapper
         'owner' => \Tx_Oelib_Mapper_FrontEndUser::class,
         'children' => TestingMapper::class,
         'related_records' => TestingMapper::class,
-        'composition' => \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingChildMapper::class,
-        'composition2' => \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingChildMapper::class,
+        'composition' => TestingChildMapper::class,
+        'composition2' => TestingChildMapper::class,
         'bidirectional' => TestingMapper::class,
     ];
 }
