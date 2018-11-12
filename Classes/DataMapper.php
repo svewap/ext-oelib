@@ -78,6 +78,11 @@ abstract class Tx_Oelib_DataMapper
     private $denyDatabaseAccess = false;
 
     /**
+     * @var \Tx_Oelib_TestingFramework
+     */
+    protected $testingFramework = null;
+
+    /**
      * The constructor.
      */
     public function __construct()
@@ -97,6 +102,19 @@ abstract class Tx_Oelib_DataMapper
         foreach ($this->additionalKeys as $key) {
             $this->cacheByKey[$key] = [];
         }
+    }
+
+    /**
+     * Sets the testing framework. During functional tests, this makes sure that records created with this mapper
+     * will be deleted during cleanUp again.
+     *
+     * @param Tx_Oelib_TestingFramework $testingFramework
+     *
+     * @return void
+     */
+    public function setTestingFramework(\Tx_Oelib_TestingFramework $testingFramework)
+    {
+        $this->testingFramework = $testingFramework;
     }
 
     /**
@@ -869,6 +887,13 @@ abstract class Tx_Oelib_DataMapper
      */
     protected function prepareDataForNewRecord(array &$data)
     {
+        if ($this->testingFramework === null) {
+            return;
+        }
+
+        $tableName = $this->getTableName();
+        $this->testingFramework->markTableAsDirty($tableName);
+        $data[$this->testingFramework->getDummyColumnName($tableName)] = 1;
     }
 
     /**
@@ -1058,8 +1083,6 @@ abstract class Tx_Oelib_DataMapper
     /**
      * Returns the record data for an intermediate m:n-relation record.
      *
-     * Note: The $mnTable parameter is used for testing mappers in the mapper registry and must not be removed.
-     *
      * @param string $mnTable the name of the intermediate m:n-relation table
      * @param int $uidLocal the UID of the local record
      * @param int $uidForeign the UID of the foreign record
@@ -1069,11 +1092,15 @@ abstract class Tx_Oelib_DataMapper
      */
     protected function getManyToManyRelationIntermediateRecordData($mnTable, $uidLocal, $uidForeign, $sorting)
     {
-        return [
-            'uid_local' => $uidLocal,
-            'uid_foreign' => $uidForeign,
-            'sorting' => $sorting,
-        ];
+        $recordData = ['uid_local' => $uidLocal, 'uid_foreign' => $uidForeign, 'sorting' => $sorting];
+
+        if ($this->testingFramework !== null) {
+            $this->testingFramework->markTableAsDirty($mnTable);
+            $dummyColumnName = $this->testingFramework->getDummyColumnName($mnTable);
+            $recordData[$dummyColumnName] = 1;
+        }
+
+        return $recordData;
     }
 
     /**
@@ -1166,7 +1193,15 @@ abstract class Tx_Oelib_DataMapper
      */
     protected function getUniversalWhereClause($allowHiddenRecords = false)
     {
-        return '1 = 1' . \Tx_Oelib_Db::enableFields($this->getTableName(), ($allowHiddenRecords ? 1 : -1));
+        $tableName = $this->getTableName();
+        if ($this->testingFramework !== null) {
+            $dummyColumnName = $this->testingFramework->getDummyColumnName($tableName);
+            $leftPart = \Tx_Oelib_Db::tableHasColumn($this->getTableName(), $dummyColumnName)
+                ? $dummyColumnName . ' = 1' : '1 = 1';
+        } else {
+            $leftPart = '1 = 1';
+        }
+        return $leftPart . \Tx_Oelib_Db::enableFields($tableName, ($allowHiddenRecords ? 1 : -1));
     }
 
     /**

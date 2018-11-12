@@ -166,35 +166,6 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function getWithActivatedTestingModeReturnsMapperWithTestingLayer()
-    {
-        \Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode(
-            new \Tx_Oelib_TestingFramework('tx_oelib')
-        );
-
-        self::assertInstanceOf(
-            \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class,
-            \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getAfterInstanceWithActivatedTestingModeWasPurgedReturnsMapperWithoutTestingLayer()
-    {
-        \Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode(new \Tx_Oelib_TestingFramework('tx_oelib'));
-        \Tx_Oelib_MapperRegistry::purgeInstance();
-
-        self::assertNotInstanceOf(
-            'Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapperTesting',
-            \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class)
-        );
-    }
-
     /////////////////////////
     // Tests concerning set
     /////////////////////////

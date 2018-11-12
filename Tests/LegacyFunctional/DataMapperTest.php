@@ -1,5 +1,8 @@
 <?php
 
+use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
+use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+
 /**
  * Test case.
  *
@@ -13,7 +16,7 @@ class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCas
     protected $testingFramework = null;
 
     /**
-     * @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper
+     * @var TestingMapper
      */
     protected $subject = null;
 
@@ -23,7 +26,8 @@ class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCas
 
         \Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);
 
-        $this->subject = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class);
+        $this->subject = \Tx_Oelib_MapperRegistry::get(TestingMapper::class);
+        $this->subject->setTestingFramework($this->testingFramework);
     }
 
     protected function tearDown()
@@ -31,6 +35,44 @@ class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCas
         $this->testingFramework->cleanUp();
 
         \Tx_Oelib_MapperRegistry::purgeInstance();
+    }
+
+    /*
+     * Tests concerning usage with the testing framework
+     */
+
+    /**
+     * @test
+     */
+    public function cleanUpAfterSaveRemovesCreatedRecord()
+    {
+        $model = new TestingModel();
+        $model->setTitle('New and fresh');
+        $this->subject->save($model);
+        $this->testingFramework->cleanUp();
+
+        static::assertFalse($this->testingFramework->existsRecordWithUid('tx_oelib_test', $model->getUid()));
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpAfterSaveRemovesAssociationTableEntriesRecord()
+    {
+        $leftUid = $this->testingFramework->createRecord('tx_oelib_test');
+
+        $rightModel = new TestingModel();
+        $rightModel->setData([]);
+        $rightModel->setTitle('right model');
+
+        $leftModel = $this->subject->find($leftUid);
+        $leftModel->addRelatedRecord($rightModel);
+        $this->subject->save($leftModel);
+        $this->testingFramework->cleanUp();
+
+        static::assertFalse(
+            $this->testingFramework->existsRecord('tx_oelib_test_article_mm', 'uid_local = ' . $leftUid)
+        );
     }
 
     /*
@@ -48,14 +90,11 @@ class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCas
             ['title' => $title]
         );
 
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $model->setUid($uid);
         $this->subject->load($model);
 
-        self::assertSame(
-            $title,
-            $model->getTitle()
-        );
+        self::assertSame($title, $model->getTitle());
     }
 
     /*
@@ -72,12 +111,9 @@ class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCas
             ['title' => 'foo']
         );
 
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $model */
+        /** @var TestingModel $model */
         $model = $this->subject->find($uid);
-        self::assertSame(
-            'foo',
-            $model->getTitle()
-        );
+        self::assertSame('foo', $model->getTitle());
     }
 
     /*
@@ -96,12 +132,9 @@ class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCas
             ['friend' => $friendUid]
         );
 
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $model */
+        /** @var TestingModel $model */
         $model = $this->subject->find($uid);
-        self::assertSame(
-            $friendTitle,
-            $model->getFriend()->getTitle()
-        );
+        self::assertSame($friendTitle, $model->getFriend()->getTitle());
     }
 
     /*
@@ -120,14 +153,11 @@ class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCas
             ['children' => (string)$childUid]
         );
 
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $model */
+        /** @var TestingModel $model */
         $model = $this->subject->find($uid);
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstChild */
+        /** @var TestingModel $firstChild */
         $firstChild = $model->getChildren()->first();
-        self::assertSame(
-            $childTitle,
-            $firstChild->getTitle()
-        );
+        self::assertSame($childTitle, $firstChild->getTitle());
     }
 
     /*
@@ -149,14 +179,11 @@ class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCas
             'related_records'
         );
 
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $model */
+        /** @var TestingModel $model */
         $model = $this->subject->find($uid);
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstRelatedModel */
+        /** @var TestingModel $firstRelatedModel */
         $firstRelatedModel = $model->getRelatedRecords()->first();
-        self::assertSame(
-            $relatedTitle,
-            $firstRelatedModel->getTitle()
-        );
+        self::assertSame($relatedTitle, $firstRelatedModel->getTitle());
     }
 
     /*
@@ -177,12 +204,9 @@ class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCas
             'bidirectional'
         );
 
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $model */
+        /** @var TestingModel $model */
         $model = $this->subject->find($relatedUid);
-        self::assertSame(
-            (string)$uid,
-            $model->getBidirectional()->getUids()
-        );
+        self::assertSame((string)$uid, $model->getBidirectional()->getUids());
     }
 
     /*
@@ -204,13 +228,10 @@ class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCas
             ['parent' => $uid, 'title' => $relatedTitle]
         );
 
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $model */
+        /** @var TestingModel $model */
         $model = $this->subject->find($uid);
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstChildModel */
+        /** @var TestingModel $firstChildModel */
         $firstChildModel = $model->getComposition()->first();
-        self::assertSame(
-            $relatedTitle,
-            $firstChildModel->getTitle()
-        );
+        self::assertSame($relatedTitle, $firstChildModel->getTitle());
     }
 }

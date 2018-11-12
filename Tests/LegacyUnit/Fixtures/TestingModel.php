@@ -197,7 +197,7 @@ final class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel extends \Tx_Oelib_Mo
     }
 
     /**
-     * Adds $model to the "compositon" relation.
+     * Adds $model to the "composition" relation.
      *
      * @param \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingChildModel $model
      *

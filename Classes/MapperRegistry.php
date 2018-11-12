@@ -107,48 +107,17 @@ class Tx_Oelib_MapperRegistry
                 );
             }
 
-            if ($this->testingMode) {
-                $testingClassName = $unifiedClassName . 'Testing';
-                if (!class_exists($testingClassName, false)) {
-                    eval(
-                        'class ' . $testingClassName . ' extends ' . $unifiedClassName .
-                        ' {' .
-                        'private $testingFramework;' .
-                        'public function setTestingFramework(\\Tx_Oelib_TestingFramework $testingFramework) {' .
-                        '$this->testingFramework = $testingFramework;' .
-                        '}' .
-                        'protected function getManyToManyRelationIntermediateRecordData($mnTable, $uidLocal, $uidForeign, $sorting) {'
-                        .
-                        '$this->testingFramework->markTableAsDirty($mnTable);' .
-                        'return array_merge(parent::getManyToManyRelationIntermediateRecordData($mnTable, $uidLocal, $uidForeign, $sorting), array($this->testingFramework->getDummyColumnName($this->getTableName()) => 1));'
-                        .
-                        '}' .
-                        'protected function prepareDataForNewRecord(array &$data) {' .
-                        '$this->testingFramework->markTableAsDirty($this->getTableName());' .
-                        '$data[$this->testingFramework->getDummyColumnName($this->getTableName())] = 1;' .
-                        '}' .
-                        'protected function getUniversalWhereClause($allowHiddenRecords = FALSE) {' .
-                        '$dummyColumnName = $this->testingFramework->getDummyColumnName($this->getTableName());' .
-                        '$additionalWhere = \\Tx_Oelib_Db::tableHasColumn($this->getTableName(), $dummyColumnName) ' .
-                        '? $dummyColumnName . \' = 1 AND \' : \'\';' .
-                        'return $additionalWhere . parent::getUniversalWhereClause($allowHiddenRecords);' .
-                        '}' .
-                        '}'
-                    );
-                }
-                /** @var \Tx_Oelib_DataMapper $mapper */
-                $mapper = new $testingClassName();
-                $mapper->setTestingFramework($this->testingFramework);
-            } else {
-                /** @var \Tx_Oelib_DataMapper $mapper */
-                $mapper = GeneralUtility::makeInstance($unifiedClassName);
-            }
+            /** @var \Tx_Oelib_DataMapper $mapper */
+            $mapper = GeneralUtility::makeInstance($unifiedClassName);
             $this->mappers[$unifiedClassName] = $mapper;
         } else {
             /** @var \Tx_Oelib_DataMapper $mapper */
             $mapper = $this->mappers[$unifiedClassName];
         }
 
+        if ($this->testingMode) {
+            $mapper->setTestingFramework($this->testingFramework);
+        }
         if ($this->denyDatabaseAccess) {
             $mapper->disableDatabaseAccess();
         }
@@ -179,10 +148,9 @@ class Tx_Oelib_MapperRegistry
     }
 
     /**
-     * Activates the testing mode of this MapperRegistry.
+     * Activates the testing mode. This automatically will activate the testing mode for all future mappers.
      *
-     * @param \Tx_Oelib_TestingFramework $testingFramework the testingFramework
-     *                                                    to use in testing mode
+     * @param \Tx_Oelib_TestingFramework $testingFramework
      *
      * @return void
      */
