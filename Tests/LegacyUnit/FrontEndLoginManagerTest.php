@@ -1,5 +1,7 @@
 <?php
 
+use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
+use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -187,10 +189,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
         $this->testingFramework->createFakeFrontEnd();
         $this->testingFramework->createAndLoginFrontEndUser();
 
-        self::assertInstanceOf(
-            \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel::class,
-            $this->subject->getLoggedInUser(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class)
-        );
+        self::assertInstanceOf(TestingModel::class, $this->subject->getLoggedInUser(TestingMapper::class));
     }
 
     /**

@@ -1,11 +1,15 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures;
+
+use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+
 /**
  * This class represents a mapper that is broken because it has no columns defined.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Fixtures_ColumnLessTestingMapper extends \Tx_Oelib_DataMapper
+class ColumnLessTestingMapper extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string the name of the database table for this mapper
@@ -20,5 +24,5 @@ class Tx_Oelib_Tests_LegacyUnit_Fixtures_ColumnLessTestingMapper extends \Tx_Oel
     /**
      * @var string the model class name for this mapper, must not be empty
      */
-    protected $modelClassName = \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel::class;
+    protected $modelClassName = TestingModel::class;
 }

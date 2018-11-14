@@ -1,5 +1,8 @@
 <?php
 
+use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
+use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+
 /**
  * Test case.
  *
@@ -27,28 +30,24 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
     ///////////////////////
 
     /**
-     * @param \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstModel
-     * @param \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $secondModel
+     * @param TestingModel $firstModel
+     * @param TestingModel $secondModel
      *
      * @return int
      */
-    public function sortByTitleAscending(
-        \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstModel,
-        \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $secondModel
-    ) {
+    public function sortByTitleAscending(TestingModel $firstModel, TestingModel $secondModel)
+    {
         return strcmp($firstModel->getTitle(), $secondModel->getTitle());
     }
 
     /**
-     * @param \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstModel
-     * @param \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $secondModel
+     * @param TestingModel $firstModel
+     * @param TestingModel $secondModel
      *
      * @return int
      */
-    public function sortByTitleDescending(
-        \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstModel,
-        \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $secondModel
-    ) {
+    public function sortByTitleDescending(TestingModel $firstModel, TestingModel $secondModel)
+    {
         return strcmp($secondModel->getTitle(), $firstModel->getTitle());
     }
 
@@ -64,7 +63,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
     private function addModelsToFixture(array $titles = [''])
     {
         foreach ($titles as $title) {
-            $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+            $model = new TestingModel();
             $model->setTitle($title);
             $this->subject->add($model);
 
@@ -85,9 +84,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function sortByTitleAscendingForFirstModelTitleAlphaAndSecondModelTitleBetaReturnsMinusOne()
     {
-        $firstModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $firstModel = new TestingModel();
         $firstModel->setTitle('alpha');
-        $secondModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $secondModel = new TestingModel();
         $secondModel->setTitle('beta');
 
         self::assertSame(
@@ -101,9 +100,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function sortByTitleAscendingForFirstModelTitleBetaAndSecondModelTitleAlphaReturnsOne()
     {
-        $firstModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $firstModel = new TestingModel();
         $firstModel->setTitle('beta');
-        $secondModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $secondModel = new TestingModel();
         $secondModel->setTitle('alpha');
 
         self::assertSame(
@@ -117,9 +116,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function sortByTitleAscendingForFirstAndSecondModelTitleSameReturnsZero()
     {
-        $firstModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $firstModel = new TestingModel();
         $firstModel->setTitle('alpha');
-        $secondModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $secondModel = new TestingModel();
         $secondModel->setTitle('alpha');
 
         self::assertSame(
@@ -137,9 +136,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function sortByTitleDescendingForFirstModelTitleAlphaAndSecondModelTitleBetaReturnsOne()
     {
-        $firstModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $firstModel = new TestingModel();
         $firstModel->setTitle('alpha');
-        $secondModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $secondModel = new TestingModel();
         $secondModel->setTitle('beta');
 
         self::assertSame(
@@ -153,9 +152,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function sortByTitleDescendingForFirstModelTitleBetaAndSecondModelTitleAlphaReturnsMinusOne()
     {
-        $firstModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $firstModel = new TestingModel();
         $firstModel->setTitle('beta');
-        $secondModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $secondModel = new TestingModel();
         $secondModel->setTitle('alpha');
 
         self::assertSame(
@@ -169,9 +168,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function sortByTitleDescendingForFirstAndSecondModelTitleSameReturnsZero()
     {
-        $firstModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $firstModel = new TestingModel();
         $firstModel->setTitle('alpha');
-        $secondModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $secondModel = new TestingModel();
         $secondModel->setTitle('alpha');
 
         self::assertSame(
@@ -204,7 +203,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
     {
         $this->addModelsToFixture(['foo']);
 
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstItem */
+        /** @var TestingModel $firstItem */
         $firstItem = $this->subject->first();
         self::assertSame(
             'foo',
@@ -232,7 +231,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
     {
         $this->addModelsToFixture(['bar', 'foo']);
 
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstItem */
+        /** @var TestingModel $firstItem */
         $firstItem = $this->subject->first();
         self::assertSame(
             'bar',
@@ -312,7 +311,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function countWithOneModelWithUidReturnsOne()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $model->setUid(1);
         $this->subject->add($model);
 
@@ -340,7 +339,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function countAfterAddingTheSameModelTwiceReturnsOne()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
         $this->subject->add($model);
 
@@ -369,7 +368,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function currentWithOneItemReturnsThatItem()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
 
         self::assertSame(
@@ -383,9 +382,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function currentWithTwoItemsInitiallyReturnsTheFirstItem()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $this->subject->add($model1);
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $this->subject->add($model2);
 
         self::assertSame(
@@ -442,9 +441,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function currentWithTwoItemsAfterNextReturnsTheSecondItem()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $this->subject->add($model1);
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $this->subject->add($model2);
 
         $this->subject->next();
@@ -478,7 +477,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function rewindAfterNextForOneItemsResetsCurrentToTheOnlyItem()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
 
         $this->subject->next();
@@ -509,7 +508,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function firstForListWithOneItemReturnsThatItem()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
 
         self::assertSame(
@@ -523,9 +522,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function firstWithTwoItemsReturnsTheFirstItem()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $this->subject->add($model1);
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $this->subject->add($model2);
 
         self::assertSame(
@@ -539,9 +538,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function firstWithTwoItemsAfterNextReturnsTheFirstItem()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $this->subject->add($model1);
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $this->subject->add($model2);
 
         $this->subject->next();
@@ -655,7 +654,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function getUidsForOneItemsWithUidReturnsThatUid()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $model->setUid(1);
         $this->subject->add($model);
 
@@ -670,10 +669,10 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function getUidsForTwoItemsWithUidReturnsCommaSeparatedItems()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $model1->setUid(1);
         $this->subject->add($model1);
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $model2->setUid(42);
         $this->subject->add($model2);
 
@@ -688,10 +687,10 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function getUidsForTwoItemsWithDecreasingUidReturnsItemsInOrdnerOfInsertion()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $model1->setUid(42);
         $this->subject->add($model1);
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $model2->setUid(1);
         $this->subject->add($model2);
 
@@ -706,10 +705,10 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function getUidsForDuplicateUidsReturnsUidsInOrdnerOfFirstInsertion()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $model1->setUid(1);
         $this->subject->add($model1);
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $model2->setUid(2);
         $this->subject->add($model2);
 
@@ -726,7 +725,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function getUidsForElementThatGotItsUidAfterAddingItReturnsItsUid()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
         $model->setUid(42);
 
@@ -755,7 +754,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function hasUidForExistingUidReturnsTrue()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $model->setUid(42);
         $this->subject->add($model);
 
@@ -769,7 +768,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function hasUidForElementThatGotItsUidAfterAddingItReturnsTrue()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
         $model->setUid(42);
 
@@ -790,7 +789,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
         $this->addModelsToFixture(['Beta', 'Alpha']);
         $this->subject->sort([$this, 'sortByTitleAscending']);
 
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstItem */
+        /** @var TestingModel $firstItem */
         $firstItem = $this->subject->first();
         self::assertSame(
             'Alpha',
@@ -806,7 +805,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
         $this->addModelsToFixture(['Zeta', 'Beta', 'Alpha']);
         $this->subject->sort([$this, 'sortByTitleAscending']);
 
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstItem */
+        /** @var TestingModel $firstItem */
         $firstItem = $this->subject->first();
         self::assertSame(
             'Alpha',
@@ -822,7 +821,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
         $this->addModelsToFixture(['Alpha', 'Beta']);
         $this->subject->sort([$this, 'sortByTitleDescending']);
 
-        /** @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel $firstItem */
+        /** @var TestingModel $firstItem */
         $firstItem = $this->subject->first();
         self::assertSame(
             'Beta',
@@ -865,9 +864,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
     public function appendTwoItemListToEmptyListMakesTwoItemList()
     {
         $otherList = new \Tx_Oelib_List();
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $otherList->add($model1);
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $otherList->add($model2);
 
         $this->subject->append($otherList);
@@ -899,7 +898,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function appendOneItemListToOneItemListWithTheSameItemMakesOneItemList()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $model->setUid(42);
         $this->subject->add($model);
 
@@ -920,9 +919,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
     public function appendTwoItemListKeepsOrderOfAppendedItems()
     {
         $otherList = new \Tx_Oelib_List();
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $otherList->add($model1);
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $otherList->add($model2);
 
         $this->subject->append($otherList);
@@ -938,11 +937,11 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function appendAppendsItemAfterExistingItems()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
 
         $otherList = new \Tx_Oelib_List();
-        $otherModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $otherModel = new TestingModel();
         $otherList->add($otherModel);
 
         $this->subject->append($otherList);
@@ -1051,7 +1050,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
     {
         $this->addModelsToFixture();
 
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
 
         $this->subject->rewind();
@@ -1092,7 +1091,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function purgeCurrentForModelWithUidRemovesModelFromGetUids()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $model->setUid(1);
         $this->subject->add($model);
         $this->modelStorage[] = $model;
@@ -1115,11 +1114,11 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function sortBySortingMovesItemWithHigherSortingValueAfterItemWithLowerSortingValue()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingChildModel();
+        $model1 = new TestingChildModel();
         $model1->setSorting(2);
         $this->subject->add($model1);
 
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingChildModel();
+        $model2 = new TestingChildModel();
         $model2->setSorting(1);
         $this->subject->add($model2);
 
@@ -1170,7 +1169,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function atForPositionZeroWithOneItemListReturnsItem()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
 
         self::assertSame(
@@ -1184,7 +1183,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function atForPositionOneWithOneItemListReturnsNull()
     {
-        $this->subject->add(new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel());
+        $this->subject->add(new TestingModel());
 
         self::assertNull(
             $this->subject->at(1)
@@ -1196,9 +1195,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function atForPositionZeroWithTwoItemListReturnsFirstItem()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $this->subject->add($model1);
-        $this->subject->add(new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel());
+        $this->subject->add(new TestingModel());
 
         self::assertSame(
             $model1,
@@ -1211,8 +1210,8 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function atForPositionOneWithTwoItemListReturnsSecondItem()
     {
-        $this->subject->add(new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel());
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $this->subject->add(new TestingModel());
+        $model2 = new TestingModel();
         $this->subject->add($model2);
 
         self::assertSame(
@@ -1226,8 +1225,8 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function atForPositionTwoWithTwoItemListReturnsNull()
     {
-        $this->subject->add(new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel());
-        $this->subject->add(new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel());
+        $this->subject->add(new TestingModel());
+        $this->subject->add(new TestingModel());
 
         self::assertNull(
             $this->subject->at(2)
@@ -1263,8 +1262,8 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function inRangeWithZeroLengthReturnsEmptyList()
     {
-        $this->subject->add(new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel());
-        $this->subject->add(new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel());
+        $this->subject->add(new TestingModel());
+        $this->subject->add(new TestingModel());
 
         self::assertTrue(
             $this->subject->inRange(1, 0)->isEmpty()
@@ -1276,9 +1275,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function inRangeCanReturnOneElementFromStartOfList()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
-        $this->subject->add(new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel());
+        $this->subject->add(new TestingModel());
 
         $result = $this->subject->inRange(0, 1);
         self::assertSame(
@@ -1296,8 +1295,8 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function inRangeCanReturnOneElementAfterStartOfList()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
-        $this->subject->add(new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel());
+        $model = new TestingModel();
+        $this->subject->add(new TestingModel());
         $this->subject->add($model);
 
         $result = $this->subject->inRange(1, 1);
@@ -1316,9 +1315,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function inRangeCanReturnTwoElementsFromStartOfList()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $this->subject->add($model1);
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $this->subject->add($model2);
 
         self::assertSame(
@@ -1332,7 +1331,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function inRangeWithStartAfterListEndReturnsEmptyList()
     {
-        $this->subject->add(new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel());
+        $this->subject->add(new TestingModel());
 
         self::assertTrue(
             $this->subject->inRange(1, 1)->isEmpty()
@@ -1344,8 +1343,8 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function inRangeWithRangeCrossingListEndReturnsElementUpToListEnd()
     {
-        $this->subject->add(new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel());
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $this->subject->add(new TestingModel());
+        $model = new TestingModel();
         $this->subject->add($model);
 
         $result = $this->subject->inRange(1, 2);
@@ -1380,7 +1379,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function toArrayWithOneElementReturnsArrayWithElement()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
 
         self::assertSame(
@@ -1394,9 +1393,9 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function toArrayWithTwoElementsReturnsArrayWithBothElementsInAddingOrder()
     {
-        $model1 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model1 = new TestingModel();
         $this->subject->add($model1);
-        $model2 = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model2 = new TestingModel();
         $this->subject->add($model2);
 
         self::assertSame(
@@ -1422,7 +1421,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function setParentModelSetsParentModel()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->setParentModel($model);
 
         self::assertSame(
@@ -1436,7 +1435,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function addWithoutParentModelIsNoProblem()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
     }
 
@@ -1445,11 +1444,11 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function addWithoutParentModelMarksParentModelAsDirty()
     {
-        $parentModel = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $parentModel = new TestingModel();
         self::assertFalse($parentModel->isDirty());
         $this->subject->setParentModel($parentModel);
 
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingModel();
+        $model = new TestingModel();
         $this->subject->add($model);
 
         self::assertTrue($parentModel->isDirty());

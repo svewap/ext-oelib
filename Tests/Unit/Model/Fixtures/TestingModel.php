@@ -32,6 +32,24 @@ class TestingModel extends \Tx_Oelib_Model
     }
 
     /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return $this->getAsString('header');
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return void
+     */
+    public function setHeader($value)
+    {
+        $this->setAsString('header', $value);
+    }
+
+    /**
      * Sets the deleted property via set().
      *
      * Note: This function is expected to fail.
@@ -41,6 +59,16 @@ class TestingModel extends \Tx_Oelib_Model
     public function setDeletedPropertyUsingSet()
     {
         $this->setAsBoolean('deleted', true);
+    }
+
+    /**
+     * Sets the dummy column to TRUE.
+     *
+     * @return void
+     */
+    public function markAsDummyModel()
+    {
+        $this->set('is_dummy_record', true);
     }
 
     /**
@@ -73,6 +101,16 @@ class TestingModel extends \Tx_Oelib_Model
     public function setFriend(TestingModel $friend)
     {
         $this->set('friend', $friend);
+    }
+
+    /**
+     * Gets the "owner" data item. This is an n:1 relation.
+     *
+     * @return \Tx_Oelib_Model_FrontEndUser
+     */
+    public function getOwner()
+    {
+        return $this->getAsModel('owner');
     }
 
     /**
@@ -128,6 +166,18 @@ class TestingModel extends \Tx_Oelib_Model
     }
 
     /**
+     * Sets the "composition" data item. This is an 1:n relation.
+     *
+     * @param \Tx_Oelib_List $components <TestingChildModel>
+     *
+     * @return void
+     */
+    public function setComposition(\Tx_Oelib_List $components)
+    {
+        $this->set('composition', $components);
+    }
+
+    /**
      * Adds $model to the "composition" relation.
      *
      * @param TestingChildModel $model
@@ -137,6 +187,60 @@ class TestingModel extends \Tx_Oelib_Model
     public function addCompositionRecord(TestingChildModel $model)
     {
         $this->getComposition()->add($model);
+    }
+
+    /**
+     * Gets the "composition2" data item. This is an 1:n relation.
+     *
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model> the "composition2" data item, will be empty (but
+     *                       not NULL) if this model has no composition2
+     */
+    public function getComposition2()
+    {
+        return $this->getAsList('composition2');
+    }
+
+    /**
+     * Sets the "composition2" data item. This is an 1:n relation.
+     *
+     * @param \Tx_Oelib_List <\Tx_Oelib_Model> $components
+     *                      the "composition2" data to set
+     *
+     * @return void
+     */
+    public function setComposition2(\Tx_Oelib_List $components)
+    {
+        $this->set('composition2', $components);
+    }
+
+    /**
+     * Gets the data from the "float_data" column.
+     *
+     * @return float the data from the "float_data" column
+     */
+    public function getFloatFromFloatData()
+    {
+        return $this->getAsFloat('float_data');
+    }
+
+    /**
+     * Gets the data from the "decimal_data" column.
+     *
+     * @return float the data from the "decimal_data" column
+     */
+    public function getFloatFromDecimalData()
+    {
+        return $this->getAsFloat('decimal_data');
+    }
+
+    /**
+     * Gets the data from the "string_data" column.
+     *
+     * @return float the data from the "string_data" column
+     */
+    public function getFloatFromStringData()
+    {
+        return $this->getAsFloat('string_data');
     }
 
     /*
@@ -163,6 +267,26 @@ class TestingModel extends \Tx_Oelib_Model
     public function getAsModel($key)
     {
         return parent::getAsModel($key);
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function getAsBoolean($key)
+    {
+        return parent::getAsBoolean($key);
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return int
+     */
+    public function getAsInteger($key)
+    {
+        return parent::getAsInteger($key);
     }
 
     /**

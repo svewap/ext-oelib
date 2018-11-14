@@ -3,6 +3,7 @@
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
@@ -1022,7 +1023,7 @@ class AbstractModelTest extends UnitTestCase
      */
     public function isReadOnlyOnReadOnlyModelReturnsTrue()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_ReadOnlyModel();
+        $model = new ReadOnlyModel();
 
         self::assertTrue(
             $model->isReadOnly()
@@ -1034,7 +1035,7 @@ class AbstractModelTest extends UnitTestCase
      */
     public function setDataOnReadOnlyModelDoesNotFail()
     {
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_ReadOnlyModel();
+        $model = new ReadOnlyModel();
         $model->setData([]);
     }
 
@@ -1048,7 +1049,7 @@ class AbstractModelTest extends UnitTestCase
             'set() must not be called on a read-only model.'
         );
 
-        $model = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_ReadOnlyModel();
+        $model = new ReadOnlyModel();
         $model->setTitle('foo');
     }
 

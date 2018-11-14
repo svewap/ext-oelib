@@ -1,5 +1,7 @@
 <?php
 
+use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
+
 /**
  * Test case.
  *
@@ -84,32 +86,7 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
      */
     public function getForExistingClassReturnsObjectOfRequestedClass()
     {
-        self::assertInstanceOf(
-            \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class,
-            \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getForExistingClassWithExtbaseCapitalizationReturnsObjectOfRequestedClass()
-    {
-        self::assertInstanceOf(
-            \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class,
-            \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getForExistingClassWithAllLowercaseReturnsObjectOfRequestedClass()
-    {
-        self::assertInstanceOf(
-            \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class,
-            \Tx_Oelib_MapperRegistry::get('tx_oelib_tests_legacyunit_fixtures_testingmapper')
-        );
+        self::assertInstanceOf(TestingMapper::class, \Tx_Oelib_MapperRegistry::get(TestingMapper::class));
     }
 
     /**
@@ -118,8 +95,8 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
     public function getForExistingClassCalledTwoTimesReturnsTheSameInstance()
     {
         self::assertSame(
-            \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class),
-            \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class)
+            \Tx_Oelib_MapperRegistry::get(TestingMapper::class),
+            \Tx_Oelib_MapperRegistry::get(TestingMapper::class)
         );
     }
 
@@ -135,7 +112,7 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
         \Tx_Oelib_MapperRegistry::denyDatabaseAccess();
 
         self::assertFalse(
-            \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class)->hasDatabaseAccess()
+            \Tx_Oelib_MapperRegistry::get(TestingMapper::class)->hasDatabaseAccess()
         );
     }
 
@@ -144,11 +121,11 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
      */
     public function getAfterDenyDatabaseAccessReturnsExistingMapperInstanceWithDatabaseAccessDisabled()
     {
-        \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class);
+        \Tx_Oelib_MapperRegistry::get(TestingMapper::class);
         \Tx_Oelib_MapperRegistry::denyDatabaseAccess();
 
         self::assertFalse(
-            \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class)->hasDatabaseAccess()
+            \Tx_Oelib_MapperRegistry::get(TestingMapper::class)->hasDatabaseAccess()
         );
     }
 
@@ -162,7 +139,7 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
         \Tx_Oelib_MapperRegistry::purgeInstance();
 
         self::assertTrue(
-            \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class)->hasDatabaseAccess()
+            \Tx_Oelib_MapperRegistry::get(TestingMapper::class)->hasDatabaseAccess()
         );
     }
 
@@ -175,15 +152,15 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
      */
     public function getReturnsMapperSetViaSet()
     {
-        $mapper = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper();
+        $mapper = new TestingMapper();
         \Tx_Oelib_MapperRegistry::set(
-            \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class,
+            TestingMapper::class,
             $mapper
         );
 
         self::assertSame(
             $mapper,
-            \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class)
+            \Tx_Oelib_MapperRegistry::get(TestingMapper::class)
         );
     }
 
@@ -194,8 +171,8 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
     {
         $className = \Tx_Oelib_AnotherTestingMapper::class;
 
-        /** @var $mapper \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper */
-        $mapper = $this->getMock(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class, [], [], $className);
+        /** @var $mapper TestingMapper $mapper */
+        $mapper = $this->getMock(TestingMapper::class, [], [], $className);
         \Tx_Oelib_MapperRegistry::set($className, $mapper);
 
         self::assertSame(
@@ -211,8 +188,8 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
     {
         $className = \Tx_Oelib_AnotherTestingMapper::class;
 
-        /** @var $mapper \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper */
-        $mapper = $this->getMock(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class, [], [], $className);
+        /** @var TestingMapper $mapper */
+        $mapper = $this->getMock(TestingMapper::class, [], [], $className);
         \Tx_Oelib_MapperRegistry::set(strtolower($className), $mapper);
 
         self::assertSame(
@@ -228,11 +205,8 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
      */
     public function setThrowsExceptionForMismatchingWrapperClass()
     {
-        $mapper = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper();
-        \Tx_Oelib_MapperRegistry::set(
-            'Tx_Oelib_Mapper_Foo',
-            $mapper
-        );
+        $mapper = new TestingMapper();
+        \Tx_Oelib_MapperRegistry::set('Tx_Oelib_Mapper_Foo', $mapper);
     }
 
     /**
@@ -242,12 +216,9 @@ class Tx_Oelib_Tests_LegacyUnit_MapperRegistryTest extends \Tx_Phpunit_TestCase
      */
     public function setThrowsExceptionIfTheMapperTypeAlreadyIsRegistered()
     {
-        \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class);
+        \Tx_Oelib_MapperRegistry::get(TestingMapper::class);
 
-        $mapper = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper();
-        \Tx_Oelib_MapperRegistry::set(
-            \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapper::class,
-            $mapper
-        );
+        $mapper = new TestingMapper();
+        \Tx_Oelib_MapperRegistry::set(TestingMapper::class, $mapper);
     }
 }
