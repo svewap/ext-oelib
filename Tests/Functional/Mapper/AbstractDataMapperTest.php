@@ -1,5 +1,8 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Functional\Mapper;
+
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
@@ -8,20 +11,26 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCase
+class AbstractDataMapperTest extends FunctionalTestCase
 {
+    /**
+     * @var string[]
+     */
+    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
+
     /**
      * @var \Tx_Oelib_TestingFramework
      */
-    protected $testingFramework = null;
+    private $testingFramework = null;
 
     /**
      * @var TestingMapper
      */
-    protected $subject = null;
+    private $subject = null;
 
     protected function setUp()
     {
+        parent::setUp();
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
         \Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);
@@ -33,8 +42,8 @@ class Tx_Oelib_Tests_LegacyFunctional_DataMapperTest extends \Tx_Phpunit_TestCas
     protected function tearDown()
     {
         $this->testingFramework->cleanUp();
-
         \Tx_Oelib_MapperRegistry::purgeInstance();
+        parent::tearDown();
     }
 
     /*

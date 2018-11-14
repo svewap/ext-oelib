@@ -89,12 +89,10 @@
         "ci:tests:unit": "phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/",
         "ci:tests:unit-legacy": "$RUN_TESTS_COMMAND Tests/LegacyUnit/",
         "ci:tests:functional": "phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional/",
-        "ci:tests:functional-legacy": "$RUN_TESTS_COMMAND Tests/LegacyFunctional/",
         "ci:tests": [
             "@ci:tests:unit",
             "@ci:tests:unit-legacy",
-            "@ci:tests:functional",
-            "@ci:tests:functional-legacy"
+            "@ci:tests:functional"
         ],
         "ci:dynamic": [
             "@ci:tests"

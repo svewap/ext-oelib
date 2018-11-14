@@ -50,10 +50,6 @@ script:
   echo;
   echo "Running the functional tests";
   composer ci:tests:functional;
-- >
-  echo;
-  echo "Running the legacy functional tests";
-  composer ci:tests:functional-legacy;
 
 jobs:
   include:
