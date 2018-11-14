@@ -1,14 +1,18 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Configuration;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_ConfigurationTest extends \Tx_Phpunit_TestCase
+class ConfigurationTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Configuration the model to test
+     * @var \Tx_Oelib_Configuration
      */
     private $subject;
 
