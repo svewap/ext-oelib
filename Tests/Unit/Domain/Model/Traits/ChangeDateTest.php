@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Oelib\Tests\Unit\Domain\Repository\Traits;
+namespace OliverKlee\Oelib\Tests\Unit\Domain\Model\Traits;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Domain\Model\Interfaces\ChangeDate;
