@@ -3,7 +3,10 @@
 namespace OliverKlee\Oelib\Tests\Unit\Domain\Repository\Traits;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\EmptyModel;
 use OliverKlee\Oelib\Tests\Unit\Domain\Repository\Fixtures\ReadOnlyRepository;
+use Prophecy\Prophecy\ProphecySubjectInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
  * Test case.
@@ -19,7 +22,10 @@ class ReadOnlyTest extends UnitTestCase
 
     protected function setUp()
     {
-        $this->subject = new ReadOnlyRepository();
+        /** @var ObjectManagerInterface|ProphecySubjectInterface $objectManagerStub */
+        $objectManagerStub = $this->prophesize(ObjectManagerInterface::class)->reveal();
+
+        $this->subject = new ReadOnlyRepository($objectManagerStub);
     }
 
     /**
@@ -29,7 +35,7 @@ class ReadOnlyTest extends UnitTestCase
     {
         $this->expectException(\BadMethodCallException::class);
 
-        $this->subject->add(new ReadOnlyRepository());
+        $this->subject->add(new EmptyModel());
     }
 
     /**
@@ -39,7 +45,7 @@ class ReadOnlyTest extends UnitTestCase
     {
         $this->expectException(\BadMethodCallException::class);
 
-        $this->subject->remove(new ReadOnlyRepository());
+        $this->subject->remove(new EmptyModel());
     }
 
     /**
@@ -49,7 +55,7 @@ class ReadOnlyTest extends UnitTestCase
     {
         $this->expectException(\BadMethodCallException::class);
 
-        $this->subject->update(new ReadOnlyRepository());
+        $this->subject->update(new EmptyModel());
     }
 
     /**

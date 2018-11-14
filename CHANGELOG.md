@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z (unreleased)
 
 ### Added
+- Trait for storage-page-agnostic repositories (#156)
 - Trait for cached association counts (#147)
 - Make the configuration check class name more flexible (#140)
 - Support namespaced data mappers and models (#137)
