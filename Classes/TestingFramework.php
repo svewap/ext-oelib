@@ -869,31 +869,24 @@ final class Tx_Oelib_TestingFramework
     private function cleanUpTableSet($useSystemTables, $performDeepCleanUp)
     {
         if ($useSystemTables) {
-            $tablesToCleanUp = $performDeepCleanUp
-                ? $this->allowedSystemTables
-                : $this->dirtySystemTables;
+            $tablesToCleanUp = $performDeepCleanUp ? $this->allowedSystemTables : $this->dirtySystemTables;
         } else {
-            $tablesToCleanUp = $performDeepCleanUp
-                ? $this->ownAllowedTables
-                : $this->dirtyTables;
+            $tablesToCleanUp = $performDeepCleanUp ? $this->ownAllowedTables : $this->dirtyTables;
         }
 
         foreach ($tablesToCleanUp as $currentTable) {
             $dummyColumnName = $this->getDummyColumnName($currentTable);
+            if (!\Tx_Oelib_Db::tableHasColumn($currentTable, $dummyColumnName)) {
+                continue;
+            }
 
-            // Runs a delete query for each allowed table. A
-            // "one-query-deletes-them-all" approach was tested but we didn't
-            // find a working solution for that.
-            \Tx_Oelib_Db::delete(
-                $currentTable,
-                $dummyColumnName . ' = 1'
-            );
+            // Runs a delete query for each allowed table. A "one-query-deletes-them-all" approach was tested,
+            // but we didn't find a working solution for that.
+            \Tx_Oelib_Db::delete($currentTable, $dummyColumnName . ' = 1');
 
-            // Resets the auto increment setting of the current table.
             $this->resetAutoIncrementLazily($currentTable);
         }
 
-        // Resets the list of dirty tables.
         $this->dirtyTables = [];
     }
 

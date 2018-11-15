@@ -31,6 +31,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop roave/security-advisories from the dev dependencies (#118)
 
 ### Fixed
+- Only clean up tables that have a dummy column (#167)
 - Create testing data mappers without eval (#150)
 - Allow CamelCase class names for the configuration check (#139)
 - Use the current composer names of static_info_tables (#127)
