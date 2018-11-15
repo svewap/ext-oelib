@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add a configuration for the Google Maps API key (#92, #112)
 
 ### Changed
+- Use spaces for indenting SQL and .htaccess files (#153, #162)
 - Clean up the the ext_icon SVG file (#155)
 - Streamline ext_emconf.php (#134, #135)
 - Move the old tests to Tests/LegacyUnit/ and Tests/LegacyFunctional/ (#123)
