@@ -1,12 +1,16 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Configuration;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
 /**
  * Test case.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_ConfigurationProxyTest extends \Tx_Phpunit_TestCase
+class ConfigurationProxyTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_ConfigurationProxy
@@ -30,14 +34,14 @@ class Tx_Oelib_Tests_LegacyUnit_ConfigurationProxyTest extends \Tx_Phpunit_TestC
     {
         $this->subject = \Tx_Oelib_ConfigurationProxy::getInstance('oelib');
         // ensures the same configuration at the beginning of each test
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['oelib']
-            = serialize($this->testConfiguration);
+        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['oelib'] = serialize($this->testConfiguration);
         $this->subject->retrieveConfiguration();
     }
 
     protected function tearDown()
     {
         \Tx_Oelib_ConfigurationProxy::purgeInstances();
+        parent::tearDown();
     }
 
     /**
