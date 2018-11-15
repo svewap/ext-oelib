@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <tx_oelib_domain_model_germanzipcode>
+        <uid>9000</uid>
+        <pid>0</pid>
+        <deleted>0</deleted>
+        <zip_code>01067</zip_code>
+        <city_name>Dresden</city_name>
+        <longitude>13.721068</longitude>
+        <latitude>51.060036</latitude>
+    </tx_oelib_domain_model_germanzipcode>
+</dataset>

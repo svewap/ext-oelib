@@ -85,7 +85,7 @@
         "vendor-dir": ".Build/vendor"
     },
     "scripts": {
-        "ci:php:lint": "find *.php Classes/ Configuration/ TestExtensions/ Tests/ -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+        "ci:php:lint": "find *.php Classes/ Configuration/ Migrations/ TestExtensions/ Tests/ -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
         "ci:tests:unit": "phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/",
         "ci:tests:unit-legacy": "$RUN_TESTS_COMMAND Tests/LegacyUnit/",
         "ci:tests:functional": "phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional/",
@@ -115,6 +115,11 @@
     "extra": {
         "branch-alias": {
             "dev-master": "2.1.x-dev"
+        },
+        "typo3/class-alias-loader": {
+            "class-alias-maps": [
+                "Migrations/Code/ClassAliasMap.php"
+            ]
         },
         "typo3/cms": {
             "extension-key": "oelib",

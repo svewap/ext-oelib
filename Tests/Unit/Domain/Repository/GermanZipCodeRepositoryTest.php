@@ -1,22 +1,23 @@
 <?php
 
-namespace OliverKlee\Oelib\Tests\Unit\Domain\Repository\Traits;
+namespace OliverKlee\Oelib\Tests\Unit\Domain\Repository;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\EmptyModel;
-use OliverKlee\Oelib\Tests\Unit\Domain\Repository\Fixtures\ReadOnlyRepository;
+use OliverKlee\Oelib\Domain\Model\GermanZipCode;
+use OliverKlee\Oelib\Domain\Repository\GermanZipCodeRepository;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class ReadOnlyTest extends UnitTestCase
+class GermanZipCodeRepositoryTest extends UnitTestCase
 {
     /**
-     * @var ReadOnlyRepository
+     * @var GermanZipCodeRepository
      */
     private $subject = null;
 
@@ -24,7 +25,23 @@ class ReadOnlyTest extends UnitTestCase
     {
         /** @var ObjectManagerInterface|ProphecySubjectInterface $objectManagerStub */
         $objectManagerStub = $this->prophesize(ObjectManagerInterface::class)->reveal();
-        $this->subject = new ReadOnlyRepository($objectManagerStub);
+        $this->subject = new GermanZipCodeRepository($objectManagerStub);
+    }
+
+    /**
+     * @test
+     */
+    public function isRepository()
+    {
+        static::assertInstanceOf(Repository::class, $this->subject);
+    }
+
+    /**
+     * @test
+     */
+    public function hasNonNamespacedAlias()
+    {
+        static::assertInstanceOf(\Tx_Oelib_Domain_Repository_GermanZipCodeRepository::class, $this->subject);
     }
 
     /**
@@ -34,7 +51,7 @@ class ReadOnlyTest extends UnitTestCase
     {
         $this->expectException(\BadMethodCallException::class);
 
-        $this->subject->add(new EmptyModel());
+        $this->subject->add(new GermanZipCode());
     }
 
     /**
@@ -44,7 +61,7 @@ class ReadOnlyTest extends UnitTestCase
     {
         $this->expectException(\BadMethodCallException::class);
 
-        $this->subject->remove(new EmptyModel());
+        $this->subject->remove(new GermanZipCode());
     }
 
     /**
@@ -54,7 +71,7 @@ class ReadOnlyTest extends UnitTestCase
     {
         $this->expectException(\BadMethodCallException::class);
 
-        $this->subject->update(new EmptyModel());
+        $this->subject->update(new GermanZipCode());
     }
 
     /**

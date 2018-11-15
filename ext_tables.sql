@@ -1,3 +1,18 @@
+CREATE TABLE tx_oelib_domain_model_germanzipcode (
+    uid int(11) unsigned NOT NULL auto_increment,
+    pid int(11) unsigned DEFAULT '0' NOT NULL,
+    deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
+
+    zip_code varchar(5) DEFAULT '' NOT NULL,
+    city_name varchar(255) DEFAULT '' NOT NULL,
+    longitude float(9,6) DEFAULT '0.000000' NOT NULL,
+    latitude float(9,6) DEFAULT '0.000000' NOT NULL,
+
+    PRIMARY KEY (uid),
+    KEY parent (pid),
+    KEY zip_code (zip_code)
+);
+
 #
 # Table structure for table 'tx_oelib_test'
 #

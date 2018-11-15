@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="messages" date="2016-07-18T15:52:22Z"
-          product-name="oelib">
+    <file source-language="en" datatype="plaintext" original="messages">
         <header/>
         <body>
-            <trans-unit id="label_test" xml:space="preserve">
+            <trans-unit id="label_test">
                 <source>I am from file.</source>
             </trans-unit>
         </body>
