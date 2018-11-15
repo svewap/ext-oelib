@@ -1,5 +1,8 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\DataStructures;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
@@ -8,7 +11,7 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
+class ListTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_List
@@ -615,10 +618,7 @@ class Tx_Oelib_Tests_LegacyUnit_ListTest extends \Tx_Phpunit_TestCase
      */
     public function isIterator()
     {
-        self::assertInstanceOf(
-            Iterator::class,
-            $this->subject
-        );
+        self::assertInstanceOf(\Iterator::class, $this->subject);
     }
 
     /////////////////////////////

@@ -1,20 +1,25 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\DataStructures;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures\TestingObject;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_ObjectTest extends \Tx_Phpunit_TestCase
+class AbstractObjectTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingObject
+     * @var TestingObject
      */
-    private $subject;
+    private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingObject();
+        $this->subject = new TestingObject();
     }
 
     //////////////////////////////////

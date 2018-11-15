@@ -1,11 +1,13 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures;
+
 /**
  * This class represents an object for testing purposes.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-final class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingObject extends \Tx_Oelib_PublicObject
+class TestingObject extends \Tx_Oelib_PublicObject
 {
     /**
      * @var array the data for this object
