@@ -1,5 +1,9 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
+
+use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
+use OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures\TestingMapPoint;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -7,7 +11,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx_Phpunit_TestCase
+class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 {
     /**
      * @var \Tx_Oelib_ViewHelpers_GoogleMapsViewHelper
@@ -31,6 +35,8 @@ class Tx_Oelib_Tests_LegacyUnit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx
 
     protected function setUp()
     {
+        parent::setUp();
+
         $configurationRegistry = \Tx_Oelib_ConfigurationRegistry::getInstance();
         $configurationRegistry->set('plugin', new \Tx_Oelib_Configuration());
         $this->configuration = new \Tx_Oelib_Configuration();
@@ -50,8 +56,9 @@ class Tx_Oelib_Tests_LegacyUnit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx
 
     protected function tearDown()
     {
-        unset($GLOBALS['TSFE']);
         \Tx_Oelib_ConfigurationRegistry::purgeInstance();
+        parent::tearDown();
+        unset($GLOBALS['TSFE']);
     }
 
     /**
@@ -230,7 +237,7 @@ class Tx_Oelib_Tests_LegacyUnit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx
         self::assertContains(
             '<script src="https://maps.googleapis.com/maps/api/js?key=' . $apiKey
             . '" type="text/javascript"></script>',
-            $this->mockFrontEnd->additionalHeaderData[Tx_Oelib_ViewHelpers_GoogleMapsViewHelper::LIBRARY_JAVASCRIPT_HEADER_KEY]
+            $this->mockFrontEnd->additionalHeaderData[\Tx_Oelib_ViewHelpers_GoogleMapsViewHelper::LIBRARY_JAVASCRIPT_HEADER_KEY]
         );
     }
 
@@ -275,7 +282,7 @@ class Tx_Oelib_Tests_LegacyUnit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx
      */
     public function renderForMapPointsOfNonMapPointClassThrowsException()
     {
-        $element = new stdClass();
+        $element = new \stdClass();
 
         $this->subject->render([$element]);
     }
@@ -324,7 +331,7 @@ class Tx_Oelib_Tests_LegacyUnit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx
      */
     public function renderForElementWithCoordinatesWithIdentityWithoutUidNotCreatesUidProperty()
     {
-        $mapPoint = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapPoint();
+        $mapPoint = new TestingMapPoint();
         $mapPoint->setUid(0);
         $this->subject->render([$mapPoint]);
 
@@ -340,7 +347,7 @@ class Tx_Oelib_Tests_LegacyUnit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx
     public function renderForElementWithCoordinatesWithIdentityWithUidCreatesUidPropertyWithUid()
     {
         $uid = 42;
-        $mapPoint = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapPoint();
+        $mapPoint = new TestingMapPoint();
         $mapPoint->setUid($uid);
         $this->subject->render([$mapPoint]);
 
@@ -368,7 +375,7 @@ class Tx_Oelib_Tests_LegacyUnit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx
      */
     public function renderForElementWithCoordinatesWithIdentityWithoutUidNotCreatesEntryInMapMarkersByUid()
     {
-        $mapPoint = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapPoint();
+        $mapPoint = new TestingMapPoint();
         $mapPoint->setUid(0);
         $this->subject->render([$mapPoint]);
 
@@ -384,7 +391,7 @@ class Tx_Oelib_Tests_LegacyUnit_ViewHelpers_GoogleMapsViewHelperTest extends \Tx
     public function renderForElementWithCoordinatesWithIdentityWithUidCreatesEntryInMapMarkersByUid()
     {
         $uid = 42;
-        $mapPoint = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapPoint();
+        $mapPoint = new TestingMapPoint();
         $mapPoint->setUid($uid);
         $this->subject->render([$mapPoint]);
 

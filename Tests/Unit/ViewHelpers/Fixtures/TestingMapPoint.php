@@ -1,12 +1,13 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures;
+
 /**
- * This is just a dummy class that implements the MapPoint interface and the
- * Identity interface.
+ * This is just a dummy class that implements the MapPoint interface and the Identity interface.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interface_Identity
+class TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interface_Identity
 {
     /**
      * @var int

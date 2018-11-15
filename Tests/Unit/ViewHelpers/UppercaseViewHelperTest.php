@@ -1,11 +1,15 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
+
+use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_ViewHelpers_UppercaseViewHelperTest extends \Tx_Phpunit_TestCase
+class UppercaseViewHelperTest extends ViewHelperBaseTestcase
 {
     /**
      * @test
