@@ -158,9 +158,8 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
             );
         }
 
-        $distanceMultiplier = 9999;
-
-        $randomDistance = \mt_rand(0, $maximumDistance * $distanceMultiplier) / $distanceMultiplier;
+        $distanceMultiplier = 10000;
+        $randomDistance = \mt_rand(0, $maximumDistance * ($distanceMultiplier - 1)) / $distanceMultiplier;
         $this->move($object, $direction, $randomDistance);
     }
 
