@@ -67,9 +67,38 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findOneByZipCodeWithoutMatchReturnsNull()
+    public function findOneByZipCodeWithMatchCalledTwoTimesReturnsTheSameModel()
     {
-        $zipCode = '00000';
+        $zipCode = '01067';
+        $firstResult = $this->subject->findOneByZipCode($zipCode);
+        $secondResult = $this->subject->findOneByZipCode($zipCode);
+
+        static::assertSame($firstResult, $secondResult);
+    }
+
+    /**
+     * @return string[][]
+     */
+    public function nonMatchedZipCodesDataProvider()
+    {
+        return [
+            '5 digits without match' => ['00000'],
+            '5 letters' => ['av3sd'],
+            '4 digits' => ['1233'],
+            '6 digits' => ['463726'],
+            'empty string' => [''],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @param string $zipCode
+     *
+     * @dataProvider nonMatchedZipCodesDataProvider
+     */
+    public function findOneByZipCodeWithoutMatchReturnsNull($zipCode)
+    {
         $result = $this->subject->findOneByZipCode($zipCode);
 
         static::assertNull($result);
