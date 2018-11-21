@@ -1,5 +1,8 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Functional\Authentication;
+
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -9,20 +12,26 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_TestCase
+class FrontEndLoginManagerTest extends FunctionalTestCase
 {
+    /**
+     * @var string[]
+     */
+    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
+
     /**
      * @var \Tx_Oelib_FrontEndLoginManager
      */
-    private $subject;
+    private $subject = null;
 
     /**
      * @var \Tx_Oelib_TestingFramework
      */
-    private $testingFramework;
+    private $testingFramework = null;
 
     protected function setUp()
     {
+        parent::setUp();
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
         $this->subject = \Tx_Oelib_FrontEndLoginManager::getInstance();
@@ -31,45 +40,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
     protected function tearDown()
     {
         $this->testingFramework->cleanUp();
-    }
-
-    ////////////////////////////////////////////
-    // Tests concerning the Singleton property
-    ////////////////////////////////////////////
-
-    /**
-     * @test
-     */
-    public function getInstanceReturnsFrontEndLoginManagerInstance()
-    {
-        self::assertInstanceOf(
-            \Tx_Oelib_FrontEndLoginManager::class,
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getInstanceTwoTimesReturnsSameInstance()
-    {
-        self::assertSame(
-            $this->subject,
-            \Tx_Oelib_FrontEndLoginManager::getInstance()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getInstanceAfterPurgeInstanceReturnsNewInstance()
-    {
-        \Tx_Oelib_FrontEndLoginManager::purgeInstance();
-
-        self::assertNotSame(
-            $this->subject,
-            \Tx_Oelib_FrontEndLoginManager::getInstance()
-        );
+        parent::tearDown();
     }
 
     ////////////////////////////////
@@ -91,7 +62,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
      */
     public function isLoggedInForFrontEndWithoutLoggedInUserReturnsFalse()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
 
         self::assertFalse(
             $this->subject->isLoggedIn()
@@ -103,7 +74,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
      */
     public function isLoggedInForAnonymousFrontEndSessionReturnsFalse()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
 
         /** @var TypoScriptFrontendController $frontEndController */
         $frontEndController = $GLOBALS['TSFE'];
@@ -117,7 +88,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
      */
     public function isLoggedInWithLoggedInFrontEndUserReturnsTrue()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->createAndLoginFrontEndUser();
 
         self::assertTrue(
@@ -159,7 +130,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
      */
     public function getLoggedInUserWithoutLoggedInUserReturnsNull()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->logoutFrontEndUser();
 
         self::assertNull(
@@ -172,7 +143,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
      */
     public function getLoggedInUserWithLoggedInUserReturnsFrontEndUserInstance()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->createAndLoginFrontEndUser();
 
         self::assertInstanceOf(
@@ -186,7 +157,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
      */
     public function getLoggedInUserWithOtherMapperNameAndLoggedInUserReturnsCorrespondingModel()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->createAndLoginFrontEndUser();
 
         self::assertInstanceOf(TestingModel::class, $this->subject->getLoggedInUser(TestingMapper::class));
@@ -197,7 +168,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
      */
     public function getLoggedInUserWithLoggedInUserReturnsFrontEndUserWithUidOfLoggedInUser()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $uid = $this->testingFramework->createAndLoginFrontEndUser();
 
         self::assertSame(
@@ -211,7 +182,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
      */
     public function getLoggedInUserWithAlreadyCreatedUserModelReturnsThatInstance()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $uid = $this->testingFramework->createAndLoginFrontEndUser();
         /** @var \Tx_Oelib_Mapper_FrontEndUser $mapper */
         $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUser::class);
@@ -229,7 +200,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
      */
     public function getLoggedInUserWithLoadedModelOfUserNotInDatabaseReturnsThatInstance()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
 
         $nonExistentUid = $this->testingFramework->getAutoIncrement('fe_users');
         $user = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUser::class)->find($nonExistentUid);
@@ -247,7 +218,7 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
      */
     public function getLoggedInUserUsesMappedUserDataFromMemory()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $feUserUid = $this->testingFramework->createAndLoginFrontEndUser(
             '',
             ['name' => 'John Doe']
@@ -275,52 +246,9 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
     /**
      * @test
      */
-    public function logInUserChangesToLoggedInStatus()
-    {
-        $user = new \Tx_Oelib_Model_FrontEndUser();
-        $this->subject->logInUser($user);
-
-        self::assertTrue(
-            $this->subject->isLoggedIn()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function logInUserSetsLoggedInUser()
-    {
-        $user = new \Tx_Oelib_Model_FrontEndUser();
-        $this->subject->logInUser($user);
-
-        self::assertSame(
-            $user,
-            $this->subject->getLoggedInUser()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function logInUserOverwritesFormerSimulatedLoggedInUser()
-    {
-        $oldUser = new \Tx_Oelib_Model_FrontEndUser();
-        $this->subject->logInUser($oldUser);
-        $newUser = new \Tx_Oelib_Model_FrontEndUser();
-        $this->subject->logInUser($newUser);
-
-        self::assertSame(
-            $newUser,
-            $this->subject->getLoggedInUser()
-        );
-    }
-
-    /**
-     * @test
-     */
     public function logInUserOverwritesFormerRealLoggedInUser()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->createAndLoginFrontEndUser();
 
         $user = new \Tx_Oelib_Model_FrontEndUser();
@@ -329,36 +257,6 @@ class Tx_Oelib_Tests_LegacyUnit_FrontEndLoginManagerTest extends \Tx_Phpunit_Tes
         self::assertSame(
             $user,
             $this->subject->getLoggedInUser()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function logInUserWithNullSetsUserToNull()
-    {
-        $user = new \Tx_Oelib_Model_FrontEndUser();
-        $this->subject->logInUser($user);
-
-        $this->subject->logInUser(null);
-
-        self::assertNull(
-            $this->subject->getLoggedInUser()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function logInUserWithNullSetsStatusToNotLoggedIn()
-    {
-        $user = new \Tx_Oelib_Model_FrontEndUser();
-        $this->subject->logInUser($user);
-
-        $this->subject->logInUser(null);
-
-        self::assertFalse(
-            $this->subject->isLoggedIn()
         );
     }
 }
