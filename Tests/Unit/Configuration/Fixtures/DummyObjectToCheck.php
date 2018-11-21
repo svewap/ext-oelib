@@ -1,11 +1,13 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures;
+
 /**
  * This is mere a class to test the configuration check class.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-final class Tx_Oelib_Tests_LegacyUnit_Fixtures_DummyObjectToCheck extends \Tx_Oelib_TemplateHelper implements \Tx_Oelib_Interface_ConfigurationCheckable
+class DummyObjectToCheck extends \Tx_Oelib_TemplateHelper implements \Tx_Oelib_Interface_ConfigurationCheckable
 {
     /**
      * The constructor.

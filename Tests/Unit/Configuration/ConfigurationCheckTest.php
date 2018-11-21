@@ -1,13 +1,16 @@
 <?php
 
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+namespace OliverKlee\Oelib\Tests\Unit\Configuration;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\DummyObjectToCheck;
 
 /**
  * Test case.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_ConfigCheckTest extends \Tx_Phpunit_TestCase
+class ConfigurationCheckTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_ConfigCheck configuration check object to be tested
@@ -15,29 +18,15 @@ class Tx_Oelib_Tests_LegacyUnit_ConfigCheckTest extends \Tx_Phpunit_TestCase
     private $subject = null;
 
     /**
-     * @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_DummyObjectToCheck dummy object to be checked by the configuration check
-     *     object
+     * @var DummyObjectToCheck
      */
     private $objectToCheck = null;
 
-    /**
-     * @var \Tx_Oelib_TestingFramework
-     */
-    private $testingFramework = null;
-
-    /**
-     * @var bool
-     */
-    protected $deprecationLogEnabledBackup = false;
-
     protected function setUp()
     {
-        $this->deprecationLogEnabledBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'];
+        parent::setUp();
 
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
-        $this->testingFramework->createFakeFrontEnd();
-
-        $this->objectToCheck = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_DummyObjectToCheck(
+        $this->objectToCheck = new DummyObjectToCheck(
             [
                 'emptyString' => '',
                 'nonEmptyString' => 'foo',
@@ -47,71 +36,6 @@ class Tx_Oelib_Tests_LegacyUnit_ConfigCheckTest extends \Tx_Phpunit_TestCase
             ]
         );
         $this->subject = new \Tx_Oelib_ConfigCheck($this->objectToCheck);
-    }
-
-    protected function tearDown()
-    {
-        $this->testingFramework->cleanUp();
-
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['enableDeprecationLog'] = $this->deprecationLogEnabledBackup;
-    }
-
-    ///////////////////////
-    // Utility functions.
-    ///////////////////////
-
-    /**
-     * Returns the current front-end instance.
-     *
-     * @return TypoScriptFrontendController
-     */
-    private function getFrontEndController()
-    {
-        return $GLOBALS['TSFE'];
-    }
-
-    /**
-     * Sets the configuration value for the locale to $localeKey.
-     *
-     * @param string $localeKey
-     *        key for the locale, to receive a non-configured locale, provide
-     *        an empty string
-     *
-     * @return void
-     */
-    private function setConfigurationForLocale($localeKey)
-    {
-        $this->getFrontEndController()->config['config']['locale_all'] = $localeKey;
-    }
-
-    /////////////////////////////////////
-    // Tests for the utility functions.
-    /////////////////////////////////////
-
-    /**
-     * @test
-     */
-    public function setConfigurationForLocaleToANonEmptyValue()
-    {
-        $this->setConfigurationForLocale('foo');
-
-        self::assertSame(
-            'foo',
-            $this->getFrontEndController()->config['config']['locale_all']
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setConfigurationForLocaleToAnEmptyString()
-    {
-        $this->setConfigurationForLocale('');
-
-        self::assertSame(
-            '',
-            $this->getFrontEndController()->config['config']['locale_all']
-        );
     }
 
     /*
@@ -159,9 +83,9 @@ class Tx_Oelib_Tests_LegacyUnit_ConfigCheckTest extends \Tx_Phpunit_TestCase
         );
     }
 
-    //////////////////////////////////////
-    // Tests concerning values to check.
-    //////////////////////////////////////
+    /*
+     * Tests concerning values to check
+     */
 
     /**
      * @test
@@ -185,44 +109,6 @@ class Tx_Oelib_Tests_LegacyUnit_ConfigCheckTest extends \Tx_Phpunit_TestCase
 
         self::assertContains(
             'emptyString',
-            $this->subject->getRawMessage()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function checkIfSingleInTableNotEmptyForValueNotInTableComplains()
-    {
-        $this->subject->checkIfSingleInTableNotEmpty(
-            'inexistentColumn',
-            false,
-            '',
-            '',
-            'tx_oelib_test'
-        );
-
-        self::assertContains(
-            'inexistentColumn',
-            $this->subject->getRawMessage()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function checkIfSingleInTableNotEmptyForValueNotInTableNotComplains()
-    {
-        $this->subject->checkIfSingleInTableNotEmpty(
-            'existingColumn',
-            false,
-            '',
-            '',
-            'tx_oelib_test'
-        );
-
-        self::assertSame(
-            '',
             $this->subject->getRawMessage()
         );
     }
