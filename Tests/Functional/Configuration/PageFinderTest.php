@@ -19,12 +19,12 @@ class PageFinderTest extends FunctionalTestCase
     /**
      * @var \Tx_Oelib_TestingFramework
      */
-    private $testingFramework;
+    private $testingFramework = null;
 
     /**
      * @var \Tx_Oelib_PageFinder
      */
-    private $subject;
+    private $subject = null;
 
     protected function setUp()
     {
