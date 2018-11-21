@@ -1,25 +1,35 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Functional\Mapper;
+
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+
 /**
  * Test case.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Mapper_BackEndUserTest extends \Tx_Phpunit_TestCase
+class BackEndUserMapperTest extends FunctionalTestCase
 {
+    /**
+     * @var string[]
+     */
+    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
+
     /**
      * @var \Tx_Oelib_TestingFramework for creating dummy records
      */
-    private $testingFramework;
+    private $testingFramework = null;
 
     /**
      * @var \Tx_Oelib_Mapper_BackEndUser the object to test
      */
-    private $subject;
+    private $subject = null;
 
     protected function setUp()
     {
+        parent::setUp();
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
         $this->subject = new \Tx_Oelib_Mapper_BackEndUser();
@@ -28,6 +38,7 @@ class Tx_Oelib_Tests_LegacyUnit_Mapper_BackEndUserTest extends \Tx_Phpunit_TestC
     protected function tearDown()
     {
         $this->testingFramework->cleanUp();
+        parent::tearDown();
     }
 
     //////////////////////////
