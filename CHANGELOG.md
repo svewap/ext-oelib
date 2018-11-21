@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z (unreleased)
 
 ### Added
+- Email role from the install tool default from email data (#181)
 - Static data of the geo coordinates of German ZIP codes (#166, #172)
 - Trait for storage-page-agnostic repositories (#156)
 - Trait for cached association counts (#147)

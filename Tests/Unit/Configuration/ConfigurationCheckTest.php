@@ -181,4 +181,42 @@ class ConfigurationCheckTest extends UnitTestCase
             $this->subject->getRawMessage()
         );
     }
+
+    /**
+     * @test
+     */
+    public function checkIsValidDefaultFromEmailAddressForValidAddressMarksItAsValid()
+    {
+        $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = 'oliver@example.com';
+        $this->subject->checkIsValidDefaultFromEmailAddress();
+
+        static::assertSame('', $this->subject->getRawMessage());
+    }
+
+    /**
+     * @return array[]
+     */
+    public function invalidEmailDataProvider()
+    {
+        return [
+            'null' => [null],
+            'empty string' => [''],
+            'invalid email address' => ['bitouz6tz1432zwerds'],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @param string $emailAddress
+     * @dataProvider invalidEmailDataProvider
+     */
+    public function checkIsValidDefaultFromEmailAddressForInalidAddressMarksItAsInvalid($emailAddress)
+    {
+        $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $emailAddress;
+
+        $this->subject->checkIsValidDefaultFromEmailAddress();
+
+        static::assertNotSame('', $this->subject->getRawMessage());
+    }
 }

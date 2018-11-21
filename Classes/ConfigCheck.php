@@ -1,5 +1,6 @@
 <?php
 
+use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -1907,5 +1908,23 @@ class Tx_Oelib_ConfigCheck
     protected function getFrontEndController()
     {
         return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : null;
+    }
+
+    /**
+     * Checks that there is a valid email address set in $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'].
+     *
+     * @return void
+     */
+    public function checkIsValidDefaultFromEmailAddress()
+    {
+        $emailBuilder = GeneralUtility::makeInstance(SystemEmailFromBuilder::class);
+        if (!$emailBuilder->canBuild()) {
+            $this->setErrorMessage(
+                'Please set a valid email address in ' .
+                "\$GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']. " .
+                'This makes sure that the emails sent from extensions have a valid From: address an can be ' .
+                'sent without problems.'
+            );
+        }
     }
 }
