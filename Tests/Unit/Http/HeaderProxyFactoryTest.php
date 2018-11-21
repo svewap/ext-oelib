@@ -1,17 +1,21 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Http;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
 /**
  * Test case.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_HeaderProxyFactoryTest extends \Tx_Phpunit_TestCase
+class HeaderProxyFactoryTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_HeaderCollector
      */
-    private $subject;
+    private $subject = null;
 
     protected function setUp()
     {
@@ -24,6 +28,7 @@ class Tx_Oelib_Tests_LegacyUnit_HeaderProxyFactoryTest extends \Tx_Phpunit_TestC
     protected function tearDown()
     {
         \Tx_Oelib_HeaderProxyFactory::purgeInstance();
+        parent::tearDown();
     }
 
     /**
