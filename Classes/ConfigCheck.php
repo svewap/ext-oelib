@@ -1922,7 +1922,7 @@ class Tx_Oelib_ConfigCheck
             $this->setErrorMessage(
                 'Please set a valid email address in ' .
                 "\$GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']. " .
-                'This makes sure that the emails sent from extensions have a valid From: address an can be ' .
+                'This makes sure that the emails sent from extensions have a valid From: address and can be ' .
                 'sent without problems.'
             );
         }

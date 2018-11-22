@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix a typo in a configuration check message (#184)
 
 ## 2.2.0
 
