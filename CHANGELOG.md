@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Run the functional tests in parallel to each other (#183)
 
 ### Deprecated
 
