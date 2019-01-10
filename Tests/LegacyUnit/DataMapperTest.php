@@ -2376,13 +2376,15 @@ class Tx_Oelib_Tests_LegacyUnit_DataMapperTest extends \Tx_Phpunit_TestCase
 
         $composition = $model->getComposition();
         $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
-        $composition->add($mapper->find(
-            $this->testingFramework->createRecord('tx_oelib_testchild')
-        )
+        $composition->add(
+            $mapper->find(
+                $this->testingFramework->createRecord('tx_oelib_testchild')
+            )
         );
-        $composition->add($mapper->find(
-            $this->testingFramework->createRecord('tx_oelib_testchild')
-        )
+        $composition->add(
+            $mapper->find(
+                $this->testingFramework->createRecord('tx_oelib_testchild')
+            )
         );
 
         $this->subject->save($model);
