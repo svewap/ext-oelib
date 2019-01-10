@@ -3,8 +3,8 @@
 namespace OliverKlee\Oelib\Domain\Repository;
 
 use OliverKlee\Oelib\Domain\Model\GermanZipCode;
-use OliverKlee\Oelib\Domain\Repository\Traits\ReadOnlyTrait;
-use OliverKlee\Oelib\Domain\Repository\Traits\StoragePageAgnosticTrait;
+use OliverKlee\Oelib\Domain\Repository\Traits\ReadOnly;
+use OliverKlee\Oelib\Domain\Repository\Traits\StoragePageAgnostic;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -14,8 +14,8 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class GermanZipCodeRepository extends Repository
 {
-    use ReadOnlyTrait;
-    use StoragePageAgnosticTrait;
+    use ReadOnly;
+    use StoragePageAgnostic;
 
     /**
      * @var GermanZipCode[]|null[]

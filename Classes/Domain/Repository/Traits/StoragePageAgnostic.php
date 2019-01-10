@@ -6,11 +6,9 @@ use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 /**
  * This trait for repositories makes the repository ignore the storage page setting when fetching models.
  *
- * @deprecated Will be removed in oelib 3.0.0. Use StoragePageAgnostic (without the "Trait" suffix) instead.
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de
  */
-trait StoragePageAgnosticTrait
+trait StoragePageAgnostic
 {
     /**
      * @return void

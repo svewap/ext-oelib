@@ -5,11 +5,9 @@ namespace OliverKlee\Oelib\Domain\Repository\Traits;
 /**
  * This trait marks repositories as read-only.
  *
- * @deprecated Will be removed in oelib 3.0.0. Use ReadOnly (without the "Trait" suffix) instead.
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de
  */
-trait ReadOnlyTrait
+trait ReadOnly
 {
     /**
      * Adds an object to this repository.
