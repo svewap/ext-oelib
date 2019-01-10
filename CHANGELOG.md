@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z (unreleased)
 
 ### Added
+- Trait and interface for Repository::persistAll (#187)
 
 ### Changed
 - Run the functional tests in parallel to each other (#183)
