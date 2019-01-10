@@ -3,8 +3,8 @@
 namespace OliverKlee\Oelib\Tests\Unit\Domain\Repository\Traits;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use OliverKlee\Oelib\Domain\Repository\Interfaces\PersistAll;
-use OliverKlee\Oelib\Tests\Unit\Domain\Repository\Fixtures\PersistAllRepository;
+use OliverKlee\Oelib\Domain\Repository\Interfaces\DirectPersist;
+use OliverKlee\Oelib\Tests\Unit\Domain\Repository\Fixtures\DirectPersistRepository;
 use Prophecy\Prophecy\ObjectProphecy;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
@@ -15,10 +15,10 @@ use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class PersistAllTest extends UnitTestCase
+class DirectPersistTest extends UnitTestCase
 {
     /**
-     * @var PersistAllRepository
+     * @var DirectPersistRepository
      */
     private $subject = null;
 
@@ -31,7 +31,7 @@ class PersistAllTest extends UnitTestCase
     {
         /** @var ObjectManagerInterface|ProphecySubjectInterface $objectManagerStub */
         $objectManagerStub = $this->prophesize(ObjectManagerInterface::class)->reveal();
-        $this->subject = new PersistAllRepository($objectManagerStub);
+        $this->subject = new DirectPersistRepository($objectManagerStub);
 
         $this->persistenceManagerProphecy = $this->prophesize(PersistenceManagerInterface::class);
         /** @var PersistenceManagerInterface|ProphecySubjectInterface $persistenceManager */
@@ -42,9 +42,9 @@ class PersistAllTest extends UnitTestCase
     /**
      * @test
      */
-    public function implementsPersistAll()
+    public function implementsDirectPersist()
     {
-        self::assertInstanceOf(PersistAll::class, $this->subject);
+        self::assertInstanceOf(DirectPersist::class, $this->subject);
     }
 
     /**

@@ -10,7 +10,7 @@ namespace OliverKlee\Oelib\Domain\Repository\Interfaces;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de
  */
-interface PersistAll
+interface DirectPersist
 {
     /**
      * Persists all added or updated models.

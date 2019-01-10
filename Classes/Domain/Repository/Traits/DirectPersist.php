@@ -10,7 +10,7 @@ namespace OliverKlee\Oelib\Domain\Repository\Traits;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de
  */
-trait PersistAll
+trait DirectPersist
 {
     /**
      * Persists all added or updated models.
