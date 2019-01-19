@@ -32,6 +32,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         parent::setUp();
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework->setResetAutoIncrementThreshold(99999999);
 
         \Tx_Oelib_MapperRegistry::getInstance()->activateTestingMode($this->testingFramework);
 

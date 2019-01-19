@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Trait and interface for Repository::persistAll (#187)
 
 ### Changed
+- Speed up the new functional by omitting the auto increment reset (#191) 
 - Rename the PersistAll interface and trait to DirectPersist (#190)
 - Run the functional tests in parallel to each other (#183)
 
