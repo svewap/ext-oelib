@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z (unreleased)
 
 ### Added
+- Trait for loading lazy properties (#192)
 - Trait and interface for Repository::persistAll (#187)
 
 ### Changed
