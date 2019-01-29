@@ -6,6 +6,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * This class returns either an instance of the \Tx_Oelib_RealMailer which sends
  * e-mails or an instance of the \Tx_Oelib_EmailCollector.
  *
+ * @deprecated will be removed in oelib 4.0
+ *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class Tx_Oelib_MailerFactory implements \TYPO3\CMS\Core\SingletonInterface

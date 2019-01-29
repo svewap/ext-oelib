@@ -739,6 +739,8 @@ class Tx_Oelib_Db
     /**
      * Returns $GLOBALS['TYPO3_DB'].
      *
+     * @deprecated will be removed in oelib 3.0
+     *
      * @return DatabaseConnection
      */
     public static function getDatabaseConnection()

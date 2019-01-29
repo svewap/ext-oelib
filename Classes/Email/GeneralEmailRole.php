@@ -5,6 +5,8 @@ namespace OliverKlee\Oelib\Email;
 /**
  * A general email subject.
  *
+ * @deprecated will be removed in oelib 4.0
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class GeneralEmailRole implements \Tx_Oelib_Interface_MailRole

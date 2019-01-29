@@ -27,6 +27,8 @@ class SystemEmailFromBuilder
     /**
      * @return GeneralEmailRole
      *
+     * @deprecated will be removed in oelib 4.0
+     *
      * @throws \UnexpectedValueException
      */
     public function build()

@@ -6,6 +6,8 @@ use TYPO3\CMS\Core\Mail\MailMessage;
  * This class stores all parameters which were meant to be sent as an e-mail and
  * provides various functions to get them for testing purposes.
  *
+ * @deprecated will be removed in oelib 4.0
+ *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class Tx_Oelib_EmailCollector extends \Tx_Oelib_AbstractMailer
