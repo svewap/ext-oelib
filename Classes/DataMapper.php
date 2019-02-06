@@ -554,7 +554,7 @@ abstract class Tx_Oelib_DataMapper
         $uidList = isset($data[$key]) ? trim($data[$key]) : '';
         if ($uidList !== '') {
             $mapper = \Tx_Oelib_MapperRegistry::get($this->relations[$key]);
-            $uids = GeneralUtility::intExplode(',', $uidList);
+            $uids = GeneralUtility::intExplode(',', $uidList, true);
 
             foreach ($uids as $uid) {
                 // Some relations might have a junk 0 in it. We ignore it to avoid crashing.
@@ -588,7 +588,7 @@ abstract class Tx_Oelib_DataMapper
         $list = new \Tx_Oelib_List();
         $list->setParentModel($model);
 
-        if ($data[$key] > 0) {
+        if ((int)$data[$key] > 0) {
             $mapper = \Tx_Oelib_MapperRegistry::get($this->relations[$key]);
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
             $mnTable = $relationConfiguration['MM'];
@@ -597,7 +597,7 @@ abstract class Tx_Oelib_DataMapper
                 $relationUids = \Tx_Oelib_Db::selectColumnForMultiple(
                     'uid_foreign',
                     $mnTable,
-                    'uid_local = ' . $data['uid'],
+                    'uid_local = ' . (int)$data['uid'],
                     '',
                     'sorting'
                 );
@@ -605,14 +605,18 @@ abstract class Tx_Oelib_DataMapper
                 $relationUids = \Tx_Oelib_Db::selectColumnForMultiple(
                     'uid_local',
                     $mnTable,
-                    'uid_foreign = ' . $data['uid'],
+                    'uid_foreign = ' . (int)$data['uid'],
                     '',
                     'uid_local'
                 );
             }
 
             foreach ($relationUids as $relationUid) {
-                $list->add($mapper->find($relationUid));
+                // Some relations might have a junk 0 in it. We ignore it to avoid crashing.
+                if ((int)$relationUid === 0) {
+                    continue;
+                }
+                $list->add($mapper->find((int)$relationUid));
             }
         }
 

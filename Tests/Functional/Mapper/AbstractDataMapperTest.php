@@ -170,6 +170,22 @@ class AbstractDataMapperTest extends FunctionalTestCase
         self::assertSame($childTitle, $firstChild->getTitle());
     }
 
+    /**
+     * @test
+     */
+    public function silentlyIgnoresCommaSeparatedOneToManyRelationWithZeroForeignUid()
+    {
+        $uid = $this->testingFramework->createRecord(
+            'tx_oelib_test',
+            ['children' => '0']
+        );
+
+        /** @var TestingModel $model */
+        $model = $this->subject->find($uid);
+        // load any property to trigger loading the data
+        $model->getTitle();
+    }
+
     /*
      * Tests concerning the m:n mapping using an m:n table
      */
@@ -194,6 +210,19 @@ class AbstractDataMapperTest extends FunctionalTestCase
         /** @var TestingModel $firstRelatedModel */
         $firstRelatedModel = $model->getRelatedRecords()->first();
         self::assertSame($relatedTitle, $firstRelatedModel->getTitle());
+    }
+
+    /**
+     * @test
+     */
+    public function silentlyIgnoresManyToManyRelationWithZeroForeignUid()
+    {
+        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['related_records' => 1]);
+        $this->testingFramework->createRecord('tx_oelib_test_article_mm', ['uid_local' => $uid, 'uid_foreign' => 0]);
+
+        /** @var TestingModel $model */
+        $model = $this->subject->find($uid);
+        $model->getTitle();
     }
 
     /*
