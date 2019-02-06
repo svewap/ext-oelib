@@ -21,7 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
-- Ignore relations with a foreign UID of 0 (#194)
+- Ignore relations with a foreign UID of 0 (#194, #196)
 - Also provide the extension icon in `Resources/` (#186)
 - Fix a typo in a configuration check message (#184)
 

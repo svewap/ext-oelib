@@ -172,6 +172,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
     /**
      * @test
+     * @doesNotPerformAssertions
      */
     public function silentlyIgnoresCommaSeparatedOneToManyRelationWithZeroForeignUid()
     {
@@ -214,6 +215,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
     /**
      * @test
+     * @doesNotPerformAssertions
      */
     public function silentlyIgnoresManyToManyRelationWithZeroForeignUid()
     {
@@ -222,6 +224,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
+        // load any property to trigger loading the data
         $model->getTitle();
     }
 
