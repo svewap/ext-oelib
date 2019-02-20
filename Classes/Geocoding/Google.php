@@ -114,6 +114,8 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
      * @param \Tx_Oelib_Interface_Geo $geoObject
      *
      * @return void
+     *
+     * @throws \UnexpectedValueException if the API key is empty or not set
      */
     public function lookUp(\Tx_Oelib_Interface_Geo $geoObject)
     {
@@ -125,9 +127,15 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
             return;
         }
 
+        $apiKey = \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')->getAsString('googleGeocodingApiKey');
+        if ($apiKey === '') {
+            throw new \UnexpectedValueException(
+                'Please set the Google geocoding API key using TypoScrip setup plugin.tx_oelib.googleGeocodingApiKey',
+                1550690438
+            );
+        }
+
         $address = $geoObject->getGeoAddress();
-        $configuration = Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib');
-        $apiKey = $configuration->getAsString('googleGeocodingApiKey');
         $url = self::BASE_URL . '?key=' . \urlencode($apiKey) . '&address=' . \urlencode($address);
         $delayInMicroseconds = self::INITIAL_DELAY_IN_MICROSECONDS;
 

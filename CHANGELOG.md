@@ -21,6 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Throw exception for empty Google geocoding API key (#200)
 - Fix the casing of the vfsstream package (#198)
 - Ignore relations with a foreign UID of 0 (#194, #196)
 - Also provide the extension icon in `Resources/` (#186)

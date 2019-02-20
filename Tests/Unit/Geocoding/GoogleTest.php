@@ -174,6 +174,8 @@ class GoogleTest extends UnitTestCase
      */
     public function lookUpWithErrorSetsGeoProblem($status)
     {
+        $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
+
         $jsonResult = '{ "status": "' . $status . '" }';
 
         $geo = new TestingGeo();
@@ -204,6 +206,8 @@ class GoogleTest extends UnitTestCase
      */
     public function lookUpWithErrorSetsGeoProblemAndLogsError($status)
     {
+        $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
+
         $jsonResult = '{ "status": "' . $status . '" }';
 
         $geo = new TestingGeo();
@@ -234,6 +238,8 @@ class GoogleTest extends UnitTestCase
      */
     public function lookUpWithErrorLogsErrorDetails($status)
     {
+        $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
+
         $errorMessage = 'See you on the other side.';
         $jsonResult = '{ "status": "' . $status . '", "error_message": "' . $errorMessage . '" }';
 
@@ -261,6 +267,8 @@ class GoogleTest extends UnitTestCase
      */
     public function lookUpForAFullGermanAddressWithNetworkErrorSetsGeoProblemAndLogsError()
     {
+        $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
+
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
@@ -286,6 +294,8 @@ class GoogleTest extends UnitTestCase
      */
     public function lookUpSetsCoordinatesFromSendRequest()
     {
+        $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
+
         $jsonResult = '{ "results": [ { "address_components": [ { "long_name": "1", "short_name": "1", ' .
             '"types": [ "street_number" ] }, { "long_name": "Am Hof", "short_name": "Am Hof", ' .
             '"types": [ "route" ] }, { "long_name": "Bonn", "short_name": "Bonn", ' .
@@ -324,6 +334,34 @@ class GoogleTest extends UnitTestCase
             ],
             $geo->getGeoCoordinates()
         );
+    }
+
+    /**
+     * @test
+     *
+     * @expectedException \UnexpectedValueException
+     */
+    public function lookUpForEmptyApiKeyThrowsException()
+    {
+        $this->configuration->setAsString('googleGeocodingApiKey', '');
+
+        $geo = new TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+
+        $this->subject->lookUp($geo);
+    }
+
+    /**
+     * @test
+     *
+     * @expectedException \UnexpectedValueException
+     */
+    public function lookUpForMissingApiKeyThrowsException()
+    {
+        $geo = new TestingGeo();
+        $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
+
+        $this->subject->lookUp($geo);
     }
 
     /**
