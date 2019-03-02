@@ -38,7 +38,6 @@ class ConfigurationCheckTest extends FunctionalTestCase
         parent::setUp();
 
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
-        $this->testingFramework->setResetAutoIncrementThreshold(99999999);
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
 
         $this->objectToCheck = new DummyObjectToCheck(
@@ -55,7 +54,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
 
     protected function tearDown()
     {
-        $this->testingFramework->cleanUp();
+        $this->testingFramework->cleanUpWithoutDatabase();
 
         parent::tearDown();
     }

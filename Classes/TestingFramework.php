@@ -835,8 +835,29 @@ final class Tx_Oelib_TestingFramework
      */
     public function cleanUp($performDeepCleanUp = false)
     {
+        $this->cleanUpDatabase($performDeepCleanUp);
+        $this->cleanUpWithoutDatabase();
+    }
+
+    /**
+     * @param bool $performDeepCleanUp
+     *
+     * @return void
+     */
+    private function cleanUpDatabase($performDeepCleanUp = false)
+    {
         $this->cleanUpTableSet(false, $performDeepCleanUp);
         $this->cleanUpTableSet(true, $performDeepCleanUp);
+    }
+
+    /**
+     * Cleanup without deleting dummy records. Use this method instead of cleanUp() for better performance when
+     * another testing framework (e.g., nimut/testing-framework) already takes care of cleaning up old database records.
+     *
+     * @return void
+     */
+    public function cleanUpWithoutDatabase()
+    {
         $this->deleteAllDummyFoldersAndFiles();
         $this->discardFakeFrontEnd();
 

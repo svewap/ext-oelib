@@ -1297,7 +1297,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
     /**
      * @test
      */
-    public function cleanUpWithRegularCleanUp()
+    public function cleanUpWithRegularCleanUpDeletesTestsRecords()
     {
         // Creates a dummy record (and marks that table as dirty).
         $this->subject->createRecord('tx_oelib_test');
@@ -1435,6 +1435,114 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         GeneralUtility::addInstance($hookClassName, $cleanUpHookMock);
 
         $this->subject->cleanUp();
+    }
+
+    /*
+     * Tests regarding cleanUpWithoutDatabase()
+     */
+
+    /**
+     * @test
+     */
+    public function cleanUpWithoutDatabaseWithRegularCleanUpNotDeletesTestsRecords()
+    {
+        // Creates a dummy record (and marks that table as dirty).
+        $this->subject->createRecord('tx_oelib_test');
+
+        // Creates a dummy record directly in the database, without putting this
+        // table name to the list of dirty tables.
+        \Tx_Oelib_Db::insert(
+            'tx_oelib_test_article_mm',
+            ['is_dummy_record' => 1]
+        );
+
+        // Runs a regular clean up. This should now delete only the first record
+        // which was created through the testing framework and thus that table
+        // is on the list of dirty tables. The second record was directly put
+        // into the database and it's table is not on this list and will not be
+        // removed by a regular clean up run.
+        $this->subject->cleanUpWithoutDatabase();
+
+        // Checks whether the first dummy record is deleted.
+        self::assertSame(
+            1,
+            $this->subject->countRecords('tx_oelib_test'),
+            'Some test records were not deleted from table "tx_oelib_test"'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpWithoutDatabaseDeletesCreatedDummyFile()
+    {
+        $fileName = $this->subject->createDummyFile();
+
+        $this->subject->cleanUpWithoutDatabase();
+
+        self::assertFileNotExists($fileName);
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpWithoutDatabaseDeletesCreatedDummyFolder()
+    {
+        $folderName = $this->subject->createDummyFolder('test_folder');
+
+        $this->subject->cleanUpWithoutDatabase();
+
+        self::assertFileNotExists($folderName);
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpWithoutDatabaseDeletesCreatedNestedDummyFolders()
+    {
+        $outerDummyFolder = $this->subject->createDummyFolder('test_folder');
+        $innerDummyFolder = $this->subject->createDummyFolder(
+            $this->subject->getPathRelativeToUploadDirectory($outerDummyFolder) .
+            '/test_folder'
+        );
+
+        $this->subject->cleanUpWithoutDatabase();
+
+        self::assertFalse(
+            file_exists($outerDummyFolder) && file_exists($innerDummyFolder)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpWithoutDatabaseDeletesCreatedDummyUploadFolder()
+    {
+        $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
+        $this->subject->createDummyFile();
+
+        self::assertTrue(is_dir($this->subject->getUploadFolderPath()));
+
+        $this->subject->cleanUpWithoutDatabase();
+
+        self::assertFalse(is_dir($this->subject->getUploadFolderPath()));
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpWithoutDatabaseExecutesCleanUpHook()
+    {
+        $this->subject->purgeHooks();
+
+        $hookClassName = 'OliverKlee\\Oelib\\TestingFramework\\CleanupHook';
+        $cleanUpWithoutDatabaseHookMock = $this->getMock($hookClassName, ['cleanUp']);
+        $cleanUpWithoutDatabaseHookMock->expects(self::atLeastOnce())->method('cleanUp');
+
+        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oelib']['testingFrameworkCleanUp'][$hookClassName] = $hookClassName;
+        GeneralUtility::addInstance($hookClassName, $cleanUpWithoutDatabaseHookMock);
+
+        $this->subject->cleanUpWithoutDatabase();
     }
 
     /*

@@ -31,14 +31,13 @@ class BackEndUserMapperTest extends FunctionalTestCase
     {
         parent::setUp();
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
-        $this->testingFramework->setResetAutoIncrementThreshold(99999999);
 
         $this->subject = new \Tx_Oelib_Mapper_BackEndUser();
     }
 
     protected function tearDown()
     {
-        $this->testingFramework->cleanUp();
+        $this->testingFramework->cleanUpWithoutDatabase();
         parent::tearDown();
     }
 
