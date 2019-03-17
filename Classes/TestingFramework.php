@@ -25,6 +25,11 @@ final class Tx_Oelib_TestingFramework
     const AUTO_INCREMENT_THRESHOLD_WITHOUT_ROOTLINE_CACHE = 100;
 
     /**
+     * @var bool
+     */
+    private $databaseInitialized = false;
+
+    /**
      * prefix of the extension for which this instance of the testing framework
      * was instantiated (e.g. "tx_seminars")
      *
@@ -187,11 +192,7 @@ final class Tx_Oelib_TestingFramework
 
         $this->tablePrefix = $tablePrefix;
         $this->additionalTablePrefixes = $additionalTablePrefixes;
-        $this->createListOfOwnAllowedTables();
-        $this->createListOfAdditionalAllowedTables();
         $this->uploadFolderPath = PATH_site . 'uploads/' . $this->tablePrefix . '/';
-
-        $this->determineAndSetAutoIncrementThreshold();
 
         /** @var array $rootLineCacheConfiguration */
         $rootLineCacheConfiguration =
@@ -202,6 +203,22 @@ final class Tx_Oelib_TestingFramework
         /** @var CacheManager $cacheManager */
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         $cacheManager->setCacheConfigurations($cacheConfigurations);
+    }
+
+    /**
+     * @return void
+     */
+    private function initializeDatabase()
+    {
+        if ($this->databaseInitialized) {
+            return;
+        }
+
+        $this->createListOfOwnAllowedTables();
+        $this->createListOfAdditionalAllowedTables();
+        $this->determineAndSetAutoIncrementThreshold();
+
+        $this->databaseInitialized = true;
     }
 
     /**
@@ -236,6 +253,7 @@ final class Tx_Oelib_TestingFramework
      */
     public function createRecord($table, array $recordData = [])
     {
+        $this->initializeDatabase();
         if (!$this->isNoneSystemTableNameAllowed($table)) {
             throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331489666);
         }
@@ -243,10 +261,7 @@ final class Tx_Oelib_TestingFramework
             throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489678);
         }
 
-        return $this->createRecordWithoutTableNameChecks(
-            $table,
-            $recordData
-        );
+        return $this->createRecordWithoutTableNameChecks($table, $recordData);
     }
 
     /**
@@ -268,17 +283,13 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new record, will be > 0
      */
-    private function createRecordWithoutTableNameChecks(
-        $table,
-        array $recordData
-    ) {
+    private function createRecordWithoutTableNameChecks($table, array $recordData)
+    {
+        $this->initializeDatabase();
         $dummyColumnName = $this->getDummyColumnName($table);
         $recordData[$dummyColumnName] = 1;
 
-        $uid = \Tx_Oelib_Db::insert(
-            $table,
-            $recordData
-        );
+        $uid = \Tx_Oelib_Db::insert($table, $recordData);
 
         $this->markTableAsDirty($table);
 
@@ -361,10 +372,7 @@ final class Tx_Oelib_TestingFramework
         $completeRecordData['pid'] = $parentId;
         $completeRecordData['doktype'] = $documentType;
 
-        return $this->createRecordWithoutTableNameChecks(
-            'pages',
-            $completeRecordData
-        );
+        return $this->createRecordWithoutTableNameChecks('pages', $completeRecordData);
     }
 
     /**
@@ -402,10 +410,7 @@ final class Tx_Oelib_TestingFramework
             $completeRecordData['CType'] = 'text';
         }
 
-        return $this->createRecordWithoutTableNameChecks(
-            'tt_content',
-            $completeRecordData
-        );
+        return $this->createRecordWithoutTableNameChecks('tt_content', $completeRecordData);
     }
 
     /**
@@ -422,10 +427,8 @@ final class Tx_Oelib_TestingFramework
      *
      * @throws \InvalidArgumentException
      */
-    public function createTemplate(
-        $pageId,
-        array $recordData = []
-    ) {
+    public function createTemplate($pageId, array $recordData = [])
+    {
         if ($pageId <= 0) {
             throw new \InvalidArgumentException('$pageId must be > 0.', 1331489774);
         }
@@ -439,10 +442,7 @@ final class Tx_Oelib_TestingFramework
         $completeRecordData = $recordData;
         $completeRecordData['pid'] = $pageId;
 
-        return $this->createRecordWithoutTableNameChecks(
-            'sys_template',
-            $completeRecordData
-        );
+        return $this->createRecordWithoutTableNameChecks('sys_template', $completeRecordData);
     }
 
     /**
@@ -462,10 +462,7 @@ final class Tx_Oelib_TestingFramework
             throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489807);
         }
 
-        return $this->createRecordWithoutTableNameChecks(
-            'fe_groups',
-            $recordData
-        );
+        return $this->createRecordWithoutTableNameChecks('fe_groups', $recordData);
     }
 
     /**
@@ -482,10 +479,8 @@ final class Tx_Oelib_TestingFramework
      *
      * @throws \InvalidArgumentException
      */
-    public function createFrontEndUser(
-        $frontEndUserGroups = '',
-        array $recordData = []
-    ) {
+    public function createFrontEndUser($frontEndUserGroups = '', array $recordData = [])
+    {
         $frontEndUserGroupsWithoutSpaces = str_replace(' ', '', $frontEndUserGroups);
 
         if ($frontEndUserGroupsWithoutSpaces === '') {
@@ -508,10 +503,7 @@ final class Tx_Oelib_TestingFramework
         $completeRecordData = $recordData;
         $completeRecordData['usergroup'] = $frontEndUserGroupsWithoutSpaces;
 
-        return $this->createRecordWithoutTableNameChecks(
-            'fe_users',
-            $completeRecordData
-        );
+        return $this->createRecordWithoutTableNameChecks('fe_users', $completeRecordData);
     }
 
     /**
@@ -526,14 +518,9 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new FE user, will be > 0
      */
-    public function createAndLoginFrontEndUser(
-        $frontEndUserGroups = '',
-        array $recordData = []
-    ) {
-        $frontEndUserUid = $this->createFrontEndUser(
-            $frontEndUserGroups,
-            $recordData
-        );
+    public function createAndLoginFrontEndUser($frontEndUserGroups = '', array $recordData = [])
+    {
+        $frontEndUserUid = $this->createFrontEndUser($frontEndUserGroups, $recordData);
 
         $this->loginFrontEndUser($frontEndUserUid);
 
@@ -555,10 +542,7 @@ final class Tx_Oelib_TestingFramework
             throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489905);
         }
 
-        return $this->createRecordWithoutTableNameChecks(
-            'be_users',
-            $recordData
-        );
+        return $this->createRecordWithoutTableNameChecks('be_users', $recordData);
     }
 
     /**
@@ -576,10 +560,7 @@ final class Tx_Oelib_TestingFramework
             throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489919);
         }
 
-        return $this->createRecordWithoutTableNameChecks(
-            'be_groups',
-            $recordData
-        );
+        return $this->createRecordWithoutTableNameChecks('be_groups', $recordData);
     }
 
     /**
@@ -604,6 +585,7 @@ final class Tx_Oelib_TestingFramework
      */
     public function changeRecord($table, $uid, $recordData)
     {
+        $this->initializeDatabase();
         $dummyColumnName = $this->getDummyColumnName($table);
 
         if (!$this->isTableNameAllowed($table)) {
@@ -661,6 +643,7 @@ final class Tx_Oelib_TestingFramework
      */
     public function deleteRecord($table, $uid)
     {
+        $this->initializeDatabase();
         if (!$this->isNoneSystemTableNameAllowed($table)) {
             throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490341);
         }
@@ -689,6 +672,7 @@ final class Tx_Oelib_TestingFramework
      */
     public function createRelation($table, $uidLocal, $uidForeign, $sorting = 0)
     {
+        $this->initializeDatabase();
         if (!$this->isNoneSystemTableNameAllowed($table)) {
             throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490358);
         }
@@ -742,6 +726,7 @@ final class Tx_Oelib_TestingFramework
         $uidForeign,
         $columnName
     ) {
+        $this->initializeDatabase();
         if (!$this->isTableNameAllowed($tableName)) {
             throw new \InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1331490419);
         }
@@ -807,6 +792,7 @@ final class Tx_Oelib_TestingFramework
      */
     public function removeRelation($table, $uidLocal, $uidForeign)
     {
+        $this->initializeDatabase();
         if (!$this->isNoneSystemTableNameAllowed($table)) {
             throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490465);
         }
@@ -846,6 +832,7 @@ final class Tx_Oelib_TestingFramework
      */
     private function cleanUpDatabase($performDeepCleanUp = false)
     {
+        $this->initializeDatabase();
         $this->cleanUpTableSet(false, $performDeepCleanUp);
         $this->cleanUpTableSet(true, $performDeepCleanUp);
     }
@@ -1650,12 +1637,14 @@ final class Tx_Oelib_TestingFramework
      */
     public function getDummyColumnName($table)
     {
-        $result = 'is_dummy_record';
+        $this->initializeDatabase();
 
         if ($this->isSystemTableNameAllowed($table)) {
-            $result = 'tx_oelib_' . $result;
+            $result = 'tx_oelib_is_dummy_record';
         } elseif ($this->isAdditionalTableNameAllowed($table)) {
-            $result = $this->tablePrefix . '_' . $result;
+            $result = $this->tablePrefix . '_is_dummy_record';
+        } else {
+            $result = 'is_dummy_record';
         }
 
         return $result;
@@ -1674,6 +1663,8 @@ final class Tx_Oelib_TestingFramework
      */
     public function countRecords($table, $whereClause = '')
     {
+        $this->initializeDatabase();
+
         if (!$this->isTableNameAllowed($table)) {
             throw new \InvalidArgumentException(
                 'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
@@ -1753,6 +1744,8 @@ final class Tx_Oelib_TestingFramework
      */
     public function resetAutoIncrement($table)
     {
+        $this->initializeDatabase();
+
         if (!$this->isTableNameAllowed($table)) {
             throw new \InvalidArgumentException(
                 'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
@@ -1798,6 +1791,8 @@ final class Tx_Oelib_TestingFramework
      */
     public function resetAutoIncrementLazily($table)
     {
+        $this->initializeDatabase();
+
         if (!$this->isTableNameAllowed($table)) {
             throw new \InvalidArgumentException(
                 'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
@@ -1814,8 +1809,7 @@ final class Tx_Oelib_TestingFramework
         }
 
         if ($this->getAutoIncrement($table) >
-            ($this->getMaximumUidFromTable($table)
-                + $this->resetAutoIncrementThreshold)
+            ($this->getMaximumUidFromTable($table) + $this->resetAutoIncrementThreshold)
         ) {
             $this->resetAutoIncrement($table);
         }
@@ -1854,10 +1848,7 @@ final class Tx_Oelib_TestingFramework
      */
     private function getMaximumUidFromTable($table)
     {
-        $row = \Tx_Oelib_Db::selectSingle(
-            'MAX(uid) AS uid',
-            $table
-        );
+        $row = \Tx_Oelib_Db::selectSingle('MAX(uid) AS uid', $table);
 
         return (int)$row['uid'];
     }
@@ -1878,6 +1869,8 @@ final class Tx_Oelib_TestingFramework
      */
     public function getAutoIncrement($table)
     {
+        $this->initializeDatabase();
+
         if (!$this->isTableNameAllowed($table)) {
             throw new \InvalidArgumentException(
                 'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
@@ -1914,6 +1907,8 @@ final class Tx_Oelib_TestingFramework
      */
     public function getListOfOwnAllowedTableNames()
     {
+        $this->initializeDatabase();
+
         return $this->ownAllowedTables;
     }
 
@@ -1924,6 +1919,8 @@ final class Tx_Oelib_TestingFramework
      */
     public function getListOfAdditionalAllowedTableNames()
     {
+        $this->initializeDatabase();
+
         return $this->additionalAllowedTables;
     }
 
@@ -1942,6 +1939,8 @@ final class Tx_Oelib_TestingFramework
      */
     public function markTableAsDirty($tableNames)
     {
+        $this->initializeDatabase();
+
         foreach (GeneralUtility::trimExplode(',', $tableNames) as $currentTable) {
             if ($this->isNoneSystemTableNameAllowed($currentTable)) {
                 $this->dirtyTables[$currentTable] = $currentTable;
