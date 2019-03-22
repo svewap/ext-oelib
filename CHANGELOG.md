@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z (unreleased)
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 2.3.0
+
+### Added
 - Initialize the DB in the TestingFramework lazily (#206)
 - Add TestingFramework.cleanUpWithoutDatabase() (#204)
 - Trait for loading lazy properties (#192)
@@ -20,8 +32,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 - Deprecate the mailer-related classes (#193)
 - Remove the "Trait" suffix from the trait names (#189)
-
-### Removed
 
 ### Fixed
 - Throw exception for empty Google geocoding API key (#200)

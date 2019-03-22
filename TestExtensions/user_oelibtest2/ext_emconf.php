@@ -3,7 +3,7 @@
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Second test extension for tx_oelib',
     'description' => 'Second test extension for tx_oelib',
-    'version' => '2.2.0',
+    'version' => '2.3.0',
     'category' => 'example',
     'constraints' => [
         'depends' => [

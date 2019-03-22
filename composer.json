@@ -7,7 +7,7 @@
         "library",
         "templating"
     ],
-    "homepage": "https://www.oliverklee.de/typo3-services/typo3-extensions.html",
+    "homepage": "https://www.oliverklee.de/typo3-services/typo3-extensions/",
     "license": "GPL-3.0-or-later",
     "authors": [
         {
@@ -114,7 +114,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.1.x-dev"
+            "dev-master": "2.3.x-dev"
         },
         "typo3/class-alias-loader": {
             "class-alias-maps": [
