@@ -6,8 +6,8 @@ CREATE TABLE tx_oelib_domain_model_germanzipcode (
 
     zip_code varchar(5) DEFAULT '' NOT NULL,
     city_name varchar(255) DEFAULT '' NOT NULL,
-    longitude float(9,6) DEFAULT '0.000000' NOT NULL,
-    latitude float(9,6) DEFAULT '0.000000' NOT NULL,
+    longitude decimal(9,6) DEFAULT '0.000000' NOT NULL,
+    latitude decimal(9,6) DEFAULT '0.000000' NOT NULL,
 
     PRIMARY KEY (uid),
     KEY parent (pid),
