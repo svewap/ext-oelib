@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Move more tests to Tests/Unit/ and Tests/Functional/ (#212)
 
 ### Deprecated
 
@@ -25,7 +26,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Trait and interface for Repository::persistAll (#187)
 
 ### Changed
-- Move more tests to Tests/LegacyUnit/ and Tests/LegacyFunctional/ (#203)
+- Move more tests to Tests/Unit/ and Tests/Functional/ (#203)
 - Speed up the new functional by omitting the auto increment reset (#191) 
 - Rename the PersistAll interface and trait to DirectPersist (#190)
 - Run the functional tests in parallel to each other (#183)

@@ -1,5 +1,8 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Unit\Model;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -7,17 +10,17 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Model_FrontEndUserTest extends \Tx_Phpunit_TestCase
+class FrontEndUserTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_Model_FrontEndUser
      */
-    protected $subject = null;
+    private $subject = null;
 
     /**
      * @var int a backup of $GLOBALS['EXEC_TIME']
      */
-    protected $globalExecTimeBackup = 0;
+    private $globalExecTimeBackup = 0;
 
     protected function setUp()
     {
@@ -28,6 +31,7 @@ class Tx_Oelib_Tests_LegacyUnit_Model_FrontEndUserTest extends \Tx_Phpunit_TestC
 
     protected function tearDown()
     {
+        parent::tearDown();
         $GLOBALS['EXEC_TIME'] = $this->globalExecTimeBackup;
     }
 
@@ -1146,7 +1150,7 @@ class Tx_Oelib_Tests_LegacyUnit_Model_FrontEndUserTest extends \Tx_Phpunit_TestC
      */
     public function getGenderForGenderValueZeroReturnsGenderMale()
     {
-        if (!Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
+        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
             self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
         }
         $this->subject->setData(['gender' => 0]);
@@ -1162,7 +1166,7 @@ class Tx_Oelib_Tests_LegacyUnit_Model_FrontEndUserTest extends \Tx_Phpunit_TestC
      */
     public function getGenderForGenderValueOneReturnsGenderFemale()
     {
-        if (!Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
+        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
             self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
         }
         $this->subject->setData(['gender' => 1]);
@@ -1178,7 +1182,7 @@ class Tx_Oelib_Tests_LegacyUnit_Model_FrontEndUserTest extends \Tx_Phpunit_TestC
      */
     public function setGenderCanSetGenderToMale()
     {
-        if (!Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
+        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
             self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
         }
         $this->subject->setData([]);
@@ -1195,7 +1199,7 @@ class Tx_Oelib_Tests_LegacyUnit_Model_FrontEndUserTest extends \Tx_Phpunit_TestC
      */
     public function setGenderCanSetGenderToFemale()
     {
-        if (!Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
+        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
             self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
         }
         $this->subject->setData([]);
@@ -1212,7 +1216,7 @@ class Tx_Oelib_Tests_LegacyUnit_Model_FrontEndUserTest extends \Tx_Phpunit_TestC
      */
     public function setGenderCanSetGenderToUnknown()
     {
-        if (!Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
+        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
             self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
         }
         $this->subject->setData([]);
@@ -1231,7 +1235,7 @@ class Tx_Oelib_Tests_LegacyUnit_Model_FrontEndUserTest extends \Tx_Phpunit_TestC
      */
     public function setGenderForInvalidGenderKeyThrowsException()
     {
-        if (!Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
+        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
             self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
         }
         $this->subject->setData([]);
@@ -1627,154 +1631,6 @@ class Tx_Oelib_Tests_LegacyUnit_Model_FrontEndUserTest extends \Tx_Phpunit_TestC
 
         self::assertTrue(
             $this->subject->hasLastLogin()
-        );
-    }
-
-    /*
-     * Tests regarding the country
-     */
-
-    /**
-     * @test
-     */
-    public function getCountryWithoutCountryReturnsNull()
-    {
-        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            self::markTestSkipped('This tests needs the static_info_tables extension.');
-        }
-
-        $this->subject->setData([]);
-
-        self::assertNull(
-            $this->subject->getCountry()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getCountryWithInvalidCountryCodeReturnsNull()
-    {
-        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            self::markTestSkipped('This tests needs the static_info_tables extension.');
-        }
-
-        $this->subject->setData(['static_info_country' => 'xyz']);
-
-        self::assertNull(
-            $this->subject->getCountry()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getCountryWithCountryReturnsCountryAsModel()
-    {
-        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            self::markTestSkipped('This tests needs the static_info_tables extension.');
-        }
-
-        /** @var \Tx_Oelib_Mapper_Country $mapper */
-        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class);
-        /** @var \Tx_Oelib_Model_Country $country */
-        $country = $mapper->find(54);
-        $this->subject->setData(
-            ['static_info_country' => $country->getIsoAlpha3Code()]
-        );
-
-        self::assertSame(
-            $country,
-            $this->subject->getCountry()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setCountrySetsCountry()
-    {
-        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            self::markTestSkipped('This tests needs the static_info_tables extension.');
-        }
-
-        /** @var \Tx_Oelib_Mapper_Country $mapper */
-        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class);
-        /** @var \Tx_Oelib_Model_Country $country */
-        $country = $mapper->find(54);
-        $this->subject->setCountry($country);
-
-        self::assertSame(
-            $country,
-            $this->subject->getCountry()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function countryCanBeSetToNull()
-    {
-        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            self::markTestSkipped('This tests needs the static_info_tables extension.');
-        }
-
-        $this->subject->setCountry(null);
-
-        self::assertNull(
-            $this->subject->getCountry()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function hasCountryWithoutCountryReturnsFalse()
-    {
-        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            self::markTestSkipped('This tests needs the static_info_tables extension.');
-        }
-
-        $this->subject->setData([]);
-
-        self::assertFalse(
-            $this->subject->hasCountry()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function hasCountryWithInvalidCountryReturnsFalse()
-    {
-        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            self::markTestSkipped('This tests needs the static_info_tables extension.');
-        }
-
-        $this->subject->setData(['static_info_country' => 'xyz']);
-
-        self::assertFalse(
-            $this->subject->hasCountry()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function hasCountryWithCountryReturnsTrue()
-    {
-        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            self::markTestSkipped('This tests needs the static_info_tables extension.');
-        }
-
-        /** @var \Tx_Oelib_Mapper_Country $mapper */
-        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class);
-        /** @var \Tx_Oelib_Model_Country $country */
-        $country = $mapper->find(54);
-        $this->subject->setCountry($country);
-
-        self::assertTrue(
-            $this->subject->hasCountry()
         );
     }
 
