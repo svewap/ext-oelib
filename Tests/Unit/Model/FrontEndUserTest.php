@@ -21,17 +21,40 @@ class FrontEndUserTest extends UnitTestCase
      */
     private $globalExecTimeBackup = 0;
 
+    /**
+     * @var array
+     */
+    private $tcaBackup = [];
+
     protected function setUp()
     {
         $this->subject = new \Tx_Oelib_Model_FrontEndUser();
 
         $this->globalExecTimeBackup = $GLOBALS['EXEC_TIME'];
+        $this->tcaBackup = $GLOBALS['TCA']['fe_users'];
     }
 
     protected function tearDown()
     {
         parent::tearDown();
+        $GLOBALS['TCA']['fe_users'] = $this->tcaBackup;
         $GLOBALS['EXEC_TIME'] = $this->globalExecTimeBackup;
+    }
+
+    /**
+     * @return void
+     */
+    private function removeGenderField()
+    {
+        unset($GLOBALS['TCA']['fe_users']['columns']['gender']);
+    }
+
+    /**
+     * @return void
+     */
+    private function enableGenderField()
+    {
+        $GLOBALS['TCA']['fe_users']['columns']['gender'] = ['config' => ['type' => 'radio']];
     }
 
     /*
@@ -1166,16 +1189,31 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGenderForNotInstalledSrFeUserRegisterReturnsGenderUnknown()
+    public function hasGenderForNoGenderFieldInTcaReturnsFalse()
     {
-        if (\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
-            self::markTestSkipped('This test is only applicable if no FrontEndUser.gender field exists.');
-        }
+        $this->removeGenderField();
 
-        self::assertSame(
-            \Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN,
-            $this->subject->getGender()
-        );
+        self::assertFalse(\Tx_Oelib_Model_FrontEndUser::hasGenderField());
+    }
+
+    /**
+     * @test
+     */
+    public function hasGenderForGenderFieldInTcaReturnsTrue()
+    {
+        $this->enableGenderField();
+
+        self::assertTrue(\Tx_Oelib_Model_FrontEndUser::hasGenderField());
+    }
+
+    /**
+     * @test
+     */
+    public function getGenderForForNoGenderFieldReturnsGenderUnknown()
+    {
+        $this->removeGenderField();
+
+        self::assertSame(\Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN, $this->subject->getGender());
     }
 
     /**
@@ -1183,15 +1221,11 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getGenderForGenderValueZeroReturnsGenderMale()
     {
-        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
-            self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
-        }
+        $this->enableGenderField();
+
         $this->subject->setData(['gender' => 0]);
 
-        self::assertSame(
-            \Tx_Oelib_Model_FrontEndUser::GENDER_MALE,
-            $this->subject->getGender()
-        );
+        self::assertSame(\Tx_Oelib_Model_FrontEndUser::GENDER_MALE, $this->subject->getGender());
     }
 
     /**
@@ -1199,66 +1233,39 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getGenderForGenderValueOneReturnsGenderFemale()
     {
-        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
-            self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
-        }
+        $this->enableGenderField();
+
         $this->subject->setData(['gender' => 1]);
 
-        self::assertSame(
-            \Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE,
-            $this->subject->getGender()
-        );
+        self::assertSame(\Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE, $this->subject->getGender());
+    }
+
+    /**
+     * @return int[][]
+     */
+    public function genderDataProvider()
+    {
+        return [
+            'male' => [\Tx_Oelib_Model_FrontEndUser::GENDER_MALE],
+            'female' => [\Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE],
+            'unknown' => [\Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN],
+        ];
     }
 
     /**
      * @test
+     *
+     * @param int $gender
+     * @dataProvider genderDataProvider
      */
-    public function setGenderCanSetGenderToMale()
+    public function setGenderCanSetGender($gender)
     {
-        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
-            self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
-        }
+        $this->enableGenderField();
         $this->subject->setData([]);
-        $this->subject->setGender(\Tx_Oelib_Model_FrontEndUser::GENDER_MALE);
 
-        self::assertSame(
-            \Tx_Oelib_Model_FrontEndUser::GENDER_MALE,
-            $this->subject->getGender()
-        );
-    }
+        $this->subject->setGender($gender);
 
-    /**
-     * @test
-     */
-    public function setGenderCanSetGenderToFemale()
-    {
-        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
-            self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
-        }
-        $this->subject->setData([]);
-        $this->subject->setGender(\Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE);
-
-        self::assertSame(
-            \Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE,
-            $this->subject->getGender()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setGenderCanSetGenderToUnknown()
-    {
-        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
-            self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
-        }
-        $this->subject->setData([]);
-        $this->subject->setGender(\Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN);
-
-        self::assertSame(
-            \Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN,
-            $this->subject->getGender()
-        );
+        self::assertSame($gender, $this->subject->getGender());
     }
 
     /**
@@ -1268,10 +1275,9 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function setGenderForInvalidGenderKeyThrowsException()
     {
-        if (!\Tx_Oelib_Model_FrontEndUser::hasGenderField()) {
-            self::markTestSkipped('This test is only applicable if the FrontEndUser.gender field exists.');
-        }
+        $this->enableGenderField();
         $this->subject->setData([]);
+
         $this->subject->setGender(4);
     }
 

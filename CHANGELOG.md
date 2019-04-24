@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Remove dependency on specific FE-user extensions (#213, #214)
 - Prevent rounding errors with the coordinates (#208, #209, #210)
 
 ## 2.3.0

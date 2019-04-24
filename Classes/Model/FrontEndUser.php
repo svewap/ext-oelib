@@ -1,6 +1,5 @@
 <?php
 
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -477,8 +476,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      */
     public static function hasGenderField()
     {
-        return ExtensionManagementUtility::isLoaded('sr_feuser_register')
-            || ExtensionManagementUtility::isLoaded('sf_register');
+        return isset($GLOBALS['TCA']['fe_users']['columns']['gender']);
     }
 
     /**
