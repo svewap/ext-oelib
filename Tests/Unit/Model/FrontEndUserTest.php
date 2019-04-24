@@ -3,7 +3,6 @@
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * Test case.
@@ -150,11 +149,13 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function hasNameForEmptyNameLastNameAndFirstNameReturnsFalse()
     {
-        $this->subject->setData([
-            'name' => '',
-            'first_name' => '',
-            'last_name' => '',
-        ]);
+        $this->subject->setData(
+            [
+                'name' => '',
+                'first_name' => '',
+                'last_name' => '',
+            ]
+        );
 
         self::assertFalse(
             $this->subject->hasName()
@@ -166,9 +167,11 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function hasNameForNonEmptyUserReturnsFalse()
     {
-        $this->subject->setData([
-            'username' => 'johndoe',
-        ]);
+        $this->subject->setData(
+            [
+                'username' => 'johndoe',
+            ]
+        );
 
         self::assertFalse(
             $this->subject->hasName()
@@ -180,11 +183,13 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function hasNameForNonEmptyNameReturnsTrue()
     {
-        $this->subject->setData([
-            'name' => 'John Doe',
-            'first_name' => '',
-            'last_name' => '',
-        ]);
+        $this->subject->setData(
+            [
+                'name' => 'John Doe',
+                'first_name' => '',
+                'last_name' => '',
+            ]
+        );
 
         self::assertTrue(
             $this->subject->hasName()
@@ -196,11 +201,13 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function hasNameForNonEmptyFirstNameReturnsTrue()
     {
-        $this->subject->setData([
-            'name' => '',
-            'first_name' => 'John',
-            'last_name' => '',
-        ]);
+        $this->subject->setData(
+            [
+                'name' => '',
+                'first_name' => 'John',
+                'last_name' => '',
+            ]
+        );
 
         self::assertTrue(
             $this->subject->hasName()
@@ -212,11 +219,13 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function hasNameForNonEmptyLastNameReturnsTrue()
     {
-        $this->subject->setData([
-            'name' => '',
-            'first_name' => '',
-            'last_name' => 'Doe',
-        ]);
+        $this->subject->setData(
+            [
+                'name' => '',
+                'first_name' => '',
+                'last_name' => 'Doe',
+            ]
+        );
 
         self::assertTrue(
             $this->subject->hasName()
@@ -228,9 +237,11 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getNameForNonEmptyNameReturnsName()
     {
-        $this->subject->setData([
-            'name' => 'John Doe',
-        ]);
+        $this->subject->setData(
+            [
+                'name' => 'John Doe',
+            ]
+        );
 
         self::assertSame(
             'John Doe',
@@ -243,11 +254,13 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getNameForNonEmptyNameFirstNameAndLastNameReturnsName()
     {
-        $this->subject->setData([
-            'name' => 'John Doe',
-            'first_name' => 'Peter',
-            'last_name' => 'Pan',
-        ]);
+        $this->subject->setData(
+            [
+                'name' => 'John Doe',
+                'first_name' => 'Peter',
+                'last_name' => 'Pan',
+            ]
+        );
 
         self::assertSame(
             'John Doe',
@@ -260,11 +273,13 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getNameForEmptyNameAndNonEmptyFirstAndLastNameReturnsFirstAndLastName()
     {
-        $this->subject->setData([
-            'name' => '',
-            'first_name' => 'Peter',
-            'last_name' => 'Pan',
-        ]);
+        $this->subject->setData(
+            [
+                'name' => '',
+                'first_name' => 'Peter',
+                'last_name' => 'Pan',
+            ]
+        );
 
         self::assertSame(
             'Peter Pan',
@@ -277,11 +292,13 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getNameForNonEmptyFirstAndLastNameAndNonEmptyUserNameReturnsFirstAndLastName()
     {
-        $this->subject->setData([
-            'first_name' => 'Peter',
-            'last_name' => 'Pan',
-            'username' => 'johndoe',
-        ]);
+        $this->subject->setData(
+            [
+                'first_name' => 'Peter',
+                'last_name' => 'Pan',
+                'username' => 'johndoe',
+            ]
+        );
 
         self::assertSame(
             'Peter Pan',
@@ -294,11 +311,13 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getNameForEmptyFirstNameAndNonEmptyLastAndUserNameReturnsLastName()
     {
-        $this->subject->setData([
-            'first_name' => '',
-            'last_name' => 'Pan',
-            'username' => 'johndoe',
-        ]);
+        $this->subject->setData(
+            [
+                'first_name' => '',
+                'last_name' => 'Pan',
+                'username' => 'johndoe',
+            ]
+        );
 
         self::assertSame(
             'Pan',
@@ -311,11 +330,13 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getNameForEmptyLastNameAndNonEmptyFirstAndUserNameReturnsFirstName()
     {
-        $this->subject->setData([
-            'first_name' => 'Peter',
-            'last_name' => '',
-            'username' => 'johndoe',
-        ]);
+        $this->subject->setData(
+            [
+                'first_name' => 'Peter',
+                'last_name' => '',
+                'username' => 'johndoe',
+            ]
+        );
 
         self::assertSame(
             'Peter',
@@ -328,11 +349,13 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getNameForEmptyFirstAndLastNameAndNonEmptyUserNameReturnsUserName()
     {
-        $this->subject->setData([
-            'first_name' => '',
-            'last_name' => '',
-            'username' => 'johndoe',
-        ]);
+        $this->subject->setData(
+            [
+                'first_name' => '',
+                'last_name' => '',
+                'username' => 'johndoe',
+            ]
+        );
 
         self::assertSame(
             'johndoe',
@@ -479,9 +502,11 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getStreetForMultilineAddressReturnsAddress()
     {
-        $this->subject->setData([
-            'address' => 'Foo street 1' . LF . 'Floor 3',
-        ]);
+        $this->subject->setData(
+            [
+                'address' => 'Foo street 1' . LF . 'Floor 3',
+            ]
+        );
 
         self::assertSame(
             'Foo street 1' . LF . 'Floor 3',
@@ -647,10 +672,12 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getZipAndCityForNonEmptyZipAndCityReturnsZipAndCity()
     {
-        $this->subject->setData([
-            'zip' => '12345',
-            'city' => 'Test city',
-        ]);
+        $this->subject->setData(
+            [
+                'zip' => '12345',
+                'city' => 'Test city',
+            ]
+        );
 
         self::assertSame(
             '12345 Test city',
@@ -663,10 +690,12 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getZipAndCityForEmptyZipAndNonEmptyCityReturnsCity()
     {
-        $this->subject->setData([
-            'zip' => '',
-            'city' => 'Test city',
-        ]);
+        $this->subject->setData(
+            [
+                'zip' => '',
+                'city' => 'Test city',
+            ]
+        );
 
         self::assertSame(
             'Test city',
@@ -679,10 +708,12 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getZipAndGetCityForNonEmptyZipAndEmptyCityReturnsEmptyString()
     {
-        $this->subject->setData([
-            'zip' => '12345',
-            'city' => '',
-        ]);
+        $this->subject->setData(
+            [
+                'zip' => '12345',
+                'city' => '',
+            ]
+        );
 
         self::assertSame(
             '',
@@ -695,10 +726,12 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getZipAndGetCityForEmptyZipAndEmptyCityReturnsEmptyString()
     {
-        $this->subject->setData([
-            'zip' => '',
-            'city' => '',
-        ]);
+        $this->subject->setData(
+            [
+                'zip' => '',
+                'city' => '',
+            ]
+        );
 
         self::assertSame(
             '',
