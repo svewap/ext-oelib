@@ -2,7 +2,7 @@
     "name": "oliverklee/user-oelibtest2",
     "type": "typo3-cms-extension",
     "description": "Test extension for oelib",
-    "license": "GPL-3.0+",
+    "license": "GPL-2.0-or-later",
     "require": {
         "oliverklee/user-oelibtest": "@dev"
     },

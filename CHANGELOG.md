@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Change from GPL V3 to GPL V2+ (#221)
 - Move more tests to Tests/Unit/ and Tests/Functional/ (#212)
 
 ### Deprecated
