@@ -3,6 +3,7 @@
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Core\Bootstrap;
 
 /**
  * Test case.
@@ -28,8 +29,8 @@ class Tx_Oelib_Tests_LegacyUnit_BackEndLoginManagerTest extends \Tx_Phpunit_Test
 
     protected function setUp()
     {
+        Bootstrap::getInstance()->initializeBackendAuthentication();
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
-
         $this->backEndUserMapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUser::class);
 
         $this->subject = \Tx_Oelib_BackEndLoginManager::getInstance();
