@@ -1,5 +1,6 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -9,7 +10,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_TemplateHelperTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_TemplateHelperTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingTemplateHelper
@@ -181,8 +182,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateHelperTest extends \Tx_Phpunit_TestCase
      */
     public function setConfigurationValueFailsWithAnEmptyKey()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty'
         );
 
@@ -433,8 +436,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateHelperTest extends \Tx_Phpunit_TestCase
      */
     public function getListViewConfigurationValueThrowsAnExeptionIfNoFieldNameWasProvided()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$fieldName must not be empty.'
         );
 

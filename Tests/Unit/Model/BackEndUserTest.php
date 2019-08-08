@@ -184,8 +184,10 @@ class BackEndUserTest extends UnitTestCase
      */
     public function setDefaultLanguageWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$language must not be empty.'
         );
 

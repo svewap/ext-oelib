@@ -1,5 +1,6 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -7,7 +8,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_ConfigurationRegistryTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_ConfigurationRegistryTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_TestingFramework
@@ -73,8 +74,10 @@ class Tx_Oelib_Tests_LegacyUnit_ConfigurationRegistryTest extends \Tx_Phpunit_Te
      */
     public function getForEmptyNamespaceThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$namespace must not be empty.'
         );
 
@@ -116,8 +119,10 @@ class Tx_Oelib_Tests_LegacyUnit_ConfigurationRegistryTest extends \Tx_Phpunit_Te
      */
     public function setWithEmptyNamespaceThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$namespace must not be empty.'
         );
 

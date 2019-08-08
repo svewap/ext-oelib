@@ -214,8 +214,10 @@ class MailTest extends UnitTestCase
      */
     public function setSubjectWithEmptySubjectThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$subject must not be empty.'
         );
 
@@ -227,8 +229,10 @@ class MailTest extends UnitTestCase
      */
     public function setSubjectWithSubjectContainingCarriageReturnThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$subject must not contain any line breaks or carriage returns.'
         );
 
@@ -240,8 +244,10 @@ class MailTest extends UnitTestCase
      */
     public function setSubjectWithSubjectContainingLinefeedThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$subject must not contain any line breaks or carriage returns.'
         );
 
@@ -253,8 +259,10 @@ class MailTest extends UnitTestCase
      */
     public function setSubjectWithSubjectContainingCarriageReturnLinefeedThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$subject must not contain any line breaks or carriage returns.'
         );
 
@@ -294,8 +302,10 @@ class MailTest extends UnitTestCase
      */
     public function setMessageWithEmptyMessageThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$message must not be empty.'
         );
 
@@ -357,8 +367,10 @@ class MailTest extends UnitTestCase
      */
     public function setHTMLMessageWithEmptyMessageThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$message must not be empty.'
         );
 

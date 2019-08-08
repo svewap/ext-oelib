@@ -38,7 +38,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $this->subject = new \Tx_Oelib_EmailCollector();
 
-        $this->message1 = $this->getMock(MailMessage::class, ['send']);
+        $this->message1 = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
         GeneralUtility::addInstance(MailMessage::class, $this->message1);
     }
 
@@ -88,12 +88,12 @@ class AbstractMailerTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $email must have a sender set.
      */
     public function sendWithoutSenderThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$email must have a sender set.');
+
         $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
@@ -106,12 +106,12 @@ class AbstractMailerTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage The e-mail must have at least one recipient.
      */
     public function sendWithoutRecipientThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The e-mail must have at least one recipient.');
+
         $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
@@ -124,12 +124,12 @@ class AbstractMailerTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage The e-mail subject must not be empty.
      */
     public function sendWithoutSubjectThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The e-mail subject must not be empty.');
+
         $email = new \Tx_Oelib_Mail();
         $email->setMessage('That is the way it is.');
 
@@ -142,12 +142,12 @@ class AbstractMailerTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage The e-mail message must not be empty.
      */
     public function sendWithoutMessageThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The e-mail message must not be empty.');
+
         $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
 
@@ -192,11 +192,11 @@ class AbstractMailerTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function sendWithEmptyFromAddressThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
@@ -212,11 +212,11 @@ class AbstractMailerTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function sendWithInvalidFromAddressThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
@@ -233,11 +233,11 @@ class AbstractMailerTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function sendWithEmptyToAddressThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
@@ -253,11 +253,11 @@ class AbstractMailerTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function sendWithInvalidToAddressThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $email = new \Tx_Oelib_Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');

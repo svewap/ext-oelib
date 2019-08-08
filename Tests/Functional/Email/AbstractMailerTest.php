@@ -33,7 +33,7 @@ class AbstractMailerTest extends FunctionalTestCase
      * @var string[]
      */
     private $email = [
-        'recipient' => 'any-recipient@email-address.org',
+        'recipient' => 'any-recipient@example.com',
         'subject' => 'any subject',
         'message' => 'any message',
         'headers' => '',
@@ -45,7 +45,7 @@ class AbstractMailerTest extends FunctionalTestCase
 
         $this->subject = new \Tx_Oelib_EmailCollector();
 
-        $this->message1 = $this->getMock(MailMessage::class, ['send']);
+        $this->message1 = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
         GeneralUtility::addInstance(MailMessage::class, $this->message1);
     }
 

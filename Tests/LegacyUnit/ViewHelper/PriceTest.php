@@ -1,5 +1,6 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -8,7 +9,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_ViewHelper_PriceTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_ViewHelper_PriceTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_ViewHelper_Price

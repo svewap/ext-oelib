@@ -190,7 +190,7 @@ class ConfigurationCheckTest extends UnitTestCase
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = 'oliver@example.com';
         $this->subject->checkIsValidDefaultFromEmailAddress();
 
-        static::assertSame('', $this->subject->getRawMessage());
+        self::assertSame('', $this->subject->getRawMessage());
     }
 
     /**
@@ -217,6 +217,6 @@ class ConfigurationCheckTest extends UnitTestCase
 
         $this->subject->checkIsValidDefaultFromEmailAddress();
 
-        static::assertNotSame('', $this->subject->getRawMessage());
+        self::assertNotSame('', $this->subject->getRawMessage());
     }
 }

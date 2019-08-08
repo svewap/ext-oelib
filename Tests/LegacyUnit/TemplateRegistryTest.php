@@ -1,11 +1,13 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_TemplateRegistryTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_TemplateRegistryTest extends TestCase
 {
     ////////////////////////////////////////////
     // Tests concerning the Singleton property

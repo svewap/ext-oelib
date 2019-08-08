@@ -1,5 +1,6 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -7,7 +8,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Mapper_CurrencyTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_Mapper_CurrencyTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_Mapper_Currency

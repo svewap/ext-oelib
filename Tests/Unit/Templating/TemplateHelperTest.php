@@ -64,7 +64,7 @@ class TemplateHelperTest extends UnitTestCase
         \Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
         $subject = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingTemplateHelper([]);
 
-        static::assertInstanceOf(\Tx_Oelib_ConfigCheck::class, $subject->getConfigurationCheck());
+        self::assertInstanceOf(\Tx_Oelib_ConfigCheck::class, $subject->getConfigurationCheck());
     }
 
     /**
@@ -89,7 +89,7 @@ class TemplateHelperTest extends UnitTestCase
         $subject = new PluginWithCustomConfigurationCheck();
         $subject->init([]);
 
-        static::assertInstanceOf(TestingConfigurationCheck::class, $subject->getConfigurationCheck());
+        self::assertInstanceOf(TestingConfigurationCheck::class, $subject->getConfigurationCheck());
     }
 
     /**

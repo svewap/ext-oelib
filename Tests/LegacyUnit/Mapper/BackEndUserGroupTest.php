@@ -1,12 +1,14 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Mapper_BackEndUserGroupTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_Mapper_BackEndUserGroupTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_TestingFramework for creating dummy records

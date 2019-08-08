@@ -2,6 +2,7 @@
 
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Core\Bootstrap;
 
@@ -10,7 +11,7 @@ use TYPO3\CMS\Core\Core\Bootstrap;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_BackEndLoginManagerTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_BackEndLoginManagerTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_BackEndLoginManager
@@ -125,8 +126,10 @@ class Tx_Oelib_Tests_LegacyUnit_BackEndLoginManagerTest extends \Tx_Phpunit_Test
      */
     public function getLoggedInUserWithEmptyMapperNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$mapperName must not be empty.'
         );
 

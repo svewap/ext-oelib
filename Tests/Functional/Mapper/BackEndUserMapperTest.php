@@ -78,8 +78,10 @@ class BackEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameForEmptyUserNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$value must not be empty.'
         );
 
@@ -145,11 +147,11 @@ class BackEndUserMapperTest extends FunctionalTestCase
 
     /**
      * @test
-     *
-     * @expectedException \Tx_Oelib_Exception_NotFound
      */
     public function findByUserNameWithNameOfNonExistentUserThrowsException()
     {
+        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+
         $this->testingFramework->createBackEndUser(
             ['username' => 'foo', 'deleted' => 1]
         );

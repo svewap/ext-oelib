@@ -61,7 +61,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->save($model);
         $this->testingFramework->cleanUp();
 
-        static::assertFalse($this->testingFramework->existsRecordWithUid('tx_oelib_test', $model->getUid()));
+        self::assertFalse($this->testingFramework->existsRecordWithUid('tx_oelib_test', $model->getUid()));
     }
 
     /**
@@ -80,7 +80,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->save($leftModel);
         $this->testingFramework->cleanUp();
 
-        static::assertFalse(
+        self::assertFalse(
             $this->testingFramework->existsRecord('tx_oelib_test_article_mm', 'uid_local = ' . $leftUid)
         );
     }
@@ -575,7 +575,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
 
-        $this->setExpectedException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
 
         $this->subject->find($uid)->isHidden();
     }
@@ -1645,7 +1645,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findSingleByWhereClauseWithUidOfInexistentRecordThrowsException()
     {
-        $this->setExpectedException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
 
         $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
 
@@ -3353,7 +3353,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findOneByKeyForInexistentThrowsException()
     {
-        $this->setExpectedException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
 
         $this->subject->findOneByKey('title', 'Darjeeling');
     }
@@ -3470,11 +3470,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
     /**
      * @test
-     *
-     * @expectedException \Tx_Oelib_Exception_NotFound
      */
     public function findOneByCompoundKeyForNonExistentThrowsException()
     {
+        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+
         $this->subject->findOneByCompoundKey(['title' => 'Darjeeling', 'header' => 'Tea Time']);
     }
 
@@ -3530,8 +3530,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function deleteForGhostFromGetNewGhostThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'This model is a memory-only dummy that must not be deleted.'
         );
 
@@ -3544,8 +3546,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function deleteForReadOnlyModelThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'This model is read-only and must not be deleted.'
         );
 
@@ -3648,8 +3652,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllByRelationWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty'
         );
 

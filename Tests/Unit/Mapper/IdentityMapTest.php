@@ -31,8 +31,10 @@ class IdentityMapTest extends UnitTestCase
      */
     public function getWithZeroUidThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$uid must be > 0.'
         );
 
@@ -44,8 +46,10 @@ class IdentityMapTest extends UnitTestCase
      */
     public function getWithNegativeUidThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$uid must be > 0.'
         );
 
@@ -57,8 +61,10 @@ class IdentityMapTest extends UnitTestCase
      */
     public function addWithModelWithoutUidThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'Add() requires a model that has a UID.'
         );
 
@@ -130,8 +136,10 @@ class IdentityMapTest extends UnitTestCase
      */
     public function getForInexistentUidThrowsNotFoundException()
     {
-        $this->setExpectedException(
-            \Tx_Oelib_Exception_NotFound::class,
+        $this->expectException(
+            \Tx_Oelib_Exception_NotFound::class
+        );
+        $this->expectExceptionMessage(
             'This map currently does not contain a model with the UID 42.'
         );
 
@@ -155,7 +163,7 @@ class IdentityMapTest extends UnitTestCase
      */
     public function getNewUidForNonEmptyMapReturnsUidNotInMap()
     {
-        $this->setExpectedException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
 
         $model = new TestingModel();
         $model->setUid(1);

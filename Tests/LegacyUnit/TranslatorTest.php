@@ -1,12 +1,14 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_TranslatorTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_TranslatorTest extends TestCase
 {
     /////////////////////////////////
     // Tests regarding translate().

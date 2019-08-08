@@ -54,8 +54,10 @@ class AttachmentTest extends UnitTestCase
      */
     public function setFileNameWithEmptyFileNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$fileName must not be empty.'
         );
 
@@ -95,8 +97,10 @@ class AttachmentTest extends UnitTestCase
      */
     public function setContentTypeWithEmptyContentTypeThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$contentType must not be empty.'
         );
 

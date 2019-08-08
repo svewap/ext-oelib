@@ -88,8 +88,10 @@ class PageFinderTest extends UnitTestCase
      */
     public function setPageUidWithZeroGivenThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given page UID was "0". Only integer values greater than zero are allowed.'
         );
 
@@ -101,8 +103,10 @@ class PageFinderTest extends UnitTestCase
      */
     public function setPageUidWithNegativeNumberGivenThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given page UID was "-21". Only integer values greater than zero are allowed.'
         );
 

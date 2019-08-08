@@ -73,8 +73,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getWithNoDataThrowsException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             get_class($this->subject) . '#' . $this->subject->getUid()
             . ': Please call setData() directly after instantiation first.'
         );
@@ -123,8 +125,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function setDataCalledTwoTimesThrowsAnException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'setData must only be called once per model instance.'
         );
 
@@ -264,8 +268,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getAsModelWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -289,8 +295,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getAsModelWithKeyForStringDataThrowsException()
     {
-        $this->setExpectedException(
-            'UnexpectedValueException',
+        $this->expectException(
+            \UnexpectedValueException::class
+        );
+        $this->expectExceptionMessage(
             'The data item for the key "foo" is no model instance.'
         );
 
@@ -353,8 +361,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getAsListWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -366,8 +376,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getAsListWithInexistentKeyThrowsException()
     {
-        $this->setExpectedException(
-            'UnexpectedValueException',
+        $this->expectException(
+            \UnexpectedValueException::class
+        );
+        $this->expectExceptionMessage(
             'The data item for the key "foo" is no list instance.'
         );
 
@@ -383,8 +395,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getAsListWithKeyForStringDataThrowsException()
     {
-        $this->setExpectedException(
-            'UnexpectedValueException',
+        $this->expectException(
+            \UnexpectedValueException::class
+        );
+        $this->expectExceptionMessage(
             'The data item for the key "foo" is no list instance.'
         );
 
@@ -494,8 +508,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function setUidTwoTimesThrowsAnException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'The UID of a model cannot be set a second time.'
         );
         $this->subject->setUid(42);
@@ -507,8 +523,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function setUidForAModelWithAUidSetViaSetDataThrowsException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'The UID of a model cannot be set a second time.'
         );
 
@@ -604,8 +622,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getOnAModelWithoutLoadCallbackThrowsException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'Ghosts need a load callback function before their data can be accessed.'
         );
 
@@ -618,8 +638,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function setOnAModelInStatusGhostWithoutLoadCallbackThrowsException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'Ghosts need a load callback function before their data can be accessed.'
         );
 
@@ -632,7 +654,7 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getOnDeadModelThrowsException()
     {
-        $this->setExpectedException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
 
         $this->subject->markAsDead();
         $this->subject->getTitle();
@@ -652,7 +674,7 @@ class AbstractModelTest extends UnitTestCase
      */
     public function isHiddenOnDeadModelThrowsException()
     {
-        $this->setExpectedException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
 
         $this->subject->markAsDead();
         $this->subject->isHidden();
@@ -970,8 +992,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function settingDeletedByUsingSetThrowsAnException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be "deleted". Please use setToDeleted() instead.'
         );
 
@@ -1044,8 +1068,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function setOnReadOnlyModelThrowsException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'set() must not be called on a read-only model.'
         );
 
@@ -1160,8 +1186,10 @@ class AbstractModelTest extends UnitTestCase
      */
     public function setCreationDateForLoadedModelWithUidThrowsException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'Only new objects (without UID) may receive "crdate".'
         );
 
@@ -1236,11 +1264,11 @@ class AbstractModelTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function setPageUidWithNegativePageUidThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->setPageUid(-1);
     }
 
@@ -1282,10 +1310,11 @@ class AbstractModelTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \BadMethodCallException
      */
     public function cloneOfReadOnlyModelThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         $this->subject->markAsReadOnly();
 
         clone $this->subject;
@@ -1308,10 +1337,11 @@ class AbstractModelTest extends UnitTestCase
      * @param string $status
      *
      * @dataProvider uncloneableStatusDataProvider
-     * @expectedException \BadMethodCallException
      */
     public function cloneWithInvalidStatusThrowsException($status)
     {
+        $this->expectException(\BadMethodCallException::class);
+
         $this->subject->setLoadStatus($status);
 
         clone $this->subject;

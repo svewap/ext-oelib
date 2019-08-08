@@ -1,11 +1,13 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_SessionTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_SessionTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_TestingFramework for creating a fake front end
@@ -31,8 +33,10 @@ class Tx_Oelib_Tests_LegacyUnit_SessionTest extends \Tx_Phpunit_TestCase
      */
     public function getInstanceThrowsExceptionWithoutFrontEnd()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'This class must not be instantiated when there is no front end.'
         );
 
@@ -46,8 +50,10 @@ class Tx_Oelib_Tests_LegacyUnit_SessionTest extends \Tx_Phpunit_TestCase
      */
     public function getInstanceWithInvalidTypeThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'Only the types ::TYPE_USER and ::TYPE_TEMPORARY are allowed.'
         );
 
@@ -128,8 +134,10 @@ class Tx_Oelib_Tests_LegacyUnit_SessionTest extends \Tx_Phpunit_TestCase
      */
     public function setInstanceWithInvalidTypeThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'Only the types ::TYPE_USER and ::TYPE_TEMPORARY are allowed.'
         );
 

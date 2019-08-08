@@ -30,8 +30,10 @@ class ConfigurationTest extends UnitTestCase
      */
     public function setWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 

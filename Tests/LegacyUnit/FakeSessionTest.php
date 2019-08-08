@@ -1,11 +1,13 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_FakeSessionTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_FakeSessionTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_FakeSession the object to test

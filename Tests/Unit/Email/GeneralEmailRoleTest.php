@@ -19,7 +19,7 @@ class GeneralEmailRoleTest extends UnitTestCase
     {
         $subject = new GeneralEmailRole('jade@example.com');
 
-        static::assertInstanceOf(\Tx_Oelib_Interface_MailRole::class, $subject);
+        self::assertInstanceOf(\Tx_Oelib_Interface_MailRole::class, $subject);
     }
 
     /**
@@ -30,7 +30,7 @@ class GeneralEmailRoleTest extends UnitTestCase
         $emailAddress = 'jade@example.com';
         $subject = new GeneralEmailRole($emailAddress);
 
-        static::assertSame($emailAddress, $subject->getEmailAddress());
+        self::assertSame($emailAddress, $subject->getEmailAddress());
     }
 
     /**
@@ -41,7 +41,7 @@ class GeneralEmailRoleTest extends UnitTestCase
         $name = 'Jade Jennings';
         $subject = new GeneralEmailRole('jade@example.com', $name);
 
-        static::assertSame($name, $subject->getName());
+        self::assertSame($name, $subject->getName());
     }
 
     /**
@@ -51,6 +51,6 @@ class GeneralEmailRoleTest extends UnitTestCase
     {
         $subject = new GeneralEmailRole('jade@example.com');
 
-        static::assertSame('', $subject->getName());
+        self::assertSame('', $subject->getName());
     }
 }

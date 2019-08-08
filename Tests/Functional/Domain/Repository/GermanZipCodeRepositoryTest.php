@@ -43,11 +43,11 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
         /** @var GermanZipCode $result */
         $result = $this->subject->findByUid(9000);
 
-        static::assertInstanceOf(GermanZipCode::class, $result);
-        static::assertSame('01067', $result->getZipCode());
-        static::assertSame('Dresden', $result->getCityName());
-        static::assertEquals(13.721068, $result->getLongitude());
-        static::assertEquals(51.060036, $result->getLatitude());
+        self::assertInstanceOf(GermanZipCode::class, $result);
+        self::assertSame('01067', $result->getZipCode());
+        self::assertSame('Dresden', $result->getCityName());
+        self::assertEquals(13.721068, $result->getLongitude());
+        self::assertEquals(51.060036, $result->getLatitude());
     }
 
     /**
@@ -59,9 +59,9 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
         /** @var GermanZipCode $result */
         $result = $this->subject->findOneByZipCode($zipCode);
 
-        static::assertInstanceOf(GermanZipCode::class, $result);
-        static::assertSame($zipCode, $result->getZipCode());
-        static::assertSame('Dresden', $result->getCityName());
+        self::assertInstanceOf(GermanZipCode::class, $result);
+        self::assertSame($zipCode, $result->getZipCode());
+        self::assertSame('Dresden', $result->getCityName());
     }
 
     /**
@@ -73,7 +73,7 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
         $firstResult = $this->subject->findOneByZipCode($zipCode);
         $secondResult = $this->subject->findOneByZipCode($zipCode);
 
-        static::assertSame($firstResult, $secondResult);
+        self::assertSame($firstResult, $secondResult);
     }
 
     /**
@@ -101,6 +101,6 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
     {
         $result = $this->subject->findOneByZipCode($zipCode);
 
-        static::assertNull($result);
+        self::assertNull($result);
     }
 }

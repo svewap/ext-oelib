@@ -28,7 +28,7 @@ class RealMailerTest extends UnitTestCase
     {
         $this->subject = new \Tx_Oelib_RealMailer();
 
-        $this->message = $this->getMock(MailMessage::class, ['send']);
+        $this->message = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
         GeneralUtility::addInstance(MailMessage::class, $this->message);
     }
 

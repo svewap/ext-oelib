@@ -1,5 +1,6 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -7,7 +8,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_TestingFramework
@@ -105,21 +106,21 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function enableFieldsThrowsExceptionForTooSmallShowHidden()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::enableFields('tx_oelib_test', -2);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function enableFieldsThrowsExceptionForTooBigShowHidden()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::enableFields('tx_oelib_test', 2);
     }
 
@@ -305,11 +306,11 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createRecursivePageListThrowsWithNegativeRecursion()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::createRecursivePageList('', -1);
     }
 
@@ -450,21 +451,21 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getColumnsInTableForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::getColumnsInTable('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function getColumnsInTableForInexistentTableNameThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Oelib_Db::getColumnsInTable('tx_oelib_doesnotexist');
     }
 
@@ -498,11 +499,11 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getColumnDefinitionForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::getColumnDefinition('', 'uid');
     }
 
@@ -525,11 +526,11 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function tableHasColumnUidForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::tableHasColumnUid('');
     }
 
@@ -596,11 +597,11 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function tableHasColumnThrowsExceptionOnEmptyTableName()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::tableHasColumn(
             '',
             'title'
@@ -626,11 +627,11 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function deleteForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::delete(
             '',
             'uid = 0'
@@ -710,11 +711,11 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function updateForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::update(
             '',
             'uid = 0',
@@ -799,11 +800,11 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function insertForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::insert(
             '',
             ['is_dummy_record' => 1]
@@ -812,11 +813,11 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function insertForEmptyRecordDataThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::insert(
             'tx_oelib_test',
             []
@@ -883,21 +884,21 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::select('*', '');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectForEmptyFieldListThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::select('', 'tx_oelib_test');
     }
 
@@ -908,27 +909,27 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
     {
         self::assertInstanceOf(
             \mysqli_result::class,
-            \Tx_Phpunit_Service_Database::select('title', 'tx_phpunit_test')
+            \Tx_Oelib_Db::select('title', 'tx_phpunit_test')
         );
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectSingleForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::selectSingle('*', '');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectSingleForEmptyFieldListThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::selectSingle('', 'tx_oelib_test');
     }
 
@@ -949,11 +950,11 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \Tx_Oelib_Exception_EmptyQueryResult
      */
     public function selectSingleForNoResultsThrowsEmptyQueryResultException()
     {
+        $this->expectException(\Tx_Oelib_Exception_EmptyQueryResult::class);
+
         \Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', 'title = "nothing"');
     }
 
@@ -999,21 +1000,21 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectMultipleForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::selectMultiple('*', '');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectMultipleForEmptyFieldListThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::selectMultiple('', 'tx_oelib_test');
     }
 
@@ -1167,11 +1168,11 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsTableWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::existsTable('');
     }
 
@@ -1215,31 +1216,31 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getTcaForTableWithEmptyTableNameThrowsExceptionTca()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::getTcaForTable('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function getTcaForTableWithInexistentTableNameThrowsExceptionTca()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Oelib_Db::getTcaForTable('tx_oelib_doesnotexist');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function getTcaForTableThrowsExceptionOnTableWithoutTca()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Oelib_Db::getTcaForTable('tx_oelib_test_article_mm');
     }
 
@@ -1338,11 +1339,11 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function countWithInvalidTableNameThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Oelib_Db::count('tx_oelib_doesnotexist', 'uid = 42');
     }
 
@@ -1356,31 +1357,31 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithoutTables()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Oelib_Db::count('JOIN');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithOnlyOneTableOnTheLeft()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Oelib_Db::count('tx_oelib_test JOIN ');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithOnlyOneTableOnTheRight()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Oelib_Db::count('JOIN tx_oelib_test');
     }
 
@@ -1406,21 +1407,21 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::existsRecord('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function existsRecordWithInvalidTableNameThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Oelib_Db::existsRecord('tx_oelib_doesnotexist');
     }
 
@@ -1489,21 +1490,21 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsExactlyOneRecordWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::existsExactlyOneRecord('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function existsExactlyOneRecordWithInvalidTableNameThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Oelib_Db::existsExactlyOneRecord('tx_oelib_doesnotexist');
     }
 
@@ -1556,41 +1557,41 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithZeroUidThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::existsRecordWithUid('tx_oelib_test', 0);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithNegativeUidThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::existsRecordWithUid('tx_oelib_test', -1);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_Db::existsRecordWithUid('', 42);
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function existsRecordWithUidWithInvalidTableNameThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Oelib_Db::existsRecordWithUid('tx_oelib_doesnotexist', 42);
     }
 

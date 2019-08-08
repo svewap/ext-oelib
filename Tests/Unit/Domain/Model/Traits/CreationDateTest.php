@@ -28,7 +28,7 @@ class CreationDateTest extends UnitTestCase
      */
     public function implementsCreationDate()
     {
-        static::assertInstanceOf(CreationDate::class, $this->subject);
+        self::assertInstanceOf(CreationDate::class, $this->subject);
     }
 
     /**
@@ -36,7 +36,7 @@ class CreationDateTest extends UnitTestCase
      */
     public function getCreationDateInitiallyReturnsNull()
     {
-        static::assertNull($this->subject->getCreationDate());
+        self::assertNull($this->subject->getCreationDate());
     }
 
     /**
@@ -47,6 +47,6 @@ class CreationDateTest extends UnitTestCase
         $date = new \DateTime();
         $this->subject->setCreationDate($date);
 
-        static::assertSame($date, $this->subject->getCreationDate());
+        self::assertSame($date, $this->subject->getCreationDate());
     }
 }

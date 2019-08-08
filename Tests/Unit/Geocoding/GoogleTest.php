@@ -73,7 +73,7 @@ class GoogleTest extends UnitTestCase
      */
     public function lookUpForEmptyAddressSetsCoordinatesError()
     {
-        $geo = $this->getMock(TestingGeo::class, ['setGeoError']);
+        $geo = $this->createPartialMock(TestingGeo::class, ['setGeoError']);
         $geo->expects(self::once())->method('setGeoError');
 
         /* @var TestingGeo $geo */
@@ -190,7 +190,7 @@ class GoogleTest extends UnitTestCase
             false
         );
         $subject->setMaximumDelay(1);
-        $subject->method('sendRequest')->will(self::returnValue($jsonResult));
+        $subject->method('sendRequest')->willReturn($jsonResult);
 
         $subject->lookUp($geo);
 
@@ -222,7 +222,7 @@ class GoogleTest extends UnitTestCase
             false
         );
         $subject->setMaximumDelay(1);
-        $subject->method('sendRequest')->will(self::returnValue($jsonResult));
+        $subject->method('sendRequest')->willReturn($jsonResult);
 
         $subject->lookUp($geo);
 
@@ -255,7 +255,7 @@ class GoogleTest extends UnitTestCase
             false
         );
         $subject->setMaximumDelay(1);
-        $subject->method('sendRequest')->will(self::returnValue($jsonResult));
+        $subject->method('sendRequest')->willReturn($jsonResult);
 
         $subject->lookUp($geo);
 
@@ -281,7 +281,7 @@ class GoogleTest extends UnitTestCase
             false
         );
         $subject->setMaximumDelay(1);
-        $subject->method('sendRequest')->will(self::returnValue(false));
+        $subject->method('sendRequest')->willReturn(false);
 
         $subject->lookUp($geo);
 
@@ -323,7 +323,7 @@ class GoogleTest extends UnitTestCase
             false
         );
         $subject->setMaximumDelay(1);
-        $subject->method('sendRequest')->will(self::returnValue($jsonResult));
+        $subject->method('sendRequest')->willReturn($jsonResult);
 
         $subject->lookUp($geo);
 
@@ -338,11 +338,11 @@ class GoogleTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \UnexpectedValueException
      */
     public function lookUpForEmptyApiKeyThrowsException()
     {
+        $this->expectException(\UnexpectedValueException::class);
+
         $this->configuration->setAsString('googleGeocodingApiKey', '');
 
         $geo = new TestingGeo();
@@ -353,11 +353,11 @@ class GoogleTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \UnexpectedValueException
      */
     public function lookUpForMissingApiKeyThrowsException()
     {
+        $this->expectException(\UnexpectedValueException::class);
+
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
@@ -403,7 +403,7 @@ class GoogleTest extends UnitTestCase
             '',
             false
         );
-        $subject->method('sendRequest')->with($expectedUrl)->will(self::returnValue($jsonResult));
+        $subject->method('sendRequest')->with($expectedUrl)->willReturn($jsonResult);
 
         $subject->lookUp($geo);
     }

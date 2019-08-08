@@ -1,11 +1,13 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Exception_EmptyQueryResultTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_Exception_EmptyQueryResultTest extends TestCase
 {
     /**
      * @var bool the saved content of $GLOBALS['TYPO3_DB']->debugOutput

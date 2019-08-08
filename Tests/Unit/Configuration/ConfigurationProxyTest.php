@@ -60,8 +60,10 @@ class ConfigurationProxyTest extends UnitTestCase
      */
     public function getInstanceThrowsExceptionIfNoExtensionKeyGiven()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The extension key was not set.'
         );
         \Tx_Oelib_ConfigurationProxy::getInstance('');

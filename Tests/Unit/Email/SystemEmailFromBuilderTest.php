@@ -31,7 +31,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = '';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = '';
 
-        static::assertFalse($this->subject->canBuild());
+        self::assertFalse($this->subject->canBuild());
     }
 
     /**
@@ -42,7 +42,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = null;
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = null;
 
-        static::assertFalse($this->subject->canBuild());
+        self::assertFalse($this->subject->canBuild());
     }
 
     /**
@@ -53,7 +53,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = 'admin@example.com';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = '';
 
-        static::assertTrue($this->subject->canBuild());
+        self::assertTrue($this->subject->canBuild());
     }
 
     /**
@@ -64,7 +64,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = 'admin@example.com';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = null;
 
-        static::assertTrue($this->subject->canBuild());
+        self::assertTrue($this->subject->canBuild());
     }
 
     /**
@@ -75,7 +75,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = '78345uirefdx';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = '';
 
-        static::assertFalse($this->subject->canBuild());
+        self::assertFalse($this->subject->canBuild());
     }
 
     /**
@@ -86,7 +86,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = '';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = '';
 
-        $this->setExpectedException(\UnexpectedValueException::class);
+        $this->expectException(\UnexpectedValueException::class);
 
         $this->subject->build();
     }
@@ -103,8 +103,8 @@ class SystemEmailFromBuilderTest extends UnitTestCase
 
         $result = $this->subject->build();
 
-        static::assertInstanceOf(GeneralEmailRole::class, $result);
-        static::assertSame($emailAddress, $result->getEmailAddress());
-        static::assertSame($name, $result->getName());
+        self::assertInstanceOf(GeneralEmailRole::class, $result);
+        self::assertSame($emailAddress, $result->getEmailAddress());
+        self::assertSame($name, $result->getName());
     }
 }

@@ -68,8 +68,10 @@ class MapperRegistryTest extends UnitTestCase
      */
     public function getForEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$className must not be empty.'
         );
 
@@ -78,11 +80,11 @@ class MapperRegistryTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getForInexistentClassThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Oelib_MapperRegistry::get('Tx_Oelib_InexistentMapper');
     }
 
@@ -171,22 +173,22 @@ class MapperRegistryTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function setThrowsExceptionForMismatchingWrapperClass()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $mapper = new TestingMapper();
         \Tx_Oelib_MapperRegistry::set(TestingChildMapper::class, $mapper);
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function setThrowsExceptionIfTheMapperTypeAlreadyIsRegistered()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Oelib_MapperRegistry::get(TestingMapper::class);
 
         $mapper = new TestingMapper();

@@ -32,7 +32,7 @@ class LoggingAwareTest extends UnitTestCase
      */
     public function implementsLoggingAwareInterface()
     {
-        static::assertInstanceOf(LoggingAware::class, $this->subject);
+        self::assertInstanceOf(LoggingAware::class, $this->subject);
     }
 
     /**

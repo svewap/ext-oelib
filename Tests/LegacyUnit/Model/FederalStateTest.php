@@ -1,5 +1,6 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -7,7 +8,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Model_FederalStateTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_Model_FederalStateTest extends TestCase
 {
     protected function setUp()
     {

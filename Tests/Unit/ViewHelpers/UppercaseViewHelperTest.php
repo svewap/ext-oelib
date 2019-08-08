@@ -16,8 +16,8 @@ class UppercaseViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderConvertsToUppercase()
     {
-        $subject = $this->getMock(\Tx_Oelib_ViewHelpers_UppercaseViewHelper::class, ['renderChildren']);
-        $subject->expects(self::once())->method('renderChildren')->will(self::returnValue('foo bar'));
+        $subject = $this->createPartialMock(\Tx_Oelib_ViewHelpers_UppercaseViewHelper::class, ['renderChildren']);
+        $subject->expects(self::once())->method('renderChildren')->willReturn('foo bar');
 
         /* @var \Tx_Oelib_ViewHelpers_UppercaseViewHelper $subject */
         self::assertSame(
@@ -31,8 +31,8 @@ class UppercaseViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderCanConvertUmlautsToUppercase()
     {
-        $subject = $this->getMock(\Tx_Oelib_ViewHelpers_UppercaseViewHelper::class, ['renderChildren']);
-        $subject->expects(self::once())->method('renderChildren')->will(self::returnValue('äöü'));
+        $subject = $this->createPartialMock(\Tx_Oelib_ViewHelpers_UppercaseViewHelper::class, ['renderChildren']);
+        $subject->expects(self::once())->method('renderChildren')->willReturn('äöü');
 
         /* @var \Tx_Oelib_ViewHelpers_UppercaseViewHelper $subject */
         self::assertSame(
@@ -46,8 +46,8 @@ class UppercaseViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderCanConvertAccentedCharactersToUppercase()
     {
-        $subject = $this->getMock(\Tx_Oelib_ViewHelpers_UppercaseViewHelper::class, ['renderChildren']);
-        $subject->expects(self::once())->method('renderChildren')->will(self::returnValue('áàéè'));
+        $subject = $this->createPartialMock(\Tx_Oelib_ViewHelpers_UppercaseViewHelper::class, ['renderChildren']);
+        $subject->expects(self::once())->method('renderChildren')->willReturn('áàéè');
 
         /* @var \Tx_Oelib_ViewHelpers_UppercaseViewHelper $subject */
         self::assertSame(

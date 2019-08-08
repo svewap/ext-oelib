@@ -33,7 +33,7 @@ class GermanZipCodeRepositoryTest extends UnitTestCase
      */
     public function isRepository()
     {
-        static::assertInstanceOf(Repository::class, $this->subject);
+        self::assertInstanceOf(Repository::class, $this->subject);
     }
 
     /**
@@ -41,7 +41,7 @@ class GermanZipCodeRepositoryTest extends UnitTestCase
      */
     public function hasNonNamespacedAlias()
     {
-        static::assertInstanceOf(\Tx_Oelib_Domain_Repository_GermanZipCodeRepository::class, $this->subject);
+        self::assertInstanceOf(\Tx_Oelib_Domain_Repository_GermanZipCodeRepository::class, $this->subject);
     }
 
     /**

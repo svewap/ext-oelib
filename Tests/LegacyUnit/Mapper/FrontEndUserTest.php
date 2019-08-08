@@ -1,11 +1,13 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Mapper_FrontEndUserTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_Mapper_FrontEndUserTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_TestingFramework for creating dummy records
@@ -94,8 +96,10 @@ class Tx_Oelib_Tests_LegacyUnit_Mapper_FrontEndUserTest extends \Tx_Phpunit_Test
      */
     public function getGroupMembersForEmptyStringThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$groupUids must not be an empty string.'
         );
 
@@ -338,11 +342,12 @@ class Tx_Oelib_Tests_LegacyUnit_Mapper_FrontEndUserTest extends \Tx_Phpunit_Test
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value must not be empty.
      */
     public function findByUserNameForEmptyUserNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$value must not be empty.');
+
         $this->subject->findByUserName('');
     }
 
@@ -410,11 +415,11 @@ class Tx_Oelib_Tests_LegacyUnit_Mapper_FrontEndUserTest extends \Tx_Phpunit_Test
 
     /**
      * @test
-     *
-     * @expectedException \Tx_Oelib_Exception_NotFound
      */
     public function findByUserNameWithNameOfNonExistentUserThrowsException()
     {
+        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+
         $userName = uniqid('user', true);
         $this->testingFramework->createFrontEndUser('', ['username' => $userName, 'deleted' => 1]);
 

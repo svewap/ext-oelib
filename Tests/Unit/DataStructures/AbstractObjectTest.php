@@ -31,8 +31,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function checkForNonEmptyKeyWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -56,8 +58,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function getAsStringWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -69,8 +73,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function setAsStringWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -136,8 +142,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function getAsIntegerWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -149,8 +157,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function setAsIntegerWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -242,8 +252,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function getAsTrimmedArrayWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -255,8 +267,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function getAsIntegerArrayWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -268,8 +282,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function setAsArrayWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -385,8 +401,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function getAsBooleanWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -398,8 +416,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function setAsBooleanWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -535,8 +555,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function getAsFloatWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -548,8 +570,10 @@ class AbstractObjectTest extends UnitTestCase
      */
     public function setAsFloatWithEmptyKeyThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 

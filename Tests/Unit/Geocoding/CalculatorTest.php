@@ -45,11 +45,11 @@ class CalculatorTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function calculateDistanceInKilometersForFirstObjectWithoutCoordinatesThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $noCoordinates = new TestingGeo();
         $noCoordinates->clearGeoCoordinates();
         $bonn = new TestingGeo();
@@ -60,11 +60,11 @@ class CalculatorTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function calculateDistanceInKilometersForSecondObjectWithoutCoordinatesThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
         $noCoordinates = new TestingGeo();
@@ -75,11 +75,11 @@ class CalculatorTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function calculateDistanceInKilometersForFirstObjectWithGeoErrorThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $brokenBonn = new TestingGeo();
         $brokenBonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
         $brokenBonn->setGeoError();
@@ -91,11 +91,11 @@ class CalculatorTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function calculateDistanceInKilometersForSecondObjectWithGeoErrorThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
         $brokenBonn = new TestingGeo();
@@ -339,11 +339,11 @@ class CalculatorTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function moveByRandomDistanceWithNegativeNumberThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->moveByRandomDistance($this->geoObject, 0, -1);
     }
 
@@ -449,11 +449,11 @@ class CalculatorTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function moveInRandomDirectionAndDistanceWithNegativeNumberThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->moveInRandomDirectionAndDistance($this->geoObject, -1);
     }
 

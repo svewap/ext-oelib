@@ -1,5 +1,7 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
@@ -7,7 +9,7 @@
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Benjamin Schulte <benj@minschulte.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_SalutationSwitcherTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_SalutationSwitcherTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingSalutationSwitcher
@@ -37,7 +39,7 @@ class Tx_Oelib_Tests_LegacyUnit_SalutationSwitcherTest extends \Tx_Phpunit_TestC
      */
     public function canBeSerialized()
     {
-        static::assertNotSame('', serialize($this->subject));
+        self::assertNotSame('', serialize($this->subject));
     }
 
     ////////////////////////////////////
@@ -128,8 +130,10 @@ class Tx_Oelib_Tests_LegacyUnit_SalutationSwitcherTest extends \Tx_Phpunit_TestC
      */
     public function emptyKeyDefault()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 
@@ -142,8 +146,10 @@ class Tx_Oelib_Tests_LegacyUnit_SalutationSwitcherTest extends \Tx_Phpunit_TestC
      */
     public function emptyKeyDe()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$key must not be empty.'
         );
 

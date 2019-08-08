@@ -835,7 +835,7 @@ class ListTest extends UnitTestCase
     public function sortMakesListDirty()
     {
         /** @var \Tx_Oelib_List|PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock(\Tx_Oelib_List::class, ['markAsDirty']);
+        $subject = $this->createPartialMock(\Tx_Oelib_List::class, ['markAsDirty']);
         $subject->expects(self::once())->method('markAsDirty');
 
         $subject->sort([$this, 'sortByTitleAscending']);
@@ -1136,11 +1136,11 @@ class ListTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function atForNegativePositionThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->at(-1);
     }
 
@@ -1239,21 +1239,21 @@ class ListTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function inRangeWithNegativeStartThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->inRange(-1, 1);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function inRangeWithNegativeLengthThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->inRange(1, -1);
     }
 

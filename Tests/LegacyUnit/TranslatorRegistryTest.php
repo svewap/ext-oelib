@@ -1,5 +1,6 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -9,7 +10,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Benjamin Schulte <benj@minschulte.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_TestingFramework
@@ -105,8 +106,10 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends \Tx_Phpunit_TestC
      */
     public function getWithEmptyExtensionNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The parameter $extensionName must not be empty.'
         );
 
@@ -118,8 +121,10 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends \Tx_Phpunit_TestC
      */
     public function getWithNotLoadedExtensionNameThrowsException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'The extension with the name "user_oelib_test_does_not_exist" is not loaded.'
         );
 
@@ -456,8 +461,10 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends \Tx_Phpunit_TestC
      */
     public function setLanguageKeyForEmptyStringGivenThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given language key must not be empty.'
         );
 

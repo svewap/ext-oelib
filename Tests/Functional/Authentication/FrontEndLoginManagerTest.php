@@ -105,8 +105,10 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
      */
     public function getLoggedInUserWithEmptyMapperNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$mapperName must not be empty.'
         );
 

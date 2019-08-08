@@ -1,5 +1,6 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 
 /**
@@ -7,7 +8,7 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Exception_DatabaseTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_Exception_DatabaseTest extends TestCase
 {
     /**
      * @var bool the saved content of $GLOBALS['TYPO3_DB']->debugOutput

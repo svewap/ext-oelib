@@ -139,8 +139,10 @@ class NodeTest extends UnitTestCase
      */
     public function setParentForNodeWithAlreadySetParentAndGivenParentThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'This node already has a parent node.'
         );
         $childNode = new \Tx_Oelib_Visibility_Node();

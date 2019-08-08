@@ -31,7 +31,7 @@ class DummyTest extends UnitTestCase
      */
     public function lookUpForEmptyAddressSetsCoordinatesError()
     {
-        $geo = $this->getMock(
+        $geo = $this->createPartialMock(
             TestingGeo::class,
             ['setGeoError']
         );

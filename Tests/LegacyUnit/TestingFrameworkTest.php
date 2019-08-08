@@ -1,5 +1,6 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
 use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
@@ -20,7 +21,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_TestingFramework
@@ -249,8 +250,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function markTableAsDirtyFailsOnInexistentTable()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "tx_oelib_DOESNOTEXIST" is not allowed for markTableAsDirty.'
         );
         $this->subject->markTableAsDirty('tx_oelib_DOESNOTEXIST');
@@ -261,8 +264,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function markTableAsDirtyFailsOnNotAllowedSystemTable()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "sys_domain" is not allowed for markTableAsDirty.'
         );
         $this->subject->markTableAsDirty('sys_domain');
@@ -273,8 +278,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function markTableAsDirtyFailsOnForeignTable()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "tx_seminars_seminars" is not allowed for markTableAsDirty.'
         );
         $this->subject->markTableAsDirty('tx_seminars_seminars');
@@ -285,8 +292,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function markTableAsDirtyFailsWithEmptyTableName()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "" is not allowed for markTableAsDirty.'
         );
         $this->subject->markTableAsDirty('');
@@ -356,8 +365,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function createRecordOnInvalidTable()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "tx_oelib_DOESNOTEXIST" is not allowed.'
         );
         $this->subject->createRecord('tx_oelib_DOESNOTEXIST', []);
@@ -368,8 +379,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function createRecordWithEmptyTableName()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "" is not allowed.'
         );
         $this->subject->createRecord('', []);
@@ -380,8 +393,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function createRecordWithUidFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
         $this->subject->createRecord(
@@ -443,8 +458,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function changeRecordFailsOnForeignTable()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table "tx_seminars_seminars" is not on the lists with allowed tables.'
         );
         $this->subject->changeRecord(
@@ -459,8 +476,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function changeRecordFailsOnInexistentTable()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table "tx_oelib_DOESNOTEXIST" is not on the lists with allowed tables.'
         );
         $this->subject->changeRecord(
@@ -517,8 +536,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function changeRecordFailsOnOtherSystemTable()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table "sys_domain" is not on the lists with allowed tables.'
         );
         $this->subject->changeRecord(
@@ -552,8 +573,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function changeRecordFailsWithUidZero()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The parameter $uid must not be zero.'
         );
         $this->subject->changeRecord('tx_oelib_test', 0, ['title' => 'foo']);
@@ -564,8 +587,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function changeRecordFailsWithEmptyData()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The array with the new record data must not be empty.'
         );
         $uid = $this->subject->createRecord('tx_oelib_test', []);
@@ -582,8 +607,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function changeRecordFailsWithUidFieldInRecordData()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The parameter $recordData must not contain changes to the UID of a record.'
         );
         $uid = $this->subject->createRecord('tx_oelib_test', []);
@@ -600,8 +627,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function changeRecordFailsWithDummyRecordFieldInRecordData()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The parameter $recordData must not contain changes to the field ' .
             '"is_dummy_record". It is impossible to convert a dummy record into a regular record.'
         );
@@ -620,8 +649,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
     public function changeRecordFailsOnInexistentRecord()
     {
         $uid = $this->subject->createRecord('tx_oelib_test', []);
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'There is no record with UID ' . ($uid + 1) . ' on table "tx_oelib_test".'
         );
 
@@ -690,8 +721,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $table = 'tx_seminars_seminars';
         $uid = 99999;
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "' . $table . '" is not allowed.'
         );
         $this->subject->deleteRecord($table, $uid);
@@ -705,8 +738,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $table = 'tx_oelib_DOESNOTEXIST';
         $uid = 99999;
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "' . $table . '" is not allowed.'
         );
         $this->subject->deleteRecord($table, $uid);
@@ -720,8 +755,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $table = '';
         $uid = 99999;
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "' . $table . '" is not allowed.'
         );
         $this->subject->deleteRecord($table, $uid);
@@ -816,8 +853,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $uidLocal = 99999;
         $uidForeign = 199999;
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "' . $table . '" is not allowed.'
         );
         $this->subject->createRelation($table, $uidLocal, $uidForeign);
@@ -828,8 +867,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function createRelationWithEmptyTableName()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "" is not allowed.'
         );
         $this->subject->createRelation('', 99999, 199999);
@@ -840,8 +881,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function createRelationWithZeroFirstUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$uidLocal must be an integer > 0, but actually is "0"'
         );
         $uid = $this->subject->createRecord('tx_oelib_test');
@@ -853,8 +896,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function createRelationWithZeroSecondUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$uidForeign must be an integer > 0, but actually is "0"'
         );
         $uid = $this->subject->createRecord('tx_oelib_test');
@@ -866,8 +911,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function createRelationWithNegativeFirstUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$uidLocal must be an integer > 0, but actually is "-1"'
         );
         $uid = $this->subject->createRecord('tx_oelib_test');
@@ -879,8 +926,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function createRelationWithNegativeSecondUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$uidForeign must be an integer > 0, but actually is "-1"'
         );
         $uid = $this->subject->createRecord('tx_oelib_test');
@@ -1199,8 +1248,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $uidLocal = 99999;
         $uidForeign = 199999;
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "' . $table . '" is not allowed.'
         );
         $this->subject->removeRelation($table, $uidLocal, $uidForeign);
@@ -1215,8 +1266,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $uidLocal = 99999;
         $uidForeign = 199999;
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "' . $table . '" is not allowed.'
         );
         $this->subject->removeRelation($table, $uidLocal, $uidForeign);
@@ -1231,8 +1284,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $uidLocal = 99999;
         $uidForeign = 199999;
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "' . $table . '" is not allowed.'
         );
         $this->subject->removeRelation($table, $uidLocal, $uidForeign);
@@ -1413,11 +1468,11 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         $this->subject->createDummyFile();
 
-        self::assertTrue(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryExists($this->subject->getUploadFolderPath());
 
         $this->subject->cleanUp();
 
-        self::assertFalse(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryNotExists($this->subject->getUploadFolderPath());
     }
 
     /**
@@ -1427,9 +1482,9 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
     {
         $this->subject->purgeHooks();
 
-        $hookClassName = 'OliverKlee\\Oelib\\TestingFramework\\CleanupHook';
-        $cleanUpHookMock = $this->getMock($hookClassName, ['cleanUp']);
+        $cleanUpHookMock = $this->createPartialMock(\stdClass::class, ['cleanUp']);
         $cleanUpHookMock->expects(self::atLeastOnce())->method('cleanUp');
+        $hookClassName = \get_class($cleanUpHookMock);
 
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oelib']['testingFrameworkCleanUp'][$hookClassName] = $hookClassName;
         GeneralUtility::addInstance($hookClassName, $cleanUpHookMock);
@@ -1521,11 +1576,11 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         $this->subject->createDummyFile();
 
-        self::assertTrue(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryExists($this->subject->getUploadFolderPath());
 
         $this->subject->cleanUpWithoutDatabase();
 
-        self::assertFalse(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryNotExists($this->subject->getUploadFolderPath());
     }
 
     /**
@@ -1535,9 +1590,9 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
     {
         $this->subject->purgeHooks();
 
-        $hookClassName = 'OliverKlee\\Oelib\\TestingFramework\\CleanupHook';
-        $cleanUpWithoutDatabaseHookMock = $this->getMock($hookClassName, ['cleanUp']);
+        $cleanUpWithoutDatabaseHookMock = $this->createPartialMock(\stdClass::class, ['cleanUp']);
         $cleanUpWithoutDatabaseHookMock->expects(self::atLeastOnce())->method('cleanUp');
+        $hookClassName = \get_class($cleanUpWithoutDatabaseHookMock);
 
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oelib']['testingFrameworkCleanUp'][$hookClassName] = $hookClassName;
         GeneralUtility::addInstance($hookClassName, $cleanUpWithoutDatabaseHookMock);
@@ -1696,8 +1751,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function getAutoIncrementWithOtherSystemTableFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
         $this->subject->getAutoIncrement('sys_domains');
@@ -1737,11 +1794,11 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getAutoIncrementForSysCategoryRecordMmFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->getAutoIncrement('sys_category_record_mm');
     }
 
@@ -1750,8 +1807,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function getAutoIncrementWithEmptyTableNameFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
         $this->subject->getAutoIncrement('');
@@ -1762,8 +1821,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function getAutoIncrementWithForeignTableFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
         $this->subject->getAutoIncrement('tx_seminars_seminars');
@@ -1774,8 +1835,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function getAutoIncrementWithInexistentTableFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
         $this->subject->getAutoIncrement('tx_oelib_DOESNOTEXIST');
@@ -1786,8 +1849,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function getAutoIncrementWithTableWithoutUidFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
         $this->subject->getAutoIncrement('tx_oelib_test_article_mm');
@@ -1818,8 +1883,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function countRecordsWithEmptyTableNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -1831,8 +1898,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function countRecordsWithInvalidTableNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -1921,8 +1990,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function countRecordsWithOtherTableThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2054,8 +2125,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function existsRecordWithEmptyTableNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2067,8 +2140,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function existsRecordWithInvalidTableNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2157,8 +2232,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function existsRecordWithUidWithZeroUidThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$uid must be > 0.'
         );
 
@@ -2170,8 +2247,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function existsRecordWithUidWithNegativeUidThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$uid must be > 0.'
         );
 
@@ -2183,8 +2262,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function existsRecordWithUidWithEmptyTableNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2196,8 +2277,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function existsRecordWithUidWithInvalidTableNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2286,8 +2369,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function existsExactlyOneRecordWithEmptyTableNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2299,8 +2384,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function existsExactlyOneRecordWithInvalidTableNameThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2465,8 +2552,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function resetAutoIncrementWithOtherSystemTableFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2518,8 +2607,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function resetAutoIncrementWithEmptyTableNameFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2531,8 +2622,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function resetAutoIncrementWithForeignTableFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2544,8 +2637,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function resetAutoIncrementWithInexistentTableFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2602,8 +2697,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function resetAutoIncrementLazilyWithOtherSystemTableFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2655,8 +2752,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function resetAutoIncrementLazilyWithEmptyTableNameFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2668,8 +2767,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function resetAutoIncrementLazilyWithForeignTableFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2681,8 +2782,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function resetAutoIncrementLazilyWithInexistentTableFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
@@ -2749,8 +2852,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function setResetAutoIncrementThresholdForZeroFails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$threshold must be > 0.'
         );
 
@@ -2762,8 +2867,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function setResetAutoIncrementThresholdForMinus1Fails()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$threshold must be > 0.'
         );
 
@@ -2956,8 +3063,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndPageMustHaveNoZeroPid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "pid" must not be set in $recordData.'
         );
         $this->subject->createFrontEndPage(0, ['pid' => 0]);
@@ -2968,8 +3077,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndPageMustHaveNoNonZeroPid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "pid" must not be set in $recordData.'
         );
         $this->subject->createFrontEndPage(0, ['pid' => 99999]);
@@ -2980,8 +3091,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndPageMustHaveNoZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
         $this->subject->createFrontEndPage(0, ['uid' => 0]);
@@ -2992,8 +3105,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndPageMustHaveNoNonZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
         $this->subject->createFrontEndPage(0, ['uid' => 99999]);
@@ -3004,8 +3119,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndPageMustHaveNoZeroDocumentType()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "doktype" must not be set in $recordData.'
         );
         $this->subject->createFrontEndPage(0, ['doktype' => 0]);
@@ -3016,8 +3133,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndPageMustHaveNoNonZeroDocumentType()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "doktype" must not be set in $recordData.'
         );
         $this->subject->createFrontEndPage(0, ['doktype' => 99999]);
@@ -3209,8 +3328,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function systemFolderMustHaveNoZeroPid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "pid" must not be set in $recordData.'
         );
         $this->subject->createSystemFolder(0, ['pid' => 0]);
@@ -3221,8 +3342,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function systemFolderMustHaveNoNonZeroPid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "pid" must not be set in $recordData.'
         );
         $this->subject->createSystemFolder(0, ['pid' => 99999]);
@@ -3233,8 +3356,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function systemFolderMustHaveNoZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
         $this->subject->createSystemFolder(0, ['uid' => 0]);
@@ -3245,8 +3370,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function systemFolderMustHaveNoNonZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
         $this->subject->createSystemFolder(0, ['uid' => 99999]);
@@ -3257,8 +3384,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function systemFolderMustHaveNoZeroDoktype()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "doktype" must not be set in $recordData.'
         );
         $this->subject->createSystemFolder(0, ['doktype' => 0]);
@@ -3269,8 +3398,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function systemFolderMustHaveNoNonZeroDoktype()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "doktype" must not be set in $recordData.'
         );
         $this->subject->createSystemFolder(0, ['doktype' => 99999]);
@@ -3479,8 +3610,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function contentElementMustHaveNoZeroPid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "pid" must not be set in $recordData.'
         );
         $this->subject->createContentElement(0, ['pid' => 0]);
@@ -3491,8 +3624,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function contentElementMustHaveNoNonZeroPid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "pid" must not be set in $recordData.'
         );
         $this->subject->createContentElement(0, ['pid' => 99999]);
@@ -3503,8 +3638,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function contentElementMustHaveNoZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
         $this->subject->createContentElement(0, ['uid' => 0]);
@@ -3515,8 +3652,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function contentElementMustHaveNoNonZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
         $this->subject->createContentElement(0, ['uid' => 99999]);
@@ -3553,8 +3692,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function templateCannotBeCreatedOnRootPage()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$pageId must be > 0.'
         );
 
@@ -3566,8 +3707,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function templateCannotBeCreatedWithNegativePageNumber()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$pageId must be > 0.'
         );
 
@@ -3751,8 +3894,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function templateMustNotHaveZeroPid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "pid" must not be set in $recordData.'
         );
         $this->subject->createTemplate(42, ['pid' => 0]);
@@ -3763,8 +3908,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function templateMustNotHaveNonZeroPid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "pid" must not be set in $recordData.'
         );
         $this->subject->createTemplate(42, ['pid' => 99999]);
@@ -3775,8 +3922,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function templateMustHaveNoZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
         $this->subject->createTemplate(42, ['uid' => 0]);
@@ -3787,8 +3936,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function templateMustNotHaveNonZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
         $this->subject->createTemplate(42, ['uid' => 99999]);
@@ -3839,7 +3990,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         $this->subject->createDummyFile();
 
-        self::assertTrue(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryExists($this->subject->getUploadFolderPath());
     }
 
     /**
@@ -4012,7 +4163,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         $this->subject->createDummyZipArchive();
 
-        self::assertTrue(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryExists($this->subject->getUploadFolderPath());
     }
 
     /**
@@ -4061,8 +4212,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
     {
         $uniqueFileName = $this->subject->getUniqueFileOrFolderPath('test.txt');
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The file "' . $uniqueFileName . '" which you are ' .
             'trying to delete does not exist and has never been created by this instance of the testing framework.'
         );
@@ -4072,11 +4225,11 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function deleteDummyFileWithForeignFileThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         vfsStream::setup('root/');
         $testFileUrl = vfsStream::url('root/test.txt');
 
@@ -4094,7 +4247,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
     {
         $dummyFolder = $this->subject->createDummyFolder('test_folder');
 
-        self::assertTrue(is_dir($dummyFolder));
+        self::assertDirectoryExists($dummyFolder);
     }
 
     /**
@@ -4108,7 +4261,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
             '/test_folder'
         );
 
-        self::assertTrue(is_dir($innerDummyFolder));
+        self::assertDirectoryExists($innerDummyFolder);
     }
 
     /**
@@ -4119,7 +4272,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         $this->subject->createDummyFolder('test_folder');
 
-        self::assertTrue(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryExists($this->subject->getUploadFolderPath());
     }
 
     /**
@@ -4130,7 +4283,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         $dummyFolder = $this->subject->createDummyFolder('test_folder');
 
-        self::assertTrue(is_dir($dummyFolder));
+        self::assertDirectoryExists($dummyFolder);
     }
 
     /*
@@ -4147,7 +4300,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
             $this->subject->getPathRelativeToUploadDirectory($dummyFolder)
         );
 
-        self::assertFalse(is_dir($dummyFolder));
+        self::assertDirectoryNotExists($dummyFolder);
     }
 
     /**
@@ -4157,8 +4310,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
     {
         $uniqueFolderName = $this->subject->getUniqueFileOrFolderPath('test_folder');
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The folder "' . $uniqueFolderName . '" which you are trying to delete does not exist.'
         );
 
@@ -4176,8 +4331,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         GeneralUtility::mkdir($uniqueFolderName);
         $this->foreignFolderToDelete = $uniqueFolderName;
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The folder "' . $uniqueFolderName . '" which you are ' .
             'trying to delete was not created by this instance of the testing framework.'
         );
@@ -4206,11 +4363,11 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
 
     /**
      * @test
-     *
-     * @expectedException \RuntimeException
      */
     public function deleteDummyFolderWithNonEmptyDummyFolderThrowsException()
     {
+        $this->expectException(\RuntimeException::class);
+
         $dummyFolder = $this->subject->createDummyFolder('test_folder');
         $this->subject->createDummyFile(
             $this->subject->getPathRelativeToUploadDirectory($dummyFolder) .
@@ -4267,8 +4424,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function setUploadFolderPathAfterCreatingDummyFileThrowsException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'The upload folder path must not be changed if there are already dummy files or folders.'
         );
 
@@ -4285,8 +4444,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function getPathRelativeToUploadDirectoryWithPathOutsideUploadDirectoryThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The first parameter $absolutePath is not within the calling extension\'s upload directory.'
         );
 
@@ -4302,8 +4463,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function getUniqueFileOrFolderPathWithEmptyPathThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The first parameter $path must not be empty.'
         );
 
@@ -4552,8 +4715,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndUserGroupMustHaveNoZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
 
@@ -4565,8 +4730,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndUserGroupMustHaveNoNonZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
 
@@ -4712,8 +4879,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndUserMustHaveNoZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
 
@@ -4725,8 +4894,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndUserMustHaveNoNonZeroUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
 
@@ -4738,8 +4909,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndUserMustHaveNoZeroUserGroupInTheDataArray()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "usergroup" must not be set in $recordData.'
         );
 
@@ -4751,8 +4924,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndUserMustHaveNoNonZeroUserGroupInTheDataArray()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "usergroup" must not be set in $recordData.'
         );
 
@@ -4764,8 +4939,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndUserMustHaveNoUserGroupListInTheDataArray()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "usergroup" must not be set in $recordData.'
         );
 
@@ -4792,8 +4969,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndUserMustHaveNoZeroUserGroupEvenIfSeveralGroupsAreProvided()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.'
         );
 
@@ -4811,8 +4990,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function frontEndUserMustHaveNoAlphabeticalCharactersInTheUserGroupList()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.'
         );
 
@@ -4918,8 +5099,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function createBackEndUserWithZeroUidProvidedInRecordDataThrowsExeption()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
 
@@ -4931,8 +5114,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function createBackEndUserWithNonZeroUidProvidedInRecordDataThrowsExeption()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The column "uid" must not be set in $recordData.'
         );
 
@@ -4988,7 +5173,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
     public function createFakeFrontEndCreatesNullTimeTrackerInstance()
     {
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8000000) {
-            static::markTestSkipped('This test is not applicable for TYPO3 >= 8.');
+            self::markTestSkipped('This test is not applicable for TYPO3 >= 8.');
         }
 
         $GLOBALS['TT'] = null;
@@ -5004,7 +5189,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
     public function createFakeFrontEndCreatesTimeTrackerInstance()
     {
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8000000) {
-            static::markTestSkipped('This test is not applicable for TYPO3 < 8.');
+            self::markTestSkipped('This test is not applicable for TYPO3 < 8.');
         }
 
         $GLOBALS['TT'] = null;
@@ -5265,8 +5450,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function createFakeFrontThrowsExceptionForNegativePageUid()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             '$pageUid must be >= 0.'
         );
 
@@ -5295,8 +5482,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function isLoggedThrowsExceptionWithoutFrontEnd()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'Please create a front end before calling isLoggedIn.'
         );
 
@@ -5376,8 +5565,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function loginFrontEndUserWithZeroUidThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The user ID must be > 0.'
         );
 
@@ -5392,8 +5583,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function loginFrontEndUserWithoutFrontEndThrowsException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'Please create a front end before calling loginFrontEndUser.'
         );
 
@@ -5530,8 +5723,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function loginFrontEndUserNotInDatabaseWithoutFrontEndThrowsException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'Please create a front end before calling loginFrontEndUser.'
         );
 
@@ -5569,8 +5764,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function logoutFrontEndUserWithoutFrontEndThrowsException()
     {
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'Please create a front end before calling logoutFrontEndUser.'
         );
 
@@ -5749,8 +5946,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
         $uid = $this->subject->createRecord('tx_oelib_test');
         $invalidUid = $uid + 1;
 
-        $this->setExpectedException(
-            'BadMethodCallException',
+        $this->expectException(
+            \BadMethodCallException::class
+        );
+        $this->expectExceptionMessage(
             'The table tx_oelib_test does not contain a record with UID ' . $invalidUid . '.'
         );
         $this->subject->increaseRelationCounter(
@@ -5767,8 +5966,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
     {
         $uid = $this->subject->createRecord('tx_oelib_test');
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table name "tx_oelib_inexistent" is invalid. This means it is either empty or not in the list of allowed tables.'
         );
         $this->subject->increaseRelationCounter(
@@ -5783,8 +5984,10 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends \Tx_Phpunit_TestCas
      */
     public function increaseRelationCounterThrowsExceptionOnInexistentFieldName()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The table tx_oelib_test has no column inexistent_column.'
         );
 

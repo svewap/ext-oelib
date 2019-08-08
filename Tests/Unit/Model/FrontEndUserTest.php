@@ -102,11 +102,11 @@ class FrontEndUserTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function setUserNameWithEmptyUserNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->setUserName('');
     }
 
@@ -155,11 +155,11 @@ class FrontEndUserTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function setPasswordWithEmptyPasswordThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->setPassword('');
     }
 
@@ -1102,10 +1102,11 @@ class FrontEndUserTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function hasGroupMembershipWithEmptyUidListThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->hasGroupMembership('');
     }
 
@@ -1270,11 +1271,11 @@ class FrontEndUserTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function setGenderForInvalidGenderKeyThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->enableGenderField();
         $this->subject->setData([]);
 

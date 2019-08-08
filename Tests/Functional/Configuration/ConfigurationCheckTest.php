@@ -98,7 +98,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
     {
         $this->setConfigurationForLocale('foo');
 
-        static::assertSame('foo', $this->getFrontEndController()->config['config']['locale_all']);
+        self::assertSame('foo', $this->getFrontEndController()->config['config']['locale_all']);
     }
 
     /**
@@ -108,7 +108,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
     {
         $this->setConfigurationForLocale('');
 
-        static::assertSame('', $this->getFrontEndController()->config['config']['locale_all']);
+        self::assertSame('', $this->getFrontEndController()->config['config']['locale_all']);
     }
 
     /*
@@ -128,7 +128,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
             'tx_oelib_test'
         );
 
-        static::assertContains('inexistentColumn', $this->subject->getRawMessage());
+        self::assertContains('inexistentColumn', $this->subject->getRawMessage());
     }
 
     /**
@@ -144,6 +144,6 @@ class ConfigurationCheckTest extends FunctionalTestCase
             'tx_oelib_test'
         );
 
-        static::assertSame('', $this->subject->getRawMessage());
+        self::assertSame('', $this->subject->getRawMessage());
     }
 }

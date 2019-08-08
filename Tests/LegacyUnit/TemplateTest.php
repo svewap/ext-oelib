@@ -1,12 +1,14 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
+class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends TestCase
 {
     /**
      * @var \Tx_Oelib_Template
@@ -74,8 +76,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function getSubpartWithNotExistingSubpartNameThrowsException()
     {
-        $this->setExpectedException(
-            \Tx_Oelib_Exception_NotFound::class,
+        $this->expectException(
+            \Tx_Oelib_Exception_NotFound::class
+        );
+        $this->expectExceptionMessage(
             '$key contained the subpart name "FOOBAR", but only the following subparts are available: ()'
         );
 
@@ -90,8 +94,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function getSubpartWithNotExistingSubpartNameThrowsExceptionWithSubpartNames()
     {
-        $this->setExpectedException(
-            \Tx_Oelib_Exception_NotFound::class,
+        $this->expectException(
+            \Tx_Oelib_Exception_NotFound::class
+        );
+        $this->expectExceptionMessage(
             '$key contained the subpart name "COFFEE", but only the following subparts are available: (FOO, BAR)'
         );
 
@@ -2469,8 +2475,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function setNewSubpartWithNameWithSpaceThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The value of the parameter $subpartName is not valid.'
         );
 
@@ -2485,8 +2493,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function setNewSubpartWithNameWithUtf8UmlautThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The value of the parameter $subpartName is not valid.'
         );
 
@@ -2501,8 +2511,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function setNewSubpartWithNameWithUnderscoreSuffixThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The value of the parameter $subpartName is not valid.'
         );
 
@@ -2517,8 +2529,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function setNewSubpartWithNameStartingWithUnderscoreThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The value of the parameter $subpartName is not valid.'
         );
 
@@ -2533,8 +2547,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function setNewSubpartWithNameStartingWithNumberThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The value of the parameter $subpartName is not valid.'
         );
 
@@ -3748,8 +3764,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function getSubpartWithNameWithSpaceThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The value of the parameter $key is not valid.'
         );
 
@@ -3767,8 +3785,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function getSubpartWithNameWithUtf8UmlautThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The value of the parameter $key is not valid.'
         );
 
@@ -3786,8 +3806,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function getSubpartWithNameWithUnderscoreSuffixThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The value of the parameter $key is not valid.'
         );
 
@@ -3805,8 +3827,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function getSubpartWithNameStartingWithUnderscoreThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The value of the parameter $key is not valid.'
         );
 
@@ -3824,8 +3848,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function getSubpartWithNameStartingWithNumberThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
+        $this->expectException(
+            \InvalidArgumentException::class
+        );
+        $this->expectExceptionMessage(
             'The value of the parameter $key is not valid.'
         );
 
@@ -3843,8 +3869,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function getSubpartWithLowercaseNameWithUsingLowercaseThrowsException()
     {
-        $this->setExpectedException(
-            \Tx_Oelib_Exception_NotFound::class,
+        $this->expectException(
+            \Tx_Oelib_Exception_NotFound::class
+        );
+        $this->expectExceptionMessage(
             '$key contained the subpart name "my_subpart", but only the following subparts are available: ()'
 
         );
@@ -3863,8 +3891,10 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends \Tx_Phpunit_TestCase
      */
     public function getSubpartWithLowercaseNameWithUsingUppercaseThrowsException()
     {
-        $this->setExpectedException(
-            \Tx_Oelib_Exception_NotFound::class,
+        $this->expectException(
+            \Tx_Oelib_Exception_NotFound::class
+        );
+        $this->expectExceptionMessage(
             '$key contained the subpart name "MY_SUBPART", but only the following subparts are available: ()'
         );
 

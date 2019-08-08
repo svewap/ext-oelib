@@ -28,7 +28,7 @@ class ChangeDateTest extends UnitTestCase
      */
     public function implementsChangeDate()
     {
-        static::assertInstanceOf(ChangeDate::class, $this->subject);
+        self::assertInstanceOf(ChangeDate::class, $this->subject);
     }
 
     /**
@@ -36,7 +36,7 @@ class ChangeDateTest extends UnitTestCase
      */
     public function getChangeDateInitiallyReturnsNull()
     {
-        static::assertNull($this->subject->getChangeDate());
+        self::assertNull($this->subject->getChangeDate());
     }
 
     /**
@@ -47,6 +47,6 @@ class ChangeDateTest extends UnitTestCase
         $date = new \DateTime();
         $this->subject->setChangeDate($date);
 
-        static::assertSame($date, $this->subject->getChangeDate());
+        self::assertSame($date, $this->subject->getChangeDate());
     }
 }
