@@ -7,7 +7,11 @@
         "oliverklee/user-oelibtest": "@dev"
     },
     "replace": {
-        "user_oelibtest2": "self.version",
         "typo3-ter/user-oelibtest2": "self.version"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "user_oelibtest2"
+        }
     }
 }
