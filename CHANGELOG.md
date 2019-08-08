@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z (unreleased)
 
 ### Added
+- Add PHP-CS-Fixer rules for PHPUnit (#226)
 
 ### Changed
 - Upgrade to PHPUnit 5.7 (#223)

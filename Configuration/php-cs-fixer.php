@@ -91,9 +91,6 @@ return \PhpCsFixer\Config::create()
         'no_unneeded_curly_braces' => true,
         'no_useless_return' => true,
         'no_whitespace_before_comma_in_array' => true,
-        'php_unit_construct' => true,
-        'php_unit_fqcn_annotation' => true,
-        'php_unit_set_up_tear_down_visibility' => true,
         'phpdoc_add_missing_param_annotation' => true,
         'phpdoc_indent' => true,
         'phpdoc_separation' => true,
@@ -107,4 +104,17 @@ return \PhpCsFixer\Config::create()
         // 'ternary_to_null_coalescing' => true,
         'trailing_comma_in_multiline_array' => true,
         'unary_operator_spaces' => true,
+
+        // PHPUnit
+        '@PHPUnit57Migration:risky' => true,
+        'php_unit_construct' => true,
+        'php_unit_dedicate_assert' => true,
+        'php_unit_expectation' => true,
+        'php_unit_fqcn_annotation' => true,
+        'php_unit_method_casing' => true,
+        'php_unit_mock' => true,
+        'php_unit_no_expectation_annotation' => true,
+        'php_unit_ordered_covers' => true,
+        'php_unit_set_up_tear_down_visibility' => true,
+        'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
     ]);
