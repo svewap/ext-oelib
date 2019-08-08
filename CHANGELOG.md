@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Streamline the composer.json dependencies (#221)
 - Always initialize a BE user in the BE user manager tests (#220)
 - Explicitly require MySQL on Travis CI (#219)
 - Remove dependency on specific FE-user extensions (#213, #214)

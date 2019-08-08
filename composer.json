@@ -42,16 +42,13 @@
         "oliverklee/phpunit": "^5.3",
         "nimut/testing-framework": "^2.0",
         "phpunit/phpunit": "^5.6",
-        "mikey179/vfsstream": "^1.6",
-
-        "roave/security-advisories": "dev-master"
+        "mikey179/vfsstream": "^1.6"
     },
     "conflict": {
         "sjbr/static-info-tables": "6.7.1",
         "typo3/cms-composer-installers": "<1.4.6"
     },
     "replace": {
-        "oelib": "self.version",
         "typo3-ter/oelib": "self.version"
     },
     "suggest": {
