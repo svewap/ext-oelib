@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add PHP-CS-Fixer rules for PHPUnit (#226)
 
 ### Changed
+- Mark Db::getDatabaseConnection for removal in version 4.0, not 3.0 (#228)
 - Upgrade to PHPUnit 5.7 (#223)
 - Change from GPL V3 to GPL V2+ (#221)
 - Move more tests to Tests/Unit/ and Tests/Functional/ (#212)
