@@ -6,6 +6,7 @@ use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -1285,7 +1286,7 @@ final class Tx_Oelib_TestingFramework
         $this->discardFakeFrontEnd();
 
         $this->registerNullPageCache();
-        if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) <= 8000000) {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8000000) {
             $GLOBALS['TT'] = GeneralUtility::makeInstance(NullTimeTracker::class);
         } else {
             $GLOBALS['TT'] = GeneralUtility::makeInstance(TimeTracker::class, false);

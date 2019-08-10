@@ -20,6 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the TYPO3 package repository from composer.json (#227)
 
 ### Fixed
+- Avoid deprecated TimeTracker usage in the testing framework (#229)
 - Clean up the testing extensions (#224)
 - Pin the dev dependency versions (#225)
 - Streamline the composer.json dependencies (#221)
