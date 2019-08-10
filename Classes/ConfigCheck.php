@@ -325,7 +325,7 @@ class Tx_Oelib_ConfigCheck
             );
             if (!is_file($this->getFrontEndController()->tmpl->getFileName($rawFileName))) {
                 $message = 'The specified HTML template file <strong>'
-                    . htmlspecialchars($rawFileName)
+                    . htmlspecialchars($rawFileName, ENT_QUOTES | ENT_HTML5)
                     . '</strong> cannot be read. '
                     . 'The HTML template file is essential when creating any '
                     . 'output from this extension. '
@@ -368,7 +368,7 @@ class Tx_Oelib_ConfigCheck
             $fileName = $frontEndController->tmpl->getFileName($fileName);
             if (!is_file($fileName)) {
                 $message .= 'The specified CSS file <strong>'
-                    . htmlspecialchars($fileName)
+                    . htmlspecialchars($fileName, ENT_QUOTES | ENT_HTML5)
                     . '</strong> cannot be read. '
                     . 'If that constant does not point to an existing file, no '
                     . 'special CSS will be used for styling this extension\'s '
@@ -566,7 +566,7 @@ class Tx_Oelib_ConfigCheck
             $message = 'The TS setup variable <strong>'
                 . $this->getTSSetupPath() . $fieldName
                 . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value) . '</strong>, but only the '
+                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only the '
                 . 'following values are allowed: '
                 . '<br /><strong>' . $overviewOfValues . '</strong><br />'
                 . $explanation;
@@ -631,7 +631,7 @@ class Tx_Oelib_ConfigCheck
             $message = 'The TS setup variable <strong>'
                 . $this->getTSSetupPath() . $fieldName
                 . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value) . '</strong>, but only integers are '
+                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers are '
                 . 'allowed. '
                 . $explanation;
             $this->setErrorMessageAndRequestCorrection(
@@ -686,7 +686,7 @@ class Tx_Oelib_ConfigCheck
             $message = 'The TS setup variable <strong>'
                 . $this->getTSSetupPath() . $fieldName
                 . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value) . '</strong>, but only integers from '
+                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers from '
                 . $minValue . ' to ' . $maxValue . ' are allowed. '
                 . $explanation;
             $this->setErrorMessageAndRequestCorrection(
@@ -732,7 +732,7 @@ class Tx_Oelib_ConfigCheck
             $message = 'The TS setup variable <strong>'
                 . $this->getTSSetupPath() . $fieldName
                 . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value) . '</strong>, but only positive '
+                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive '
                 . 'integers are allowed. '
                 . $explanation;
             $this->setErrorMessageAndRequestCorrection(
@@ -805,7 +805,7 @@ class Tx_Oelib_ConfigCheck
             $message = 'The TS setup variable <strong>'
                 . $this->getTSSetupPath() . $fieldName
                 . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value) . '</strong>, but only positive '
+                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive '
                 . 'integers and empty strings are allowed. '
                 . $explanation;
             $this->setErrorMessageAndRequestCorrection(
@@ -853,7 +853,7 @@ class Tx_Oelib_ConfigCheck
             $message = 'The TS setup variable <strong>'
                 . $this->getTSSetupPath() . $fieldName
                 . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value) . '</strong>, but only positive '
+                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive '
                 . 'integers are allowed. '
                 . $explanation;
 
@@ -947,7 +947,7 @@ class Tx_Oelib_ConfigCheck
                     $message = 'The TS setup variable <strong>'
                         . $this->getTSSetupPath() . $fieldName
                         . '</strong> contains the value <strong>'
-                        . htmlspecialchars($currentValue) . '</strong>, '
+                        . htmlspecialchars($currentValue, ENT_QUOTES | ENT_HTML5) . '</strong>, '
                         . 'but only the following values are allowed: '
                         . '<br /><strong>' . $overviewOfValues . '</strong><br />'
                         . $explanation;
@@ -1196,7 +1196,7 @@ class Tx_Oelib_ConfigCheck
         if (!preg_match($regExp, $value)) {
             $message = 'The TS setup variable <strong>' . $this->getTSSetupPath()
                 . $fieldName . '</strong> contains the value <strong>'
-                . htmlspecialchars($value) . '</strong> which isn\'t valid. '
+                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong> which isn\'t valid. '
                 . $explanation;
             $this->setErrorMessageAndRequestCorrection(
                 $fieldName,
