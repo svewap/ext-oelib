@@ -1,0 +1,17 @@
+{
+    "name": "oliverklee/oelib-libraries",
+    "description": "dependencies of the oelib extension",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "pelago/emogrifier": "^2.1.1"
+    },
+    "prefer-stable": true,
+    "config": {
+        "platform": {
+            "php": "5.6.20"
+        },
+        "preferred-install": {
+            "*": "dist"
+        }
+    }
+}

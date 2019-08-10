@@ -263,7 +263,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     protected function loadEmogrifierClass()
     {
         if (!class_exists(Emogrifier::class)) {
-            require_once __DIR__ . '/../Resources/Private/Php/Emogrifier/Emogrifier.php';
+            require_once __DIR__ . '/../Resources/Private/Php/vendor/autoload.php';
         }
     }
 
