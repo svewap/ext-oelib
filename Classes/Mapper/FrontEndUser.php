@@ -1,6 +1,8 @@
 <?php
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * This class represents a mapper for front-end users.
@@ -35,15 +37,15 @@ class Tx_Oelib_Mapper_FrontEndUser extends \Tx_Oelib_DataMapper
      * Finds a front-end user by user name. Hidden user records will be
      * retrieved as well.
      *
-     * @throws \Tx_Oelib_Exception_NotFound
-     *         if there is no front-end user with the provided user name in the
-     *         database
-     *
      * @param string $userName
      *        user name, case-insensitive, must not be empty
      *
      * @return \Tx_Oelib_Model_FrontEndUser
      *         model of the front-end user with the provided user name
+     *
+     * @throws \Tx_Oelib_Exception_NotFound
+     *         if there is no front-end user with the provided user name in the
+     *         database
      */
     public function findByUserName($userName)
     {
@@ -66,13 +68,17 @@ class Tx_Oelib_Mapper_FrontEndUser extends \Tx_Oelib_DataMapper
             throw new \InvalidArgumentException('$groupUids must not be an empty string.', 1331488505);
         }
 
-        return $this->getListOfModels(
-            \Tx_Oelib_Db::selectMultiple(
-                '*',
-                $this->getTableName(),
-                $this->getUniversalWhereClause() . ' AND ' .
-                'usergroup REGEXP \'(^|,)(' . implode('|', GeneralUtility::intExplode(',', $groupUids)) . ')($|,)\''
-            )
-        );
+        $tableName = $this->getTableName();
+        $where = $this->getUniversalWhereClause() . ' AND ' .
+            'usergroup REGEXP \'(^|,)(' . implode('|', GeneralUtility::intExplode(',', $groupUids)) . ')($|,)\'';
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
+            $statement = $connection->query('SELECT * FROM `' . $tableName . '` WHERE ' . $where);
+            $records = $statement->fetchAll();
+        } else {
+            $records = \Tx_Oelib_Db::selectMultiple('*', $tableName, $where);
+        }
+
+        return $this->getListOfModels($records);
     }
 }
