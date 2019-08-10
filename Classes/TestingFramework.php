@@ -1764,7 +1764,6 @@ final class Tx_Oelib_TestingFramework
 
         $newAutoIncrementValue = $this->getMaximumUidFromTable($table) + 1;
 
-        \Tx_Oelib_Db::enableQueryLogging();
         // Updates the auto increment index for this table. The index will be
         // set to one UID above the highest existing UID.
         $dbResult = \Tx_Oelib_Db::getDatabaseConnection()->sql_query(
@@ -1879,7 +1878,6 @@ final class Tx_Oelib_TestingFramework
             );
         }
 
-        \Tx_Oelib_Db::enableQueryLogging();
         $databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
 
         $dbResult = $databaseConnection->sql_query('SHOW TABLE STATUS WHERE Name = \'' . $table . '\';');
@@ -2038,7 +2036,6 @@ final class Tx_Oelib_TestingFramework
             );
         }
 
-        \Tx_Oelib_Db::enableQueryLogging();
         $databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
         $dbResult = $databaseConnection->sql_query(
             'UPDATE ' . $tableName . ' SET ' . $fieldName . '=' .
@@ -2062,7 +2059,7 @@ final class Tx_Oelib_TestingFramework
      * Checks whether the ZIPArchive class is provided by the PHP installation.
      *
      * Note: This function can be used to mark tests as skipped if this class is
-     *       not available but required for a test to pass succesfully.
+     *       not available but required for a test to pass successfully.
      *
      * @return void
      *

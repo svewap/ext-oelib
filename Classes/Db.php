@@ -2,6 +2,7 @@
 
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
@@ -52,10 +53,15 @@ class Tx_Oelib_Db
      * Enables query logging in TYPO3's DB class.
      *
      * @return void
+     *
+     * @deprecated will be removed in oelib 4.0
      */
     public static function enableQueryLogging()
     {
-        self::getDatabaseConnection()->store_lastBuiltQuery = true;
+        GeneralUtility::logDeprecatedFunction();
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) <= 8004000) {
+            self::getDatabaseConnection()->store_lastBuiltQuery = true;
+        }
     }
 
     /**
@@ -218,7 +224,6 @@ class Tx_Oelib_Db
             throw new \InvalidArgumentException('The table name must not be empty.', 1331488193);
         }
 
-        self::enableQueryLogging();
         $dbResult = self::getDatabaseConnection()->exec_DELETEquery(
             $tableName,
             $whereClause
@@ -251,7 +256,6 @@ class Tx_Oelib_Db
             throw new \InvalidArgumentException('The table name must not be empty.', 1331488204);
         }
 
-        self::enableQueryLogging();
         $dbResult = self::getDatabaseConnection()->exec_UPDATEquery(
             $tableName,
             $whereClause,
@@ -286,7 +290,6 @@ class Tx_Oelib_Db
             throw new \InvalidArgumentException('$recordData must not be empty.', 1331488230);
         }
 
-        self::enableQueryLogging();
         $dbResult = self::getDatabaseConnection()->exec_INSERTquery(
             $tableName,
             $recordData
@@ -328,7 +331,6 @@ class Tx_Oelib_Db
             throw new \InvalidArgumentException('$fields must not be empty.', 1331488270);
         }
 
-        self::enableQueryLogging();
         $dbResult = self::getDatabaseConnection()->exec_SELECTquery(
             $fields,
             $tableNames,

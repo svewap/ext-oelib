@@ -16,8 +16,10 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Move more tests to Tests/Unit/ and Tests/Functional/ (#212)
 
 ### Deprecated
+- Deprecate Db::enableQueryLogging (#231)
 
 ### Removed
+- Stop providing the DB query in the exceptions (#231)
 - Drop the TYPO3 package repository from composer.json (#227)
 
 ### Fixed
