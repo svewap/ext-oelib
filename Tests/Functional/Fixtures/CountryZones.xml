@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <static_country_zones>
+        <uid>88</uid>
+        <zn_country_iso_2>DE</zn_country_iso_2>
+        <zn_country_iso_3>DEU</zn_country_iso_3>
+        <zn_country_iso_nr>276</zn_country_iso_nr>
+        <zn_code>NW</zn_code>
+        <zn_name_local>Nordrhein-Westfalen</zn_name_local>
+        <zn_name_en>North Rhine-Westphalia</zn_name_en>
+        <zn_country_uid>54</zn_country_uid>
+        <zn_country_table>static_countries</zn_country_table>
+    </static_country_zones>
+</dataset>

@@ -32,22 +32,23 @@ class FrontEndUserTest extends FunctionalTestCase
     }
 
     /**
-     * Imports static countries - but only if they aren't already available as static data.
+     * Imports static records - but only if they aren't already available as static data.
      *
      * @return void
      *
      * @throws NimutException
      */
-    private function importCountries()
+    private function importStaticData()
     {
+        $tableName = 'static_countries';
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
             $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-            $connection = $connectionPool->getConnectionForTable('static_countries');
-            $countriesCount = $connection->count('*', 'static_countries', []);
+            $connection = $connectionPool->getConnectionForTable($tableName);
+            $count = $connection->count('*', $tableName, []);
         } else {
-            $countriesCount = \Tx_Oelib_Db::count('static_countries');
+            $count = \Tx_Oelib_Db::count($tableName);
         }
-        if ($countriesCount === 0) {
+        if ($count === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Countries.xml');
         }
     }
@@ -77,7 +78,7 @@ class FrontEndUserTest extends FunctionalTestCase
      */
     public function getCountryWithCountryReturnsCountryAsModel()
     {
-        $this->importCountries();
+        $this->importStaticData();
 
         /** @var \Tx_Oelib_Mapper_Country $mapper */
         $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class);
@@ -93,7 +94,7 @@ class FrontEndUserTest extends FunctionalTestCase
      */
     public function setCountrySetsCountry()
     {
-        $this->importCountries();
+        $this->importStaticData();
 
         /** @var \Tx_Oelib_Mapper_Country $mapper */
         $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class);
@@ -130,7 +131,7 @@ class FrontEndUserTest extends FunctionalTestCase
      */
     public function hasCountryWithInvalidCountryReturnsFalse()
     {
-        $this->importCountries();
+        $this->importStaticData();
 
         $this->subject->setData(['static_info_country' => 'xyz']);
 
@@ -142,7 +143,7 @@ class FrontEndUserTest extends FunctionalTestCase
      */
     public function hasCountryWithCountryReturnsTrue()
     {
-        $this->importCountries();
+        $this->importStaticData();
 
         /** @var \Tx_Oelib_Mapper_Country $mapper */
         $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Country::class);

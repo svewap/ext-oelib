@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <static_languages>
+        <uid>43</uid>
+        <lg_iso_2>DE</lg_iso_2>
+        <lg_name_local>Deutsch</lg_name_local>
+        <lg_name_en>German</lg_name_en>
+        <lg_typo3>de</lg_typo3>
+        <lg_collate_locale>de_DE</lg_collate_locale>
+    </static_languages>
+</dataset>

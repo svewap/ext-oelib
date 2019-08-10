@@ -1,27 +1,57 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+namespace OliverKlee\Oelib\Tests\Functional\Mapper;
+
+use Nimut\TestingFramework\Exception\Exception as NimutException;
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Test case.
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Mapper_LanguageTest extends TestCase
+class LanguageMapperTest extends FunctionalTestCase
 {
+    /**
+     * @var string[]
+     */
+    protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
+
     /**
      * @var \Tx_Oelib_Mapper_Language
      */
-    private $subject;
+    private $subject = null;
 
     protected function setUp()
     {
-        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            self::markTestSkipped('This tests needs the static_info_tables extension.');
-        }
-
+        parent::setUp();
+        $this->importStaticData();
         $this->subject = new \Tx_Oelib_Mapper_Language();
+    }
+
+    /**
+     * Imports static records - but only if they aren't already available as static data.
+     *
+     * @return void
+     *
+     * @throws NimutException
+     */
+    private function importStaticData()
+    {
+        $tableName = 'static_languages';
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+            $connection = $connectionPool->getConnectionForTable($tableName);
+            $count = $connection->count('*', $tableName, []);
+        } else {
+            $count = \Tx_Oelib_Db::count($tableName);
+        }
+        if ($count === 0) {
+            $this->importDataSet(__DIR__ . '/../Fixtures/Languages.xml');
+        }
     }
 
     ///////////////////////////
