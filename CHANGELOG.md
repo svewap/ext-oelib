@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Move more tests to Tests/Unit/ and Tests/Functional/ (#212)
 
 ### Deprecated
+- Deprecate the Db class (#234)
 - Deprecate Db::enableQueryLogging (#231)
 
 ### Removed

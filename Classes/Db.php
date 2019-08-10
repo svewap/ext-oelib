@@ -10,6 +10,9 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  * This class provides some static database-related functions.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
+ *
+ * @deprecated will be removed in oelib 4.0 (and cannot be used in TYPO3 9);
+ * use the ConnectionPool instead for TYPO3 >= 8.4
  */
 class Tx_Oelib_Db
 {
@@ -53,8 +56,6 @@ class Tx_Oelib_Db
      * Enables query logging in TYPO3's DB class.
      *
      * @return void
-     *
-     * @deprecated will be removed in oelib 4.0
      */
     public static function enableQueryLogging()
     {

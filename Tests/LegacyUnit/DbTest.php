@@ -2,6 +2,7 @@
 
 use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Test case.
@@ -17,6 +18,10 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     protected function setUp()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) > 9000000) {
+            self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
+        }
+
         $GLOBALS['SIM_EXEC_TIME'] = 1524751343;
 
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
@@ -24,7 +29,9 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     protected function tearDown()
     {
-        $this->testingFramework->cleanUp();
+        if ($this->testingFramework !== null) {
+            $this->testingFramework->cleanUp();
+        }
     }
 
     /*
