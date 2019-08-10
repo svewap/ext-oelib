@@ -1,6 +1,8 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
+namespace OliverKlee\Oelib\Tests\Unit\Model;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case.
@@ -8,12 +10,12 @@ use OliverKlee\PhpUnit\TestCase;
  * @author Bernd Schönbach <bernd@oliverklee.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Model_BackEndUserGroupTest extends TestCase
+class BackEndUserGroupTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_Model_BackEndUserGroup
      */
-    private $subject;
+    private $subject = null;
 
     protected function setUp()
     {

@@ -1,26 +1,23 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+namespace OliverKlee\Oelib\Tests\Unit\Model;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case.
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Model_LanguageTest extends TestCase
+class LanguageTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_Model_Language
      */
-    private $subject;
+    private $subject = null;
 
     protected function setUp()
     {
-        if (!ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            self::markTestSkipped('This tests needs the static_info_tables extension.');
-        }
-
         $this->subject = new \Tx_Oelib_Model_Language();
     }
 

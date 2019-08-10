@@ -1,18 +1,20 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
+namespace OliverKlee\Oelib\Tests\Unit\Model;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case.
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_Model_FrontEndUserGroupTest extends TestCase
+class FrontEndUserGroupTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_Model_FrontEndUserGroup
      */
-    private $subject;
+    private $subject = null;
 
     protected function setUp()
     {
