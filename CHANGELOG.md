@@ -25,6 +25,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the TYPO3 package repository from composer.json (#227)
 
 ### Fixed
+- Add a dependency to cms/lang in composer.json (#243)
 - Use the ConnectionPool for DB queries in TYPO3 >= 8.4 (#233, #239, #240, #242)
 - Provide flags to htmlspecialchars (#232)
 - Avoid deprecated TimeTracker usage in the testing framework (#229)
