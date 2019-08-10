@@ -12,7 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Update Emogrifier to version 2.1.1 (#230)
 - Upgrade to PHPUnit 5.7 (#223)
 - Change from GPL V3 to GPL V2+ (#221)
-- Move more tests to Tests/Unit/ and Tests/Functional/ (#212, #235, #236, #237, #238, #240)
+- Move more tests to Tests/Unit/ and Tests/Functional/ (#212, #235, #236, #237, #238, #241)
 
 ### Deprecated
 - Deprecate some config check methods (#239)
@@ -25,7 +25,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the TYPO3 package repository from composer.json (#227)
 
 ### Fixed
-- Use the ConnectionPool for DB queries in TYPO3 >= 8.4 (#233, #239)
+- Use the ConnectionPool for DB queries in TYPO3 >= 8.4 (#233, #239, #240)
 - Provide flags to htmlspecialchars (#232)
 - Avoid deprecated TimeTracker usage in the testing framework (#229)
 - Clean up the testing extensions (#224)

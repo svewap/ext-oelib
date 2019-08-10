@@ -1,88 +1,41 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+namespace OliverKlee\Oelib\Tests\Functional\Configuration;
+
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_ConfigurationRegistryTest extends TestCase
+class ConfigurationRegistryTest extends FunctionalTestCase
 {
+    /**
+     * @var string[]
+     */
+    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
+
     /**
      * @var \Tx_Oelib_TestingFramework
      */
-    private $testingFramework;
+    private $testingFramework = null;
 
     protected function setUp()
     {
+        parent::setUp();
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
     }
 
     protected function tearDown()
     {
-        $this->testingFramework->cleanUp();
-    }
-
-    ////////////////////////////////////////////
-    // Tests concerning the Singleton property
-    ////////////////////////////////////////////
-
-    /**
-     * @test
-     */
-    public function getInstanceReturnsConfigurationRegistryInstance()
-    {
-        self::assertInstanceOf(
-            \Tx_Oelib_ConfigurationRegistry::class,
-            \Tx_Oelib_ConfigurationRegistry::getInstance()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getInstanceTwoTimesReturnsSameInstance()
-    {
-        self::assertSame(
-            \Tx_Oelib_ConfigurationRegistry::getInstance(),
-            \Tx_Oelib_ConfigurationRegistry::getInstance()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getInstanceAfterPurgeInstanceReturnsNewInstance()
-    {
-        $firstInstance = \Tx_Oelib_ConfigurationRegistry::getInstance();
-        \Tx_Oelib_ConfigurationRegistry::purgeInstance();
-
-        self::assertNotSame(
-            $firstInstance,
-            \Tx_Oelib_ConfigurationRegistry::getInstance()
-        );
+        $this->testingFramework->cleanUpWithoutDatabase();
+        parent::tearDown();
     }
 
     ////////////////////////////////
     // Test concerning get and set
     ////////////////////////////////
-
-    /**
-     * @test
-     */
-    public function getForEmptyNamespaceThrowsException()
-    {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$namespace must not be empty.'
-        );
-
-        \Tx_Oelib_ConfigurationRegistry::get('');
-    }
 
     /**
      * @test
@@ -111,55 +64,6 @@ class Tx_Oelib_Tests_LegacyUnit_ConfigurationRegistryTest extends TestCase
         self::assertSame(
             \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib'),
             \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setWithEmptyNamespaceThrowsException()
-    {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$namespace must not be empty.'
-        );
-
-        \Tx_Oelib_ConfigurationRegistry::getInstance()->set(
-            '',
-            new \Tx_Oelib_Configuration()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getAfterSetReturnsTheSetInstance()
-    {
-        $configuration = new \Tx_Oelib_Configuration();
-
-        \Tx_Oelib_ConfigurationRegistry::getInstance()
-            ->set('foo', $configuration);
-
-        self::assertSame(
-            $configuration,
-            \Tx_Oelib_ConfigurationRegistry::get('foo')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setTwoTimesForTheSameNamespaceDoesNotFail()
-    {
-        \Tx_Oelib_ConfigurationRegistry::getInstance()->set(
-            'foo',
-            new \Tx_Oelib_Configuration()
-        );
-        \Tx_Oelib_ConfigurationRegistry::getInstance()->set(
-            'foo',
-            new \Tx_Oelib_Configuration()
         );
     }
 
