@@ -10,21 +10,22 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 - Update Emogrifier to version 2.1.1 (#230)
-- Mark Db::getDatabaseConnection for removal in version 4.0, not 3.0 (#228)
 - Upgrade to PHPUnit 5.7 (#223)
 - Change from GPL V3 to GPL V2+ (#221)
 - Move more tests to Tests/Unit/ and Tests/Functional/ (#212, #235, #236, #237, #238)
 
 ### Deprecated
+- Deprecate some config check methods (#239)
 - Deprecate the Db class (#234)
 - Deprecate Db::enableQueryLogging (#231)
+- Mark Db::getDatabaseConnection for removal in version 4.0, not 3.0 (#228)
 
 ### Removed
 - Stop providing the DB query in the exceptions (#231)
 - Drop the TYPO3 package repository from composer.json (#227)
 
 ### Fixed
-- Use the ConnectionPool for DB queries in TYPO3 >= 8.4 (#233)
+- Use the ConnectionPool for DB queries in TYPO3 >= 8.4 (#233, #239)
 - Provide flags to htmlspecialchars (#232)
 - Avoid deprecated TimeTracker usage in the testing framework (#229)
 - Clean up the testing extensions (#224)

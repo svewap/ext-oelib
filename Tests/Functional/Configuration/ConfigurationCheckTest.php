@@ -28,11 +28,6 @@ class ConfigurationCheckTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    /**
-     * @var DummyObjectToCheck
-     */
-    private $objectToCheck = null;
-
     protected function setUp()
     {
         parent::setUp();
@@ -40,7 +35,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
 
-        $this->objectToCheck = new DummyObjectToCheck(
+        $objectToCheck = new DummyObjectToCheck(
             [
                 'emptyString' => '',
                 'nonEmptyString' => 'foo',
@@ -49,7 +44,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
                 'inexistentColumn' => 'does_not_exist',
             ]
         );
-        $this->subject = new \Tx_Oelib_ConfigCheck($this->objectToCheck);
+        $this->subject = new \Tx_Oelib_ConfigCheck($objectToCheck);
     }
 
     protected function tearDown()

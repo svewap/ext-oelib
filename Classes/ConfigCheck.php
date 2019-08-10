@@ -1,7 +1,9 @@
 <?php
 
 use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -1162,7 +1164,18 @@ class Tx_Oelib_ConfigCheck
      */
     protected function getDbColumnNames($tableName)
     {
-        return array_keys(\Tx_Oelib_Db::getColumnsInTable($tableName));
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
+            $statement = $connection->query('SHOW FULL COLUMNS FROM `' . $tableName . '`');
+            $columns = [];
+            foreach ($statement->fetchAll() as $row) {
+                $columns[] = $row['Field'];
+            }
+        } else {
+            $columns = \array_keys(\Tx_Oelib_Db::getColumnsInTable($tableName));
+        }
+
+        return $columns;
     }
 
     /**
@@ -1349,12 +1362,6 @@ class Tx_Oelib_ConfigCheck
             $sheet,
             $explanation
         );
-        $this->checkIfFePagesOrEmpty(
-            $fieldName,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
     }
 
     /**
@@ -1387,12 +1394,6 @@ class Tx_Oelib_ConfigCheck
             $sheet,
             $explanation
         );
-        $this->checkIfFePagesOrEmpty(
-            $fieldName,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
     }
 
     /**
@@ -1420,12 +1421,6 @@ class Tx_Oelib_ConfigCheck
         $explanation
     ) {
         $this->checkIfInteger($fieldName, $canUseFlexforms, $sheet, $explanation);
-        $this->checkIfFePagesOrEmpty(
-            $fieldName,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
     }
 
     /**
@@ -1445,6 +1440,8 @@ class Tx_Oelib_ConfigCheck
      *        must not be empty
      *
      * @return void
+     *
+     * @deprecated will be removed in oelib 4.0.0; is a no-op in the meantime
      */
     protected function checkIfFePagesOrEmpty(
         $fieldName,
@@ -1452,24 +1449,7 @@ class Tx_Oelib_ConfigCheck
         $sheet,
         $explanation
     ) {
-        $pids = $this->objectToCheck->getConfValueString($fieldName, $sheet);
-
-        // Uses the plural if the configuration value is empty or contains a
-        // comma.
-        if (($pids === '') || (strrpos($pids, ',') !== false)) {
-            $message = 'All the selected pages need to be front-end pages so '
-                . 'that links to them work correctly. ' . $explanation;
-        } else {
-            $message = 'The selected page needs to be a front-end page so that '
-                . 'links to it work correctly. ' . $explanation;
-        }
-        $this->checkPageTypeOrEmpty(
-            $fieldName,
-            $canUseFlexforms,
-            $sheet,
-            $message,
-            '<199'
-        );
+        GeneralUtility::logDeprecatedFunction();
     }
 
     /**
@@ -1497,12 +1477,6 @@ class Tx_Oelib_ConfigCheck
         $explanation
     ) {
         $this->checkForNonEmptyString(
-            $fieldName,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
-        $this->checkIfSysFoldersOrEmpty(
             $fieldName,
             $canUseFlexforms,
             $sheet,
@@ -1540,12 +1514,6 @@ class Tx_Oelib_ConfigCheck
             $sheet,
             $explanation
         );
-        $this->checkIfSysFoldersOrEmpty(
-            $fieldName,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
     }
 
     /**
@@ -1578,12 +1546,6 @@ class Tx_Oelib_ConfigCheck
             $sheet,
             $explanation
         );
-        $this->checkIfSysFoldersOrEmpty(
-            $fieldName,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
     }
 
     /**
@@ -1603,6 +1565,8 @@ class Tx_Oelib_ConfigCheck
      *        must not be empty
      *
      * @return void
+     *
+     * @deprecated will be removed in oelib 4.0.0; is a no-op in the meantime
      */
     protected function checkIfSysFoldersOrEmpty(
         $fieldName,
@@ -1610,26 +1574,7 @@ class Tx_Oelib_ConfigCheck
         $sheet,
         $explanation
     ) {
-        $pids = $this->objectToCheck->getConfValueString($fieldName, $sheet);
-
-        // Uses the plural if the configuration value is empty or contains a
-        // comma.
-        if (($pids === '') || (strrpos($pids, ',') !== false)) {
-            $message = 'All the selected pages need to be system folders so '
-                . 'that data records are tidily separated from front-end '
-                . 'content. ' . $explanation;
-        } else {
-            $message = 'The selected page needs to be a system folder so that '
-                . 'data records are tidily separated from front-end content. '
-                . $explanation;
-        }
-        $this->checkPageTypeOrEmpty(
-            $fieldName,
-            $canUseFlexforms,
-            $sheet,
-            $message,
-            '=254'
-        );
+        GeneralUtility::logDeprecatedFunction();
     }
 
     /**
@@ -1653,6 +1598,8 @@ class Tx_Oelib_ConfigCheck
      *        "=254", must not be empty
      *
      * @return void
+     *
+     * @deprecated will be removed in oelib 4.0.0; is a no-op in the meantime
      */
     protected function checkPageTypeOrEmpty(
         $fieldName,
@@ -1661,41 +1608,7 @@ class Tx_Oelib_ConfigCheck
         $explanation,
         $typeCondition
     ) {
-        $this->checkIfPidListOrEmpty(
-            $fieldName,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
-
-        if ($this->objectToCheck->hasConfValueString($fieldName, $sheet)) {
-            $pids = $this->objectToCheck->getConfValueString($fieldName, $sheet);
-
-            $offendingPids = \Tx_Oelib_Db::selectColumnForMultiple(
-                'uid',
-                'pages',
-                'uid IN (' . $pids . ') AND NOT (doktype' . $typeCondition . ')' .
-                \Tx_Oelib_Db::enableFields('pages')
-            );
-            $dbResultCount = count($offendingPids);
-
-            if ($dbResultCount > 0) {
-                $pageIdPlural = ($dbResultCount > 1) ? 's' : '';
-                $bePlural = ($dbResultCount > 1) ? 'are' : 'is';
-
-                $message = 'The TS setup variable <strong>' .
-                    $this->getTSSetupPath() . $fieldName .
-                    '</strong> contains the page ID' . $pageIdPlural .
-                    ' <strong>' . implode(',', $offendingPids) . '</strong> ' .
-                    'which ' . $bePlural . ' of an incorrect page type. ' .
-                    $explanation . '<br />';
-                $this->setErrorMessageAndRequestCorrection(
-                    $fieldName,
-                    $canUseFlexforms,
-                    $message
-                );
-            }
-        }
+        GeneralUtility::logDeprecatedFunction();
     }
 
     /**
