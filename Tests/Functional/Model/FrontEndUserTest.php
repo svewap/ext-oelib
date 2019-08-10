@@ -2,7 +2,11 @@
 
 namespace OliverKlee\Oelib\Tests\Functional\Model;
 
+use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Test case.
@@ -32,11 +36,18 @@ class FrontEndUserTest extends FunctionalTestCase
      *
      * @return void
      *
-     * @throws \Nimut\TestingFramework\Exception\Exception
+     * @throws NimutException
      */
     private function importCountries()
     {
-        if (!\Tx_Oelib_Db::existsRecord('static_countries')) {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+            $connection = $connectionPool->getConnectionForTable('static_countries');
+            $countriesCount = $connection->count('*', 'static_countries', []);
+        } else {
+            $countriesCount = \Tx_Oelib_Db::count('static_countries');
+        }
+        if ($countriesCount === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Countries.xml');
         }
     }

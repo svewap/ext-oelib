@@ -8,6 +8,9 @@ use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Test case.
@@ -2746,7 +2749,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $model->setData(['float_data' => 9.5]);
         $this->subject->save($model);
 
-        $row = \Tx_Oelib_Db::selectSingle('*', 'tx_oelib_test', 'uid = ' . $model->getUid());
+        $row = $this->findRecordByUid($model->getUid());
         self::assertSame('9.5', rtrim($row['float_data'], '0'));
     }
 
@@ -2759,7 +2762,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $model->setData(['decimal_data' => 9.5]);
         $this->subject->save($model);
 
-        $row = \Tx_Oelib_Db::selectSingle('*', 'tx_oelib_test', 'uid = ' . $model->getUid());
+        $row = $this->findRecordByUid($model->getUid());
         self::assertSame('9.5', rtrim($row['decimal_data'], '0'));
     }
 
@@ -2772,8 +2775,27 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $model->setData(['string_data' => 9.5]);
         $this->subject->save($model);
 
-        $row = \Tx_Oelib_Db::selectSingle('*', 'tx_oelib_test', 'uid = ' . $model->getUid());
+        $row = $this->findRecordByUid($model->getUid());
         self::assertSame('9.5', rtrim($row['string_data'], '0'));
+    }
+
+    /**
+     * @param int $uid
+     *
+     * @return array|null
+     */
+    private function findRecordByUid($uid)
+    {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getConnectionForTable('tx_oelib_test');
+            $columns = ['float_data', 'decimal_data', 'string_data'];
+            $row = $connection->select($columns, 'tx_oelib_test', ['uid' => $uid])->fetch();
+        } else {
+            $row = \Tx_Oelib_Db::selectSingle('*', 'tx_oelib_test', 'uid = ' . $uid);
+        }
+
+        return $row;
     }
 
     /////////////////////////////
