@@ -21,6 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Mark Db::getDatabaseConnection for removal in version 4.0, not 3.0 (#228)
 
 ### Removed
+- Stop building with the lowest Composer dependencies (#244)
 - Stop providing the DB query in the exceptions (#231)
 - Drop the TYPO3 package repository from composer.json (#227)
 
