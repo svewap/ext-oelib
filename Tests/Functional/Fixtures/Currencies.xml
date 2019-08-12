@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <dataset>
     <static_currencies>
+        <uid>33</uid>
+        <cu_iso_3>CLP</cu_iso_3>
+        <cu_iso_nr>152</cu_iso_nr>
+        <cu_name_en>Chilean Peso</cu_name_en>
+        <cu_symbol_left>$</cu_symbol_left>
+        <cu_thousands_point>.</cu_thousands_point>
+        <cu_decimal_digits>0</cu_decimal_digits>
+        <cu_sub_divisor>1</cu_sub_divisor>
+    </static_currencies>
+    <static_currencies>
+        <uid>40</uid>
+        <cu_iso_3>CZK</cu_iso_3>
+        <cu_iso_nr>203</cu_iso_nr>
+        <cu_name_en>Czech koruna</cu_name_en>
+        <cu_symbol_right>Kč</cu_symbol_right>
+        <cu_thousands_point>.</cu_thousands_point>
+        <cu_decimal_point>,</cu_decimal_point>
+        <cu_decimal_digits>2</cu_decimal_digits>
+        <cu_sub_name_en>haléř</cu_sub_name_en>
+        <cu_sub_divisor>100</cu_sub_divisor>
+    </static_currencies>
+    <static_currencies>
         <uid>49</uid>
         <cu_iso_3>EUR</cu_iso_3>
         <cu_iso_nr>978</cu_iso_nr>
@@ -12,5 +34,41 @@
         <cu_sub_name_en>cent</cu_sub_name_en>
         <cu_sub_divisor>100</cu_sub_divisor>
         <cu_sub_symbol_left>¢</cu_sub_symbol_left>
+    </static_currencies>
+    <static_currencies>
+        <uid>81</uid>
+        <cu_iso_3>KWD</cu_iso_3>
+        <cu_iso_nr>414</cu_iso_nr>
+        <cu_name_en>Kuwaiti dinar</cu_name_en>
+        <cu_symbol_left>KD</cu_symbol_left>
+        <cu_thousands_point>.</cu_thousands_point>
+        <cu_decimal_point>,</cu_decimal_point>
+        <cu_decimal_digits>3</cu_decimal_digits>
+        <cu_sub_name_en>fils</cu_sub_name_en>
+        <cu_sub_divisor>1000</cu_sub_divisor>
+    </static_currencies>
+    <static_currencies>
+        <uid>155</uid>
+        <cu_iso_3>USD</cu_iso_3>
+        <cu_iso_nr>840</cu_iso_nr>
+        <cu_name_en>US dollar</cu_name_en>
+        <cu_symbol_left>$</cu_symbol_left>
+        <cu_thousands_point>,</cu_thousands_point>
+        <cu_decimal_point>.</cu_decimal_point>
+        <cu_decimal_digits>2</cu_decimal_digits>
+        <cu_sub_name_en>cent</cu_sub_name_en>
+        <cu_sub_divisor>100</cu_sub_divisor>
+        <cu_sub_symbol_left>¢</cu_sub_symbol_left>
+    </static_currencies>
+    <static_currencies>
+        <uid>173</uid>
+        <cu_iso_3>MGA</cu_iso_3>
+        <cu_iso_nr>969</cu_iso_nr>
+        <cu_name_en>Malagasy ariary</cu_name_en>
+        <cu_thousands_point>.</cu_thousands_point>
+        <cu_decimal_point>,</cu_decimal_point>
+        <cu_decimal_digits>1</cu_decimal_digits>
+        <cu_sub_name_en>iraimbilanja</cu_sub_name_en>
+        <cu_sub_divisor>5</cu_sub_divisor>
     </static_currencies>
 </dataset>

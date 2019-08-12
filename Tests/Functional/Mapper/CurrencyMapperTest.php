@@ -28,6 +28,12 @@ class CurrencyMapperTest extends FunctionalTestCase
     protected function setUp()
     {
         parent::setUp();
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8007000) {
+            self::markTestSkipped(
+                'These tests cannot run in TYPO3 7.6 due to a bug in importing XML fixtures with UTF-8 characters.'
+            );
+        }
+
         $this->importStaticData();
 
         $this->subject = new \Tx_Oelib_Mapper_Currency();
