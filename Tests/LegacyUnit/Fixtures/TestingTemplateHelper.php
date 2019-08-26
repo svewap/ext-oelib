@@ -8,9 +8,9 @@
 final class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingTemplateHelper extends \Tx_Oelib_TemplateHelper
 {
     /**
-     * @var string the path of this file relative to the extension directory
+     * @var string
      */
-    public $scriptRelPath = 'Tests/LegacyUnit/Fixtures/TestingTemplateHelper.php';
+    public $scriptRelPath = 'Tests/Functional/Language/Fixtures/locallang.xlf';
 
     /**
      * @var string the extension key
@@ -102,7 +102,7 @@ final class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingTemplateHelper extends \Tx
     /**
      * Ensures that $this->cObj points to a valid content object.
      *
-     * If this object alread has a valid cObj, this function does nothing.
+     * If this object already has a valid cObj, this function does nothing.
      *
      * If there is a front end and this object does not have a cObj yet, the
      * cObj from the front end is used.

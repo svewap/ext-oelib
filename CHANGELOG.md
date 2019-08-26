@@ -12,7 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Update Emogrifier to version 2.1.1 (#230)
 - Upgrade to PHPUnit 5.7 (#223)
 - Change from GPL V3 to GPL V2+ (#221)
-- Move more tests to Tests/Unit/ and Tests/Functional/ (#212, #235, #236, #237, #238, #241, #245)
+- Move more tests to Tests/Unit/ and Tests/Functional/ (#212, #235, #236, #237, #238, #241, #245, #246)
 
 ### Deprecated
 - Deprecate some config check methods (#239)

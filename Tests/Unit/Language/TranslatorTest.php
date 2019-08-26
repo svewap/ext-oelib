@@ -1,6 +1,8 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
+namespace OliverKlee\Oelib\Tests\Unit\Language;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case.
@@ -8,12 +10,8 @@ use OliverKlee\PhpUnit\TestCase;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_TranslatorTest extends TestCase
+class TranslatorTest extends UnitTestCase
 {
-    /////////////////////////////////
-    // Tests regarding translate().
-    /////////////////////////////////
-
     /**
      * @test
      */

@@ -1,6 +1,9 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
+namespace OliverKlee\Oelib\Tests\Functional\Language;
+
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Tests\Functional\Language\Fixtures\TestingSalutationSwitcher;
 
 /**
  * Test case.
@@ -9,10 +12,15 @@ use OliverKlee\PhpUnit\TestCase;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Benjamin Schulte <benj@minschulte.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_SalutationSwitcherTest extends TestCase
+class SalutationSwitcherTest extends FunctionalTestCase
 {
     /**
-     * @var \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingSalutationSwitcher
+     * @var string[]
+     */
+    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
+
+    /**
+     * @var TestingSalutationSwitcher
      */
     private $subject = null;
 
@@ -23,15 +31,18 @@ class Tx_Oelib_Tests_LegacyUnit_SalutationSwitcherTest extends TestCase
 
     protected function setUp()
     {
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
-        $this->testingFramework->createFakeFrontEnd();
+        parent::setUp();
 
-        $this->subject = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingSalutationSwitcher([]);
+        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
+
+        $this->subject = new TestingSalutationSwitcher([]);
     }
 
     protected function tearDown()
     {
-        $this->testingFramework->cleanUp();
+        $this->testingFramework->cleanUpWithoutDatabase();
+        parent::tearDown();
     }
 
     /**

@@ -1,8 +1,13 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+namespace OliverKlee\Oelib\Tests\Functional\Language;
+
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use Prophecy\Prophecy\ProphecySubjectInterface;
+use TYPO3\CMS\Core\Charset\CharsetConverter;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Test case.
@@ -10,26 +15,16 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Benjamin Schulte <benj@minschulte.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
+class TranslatorRegistryTest extends FunctionalTestCase
 {
     /**
-     * @var \Tx_Oelib_TestingFramework
+     * @var string[]
      */
-    protected $testingFramework = null;
-
-    /**
-     * @var BackendUserAuthentication
-     */
-    protected $backEndUserBackup = null;
+    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     protected function setUp()
     {
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
-
-        $this->backEndUserBackup = $GLOBALS['BE_USER'];
-        $backEndUser = new BackendUserAuthentication();
-        $backEndUser->user = ['uid' => $this->testingFramework->createBackEndUser()];
-        $GLOBALS['BE_USER'] = $backEndUser;
+        parent::setUp();
 
         $configurationRegistry = \Tx_Oelib_ConfigurationRegistry::getInstance();
         $configurationRegistry->set('config', new \Tx_Oelib_Configuration());
@@ -40,11 +35,25 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
         $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.fr', new \Tx_Oelib_Configuration());
     }
 
-    protected function tearDown()
+    private function setUpFrontEnd()
     {
-        $this->testingFramework->cleanUp();
+        /** @var TypoScriptFrontendController|ProphecySubjectInterface $frontEndController */
+        $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8007000) {
+            $frontEndController->csConvObj = new CharsetConverter();
+        }
 
-        $GLOBALS['BE_USER'] = $this->backEndUserBackup;
+        $GLOBALS['TSFE'] = $frontEndController;
+    }
+
+    private function setUpBackEnd()
+    {
+        $languageService = new LanguageService();
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8007000) {
+            $languageService->init('default');
+        }
+        $GLOBALS['LANG'] = $languageService;
+        $this->setUpBackendUserFromFixture(1);
     }
 
     /**
@@ -66,6 +75,8 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getInstanceReturnsTranslatorRegistryInstance()
     {
+        $this->setUpBackEnd();
+
         self::assertInstanceOf(
             \Tx_Oelib_TranslatorRegistry::class,
             \Tx_Oelib_TranslatorRegistry::getInstance()
@@ -77,6 +88,8 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getInstanceTwoTimesReturnsSameInstance()
     {
+        $this->setUpBackEnd();
+
         self::assertSame(
             \Tx_Oelib_TranslatorRegistry::getInstance(),
             \Tx_Oelib_TranslatorRegistry::getInstance()
@@ -88,6 +101,8 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getInstanceAfterPurgeInstanceReturnsNewInstance()
     {
+        $this->setUpBackEnd();
+
         $firstInstance = \Tx_Oelib_TranslatorRegistry::getInstance();
         \Tx_Oelib_TranslatorRegistry::purgeInstance();
 
@@ -106,12 +121,10 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getWithEmptyExtensionNameThrowsException()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The parameter $extensionName must not be empty.'
-        );
+        $this->setUpBackEnd();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The parameter $extensionName must not be empty.');
 
         \Tx_Oelib_TranslatorRegistry::get('');
     }
@@ -121,12 +134,10 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getWithNotLoadedExtensionNameThrowsException()
     {
-        $this->expectException(
-            \BadMethodCallException::class
-        );
-        $this->expectExceptionMessage(
-            'The extension with the name "user_oelib_test_does_not_exist" is not loaded.'
-        );
+        $this->setUpBackEnd();
+
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage('The extension with the name "user_oelib_test_does_not_exist" is not loaded.');
 
         \Tx_Oelib_TranslatorRegistry::get('user_oelib_test_does_not_exist');
     }
@@ -136,10 +147,9 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getWithLoadedExtensionNameReturnsTranslatorInstance()
     {
-        self::assertInstanceOf(
-            \Tx_Oelib_Translator::class,
-            \Tx_Oelib_TranslatorRegistry::get('oelib')
-        );
+        $this->setUpBackEnd();
+
+        self::assertInstanceOf(\Tx_Oelib_Translator::class, \Tx_Oelib_TranslatorRegistry::get('oelib'));
     }
 
     /**
@@ -147,10 +157,9 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getTwoTimesWithSameExtensionNameReturnsSameInstance()
     {
-        self::assertSame(
-            \Tx_Oelib_TranslatorRegistry::get('oelib'),
-            \Tx_Oelib_TranslatorRegistry::get('oelib')
-        );
+        $this->setUpBackEnd();
+
+        self::assertSame(\Tx_Oelib_TranslatorRegistry::get('oelib'), \Tx_Oelib_TranslatorRegistry::get('oelib'));
     }
 
     /////////////////////////////////////////
@@ -162,6 +171,8 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function initializeBackEndWithBackEndUserLanguageEnglishSetsLanguageEnglish()
     {
+        $this->setUpBackEnd();
+
         $backEndUser = new \Tx_Oelib_Model_BackEndUser();
         $backEndUser->setDefaultLanguage('default');
         \Tx_Oelib_BackEndLoginManager::getInstance()->setLoggedInUser($backEndUser);
@@ -177,6 +188,8 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function initializeBackEndWithBackEndUserLanguageGermanSetsLanguageGerman()
     {
+        $this->setUpBackEnd();
+
         $backEndUser = new \Tx_Oelib_Model_BackEndUser();
         $backEndUser->setDefaultLanguage('de');
         \Tx_Oelib_BackEndLoginManager::getInstance()->setLoggedInUser($backEndUser);
@@ -192,6 +205,8 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function initializeBackEndDoesNotSetAlternativeLanguage()
     {
+        $this->setUpBackEnd();
+
         self::assertSame(
             '',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
@@ -224,15 +239,13 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function initializeFrontEndWithoutFrontEndLanguageSetsLanguageDefault($namespace)
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework('oelib');
-        $testingFramework->createFakeFrontEnd();
+        $this->setUpBackEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData([]);
 
         self::assertSame(
             'default',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->getLanguageKey()
         );
-        $testingFramework->discardFakeFrontEnd();
     }
 
     /**
@@ -244,15 +257,13 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function initializeFrontEndWithFrontEndLanguageEnglishSetsLanguageEnglish($namespace)
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework('oelib');
-        $testingFramework->createFakeFrontEnd();
+        $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'default']);
 
         self::assertSame(
             'default',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->getLanguageKey()
         );
-        $testingFramework->discardFakeFrontEnd();
     }
 
     /**
@@ -264,15 +275,13 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function initializeFrontEndWithFrontEndLanguageGermanSetsLanguageGerman($namespace)
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework('oelib');
-        $testingFramework->createFakeFrontEnd();
+        $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'de']);
 
         self::assertSame(
             'de',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->getLanguageKey()
         );
-        $testingFramework->discardFakeFrontEnd();
     }
 
     /**
@@ -284,15 +293,13 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function initializeFrontEndWithoutAlternativeFrontEndLanguageDoesNotSetAlternativeLanguage($namespace)
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework('oelib');
-        $testingFramework->createFakeFrontEnd();
+        $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData([]);
 
         self::assertSame(
             '',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
         );
-        $testingFramework->discardFakeFrontEnd();
     }
 
     /**
@@ -304,15 +311,13 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function initializeFrontEndWithAlternativeFrontEndLanguageEnglishSetsAlternativeLanguageEnglish($namespace)
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework('oelib');
-        $testingFramework->createFakeFrontEnd();
+        $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'de', 'language_alt' => 'default']);
 
         self::assertSame(
             'default',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
         );
-        $testingFramework->discardFakeFrontEnd();
     }
 
     /**
@@ -324,15 +329,13 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function initializeFrontEndWithAlternativeFrontEndLanguageGermanSetsAlternativeLanguageGerman($namespace)
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework('oelib');
-        $testingFramework->createFakeFrontEnd();
+        $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'default', 'language_alt' => 'de']);
 
         self::assertSame(
             'de',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
         );
-        $testingFramework->discardFakeFrontEnd();
     }
 
     /**
@@ -340,8 +343,7 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function initializeFrontEndWithLanguageSetInConfigAndInPageConfigSetsLanguageFromPageConfig()
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework('oelib');
-        $testingFramework->createFakeFrontEnd();
+        $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get('config')->setData(['language' => 'de']);
         \Tx_Oelib_ConfigurationRegistry::get('page.config')->setData(['language' => 'fr']);
 
@@ -349,7 +351,6 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
             'fr',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->getLanguageKey()
         );
-        $testingFramework->discardFakeFrontEnd();
     }
 
     /**
@@ -357,8 +358,7 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function initializeFrontEndWithAlternativeLanguageSetInConfigAndInPageConfigSetsAlternativeLanguageFromPageConfig(
     ) {
-        $testingFramework = new \Tx_Oelib_TestingFramework('oelib');
-        $testingFramework->createFakeFrontEnd();
+        $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get('config')->setData(['language' => 'de', 'language_alt' => 'cz']);
         \Tx_Oelib_ConfigurationRegistry::get('page.config')->setData(['language' => 'fr', 'language_alt' => 'ja']);
 
@@ -366,7 +366,6 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
             'ja',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
         );
-        $testingFramework->discardFakeFrontEnd();
     }
 
     //////////////////////////////////////////
@@ -378,6 +377,8 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getByExtensionNameLoadsLabelsFromFile()
     {
+        $this->setUpBackEnd();
+
         self::assertSame(
             'I am from file.',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->translate('label_test')
@@ -389,9 +390,9 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getByExtensionNameInFrontEndOverridesLabelsFromFileWithLabelsFromTypoScript()
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework('oelib');
-        $testingFramework->createFakeFrontEnd();
+        $this->setUpFrontEnd();
         $this->getFrontEndController()->initLLvars();
+
         \Tx_Oelib_ConfigurationRegistry::get('config')->set('language', 'default');
         \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
         \Tx_Oelib_ConfigurationRegistry::
@@ -401,7 +402,6 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
             'I am from TypoScript.',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->translate('label_test')
         );
-        $testingFramework->discardFakeFrontEnd();
     }
 
     /**
@@ -409,6 +409,8 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getByExtensionNameInBackEndNotOverridesLabelsFromFileWithLabelsFromTypoScript()
     {
+        $this->setUpBackEnd();
+
         \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
         \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
             ->set('label_test', 'I am from TypoScript.');
@@ -424,8 +426,7 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getByExtensionNameDoesNotDeleteLanguageLabelsNotAffectedByTypoScript()
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework('oelib');
-        $testingFramework->createFakeFrontEnd();
+        $this->setUpFrontEnd();
         $this->getFrontEndController()->initLLvars();
         \Tx_Oelib_ConfigurationRegistry::get('config')->set('language', 'default');
         \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
@@ -436,7 +437,6 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
             'I am from file.',
             \Tx_Oelib_TranslatorRegistry::get('oelib')->translate('label_test')
         );
-        $testingFramework->discardFakeFrontEnd();
     }
 
     /////////////////////////////////////
@@ -448,6 +448,7 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function getLanguageKeyForSetKeyReturnsSetKey()
     {
+        $this->setUpBackEnd();
         \Tx_Oelib_TranslatorRegistry::getInstance()->setLanguageKey('de');
 
         self::assertSame(
@@ -461,12 +462,9 @@ class Tx_Oelib_Tests_LegacyUnit_TranslatorRegistryTest extends TestCase
      */
     public function setLanguageKeyForEmptyStringGivenThrowsException()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given language key must not be empty.'
-        );
+        $this->setUpBackEnd();
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The given language key must not be empty.');
 
         \Tx_Oelib_TranslatorRegistry::getInstance()->setLanguageKey('');
     }

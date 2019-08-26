@@ -1,16 +1,18 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Functional\Language\Fixtures;
+
 /**
  * This is mere a class used for unit tests. Don't use it for any other purpose.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-final class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingSalutationSwitcher extends \Tx_Oelib_SalutationSwitcher
+final class TestingSalutationSwitcher extends \Tx_Oelib_SalutationSwitcher
 {
     /**
      * @var string
      */
-    public $scriptRelPath = 'Tests/LegacyUnit/Fixtures/TestingSalutationSwitcher.php';
+    public $scriptRelPath = 'Tests/Functional/Language/Fixtures/locallang.xlf';
 
     /**
      * @var string
