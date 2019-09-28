@@ -60,7 +60,7 @@ class Tx_Oelib_Db
     public static function enableQueryLogging()
     {
         GeneralUtility::logDeprecatedFunction();
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) <= 8004000) {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8004000) {
             self::getDatabaseConnection()->store_lastBuiltQuery = true;
         }
     }
@@ -720,15 +720,18 @@ class Tx_Oelib_Db
      * @param string $tableName the table name to look up, must not be empty
      *
      * @return array[] associative array with the TCA description for this table
+     *
+     * @throws \InvalidArgumentException
+     * @throws \BadMethodCallException
      */
     public static function getTcaForTable($tableName)
     {
-        if (isset(self::$tcaCache[$tableName])) {
-            return self::$tcaCache[$tableName];
+        if ($tableName === '') {
+            throw new \InvalidArgumentException('$tableName must not be empty.', 1566845084);
         }
 
-        if (!self::existsTable($tableName)) {
-            throw new \BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331488344);
+        if (isset(self::$tcaCache[$tableName])) {
+            return self::$tcaCache[$tableName];
         }
 
         if (!isset($GLOBALS['TCA'][$tableName])) {

@@ -136,6 +136,8 @@ class TestingMapper extends \Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_List<<\Tx_Oelib_Model>> all models found in DB for the given where clause,
      *                       will be an empty list if no models were found
+     *
+     * @deprecated will be removed in oelib 4.0.0
      */
     public function findByWhereClause($whereClause = '', $sorting = '', $limit = '')
     {

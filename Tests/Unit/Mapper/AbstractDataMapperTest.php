@@ -9,6 +9,7 @@ use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TableLessTestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Test case.
@@ -528,6 +529,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findByPageUidWithoutPageUidAndWithoutLimitCallsFindByWhereClauseWithoutLimit()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            self::markTestSkipped('This test will not work in TYPO3 >= 8.');
+        }
+
         $subject = $this->createPartialMock(TestingMapper::class, ['findByWhereClause']);
 
         $subject->expects(self::once())
@@ -543,6 +548,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findByPageUidWithoutPageUidWithLimitCallsFindByWhereClauseWithLimit()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            self::markTestSkipped('This test will not work in TYPO3 >= 8.');
+        }
+
         $subject = $this->createPartialMock(TestingMapper::class, ['findByWhereClause']);
 
         $subject->expects(self::once())
@@ -558,6 +567,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findByPageUidWithPageUidWithoutLimitCallsFindByWhereClauseWithoutLimit()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            self::markTestSkipped('This test will not work in TYPO3 >= 8.');
+        }
+
         $subject = $this->createPartialMock(TestingMapper::class, ['findByWhereClause']);
 
         $subject->expects(self::once())
@@ -573,6 +586,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findByPageUidWithPageUidAndLimitCallsFindByWhereClauseWithLimit()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            self::markTestSkipped('This test will not work in TYPO3 >= 8.');
+        }
+
         $subject = $this->createPartialMock(TestingMapper::class, ['findByWhereClause']);
 
         $subject->expects(self::once())
@@ -592,6 +609,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function countByPageUidWithEmptyStringCallsCountByWhereClauseWithEmptyString()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            self::markTestSkipped('This test will not work in TYPO3 >= 8.');
+        }
+
         $subject = $this->createPartialMock(TestingMapper::class, ['countByWhereClause']);
         $subject->expects(self::once())
             ->method('countByWhereClause')
@@ -606,6 +627,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function countByPageUidWithZeroCallsCountByWhereClauseWithEmptyString()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            self::markTestSkipped('This test will not work in TYPO3 >= 8.');
+        }
+
         $subject = $this->createPartialMock(TestingMapper::class, ['countByWhereClause']);
         $subject->expects(self::once())
             ->method('countByWhereClause')
@@ -620,6 +645,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function countByPageUidWithPageUidCallsCountByWhereClauseWithWhereClauseContainingPageUid()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            self::markTestSkipped('This test will not work in TYPO3 >= 8.');
+        }
+
         $subject = $this->createPartialMock(TestingMapper::class, ['countByWhereClause']);
         $subject->expects(self::once())
             ->method('countByWhereClause')

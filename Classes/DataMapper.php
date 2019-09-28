@@ -1,6 +1,11 @@
 <?php
 
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Database\Query\Restriction\HiddenRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * This class represents a mapper that maps database record to model instances.
@@ -203,15 +208,14 @@ abstract class Tx_Oelib_DataMapper
      * Retrieves a model based on the WHERE clause given in the parameter
      * $whereClauseParts. Hidden records will be retrieved as well.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB
-     *                                     which matches the WHERE clause
-     *
      * @param string[] $whereClauseParts
      *        WHERE clause parts for the record to retrieve, each element must
      *        consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
      *
      * @return \Tx_Oelib_Model the model
+     *
+     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB which matches the WHERE clause
      */
     protected function findSingleByWhereClause(array $whereClauseParts)
     {
@@ -406,7 +410,7 @@ abstract class Tx_Oelib_DataMapper
      */
     private function getRelationConfigurationFromTca($key)
     {
-        $tca = \Tx_Oelib_Db::getTcaForTable($this->getTableName());
+        $tca = $this->getTcaForTable($this->getTableName());
 
         if (!isset($tca['columns'][$key])) {
             throw new \BadMethodCallException(
@@ -500,13 +504,19 @@ abstract class Tx_Oelib_DataMapper
             $foreignTable = $relationConfiguration['foreign_table'];
             $foreignField = $relationConfiguration['foreign_field'];
             $foreignSortBy = $relationConfiguration['foreign_sortby'];
-            $modelData = \Tx_Oelib_Db::selectMultiple(
-                '*',
-                $foreignTable,
-                $foreignField . ' = ' . (int)$data['uid'] . \Tx_Oelib_Db::enableFields($foreignTable, 1),
-                '',
-                $foreignSortBy
-            );
+            if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+                $modelData = $this->getConnectionForTable($foreignTable)
+                    ->select(['*'], $foreignTable, [$foreignField => (int)$data['uid']], [], [$foreignSortBy => 'ASC'])
+                    ->fetchAll();
+            } else {
+                $modelData = \Tx_Oelib_Db::selectMultiple(
+                    '*',
+                    $foreignTable,
+                    $foreignField . ' = ' . (int)$data['uid'] . \Tx_Oelib_Db::enableFields($foreignTable, 1),
+                    '',
+                    $foreignSortBy
+                );
+            }
         }
 
         /** @var \Tx_Oelib_List $models */
@@ -593,21 +603,28 @@ abstract class Tx_Oelib_DataMapper
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
             $mnTable = $relationConfiguration['MM'];
 
+            $rightUid = (int)$data['uid'];
             if (!isset($relationConfiguration['MM_opposite_field'])) {
-                $relationUids = \Tx_Oelib_Db::selectColumnForMultiple(
-                    'uid_foreign',
-                    $mnTable,
-                    'uid_local = ' . (int)$data['uid'],
-                    '',
-                    'sorting'
-                );
+                $leftColumn = 'uid_foreign';
+                $rightColumn = 'uid_local';
+                $orderBy = 'sorting';
+            } else {
+                $leftColumn = 'uid_local';
+                $rightColumn = 'uid_foreign';
+                $orderBy = 'uid_local';
+            }
+            if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+                $queryResult = $this->getConnectionForTable($mnTable)
+                    ->select([$leftColumn], $mnTable, [$rightColumn => $rightUid], [], [$orderBy => 'ASC'])
+                    ->fetchAll();
+                $relationUids = \array_column($queryResult, $leftColumn);
             } else {
                 $relationUids = \Tx_Oelib_Db::selectColumnForMultiple(
-                    'uid_local',
+                    $leftColumn,
                     $mnTable,
-                    'uid_foreign = ' . (int)$data['uid'],
+                    $rightColumn . ' = ' . $rightUid,
                     '',
-                    'uid_local'
+                    $orderBy
                 );
             }
 
@@ -627,15 +644,14 @@ abstract class Tx_Oelib_DataMapper
      * Reads a record from the database (from this mapper's table) by the
      * WHERE clause provided. Hidden records will be retrieved as well.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB
-     *                                     which matches the WHERE clause
-     * @throws \Tx_Oelib_Exception_NotFound if database access is disabled
-     *
      * @param string[] $whereClauseParts
      *        WHERE clause parts for the record to retrieve, each element must consist of a column name as key and a
      *     value to search for as value (will automatically get quoted), must not be empty
      *
      * @return string[] the record from the database, will not be empty
+     *
+     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB which matches the WHERE clause
+     * @throws \Tx_Oelib_Exception_NotFound if database access is disabled
      */
     protected function retrieveRecord(array $whereClauseParts)
     {
@@ -646,26 +662,41 @@ abstract class Tx_Oelib_DataMapper
             );
         }
 
-        $databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
-        $whereClauses = [$this->getUniversalWhereClause(true)];
-        foreach ($whereClauseParts as $key => $value) {
-            $columnDefinition = \Tx_Oelib_Db::getColumnDefinition($this->getTableName(), $key);
+        $tableName = $this->getTableName();
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $query = $this->getQueryBuilderForTable($tableName);
+            $query->getRestrictions()->removeByType(HiddenRestriction::class);
+            $query->select('*')->from($tableName);
+            foreach ($whereClauseParts as $identifier => $value) {
+                $query->andWhere($query->expr()->eq($identifier, $query->createNamedParameter($value)));
+            }
+            $data = $query->execute()->fetch();
+            if ($data === false) {
+                throw new \Tx_Oelib_Exception_NotFound(
+                    'No records found in the table "' . $tableName . '" matching: ' . \json_encode($whereClauseParts)
+                );
+            }
+        } else {
+            $databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
+            $whereClauses = [$this->getUniversalWhereClause(true)];
+            foreach ($whereClauseParts as $key => $value) {
+                $columnDefinition = \Tx_Oelib_Db::getColumnDefinition($tableName, $key);
 
-            $whereClauses[] = $key . ' = ' . (
-                (strpos($columnDefinition['Type'], 'int') !== false)
-                    ? $value
-                    : $databaseConnection->fullQuoteStr($value, $this->getTableName())
-            );
-        }
-        $whereClause = implode(' AND ', $whereClauses);
+                $whereClauses[] = $key . ' = ' . (
+                    (strpos($columnDefinition['Type'], 'int') !== false)
+                        ? $value
+                        : $databaseConnection->fullQuoteStr($value, $tableName)
+                );
+            }
+            $whereClause = implode(' AND ', $whereClauses);
 
-        try {
-            $data = \Tx_Oelib_Db::selectSingle($this->columns, $this->getTableName(), $whereClause);
-        } catch (\Tx_Oelib_Exception_EmptyQueryResult $exception) {
-            throw new \Tx_Oelib_Exception_NotFound(
-                'The record where "' . $whereClause . '" could not be retrieved from the table ' . $this->getTableName()
-                . '.'
-            );
+            try {
+                $data = \Tx_Oelib_Db::selectSingle($this->columns, $tableName, $whereClause);
+            } catch (\Tx_Oelib_Exception_EmptyQueryResult $exception) {
+                throw new \Tx_Oelib_Exception_NotFound(
+                    'The record where "' . $whereClause . '" could not be retrieved from the table: ' . $tableName
+                );
+            }
         }
 
         return $data;
@@ -675,12 +706,11 @@ abstract class Tx_Oelib_DataMapper
      * Reads a record from the database by UID (from this mapper's table).
      * Hidden records will be retrieved as well.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB
-     *                                     with the UID $uid
-     *
      * @param int $uid the UID of the record to retrieve, must be > 0
      *
      * @return string[] the record from the database, will not be empty
+     *
+     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB with the UID $uid
      */
     protected function retrieveRecordByUid($uid)
     {
@@ -810,11 +840,22 @@ abstract class Tx_Oelib_DataMapper
         $this->cacheModelByKeys($model, $data);
 
         if ($model->hasUid()) {
-            \Tx_Oelib_Db::update($this->getTableName(), 'uid = ' . $model->getUid(), $data);
+            if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+                $this->getConnection()->update($this->getTableName(), $data, ['uid' => $model->getUid()]);
+            } else {
+                \Tx_Oelib_Db::update($this->getTableName(), 'uid = ' . $model->getUid(), $data);
+            }
             $this->deleteManyToManyRelationIntermediateRecords($model);
         } else {
             $this->prepareDataForNewRecord($data);
-            $model->setUid(\Tx_Oelib_Db::insert($this->getTableName(), $data));
+            $tableName = $this->getTableName();
+            if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+                $this->getConnection()->insert($tableName, $data);
+                $uid = $this->getConnection()->lastInsertId($tableName);
+            } else {
+                $uid = \Tx_Oelib_Db::insert($tableName, $data);
+            }
+            $model->setUid($uid);
             $this->map->add($model);
         }
 
@@ -940,69 +981,63 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return void
      */
-    private function deleteManyToManyRelationIntermediateRecords(
-        \Tx_Oelib_Model $model
-    ) {
+    private function deleteManyToManyRelationIntermediateRecords(\Tx_Oelib_Model $model)
+    {
         foreach (array_keys($this->relations) as $key) {
-            if ($this->isManyToManyRelationConfigured($key)) {
-                $relationConfiguration =
-                    $this->getRelationConfigurationFromTca($key);
-                $mnTable = $relationConfiguration['MM'];
+            if (!$this->isManyToManyRelationConfigured($key)) {
+                continue;
+            }
 
-                if (isset($relationConfiguration['MM_opposite_field'])) {
-                    $where = 'uid_foreign=' . $model->getUid();
-                } else {
-                    $where = 'uid_local=' . $model->getUid();
-                }
+            $relationConfiguration = $this->getRelationConfigurationFromTca($key);
+            $mnTable = $relationConfiguration['MM'];
+            $columnName = isset($relationConfiguration['MM_opposite_field']) ? 'uid_foreign' : 'uid_local';
+            if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+                $this->getConnectionForTable($mnTable)->delete($mnTable, [$columnName => $model->getUid()]);
+            } else {
+                $where = $columnName . '=' . $model->getUid();
                 \Tx_Oelib_Db::delete($mnTable, $where);
             }
         }
     }
 
     /**
-     * Creates records in the intermediate table of m:n relations for a given
-     * model.
+     * Creates records in the intermediate table of m:n relations for a given model.
      *
-     * @param \Tx_Oelib_Model $model the model to create the records in the
-     *                              intermediate table of m:n relations for
+     * @param \Tx_Oelib_Model $model the model to create the records in the intermediate table of m:n relations for
      *
      * @return void
      */
-    private function createManyToManyRelationIntermediateRecords(
-        \Tx_Oelib_Model $model
-    ) {
+    private function createManyToManyRelationIntermediateRecords(\Tx_Oelib_Model $model)
+    {
         $data = $model->getData();
 
-        foreach (array_keys($this->relations) as $key) {
-            if (
-                $this->isManyToManyRelationConfigured($key)
-                && ($data[$key] instanceof \Tx_Oelib_List)
-            ) {
-                $sorting = 0;
-                $relationConfiguration =
-                    $this->getRelationConfigurationFromTca($key);
-                $mnTable = $relationConfiguration['MM'];
+        foreach (\array_keys($this->relations) as $key) {
+            if (!($data[$key] instanceof \Tx_Oelib_List) || !$this->isManyToManyRelationConfigured($key)) {
+                continue;
+            }
 
-                /** @var \Tx_Oelib_Model $relatedModel */
-                foreach ($data[$key] as $relatedModel) {
-                    if (isset($relationConfiguration['MM_opposite_field'])) {
-                        $uidLocal = $relatedModel->getUid();
-                        $uidForeign = $model->getUid();
-                    } else {
-                        $uidLocal = $model->getUid();
-                        $uidForeign = $relatedModel->getUid();
-                    }
-                    \Tx_Oelib_Db::insert(
-                        $mnTable,
-                        $this->getManyToManyRelationIntermediateRecordData(
-                            $mnTable,
-                            $uidLocal,
-                            $uidForeign,
-                            $sorting
-                        )
-                    );
-                    $sorting++;
+            $sorting = 0;
+            $relationConfiguration = $this->getRelationConfigurationFromTca($key);
+            $mnTable = $relationConfiguration['MM'];
+
+            /** @var \Tx_Oelib_Model $relatedModel */
+            foreach ($data[$key] as $relatedModel) {
+                if (isset($relationConfiguration['MM_opposite_field'])) {
+                    $uidLocal = $relatedModel->getUid();
+                    $uidForeign = $model->getUid();
+                } else {
+                    $uidLocal = $model->getUid();
+                    $uidForeign = $relatedModel->getUid();
                 }
+
+                $newData
+                    = $this->getManyToManyRelationIntermediateRecordData($mnTable, $uidLocal, $uidForeign, $sorting);
+                if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+                    $this->getConnectionForTable($mnTable)->insert($mnTable, $newData);
+                } else {
+                    \Tx_Oelib_Db::insert($mnTable, $newData);
+                }
+                $sorting++;
             }
         }
     }
@@ -1184,7 +1219,36 @@ abstract class Tx_Oelib_DataMapper
      */
     public function findAll($sorting = '')
     {
-        return $this->findByWhereClause('', $sorting);
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $queryResult = $this->getConnection()
+                ->select(['*'], $this->getTableName(), [], [], $this->sortingToOrderArray($sorting))->fetchAll();
+            $models = $this->getListOfModels($queryResult);
+        } else {
+            $models = $this->findByWhereClause('', $sorting);
+        }
+        return $models;
+    }
+
+    /**
+     * @param string $sorting
+     *
+     * @return string[]
+     */
+    protected function sortingToOrderArray($sorting)
+    {
+        $trimmedSorting = \trim($sorting);
+        if ($trimmedSorting === '') {
+            return [];
+        }
+
+        if (\strpos($trimmedSorting, ' ') !== false) {
+            list($orderColumn, $orderDirection) = GeneralUtility::trimExplode(' ', $sorting, true);
+            $orderBy = [$orderColumn => $orderDirection];
+        } else {
+            $orderBy = [$trimmedSorting => 'ASC'];
+        }
+
+        return $orderBy;
     }
 
     /**
@@ -1192,8 +1256,9 @@ abstract class Tx_Oelib_DataMapper
      *
      * @param bool $allowHiddenRecords whether hidden records should be found
      *
-     * @return string the WHERE clause that selects all visible records in the,
-     *                DB, will not be empty
+     * @return string the WHERE clause that selects all visible records in the DB, will not be empty
+     *
+     * @deprecated will be removed in oelib 4.0.0
      */
     protected function getUniversalWhereClause($allowHiddenRecords = false)
     {
@@ -1254,12 +1319,14 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_List<\Tx_Oelib_Model> all models found in DB for the given where clause,
      *                       will be an empty list if no models were found
+     *
+     * @deprecated will be removed in oelib 4.0.0
      */
     protected function findByWhereClause($whereClause = '', $sorting = '', $limit = '')
     {
         $orderBy = '';
 
-        $tca = \Tx_Oelib_Db::getTcaForTable($this->getTableName());
+        $tca = $this->getTcaForTable($this->getTableName());
         if ($sorting !== '') {
             $orderBy = $sorting;
         } elseif (isset($tca['ctrl']['default_sortby'])) {
@@ -1305,11 +1372,49 @@ abstract class Tx_Oelib_DataMapper
      */
     public function findByPageUid($pageUids, $sorting = '', $limit = '')
     {
-        if (($pageUids === '') || ($pageUids === '0') || ($pageUids === 0)) {
-            return $this->findByWhereClause('', $sorting, $limit);
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $query = $this->getQueryBuilder()->select('*')->from($this->getTableName());
+            $this->addPageUidRestriction($query, $pageUids);
+            $this->addOrdering($query, $sorting);
+            $models = $this->getListOfModels($query->execute()->fetchAll());
+        } else {
+            if (\in_array($pageUids, ['', '0', 0], true)) {
+                $models = $this->findByWhereClause('', $sorting, $limit);
+            } else {
+                $models = $this->findByWhereClause($this->getTableName() . '.pid IN (' . $pageUids . ')', $sorting, $limit);
+            }
         }
 
-        return $this->findByWhereClause($this->getTableName() . '.pid IN (' . $pageUids . ')', $sorting, $limit);
+        return $models;
+    }
+
+    /**
+     * @param QueryBuilder $query
+     * @param string $pageUids comma-separated list of page UIDs
+     *
+     * @return void
+     */
+    protected function addPageUidRestriction(QueryBuilder $query, $pageUids)
+    {
+        if (\in_array($pageUids, ['', '0', 0], true)) {
+            return;
+        }
+
+        $query->andWhere($query->expr()->in('pid', GeneralUtility::intExplode(',', $pageUids)));
+    }
+
+    /**
+     * @param QueryBuilder $query
+     * @param string $sorting
+     *        the sorting for the found records, must be a valid DB field optionally followed by "ASC" or "DESC"
+     *
+     * @return void
+     */
+    protected function addOrdering(QueryBuilder $query, $sorting)
+    {
+        foreach ($this->sortingToOrderArray($sorting) as $fieldName => $order) {
+            $query->addOrderBy($fieldName, $order);
+        }
     }
 
     /**
@@ -1322,10 +1427,10 @@ abstract class Tx_Oelib_DataMapper
      * @param string $value
      *        the value for the key of the model to find, must not be empty
      *
-     * @throws \InvalidArgumentException
-     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
-     *
      * @return \Tx_Oelib_Model the cached model
+     *
+     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
+     * @throws \InvalidArgumentException
      */
     protected function findOneByKeyFromCache($key, $value)
     {
@@ -1355,10 +1460,10 @@ abstract class Tx_Oelib_DataMapper
      * @param string $value
      *        the value for the compound key of the model to find, must not be empty
      *
-     * @throws \InvalidArgumentException
-     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
-     *
      * @return \Tx_Oelib_Model the cached model
+     *
+     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
+     * @throws \InvalidArgumentException
      */
     public function findOneByCompoundKeyFromCache($value)
     {
@@ -1426,9 +1531,9 @@ abstract class Tx_Oelib_DataMapper
      * @param \Tx_Oelib_Model $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty
      *
-     * @throws \BadMethodCallException
-     *
      * @return void
+     *
+     * @throws \BadMethodCallException
      */
     protected function cacheModelByCompoundKey(\Tx_Oelib_Model $model, array $data)
     {
@@ -1458,14 +1563,13 @@ abstract class Tx_Oelib_DataMapper
      * This function will first check the cache-by-key and, if there is no match,
      * will try to find the model in the database.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no match (neither in the
-     *                                     cache nor in the database)
-     *
      * @param string $key an existing key, must not be empty
      * @param string $value
      *        the value for the key of the model to find, must not be empty
      *
      * @return \Tx_Oelib_Model the cached model
+     *
+     * @throws \Tx_Oelib_Exception_NotFound if there is no match (neither in the cache nor in the database)
      */
     public function findOneByKey($key, $value)
     {
@@ -1489,10 +1593,10 @@ abstract class Tx_Oelib_DataMapper
      *        The array must have all the keys that are set in the additionalCompoundKey array.
      *        The array values contain the model data with which to look up.
      *
-     * @throws \InvalidArgumentException if parameter array $keyValue is empty
-     * @throws \Tx_Oelib_Exception_NotFound if there is no match (neither in the cache nor in the database)
-     *
      * @return \Tx_Oelib_Model the cached model
+     *
+     * @throws \Tx_Oelib_Exception_NotFound if there is no match (neither in the cache nor in the database)
+     * @throws \InvalidArgumentException if parameter array $keyValue is empty
      */
     public function findOneByCompoundKey(array $compoundKeyValues)
     {
@@ -1520,9 +1624,9 @@ abstract class Tx_Oelib_DataMapper
      *        The array must have all the keys that are set in the additionalCompoundKey array.
      *        The array values contain the model data with which to look up.
      *
-     * @throws \InvalidArgumentException
-     *
      * @return string Contains the values for the compound key parts concatenated with a dot.
+     *
+     * @throws \InvalidArgumentException
      */
     protected function extractCompoundKeyValues(array $compoundKeyValues)
     {
@@ -1562,21 +1666,27 @@ abstract class Tx_Oelib_DataMapper
             throw new \InvalidArgumentException('$model must have a UID.', 1331319915);
         }
         if ($relationKey === '') {
-            throw new \InvalidArgumentException('$key must not be empty.', 1331319921);
+            throw new \InvalidArgumentException('$relationKey must not be empty.', 1331319921);
         }
 
-        $ignoreClause = '';
-        if (($ignoreList !== null) && !$ignoreList->isEmpty()) {
-            $ignoreUids = $ignoreList->getUids();
-            // deals with the case of $ignoreList having only models without UIDs
-            if ($ignoreUids !== '') {
-                $ignoreClause = ' AND uid NOT IN(' . $ignoreUids . ')';
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $query = $this->getQueryBuilder();
+            $query->select('*')->from($this->getTableName());
+            $query->andWhere($query->expr()->eq($relationKey, $query->createNamedParameter($model->getUid())));
+            if ($ignoreList !== null && $ignoreList->getUids() !== '') {
+                $query->andWhere($query->expr()->notIn('uid', GeneralUtility::intExplode(',', $ignoreList->getUids())));
             }
+            $models = $this->getListOfModels($query->execute()->fetchAll());
+        } else {
+            $ignoreClause = '';
+            if ($ignoreList !== null && $ignoreList->getUids() !== '') {
+                $ignoreClause = ' AND uid NOT IN(' . $ignoreList->getUids() . ')';
+            }
+
+            $models = $this->findByWhereClause($relationKey . ' = ' . $model->getUid() . $ignoreClause);
         }
 
-        return $this->findByWhereClause(
-            $relationKey . ' = ' . $model->getUid() . $ignoreClause
-        );
+        return $models;
     }
 
     /**
@@ -1587,6 +1697,8 @@ abstract class Tx_Oelib_DataMapper
      *        and SQL safe, may be empty
      *
      * @return int the number of records matching the given WHERE clause
+     *
+     * @deprecated will be removed in oelib 4.0
      */
     public function countByWhereClause($whereClause = '')
     {
@@ -1601,18 +1713,25 @@ abstract class Tx_Oelib_DataMapper
      * Returns the number of records located on the given pages.
      *
      * @param string $pageUids
-     *        comma-separated UIDs of the pages on which the records should be
-     *        found, may be empty
+     *        comma-separated UIDs of the pages on which the records should be found, may be empty
      *
      * @return int the number of records located on the given pages
      */
     public function countByPageUid($pageUids)
     {
-        if (($pageUids === '') || ($pageUids === '0')) {
-            return $this->countByWhereClause('');
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $query = $this->getQueryBuilder()->count('*')->from($this->getTableName());
+            $this->addPageUidRestriction($query, $pageUids);
+            $count = $query->execute()->fetchColumn(0);
+        } else {
+            if (($pageUids === '') || ($pageUids === '0')) {
+                $count = $this->countByWhereClause('');
+            } else {
+                $count = $this->countByWhereClause($this->getTableName() . '.pid IN (' . $pageUids . ')');
+            }
         }
 
-        return $this->countByWhereClause($this->getTableName() . '.pid IN (' . $pageUids . ')');
+        return $count;
     }
 
     /**
@@ -1623,5 +1742,65 @@ abstract class Tx_Oelib_DataMapper
     public function getTableName()
     {
         return $this->tableName;
+    }
+
+    /**
+     * Returns the TCA for a certain table.
+     *
+     * @param string $tableName the table name to look up, must not be empty
+     *
+     * @return array[] associative array with the TCA description for this table
+     */
+    protected function getTcaForTable($tableName)
+    {
+        if (!isset($GLOBALS['TCA'][$tableName])) {
+            throw new \BadMethodCallException('The table "' . $tableName . '" has no TCA.', 1565462958);
+        }
+
+        return $GLOBALS['TCA'][$tableName];
+    }
+
+    /**
+     * @return Connection
+     */
+    protected function getConnection()
+    {
+        return $this->getConnectionForTable($this->getTableName());
+    }
+
+    /**
+     * @param string $tableName
+     *
+     * @return Connection
+     */
+    protected function getConnectionForTable($tableName)
+    {
+        return $this->getConnectionPool()->getConnectionForTable($tableName);
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    protected function getQueryBuilder()
+    {
+        return $this->getConnectionPool()->getQueryBuilderForTable($this->getTableName());
+    }
+
+    /**
+     * @param string $tableName
+     *
+     * @return QueryBuilder
+     */
+    protected function getQueryBuilderForTable($tableName)
+    {
+        return $this->getConnectionPool()->getQueryBuilderForTable($tableName);
+    }
+
+    /**
+     * @return ConnectionPool
+     */
+    private function getConnectionPool()
+    {
+        return GeneralUtility::makeInstance(ConnectionPool::class);
     }
 }

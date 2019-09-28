@@ -3674,19 +3674,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllByRelationWithEmptyKeyThrowsException()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$key must not be empty'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$relationKey must not be empty');
 
-        $model = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
+        $model = $this->subject->find($this->testingFramework->createRecord('tx_oelib_test'));
 
-        \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class)
-            ->findAllByRelation($model, '');
+        \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class)->findAllByRelation($model, '');
     }
 
     /**
