@@ -655,7 +655,7 @@ abstract class Tx_Oelib_DataMapper
                 (strpos($columnDefinition['Type'], 'int') !== false)
                     ? $value
                     : $databaseConnection->fullQuoteStr($value, $this->getTableName())
-                );
+            );
         }
         $whereClause = implode(' AND ', $whereClauses);
 

@@ -377,11 +377,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         $ignoreFlexform = false
     ) {
         return $this->getConfValueString(
-                $fieldName,
-                $sheet,
-                false,
-                $ignoreFlexform
-            ) !== '';
+            $fieldName,
+            $sheet,
+            false,
+            $ignoreFlexform
+        ) !== '';
     }
 
     /**

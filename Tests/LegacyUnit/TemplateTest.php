@@ -3874,7 +3874,6 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends TestCase
         );
         $this->expectExceptionMessage(
             '$key contained the subpart name "my_subpart", but only the following subparts are available: ()'
-
         );
 
         $this->subject->processTemplate(

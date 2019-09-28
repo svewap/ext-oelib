@@ -61,9 +61,9 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
         $longitude2 = \deg2rad($coordinates2['longitude']);
 
         return \acos(
-                \sin($latitude1) * \sin($latitude2)
+            \sin($latitude1) * \sin($latitude2)
                 + \cos($latitude1) * \cos($latitude2) * \cos($longitude2 - $longitude1)
-            ) * self::EARTH_RADIUS_IN_KILOMETERS;
+        ) * self::EARTH_RADIUS_IN_KILOMETERS;
     }
 
     /**
