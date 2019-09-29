@@ -31,7 +31,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Move `Tests/` to the dev autoload in `ext_emconf.php` (#249)
 - Keep development files out of the packages (#248)
 - Add a dependency to cms/lang in composer.json (#243)
-- Use the ConnectionPool for DB queries in TYPO3 >= 8.4 (#233, #239, #240, #242, #251)
+- Use the ConnectionPool for DB queries in TYPO3 >= 8.4 (#233, #239, #240, #242, #251, #252)
 - Provide flags to htmlspecialchars (#232)
 - Avoid deprecated TimeTracker usage in the testing framework (#229)
 - Clean up the testing extensions (#224)

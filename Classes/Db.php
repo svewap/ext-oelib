@@ -1,6 +1,9 @@
 <?php
 
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -44,13 +47,6 @@ class Tx_Oelib_Db
      * @var array[]
      */
     private static $tableColumnCache = [];
-
-    /**
-     * cache for all TCA arrays
-     *
-     * @var array[]
-     */
-    private static $tcaCache = [];
 
     /**
      * Enables query logging in TYPO3's DB class.
@@ -291,15 +287,18 @@ class Tx_Oelib_Db
             throw new \InvalidArgumentException('$recordData must not be empty.', 1331488230);
         }
 
-        $dbResult = self::getDatabaseConnection()->exec_INSERTquery(
-            $tableName,
-            $recordData
-        );
-        if (!$dbResult) {
-            throw new \Tx_Oelib_Exception_Database();
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            self::getConnectionForTable($tableName)->insert($tableName, $recordData);
+            $lastId = (int)self::getConnectionForTable($tableName)->lastInsertId();
+        } else {
+            $dbResult = self::getDatabaseConnection()->exec_INSERTquery($tableName, $recordData);
+            if ($dbResult === false) {
+                throw new \Tx_Oelib_Exception_Database();
+            }
+            $lastId = self::getDatabaseConnection()->sql_insert_id();
         }
 
-        return self::getDatabaseConnection()->sql_insert_id();
+        return $lastId;
     }
 
     /**
@@ -472,19 +471,18 @@ class Tx_Oelib_Db
      * Counts the number of matching records in the database for a particular
      * WHERE clause.
      *
-     * @throws \Tx_Oelib_Exception_Database if an error has occurred
-     *
      * @param string $tableNames
      *        comma-separated list of existing tables from which to count, can
      *        also be a JOIN, must not be empty
      * @param string $whereClause WHERE clause, may be empty
      *
      * @return int the number of matching records, will be >= 0
+     *
+     * @throws \Tx_Oelib_Exception_Database if an error has occurred
      */
     public static function count($tableNames, $whereClause = '')
     {
-        $isOnlyOneTable = ((strpos($tableNames, ',') === false)
-            && (stripos(trim($tableNames), ' JOIN ') === false));
+        $isOnlyOneTable = strpos($tableNames, ',') === false && stripos(trim($tableNames), ' JOIN ') === false;
         if ($isOnlyOneTable && self::tableHasColumnUid($tableNames)) {
             // Counting only the "uid" column is faster than counting *.
             $columns = 'uid';
@@ -550,11 +548,8 @@ class Tx_Oelib_Db
      *
      * @return bool TRUE if there is a matching record, FALSE otherwise
      */
-    public static function existsRecordWithUid(
-        $table,
-        $uid,
-        $additionalWhereClause = ''
-    ) {
+    public static function existsRecordWithUid($table, $uid, $additionalWhereClause = '')
+    {
         if ($uid <= 0) {
             throw new \InvalidArgumentException('$uid must be > 0.', 1331488284);
         }
@@ -580,11 +575,9 @@ class Tx_Oelib_Db
     }
 
     /**
-     * Retrieves the table names of the current DB and stores them in
-     * self::$tableNameCache.
+     * Retrieves the table names of the current DB and stores them in self::$tableNameCache.
      *
-     * This function does nothing if the table names already have been
-     * retrieved.
+     * This function does nothing if the table names already have been retrieved.
      *
      * @return void
      */
@@ -594,7 +587,18 @@ class Tx_Oelib_Db
             return;
         }
 
-        self::$tableNameCache = self::getDatabaseConnection()->admin_get_tables();
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $connection = self::getConnectionPool()->getConnectionByName('Default');
+            $queryResult = $connection->query('SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`');
+            $tableNames = [];
+            foreach ($queryResult->fetchAll() as $tableInformation) {
+                $tableNames[$tableInformation['Name']] = $tableInformation;
+            }
+        } else {
+            $tableNames = self::getDatabaseConnection()->admin_get_tables();
+        }
+
+        self::$tableNameCache = $tableNames;
     }
 
     /**
@@ -666,13 +670,24 @@ class Tx_Oelib_Db
      */
     private static function retrieveColumnsForTable($table)
     {
-        if (!isset(self::$tableColumnCache[$table])) {
-            if (!self::existsTable($table)) {
-                throw new \BadMethodCallException('The table "' . $table . '" does not exist.', 1331488327);
-            }
-
-            self::$tableColumnCache[$table] = self::getDatabaseConnection()->admin_get_fields($table);
+        if (isset(self::$tableColumnCache[$table])) {
+            return;
         }
+        if (!self::existsTable($table)) {
+            throw new \BadMethodCallException('The table "' . $table . '" does not exist.', 1331488327);
+        }
+
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+            $columns = [];
+            $queryResult = self::getConnectionForTable($table)->query('SHOW FULL COLUMNS FROM `' . $table . '`');
+            foreach ($queryResult->fetchAll() as $fieldRow) {
+                $columns[$fieldRow['Field']] = $fieldRow;
+            }
+        } else {
+            $columns = self::getDatabaseConnection()->admin_get_fields($table);
+        }
+
+        self::$tableColumnCache[$table] = $columns;
     }
 
     /**
@@ -729,29 +744,51 @@ class Tx_Oelib_Db
         if ($tableName === '') {
             throw new \InvalidArgumentException('$tableName must not be empty.', 1566845084);
         }
-
-        if (isset(self::$tcaCache[$tableName])) {
-            return self::$tcaCache[$tableName];
-        }
-
         if (!isset($GLOBALS['TCA'][$tableName])) {
             throw new \BadMethodCallException('The table "' . $tableName . '" has no TCA.', 1331488350);
         }
-        self::$tcaCache[$tableName] = $GLOBALS['TCA'][$tableName];
 
-        return self::$tcaCache[$tableName];
+        return $GLOBALS['TCA'][$tableName];
     }
 
     /**
      * Returns $GLOBALS['TYPO3_DB'].
      *
-     * @deprecated will be removed in oelib 4.0
-     *
      * @return DatabaseConnection
+     *
+     * @deprecated will be removed in oelib 4.0
      */
     public static function getDatabaseConnection()
     {
         return $GLOBALS['TYPO3_DB'];
+    }
+
+    /**
+     * @param string $tableName
+     *
+     * @return Connection
+     */
+    private static function getConnectionForTable($tableName)
+    {
+        return self::getConnectionPool()->getConnectionForTable($tableName);
+    }
+
+    /**
+     * @param string $tableName
+     *
+     * @return QueryBuilder
+     */
+    private static function getQueryBuilderForTable($tableName)
+    {
+        return self::getConnectionPool()->getQueryBuilderForTable($tableName);
+    }
+
+    /**
+     * @return ConnectionPool
+     */
+    private static function getConnectionPool()
+    {
+        return GeneralUtility::makeInstance(ConnectionPool::class);
     }
 
     /**

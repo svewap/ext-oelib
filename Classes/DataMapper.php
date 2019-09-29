@@ -949,10 +949,8 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return void
      */
-    private function saveManyToOneRelatedModels(
-        \Tx_Oelib_Model $model,
-        \Tx_Oelib_DataMapper $mapper
-    ) {
+    private function saveManyToOneRelatedModels(\Tx_Oelib_Model $model, \Tx_Oelib_DataMapper $mapper)
+    {
         $mapper->save($model);
     }
 
