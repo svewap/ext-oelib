@@ -1234,6 +1234,16 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
     /**
      * @test
      */
+    public function getTcaForTableWithInexistentTableNameThrowsExceptionTca()
+    {
+        $this->expectException(\BadMethodCallException::class);
+
+        \Tx_Oelib_Db::getTcaForTable('tx_oelib_doesnotexist');
+    }
+
+    /**
+     * @test
+     */
     public function getTcaForTableThrowsExceptionOnTableWithoutTca()
     {
         $this->expectException(\BadMethodCallException::class);
