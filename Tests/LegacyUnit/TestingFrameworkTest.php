@@ -2098,6 +2098,239 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
     }
 
     /*
+     * Tests regarding count()
+     */
+
+    /**
+     * @test
+     */
+    public function countWithEmptyWhereClauseIsAllowed()
+    {
+        $this->subject->count('tx_oelib_test', []);
+    }
+
+    /**
+     * @test
+     */
+    public function countWithMissingWhereClauseIsAllowed()
+    {
+        $this->subject->count('tx_oelib_test');
+    }
+
+    /**
+     * @test
+     */
+    public function countWithEmptyTableNameThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
+        );
+
+        $this->subject->count('');
+    }
+
+    /**
+     * @test
+     */
+    public function countWithInvalidTableNameThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
+        );
+
+        $table = 'foo_bar';
+        $this->subject->count($table);
+    }
+
+    /**
+     * @test
+     */
+    public function countWithFeGroupsTableIsAllowed()
+    {
+        $table = 'fe_groups';
+        $this->subject->count($table);
+    }
+
+    /**
+     * @test
+     */
+    public function countWithFeUsersTableIsAllowed()
+    {
+        $table = 'fe_users';
+        $this->subject->count($table);
+    }
+
+    /**
+     * @test
+     */
+    public function countWithPagesTableIsAllowed()
+    {
+        $table = 'pages';
+        $this->subject->count($table);
+    }
+
+    /**
+     * @test
+     */
+    public function countWithTtContentTableIsAllowed()
+    {
+        $table = 'tt_content';
+        $this->subject->count($table);
+    }
+
+    /**
+     * @test
+     */
+    public function countWithSysFileTableTableIsAllowed()
+    {
+        $this->subject->count('sys_file');
+    }
+
+    /**
+     * @test
+     */
+    public function countWithSysFileCollectionTableTableIsAllowed()
+    {
+        $this->subject->count('sys_file_collection');
+    }
+
+    /**
+     * @test
+     */
+    public function countWithSysFileReferenceTableTableIsAllowed()
+    {
+        $this->subject->count('sys_file_reference');
+    }
+
+    /**
+     * @test
+     */
+    public function countWithSysCategoryTableTableIsAllowed()
+    {
+        $this->subject->count('sys_category');
+    }
+
+    /**
+     * @test
+     */
+    public function countWithSysCategoryRecordMmTableTableIsAllowed()
+    {
+        $this->subject->count('sys_category_record_mm');
+    }
+
+    /**
+     * @test
+     */
+    public function countWithOtherTableThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
+        );
+
+        $this->subject->count('sys_domain');
+    }
+
+    /**
+     * @test
+     */
+    public function countReturnsZeroForNoMatches()
+    {
+        self::assertSame(
+            0,
+            $this->subject->count('tx_oelib_test', ['title' => 'foo'])
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function countReturnsOneForOneDummyRecordMatch()
+    {
+        $this->subject->createRecord(
+            'tx_oelib_test',
+            ['title' => 'foo']
+        );
+
+        self::assertSame(
+            1,
+            $this->subject->count('tx_oelib_test', ['title' => 'foo'])
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function countWithMissingWhereClauseReturnsOneForOneDummyRecordMatch()
+    {
+        $this->subject->createRecord(
+            'tx_oelib_test',
+            ['title' => 'foo']
+        );
+
+        self::assertSame(
+            1,
+            $this->subject->count('tx_oelib_test')
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function countReturnsTwoForTwoMatches()
+    {
+        $this->subject->createRecord(
+            'tx_oelib_test',
+            ['title' => 'foo']
+        );
+        $this->subject->createRecord(
+            'tx_oelib_test',
+            ['title' => 'foo']
+        );
+
+        self::assertSame(
+            2,
+            $this->subject->count('tx_oelib_test', ['title' => 'foo'])
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function countForPagesTableIsAllowed()
+    {
+        $this->subject->count('pages');
+    }
+
+    /**
+     * @test
+     */
+    public function countIgnoresNonDummyRecords()
+    {
+        \Tx_Oelib_Db::insert(
+            'tx_oelib_test',
+            ['title' => 'foo']
+        );
+
+        $testResult = $this->subject->count('tx_oelib_test', ['title' => 'foo']);
+
+        \Tx_Oelib_Db::delete(
+            'tx_oelib_test',
+            'title = "foo"'
+        );
+        // We need to do this manually to not confuse the auto_increment counter
+        // of the testing framework.
+        $this->subject->resetAutoIncrement('tx_oelib_test');
+
+        self::assertSame(
+            0,
+            $testResult
+        );
+    }
+
+    /*
      * Tests regarding existsRecord()
      */
 
@@ -2259,12 +2492,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
      */
     public function existsRecordWithUidWithEmptyTableNameThrowsException()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->existsRecordWithUid('', 1);
     }
@@ -2274,12 +2502,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
      */
     public function existsRecordWithUidWithInvalidTableNameThrowsException()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The given table name is not in the list of allowed tables.');
 
         $table = 'foo_bar';
         $this->subject->existsRecordWithUid($table, 1);
