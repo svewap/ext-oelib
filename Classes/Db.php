@@ -287,18 +287,12 @@ class Tx_Oelib_Db
             throw new \InvalidArgumentException('$recordData must not be empty.', 1331488230);
         }
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            self::getConnectionForTable($tableName)->insert($tableName, $recordData);
-            $lastId = (int)self::getConnectionForTable($tableName)->lastInsertId();
-        } else {
-            $dbResult = self::getDatabaseConnection()->exec_INSERTquery($tableName, $recordData);
-            if ($dbResult === false) {
-                throw new \Tx_Oelib_Exception_Database();
-            }
-            $lastId = self::getDatabaseConnection()->sql_insert_id();
+        $connection = self::getDatabaseConnection();
+        $dbResult = $connection->exec_INSERTquery($tableName, $recordData);
+        if ($dbResult === false) {
+            throw new \Tx_Oelib_Exception_Database();
         }
-
-        return $lastId;
+        return $connection->sql_insert_id();
     }
 
     /**

@@ -872,6 +872,18 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
     /**
      * @test
      */
+    public function insertMakesUidAccessibleAsLastInsertUidOnConnection()
+    {
+        \Tx_Oelib_Db::insert('tx_oelib_test', ['is_dummy_record' => 1]);
+        $this->testingFramework->markTableAsDirty('tx_oelib_test');
+        $uid = \Tx_Oelib_Db::getDatabaseConnection()->sql_insert_id();
+
+        self::assertTrue($this->testingFramework->existsRecordWithUid('tx_oelib_test', $uid));
+    }
+
+    /**
+     * @test
+     */
     public function insertForTableWithoutUidReturnsZero()
     {
         $this->testingFramework->markTableAsDirty('tx_oelib_test_article_mm');
