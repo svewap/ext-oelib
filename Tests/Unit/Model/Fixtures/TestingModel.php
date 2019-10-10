@@ -201,16 +201,13 @@ class TestingModel extends \Tx_Oelib_Model
     }
 
     /**
-     * Sets the "composition2" data item. This is an 1:n relation.
+     * Gets the "composition2" data item. This is an 1:n relation without sorting.
      *
-     * @param \Tx_Oelib_List <\Tx_Oelib_Model> $components
-     *                      the "composition2" data to set
-     *
-     * @return void
+     * @return \Tx_Oelib_List<\Tx_Oelib_Model>
      */
-    public function setComposition2(\Tx_Oelib_List $components)
+    public function getCompositionWithoutSorting()
     {
-        $this->set('composition2', $components);
+        return $this->getAsList('composition_without_sorting');
     }
 
     /**

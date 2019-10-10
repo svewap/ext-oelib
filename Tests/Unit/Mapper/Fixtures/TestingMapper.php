@@ -31,6 +31,7 @@ class TestingMapper extends \Tx_Oelib_DataMapper
         'related_records' => TestingMapper::class,
         'composition' => TestingChildMapper::class,
         'composition2' => TestingChildMapper::class,
+        'composition_without_sorting' => TestingChildMapper::class,
         'bidirectional' => TestingMapper::class,
     ];
 

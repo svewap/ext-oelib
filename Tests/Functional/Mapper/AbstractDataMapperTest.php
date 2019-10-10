@@ -1394,6 +1394,53 @@ class AbstractDataMapperTest extends FunctionalTestCase
     /**
      * @test
      */
+    public function oneToManyRelationsCanSortByForeignSortBy()
+    {
+        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['composition' => 2]);
+        $relatedUid1 = $this->testingFramework->createRecord('tx_oelib_testchild', ['parent' => $uid, 'title' => 'b']);
+        $relatedUid2 = $this->testingFramework->createRecord('tx_oelib_testchild', ['parent' => $uid, 'title' => 'a']);
+
+        /** @var TestingModel $model */
+        $model = $this->subject->find($uid);
+        self::assertSame($relatedUid2 . ',' . $relatedUid1, $model->getComposition()->getUids());
+    }
+
+    /**
+     * @test
+     */
+    public function oneToManyRelationsCanSortByForeignDefaultSortBy()
+    {
+        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['composition2' => 2]);
+        $relatedUid1 = $this->testingFramework->createRecord(
+            'tx_oelib_testchild',
+            ['tx_oelib_parent2' => $uid, 'title' => 'b']
+        );
+        $relatedUid2 = $this->testingFramework->createRecord(
+            'tx_oelib_testchild',
+            ['tx_oelib_parent2' => $uid, 'title' => 'a']
+        );
+
+        /** @var TestingModel $model */
+        $model = $this->subject->find($uid);
+        self::assertSame($relatedUid2 . ',' . $relatedUid1, $model->getComposition2()->getUids());
+    }
+
+    /**
+     * @test
+     */
+    public function oneToManyRelationWithoutSortingDoesNotCrash()
+    {
+        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['composition_without_sorting' => 1]);
+        $relatedUid = $this->testingFramework->createRecord('tx_oelib_testchild', ['tx_oelib_parent3' => $uid]);
+
+        /** @var TestingModel $model */
+        $model = $this->subject->find($uid);
+        self::assertSame((string)$relatedUid, $model->getCompositionWithoutSorting()->getUids());
+    }
+
+    /**
+     * @test
+     */
     public function oneToManyRelationsWithOneRelatedModelNotLoadsDeletedModel()
     {
         $uid = $this->testingFramework->createRecord('tx_oelib_test', ['composition' => 1]);

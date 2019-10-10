@@ -27,5 +27,6 @@ class TestingChildMapper extends \Tx_Oelib_DataMapper
     protected $relations = [
         'parent' => TestingMapper::class,
         'tx_oelib_parent2' => TestingMapper::class,
+        'tx_oelib_parent3' => TestingMapper::class,
     ];
 }

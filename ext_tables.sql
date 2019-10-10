@@ -37,6 +37,7 @@ CREATE TABLE tx_oelib_test (
     bidirectional int(11) unsigned DEFAULT '0' NOT NULL,
     composition int(11) unsigned DEFAULT '0' NOT NULL,
     composition2 int(11) unsigned DEFAULT '0' NOT NULL,
+    composition_without_sorting int(11) unsigned DEFAULT '0' NOT NULL,
     float_data float(9,6) DEFAULT '0.000000' NOT NULL,
     decimal_data decimal(10,3) DEFAULT '0.000' NOT NULL,
     string_data varchar(255) DEFAULT '' NOT NULL,
@@ -64,6 +65,7 @@ CREATE TABLE tx_oelib_testchild (
     title varchar(255) DEFAULT '' NOT NULL,
     parent int(11) unsigned DEFAULT '0' NOT NULL,
     tx_oelib_parent2 int(11) unsigned DEFAULT '0' NOT NULL,
+    tx_oelib_parent3 int(11) unsigned DEFAULT '0' NOT NULL,
 
     PRIMARY KEY (uid),
     KEY parent (pid),

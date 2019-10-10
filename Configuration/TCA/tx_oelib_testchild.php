@@ -34,6 +34,13 @@ return [
                 'type' => 'passthrough',
             ],
         ],
+        'tx_oelib_parent3' => [
+            'l10n_mode' => 'exclude',
+            'exclude' => 1,
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
     ],
     'types' => [
         '0' => ['showitem' => ''],

@@ -503,10 +503,17 @@ abstract class Tx_Oelib_DataMapper
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
             $foreignTable = $relationConfiguration['foreign_table'];
             $foreignField = $relationConfiguration['foreign_field'];
-            $foreignSortBy = $relationConfiguration['foreign_sortby'];
+            if (!empty($relationConfiguration['foreign_sortby'])) {
+                $sortingField = $relationConfiguration['foreign_sortby'];
+            } elseif (!empty($relationConfiguration['foreign_default_sortby'])) {
+                $sortingField = $relationConfiguration['foreign_default_sortby'];
+            } else {
+                $sortingField = '';
+            }
             if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
+                $orderBy = $sortingField !== '' ? [$sortingField => 'ASC'] : [];
                 $modelData = $this->getConnectionForTable($foreignTable)
-                    ->select(['*'], $foreignTable, [$foreignField => (int)$data['uid']], [], [$foreignSortBy => 'ASC'])
+                    ->select(['*'], $foreignTable, [$foreignField => (int)$data['uid']], [], $orderBy)
                     ->fetchAll();
             } else {
                 $modelData = \Tx_Oelib_Db::selectMultiple(
@@ -514,7 +521,7 @@ abstract class Tx_Oelib_DataMapper
                     $foreignTable,
                     $foreignField . ' = ' . (int)$data['uid'] . \Tx_Oelib_Db::enableFields($foreignTable, 1),
                     '',
-                    $foreignSortBy
+                    $sortingField
                 );
             }
         }
@@ -1379,7 +1386,11 @@ abstract class Tx_Oelib_DataMapper
             if (\in_array($pageUids, ['', '0', 0], true)) {
                 $models = $this->findByWhereClause('', $sorting, $limit);
             } else {
-                $models = $this->findByWhereClause($this->getTableName() . '.pid IN (' . $pageUids . ')', $sorting, $limit);
+                $models = $this->findByWhereClause(
+                    $this->getTableName() . '.pid IN (' . $pageUids . ')',
+                    $sorting,
+                    $limit
+                );
             }
         }
 
