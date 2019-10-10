@@ -97,9 +97,7 @@ class Tx_Oelib_TranslatorRegistry
      */
     private function initializeBackEnd()
     {
-        $backEndUser =
-            \Tx_Oelib_BackEndLoginManager::getInstance()->getLoggedInUser(\Tx_Oelib_Mapper_BackEndUser::class);
-        $this->languageKey = $backEndUser->getLanguage();
+        $this->languageKey = \Tx_Oelib_BackEndLoginManager::getInstance()->getLoggedInUser()->getLanguage();
     }
 
     /**
@@ -169,17 +167,14 @@ class Tx_Oelib_TranslatorRegistry
 
         if (!isset($this->translators[$extensionName])) {
             $localizedLabels = $this->getLocalizedLabelsFromFile($extensionName);
-            // Overrides the localized labels with labels from TypoScript only
-            // in the front end.
+            // Overrides the localized labels with labels from TypoScript only in the front end.
 
             if (($this->getFrontEndController() !== null)
                 && isset($localizedLabels[$this->languageKey])
                 && is_array($localizedLabels[$this->languageKey])
             ) {
-                $labelsFromTyposcript = $this->getLocalizedLabelsFromTypoScript($extensionName);
-
-                foreach ($labelsFromTyposcript as $labelKey => $labelFromTyposcript) {
-                    $localizedLabels[$this->languageKey][$labelKey][0]['target'] = $labelFromTyposcript;
+                foreach ($this->getLocalizedLabelsFromTypoScript($extensionName) as $labelKey => $labelFromTypoScript) {
+                    $localizedLabels[$this->languageKey][$labelKey][0]['target'] = $labelFromTypoScript;
                 }
             }
 
