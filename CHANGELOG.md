@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z (unreleased)
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 2.3.1 (unreleased)
+
+### Added
 - Add PHP-CS-Fixer rules for PHPUnit (#226)
 
 ### Changed
