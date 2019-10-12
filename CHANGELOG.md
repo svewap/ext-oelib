@@ -28,6 +28,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the TYPO3 package repository from composer.json (#227)
 
 ### Fixed
+- Ignore restrictions with TestingFramework::count/countRecords (#258)
 - Fix regressions with the new Connection (#255, #256)
 - Move `Tests/` to the dev autoload in `ext_emconf.php` (#249)
 - Keep development files out of the packages (#248)

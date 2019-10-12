@@ -1897,6 +1897,7 @@ final class Tx_Oelib_TestingFramework
             $dummyColumn = $this->getDummyColumnName($table);
             $allCriteria[$dummyColumn] = 1;
             $query = $this->getQueryBuilderForTable($table)->count('*')->from($table);
+            $query->getRestrictions()->removeAll();
             foreach ($allCriteria as $identifier => $value) {
                 $query->andWhere($query->expr()->eq($identifier, $query->createNamedParameter($value)));
             }
