@@ -15,7 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
-## 2.3.1 (unreleased)
+## 2.3.1
 
 ### Added
 - Add PHP-CS-Fixer rules for PHPUnit (#226)
