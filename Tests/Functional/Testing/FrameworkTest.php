@@ -4,6 +4,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Testing;
 
 use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Test case.
@@ -36,9 +37,15 @@ class FrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createRecord('tx_oelib_test', ['hidden' => 1]);
 
-        /** @var MysqliStatement|\mysqli_result $result */
-        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'uid = ' . $uid);
-        $count = $result instanceof MysqliStatement ? $result->rowCount() : $result->num_rows;
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8007000) {
+            /** @var MysqliStatement $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'uid = ' . $uid);
+            $count = $result->rowCount();
+        } else {
+            /** @var \mysqli_result $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'uid = ' . $uid);
+            $count = $result->num_rows;
+        }
         self::assertSame(1, $count);
     }
 
@@ -49,9 +56,15 @@ class FrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createRecord('tx_oelib_test', ['deleted' => 1]);
 
-        /** @var MysqliStatement|\mysqli_result $result */
-        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'uid = ' . $uid);
-        $count = $result instanceof MysqliStatement ? $result->rowCount() : $result->num_rows;
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8007000) {
+            /** @var MysqliStatement $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'uid = ' . $uid);
+            $count = $result->rowCount();
+        } else {
+            /** @var \mysqli_result $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'uid = ' . $uid);
+            $count = $result->num_rows;
+        }
         self::assertSame(1, $count);
     }
 
@@ -105,9 +118,15 @@ class FrameworkTest extends FunctionalTestCase
 
         $this->subject->cleanUp();
 
-        /** @var MysqliStatement|\mysqli_result $result */
-        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'hidden = 1');
-        $count = $result instanceof MysqliStatement ? $result->rowCount() : $result->num_rows;
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8007000) {
+            /** @var MysqliStatement $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'hidden = 1');
+            $count = $result->rowCount();
+        } else {
+            /** @var \mysqli_result $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'hidden = 1');
+            $count = $result->num_rows;
+        }
         self::assertSame(0, $count);
     }
 
@@ -121,9 +140,15 @@ class FrameworkTest extends FunctionalTestCase
 
         $this->subject->cleanUp();
 
-        /** @var MysqliStatement|\mysqli_result $result */
-        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'deleted = 1');
-        $count = $result instanceof MysqliStatement ? $result->rowCount() : $result->num_rows;
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8007000) {
+            /** @var MysqliStatement $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'deleted = 1');
+            $count = $result->rowCount();
+        } else {
+            /** @var \mysqli_result $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'deleted = 1');
+            $count = $result->num_rows;
+        }
         self::assertSame(0, $count);
     }
 }
