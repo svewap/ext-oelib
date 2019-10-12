@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix MySQL error when saving boolean properties in TYPO3 8.7 (#261)
 
 ## 2.3.1
 

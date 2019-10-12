@@ -2,6 +2,7 @@
 
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
+use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
@@ -1919,6 +1920,60 @@ class AbstractDataMapperTest extends FunctionalTestCase
                 'title = "bar"'
             )
         );
+    }
+
+    /**
+     * @return mixed[][]
+     */
+    public function dataTypeDataProvider()
+    {
+        return [
+            'string' => ['title', 'the title'],
+            'float as float' => ['float_data', 3.5],
+            'float as decimal' => ['decimal_data', '3.500'],
+            'float as string' => ['string_data', '3.5'],
+            'boolean true' => ['bool_data1', 1],
+            'boolean false' => ['bool_data2', 0],
+            'int' => ['int_data', 42],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @param string $propertyName
+     * @param mixed $expectedValue
+     *
+     * @dataProvider dataTypeDataProvider
+     */
+    public function savePersistsAllBasicDataTypes($propertyName, $expectedValue)
+    {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8007000) {
+            self::markTestSkipped('This test is intended for TYPO3 8.7 and up.');
+        }
+
+        $model = new TestingModel();
+        $model->setData(
+            [
+                'title' => 'the title',
+                'float_data' => 3.5,
+                'decimal_data' => 3.5,
+                'string_data' => 3.5,
+                'bool_data1' => true,
+                'bool_data2' => false,
+                'int_data' => 42,
+            ]
+        );
+
+        $this->subject->save($model);
+
+        $uid = $model->getUid();
+
+        /** @var MysqliStatement $result */
+        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'uid = ' . $uid);
+        $data = $result->fetch();
+
+        self::assertSame($expectedValue, $data[$propertyName]);
     }
 
     /**

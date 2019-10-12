@@ -923,8 +923,13 @@ abstract class Tx_Oelib_DataMapper
                 }
             }
 
-            $data[$key] = (isset($data[$key]) && is_object($data[$key]))
-                ? $data[$key]->$functionName() : 0;
+            $data[$key] = (isset($data[$key]) && is_object($data[$key])) ? $data[$key]->$functionName() : 0;
+        }
+
+        foreach ($data as &$dataItem) {
+            if (\is_bool($dataItem)) {
+                $dataItem = (int)$dataItem;
+            }
         }
 
         return $data;
