@@ -69,6 +69,65 @@ class FrameworkTest extends FunctionalTestCase
     }
 
     /**
+     * @return bool[][]
+     */
+    public function booleanDataProvider()
+    {
+        return [
+            'false' => [false],
+            'true' => [true],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @param bool $value
+     *
+     * @dataProvider booleanDataProvider
+     */
+    public function createRecordPersistsBooleansAsIntegers($value)
+    {
+        $this->subject->createRecord('tx_oelib_test', ['bool_data1' => $value]);
+
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8007000) {
+            /** @var MysqliStatement $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value);
+            $count = $result->rowCount();
+        } else {
+            /** @var \mysqli_result $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value);
+            $count = $result->num_rows;
+        }
+        self::assertSame(1, $count);
+    }
+
+    /**
+     * @test
+     *
+     * @param bool $value
+     *
+     * @dataProvider booleanDataProvider
+     */
+    public function updateRecordPersistsBooleansAsIntegers($value)
+    {
+        $uid = $this->subject->createRecord('tx_oelib_test');
+
+        $this->subject->changeRecord('tx_oelib_test', $uid, ['bool_data1' => $value]);
+
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8007000) {
+            /** @var MysqliStatement $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value);
+            $count = $result->rowCount();
+        } else {
+            /** @var \mysqli_result $result */
+            $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value);
+            $count = $result->num_rows;
+        }
+        self::assertSame(1, $count);
+    }
+
+    /**
      * @test
      */
     public function countRecordsCanFindHiddenRecord()
@@ -106,6 +165,25 @@ class FrameworkTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['deleted' => 1, 'is_dummy_record' => 1]);
 
         self::assertSame(1, $this->subject->count('tx_oelib_test'));
+    }
+
+    /**
+     * @test
+     *
+     * @param bool $value
+     *
+     * @dataProvider booleanDataProvider
+     */
+    public function countCanFindWithBooleanValues($value)
+    {
+        $this->getDatabaseConnection()->insertArray(
+            'tx_oelib_test',
+            ['bool_data1' => (int)$value, 'is_dummy_record' => 1]
+        );
+
+        $result = $this->subject->count('tx_oelib_test', ['bool_data1' => $value]);
+
+        self::assertSame(1, $result);
     }
 
     /**

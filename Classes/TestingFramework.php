@@ -284,41 +284,56 @@ final class Tx_Oelib_TestingFramework
     }
 
     /**
-     * Creates a new dummy record for unit tests without checks for the table
-     * name.
+     * Creates a new dummy record for unit tests without checks for the table name.
      *
-     * If no record data for the new array is given, an empty record will be
-     * created. It will only contain a valid UID and the "is_dummy_record" flag
-     * will be set to 1.
+     * If no record data for the new array is given, an empty record will be created.
+     * It will only contain a valid UID and the "is_dummy_record" flag will be set to 1.
      *
      * Should there be any problem creating the record (wrong table name or a
      * problem with the database), 0 instead of a valid UID will be returned.
      *
-     * @param string $table
-     *        the name of the table on which the record should be created, must not be empty
-     * @param array $recordData
-     *        associative array that contains the data to save in the new record, may be empty, but must not contain
+     * @param string $table the name of the table on which the record should be created, must not be empty
+     * @param array $rawData
+     *        associative array containing the data to save in the new record, may be empty, but must not contain
      *     the key "uid"
      *
      * @return int the UID of the new record, will be > 0
      */
-    private function createRecordWithoutTableNameChecks($table, array $recordData)
+    private function createRecordWithoutTableNameChecks($table, array $rawData)
     {
         $this->initializeDatabase();
+        $dataToInsert = $this->normalizeDatabaseRow($rawData);
         $dummyColumnName = $this->getDummyColumnName($table);
-        $recordData[$dummyColumnName] = 1;
+        $dataToInsert[$dummyColumnName] = 1;
 
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
             $connection = $this->getConnectionForTable($table);
-            $connection->insert($table, $recordData);
+            $connection->insert($table, $dataToInsert);
             $uid = (int)$connection->lastInsertId($table);
         } else {
-            $uid = \Tx_Oelib_Db::insert($table, $recordData);
+            $uid = \Tx_Oelib_Db::insert($table, $dataToInsert);
         }
 
         $this->markTableAsDirty($table);
 
         return $uid;
+    }
+
+    /**
+     * Normalizes the types in the given data so that the data con be inserted into a DB.
+     *
+     * @param array $rawData
+     *
+     * @return array
+     */
+    private function normalizeDatabaseRow(array $rawData)
+    {
+        $dataToInsert = [];
+        foreach ($rawData as $key => $value) {
+            $dataToInsert[$key] = \is_bool($value) ? (int)$value : $value;
+        }
+
+        return $dataToInsert;
     }
 
     /**
@@ -378,10 +393,8 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the UID of the new system folder, will be > 0
      */
-    public function createSystemFolder(
-        $parentId = 0,
-        array $recordData = []
-    ) {
+    public function createSystemFolder($parentId = 0, array $recordData = [])
+    {
         return $this->createGeneralPageRecord(254, $parentId, $recordData);
     }
 
@@ -404,11 +417,8 @@ final class Tx_Oelib_TestingFramework
      *
      * @throws \InvalidArgumentException
      */
-    private function createGeneralPageRecord(
-        $documentType,
-        $parentId,
-        array $recordData
-    ) {
+    private function createGeneralPageRecord($documentType, $parentId, array $recordData)
+    {
         if (isset($recordData['uid'])) {
             throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489697);
         }
@@ -444,10 +454,8 @@ final class Tx_Oelib_TestingFramework
      *
      * @throws \InvalidArgumentException
      */
-    public function createContentElement(
-        $pageId = 0,
-        array $recordData = []
-    ) {
+    public function createContentElement($pageId = 0, array $recordData = [])
+    {
         if (isset($recordData['uid'])) {
             throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489735);
         }
@@ -625,7 +633,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @param string $table the name of the table, must not be empty
      * @param int $uid the UID of the record to change, must not be empty
-     * @param array $recordData
+     * @param array $rawData
      *        associative array containing key => value pairs for those fields of the record that need to be changed,
      *        must not be empty
      *
@@ -634,7 +642,7 @@ final class Tx_Oelib_TestingFramework
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
      */
-    public function changeRecord($table, $uid, $recordData)
+    public function changeRecord($table, $uid, $rawData)
     {
         $this->initializeDatabase();
         $dummyColumnName = $this->getDummyColumnName($table);
@@ -648,16 +656,16 @@ final class Tx_Oelib_TestingFramework
         if ($uid === 0) {
             throw new \InvalidArgumentException('The parameter $uid must not be zero.', 1331490003);
         }
-        if (empty($recordData)) {
+        if (empty($rawData)) {
             throw new \InvalidArgumentException('The array with the new record data must not be empty.', 1331490008);
         }
-        if (isset($recordData['uid'])) {
+        if (isset($rawData['uid'])) {
             throw new \InvalidArgumentException(
                 'The parameter $recordData must not contain changes to the UID of a record.',
                 1331490017
             );
         }
-        if (isset($recordData[$dummyColumnName])) {
+        if (isset($rawData[$dummyColumnName])) {
             throw new \InvalidArgumentException(
                 'The parameter $recordData must not contain changes to the field "' . $dummyColumnName .
                 '". It is impossible to convert a dummy record into a regular record.',
@@ -671,10 +679,11 @@ final class Tx_Oelib_TestingFramework
             );
         }
 
+        $dataToSave = $this->normalizeDatabaseRow($rawData);
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $this->getConnectionForTable($table)->update($table, $recordData, ['uid' => $uid, $dummyColumnName => 1]);
+            $this->getConnectionForTable($table)->update($table, $dataToSave, ['uid' => $uid, $dummyColumnName => 1]);
         } else {
-            \Tx_Oelib_Db::update($table, 'uid = ' . $uid . ' AND ' . $dummyColumnName . ' = 1', $recordData);
+            \Tx_Oelib_Db::update($table, 'uid = ' . $uid . ' AND ' . $dummyColumnName . ' = 1', $dataToSave);
         }
     }
 
@@ -1096,8 +1105,6 @@ final class Tx_Oelib_TestingFramework
      * Creates a dummy ZIP archive with a unique file name in the calling
      * extension's upload directory.
      *
-     * @throws \RuntimeException if the PHP installation does not provide ZIPArchive
-     *
      * @param string $fileName
      *        path of the dummy ZIP archive to create, relative to the calling extension's upload directory, must not
      *     be empty
@@ -1109,8 +1116,8 @@ final class Tx_Oelib_TestingFramework
      *
      * @return string the absolute path of the created dummy ZIP archive, will not be empty
      *
-     * @throws \RuntimeException
-     * @throws UnexpectedValueException
+     * @throws \RuntimeException if the PHP installation does not provide ZIPArchive
+     * @throws \UnexpectedValueException
      */
     public function createDummyZipArchive(
         $fileName = 'test.zip',
@@ -1132,7 +1139,7 @@ final class Tx_Oelib_TestingFramework
 
         foreach ($contents as $pathToFile) {
             if (!file_exists($pathToFile)) {
-                throw new UnexpectedValueException(
+                throw new \UnexpectedValueException(
                     'The provided path "' . $pathToFile . '" does not point to an exisiting file.',
                     1331490528
                 );
@@ -1327,15 +1334,13 @@ final class Tx_Oelib_TestingFramework
      * Returns the path relative to the calling extension's upload directory for
      * a path given in the first parameter $absolutePath.
      *
-     * @throws exception if the first parameter $absolutePath is not within
-     *                   the calling extension's upload directory
-     *
      * @param string $absolutePath
      *        the absolute path to process, must be within the calling extension's upload directory, must not be empty
      *
      * @return string the path relative to the calling extension's upload directory
      *
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException if the first parameter $absolutePath is not within
+     *                   the calling extension's upload directory
      */
     public function getPathRelativeToUploadDirectory($absolutePath)
     {
@@ -1407,13 +1412,11 @@ final class Tx_Oelib_TestingFramework
      * Note: This function does not set TYPO3_MODE to "FE" (because the value of
      * a constant cannot be changed after it has once been set).
      *
-     * @throws \InvalidArgumentException if $pageUid is < 0
-     *
      * @param int $pageUid UID of a page record to use, must be >= 0
      *
      * @return int the UID of the used front-end page, will be > 0
      *
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException if $pageUid is < 0
      */
     public function createFakeFrontEnd($pageUid = 0)
     {
@@ -1611,11 +1614,9 @@ final class Tx_Oelib_TestingFramework
     /**
      * Checks whether a FE user is logged in.
      *
-     * @throws \BadMethodCallException if no front end has been created
-     *
      * @return bool TRUE if a FE user is logged in, FALSE otherwise
      *
-     * @throws \BadMethodCallException
+     * @throws \BadMethodCallException if no front end has been created
      */
     public function isLoggedIn()
     {
@@ -2309,7 +2310,7 @@ final class Tx_Oelib_TestingFramework
             );
         }
 
-        $query =  'UPDATE ' . $tableName . ' SET ' . $fieldName . '=' . $fieldName . '+1 WHERE uid=' . $uid;
+        $query = 'UPDATE ' . $tableName . ' SET ' . $fieldName . '=' . $fieldName . '+1 WHERE uid=' . $uid;
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
             $numberOfAffectedRows = $this->getConnectionForTable($tableName)->query($query)->rowCount();
         } else {

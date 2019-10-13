@@ -753,6 +753,24 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     /**
      * @test
+     *
+     * @param bool $value
+     *
+     * @dataProvider booleanDataProvider
+     */
+    public function updateCanUpdateRecordWithBooleanData($value)
+    {
+        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+
+        \Tx_Oelib_Db::update('tx_oelib_test', 'uid = ' . $uid, ['bool_data1' => $value]);
+
+        self::assertTrue(
+            $this->testingFramework->existsRecord('tx_oelib_test', 'bool_data1 = ' . (int)$value)
+        );
+    }
+
+    /**
+     * @test
      */
     public function updateForNoChangedRecordReturnsZero()
     {
@@ -847,6 +865,37 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
                 'tx_oelib_test',
                 'title = "foo"'
             )
+        );
+    }
+
+    /**
+     * @return bool[][]
+     */
+    public function booleanDataProvider()
+    {
+        return [
+            'false' => [false],
+            'true' => [true],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @param bool $value
+     *
+     * @dataProvider booleanDataProvider
+     */
+    public function insertCanInsertRecordWithBooleanData($value)
+    {
+        \Tx_Oelib_Db::insert(
+            'tx_oelib_test',
+            ['bool_data1' => $value, 'is_dummy_record' => 1]
+        );
+        $this->testingFramework->markTableAsDirty('tx_oelib_test');
+
+        self::assertTrue(
+            $this->testingFramework->existsRecord('tx_oelib_test', 'bool_data1 = ' . (int)$value)
         );
     }
 
