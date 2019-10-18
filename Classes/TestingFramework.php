@@ -9,6 +9,7 @@ use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -945,7 +946,7 @@ final class Tx_Oelib_TestingFramework
             }
         }
 
-        \TYPO3\CMS\Core\Utility\RootlineUtility::purgeCaches();
+        RootlineUtility::purgeCaches();
     }
 
     /**
