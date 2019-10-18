@@ -368,9 +368,9 @@ final class Tx_Oelib_TestingFramework
      * Creates a front-end page on the page with the UID given by the first
      * parameter $parentId.
      *
-     * @param int $parentId
+     * @param int $parentId @deprecated will be removed in oelib 3.0
      *        UID of the page on which the page should be created
-     * @param array $recordData
+     * @param array $recordData @deprecated will be removed in oelib 3.0
      *        associative array that contains the data to save in the new page,
      *        may be empty, but must not contain the keys "uid", "pid" or "doktype"
      *
@@ -387,7 +387,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @param int $parentId
      *        UID of the page on which the system folder should be created
-     * @param array $recordData
+     * @param array $recordData @deprecated will be removed in oelib 3.0
      *        associative array that contains the data to save in the new page,
      *        may be empty, but must not contain the keys "uid", "pid" or "doktype"
      *
@@ -444,6 +444,8 @@ final class Tx_Oelib_TestingFramework
      * element's type can be overwritten by setting the key 'CType' in the
      * parameter $recordData.
      *
+     * @deprecated will be removed in oelib 3.0
+     *
      * @param int $pageId
      *        UID of the page on which the content element should be created
      * @param array $recordData
@@ -473,8 +475,7 @@ final class Tx_Oelib_TestingFramework
     }
 
     /**
-     * Creates a template on the page with the UID given by the first parameter
-     * $pageId.
+     * Creates a template on the page with the UID given by the first parameter $pageId.
      *
      * @param int $pageId
      *        UID of the page on which the template should be created, must be > 0
@@ -607,6 +608,8 @@ final class Tx_Oelib_TestingFramework
     /**
      * Creates a BE user group.
      *
+     * @deprecated will be removed in oelib 3.0
+     *
      * @param array $recordData
      *        associative array that contains the data to save in the new user
      *        group record, may be empty, but must not contain the key "uid"
@@ -693,6 +696,8 @@ final class Tx_Oelib_TestingFramework
      * Important: Only dummy records from non-system tables can be deleted with
      * this method. Should there for any reason exist a real record with that
      * UID, it won't be deleted.
+     *
+     * @deprecated will be removed in oelib 3.0
      *
      * @param string $table name of the table from which the record should be deleted, must not be empty
      * @param int $uid UID of the record to delete, must be > 0
@@ -859,6 +864,8 @@ final class Tx_Oelib_TestingFramework
      * for any reason exist a real record with that combination of local and
      * foreign UID, it won't be deleted!
      *
+     * @deprecated will be removed in oelib 3.0
+     *
      * @param string $table name of the table from which the record should be deleted, must not be empty
      * @param int $uidLocal UID on the local table, must be > 0
      * @param int $uidForeign UID on the foreign table, must be > 0
@@ -989,6 +996,8 @@ final class Tx_Oelib_TestingFramework
     /**
      * Checks whether a table has a column "uid".
      *
+     * @deprecated will be made private in oelib 3.0
+     *
      * @param string $table the name of the table to check, must not be empty
      *
      * @return bool
@@ -1104,6 +1113,8 @@ final class Tx_Oelib_TestingFramework
     /**
      * Creates a dummy ZIP archive with a unique file name in the calling
      * extension's upload directory.
+     *
+     * @deprecated will be removed in oelib 3.0
      *
      * @param string $fileName
      *        path of the dummy ZIP archive to create, relative to the calling extension's upload directory, must not
@@ -1237,6 +1248,8 @@ final class Tx_Oelib_TestingFramework
      * Deletes the dummy folder specified in the first parameter $folderName.
      * The folder must be empty (no files or subfolders).
      *
+     * @deprecated will be made private in oelib 3.0
+     *
      * @param string $folderName the path to the folder to delete relative to $this->uploadFolderPath, must not be empty
      *
      * @throws \RuntimeException
@@ -1364,6 +1377,8 @@ final class Tx_Oelib_TestingFramework
     /**
      * Returns a unique absolute path of a file or folder.
      *
+     * @deprecated will be made private in oelib 3.0
+     *
      * @param string $path the path of a file or folder relative to the calling extension's upload directory,
      *                     must not be empty
      *
@@ -1474,6 +1489,8 @@ final class Tx_Oelib_TestingFramework
      *
      * If no fake front end has been created, this function does nothing.
      *
+     * @deprecated will be marked private in oelib 3.0
+     *
      * @return void
      */
     public function discardFakeFrontEnd()
@@ -1496,6 +1513,8 @@ final class Tx_Oelib_TestingFramework
 
     /**
      * Returns whether this testing framework instance has a fake front end.
+     *
+     * @deprecated will be removed in oelib 3.0
      *
      * @return bool TRUE if this instance has a fake front end, FALSE
      *                 otherwise
@@ -1534,6 +1553,8 @@ final class Tx_Oelib_TestingFramework
      *
      * Note: To set the logged-in users group data properly, the front-end user
      *       and his groups must actually exist in the database.
+     *
+     * @deprecated will be made private in oelib 3.0
      *
      * @param int $userId UID of the FE user, must not necessarily exist in the database, must be > 0
      *
@@ -1634,6 +1655,8 @@ final class Tx_Oelib_TestingFramework
     /**
      * Returns a list of all table names that are available in the current
      * database.
+     *
+     * @deprecated will be made private in oelib 3.0
      *
      * @return string[] table names
      */
@@ -2045,6 +2068,8 @@ final class Tx_Oelib_TestingFramework
      * The threshold is 100 by default and can be set using
      * setResetAutoIncrementThreshold.
      *
+     * @deprecated will be made private in oelib 3.0
+     *
      * @param string $table the name of the table on which we're going to reset the auto increment entry, must not be
      *     empty
      *
@@ -2176,6 +2201,8 @@ final class Tx_Oelib_TestingFramework
     /**
      * Returns the list of allowed table names.
      *
+     * @deprecated will be made private in oelib 3.0
+     *
      * @return string[] all allowed table names for this instance of the testing framework
      */
     public function getListOfOwnAllowedTableNames()
@@ -2187,6 +2214,8 @@ final class Tx_Oelib_TestingFramework
 
     /**
      * Returns the list of additional allowed table names.
+     *
+     * @deprecated will be made private in oelib 3.0
      *
      * @return string[] all additional allowed table names for this instance of the testing framework, may be empty
      */
@@ -2232,6 +2261,8 @@ final class Tx_Oelib_TestingFramework
      * Returns the list of tables that contain dummy records from testing. These
      * tables are called "dirty tables" as they need to be cleaned up.
      *
+     * @deprecated will be made private in oelib 3.0
+     *
      * @return string[] associative array containing names of database tables that need to be cleaned up
      */
     public function getListOfDirtyTables()
@@ -2243,6 +2274,8 @@ final class Tx_Oelib_TestingFramework
      * Returns the list of system tables that contain dummy records from
      * testing. These tables are called "dirty tables" as they need to be
      * cleaned up.
+     *
+     * @deprecated will be made private in oelib 3.0
      *
      * @return string[] associative array containing names of system database tables that need to be cleaned up
      */
@@ -2259,6 +2292,8 @@ final class Tx_Oelib_TestingFramework
      * account. So you always should create new dummy records and create a
      * relation between these two dummy records, so you're sure there aren't
      * already relations for a local UID in the database.
+     *
+     * @deprecated will be made private in oelib 3.0
      *
      * @see https://bugs.oliverklee.com/show_bug.cgi?id=1423
      *
@@ -2282,7 +2317,9 @@ final class Tx_Oelib_TestingFramework
      * Updates an integer field of a database table by one. This is mainly needed
      * for counting up the relation counter when creating a database relation.
      *
-     * The field to update must be of type integer.
+     * The field to update must be of type int.
+     *
+     * @deprecated will be made private in oelib 3.0
      *
      * @param string $tableName name of the table, must not be empty
      * @param int $uid the UID of the record to modify, must be > 0
