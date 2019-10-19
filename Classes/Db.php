@@ -3,7 +3,6 @@
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -51,6 +50,8 @@ class Tx_Oelib_Db
     /**
      * Enables query logging in TYPO3's DB class.
      *
+     * @deprecated will be removed in oelib 3.0
+     *
      * @return void
      */
     public static function enableQueryLogging()
@@ -83,9 +84,11 @@ class Tx_Oelib_Db
      *        Array you can pass where keys can be "disabled", "starttime", "endtime", "fe_group" (keys from
      *     "enablefields" in TCA) and if set they will make sure that part of the clause is not added. Thus disables
      *     the specific part of the clause. For previewing etc.
+     *     @deprecated will be removed in oelib 3.0
      * @param bool $noVersionPreview
      *        If set, enableFields will be applied regardless of any versioning preview settings which might otherwise
      *     disable enableFields.
+     *     @deprecated will be removed in oelib 3.0
      *
      * @return string the WHERE clause starting like " AND ...=... AND ...=..."
      */
@@ -352,7 +355,7 @@ class Tx_Oelib_Db
      * @param string $whereClause WHERE clause, may be empty
      * @param string $groupBy GROUP BY field(s), may be empty
      * @param string $orderBy ORDER BY field(s), may be empty
-     * @param int $offset the offset to start the result for, must be >= 0
+     * @param int $offset the offset to start the result for, must be >= 0 @deprecated will be removed in oelib 3.0
      *
      * @return string[] the single result row, will not be empty
      *
@@ -432,7 +435,7 @@ class Tx_Oelib_Db
      * @param string $whereClause WHERE clause, may be empty
      * @param string $groupBy GROUP BY field(s), may be empty
      * @param string $orderBy ORDER BY field(s), may be empty
-     * @param string $limit LIMIT value ([begin,]max), may be empty
+     * @param string $limit LIMIT value ([begin,]max), may be empty @deprecated will be removed in oelib 3.0
      *
      * @return string[] one column from the the query result rows, will be empty if there are no matching records
      */
@@ -514,6 +517,8 @@ class Tx_Oelib_Db
      * Checks whether there is exactly one record in the table given by the
      * first parameter $table that matches a given WHERE clause.
      *
+     * @deprecated will be removed in oelib 3.0
+     *
      * @param string $table the name of the table to query, must not be empty
      * @param string $whereClause
      *        the WHERE part of the query, may be empty (all records will be
@@ -556,8 +561,9 @@ class Tx_Oelib_Db
     /////////////////////////////////////
 
     /**
-     * Returns a list of all table names that are available in the current
-     * database.
+     * Returns a list of all table names that are available in the current database.
+     *
+     * @deprecated will be removed in oelib 3.0
      *
      * @return string[] table names
      */
@@ -637,6 +643,8 @@ class Tx_Oelib_Db
     /**
      * Gets the column definition for a field in $table.
      *
+     * @deprecated will be removed in oelib 3.0
+     *
      * @param string $table
      *        the name of the table for which the column names should be retrieved, must not be empty
      * @param string $column
@@ -710,6 +718,8 @@ class Tx_Oelib_Db
     /**
      * Checks whether a table has a column "uid".
      *
+     * @deprecated will be removed in oelib 3.0
+     *
      * @param string $table the name of the table to check, must not be empty
      *
      * @return bool TRUE if a valid column was found, FALSE otherwise
@@ -725,6 +735,8 @@ class Tx_Oelib_Db
 
     /**
      * Returns the TCA for a certain table.
+     *
+     * @deprecated will be removed in oelib 3.0
      *
      * @param string $tableName the table name to look up, must not be empty
      *
@@ -768,16 +780,6 @@ class Tx_Oelib_Db
     }
 
     /**
-     * @param string $tableName
-     *
-     * @return QueryBuilder
-     */
-    private static function getQueryBuilderForTable($tableName)
-    {
-        return self::getConnectionPool()->getQueryBuilderForTable($tableName);
-    }
-
-    /**
      * @return ConnectionPool
      */
     private static function getConnectionPool()
@@ -790,7 +792,7 @@ class Tx_Oelib_Db
      *
      * @return TypoScriptFrontendController|null
      */
-    protected static function getFrontEndController()
+    private static function getFrontEndController()
     {
         return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : null;
     }

@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 ### Deprecated
+- Deprecate some methods in Db (#267)
 - Deprecate some methods in TestingFramework (#265)
 
 ### Removed
