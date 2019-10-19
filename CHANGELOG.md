@@ -10,15 +10,19 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 ### Deprecated
+
+### Removed
+
+### Fixed
+
+## 2.3.4
+
+### Deprecated
 - Deprecate the header-related classes (#270)
 - Deprecate TemplateHelper::addJavaScriptToPageHeader (#269)
 - Deprecate Translator and TranslatorRegistry (#268)
 - Deprecate some methods in the Db class (#267)
 - Deprecate some methods in TestingFramework (#265)
-
-### Removed
-
-### Fixed
 
 ## 2.3.3
 
