@@ -1060,6 +1060,8 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * This function may only be called if $this->$prefixId has been set.
      *
+     * @deprecated will be removed in oelib 4.0
+     *
      * @return void
      */
     public function addJavaScriptToPageHeader()
@@ -1325,10 +1327,9 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     }
 
     /**
-     * Gets the ID of the currently selected back-end page.
+     * Gets the UID of the currently selected back-end page.
      *
-     * @return int the current back-end page ID (or 0 if there is an
-     *                 error)
+     * @return int the current back-end page UID (or 0 if there is an error)
      */
     public function getCurrentBePageId()
     {

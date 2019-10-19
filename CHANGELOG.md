@@ -10,8 +10,9 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 ### Deprecated
+- Deprecate TemplateHelper::addJavaScriptToPageHeader (#269)
 - Deprecate Translator and TranslatorRegistry (#268)
-- Deprecate some methods in Db (#267)
+- Deprecate some methods in the Db class (#267)
 - Deprecate some methods in TestingFramework (#265)
 
 ### Removed
