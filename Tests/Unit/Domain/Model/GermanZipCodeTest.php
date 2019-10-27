@@ -34,14 +34,6 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasNonNamespacedAlias()
-    {
-        self::assertInstanceOf(\Tx_Oelib_Domain_Model_GermanZipCode::class, $this->subject);
-    }
-
-    /**
-     * @test
-     */
     public function isGeo()
     {
         self::assertInstanceOf(\Tx_Oelib_Interface_Geo::class, $this->subject);

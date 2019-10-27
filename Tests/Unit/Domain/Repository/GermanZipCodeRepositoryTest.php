@@ -39,14 +39,6 @@ class GermanZipCodeRepositoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasNonNamespacedAlias()
-    {
-        self::assertInstanceOf(\Tx_Oelib_Domain_Repository_GermanZipCodeRepository::class, $this->subject);
-    }
-
-    /**
-     * @test
-     */
     public function addThrowsException()
     {
         $this->expectException(\BadMethodCallException::class);
