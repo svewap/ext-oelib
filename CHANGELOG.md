@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Remove deprecated traits (#278)
 - Drop support for PHP 5 (#274)
 - Drop support for TYPO3 7.6 (#273)
 
