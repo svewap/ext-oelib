@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for TYPO3 7.6 (#273)
 
 ### Fixed
+- Stop using the removed getMock() method (#276)
 
 ## 2.3.4
 
