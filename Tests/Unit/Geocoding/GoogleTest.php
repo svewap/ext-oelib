@@ -326,6 +326,8 @@ class GoogleTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function lookUpUsesApiKey()
     {

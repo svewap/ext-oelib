@@ -44,33 +44,6 @@ class AbstractModelTest extends UnitTestCase
     /**
      * @test
      */
-    public function destructDoesNotCrashForRelationToSelf()
-    {
-        $subject = new TestingModel();
-        $subject->setData(
-            ['foo' => $subject]
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function destructDoesNotCrashForTwoModelsInACircle()
-    {
-        $subject1 = new TestingModel();
-        $subject2 = new TestingModel();
-
-        $subject1->setData(
-            ['foo' => $subject2]
-        );
-        $subject2->setData(
-            ['foo' => $subject1]
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getWithNoDataThrowsException()
     {
         $this->expectException(
@@ -86,6 +59,8 @@ class AbstractModelTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function setDataWithEmptyArrayIsAllowed()
     {
@@ -152,6 +127,8 @@ class AbstractModelTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetDataCanBeCalledTwoTimes()
     {
@@ -536,6 +513,8 @@ class AbstractModelTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function setUidForAModelWithoutUidDoesNotFail()
     {
@@ -662,6 +641,8 @@ class AbstractModelTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function getUidOnDeadModelDoesNotFail()
     {
@@ -1056,6 +1037,8 @@ class AbstractModelTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function setDataOnReadOnlyModelDoesNotFail()
     {
@@ -1256,6 +1239,8 @@ class AbstractModelTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function setPageUidWithZeroPageUidNotThrowsException()
     {

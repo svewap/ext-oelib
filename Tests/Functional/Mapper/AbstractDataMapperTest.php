@@ -3608,6 +3608,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function deleteForDeadModelDoesNotThrowException()
     {
@@ -3744,6 +3746,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function deleteForDirtyModelWithOneToManyRelationToDirtyElementDoesNotCrash()
     {

@@ -106,6 +106,8 @@ class ConfigurationRegistryTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function setTwoTimesForTheSameNamespaceDoesNotFail()
     {

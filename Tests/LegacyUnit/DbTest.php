@@ -1330,6 +1330,8 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countCanBeCalledWithEmptyWhereClause()
     {
@@ -1338,6 +1340,8 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countCanBeCalledWithMissingWhereClause()
     {
@@ -1391,6 +1395,8 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countCanBeCalledForTableWithoutUid()
     {
@@ -1399,6 +1405,8 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countCanBeCalledWithMultipleTables()
     {
@@ -1417,6 +1425,8 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countCanBeCalledWithJoinedTables()
     {
@@ -1459,6 +1469,8 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function existsRecordWithEmptyWhereClauseIsAllowed()
     {
@@ -1467,6 +1479,8 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function existsRecordWithMissingWhereClauseIsAllowed()
     {
@@ -1542,6 +1556,8 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function existsExactlyOneRecordWithEmptyWhereClauseIsAllowed()
     {
@@ -1550,6 +1566,8 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function existsExactlyOneRecordWithMissingWhereClauseIsAllowed()
     {

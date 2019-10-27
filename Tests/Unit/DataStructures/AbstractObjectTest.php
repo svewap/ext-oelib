@@ -43,6 +43,8 @@ class AbstractObjectTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function checkForNonEmptyKeyWithNonEmptyKeyIsAllowed()
     {

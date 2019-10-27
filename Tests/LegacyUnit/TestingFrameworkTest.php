@@ -407,6 +407,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function createRecordOnValidAdditionalAllowedTableWithValidDataSucceeds()
     {
@@ -551,6 +553,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function changeRecordOnAdditionalAllowedTableSucceeds()
     {
@@ -685,6 +689,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function deleteRecordOnValidDummyRecordOnAdditionalAllowedTableSucceeds()
     {
@@ -829,6 +835,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function createRelationWithValidDataOnAdditionalAllowedTableSucceeds()
     {
@@ -1191,6 +1199,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function removeRelationOnValidDummyRecordOnAdditionalAllowedTableSucceeds()
     {
@@ -1390,6 +1400,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function cleanUpWithDeepCleanup()
     {
@@ -1721,6 +1733,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function getAutoIncrementForFeUsersTableIsAllowed()
     {
@@ -1729,6 +1743,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function getAutoIncrementForPagesTableIsAllowed()
     {
@@ -1737,6 +1753,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function getAutoIncrementForTtContentTableIsAllowed()
     {
@@ -1759,6 +1777,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function getAutoIncrementForSysFileIsAllowed()
     {
@@ -1767,6 +1787,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function getAutoIncrementForSysFileCollectionIsAllowed()
     {
@@ -1775,6 +1797,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function getAutoIncrementForSysFileReferenceIsAllowed()
     {
@@ -1783,6 +1807,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function getAutoIncrementForSysCategoryIsAllowed()
     {
@@ -1861,6 +1887,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsWithEmptyWhereClauseIsAllowed()
     {
@@ -1869,6 +1897,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsWithMissingWhereClauseIsAllowed()
     {
@@ -1908,6 +1938,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsWithFeGroupsTableIsAllowed()
     {
@@ -1917,6 +1949,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsWithFeUsersTableIsAllowed()
     {
@@ -1926,6 +1960,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsWithPagesTableIsAllowed()
     {
@@ -1935,6 +1971,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsWithTtContentTableIsAllowed()
     {
@@ -1944,6 +1982,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsWithSysFileTableTableIsAllowed()
     {
@@ -1952,6 +1992,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsWithSysFileCollectionTableTableIsAllowed()
     {
@@ -1960,6 +2002,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsWithSysFileReferenceTableTableIsAllowed()
     {
@@ -1968,6 +2012,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsWithSysCategoryTableTableIsAllowed()
     {
@@ -1976,6 +2022,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsWithSysCategoryRecordMmTableTableIsAllowed()
     {
@@ -2062,6 +2110,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countRecordsForPagesTableIsAllowed()
     {
@@ -2103,6 +2153,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countWithEmptyWhereClauseIsAllowed()
     {
@@ -2111,6 +2163,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countWithMissingWhereClauseIsAllowed()
     {
@@ -2146,6 +2200,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countWithFeGroupsTableIsAllowed()
     {
@@ -2155,6 +2211,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countWithFeUsersTableIsAllowed()
     {
@@ -2164,6 +2222,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countWithPagesTableIsAllowed()
     {
@@ -2173,6 +2233,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countWithTtContentTableIsAllowed()
     {
@@ -2182,6 +2244,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countWithSysFileTableTableIsAllowed()
     {
@@ -2190,6 +2254,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countWithSysFileCollectionTableTableIsAllowed()
     {
@@ -2198,6 +2264,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countWithSysFileReferenceTableTableIsAllowed()
     {
@@ -2206,6 +2274,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countWithSysCategoryTableTableIsAllowed()
     {
@@ -2214,6 +2284,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countWithSysCategoryRecordMmTableTableIsAllowed()
     {
@@ -2298,6 +2370,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function countForPagesTableIsAllowed()
     {
@@ -2336,6 +2410,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function existsRecordWithEmptyWhereClauseIsAllowed()
     {
@@ -2344,6 +2420,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function existsRecordWithMissingWhereClauseIsAllowed()
     {
@@ -2579,6 +2657,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function existsExactlyOneRecordWithMissingWhereClauseIsAllowed()
     {
@@ -2717,6 +2797,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementForUnchangedTestTableCanBeRun()
     {
@@ -2725,6 +2807,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementForAdditionalAllowedTableSucceeds()
     {
@@ -2738,6 +2822,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementForTableWithoutUidIsAllowed()
     {
@@ -2746,6 +2832,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementForFeUsersTableIsAllowed()
     {
@@ -2754,6 +2842,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementForPagesTableIsAllowed()
     {
@@ -2762,6 +2852,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementForTtContentTableIsAllowed()
     {
@@ -2785,6 +2877,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementForSysFileTableIsAllowed()
     {
@@ -2793,6 +2887,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementForSysFileCollectionTableIsAllowed()
     {
@@ -2801,6 +2897,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementForSysFileReferenceTableIsAllowed()
     {
@@ -2809,6 +2907,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementForSysCategoryTableIsAllowed()
     {
@@ -2817,6 +2917,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementForSysCategoryRecordMmTableIsAllowed()
     {
@@ -2875,6 +2977,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementLazilyForTestTableIsAllowed()
     {
@@ -2883,6 +2987,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementLazilyForTableWithoutUidIsAllowed()
     {
@@ -2891,6 +2997,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementLazilyForFeUsersTableIsAllowed()
     {
@@ -2899,6 +3007,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementLazilyForPagesTableIsAllowed()
     {
@@ -2907,6 +3017,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementLazilyForTtContentTableIsAllowed()
     {
@@ -2930,6 +3042,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementLazilyForSysFileTableIsAllowed()
     {
@@ -2938,6 +3052,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementLazilyForSysFileCollectionTableIsAllowed()
     {
@@ -2946,6 +3062,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementLazilyForSysFileReferenceTableIsAllowed()
     {
@@ -2954,6 +3072,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementLazilyForSysCategoryTableIsAllowed()
     {
@@ -2962,6 +3082,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function resetAutoIncrementLazilyForSysCategoryRecordMmTableIsAllowed()
     {
@@ -3054,6 +3176,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function setResetAutoIncrementThresholdForOneIsAllowed()
     {
@@ -3062,6 +3186,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function setResetAutoIncrementThresholdFor100IsAllowed()
     {
@@ -4417,6 +4543,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function deleteDummyFileWithAlreadyDeletedFileThrowsNoException()
     {
@@ -4602,6 +4730,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function deleteDummyFolderWithFolderNameConsistingOnlyOfNumbersDoesNotThrowAnException()
     {
@@ -5581,6 +5711,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function discardFakeFrontEndCanBeCalledTwoTimes()
     {
@@ -5997,6 +6129,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function logoutFrontEndUserCanBeCalledTwoTimes()
     {

@@ -160,6 +160,8 @@ class AbstractMailerTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function sendWithAllValidEmailAddressesNotThrowsException()
     {
@@ -176,6 +178,8 @@ class AbstractMailerTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function sendWithAllValidLocalhostEmailAddressesNotThrowsException()
     {

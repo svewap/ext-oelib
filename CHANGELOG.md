@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Mark tests that do not contain any assertions (#277)
 
 ### Deprecated
 

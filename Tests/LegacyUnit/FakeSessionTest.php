@@ -25,6 +25,8 @@ class Tx_Oelib_Tests_LegacyUnit_FakeSessionTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function fakeSessionCanBeInstantiatedDirectly()
     {

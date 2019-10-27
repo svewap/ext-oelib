@@ -349,6 +349,8 @@ class CalculatorTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function moveByRandomDistanceWithZeroNotThrowsException()
     {
@@ -459,6 +461,8 @@ class CalculatorTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function moveInRandomDirectionAndDistanceWithZeroNotThrowsException()
     {

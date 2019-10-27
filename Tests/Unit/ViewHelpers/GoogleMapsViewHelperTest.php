@@ -188,6 +188,8 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function renderWithWithAndHeightInPixelsNotThrowsException()
     {
@@ -196,6 +198,8 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function renderWithWithAndHeightInPercentNotThrowsException()
     {

@@ -82,6 +82,8 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateHelperTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function processTemplateWithoutTemplateFileDoesNotThrowException()
     {

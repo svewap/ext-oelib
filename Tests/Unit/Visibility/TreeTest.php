@@ -197,6 +197,8 @@ class TreeTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function makeNodesVisibleForInexistentNodeGivenDoesNotCrash()
     {

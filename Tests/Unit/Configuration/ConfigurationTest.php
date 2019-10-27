@@ -42,6 +42,8 @@ class ConfigurationTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function setDataWithEmptyArrayIsAllowed()
     {
@@ -78,6 +80,8 @@ class ConfigurationTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function setDataCalledTwoTimesDoesNotFail()
     {
