@@ -2649,6 +2649,8 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
     /**
      * @test
+     *
+     * @doesNotPerformAssertions
      */
     public function existsExactlyOneRecordWithEmptyWhereClauseIsAllowed()
     {

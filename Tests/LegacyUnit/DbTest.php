@@ -973,17 +973,6 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
     /**
      * @test
      */
-    public function selectReturnsMySqliResult()
-    {
-        self::assertInstanceOf(
-            \mysqli_result::class,
-            \Tx_Oelib_Db::select('title', 'tx_phpunit_test')
-        );
-    }
-
-    /**
-     * @test
-     */
     public function selectSingleForEmptyTableNameThrowsException()
     {
         $this->expectException(\InvalidArgumentException::class);
