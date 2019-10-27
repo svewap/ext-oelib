@@ -48,21 +48,6 @@ class Tx_Oelib_Db
     private static $tableColumnCache = [];
 
     /**
-     * Enables query logging in TYPO3's DB class.
-     *
-     * @deprecated will be removed in oelib 3.0
-     *
-     * @return void
-     */
-    public static function enableQueryLogging()
-    {
-        GeneralUtility::logDeprecatedFunction();
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8004000) {
-            self::getDatabaseConnection()->store_lastBuiltQuery = true;
-        }
-    }
-
-    /**
      * Wrapper function for PageRepository::enableFields() since it is no
      * longer accessible statically.
      *
@@ -80,24 +65,11 @@ class Tx_Oelib_Db
      *        NOTICE: If you call this function, consider what to do with the show_hidden parameter.
      *        Maybe it should be set? See ContentObjectRenderer->enableFields
      *        where it's implemented correctly.
-     * @param array $ignoreArray
-     *        Array you can pass where keys can be "disabled", "starttime", "endtime", "fe_group" (keys from
-     *     "enablefields" in TCA) and if set they will make sure that part of the clause is not added. Thus disables
-     *     the specific part of the clause. For previewing etc.
-     *     @deprecated will be removed in oelib 3.0
-     * @param bool $noVersionPreview
-     *        If set, enableFields will be applied regardless of any versioning preview settings which might otherwise
-     *     disable enableFields.
-     *     @deprecated will be removed in oelib 3.0
      *
      * @return string the WHERE clause starting like " AND ...=... AND ...=..."
      */
-    public static function enableFields(
-        $table,
-        $showHidden = -1,
-        array $ignoreArray = [],
-        $noVersionPreview = false
-    ) {
+    public static function enableFields($table, $showHidden = -1)
+    {
         $intShowHidden = (int)$showHidden;
 
         if (!in_array($intShowHidden, [-1, 0, 1], true)) {
@@ -109,22 +81,20 @@ class Tx_Oelib_Db
 
         // maps $showHidden (-1..1) to (0..2) which ensures valid array keys
         $showHiddenKey = (string)($intShowHidden + 1);
-        $enrichedIgnores = $ignoreArray;
         if ($showHidden > 0) {
-            $enrichedIgnores['starttime'] = true;
-            $enrichedIgnores['endtime'] = true;
-            $enrichedIgnores['fe_group'] = true;
+            $enrichedIgnores = ['starttime' => true, 'endtime' => true, 'fe_group' => true];
+        } else {
+            $enrichedIgnores = [];
         }
 
-        $ignoresKey = serialize($enrichedIgnores);
-        $previewKey = (int)$noVersionPreview;
-        if (!isset(self::$enableFieldsCache[$table][$showHiddenKey][$ignoresKey][$previewKey])) {
+        $ignoresKey = \json_encode($enrichedIgnores);
+        if (!isset(self::$enableFieldsCache[$table][$showHiddenKey][$ignoresKey])) {
             self::retrievePageForEnableFields();
-            self::$enableFieldsCache[$table][$showHiddenKey][$ignoresKey][$previewKey]
-                = self::$pageForEnableFields->enableFields($table, $showHidden, $enrichedIgnores, $noVersionPreview);
+            self::$enableFieldsCache[$table][$showHiddenKey][$ignoresKey]
+                = self::$pageForEnableFields->enableFields($table, $showHidden, $enrichedIgnores);
         }
 
-        return self::$enableFieldsCache[$table][$showHiddenKey][$ignoresKey][$previewKey];
+        return self::$enableFieldsCache[$table][$showHiddenKey][$ignoresKey];
     }
 
     /**
@@ -355,7 +325,6 @@ class Tx_Oelib_Db
      * @param string $whereClause WHERE clause, may be empty
      * @param string $groupBy GROUP BY field(s), may be empty
      * @param string $orderBy ORDER BY field(s), may be empty
-     * @param int $offset the offset to start the result for, must be >= 0 @deprecated will be removed in oelib 3.0
      *
      * @return string[] the single result row, will not be empty
      *
@@ -366,8 +335,7 @@ class Tx_Oelib_Db
         $tableNames,
         $whereClause = '',
         $groupBy = '',
-        $orderBy = '',
-        $offset = 0
+        $orderBy = ''
     ) {
         $result = self::selectMultiple(
             $fields,
@@ -375,7 +343,7 @@ class Tx_Oelib_Db
             $whereClause,
             $groupBy,
             $orderBy,
-            $offset . ',' . 1
+            1
         );
         if (empty($result)) {
             throw new \Tx_Oelib_Exception_EmptyQueryResult();
@@ -435,7 +403,6 @@ class Tx_Oelib_Db
      * @param string $whereClause WHERE clause, may be empty
      * @param string $groupBy GROUP BY field(s), may be empty
      * @param string $orderBy ORDER BY field(s), may be empty
-     * @param string $limit LIMIT value ([begin,]max), may be empty @deprecated will be removed in oelib 3.0
      *
      * @return string[] one column from the the query result rows, will be empty if there are no matching records
      */
@@ -444,16 +411,14 @@ class Tx_Oelib_Db
         $tableNames,
         $whereClause = '',
         $groupBy = '',
-        $orderBy = '',
-        $limit = ''
+        $orderBy = ''
     ) {
         $rows = self::selectMultiple(
             $fieldName,
             $tableNames,
             $whereClause,
             $groupBy,
-            $orderBy,
-            $limit
+            $orderBy
         );
 
         $result = [];
@@ -479,19 +444,7 @@ class Tx_Oelib_Db
      */
     public static function count($tableNames, $whereClause = '')
     {
-        $isOnlyOneTable = strpos($tableNames, ',') === false && stripos(trim($tableNames), ' JOIN ') === false;
-        if ($isOnlyOneTable && self::tableHasColumnUid($tableNames)) {
-            // Counting only the "uid" column is faster than counting *.
-            $columns = 'uid';
-        } else {
-            $columns = '*';
-        }
-
-        $result = self::selectSingle(
-            'COUNT(' . $columns . ') AS oelib_counter',
-            $tableNames,
-            $whereClause
-        );
+        $result = self::selectSingle('COUNT(*) AS oelib_counter', $tableNames, $whereClause);
 
         return (int)$result['oelib_counter'];
     }
@@ -511,25 +464,6 @@ class Tx_Oelib_Db
     public static function existsRecord($table, $whereClause = '')
     {
         return self::count($table, $whereClause) > 0;
-    }
-
-    /**
-     * Checks whether there is exactly one record in the table given by the
-     * first parameter $table that matches a given WHERE clause.
-     *
-     * @deprecated will be removed in oelib 3.0
-     *
-     * @param string $table the name of the table to query, must not be empty
-     * @param string $whereClause
-     *        the WHERE part of the query, may be empty (all records will be
-     *        counted in that case)
-     *
-     * @return bool TRUE if there is exactly one matching record,
-     *                 FALSE otherwise
-     */
-    public static function existsExactlyOneRecord($table, $whereClause = '')
-    {
-        return self::count($table, $whereClause) === 1;
     }
 
     /**
@@ -559,20 +493,6 @@ class Tx_Oelib_Db
     /////////////////////////////////////
     // Functions concerning table names
     /////////////////////////////////////
-
-    /**
-     * Returns a list of all table names that are available in the current database.
-     *
-     * @deprecated will be removed in oelib 3.0
-     *
-     * @return string[] table names
-     */
-    public static function getAllTableNames()
-    {
-        self::retrieveTableNames();
-
-        return array_keys(self::$tableNameCache);
-    }
 
     /**
      * Retrieves the table names of the current DB and stores them in self::$tableNameCache.
@@ -641,25 +561,6 @@ class Tx_Oelib_Db
     }
 
     /**
-     * Gets the column definition for a field in $table.
-     *
-     * @deprecated will be removed in oelib 3.0
-     *
-     * @param string $table
-     *        the name of the table for which the column names should be retrieved, must not be empty
-     * @param string $column
-     *        the name of the field of which to retrieve the definition, must not be empty
-     *
-     * @return array the field definition for the field in $table, will not be empty
-     */
-    public static function getColumnDefinition($table, $column)
-    {
-        self::retrieveColumnsForTable($table);
-
-        return self::$tableColumnCache[$table][$column];
-    }
-
-    /**
      * Retrieves and caches the column data for the table $table.
      *
      * If the column data for that table already is cached, this function does
@@ -715,47 +616,9 @@ class Tx_Oelib_Db
         return isset(self::$tableColumnCache[$table][$column]);
     }
 
-    /**
-     * Checks whether a table has a column "uid".
-     *
-     * @deprecated will be removed in oelib 3.0
-     *
-     * @param string $table the name of the table to check, must not be empty
-     *
-     * @return bool TRUE if a valid column was found, FALSE otherwise
-     */
-    public static function tableHasColumnUid($table)
-    {
-        return self::tableHasColumn($table, 'uid');
-    }
-
     /////////////////////////////////
     // Functions concerning the TCA
     /////////////////////////////////
-
-    /**
-     * Returns the TCA for a certain table.
-     *
-     * @deprecated will be removed in oelib 3.0
-     *
-     * @param string $tableName the table name to look up, must not be empty
-     *
-     * @return array[] associative array with the TCA description for this table
-     *
-     * @throws \InvalidArgumentException
-     * @throws \BadMethodCallException
-     */
-    public static function getTcaForTable($tableName)
-    {
-        if ($tableName === '') {
-            throw new \InvalidArgumentException('$tableName must not be empty.', 1566845084);
-        }
-        if (!isset($GLOBALS['TCA'][$tableName])) {
-            throw new \BadMethodCallException('The table "' . $tableName . '" has no TCA.', 1331488350);
-        }
-
-        return $GLOBALS['TCA'][$tableName];
-    }
 
     /**
      * Returns $GLOBALS['TYPO3_DB'].

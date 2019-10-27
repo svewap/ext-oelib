@@ -178,21 +178,6 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
     /**
      * @test
      */
-    public function enableFieldsCanBeDifferentForDifferentIgnores()
-    {
-        self::assertNotSame(
-            \Tx_Oelib_Db::enableFields('tx_oelib_test', 0, []),
-            \Tx_Oelib_Db::enableFields(
-                'tx_oelib_test',
-                0,
-                ['endtime' => true]
-            )
-        );
-    }
-
-    /**
-     * @test
-     */
     public function enableFieldsWithHiddenNotAllowedFindsDefaultRecord()
     {
         $this->testingFramework->createRecord('tx_oelib_test');
@@ -501,78 +486,6 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
     }
 
     /*
-     * Tests concerning getColumnDefinition
-     */
-
-    /**
-     * @test
-     */
-    public function getColumnDefinitionForEmptyTableNameThrowsException()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        \Tx_Oelib_Db::getColumnDefinition('', 'uid');
-    }
-
-    /**
-     * @test
-     */
-    public function getColumnDefinitionReturnsArrayThatContainsFieldName()
-    {
-        $definition = \Tx_Oelib_Db::getColumnDefinition('tx_oelib_test', 'title');
-
-        self::assertSame(
-            'title',
-            $definition['Field']
-        );
-    }
-
-    /*
-     * Tests regarding tableHasColumnUid()
-     */
-
-    /**
-     * @test
-     */
-    public function tableHasColumnUidForEmptyTableNameThrowsException()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        \Tx_Oelib_Db::tableHasColumnUid('');
-    }
-
-    /**
-     * @test
-     */
-    public function tableHasColumnUidIsTrueOnTableWithColumnUid()
-    {
-        self::assertTrue(
-            \Tx_Oelib_Db::tableHasColumnUid('tx_oelib_test')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function tableHasColumnUidIsFalseOnTableWithoutColumnUid()
-    {
-        self::assertFalse(
-            \Tx_Oelib_Db::tableHasColumnUid('tx_oelib_test_article_mm')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function tableHasColumnUidCanReturnDifferentResultsForDifferentTables()
-    {
-        self::assertNotSame(
-            \Tx_Oelib_Db::tableHasColumnUid('tx_oelib_test'),
-            \Tx_Oelib_Db::tableHasColumnUid('tx_oelib_test_article_mm')
-        );
-    }
-
-    /*
      * Tests regarding tableHasColumn()
      */
 
@@ -657,12 +570,7 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
             'uid = ' . $uid
         );
 
-        self::assertFalse(
-            $this->testingFramework->existsRecordWithUid(
-                'tx_oelib_test',
-                $uid
-            )
-        );
+        self::assertFalse($this->testingFramework->existsRecord('tx_oelib_test', 'uid = ' . $uid));
     }
 
     /**
@@ -910,12 +818,7 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
         );
         $this->testingFramework->markTableAsDirty('tx_oelib_test');
 
-        self::assertTrue(
-            $this->testingFramework->existsRecordWithUid(
-                'tx_oelib_test',
-                $uid
-            )
-        );
+        self::assertTrue($this->testingFramework->existsRecord('tx_oelib_test', 'uid = ' . $uid));
     }
 
     /**
@@ -927,7 +830,7 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
         $this->testingFramework->markTableAsDirty('tx_oelib_test');
         $uid = \Tx_Oelib_Db::getDatabaseConnection()->sql_insert_id();
 
-        self::assertTrue($this->testingFramework->existsRecordWithUid('tx_oelib_test', $uid));
+        self::assertTrue($this->testingFramework->existsRecord('tx_oelib_test', 'uid = ' . $uid));
     }
 
     /**
@@ -1032,26 +935,6 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
         self::assertSame(
             ['uid' => (string)$uid],
             \Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', '', '', 'title DESC')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function selectSingleCanUseOffset()
-    {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'Title A']
-        );
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'Title B']
-        );
-
-        self::assertSame(
-            ['uid' => (string)$uid],
-            \Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', '', '', 'title', 1)
         );
     }
 
@@ -1194,32 +1077,6 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
     }
 
     /*
-     * Tests concerning getAllTableNames
-     */
-
-    /**
-     * @test
-     */
-    public function getAllTableNamesContainsExistingTable()
-    {
-        self::assertContains(
-            'tx_oelib_test',
-            \Tx_Oelib_Db::getAllTableNames()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getAllTableNamesNotContainsInexistentTable()
-    {
-        self::assertNotContains(
-            'tx_oelib_doesnotexist',
-            \Tx_Oelib_Db::getAllTableNames()
-        );
-    }
-
-    /*
      * Tests concerning existsTable
      */
 
@@ -1250,66 +1107,6 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
     {
         self::assertFalse(
             \Tx_Oelib_Db::existsTable('tx_oelib_doesnotexist')
-        );
-    }
-
-    /*
-     * Tests concerning getTcaForTable
-     */
-
-    /**
-     * @test
-     */
-    public function getTcaForTableReturnsValidTcaArray()
-    {
-        $tca = \Tx_Oelib_Db::getTcaForTable('tx_oelib_test');
-
-        self::assertInternalType('array', $tca['ctrl']);
-        self::assertInternalType('array', $tca['interface']);
-        self::assertInternalType('array', $tca['columns']);
-        self::assertInternalType('array', $tca['types']);
-        self::assertInternalType('array', $tca['palettes']);
-    }
-
-    /**
-     * @test
-     */
-    public function getTcaForTableWithEmptyTableNameThrowsExceptionTca()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        \Tx_Oelib_Db::getTcaForTable('');
-    }
-
-    /**
-     * @test
-     */
-    public function getTcaForTableWithInexistentTableNameThrowsExceptionTca()
-    {
-        $this->expectException(\BadMethodCallException::class);
-
-        \Tx_Oelib_Db::getTcaForTable('tx_oelib_doesnotexist');
-    }
-
-    /**
-     * @test
-     */
-    public function getTcaForTableThrowsExceptionOnTableWithoutTca()
-    {
-        $this->expectException(\BadMethodCallException::class);
-
-        \Tx_Oelib_Db::getTcaForTable('tx_oelib_test_article_mm');
-    }
-
-    /**
-     * @test
-     */
-    public function getTcaForTableCanLoadFieldsAddedByExtensions()
-    {
-        $tca = \Tx_Oelib_Db::getTcaForTable('fe_users');
-
-        self::assertTrue(
-            isset($tca['columns']['tx_oelib_is_dummy_record'])
         );
     }
 
@@ -1404,52 +1201,12 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
     /**
      * @test
-     */
-    public function countWithInvalidTableNameThrowsException()
-    {
-        $this->expectException(\BadMethodCallException::class);
-
-        \Tx_Oelib_Db::count('tx_oelib_doesnotexist', 'uid = 42');
-    }
-
-    /**
-     * @test
      *
      * @doesNotPerformAssertions
      */
     public function countCanBeCalledWithJoinedTables()
     {
         \Tx_Oelib_Db::count('tx_oelib_test JOIN tx_oelib_testchild');
-    }
-
-    /**
-     * @test
-     */
-    public function countDoesNotAllowJoinWithoutTables()
-    {
-        $this->expectException(\BadMethodCallException::class);
-
-        \Tx_Oelib_Db::count('JOIN');
-    }
-
-    /**
-     * @test
-     */
-    public function countDoesNotAllowJoinWithOnlyOneTableOnTheLeft()
-    {
-        $this->expectException(\BadMethodCallException::class);
-
-        \Tx_Oelib_Db::count('tx_oelib_test JOIN ');
-    }
-
-    /**
-     * @test
-     */
-    public function countDoesNotAllowJoinWithOnlyOneTableOnTheRight()
-    {
-        $this->expectException(\BadMethodCallException::class);
-
-        \Tx_Oelib_Db::count('JOIN tx_oelib_test');
     }
 
     /*
@@ -1484,16 +1241,6 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         \Tx_Oelib_Db::existsRecord('');
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordWithInvalidTableNameThrowsException()
-    {
-        $this->expectException(\BadMethodCallException::class);
-
-        \Tx_Oelib_Db::existsRecord('tx_oelib_doesnotexist');
     }
 
     /**
@@ -1536,180 +1283,6 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
 
         self::assertTrue(
             \Tx_Oelib_Db::existsRecord('tx_oelib_test', 'title = "foo"')
-        );
-    }
-
-    /*
-     * Tests regarding existsExactlyOneRecord
-     */
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function existsExactlyOneRecordWithEmptyWhereClauseIsAllowed()
-    {
-        \Tx_Oelib_Db::existsExactlyOneRecord('tx_oelib_test', '');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function existsExactlyOneRecordWithMissingWhereClauseIsAllowed()
-    {
-        \Tx_Oelib_Db::existsExactlyOneRecord('tx_oelib_test');
-    }
-
-    /**
-     * @test
-     */
-    public function existsExactlyOneRecordWithEmptyTableNameThrowsException()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        \Tx_Oelib_Db::existsExactlyOneRecord('');
-    }
-
-    /**
-     * @test
-     */
-    public function existsExactlyOneRecordWithInvalidTableNameThrowsException()
-    {
-        $this->expectException(\BadMethodCallException::class);
-
-        \Tx_Oelib_Db::existsExactlyOneRecord('tx_oelib_doesnotexist');
-    }
-
-    /**
-     * @test
-     */
-    public function existsExactlyOneRecordForNoMatchesReturnsFalse()
-    {
-        self::assertFalse(
-            \Tx_Oelib_Db::existsExactlyOneRecord('tx_oelib_test', 'uid = 42')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function existsExactlyOneRecordForOneMatchReturnsTrue()
-    {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test'
-        );
-
-        self::assertTrue(
-            \Tx_Oelib_Db::existsExactlyOneRecord('tx_oelib_test', 'uid = ' . $uid)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function existsExactlyOneRecordForTwoMatchesReturnsFalse()
-    {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-
-        self::assertFalse(
-            \Tx_Oelib_Db::existsExactlyOneRecord('tx_oelib_test', 'title = "foo"')
-        );
-    }
-
-    /*
-     * Tests regarding existsRecordWithUid
-     */
-
-    /**
-     * @test
-     */
-    public function existsRecordWithUidWithZeroUidThrowsException()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        \Tx_Oelib_Db::existsRecordWithUid('tx_oelib_test', 0);
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordWithUidWithNegativeUidThrowsException()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        \Tx_Oelib_Db::existsRecordWithUid('tx_oelib_test', -1);
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordWithUidWithEmptyTableNameThrowsException()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        \Tx_Oelib_Db::existsRecordWithUid('', 42);
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordWithUidWithInvalidTableNameThrowsException()
-    {
-        $this->expectException(\BadMethodCallException::class);
-
-        \Tx_Oelib_Db::existsRecordWithUid('tx_oelib_doesnotexist', 42);
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordWithUidForNoMatchReturnsFalse()
-    {
-        self::assertFalse(
-            \Tx_Oelib_Db::existsRecordWithUid('tx_oelib_test', 42)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordWithUidForMatchReturnsTrue()
-    {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test'
-        );
-
-        self::assertTrue(
-            \Tx_Oelib_Db::existsRecordWithUid('tx_oelib_test', $uid)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordWithUidUsesAdditionalNonEmptyWhereClause()
-    {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['deleted' => 1]
-        );
-
-        self::assertFalse(
-            \Tx_Oelib_Db::existsRecordWithUid(
-                'tx_oelib_test',
-                $uid,
-                ' AND deleted = 0'
-            )
         );
     }
 

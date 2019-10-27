@@ -1707,7 +1707,6 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
      */
     public function getAutoIncrementReturnsOneForTruncatedTable()
     {
-        \Tx_Oelib_Db::enableQueryLogging();
         \Tx_Oelib_Db::getDatabaseConnection()->sql_query('TRUNCATE TABLE tx_oelib_test;');
 
         self::assertSame(

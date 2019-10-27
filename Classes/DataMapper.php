@@ -687,13 +687,7 @@ abstract class Tx_Oelib_DataMapper
             $databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
             $whereClauses = [$this->getUniversalWhereClause(true)];
             foreach ($whereClauseParts as $key => $value) {
-                $columnDefinition = \Tx_Oelib_Db::getColumnDefinition($tableName, $key);
-
-                $whereClauses[] = $key . ' = ' . (
-                    (strpos($columnDefinition['Type'], 'int') !== false)
-                        ? $value
-                        : $databaseConnection->fullQuoteStr($value, $tableName)
-                );
+                $whereClauses[] = $key . ' = ' . $databaseConnection->fullQuoteStr($value, $tableName);
             }
             $whereClause = implode(' AND ', $whereClauses);
 
