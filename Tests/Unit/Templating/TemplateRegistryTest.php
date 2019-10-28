@@ -1,17 +1,19 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
+namespace OliverKlee\Oelib\Tests\Unit\Templating;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case.
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_TemplateRegistryTest extends TestCase
+class TemplateRegistryTest extends UnitTestCase
 {
-    ////////////////////////////////////////////
-    // Tests concerning the Singleton property
-    ////////////////////////////////////////////
+    /*
+     * Tests concerning the Singleton property
+     */
 
     /**
      * @test
@@ -49,9 +51,9 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateRegistryTest extends TestCase
         );
     }
 
-    ///////////////////////////
-    // Tests concerning get()
-    ///////////////////////////
+    /*
+     * Tests concerning get()
+     */
 
     /**
      * @test
@@ -82,7 +84,7 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateRegistryTest extends TestCase
     {
         self::assertInstanceOf(
             \Tx_Oelib_Template::class,
-            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/LegacyUnit/Fixtures/oelib.html')
+            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html')
         );
     }
 
@@ -92,8 +94,8 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateRegistryTest extends TestCase
     public function getForExistingTemplateFileNameCalledTwoTimesReturnsNewInstance()
     {
         self::assertNotSame(
-            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/LegacyUnit/Fixtures/oelib.html'),
-            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/LegacyUnit/Fixtures/oelib.html')
+            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html'),
+            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html')
         );
     }
 
@@ -102,7 +104,7 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateRegistryTest extends TestCase
      */
     public function getForExistingTemplateFileNameReturnsProcessedTemplate()
     {
-        $template = \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/LegacyUnit/Fixtures/oelib.html');
+        $template = \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html');
 
         self::assertSame(
             'Hello world!' . LF,

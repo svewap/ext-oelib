@@ -453,7 +453,7 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateHelperTest extends TestCase
      */
     public function getCompleteTemplateFromFile()
     {
-        $this->subject->setConfigurationValue('templateFile', 'EXT:oelib/Tests/LegacyUnit/Fixtures/oelib.html');
+        $this->subject->setConfigurationValue('templateFile', 'EXT:oelib/Tests/Functional/Fixtures/Template.html');
         $this->subject->getTemplateCode(true);
 
         self::assertSame(

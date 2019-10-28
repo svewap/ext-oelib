@@ -36,7 +36,7 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends TestCase
     public function processTemplateFromFileProcessesTemplateFromFile()
     {
         $this->subject->processTemplateFromFile(
-            'EXT:oelib/Tests/LegacyUnit/Fixtures/oelib.html'
+            'EXT:oelib/Tests/Functional/Fixtures/Template.html'
         );
 
         self::assertSame(
