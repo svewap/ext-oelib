@@ -18,7 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove deprecated methods from `TestingFramework` (#285)
 - Remove deprecated parameter from `SalutationSwitcher::translate` (#282)
 - Remove deprecated methods from the `Db` class (#281)
-- Remove non-namespaced Extbase model and repository (#280)
+- Remove non-namespaced Extbase model and repository (#280, #286)
 - Remove deprecated traits (#278)
 - Drop support for PHP 5 (#274)
 - Drop support for TYPO3 7.6 (#273)
