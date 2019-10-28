@@ -18,44 +18,25 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_TestingFramework for creating dummy records
-     */
-    private $testingFramework = null;
-
-    /**
-     * @var \Tx_Oelib_Mapper_BackEndUserGroup the object to test
+     * @var \Tx_Oelib_Mapper_BackEndUserGroup
      */
     private $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
         $this->subject = new \Tx_Oelib_Mapper_BackEndUserGroup();
-    }
 
-    protected function tearDown()
-    {
-        $this->testingFramework->cleanUpWithoutDatabase();
-        parent::tearDown();
+        $this->importDataSet(__DIR__ . '/../Fixtures/BackEndUsers.xml');
     }
-
-    /////////////////////////////////////////
-    // Tests concerning the basic functions
-    /////////////////////////////////////////
 
     /**
      * @test
      */
     public function findReturnsBackEndUserGroupInstance()
     {
-        $uid = $this->subject->getNewGhost()->getUid();
-
-        self::assertInstanceOf(
-            \Tx_Oelib_Model_BackEndUserGroup::class,
-            $this->subject->find($uid)
-        );
+        self::assertInstanceOf(\Tx_Oelib_Model_BackEndUserGroup::class, $this->subject->find(1));
     }
 
     /**
@@ -64,37 +45,19 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
     public function loadForExistingUserGroupCanLoadUserGroupData()
     {
         /** @var \Tx_Oelib_Model_FrontEndUserGroup $userGroup */
-        $userGroup = $this->subject->find(
-            $this->testingFramework->createBackEndUserGroup(['title' => 'foo'])
-        );
-
+        $userGroup = $this->subject->find(1);
         $this->subject->load($userGroup);
 
-        self::assertSame(
-            'foo',
-            $userGroup->getTitle()
-        );
+        self::assertSame('The best!', $userGroup->getTitle());
     }
-
-    ///////////////////////////////////
-    // Tests concerning the relations
-    ///////////////////////////////////
 
     /**
      * @test
      */
     public function subgroupRelationIsUserGroupList()
     {
-        $subgroup = $this->subject->getNewGhost();
-        $group = $this->subject->getLoadedTestingModel(
-            ['subgroup' => $subgroup->getUid()]
-        );
-
         /** @var \Tx_Oelib_Model_BackEndUserGroup $group */
-        $group = $this->subject->find($group->getUid());
-        self::assertInstanceOf(
-            \Tx_Oelib_Model_BackEndUserGroup::class,
-            $group->getSubgroups()->first()
-        );
+        $group = $this->subject->find(1);
+        self::assertInstanceOf(\Tx_Oelib_Model_BackEndUserGroup::class, $group->getSubgroups()->first());
     }
 }
