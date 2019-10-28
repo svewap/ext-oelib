@@ -21,7 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove non-namespaced Extbase model and repository (#280, #286)
 - Remove deprecated traits (#278)
 - Drop support for PHP 5 (#274)
-- Drop support for TYPO3 7.6 (#273)
+- Drop support for TYPO3 7.6 (#273, #287)
 
 ### Fixed
 - Stop using deprecated oelib functionality in the tests (#284)
