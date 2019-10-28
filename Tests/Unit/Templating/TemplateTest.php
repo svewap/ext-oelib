@@ -1,6 +1,8 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
+namespace OliverKlee\Oelib\Tests\Unit\Templating;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case.
@@ -8,7 +10,7 @@ use OliverKlee\PhpUnit\TestCase;
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_TemplateTest extends TestCase
+class TemplateTest extends UnitTestCase
 {
     /**
      * @var \Tx_Oelib_Template
