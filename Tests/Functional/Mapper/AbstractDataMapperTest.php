@@ -84,8 +84,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->save($leftModel);
         $this->testingFramework->cleanUp();
 
-        self::assertFalse(
-            $this->testingFramework->existsRecord('tx_oelib_test_article_mm', 'uid_local = ' . $leftUid)
+        self::assertSame(
+            0,
+            $this->testingFramework->count('tx_oelib_test_article_mm', ['uid_local' => $leftUid])
         );
     }
 
@@ -1798,11 +1799,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->setModelClassName(ReadOnlyModel::class);
         $this->subject->save($this->subject->find($uid));
 
-        self::assertFalse(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "foo" AND tstamp = ' . $GLOBALS['SIM_EXEC_TIME']
-            )
+        self::assertSame(
+            0,
+            $this->testingFramework->count('tx_oelib_test', ['title' => 'foo', 'tstamp' => $GLOBALS['SIM_EXEC_TIME']])
         );
     }
 

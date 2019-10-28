@@ -120,8 +120,6 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
      */
     public function getLoggedInUserWithoutFrontEndReturnsNull()
     {
-        $this->testingFramework->discardFakeFrontEnd();
-
         self::assertNull(
             $this->subject->getLoggedInUser()
         );
@@ -190,24 +188,6 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUser::class);
         /** @var \Tx_Oelib_Model_FrontEndUser $user */
         $user = $mapper->find($uid);
-
-        self::assertSame(
-            $user,
-            $this->subject->getLoggedInUser()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithLoadedModelOfUserNotInDatabaseReturnsThatInstance()
-    {
-        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
-
-        $nonExistentUid = $this->testingFramework->getAutoIncrement('fe_users');
-        $user = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUser::class)->find($nonExistentUid);
-
-        $this->testingFramework->loginFrontEndUser($nonExistentUid);
 
         self::assertSame(
             $user,
