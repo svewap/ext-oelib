@@ -2297,7 +2297,7 @@ class Tx_Oelib_Tests_LegacyUnit_TestingFrameworkTest extends TestCase
 
         // Creates and deletes a record and then resets the auto increment.
         $latestUid = $this->subject->createRecord('user_oelibtest_test');
-        \Tx_Oelib_Db::delete('user_oelibtest_test', 'uid = ' .$latestUid);
+        \Tx_Oelib_Db::delete('user_oelibtest_test', 'uid = ' . $latestUid);
         $this->subject->resetAutoIncrement('user_oelibtest_test');
     }
 
