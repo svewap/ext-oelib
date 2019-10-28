@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
-- Convert more tests to nimut/testing-framework (#283, #288)
+- Convert more tests to nimut/testing-framework (#283, #288, #290)
 - Update the testing libraries (#275, #279)
 - Mark tests that do not contain any assertions (#277)
 

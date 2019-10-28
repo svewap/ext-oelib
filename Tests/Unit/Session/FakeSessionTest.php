@@ -1,27 +1,29 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
+namespace OliverKlee\Oelib\Tests\Unit\Session;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_FakeSessionTest extends TestCase
+class FakeSessionTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_FakeSession the object to test
+     * @var \Tx_Oelib_FakeSession
      */
-    private $subject;
+    private $subject = null;
 
     protected function setUp()
     {
         $this->subject = new \Tx_Oelib_FakeSession();
     }
 
-    /////////////////////////////////////////////////////////
-    // Tests for the basic functions
-    /////////////////////////////////////////////////////////
+    /*
+     * Tests for the basic functions
+     */
 
     /**
      * @test
@@ -33,9 +35,9 @@ class Tx_Oelib_Tests_LegacyUnit_FakeSessionTest extends TestCase
         new \Tx_Oelib_FakeSession();
     }
 
-    ////////////////////////////////////////
-    // Tests that the setters/getters work
-    ////////////////////////////////////////
+    /*
+     * Tests that the setters/getters work
+     */
 
     /**
      * @test

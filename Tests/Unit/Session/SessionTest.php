@@ -1,32 +1,27 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
+namespace OliverKlee\Oelib\Tests\Unit\Session;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_SessionTest extends TestCase
+class SessionTest extends UnitTestCase
 {
-    /**
-     * @var \Tx_Oelib_TestingFramework for creating a fake front end
-     */
-    private $testingFramework;
-
-    protected function setUp()
-    {
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
-    }
-
     protected function tearDown()
     {
-        $this->testingFramework->cleanUp();
+        $GLOBALS['TSFE'] = null;
+        parent::tearDown();
     }
 
-    /////////////////////////////////////////////////////////
-    // Tests for setting and getting the Singleton instance
-    /////////////////////////////////////////////////////////
+    private function createFakeFrontEnd()
+    {
+        $GLOBALS['TSFE'] = $this->prophesize(TypoScriptFrontendController::class)->reveal();
+    }
 
     /**
      * @test
@@ -57,7 +52,7 @@ class Tx_Oelib_Tests_LegacyUnit_SessionTest extends TestCase
             'Only the types ::TYPE_USER and ::TYPE_TEMPORARY are allowed.'
         );
 
-        $this->testingFramework->createFakeFrontEnd();
+        $this->createFakeFrontEnd();
 
         \Tx_Oelib_Session::getInstance(42);
     }
@@ -67,7 +62,7 @@ class Tx_Oelib_Tests_LegacyUnit_SessionTest extends TestCase
      */
     public function getInstanceWithUserTypeReturnsSessionInstance()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->createFakeFrontEnd();
 
         self::assertInstanceOf(
             \Tx_Oelib_Session::class,
@@ -80,7 +75,7 @@ class Tx_Oelib_Tests_LegacyUnit_SessionTest extends TestCase
      */
     public function getInstanceWithTemporaryTypeReturnsSessionInstance()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->createFakeFrontEnd();
 
         self::assertInstanceOf(
             \Tx_Oelib_Session::class,
@@ -93,7 +88,7 @@ class Tx_Oelib_Tests_LegacyUnit_SessionTest extends TestCase
      */
     public function getInstanceWithSameTypeReturnsSameInstance()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->createFakeFrontEnd();
 
         self::assertSame(
             \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER),
@@ -106,7 +101,7 @@ class Tx_Oelib_Tests_LegacyUnit_SessionTest extends TestCase
      */
     public function getInstanceWithDifferentTypesReturnsDifferentInstance()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->createFakeFrontEnd();
 
         self::assertNotSame(
             \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER),
@@ -119,7 +114,7 @@ class Tx_Oelib_Tests_LegacyUnit_SessionTest extends TestCase
      */
     public function getInstanceWithSameTypesAfterPurgeInstancesReturnsNewInstance()
     {
-        $this->testingFramework->createFakeFrontEnd();
+        $this->createFakeFrontEnd();
         $firstInstance = \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER);
         \Tx_Oelib_Session::purgeInstances();
 
