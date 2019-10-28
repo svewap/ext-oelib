@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Remove deprecated parameter from `SalutationSwitcher::translate` (#282)
 - Remove deprecated methods from the `Db` class (#281)
 - Remove non-namespaced Extbase model and repository (#280)
 - Remove deprecated traits (#278)
