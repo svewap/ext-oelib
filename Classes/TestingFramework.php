@@ -369,17 +369,11 @@ final class Tx_Oelib_TestingFramework
      * Creates a front-end page on the page with the UID given by the first
      * parameter $parentId.
      *
-     * @param int $parentId @deprecated will be removed in oelib 3.0
-     *        UID of the page on which the page should be created
-     * @param array $recordData @deprecated will be removed in oelib 3.0
-     *        associative array that contains the data to save in the new page,
-     *        may be empty, but must not contain the keys "uid", "pid" or "doktype"
-     *
      * @return int the UID of the new page, will be > 0
      */
-    public function createFrontEndPage($parentId = 0, array $recordData = [])
+    public function createFrontEndPage()
     {
-        return $this->createGeneralPageRecord(1, $parentId, $recordData);
+        return $this->createGeneralPageRecord(1, 0, []);
     }
 
     /**
@@ -388,15 +382,12 @@ final class Tx_Oelib_TestingFramework
      *
      * @param int $parentId
      *        UID of the page on which the system folder should be created
-     * @param array $recordData @deprecated will be removed in oelib 3.0
-     *        associative array that contains the data to save in the new page,
-     *        may be empty, but must not contain the keys "uid", "pid" or "doktype"
      *
      * @return int the UID of the new system folder, will be > 0
      */
-    public function createSystemFolder($parentId = 0, array $recordData = [])
+    public function createSystemFolder($parentId = 0)
     {
-        return $this->createGeneralPageRecord(254, $parentId, $recordData);
+        return $this->createGeneralPageRecord(254, $parentId, []);
     }
 
     /**
@@ -435,44 +426,6 @@ final class Tx_Oelib_TestingFramework
         $completeRecordData['doktype'] = $documentType;
 
         return $this->createRecordWithoutTableNameChecks('pages', $completeRecordData);
-    }
-
-    /**
-     * Creates a FE content element on the page with the UID given by the first
-     * parameter $pageId.
-     *
-     * Created content elements are text elements by default, but the content
-     * element's type can be overwritten by setting the key 'CType' in the
-     * parameter $recordData.
-     *
-     * @deprecated will be removed in oelib 3.0
-     *
-     * @param int $pageId
-     *        UID of the page on which the content element should be created
-     * @param array $recordData
-     *        associative array that contains the data to save in the content element,
-     *        may be empty, but must not contain the keys "uid" or "pid"
-     *
-     * @return int the UID of the new content element, will be > 0
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function createContentElement($pageId = 0, array $recordData = [])
-    {
-        if (isset($recordData['uid'])) {
-            throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489735);
-        }
-        if (isset($recordData['pid'])) {
-            throw new \InvalidArgumentException('The column "pid" must not be set in $recordData.', 1331489741);
-        }
-
-        $completeRecordData = $recordData;
-        $completeRecordData['pid'] = $pageId;
-        if (!isset($completeRecordData['CType'])) {
-            $completeRecordData['CType'] = 'text';
-        }
-
-        return $this->createRecordWithoutTableNameChecks('tt_content', $completeRecordData);
     }
 
     /**
@@ -607,26 +560,6 @@ final class Tx_Oelib_TestingFramework
     }
 
     /**
-     * Creates a BE user group.
-     *
-     * @deprecated will be removed in oelib 3.0
-     *
-     * @param array $recordData
-     *        associative array that contains the data to save in the new user
-     *        group record, may be empty, but must not contain the key "uid"
-     *
-     * @return int the UID of the new user group, will be > 0
-     */
-    public function createBackEndUserGroup(array $recordData = [])
-    {
-        if (isset($recordData['uid'])) {
-            throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489919);
-        }
-
-        return $this->createRecordWithoutTableNameChecks('be_groups', $recordData);
-    }
-
-    /**
      * Changes an existing dummy record and stores the new data for this
      * record. Only fields that get new values in $recordData will be changed,
      * everything else will stay untouched.
@@ -688,36 +621,6 @@ final class Tx_Oelib_TestingFramework
             $this->getConnectionForTable($table)->update($table, $dataToSave, ['uid' => $uid, $dummyColumnName => 1]);
         } else {
             \Tx_Oelib_Db::update($table, 'uid = ' . $uid . ' AND ' . $dummyColumnName . ' = 1', $dataToSave);
-        }
-    }
-
-    /**
-     * Deletes a dummy record from the database.
-     *
-     * Important: Only dummy records from non-system tables can be deleted with
-     * this method. Should there for any reason exist a real record with that
-     * UID, it won't be deleted.
-     *
-     * @deprecated will be removed in oelib 3.0
-     *
-     * @param string $table name of the table from which the record should be deleted, must not be empty
-     * @param int $uid UID of the record to delete, must be > 0
-     *
-     * @return void
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function deleteRecord($table, $uid)
-    {
-        $this->initializeDatabase();
-        if (!$this->isNoneSystemTableNameAllowed($table)) {
-            throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490341);
-        }
-
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $this->getConnectionForTable($table)->delete($table, [$this->getDummyColumnName($table) => 1]);
-        } else {
-            \Tx_Oelib_Db::delete($table, 'uid = ' . $uid . ' AND ' . $this->getDummyColumnName($table) . ' = 1');
         }
     }
 
@@ -859,44 +762,6 @@ final class Tx_Oelib_TestingFramework
     }
 
     /**
-     * Deletes a dummy relation from an m:n table in the database.
-     *
-     * Important: Only dummy records can be deleted with this method. Should there
-     * for any reason exist a real record with that combination of local and
-     * foreign UID, it won't be deleted!
-     *
-     * @deprecated will be removed in oelib 3.0
-     *
-     * @param string $table name of the table from which the record should be deleted, must not be empty
-     * @param int $uidLocal UID on the local table, must be > 0
-     * @param int $uidForeign UID on the foreign table, must be > 0
-     *
-     * @return void
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function removeRelation($table, $uidLocal, $uidForeign)
-    {
-        $this->initializeDatabase();
-        if (!$this->isNoneSystemTableNameAllowed($table)) {
-            throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490465);
-        }
-
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $this->getConnectionForTable($table)->delete(
-                $table,
-                ['uid_local' => $uidLocal, 'uid_foreign' => $uidForeign, $this->getDummyColumnName($table) => 1]
-            );
-        } else {
-            \Tx_Oelib_Db::delete(
-                $table,
-                'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign .
-                ' AND ' . $this->getDummyColumnName($table) . ' = 1'
-            );
-        }
-    }
-
-    /**
      * Deletes all dummy records that have been added through this framework.
      * For this, all records with the "is_dummy_record" flag set to 1 will be
      * deleted from all tables that have been used within this instance of the
@@ -997,13 +862,11 @@ final class Tx_Oelib_TestingFramework
     /**
      * Checks whether a table has a column "uid".
      *
-     * @deprecated will be made private in oelib 3.0
-     *
      * @param string $table the name of the table to check, must not be empty
      *
      * @return bool
      */
-    public function tableHasColumnUid($table)
+    private function tableHasColumnUid($table)
     {
         return $this->tableHasColumn($table, 'uid');
     }
@@ -1112,63 +975,6 @@ final class Tx_Oelib_TestingFramework
     }
 
     /**
-     * Creates a dummy ZIP archive with a unique file name in the calling
-     * extension's upload directory.
-     *
-     * @deprecated will be removed in oelib 3.0
-     *
-     * @param string $fileName
-     *        path of the dummy ZIP archive to create, relative to the calling extension's upload directory, must not
-     *     be empty
-     * @param string[] $filesToAddToArchive
-     *        Absolute paths of the files to add to the ZIP archive.
-     *        Note that the archives directory structure will be relative to the upload folder path, so only files
-     *     within this folder or in sub-folders of this folder can be added. The provided array may be empty, but as
-     *     ZIP archives cannot be empty, a content-less dummy text file will be added to the archive then.
-     *
-     * @return string the absolute path of the created dummy ZIP archive, will not be empty
-     *
-     * @throws \RuntimeException if the PHP installation does not provide ZIPArchive
-     * @throws \UnexpectedValueException
-     */
-    public function createDummyZipArchive(
-        $fileName = 'test.zip',
-        array $filesToAddToArchive = []
-    ) {
-        $this->checkForZipArchive();
-
-        $this->createDummyUploadFolder();
-        $uniqueFileName = $this->getUniqueFileOrFolderPath($fileName);
-        $zip = new ZipArchive();
-
-        if ($zip->open($uniqueFileName, ZipArchive::CREATE) !== true) {
-            throw new \RuntimeException('The new ZIP archive "' . $fileName . '" could not be created.', 1331490501);
-        }
-
-        $contents = !empty($filesToAddToArchive)
-            ? $filesToAddToArchive
-            : [$this->createDummyFile()];
-
-        foreach ($contents as $pathToFile) {
-            if (!file_exists($pathToFile)) {
-                throw new \UnexpectedValueException(
-                    'The provided path "' . $pathToFile . '" does not point to an exisiting file.',
-                    1331490528
-                );
-            }
-            $zip->addFile(
-                $pathToFile,
-                $this->getPathRelativeToUploadDirectory($pathToFile)
-            );
-        }
-
-        $zip->close();
-        $this->addToDummyFileList($uniqueFileName);
-
-        return $uniqueFileName;
-    }
-
-    /**
      * Adds a file name to $this->dummyFiles.
      *
      * @param string $uniqueFileName file name to add, must be the unique name of a dummy file, must not be empty
@@ -1249,14 +1055,12 @@ final class Tx_Oelib_TestingFramework
      * Deletes the dummy folder specified in the first parameter $folderName.
      * The folder must be empty (no files or subfolders).
      *
-     * @deprecated will be made private in oelib 3.0
-     *
      * @param string $folderName the path to the folder to delete relative to $this->uploadFolderPath, must not be empty
      *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function deleteDummyFolder($folderName)
+    private function deleteDummyFolder($folderName)
     {
         $absolutePathToFolder = $this->getUploadFolderPath() . $folderName;
 
@@ -1378,8 +1182,6 @@ final class Tx_Oelib_TestingFramework
     /**
      * Returns a unique absolute path of a file or folder.
      *
-     * @deprecated will be made private in oelib 3.0
-     *
      * @param string $path the path of a file or folder relative to the calling extension's upload directory,
      *                     must not be empty
      *
@@ -1387,7 +1189,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @throws \InvalidArgumentException
      */
-    public function getUniqueFileOrFolderPath($path)
+    private function getUniqueFileOrFolderPath($path)
     {
         if ($path === '') {
             throw new \InvalidArgumentException('The first parameter $path must not be empty.', 1331490775);
@@ -1490,11 +1292,9 @@ final class Tx_Oelib_TestingFramework
      *
      * If no fake front end has been created, this function does nothing.
      *
-     * @deprecated will be marked private in oelib 3.0
-     *
      * @return void
      */
-    public function discardFakeFrontEnd()
+    private function discardFakeFrontEnd()
     {
         if (!$this->hasFakeFrontEnd()) {
             return;
@@ -1515,12 +1315,10 @@ final class Tx_Oelib_TestingFramework
     /**
      * Returns whether this testing framework instance has a fake front end.
      *
-     * @deprecated will be removed in oelib 3.0
-     *
      * @return bool TRUE if this instance has a fake front end, FALSE
      *                 otherwise
      */
-    public function hasFakeFrontEnd()
+    private function hasFakeFrontEnd()
     {
         return $this->hasFakeFrontEnd;
     }
@@ -1555,8 +1353,6 @@ final class Tx_Oelib_TestingFramework
      * Note: To set the logged-in users group data properly, the front-end user
      *       and his groups must actually exist in the database.
      *
-     * @deprecated will be made private in oelib 3.0
-     *
      * @param int $userId UID of the FE user, must not necessarily exist in the database, must be > 0
      *
      * @return void
@@ -1564,7 +1360,7 @@ final class Tx_Oelib_TestingFramework
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException if no front end has been created
      */
-    public function loginFrontEndUser($userId)
+    private function loginFrontEndUser($userId)
     {
         if ((int)$userId <= 0) {
             throw new \InvalidArgumentException('The user ID must be > 0.', 1331490798);
@@ -1657,11 +1453,9 @@ final class Tx_Oelib_TestingFramework
      * Returns a list of all table names that are available in the current
      * database.
      *
-     * @deprecated will be made private in oelib 3.0
-     *
      * @return string[] table names
      */
-    public function getAllTableNames()
+    private function getAllTableNames()
     {
         $this->retrieveTableNames();
 
@@ -2069,8 +1863,6 @@ final class Tx_Oelib_TestingFramework
      * The threshold is 100 by default and can be set using
      * setResetAutoIncrementThreshold.
      *
-     * @deprecated will be made private in oelib 3.0
-     *
      * @param string $table the name of the table on which we're going to reset the auto increment entry, must not be
      *     empty
      *
@@ -2078,7 +1870,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @see resetAutoIncrement
      */
-    public function resetAutoIncrementLazily($table)
+    private function resetAutoIncrementLazily($table)
     {
         $this->initializeDatabase();
 
@@ -2200,34 +1992,6 @@ final class Tx_Oelib_TestingFramework
     }
 
     /**
-     * Returns the list of allowed table names.
-     *
-     * @deprecated will be made private in oelib 3.0
-     *
-     * @return string[] all allowed table names for this instance of the testing framework
-     */
-    public function getListOfOwnAllowedTableNames()
-    {
-        $this->initializeDatabase();
-
-        return $this->ownAllowedTables;
-    }
-
-    /**
-     * Returns the list of additional allowed table names.
-     *
-     * @deprecated will be made private in oelib 3.0
-     *
-     * @return string[] all additional allowed table names for this instance of the testing framework, may be empty
-     */
-    public function getListOfAdditionalAllowedTableNames()
-    {
-        $this->initializeDatabase();
-
-        return $this->additionalAllowedTables;
-    }
-
-    /**
      * Puts one or multiple table names on the list of dirty tables (which
      * represents a list of tables that were used for testing and contain dummy
      * records and thus are called "dirty" until the next clean up).
@@ -2259,33 +2023,6 @@ final class Tx_Oelib_TestingFramework
     }
 
     /**
-     * Returns the list of tables that contain dummy records from testing. These
-     * tables are called "dirty tables" as they need to be cleaned up.
-     *
-     * @deprecated will be made private in oelib 3.0
-     *
-     * @return string[] associative array containing names of database tables that need to be cleaned up
-     */
-    public function getListOfDirtyTables()
-    {
-        return $this->dirtyTables;
-    }
-
-    /**
-     * Returns the list of system tables that contain dummy records from
-     * testing. These tables are called "dirty tables" as they need to be
-     * cleaned up.
-     *
-     * @deprecated will be made private in oelib 3.0
-     *
-     * @return string[] associative array containing names of system database tables that need to be cleaned up
-     */
-    public function getListOfDirtySystemTables()
-    {
-        return $this->dirtySystemTables;
-    }
-
-    /**
      * Returns the next sorting value of the relation table which should be used.
      *
      * Note: This function does not take already existing relations in the
@@ -2294,8 +2031,6 @@ final class Tx_Oelib_TestingFramework
      * relation between these two dummy records, so you're sure there aren't
      * already relations for a local UID in the database.
      *
-     * @deprecated will be made private in oelib 3.0
-     *
      * @see https://bugs.oliverklee.com/show_bug.cgi?id=1423
      *
      * @param string $table the relation table, must not be empty
@@ -2303,7 +2038,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the next sorting value to use (> 0)
      */
-    public function getRelationSorting($table, $uidLocal)
+    private function getRelationSorting($table, $uidLocal)
     {
         if (!$this->relationSorting[$table][$uidLocal]) {
             $this->relationSorting[$table][$uidLocal] = 0;
@@ -2320,8 +2055,6 @@ final class Tx_Oelib_TestingFramework
      *
      * The field to update must be of type int.
      *
-     * @deprecated will be made private in oelib 3.0
-     *
      * @param string $tableName name of the table, must not be empty
      * @param int $uid the UID of the record to modify, must be > 0
      * @param string $fieldName the field name of the field to modify, must not be empty
@@ -2332,7 +2065,7 @@ final class Tx_Oelib_TestingFramework
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
      */
-    public function increaseRelationCounter($tableName, $uid, $fieldName)
+    private function increaseRelationCounter($tableName, $uid, $fieldName)
     {
         if (!$this->isTableNameAllowed($tableName)) {
             throw new \InvalidArgumentException(

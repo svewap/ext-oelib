@@ -139,8 +139,6 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateHelperTest extends TestCase
      */
     public function setCachedConfigurationValueCreatesConfigurationForNewInstance()
     {
-        $this->testingFramework->discardFakeFrontEnd();
-
         \Tx_Oelib_TemplateHelper::setCachedConfigurationValue('foo', 'bar');
 
         $subject = new \Tx_Oelib_TemplateHelper();
@@ -157,8 +155,6 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateHelperTest extends TestCase
      */
     public function purgeCachedConfigurationsDropsCachedConfiguration()
     {
-        $this->testingFramework->discardFakeFrontEnd();
-
         \Tx_Oelib_TemplateHelper::setCachedConfigurationValue('foo', 'bar');
         \Tx_Oelib_TemplateHelper::purgeCachedConfigurations();
 
