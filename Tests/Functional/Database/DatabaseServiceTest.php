@@ -1,6 +1,8 @@
 <?php
 
-use OliverKlee\PhpUnit\TestCase;
+namespace OliverKlee\Oelib\Tests\Functional\Database;
+
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
@@ -9,20 +11,32 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
+class DatabaseServiceTest extends FunctionalTestCase
 {
+    /**
+     * @var string[]
+     */
+    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
+
     /**
      * @var \Tx_Oelib_TestingFramework
      */
-    private $testingFramework;
+    private $testingFramework = null;
+
+    /**
+     * @var int
+     */
+    private $now = 1572370121;
 
     protected function setUp()
     {
+        parent::setUp();
+
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) > 9000000) {
             self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
         }
 
-        $GLOBALS['SIM_EXEC_TIME'] = 1524751343;
+        $GLOBALS['SIM_EXEC_TIME'] = $this->now;
 
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
     }
@@ -30,8 +44,10 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
     protected function tearDown()
     {
         if ($this->testingFramework !== null) {
-            $this->testingFramework->cleanUp();
+            $this->testingFramework->cleanUpWithoutDatabase();
         }
+
+        parent::tearDown();
     }
 
     /*
@@ -214,8 +230,8 @@ class Tx_Oelib_Tests_LegacyUnit_DbTest extends TestCase
     {
         return [
             'hidden' => [['hidden' => 1]],
-            'start time in future' => [['starttime' => $GLOBALS['SIM_EXEC_TIME'] + 1000]],
-            'end time in past' => [['endtime' => $GLOBALS['SIM_EXEC_TIME'] - 1000]],
+            'start time in future' => [['starttime' => $this->now + 1000]],
+            'end time in past' => [['endtime' => $this->now - 1000]],
         ];
     }
 
