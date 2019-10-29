@@ -48,10 +48,6 @@ script:
   composer ci:tests:unit;
 - >
   echo;
-  echo "Running the legacy unit tests";
-  composer ci:tests:unit-legacy;
-- >
-  echo;
   echo "Running the functional tests";
   composer ci:tests:functional;
 
