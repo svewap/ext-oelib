@@ -432,7 +432,7 @@ class Tx_Oelib_Tests_LegacyUnit_TemplateHelperTest extends TestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueThrowsAnExeptionIfNoFieldNameWasProvided()
+    public function getListViewConfigurationValueThrowsAnExceptionIfNoFieldNameWasProvided()
     {
         $this->expectException(
             \InvalidArgumentException::class
