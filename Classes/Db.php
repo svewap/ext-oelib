@@ -4,7 +4,6 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
@@ -507,15 +506,11 @@ class Tx_Oelib_Db
             return;
         }
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $connection = self::getConnectionPool()->getConnectionByName('Default');
-            $queryResult = $connection->query('SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`');
-            $tableNames = [];
-            foreach ($queryResult->fetchAll() as $tableInformation) {
-                $tableNames[$tableInformation['Name']] = $tableInformation;
-            }
-        } else {
-            $tableNames = self::getDatabaseConnection()->admin_get_tables();
+        $connection = self::getConnectionPool()->getConnectionByName('Default');
+        $queryResult = $connection->query('SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`');
+        $tableNames = [];
+        foreach ($queryResult->fetchAll() as $tableInformation) {
+            $tableNames[$tableInformation['Name']] = $tableInformation;
         }
 
         self::$tableNameCache = $tableNames;
@@ -580,14 +575,10 @@ class Tx_Oelib_Db
             throw new \BadMethodCallException('The table "' . $table . '" does not exist.', 1331488327);
         }
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $columns = [];
-            $queryResult = self::getConnectionForTable($table)->query('SHOW FULL COLUMNS FROM `' . $table . '`');
-            foreach ($queryResult->fetchAll() as $fieldRow) {
-                $columns[$fieldRow['Field']] = $fieldRow;
-            }
-        } else {
-            $columns = self::getDatabaseConnection()->admin_get_fields($table);
+        $columns = [];
+        $queryResult = self::getConnectionForTable($table)->query('SHOW FULL COLUMNS FROM `' . $table . '`');
+        foreach ($queryResult->fetchAll() as $fieldRow) {
+            $columns[$fieldRow['Field']] = $fieldRow;
         }
 
         self::$tableColumnCache[$table] = $columns;

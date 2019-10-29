@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop 7.6-specific code (#305)
 - Drop unneeded Travis CI configuration settings (#295, #296, #297, #298)
 - Remove deprecated methods from `TestingFramework` (#285)
 - Remove deprecated parameter from `SalutationSwitcher::translate` (#282)

@@ -4,8 +4,6 @@ namespace OliverKlee\Oelib\Tests\Functional\Language;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Prophecy\Prophecy\ProphecySubjectInterface;
-use TYPO3\CMS\Core\Charset\CharsetConverter;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Lang\LanguageService;
 
@@ -39,20 +37,13 @@ class TranslatorRegistryTest extends FunctionalTestCase
     {
         /** @var TypoScriptFrontendController|ProphecySubjectInterface $frontEndController */
         $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8007000) {
-            $frontEndController->csConvObj = new CharsetConverter();
-        }
 
         $GLOBALS['TSFE'] = $frontEndController;
     }
 
     private function setUpBackEnd()
     {
-        $languageService = new LanguageService();
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8007000) {
-            $languageService->init('default');
-        }
-        $GLOBALS['LANG'] = $languageService;
+        $GLOBALS['LANG'] = new LanguageService();
         $this->setUpBackendUserFromFixture(1);
     }
 

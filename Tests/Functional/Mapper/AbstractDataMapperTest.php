@@ -11,7 +11,6 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Test case.
@@ -1947,10 +1946,6 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function savePersistsAllBasicDataTypes($propertyName, $expectedValue)
     {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8007000) {
-            self::markTestSkipped('This test is intended for TYPO3 8.7 and up.');
-        }
-
         $model = new TestingModel();
         $model->setData(
             [
@@ -2887,16 +2882,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     private function findRecordByUid($uid)
     {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $connection = GeneralUtility::makeInstance(ConnectionPool::class)
-                ->getConnectionForTable('tx_oelib_test');
-            $columns = ['float_data', 'decimal_data', 'string_data'];
-            $row = $connection->select($columns, 'tx_oelib_test', ['uid' => $uid])->fetch();
-        } else {
-            $row = \Tx_Oelib_Db::selectSingle('*', 'tx_oelib_test', 'uid = ' . $uid);
-        }
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable('tx_oelib_test');
+        $columns = ['float_data', 'decimal_data', 'string_data'];
 
-        return $row;
+        return $connection->select($columns, 'tx_oelib_test', ['uid' => $uid])->fetch();
     }
 
     /////////////////////////////

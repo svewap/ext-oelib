@@ -6,11 +6,9 @@ use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -307,17 +305,11 @@ final class Tx_Oelib_TestingFramework
         $dummyColumnName = $this->getDummyColumnName($table);
         $dataToInsert[$dummyColumnName] = 1;
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $connection = $this->getConnectionForTable($table);
-            $connection->insert($table, $dataToInsert);
-            $uid = (int)$connection->lastInsertId($table);
-        } else {
-            $uid = \Tx_Oelib_Db::insert($table, $dataToInsert);
-        }
-
+        $connection = $this->getConnectionForTable($table);
+        $connection->insert($table, $dataToInsert);
         $this->markTableAsDirty($table);
 
-        return $uid;
+        return (int)$connection->lastInsertId($table);
     }
 
     /**
@@ -617,11 +609,7 @@ final class Tx_Oelib_TestingFramework
         }
 
         $dataToSave = $this->normalizeDatabaseRow($rawData);
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $this->getConnectionForTable($table)->update($table, $dataToSave, ['uid' => $uid, $dummyColumnName => 1]);
-        } else {
-            \Tx_Oelib_Db::update($table, 'uid = ' . $uid . ' AND ' . $dummyColumnName . ' = 1', $dataToSave);
-        }
+        $this->getConnectionForTable($table)->update($table, $dataToSave, ['uid' => $uid, $dummyColumnName => 1]);
     }
 
     /**
@@ -669,11 +657,7 @@ final class Tx_Oelib_TestingFramework
             $this->getDummyColumnName($table) => 1,
         ];
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $this->getConnectionForTable($table)->insert($table, $recordData);
-        } else {
-            \Tx_Oelib_Db::insert($table, $recordData);
-        }
+        $this->getConnectionForTable($table)->insert($table, $recordData);
     }
 
     /**
@@ -847,12 +831,7 @@ final class Tx_Oelib_TestingFramework
 
             // Runs a delete query for each allowed table. A "one-query-deletes-them-all" approach was tested,
             // but we didn't find a working solution for that.
-            if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-                $this->getConnectionForTable($currentTable)->delete($currentTable, [$dummyColumnName => 1]);
-            } else {
-                \Tx_Oelib_Db::delete($currentTable, $dummyColumnName . ' = 1');
-            }
-
+            $this->getConnectionForTable($currentTable)->delete($currentTable, [$dummyColumnName => 1]);
             $this->resetAutoIncrementLazily($currentTable);
         }
 
@@ -907,14 +886,10 @@ final class Tx_Oelib_TestingFramework
             return;
         }
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $columns = [];
-            $queryResult = $this->getConnectionForTable($table)->query('SHOW FULL COLUMNS FROM `' . $table . '`');
-            foreach ($queryResult->fetchAll() as $fieldRow) {
-                $columns[$fieldRow['Field']] = $fieldRow;
-            }
-        } else {
-            $columns = \Tx_Oelib_Db::getDatabaseConnection()->admin_get_fields($table);
+        $columns = [];
+        $queryResult = $this->getConnectionForTable($table)->query('SHOW FULL COLUMNS FROM `' . $table . '`');
+        foreach ($queryResult->fetchAll() as $fieldRow) {
+            $columns[$fieldRow['Field']] = $fieldRow;
         }
 
         self::$tableColumnCache[$table] = $columns;
@@ -1246,11 +1221,7 @@ final class Tx_Oelib_TestingFramework
         $this->discardFakeFrontEnd();
 
         $this->registerNullPageCache();
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8000000) {
-            $GLOBALS['TT'] = GeneralUtility::makeInstance(NullTimeTracker::class);
-        } else {
-            $GLOBALS['TT'] = GeneralUtility::makeInstance(TimeTracker::class, false);
-        }
+        $GLOBALS['TT'] = GeneralUtility::makeInstance(TimeTracker::class, false);
 
         /** @var TypoScriptFrontendController $frontEnd */
         $frontEnd =
@@ -1475,15 +1446,11 @@ final class Tx_Oelib_TestingFramework
             return;
         }
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $connection = $this->getConnectionPool()->getConnectionByName('Default');
-            $queryResult = $connection->query('SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`');
-            $tableNames = [];
-            foreach ($queryResult->fetchAll() as $tableInformation) {
-                $tableNames[$tableInformation['Name']] = $tableInformation;
-            }
-        } else {
-            $tableNames = \Tx_Oelib_Db::getDatabaseConnection()->admin_get_tables();
+        $connection = $this->getConnectionPool()->getConnectionByName('Default');
+        $queryResult = $connection->query('SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`');
+        $tableNames = [];
+        foreach ($queryResult->fetchAll() as $tableInformation) {
+            $tableNames[$tableInformation['Name']] = $tableInformation;
         }
 
         self::$tableNameCache = $tableNames;
@@ -1678,16 +1645,11 @@ final class Tx_Oelib_TestingFramework
             ? '(' . $whereClause . ') AND ' . $whereForDummyColumn
             : $whereForDummyColumn;
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $queryResult = $this->getConnectionForTable($table)
-                ->query('SELECT COUNT(*) as oelib_counter FROM `' . $table . '` WHERE ' . $compoundWhereClause)
-                ->fetch();
-            $count = (int)$queryResult['oelib_counter'];
-        } else {
-            $count = \Tx_Oelib_Db::count($table, $compoundWhereClause);
-        }
+        $queryResult = $this->getConnectionForTable($table)
+            ->query('SELECT COUNT(*) as oelib_counter FROM `' . $table . '` WHERE ' . $compoundWhereClause)
+            ->fetch();
 
-        return $count;
+        return (int)$queryResult['oelib_counter'];
     }
 
     /**
@@ -1711,27 +1673,16 @@ final class Tx_Oelib_TestingFramework
             );
         }
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $allCriteria = $criteria;
-            $dummyColumn = $this->getDummyColumnName($table);
-            $allCriteria[$dummyColumn] = 1;
-            $query = $this->getQueryBuilderForTable($table)->count('*')->from($table);
-            $query->getRestrictions()->removeAll();
-            foreach ($allCriteria as $identifier => $value) {
-                $query->andWhere($query->expr()->eq($identifier, $query->createNamedParameter($value)));
-            }
-            $count = (int)$query->execute()->fetchColumn(0);
-        } else {
-            $whereClauseParts = [];
-            $databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
-            foreach ($databaseConnection->fullQuoteArray($criteria, $table) as $key => $value) {
-                $whereClauseParts[] = $key . ' = ' . $value;
-            }
-            $whereClause = \implode(' AND ', $whereClauseParts);
-            $count = self::countRecords($table, $whereClause);
+        $allCriteria = $criteria;
+        $dummyColumn = $this->getDummyColumnName($table);
+        $allCriteria[$dummyColumn] = 1;
+        $query = $this->getQueryBuilderForTable($table)->count('*')->from($table);
+        $query->getRestrictions()->removeAll();
+        foreach ($allCriteria as $identifier => $value) {
+            $query->andWhere($query->expr()->eq($identifier, $query->createNamedParameter($value)));
         }
 
-        return $count;
+        return (int)$query->execute()->fetchColumn(0);
     }
 
     /**
@@ -1776,16 +1727,11 @@ final class Tx_Oelib_TestingFramework
             );
         }
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $dummyColumn = $this->getDummyColumnName($table);
-            $queryResult = $this->getConnectionForTable($table)
-                ->select(['*'], $table, ['uid' => $uid, $dummyColumn => 1])->fetchAll();
-            $exists = $queryResult !== [];
-        } else {
-            $exists = $this->countRecords($table, 'uid = ' . $uid) > 0;
-        }
+        $dummyColumn = $this->getDummyColumnName($table);
+        $queryResult = $this->getConnectionForTable($table)
+            ->select(['*'], $table, ['uid' => $uid, $dummyColumn => 1])->fetchAll();
 
-        return $exists;
+        return $queryResult !== [];
     }
 
     /**
@@ -1842,17 +1788,8 @@ final class Tx_Oelib_TestingFramework
 
         // Updates the auto increment index for this table. The index will be
         // set to one UID above the highest existing UID.
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $connection = $this->getConnectionPool()->getConnectionByName('Default');
-            $connection->query('ALTER TABLE `' . $table . '` AUTO_INCREMENT=' . $newAutoIncrementValue . ';');
-        } else {
-            $dbResult = \Tx_Oelib_Db::getDatabaseConnection()->sql_query(
-                'ALTER TABLE ' . $table . ' AUTO_INCREMENT=' . $newAutoIncrementValue . ';'
-            );
-            if ($dbResult === false) {
-                throw new \Tx_Oelib_Exception_Database();
-            }
-        }
+        $connection = $this->getConnectionPool()->getConnectionByName('Default');
+        $connection->query('ALTER TABLE `' . $table . '` AUTO_INCREMENT=' . $newAutoIncrementValue . ';');
     }
 
     /**
@@ -1929,16 +1866,10 @@ final class Tx_Oelib_TestingFramework
      */
     private function getMaximumUidFromTable($table)
     {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $queryResult = $this->getConnectionForTable($table)
-                ->query('SELECT MAX(uid) AS uid FROM `' . $table . '`')->fetch();
-            $maximumUid = (int)$queryResult['uid'];
-        } else {
-            $row = \Tx_Oelib_Db::selectSingle('MAX(uid) AS uid', $table);
-            $maximumUid = (int)$row['uid'];
-        }
+        $queryResult = $this->getConnectionForTable($table)
+            ->query('SELECT MAX(uid) AS uid FROM `' . $table . '`')->fetch();
 
-        return $maximumUid;
+        return (int)$queryResult['uid'];
     }
 
     /**
@@ -1967,18 +1898,7 @@ final class Tx_Oelib_TestingFramework
         }
 
         $query = 'SHOW TABLE STATUS WHERE Name = \'' . $table . '\';';
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $row = $this->getConnectionForTable($table)->query($query)->fetch();
-        } else {
-            $databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
-            $dbResult = $databaseConnection->sql_query($query);
-            if ($dbResult === false) {
-                throw new \Tx_Oelib_Exception_Database(1416848924);
-            }
-
-            $row = $databaseConnection->sql_fetch_assoc($dbResult);
-            $databaseConnection->sql_free_result($dbResult);
-        }
+        $row = $this->getConnectionForTable($table)->query($query)->fetch();
 
         $autoIncrement = $row['Auto_increment'];
         if ($autoIncrement === null) {
@@ -2082,17 +2002,7 @@ final class Tx_Oelib_TestingFramework
         }
 
         $query = 'UPDATE ' . $tableName . ' SET ' . $fieldName . '=' . $fieldName . '+1 WHERE uid=' . $uid;
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $numberOfAffectedRows = $this->getConnectionForTable($tableName)->query($query)->rowCount();
-        } else {
-            $databaseConnection = \Tx_Oelib_Db::getDatabaseConnection();
-            $dbResult = $databaseConnection->sql_query($query);
-            if ($dbResult === false) {
-                throw new \Tx_Oelib_Exception_Database(1418586263);
-            }
-
-            $numberOfAffectedRows = $databaseConnection->sql_affected_rows();
-        }
+        $numberOfAffectedRows = $this->getConnectionForTable($tableName)->query($query)->rowCount();
         if ($numberOfAffectedRows === 0) {
             throw new \BadMethodCallException(
                 'The table ' . $tableName . ' does not contain a record with UID ' . $uid . '.',

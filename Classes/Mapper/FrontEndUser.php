@@ -2,7 +2,6 @@
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * This class represents a mapper for front-end users.
@@ -71,14 +70,9 @@ class Tx_Oelib_Mapper_FrontEndUser extends \Tx_Oelib_DataMapper
         $tableName = $this->getTableName();
         $where = $this->getUniversalWhereClause() . ' AND ' .
             'usergroup REGEXP \'(^|,)(' . implode('|', GeneralUtility::intExplode(',', $groupUids)) . ')($|,)\'';
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
-            $statement = $connection->query('SELECT * FROM `' . $tableName . '` WHERE ' . $where);
-            $records = $statement->fetchAll();
-        } else {
-            $records = \Tx_Oelib_Db::selectMultiple('*', $tableName, $where);
-        }
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
+        $statement = $connection->query('SELECT * FROM `' . $tableName . '` WHERE ' . $where);
 
-        return $this->getListOfModels($records);
+        return $this->getListOfModels($statement->fetchAll());
     }
 }

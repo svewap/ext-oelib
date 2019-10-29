@@ -3,7 +3,6 @@
 use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -1164,15 +1163,11 @@ class Tx_Oelib_ConfigCheck
      */
     protected function getDbColumnNames($tableName)
     {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8004000) {
-            $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
-            $statement = $connection->query('SHOW FULL COLUMNS FROM `' . $tableName . '`');
-            $columns = [];
-            foreach ($statement->fetchAll() as $row) {
-                $columns[] = $row['Field'];
-            }
-        } else {
-            $columns = \array_keys(\Tx_Oelib_Db::getColumnsInTable($tableName));
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
+        $statement = $connection->query('SHOW FULL COLUMNS FROM `' . $tableName . '`');
+        $columns = [];
+        foreach ($statement->fetchAll() as $row) {
+            $columns[] = $row['Field'];
         }
 
         return $columns;
