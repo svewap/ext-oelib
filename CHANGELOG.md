@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop unneeded Travis CI configuration settings (#295)
 - Remove deprecated methods from `TestingFramework` (#285)
 - Remove deprecated parameter from `SalutationSwitcher::translate` (#282)
 - Remove deprecated methods from the `Db` class (#281)
