@@ -62,9 +62,9 @@
         ]
     },
     "autoload-dev": {
-        "classmap": [
-            "Tests"
-        ]
+        "psr-4": {
+            "OliverKlee\\Oelib\\Tests\\": "Tests/"
+        }
     },
     "prefer-stable": true,
     "repositories": [

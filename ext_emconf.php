@@ -30,8 +30,8 @@ $EM_CONF[$_EXTKEY] = [
         ],
     ],
     'autoload-dev' => [
-        'classmap' => [
-            'Tests',
+        'psr-4' => [
+            'OliverKlee\\Oelib\\Tests\\' => 'Tests/'
         ],
     ],
 ];
