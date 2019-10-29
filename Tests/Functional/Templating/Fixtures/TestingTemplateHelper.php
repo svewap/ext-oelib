@@ -1,11 +1,13 @@
 <?php
 
+namespace OliverKlee\Oelib\Tests\Functional\Templating\Fixtures;
+
 /**
  * This is mere a class used for unit tests. Don't use it for any other purpose.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-final class Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingTemplateHelper extends \Tx_Oelib_TemplateHelper
+final class TestingTemplateHelper extends \Tx_Oelib_TemplateHelper
 {
     /**
      * @var string

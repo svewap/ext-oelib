@@ -4,6 +4,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Testing;
 
 use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Tests\Functional\Templating\Fixtures\TestingTemplateHelper;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -2917,7 +2918,7 @@ class FrameworkTest extends FunctionalTestCase
             $pageId,
             ['config' => 'plugin.tx_oelib.test = 42']
         );
-        $templateHelper = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingTemplateHelper([]);
+        $templateHelper = new TestingTemplateHelper([]);
         $configuration = $templateHelper->retrievePageConfig($pageId);
 
         self::assertTrue(
@@ -2982,7 +2983,7 @@ class FrameworkTest extends FunctionalTestCase
                 'config' => 'plugin.tx_oelib.test = {$plugin.tx_oelib.test}',
             ]
         );
-        $templateHelper = new \Tx_Oelib_Tests_LegacyUnit_Fixtures_TestingTemplateHelper([]);
+        $templateHelper = new TestingTemplateHelper([]);
         $configuration = $templateHelper->retrievePageConfig($pageId);
 
         self::assertTrue(
