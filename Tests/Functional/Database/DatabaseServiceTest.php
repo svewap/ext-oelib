@@ -230,7 +230,6 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         return [
             'hidden' => [['hidden' => 1]],
-            'start time in future' => [['starttime' => $this->now + 1000]],
             'end time in past' => [['endtime' => $this->now - 1000]],
         ];
     }
