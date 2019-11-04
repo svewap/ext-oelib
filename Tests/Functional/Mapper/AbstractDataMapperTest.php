@@ -25,11 +25,6 @@ class AbstractDataMapperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_TestingFramework
-     */
-    private $testingFramework = null;
-
-    /**
      * @var TestingMapper
      */
     private $subject = null;
@@ -37,15 +32,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
         $this->subject = \Tx_Oelib_MapperRegistry::get(TestingMapper::class);
-        $this->subject->setTestingFramework($this->testingFramework);
     }
 
     protected function tearDown()
     {
-        $this->testingFramework->cleanUpWithoutDatabase();
         \Tx_Oelib_MapperRegistry::purgeInstance();
         parent::tearDown();
     }
@@ -59,12 +51,18 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function cleanUpAfterSaveRemovesCreatedRecord()
     {
+        $testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $this->subject->setTestingFramework($testingFramework);
+
         $model = new TestingModel();
         $model->setTitle('New and fresh');
         $this->subject->save($model);
-        $this->testingFramework->cleanUp();
+        $testingFramework->cleanUp();
 
-        self::assertFalse($this->testingFramework->existsRecordWithUid('tx_oelib_test', $model->getUid()));
+        self::assertSame(
+            0,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $model->getUid())
+        );
     }
 
     /**
@@ -72,7 +70,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function cleanUpAfterSaveRemovesAssociationTableEntriesRecord()
     {
-        $leftUid = $this->testingFramework->createRecord('tx_oelib_test');
+        $testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $this->subject->setTestingFramework($testingFramework);
+
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $leftUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $rightModel = new TestingModel();
         $rightModel->setData([]);
@@ -81,11 +83,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $leftModel = $this->subject->find($leftUid);
         $leftModel->addRelatedRecord($rightModel);
         $this->subject->save($leftModel);
-        $this->testingFramework->cleanUp();
+        $testingFramework->cleanUp();
 
         self::assertSame(
             0,
-            $this->testingFramework->count('tx_oelib_test_article_mm', ['uid_local' => $leftUid])
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test_article_mm', 'uid_local = ' . $leftUid)
         );
     }
 
@@ -99,10 +101,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
     public function loadWithModelWithExistingUidFillsModelWithData()
     {
         $title = 'Assassin of Kings';
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['title' => $title]
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $model = new TestingModel();
         $model->setUid($uid);
@@ -120,10 +123,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findWithUidOfExistingRecordReturnsModelDataFromDatabase()
     {
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['title' => 'foo']
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -372,10 +376,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function loadWithModelWithExistingUidOfHiddenRecordMarksModelAsLoaded()
     {
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['hidden' => 1]
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $model = new TestingModel();
         $model->setUid($uid);
@@ -391,10 +396,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function loadForModelWithExistingUidMarksModelAsClean()
     {
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['title' => 'foo']
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $model = new TestingModel();
         $model->setUid($uid);
@@ -410,10 +416,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function loadCanReadFloatDataFromFloatColumn()
     {
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['float_data' => 12.5]
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $model = new TestingModel();
         $model->setUid($uid);
@@ -430,10 +437,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function loadCanReadFloatDataFromDecimalColumn()
     {
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['decimal_data' => 12.5]
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $model = new TestingModel();
         $model->setUid($uid);
@@ -450,10 +458,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function loadCanReadFloatDataFromStringColumn()
     {
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['string_data' => 12.5]
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $model = new TestingModel();
         $model->setUid($uid);
@@ -470,13 +479,14 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function reloadCanLoadGhostFromDisk()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => 'foo']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertTrue($model->isGhost());
 
         $newTitle = 'bar';
-        $this->testingFramework->changeRecord('tx_oelib_test', $uid, ['title' => $newTitle]);
+        $this->getDatabaseConnection()->updateArray('tx_oelib_test', ['uid' => $uid], ['title' => $newTitle]);
 
         $this->subject->reload($model);
 
@@ -489,14 +499,15 @@ class AbstractDataMapperTest extends FunctionalTestCase
     public function reloadCanReloadCleanLoadedModelFromDisk()
     {
         $oldTitle = 'foo';
-        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => $oldTitle]);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => $oldTitle]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertSame($oldTitle, $model->getTitle());
         self::assertTrue($model->isLoaded());
 
         $newTitle = 'bar';
-        $this->testingFramework->changeRecord('tx_oelib_test', $uid, ['title' => $newTitle]);
+        $this->getDatabaseConnection()->updateArray('tx_oelib_test', ['uid' => $uid], ['title' => $newTitle]);
 
         $this->subject->reload($model);
 
@@ -509,7 +520,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
     public function reloadCanReloadDirtyModelFromDisk()
     {
         $oldTitle = 'foo';
-        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => '']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => '']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle($oldTitle);
@@ -517,7 +529,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         self::assertTrue($model->isDirty());
 
         $newTitle = 'bar';
-        $this->testingFramework->changeRecord('tx_oelib_test', $uid, ['title' => $newTitle]);
+        $this->getDatabaseConnection()->updateArray('tx_oelib_test', ['uid' => $uid], ['title' => $newTitle]);
 
         $this->subject->reload($model);
 
@@ -529,10 +541,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function reloadWithModelWithInexistentUidMarksModelAsDead()
     {
-        $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
-
         $model = new TestingModel();
-        $model->setUid($uid);
+        $model->setUid(1);
         $this->subject->reload($model);
 
         self::assertTrue($model->isDead());
@@ -547,7 +557,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAndAccessingDataLoadsModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => 'foo']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->getTitle();
@@ -562,7 +573,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function isHiddenOnGhostInDatabaseLoadsModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $model = $this->subject->find($uid);
         $model->isHidden();
@@ -577,11 +589,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function isHiddenOnGhostNotInDatabaseThrowsException()
     {
-        $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
-
         $this->expectException(\Tx_Oelib_Exception_NotFound::class);
 
-        $this->subject->find($uid)->isHidden();
+        $this->subject->find(1)->isHidden();
     }
 
     /**
@@ -589,10 +599,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function loadWithModelWithExistingUidLoadsModel()
     {
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['title' => 'foo']
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $model = new TestingModel();
         $model->setUid($uid);
@@ -608,10 +619,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function loadWithModelWithInexistentUidMarksModelAsDead()
     {
-        $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
-
         $model = new TestingModel();
-        $model->setUid($uid);
+        $model->setUid(1);
         $this->subject->load($model);
 
         self::assertTrue(
@@ -628,7 +637,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function existsModelForUidOfLoadedModelReturnsTrue()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $this->subject->load($this->subject->find($uid));
 
         self::assertTrue(
@@ -641,7 +651,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function existsModelForUidOfNotLoadedModelInDatabaseReturnsTrue()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertTrue(
             $this->subject->existsModel($uid)
@@ -653,10 +664,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function existsModelForInexistentUidReturnsFalse()
     {
-        $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
-
         self::assertFalse(
-            $this->subject->existsModel($uid)
+            $this->subject->existsModel(1)
         );
     }
 
@@ -665,7 +674,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function existsModelForGhostModelWithInexistentUidReturnsFalse()
     {
-        $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
+        $uid = 1;
         $this->subject->find($uid);
 
         self::assertFalse(
@@ -678,7 +687,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function existsModelForExistingUidLoadsModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $this->subject->existsModel($uid);
 
         self::assertTrue(
@@ -691,10 +701,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function existsModelForExistentUidOfHiddenRecordReturnsFalse()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['hidden' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertFalse(
             $this->subject->existsModel($uid)
@@ -706,10 +714,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function existsModelForExistentUidOfHiddenRecordAndHiddenBeingAllowedReturnsTrue()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['hidden' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertTrue(
             $this->subject->existsModel($uid, true)
@@ -721,10 +727,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function existsModelForExistentUidOfLoadedHiddenRecordAndHiddenNotBeingAllowedReturnsFalse()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['hidden' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $this->subject->load($this->subject->find($uid));
 
         self::assertFalse(
@@ -737,10 +741,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function existsModelForExistentUidOfLoadedHiddenRecordAndHiddenBeingAllowedReturnsTrue()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['hidden' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $this->subject->load($this->subject->find($uid));
 
         self::assertTrue(
@@ -753,10 +755,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function existsModelForExistentUidOfLoadedNonHiddenRecordAndHiddenBeingAllowedReturnsTrue()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['hidden' => 0]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 0]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $this->subject->load($this->subject->find($uid));
 
         self::assertTrue(
@@ -769,10 +769,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function existsModelForExistentUidOfHiddenRecordAfterLoadingAsNonHiddenAndHiddenBeingAllowedReturnsTrue()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['hidden' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $this->subject->load($this->subject->find($uid));
 
         self::assertTrue(
@@ -881,7 +879,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function relatedRecordWithZeroUidIsNull()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -895,11 +894,14 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function relatedRecordWithExistingUidReturnsRelatedRecord()
     {
-        $friendUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $friendUid = (int)$this->getDatabaseConnection()->lastInsertId();
+
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['friend' => $friendUid]
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -914,10 +916,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function relatedRecordWithRelationToSelfReturnsSelf()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->changeRecord(
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->updateArray(
             'tx_oelib_test',
-            $uid,
+            ['uid' => $uid],
             ['friend' => $uid]
         );
         /** @var TestingModel $model */
@@ -934,11 +937,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function relatedRecordWithExistingUidCanReturnOtherModelType()
     {
-        $ownerUid = $this->testingFramework->createFrontEndUser();
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['owner' => $ownerUid]
-        );
+        $this->getDatabaseConnection()->insertArray('fe_users', []);
+        $ownerUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['owner' => $ownerUid]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -953,11 +955,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function relatedRecordWithExistingUidReturnsRelatedRecordThatCanBeLoaded()
     {
-        $friendUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['friend' => $friendUid]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $friendUid = (int)$this->getDatabaseConnection()->lastInsertId();
+
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['friend' => $friendUid]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -973,11 +975,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function relatedRecordWithInexistentUidReturnsRelatedRecordAsGhost()
     {
-        $friendUid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['friend' => $friendUid]
-        );
+        $friendUid = 2;
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['friend' => $friendUid]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -996,7 +996,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function commaSeparatedRelationsWithEmptyStringCreatesEmptyList()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1010,11 +1011,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function commaSeparatedRelationsWithOneUidReturnsListWithRelatedModel()
     {
-        $childUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['children' => $childUid]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['children' => $childUid]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1029,12 +1029,15 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function commaSeparatedRelationsWithTwoUidsReturnsListWithBothRelatedModels()
     {
-        $childUid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $childUid2 = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['children' => $childUid1 . ',' . $childUid2]
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1049,11 +1052,13 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function commaSeparatedRelationsWithOneUidAndZeroIgnoresZero()
     {
-        $childUid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['children' => $childUid1 . ',0']
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1068,7 +1073,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function commaSeparatedRelationHasParentModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1084,7 +1090,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function commaSeparatedRelationIsNotOwnedByParent()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1103,7 +1110,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function mnRelationsWithEmptyStringCreatesEmptyList()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1117,14 +1125,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function mnRelationsWithOneRelatedModelReturnsListWithRelatedModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
-        $relatedUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $uid,
-            $relatedUid,
-            'related_records'
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['bidirectional' => 1]);
+        $relatedUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid, 'uid_foreign' => $relatedUid]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1139,21 +1145,16 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function mnRelationsWithTwoRelatedModelsReturnsListWithBothRelatedModels()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
-        $relatedUid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $uid,
-            $relatedUid1,
-            'related_records'
-        );
-        $relatedUid2 = $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $uid,
-            $relatedUid2,
-            'related_records'
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 2]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['bidirectional' => 1]);
+        $relatedUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['bidirectional' => 1]);
+        $relatedUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid, 'uid_foreign' => $relatedUid1]);
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid, 'uid_foreign' => $relatedUid2]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1168,20 +1169,19 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function mnRelationsReturnsListSortedBySorting()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
-        $relatedUid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $relatedUid2 = $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $uid,
-            $relatedUid2,
-            'related_records'
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 2]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['bidirectional' => 1]);
+        $relatedUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['bidirectional' => 1]);
+        $relatedUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray(
+            'tx_oelib_test_article_mm',
+            ['uid_local' => $uid, 'uid_foreign' => $relatedUid1, 'sorting' => 2]
         );
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $uid,
-            $relatedUid1,
-            'related_records'
+        $this->getDatabaseConnection()->insertArray(
+            'tx_oelib_test_article_mm',
+            ['uid_local' => $uid, 'uid_foreign' => $relatedUid2, 'sorting' => 1]
         );
 
         /** @var TestingModel $model */
@@ -1197,7 +1197,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function mnRelationHasParentModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1213,7 +1214,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function mnRelationIsNotOwnedByParent()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1232,7 +1234,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function bidirectionalMNRelationsWithEmptyStringCreatesEmptyList()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1246,14 +1249,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function bidirectionalMNRelationsWithOneRelatedModelReturnsListWithRelatedModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
-        $relatedUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $relatedUid,
-            $uid,
-            'bidirectional'
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['bidirectional' => 1]);
+        $relatedUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid, 'uid_foreign' => $relatedUid]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($relatedUid);
@@ -1268,21 +1269,16 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function bidirectionalMNRelationsWithTwoRelatedModelsReturnsListWithBothRelatedModels()
     {
-        $uid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid2 = $this->testingFramework->createRecord('tx_oelib_test');
-        $relatedUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $relatedUid,
-            $uid1,
-            'bidirectional'
-        );
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $relatedUid,
-            $uid2,
-            'bidirectional'
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 1]);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 1]);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['bidirectional' => 2]);
+        $relatedUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid1, 'uid_foreign' => $relatedUid]);
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid2, 'uid_foreign' => $relatedUid]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($relatedUid);
@@ -1297,21 +1293,16 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function bidirectionalMNRelationsReturnsListSortedByUid()
     {
-        $uid2 = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $relatedUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $relatedUid,
-            $uid1,
-            'bidirectional'
-        );
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $relatedUid,
-            $uid2,
-            'bidirectional'
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 1]);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 1]);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['bidirectional' => 2]);
+        $relatedUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid1, 'uid_foreign' => $relatedUid]);
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid2, 'uid_foreign' => $relatedUid]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($relatedUid);
@@ -1326,7 +1317,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function bidirectionalMnRelationHasParentModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1342,7 +1334,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function bidirectionalMnRelationIsNotOwnedByParent()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1361,7 +1354,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function oneToManyRelationsWithEmptyStringCreatesEmptyList()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1375,14 +1369,13 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function oneToManyRelationsWithOneRelatedModelReturnsListWithRelatedModel()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['composition' => 1]
-        );
-        $relatedUid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['composition' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_testchild',
             ['parent' => $uid]
         );
+        $relatedUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1397,9 +1390,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function oneToManyRelationsCanSortByForeignSortBy()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['composition' => 2]);
-        $relatedUid1 = $this->testingFramework->createRecord('tx_oelib_testchild', ['parent' => $uid, 'title' => 'b']);
-        $relatedUid2 = $this->testingFramework->createRecord('tx_oelib_testchild', ['parent' => $uid, 'title' => 'a']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['composition' => 2]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $uid, 'title' => 'b']);
+        $relatedUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $uid, 'title' => 'a']);
+        $relatedUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1411,15 +1407,18 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function oneToManyRelationsCanSortByForeignDefaultSortBy()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['composition2' => 2]);
-        $relatedUid1 = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['composition2' => 2]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_testchild',
             ['tx_oelib_parent2' => $uid, 'title' => 'b']
         );
-        $relatedUid2 = $this->testingFramework->createRecord(
+        $relatedUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_testchild',
             ['tx_oelib_parent2' => $uid, 'title' => 'a']
         );
+        $relatedUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1431,8 +1430,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function oneToManyRelationWithoutSortingDoesNotCrash()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['composition_without_sorting' => 1]);
-        $relatedUid = $this->testingFramework->createRecord('tx_oelib_testchild', ['tx_oelib_parent3' => $uid]);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['composition_without_sorting' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['tx_oelib_parent3' => $uid]);
+        $relatedUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1444,8 +1445,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function oneToManyRelationsWithOneRelatedModelNotLoadsDeletedModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['composition' => 1]);
-        $this->testingFramework->createRecord('tx_oelib_testchild', ['parent' => $uid, 'deleted' => 1]);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['composition' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $uid, 'deleted' => 1]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1458,18 +1460,21 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function oneToManyRelationsWithTwoRelatedModelsReturnsListWithBothRelatedModels()
     {
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['composition' => 2]
         );
-        $relatedUid1 = $this->testingFramework->createRecord(
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_testchild',
             ['parent' => $uid, 'title' => 'relation A']
         );
-        $relatedUid2 = $this->testingFramework->createRecord(
+        $relatedUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_testchild',
             ['parent' => $uid, 'title' => 'relation B']
         );
+        $relatedUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1484,18 +1489,21 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function oneToManyRelationsReturnsListSortedByForeignSortBy()
     {
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['composition' => 2]
         );
-        $relatedUid1 = $this->testingFramework->createRecord(
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_testchild',
             ['parent' => $uid, 'title' => 'relation B']
         );
-        $relatedUid2 = $this->testingFramework->createRecord(
+        $relatedUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_testchild',
             ['parent' => $uid, 'title' => 'relation A']
         );
+        $relatedUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1510,7 +1518,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function oneToManyRelationHasParentModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1526,7 +1535,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function oneToManyRelationIsOwnedByParent()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1546,11 +1556,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
     public function relatedRecordWithExistingUidReturnsRelatedRecordWithData()
     {
         $friendTitle = 'Brianna';
-        $friendUid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => $friendTitle]);
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['friend' => $friendUid]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => $friendTitle]);
+        $friendUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['friend' => $friendUid]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1567,11 +1576,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
     public function commaSeparatedRelationsWithOneUidReturnsListWithRelatedModelWithData()
     {
         $childTitle = 'Abraham';
-        $childUid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => $childTitle]);
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['children' => (string)$childUid]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => $childTitle]);
+        $childUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['children' => (string)$childUid]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1586,10 +1594,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function silentlyIgnoresCommaSeparatedOneToManyRelationWithZeroForeignUid()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['children' => '0']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['children' => '0']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1607,14 +1613,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
     public function mnRelationsWithOneRelatedModelReturnsListWithRelatedModelWithData()
     {
         $relatedTitle = 'Geralt of Rivia';
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
-        $relatedUid = $this->testingFramework->createRecord('tx_oelib_test', ['title' => $relatedTitle]);
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $uid,
-            $relatedUid,
-            'related_records'
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => $relatedTitle, 'bidirectional' => 1]);
+        $relatedUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid, 'uid_foreign' => $relatedUid]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1629,8 +1633,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function silentlyIgnoresManyToManyRelationWithZeroForeignUid()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test', ['related_records' => 1]);
-        $this->testingFramework->createRecord('tx_oelib_test_article_mm', ['uid_local' => $uid, 'uid_foreign' => 0]);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid, 'uid_foreign' => 0]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1647,14 +1653,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function bidirectionalMNRelationsWithOneRelatedModelReturnsListWithRelatedModelWithData()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
-        $relatedUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $relatedUid,
-            $uid,
-            'bidirectional'
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['bidirectional' => 1]);
+        $relatedUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid, 'uid_foreign' => $relatedUid]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($relatedUid);
@@ -1671,14 +1675,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
     public function oneToManyRelationsWithOneRelatedModelReturnsListWithRelatedModelWithData()
     {
         $relatedTitle = 'Triss Merrigold';
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['composition' => 1]
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_testchild',
-            ['parent' => $uid, 'title' => $relatedTitle]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['composition' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $uid, 'title' => $relatedTitle]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1698,10 +1697,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $this->expectException(\Tx_Oelib_Exception_NotFound::class);
 
-        $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
-
         $this->subject->findSingleByWhereClause(
-            ['uid' => $uid]
+            ['uid' => 1]
         );
     }
 
@@ -1710,13 +1707,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findSingleByWhereClauseWithUidOfExistentNotMappedRecordReturnsModelWithTheData()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
 
         /** @var TestingModel $model */
-        $model = $this->subject->findSingleByWhereClause(['title' => 'foo', 'is_dummy_record' => '1']);
+        $model = $this->subject->findSingleByWhereClause(['title' => 'foo']);
         self::assertSame(
             'foo',
             $model->getTitle()
@@ -1728,16 +1722,14 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findSingleByWhereClauseWithUidOfExistentYetMappedRecordReturnsModelWithTheMappedData()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model1 */
         $model1 = $this->subject->find($uid);
         $model1->setTitle('bar');
 
         /** @var TestingModel $model2 */
-        $model2 = $this->subject->findSingleByWhereClause(['title' => 'foo', 'is_dummy_record' => '1']);
+        $model2 = $this->subject->findSingleByWhereClause(['title' => 'foo']);
         self::assertSame(
             'bar',
             $model2->getTitle()
@@ -1753,10 +1745,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function loadWithUidOfRecordInDatabaseAndDatabaseAccessDisabledMarksModelAsDead()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $this->subject->disableDatabaseAccess();
         $this->subject->load($this->subject->find($uid));
@@ -1771,7 +1761,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function loadWithUidOfRecordNotInDatabaseAndDatabaseAccessDisabledMarksModelAsDead()
     {
-        $uid = $this->testingFramework->getAutoIncrement('tx_oelib_test');
+        $uid = 1;
 
         $this->subject->disableDatabaseAccess();
         $this->subject->load($this->subject->find($uid));
@@ -1790,17 +1780,16 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForReadOnlyModelDoesNotCommitModelToDatabase()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $this->subject->setModelClassName(ReadOnlyModel::class);
         $this->subject->save($this->subject->find($uid));
 
         self::assertSame(
             0,
-            $this->testingFramework->count('tx_oelib_test', ['title' => 'foo', 'tstamp' => $GLOBALS['SIM_EXEC_TIME']])
+            $this->getDatabaseConnection()
+                ->selectCount('*', 'tx_oelib_test', 'title = "foo" AND tstamp = ' . $GLOBALS['SIM_EXEC_TIME'])
         );
     }
 
@@ -1811,21 +1800,17 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $this->subject->disableDatabaseAccess();
 
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
 
-        self::assertFalse(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar"'
-            )
+        self::assertSame(
+            0,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
         );
     }
 
@@ -1834,18 +1819,14 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForGhostDoesNotCommitModelToDatabase()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $this->subject->save($this->subject->find($uid));
 
-        self::assertFalse(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'tstamp > 0'
-            )
+        self::assertSame(
+            0,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'tstamp > 0')
         );
     }
 
@@ -1854,10 +1835,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForDeadModelDoesNotCommitDirtyModelToDatabase()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1865,11 +1844,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $model->markAsDead();
         $this->subject->save($model);
 
-        self::assertFalse(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar"'
-            )
+        self::assertSame(
+            0,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
         );
     }
 
@@ -1878,10 +1855,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForCleanLoadedModelDoesNotCommitModelToDatabase()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1889,11 +1864,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $model->markAsClean();
         $this->subject->save($model);
 
-        self::assertFalse(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar"'
-            )
+        self::assertSame(
+            0,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
         );
     }
 
@@ -1902,21 +1875,17 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForDirtyLoadedModelWithUidCommitsModelToDatabase()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar"'
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
         );
     }
 
@@ -1975,10 +1944,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForDirtyLoadedModelWithUidDoesNotChangeTheUid()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -1996,21 +1963,18 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForDirtyLoadedModelWithUidSetsTimestamp()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar" AND tstamp = ' . $GLOBALS['SIM_EXEC_TIME']
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()
+                ->selectCount('*', 'tx_oelib_test', 'title = "bar" AND tstamp = ' . $GLOBALS['SIM_EXEC_TIME'])
         );
     }
 
@@ -2019,7 +1983,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForDirtyLoadedModelWithUidAndWithoutDataCommitsModelToDatabase()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $model = new TestingModel();
         $model->setUid($uid);
@@ -2028,11 +1993,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'tstamp = ' . $GLOBALS['SIM_EXEC_TIME']
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'tstamp = ' . $GLOBALS['SIM_EXEC_TIME'])
         );
     }
 
@@ -2047,11 +2010,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsExactlyOneRecord(
-                'tx_oelib_test',
-                'title = "foo"'
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo"')
         );
     }
 
@@ -2077,10 +2038,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function isDirtyAfterSaveForDirtyLoadedModelWithUidReturnsFalse()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -2098,16 +2057,14 @@ class AbstractDataMapperTest extends FunctionalTestCase
     public function saveForDirtyLoadedModelWithoutUidAndWithoutRelationsCommitsModelToDatabase()
     {
         $model = new TestingModel();
-        $model->setData(['is_dummy_record' => '1', 'title' => 'bar']);
+        $model->setData(['title' => 'bar']);
         $model->markAsDirty();
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar"'
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
         );
     }
 
@@ -2118,7 +2075,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $model = new TestingModel();
 
-        $data = ['is_dummy_record' => '1', 'title' => 'bar'];
+        $data = ['title' => 'bar'];
         $this->subject->createRelations($data, $model);
 
         $model->setData($data);
@@ -2126,11 +2083,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar"'
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
         );
     }
 
@@ -2141,7 +2096,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $model = new TestingModel();
 
-        $data = ['is_dummy_record' => '1', 'title' => 'bar'];
+        $data = ['title' => 'bar'];
         $this->subject->createRelations($data, $model);
 
         $model->setData($data);
@@ -2162,7 +2117,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $model = new TestingModel();
 
-        $data = ['is_dummy_record' => '1', 'title' => 'bar'];
+        $data = ['title' => 'bar'];
         $this->subject->createRelations($data, $model);
 
         $model->setData($data);
@@ -2182,7 +2137,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $model = new TestingModel();
 
-        $data = ['is_dummy_record' => '1', 'title' => 'bar'];
+        $data = ['title' => 'bar'];
         $this->subject->createRelations($data, $model);
 
         $model->setData($data);
@@ -2190,11 +2145,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'uid = ' . $model->getUid()
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $model->getUid())
         );
     }
 
@@ -2205,7 +2158,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $model = new TestingModel();
 
-        $data = ['is_dummy_record' => '1', 'title' => 'bar'];
+        $data = ['title' => 'bar'];
         $this->subject->createRelations($data, $model);
 
         $model->setData($data);
@@ -2225,7 +2178,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $model = new TestingModel();
 
-        $data = ['is_dummy_record' => '1', 'title' => 'bar'];
+        $data = ['title' => 'bar'];
         $this->subject->createRelations($data, $model);
 
         $model->setData($data);
@@ -2233,11 +2186,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar" AND tstamp = ' . $GLOBALS['SIM_EXEC_TIME']
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()
+                ->selectCount('*', 'tx_oelib_test', 'title = "bar" AND tstamp = ' . $GLOBALS['SIM_EXEC_TIME'])
         );
     }
 
@@ -2248,7 +2200,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $model = new TestingModel();
 
-        $data = ['is_dummy_record' => '1', 'title' => 'bar'];
+        $data = ['title' => 'bar'];
         $this->subject->createRelations($data, $model);
 
         $model->setData($data);
@@ -2256,11 +2208,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar" AND crdate = ' . $GLOBALS['SIM_EXEC_TIME']
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()
+                ->selectCount('*', 'tx_oelib_test', 'title = "bar" AND crdate = ' . $GLOBALS['SIM_EXEC_TIME'])
         );
     }
 
@@ -2269,27 +2220,21 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForDirtyLoadedModelWithNoDataDoesNotCommitModelToDatabase()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        self::assertFalse(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "foo" AND tstamp > 0'
-            )
+        self::assertSame(
+            0,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo" AND tstamp > 0')
         );
 
         $model = $this->subject->find($uid);
         $model->markAsDirty();
         $this->subject->save($model);
 
-        self::assertFalse(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "foo" AND tstamp > 0'
-            )
+        self::assertSame(
+            0,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo" AND tstamp > 0')
         );
     }
 
@@ -2298,10 +2243,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function isDeadAfterSaveForDirtyLoadedModelWithDeletedFlagSetReturnsTrue()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -2319,21 +2262,19 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithN1RelationSavesUidOfRelatedRecord()
     {
-        $friendUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['friend' => $friendUid]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $friendUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['friend' => $friendUid]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar" AND friend = ' . $friendUid
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()
+                ->selectCount('*', 'tx_oelib_test', 'title = "bar" AND friend = ' . $friendUid)
         );
     }
 
@@ -2342,19 +2283,24 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithMNCommaSeparatedRelationSavesUidList()
     {
-        $childUid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $childUid2 = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['children' => $childUid1 . ',' . $childUid2]
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount(
+                '*',
                 'tx_oelib_test',
                 'title = "bar" AND children = "' . $childUid1 . ',' . $childUid2 . '"'
             )
@@ -2366,32 +2312,25 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithMNTableRelationSavesNumberOfRelatedRecords()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
-        $relatedUid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $uid,
-            $relatedUid1,
-            'related_records'
-        );
-        $relatedUid2 = $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRelationAndUpdateCounter(
-            'tx_oelib_test',
-            $uid,
-            $relatedUid2,
-            'related_records'
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['related_records' => 2]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['bidirectional' => 1]);
+        $relatedUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['bidirectional' => 1]);
+        $relatedUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid, 'uid_foreign' => $relatedUid1]);
+        $this->getDatabaseConnection()
+            ->insertArray('tx_oelib_test_article_mm', ['uid_local' => $uid, 'uid_foreign' => $relatedUid2]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar" AND related_records = 2'
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar" AND related_records = 2')
         );
     }
 
@@ -2400,32 +2339,26 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithOneToManyRelationSavesNumberOfRelatedRecords()
     {
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
-        $model = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
+        $model = $this->subject->find($uid);
         $model->setTitle('bar');
 
         $composition = $model->getComposition();
         $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
-        $composition->add(
-            $mapper->find(
-                $this->testingFramework->createRecord('tx_oelib_testchild')
-            )
-        );
-        $composition->add(
-            $mapper->find(
-                $this->testingFramework->createRecord('tx_oelib_testchild')
-            )
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', []);
+        $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', []);
+        $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $composition->add($mapper->find($childUid1));
+        $composition->add($mapper->find($childUid2));
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "bar" AND composition = 2'
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar" AND composition = 2')
         );
     }
 
@@ -2434,26 +2367,27 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithOneToManyRelationSavesDirtyRelatedRecord()
     {
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
-        $model = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
+        $model = $this->subject->find($uid);
         $model->setTitle('bar');
 
         $composition = $model->getComposition();
         $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
-        $component = $mapper->find(
-            $this->testingFramework->createRecord('tx_oelib_testchild')
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', []);
+        $childUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $component = $mapper->find($childUid);
         $composition->add($component);
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount(
+                '*',
                 'tx_oelib_testchild',
-                'uid = ' . $component->getUid() .
-                ' AND parent = ' . $model->getUid()
+                'uid = ' . $component->getUid() . ' AND parent = ' . $model->getUid()
             )
         );
     }
@@ -2463,10 +2397,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWith1NRelationSavesFirstNewRelatedRecord()
     {
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
-        $model = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
+        $model = $this->subject->find($uid);
         $model->setTitle('bar');
 
         $component = new TestingChildModel();
@@ -2475,11 +2409,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount(
+                '*',
                 'tx_oelib_testchild',
-                'uid = ' . $component->getUid() .
-                ' AND parent = ' . $model->getUid()
+                'uid = ' . $component->getUid() . ' AND parent = ' . $model->getUid()
             )
         );
     }
@@ -2489,10 +2424,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWith1NRelationSavesSecondNewRelatedRecord()
     {
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
-        $model = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
+        $model = $this->subject->find($uid);
         $model->setTitle('bar');
 
         $newComponent1 = new TestingChildModel();
@@ -2505,11 +2440,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount(
+                '*',
                 'tx_oelib_testchild',
-                'uid = ' . $newComponent2->getUid() .
-                ' AND parent = ' . $model->getUid()
+                'uid = ' . $newComponent2->getUid() . ' AND parent = ' . $model->getUid()
             )
         );
     }
@@ -2519,8 +2455,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWith1NRelationSavesNewRelatedRecordWithPrefixInForeignKey()
     {
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
-        $model = $this->subject->find($this->testingFramework->createRecord('tx_oelib_test'));
+        $model = $this->subject->find($uid);
         $model->setTitle('bar');
 
         $component = new TestingChildModel();
@@ -2529,11 +2467,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount(
+                '*',
                 'tx_oelib_testchild',
-                'uid = ' . $component->getUid() .
-                ' AND tx_oelib_parent2 = ' . $model->getUid()
+                'uid = ' . $component->getUid() . ' AND tx_oelib_parent2 = ' . $model->getUid()
             )
         );
     }
@@ -2543,31 +2482,30 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithOneToManyRelationDeletesUnconnectedRecord()
     {
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
-        $model = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
+        $model = $this->subject->find($uid);
         $model->markAsDirty();
 
         $composition = $model->getComposition();
         $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
+        $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $component1 */
-        $component1 = $mapper->find(
-            $this->testingFramework->createRecord('tx_oelib_testchild', ['parent' => $model->getUid()])
-        );
+        $component1 = $mapper->find($childUid1);
         $composition->add($component1);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
+        $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $component2 */
-        $component2 = $mapper->find(
-            $this->testingFramework->createRecord('tx_oelib_testchild', ['parent' => $model->getUid()])
-        );
+        $component2 = $mapper->find($childUid2);
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_testchild',
-                'uid = ' . $component2->getUid() . ' AND deleted = 1'
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()
+                ->selectCount('*', 'tx_oelib_testchild', 'uid = ' . $component2->getUid() . ' AND deleted = 1')
         );
     }
 
@@ -2576,11 +2514,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithN1RelationSavesDirtyRelatedRecord()
     {
-        $friendUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['friend' => $friendUid]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $friendUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['friend' => $friendUid]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
@@ -2590,11 +2527,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "foo" AND uid = ' . $friendUid
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo" AND uid = ' . $friendUid)
         );
     }
 
@@ -2607,18 +2542,17 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $friend->markAsDummyModel();
         $friend->setTitle('foo');
 
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setFriend($friend);
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'uid = ' . $friend->getUid()
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $friend->getUid())
         );
     }
 
@@ -2627,12 +2561,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithMNCommaSeparatedRelationSavesDirtyRelatedRecord()
     {
-        $childUid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $childUid2 = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['children' => $childUid1 . ',' . $childUid2]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['children' => $childUid1 . ',' . $childUid2]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('bar');
@@ -2642,11 +2576,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "foo" AND uid = ' . $childUid1
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo" AND uid = ' . $childUid1)
         );
     }
 
@@ -2655,10 +2587,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveAddsModelToCache()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -2677,7 +2607,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function addModelToListMarksParentModelAsDirty()
     {
-        $parentUid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $parentUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $parent */
         $parent = $this->subject->find($parentUid);
@@ -2695,7 +2626,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function appendListMarksParentModelAsDirty()
     {
-        $parentUid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $parentUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $parent */
         $parent = $this->subject->find($parentUid);
@@ -2715,7 +2647,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function purgeModelFromListMarksModelAsDirty()
     {
-        $parentUid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $parentUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $parent */
         $parent = $this->subject->find($parentUid);
@@ -2739,8 +2672,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithMNTableRelationCreatesIntermediateRelationRecord()
     {
-        $parentUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $childUid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $parentUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $parent */
         $parent = $this->subject->find($parentUid);
@@ -2749,11 +2684,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $parent->getRelatedRecords()->add($child);
         $this->subject->save($parent);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount(
+                '*',
                 'tx_oelib_test_article_mm',
-                'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid .
-                ' AND sorting=0'
+                'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid . ' AND sorting = 0'
             )
         );
     }
@@ -2763,9 +2699,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithMNTableRelationsCreatesIntermediateRelationRecordAndIncrementsSorting()
     {
-        $parentUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $childUid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $childUid2 = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $parentUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var TestingModel $parent */
         $parent = $this->subject->find($parentUid);
@@ -2776,11 +2715,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $parent->getRelatedRecords()->add($child2);
         $this->subject->save($parent);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount(
+                '*',
                 'tx_oelib_test_article_mm',
-                'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid2 .
-                ' AND sorting=1'
+                'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid2 . ' AND sorting = 1'
             )
         );
     }
@@ -2790,8 +2730,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithBidirectionalMNRelationCreatesIntermediateRelationRecord()
     {
-        $parentUid = $this->testingFramework->createRecord('tx_oelib_test');
-        $childUid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $parentUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $parent = $this->subject->find($parentUid);
         /** @var TestingModel $child */
@@ -2800,11 +2742,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $child->getBidirectional()->add($parent);
         $this->subject->save($child);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount(
+                '*',
                 'tx_oelib_test_article_mm',
-                'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid .
-                ' AND sorting=0'
+                'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid . ' AND sorting = 0'
             )
         );
     }
@@ -2814,9 +2757,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function saveForModelWithBidirectionalMNRelationCreatesIntermediateRelationRecordAndIncrementsSorting()
     {
-        $parentUid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $parentUid2 = $this->testingFramework->createRecord('tx_oelib_test');
-        $childUid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $parentUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $parentUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $childUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $parent1 = $this->subject->find($parentUid1);
         $parent2 = $this->subject->find($parentUid2);
@@ -2827,11 +2773,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $child->getBidirectional()->add($parent2);
         $this->subject->save($child);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount(
+                '*',
                 'tx_oelib_test_article_mm',
-                'uid_local=' . $parentUid2 . ' AND uid_foreign=' . $childUid .
-                ' AND sorting=1'
+                'uid_local=' . $parentUid2 . ' AND uid_foreign=' . $childUid . ' AND sorting = 1'
             )
         );
     }
@@ -2908,7 +2855,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllForOneRecordInDatabaseReturnsOneRecord()
     {
-        $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
         self::assertSame(
             1,
@@ -2921,8 +2868,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllForTwoRecordsInDatabaseReturnsTwoRecords()
     {
-        $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
         self::assertSame(
             2,
@@ -2935,7 +2882,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllForOneRecordInDatabaseReturnsLoadedRecord()
     {
-        $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
         self::assertTrue(
             $this->subject->findAll()->first()->isLoaded()
@@ -2947,10 +2894,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllIgnoresHiddenRecord()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['hidden' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 1]);
 
         self::assertTrue(
             $this->subject->findAll()->isEmpty()
@@ -2962,10 +2906,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllIgnoresDeletedRecord()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['deleted' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['deleted' => 1]);
 
         self::assertTrue(
             $this->subject->findAll()->isEmpty()
@@ -2977,8 +2918,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllSortsRecordsBySorting()
     {
-        $uid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid2 = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             min($uid1, $uid2),
@@ -2991,14 +2934,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllForGivenSortParameterOverridesDefaultSorting()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'record a']
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'record b']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'record a']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'record b']);
 
         self::assertSame(
             $uid,
@@ -3011,14 +2949,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllForGivenSortParameterWithSortDirectionSortsResultsBySortdirection()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'record b']
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'record a']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'record b']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'record a']);
 
         self::assertSame(
             $uid,
@@ -3031,8 +2964,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllForGivenSortParameterFindsMultipleEntries()
     {
-        $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
         self::assertSame(
             2,
@@ -3049,8 +2982,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByWhereClauseForNoGivenParameterAndTwoRecordsFindsBothRecords()
     {
-        $this->testingFramework->createRecord('tx_oelib_test');
-        $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
         self::assertSame(
             2,
@@ -3063,14 +2996,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByWhereClauseForGivenWhereClauseAndOneMatchingRecordFindsThisRecord()
     {
-        $foundRecordUid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $foundRecordUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $foundRecordUid,
-            $this->subject->findByWhereClause('title like "foo"')->first()->getUid()
+            $this->subject->findByWhereClause('title LIKE "foo"')->first()->getUid()
         );
     }
 
@@ -3079,18 +3010,13 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByWhereClauseForGivenWhereClauseAndTwoRecordsOneMatchingOneNotDoesNotFindNonMatchingRecord()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $notMatchingUid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'bar']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'bar']);
+        $notMatchingUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertNotSame(
             $notMatchingUid,
-            $this->subject->findByWhereClause('title like "foo"')->first()->getUid()
+            $this->subject->findByWhereClause('title LIKE "foo"')->first()->getUid()
         );
     }
 
@@ -3099,8 +3025,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByWhereClauseForNoSortingProvidedSortsRecordsByDefaultSorting()
     {
-        $uid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid2 = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             min($uid1, $uid2),
@@ -3113,14 +3041,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByWhereClauseForSortingProvidedSortsRecordsByGivenSorting()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $firstEntryUid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'bar']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'bar']);
+        $firstEntryUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $firstEntryUid,
@@ -3133,22 +3056,14 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByWhereClauseForSortingAndWhereClauseProvidedSortsMatchingRecords()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo', 'sorting' => 2]
-        );
-        $firstMatchingUid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo', 'sorting' => 0]
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'bar', 'sorting' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo', 'sorting' => 2]);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo', 'sorting' => 0]);
+        $firstMatchingUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'bar', 'sorting' => 1]);
 
         self::assertSame(
             $firstMatchingUid,
-            $this->subject->findByWhereClause('title like "foo"', 'sorting ASC')
+            $this->subject->findByWhereClause('title LIKE "foo"', 'sorting ASC')
                 ->first()->getUid()
         );
     }
@@ -3158,14 +3073,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByWhereClauseWithoutLimitFindsAllRecords()
     {
-        $firstUid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $secondUid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'bar']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $firstUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'bar']);
+        $secondUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $firstUid . ',' . $secondUid,
@@ -3178,14 +3089,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByWhereClauseWithTwoRecordsAndLimitOneFindsOnlyFirstRecord()
     {
-        $firstUid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'bar']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $firstUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'bar']);
 
         self::assertSame(
             (string)$firstUid,
@@ -3198,18 +3104,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByWhereClauseWithThreeRecordsAndLimitBeginOneAndMaximumOneFindsOnlySecondRecord()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $secondUid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'bar']
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'bar']);
+        $secondUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
 
         self::assertSame(
             (string)$secondUid,
@@ -3226,7 +3124,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByPageUidForPageUidZeroReturnsEntryWithZeroPageUid()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
@@ -3239,10 +3138,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByPageUidForPageUidZeroReturnsEntryWithNonZeroPageUid()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['pid' => 42]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 42]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
@@ -3255,10 +3152,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByPageUidForPageUidEmptyReturnsRecordWithNonZeroPageUid()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['pid' => 42]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 42]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
@@ -3271,10 +3166,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByPageUidForNonZeroPageUidReturnsEntryFromThatPage()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['pid' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
@@ -3287,10 +3180,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByPageUidForNonZeroPageUidDoesNotReturnEntryWithDifferentPageUId()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['pid' => 2]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 2]);
 
         self::assertTrue(
             $this->subject->findByPageUid(1)->isEmpty()
@@ -3302,15 +3192,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByPageUidForPageUidAndSortingGivenReturnEntrySortedBySorting()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['pid' => 2, 'sorting' => 3]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 2, 'sorting' => 3]);
 
-        $firstMatchingRecord = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['pid' => 2, 'sorting' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 2, 'sorting' => 1]);
+        $firstMatchingRecord = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $firstMatchingRecord,
@@ -3323,10 +3208,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByPageUidForTwoNonZeroPageUidsCanReturnRecordFromFirstPage()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['pid' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
@@ -3339,10 +3222,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByPageUidForTwoNonZeroPageUidsCanReturnRecordFromSecondPage()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['pid' => 2]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 2]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
@@ -3392,7 +3273,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByKeyFindsSavedModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('Earl Grey');
@@ -3409,16 +3291,15 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByKeyFindsLastSavedModelWithSameKey()
     {
-        $uid1 = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model1 */
         $model1 = $this->subject->find($uid1);
         $model1->setTitle('Earl Grey');
         $this->subject->save($model1);
 
-        $uid2 = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'Earl Grey']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'Earl Grey']);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model2 */
         $model2 = $this->subject->find($uid2);
         $model2->setTitle('Earl Grey');
@@ -3450,10 +3331,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findOneByKeyCanLoadModelFromDatabase()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'Earl Grey']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'Earl Grey']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
@@ -3509,7 +3388,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByCompoundKeyFindsSavedModel()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->setTitle('Earl Grey');
@@ -3527,17 +3407,16 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findByCompoundKeyFindsLastSavedModelWithSameCompoundKey()
     {
-        $uid1 = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model1 */
         $model1 = $this->subject->find($uid1);
         $model1->setTitle('Earl Grey');
         $model1->setHeader('Tea Time');
         $this->subject->save($model1);
 
-        $uid2 = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'Earl Grey', 'header' => 'Tea Time']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'Earl Grey', 'header' => 'Tea Time']);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $model2 */
         $model2 = $this->subject->find($uid2);
         $model2->setTitle('Earl Grey');
@@ -3570,10 +3449,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findOneByCompoundKeyCanLoadModelFromDatabase()
     {
-        $uid = $this->testingFramework->createRecord(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['title' => 'Earl Grey', 'header' => 'Tea Time']
         );
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
@@ -3627,10 +3507,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function deleteForModelWithUidMarksModelAsDead()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            []
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $model = $this->subject->find($uid);
 
         $this->subject->delete($model);
@@ -3677,19 +3555,15 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function deleteForModelWithUidWritesModelAsDeletedToDatabase()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            []
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $model = $this->subject->find($uid);
 
         $this->subject->delete($model);
 
-        self::assertTrue(
-            $this->testingFramework->existsExactlyOneRecord(
-                'tx_oelib_test',
-                'uid = ' . $uid . ' AND deleted = 1'
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $uid . ' AND deleted = 1')
         );
     }
 
@@ -3698,7 +3572,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function deleteForModelWithUidStillKeepsModelAccessibleViaDataMapper()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $model = $this->subject->find($uid);
 
         $this->subject->delete($model);
@@ -3714,22 +3589,17 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function deleteForModelWithOneToManyRelationDeletesRelatedElements()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['composition' => 1]
-        );
-        $relatedUid = $this->testingFramework->createRecord(
-            'tx_oelib_testchild',
-            ['parent' => $uid]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['composition' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $uid]);
+        $relatedUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $this->subject->delete($this->subject->find($uid));
 
-        self::assertTrue(
-            $this->testingFramework->existsExactlyOneRecord(
-                'tx_oelib_testchild',
-                'uid = ' . $relatedUid . ' AND deleted = 1'
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()
+                ->selectCount('*', 'tx_oelib_testchild', 'uid = ' . $relatedUid . ' AND deleted = 1')
         );
     }
 
@@ -3740,14 +3610,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function deleteForDirtyModelWithOneToManyRelationToDirtyElementDoesNotCrash()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['composition' => 1]
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_testchild',
-            ['parent' => $uid]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['composition' => 1]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $uid]);
 
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
@@ -3772,7 +3637,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$relationKey must not be empty');
 
-        $model = $this->subject->find($this->testingFramework->createRecord('tx_oelib_test'));
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        /** @var TestingModel $model */
+        $model = $this->subject->find($uid);
 
         \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class)->findAllByRelation($model, '');
     }
@@ -3782,9 +3650,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllByRelationForNoMatchesReturnsEmptyList()
     {
-        $model = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $model = $this->subject->find($uid);
 
         $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
         self::assertTrue(
@@ -3797,16 +3665,13 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllByRelationNotReturnsNotMatchingRecords()
     {
-        $model = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
-        $anotherModel = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_testchild',
-            ['parent' => $anotherModel->getUid()]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $model = $this->subject->find($uid1);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $anotherModel = $this->subject->find($uid2);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $anotherModel->getUid()]);
 
         $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
         self::assertTrue(
@@ -3819,16 +3684,13 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllByRelationCanReturnOneMatch()
     {
-        $model = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $model = $this->subject->find($uid);
         $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
-        $relatedModel = $mapper->find(
-            $this->testingFramework->createRecord(
-                'tx_oelib_testchild',
-                ['parent' => $model->getUid()]
-            )
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
+        $relatedUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $relatedModel = $mapper->find($relatedUid);
 
         $result = $mapper->findAllByRelation($model, 'parent');
         self::assertSame(
@@ -3846,17 +3708,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllByRelationCanReturnTwoMatches()
     {
-        $model = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_testchild',
-            ['parent' => $model->getUid()]
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_testchild',
-            ['parent' => $model->getUid()]
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $model = $this->subject->find($uid);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
 
         $result = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class)
             ->findAllByRelation($model, 'parent');
@@ -3871,22 +3727,16 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllByRelationIgnoresIgnoreList()
     {
-        $model = $this->subject->find(
-            $this->testingFramework->createRecord('tx_oelib_test')
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $model = $this->subject->find($uid);
         $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
-        $relatedModel = $mapper->find(
-            $this->testingFramework->createRecord(
-                'tx_oelib_testchild',
-                ['parent' => $model->getUid()]
-            )
-        );
-        $ignoredRelatedModel = $mapper->find(
-            $this->testingFramework->createRecord(
-                'tx_oelib_testchild',
-                ['parent' => $model->getUid()]
-            )
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
+        $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $relatedModel = $mapper->find($childUid1);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
+        $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $ignoredRelatedModel = $mapper->find($childUid2);
 
         $ignoreList = new \Tx_Oelib_List();
         $ignoreList->add($ignoredRelatedModel);
@@ -3912,7 +3762,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function countByWhereClauseWithoutWhereClauseCountsAllRecords()
     {
-        $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
         self::assertSame(
             1,
@@ -3925,10 +3775,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function countByWhereClauseWithoutMatchingRecordReturnsZero()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
 
         self::assertSame(
             0,
@@ -3941,14 +3788,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function countByWhereClauseWithOneMatchingRecordsReturnsOne()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'bar']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'bar']);
 
         self::assertSame(
             1,
@@ -3961,14 +3802,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function countByWhereClauseWithTwoMatchingRecordsReturnsTwo()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'bar']
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'bar']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'bar']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'bar']);
 
         self::assertSame(
             2,
