@@ -2,7 +2,6 @@
 
 namespace OliverKlee\Oelib\Tests\Functional\Testing;
 
-use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Tests\Functional\Templating\Fixtures\TestingTemplateHelper;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
@@ -38,13 +37,6 @@ class FrameworkTest extends FunctionalTestCase
         parent::setUp();
 
         $this->subject = new \Tx_Oelib_TestingFramework('tx_oelib', ['user_oelibtest']);
-    }
-
-    protected function tearDown()
-    {
-        $this->subject->cleanUpWithoutDatabase();
-
-        parent::tearDown();
     }
 
     /*
@@ -103,7 +95,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->cleanUp();
         self::assertSame(
             0,
-            $this->subject->countRecords('tx_oelib_test', 'uid=' . $uid)
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid=' . $uid)
         );
     }
 
@@ -122,7 +114,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->cleanUp();
         self::assertSame(
             0,
-            $this->subject->countRecords('pages', 'uid=' . $uid)
+            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid)
         );
     }
 
@@ -141,7 +133,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->cleanUp();
         self::assertSame(
             0,
-            $this->subject->countRecords('user_oelibtest_test', 'uid=' . $uid)
+            $this->getDatabaseConnection()->selectCount('*', 'user_oelibtest_test', 'uid=' . $uid)
         );
     }
 
@@ -313,9 +305,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createRecord('tx_oelib_test', ['hidden' => 1]);
 
-        /** @var MysqliStatement $result */
-        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'uid = ' . $uid);
-        $count = $result->rowCount();
+        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $uid);
         self::assertSame(1, $count);
     }
 
@@ -326,9 +316,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createRecord('tx_oelib_test', ['deleted' => 1]);
 
-        /** @var MysqliStatement $result */
-        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'uid = ' . $uid);
-        $count = $result->rowCount();
+        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $uid);
         self::assertSame(1, $count);
     }
 
@@ -354,9 +342,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         $this->subject->createRecord('tx_oelib_test', ['bool_data1' => $value]);
 
-        /** @var MysqliStatement $result */
-        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value);
-        $count = $result->rowCount();
+        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value);
         self::assertSame(1, $count);
     }
 
@@ -443,7 +429,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            $this->subject->countRecords('pages', 'uid=' . $pid . ' AND title="bar"')
+            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $pid . ' AND title="bar"')
         );
     }
 
@@ -592,9 +578,7 @@ class FrameworkTest extends FunctionalTestCase
 
         $this->subject->changeRecord('tx_oelib_test', $uid, ['bool_data1' => $value]);
 
-        /** @var MysqliStatement $result */
-        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value);
-        $count = $result->rowCount();
+        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value);
         self::assertSame(1, $count);
     }
 
@@ -619,7 +603,8 @@ class FrameworkTest extends FunctionalTestCase
         // Checks whether the record really exists.
         self::assertSame(
             1,
-            $this->subject->countRecords(
+            $this->getDatabaseConnection()->selectCount(
+                '*',
                 'tx_oelib_test_article_mm',
                 'uid_local=' . $uidLocal . ' AND uid_foreign=' . $uidForeign
             )
@@ -864,7 +849,8 @@ class FrameworkTest extends FunctionalTestCase
             'related_records'
         );
 
-        $count = $this->subject->countRecords(
+        $count = $this->getDatabaseConnection()->selectCount(
+            '*',
             'tx_oelib_test_article_mm',
             'uid_local=' . $firstRecordUid
         );
@@ -943,7 +929,8 @@ class FrameworkTest extends FunctionalTestCase
             'bidirectional'
         );
 
-        $count = $this->subject->countRecords(
+        $count = $this->getDatabaseConnection()->selectCount(
+            '*',
             'tx_oelib_test_article_mm',
             'uid_local=' . $secondRecordUid . ' AND uid_foreign=' .
             $firstRecordUid
@@ -983,14 +970,14 @@ class FrameworkTest extends FunctionalTestCase
         // Checks whether the first dummy record is deleted.
         self::assertSame(
             0,
-            $this->subject->countRecords('tx_oelib_test'),
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test'),
             'Some test records were not deleted from table "tx_oelib_test"'
         );
 
         // Checks whether the second dummy record still exists.
         self::assertSame(
             1,
-            $this->subject->countRecords('tx_oelib_test_article_mm')
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test_article_mm')
         );
 
         // Runs a deep clean up to delete all dummy records.
@@ -1064,9 +1051,7 @@ class FrameworkTest extends FunctionalTestCase
 
         $this->subject->cleanUp();
 
-        /** @var MysqliStatement $result */
-        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'hidden = 1');
-        $count = $result->rowCount();
+        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'hidden = 1');
         self::assertSame(0, $count);
     }
 
@@ -1080,9 +1065,7 @@ class FrameworkTest extends FunctionalTestCase
 
         $this->subject->cleanUp();
 
-        /** @var MysqliStatement $result */
-        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'deleted = 1');
-        $count = $result->rowCount();
+        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'deleted = 1');
         self::assertSame(0, $count);
     }
 
@@ -1115,7 +1098,7 @@ class FrameworkTest extends FunctionalTestCase
         // Checks whether the first dummy record is deleted.
         self::assertSame(
             1,
-            $this->subject->countRecords('tx_oelib_test'),
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test'),
             'Some test records were not deleted from table "tx_oelib_test"'
         );
     }
@@ -1155,29 +1138,15 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function getAutoIncrementForFeUsersTableIsAllowed()
+    public function getAutoIncrementForAllowedTableIsAllowed()
     {
         $this->subject->getAutoIncrement('fe_users');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function getAutoIncrementForPagesTableIsAllowed()
-    {
         $this->subject->getAutoIncrement('pages');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function getAutoIncrementForTtContentTableIsAllowed()
-    {
         $this->subject->getAutoIncrement('tt_content');
+        $this->subject->getAutoIncrement('sys_file');
+        $this->subject->getAutoIncrement('sys_file_collection');
+        $this->subject->getAutoIncrement('sys_file_reference');
+        $this->subject->getAutoIncrement('sys_category');
     }
 
     /**
@@ -1192,46 +1161,6 @@ class FrameworkTest extends FunctionalTestCase
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
         $this->subject->getAutoIncrement('sys_domains');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function getAutoIncrementForSysFileIsAllowed()
-    {
-        $this->subject->getAutoIncrement('sys_file');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function getAutoIncrementForSysFileCollectionIsAllowed()
-    {
-        $this->subject->getAutoIncrement('sys_file_collection');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function getAutoIncrementForSysFileReferenceIsAllowed()
-    {
-        $this->subject->getAutoIncrement('sys_file_reference');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function getAutoIncrementForSysCategoryIsAllowed()
-    {
-        $this->subject->getAutoIncrement('sys_category');
     }
 
     /**
@@ -1309,18 +1238,9 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function countRecordsWithEmptyWhereClauseIsAllowed()
+    public function countRecordsWithEmptyOrMissingWhereClauseIsAllowed()
     {
         $this->subject->countRecords('tx_oelib_test', '');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsWithMissingWhereClauseIsAllowed()
-    {
         $this->subject->countRecords('tx_oelib_test');
     }
 
@@ -1360,92 +1280,16 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function countRecordsWithFeGroupsTableIsAllowed()
+    public function countRecordsWithAllowedTableIsAllowed()
     {
-        $table = 'fe_groups';
-        $this->subject->countRecords($table);
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsWithFeUsersTableIsAllowed()
-    {
-        $table = 'fe_users';
-        $this->subject->countRecords($table);
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsWithPagesTableIsAllowed()
-    {
-        $table = 'pages';
-        $this->subject->countRecords($table);
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsWithTtContentTableIsAllowed()
-    {
-        $table = 'tt_content';
-        $this->subject->countRecords($table);
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsWithSysFileTableTableIsAllowed()
-    {
+        $this->subject->countRecords('fe_groups');
+        $this->subject->countRecords('fe_users');
+        $this->subject->countRecords('pages');
+        $this->subject->countRecords('tt_content');
         $this->subject->countRecords('sys_file');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsWithSysFileCollectionTableTableIsAllowed()
-    {
         $this->subject->countRecords('sys_file_collection');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsWithSysFileReferenceTableTableIsAllowed()
-    {
         $this->subject->countRecords('sys_file_reference');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsWithSysCategoryTableTableIsAllowed()
-    {
         $this->subject->countRecords('sys_category');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsWithSysCategoryRecordMmTableTableIsAllowed()
-    {
         $this->subject->countRecords('sys_category_record_mm');
     }
 
@@ -1529,16 +1373,6 @@ class FrameworkTest extends FunctionalTestCase
 
     /**
      * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsForPagesTableIsAllowed()
-    {
-        $this->subject->countRecords('pages');
-    }
-
-    /**
-     * @test
      */
     public function countRecordsIgnoresNonDummyRecords()
     {
@@ -1551,10 +1385,6 @@ class FrameworkTest extends FunctionalTestCase
             'tx_oelib_test',
             'title = "foo"'
         );
-
-        $this->getDatabaseConnection()->delete('tx_oelib_test', ['title' => 'foo']);
-        // We need to do this manually to not confuse the auto_increment counter of the testing framework.
-        $this->subject->resetAutoIncrement('tx_oelib_test');
 
         self::assertSame(
             0,
@@ -1591,18 +1421,9 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function countWithEmptyWhereClauseIsAllowed()
+    public function countWithEmptyOrMissingWhereClauseIsAllowed()
     {
         $this->subject->count('tx_oelib_test', []);
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countWithMissingWhereClauseIsAllowed()
-    {
         $this->subject->count('tx_oelib_test');
     }
 
@@ -1638,92 +1459,16 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function countWithFeGroupsTableIsAllowed()
+    public function countWithAllowedTableIsAllowed()
     {
-        $table = 'fe_groups';
-        $this->subject->count($table);
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countWithFeUsersTableIsAllowed()
-    {
-        $table = 'fe_users';
-        $this->subject->count($table);
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countWithPagesTableIsAllowed()
-    {
-        $table = 'pages';
-        $this->subject->count($table);
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countWithTtContentTableIsAllowed()
-    {
-        $table = 'tt_content';
-        $this->subject->count($table);
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countWithSysFileTableTableIsAllowed()
-    {
+        $this->subject->count('fe_groups');
+        $this->subject->count('fe_users');
+        $this->subject->count('pages');
+        $this->subject->count('tt_content');
         $this->subject->count('sys_file');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countWithSysFileCollectionTableTableIsAllowed()
-    {
         $this->subject->count('sys_file_collection');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countWithSysFileReferenceTableTableIsAllowed()
-    {
         $this->subject->count('sys_file_reference');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countWithSysCategoryTableTableIsAllowed()
-    {
         $this->subject->count('sys_category');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countWithSysCategoryRecordMmTableTableIsAllowed()
-    {
         $this->subject->count('sys_category_record_mm');
     }
 
@@ -1805,16 +1550,6 @@ class FrameworkTest extends FunctionalTestCase
 
     /**
      * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countForPagesTableIsAllowed()
-    {
-        $this->subject->count('pages');
-    }
-
-    /**
-     * @test
      */
     public function countIgnoresNonDummyRecords()
     {
@@ -1824,10 +1559,6 @@ class FrameworkTest extends FunctionalTestCase
         );
 
         $testResult = $this->subject->count('tx_oelib_test', ['title' => 'foo']);
-
-        $this->getDatabaseConnection()->delete('tx_oelib_test', ['title' => 'foo']);
-        // We need to do this manually to not confuse the auto_increment counter of the testing framework.
-        $this->subject->resetAutoIncrement('tx_oelib_test');
 
         self::assertSame(
             0,
@@ -1883,18 +1614,9 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function existsRecordWithEmptyWhereClauseIsAllowed()
+    public function existsRecordWithEmptyOrMissingWhereClauseIsAllowed()
     {
         $this->subject->existsRecord('tx_oelib_test', '');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function existsRecordWithMissingWhereClauseIsAllowed()
-    {
         $this->subject->existsRecord('tx_oelib_test');
     }
 
@@ -1987,11 +1709,6 @@ class FrameworkTest extends FunctionalTestCase
             'tx_oelib_test',
             'title = "foo"'
         );
-
-        $this->getDatabaseConnection()->delete('tx_oelib_test', ['title' => 'foo']);
-        // We need to do this manually to not confuse the auto_increment counter
-        // of the testing framework.
-        $this->subject->resetAutoIncrement('tx_oelib_test');
 
         self::assertFalse(
             $testResult
@@ -2098,11 +1815,6 @@ class FrameworkTest extends FunctionalTestCase
             $uid
         );
 
-        $this->getDatabaseConnection()->delete('tx_oelib_test', ['uid' => $uid]);
-        // We need to do this manually to not confuse the auto_increment counter
-        // of the testing framework.
-        $this->subject->resetAutoIncrement('tx_oelib_test');
-
         self::assertFalse(
             $testResult
         );
@@ -2117,18 +1829,9 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function existsExactlyOneRecordWithEmptyWhereClauseIsAllowed()
+    public function existsExactlyOneRecordWithEmptyOrMissingWhereClauseIsAllowed()
     {
         $this->subject->existsExactlyOneRecord('tx_oelib_test', '');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function existsExactlyOneRecordWithMissingWhereClauseIsAllowed()
-    {
         $this->subject->existsExactlyOneRecord('tx_oelib_test');
     }
 
@@ -2228,10 +1931,6 @@ class FrameworkTest extends FunctionalTestCase
             'title = "foo"'
         );
 
-        $this->getDatabaseConnection()->delete('tx_oelib_test', ['title' => 'foo']);
-        // We need to do this manually to not confuse the auto_increment counter of the testing framework.
-        $this->subject->resetAutoIncrement('tx_oelib_test');
-
         self::assertFalse(
             $testResult
         );
@@ -2296,29 +1995,16 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function resetAutoIncrementForFeUsersTableIsAllowed()
+    public function resetAutoIncrementForAllowedTableIsAllowed()
     {
         $this->subject->resetAutoIncrement('fe_users');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function resetAutoIncrementForPagesTableIsAllowed()
-    {
         $this->subject->resetAutoIncrement('pages');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function resetAutoIncrementForTtContentTableIsAllowed()
-    {
         $this->subject->resetAutoIncrement('tt_content');
+        $this->subject->resetAutoIncrement('sys_file');
+        $this->subject->resetAutoIncrement('sys_file_collection');
+        $this->subject->resetAutoIncrement('sys_file_reference');
+        $this->subject->resetAutoIncrement('sys_category');
+        $this->subject->resetAutoIncrement('sys_category_record_mm');
     }
 
     /**
@@ -2334,56 +2020,6 @@ class FrameworkTest extends FunctionalTestCase
         );
 
         $this->subject->resetAutoIncrement('sys_domains');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function resetAutoIncrementForSysFileTableIsAllowed()
-    {
-        $this->subject->resetAutoIncrement('sys_file');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function resetAutoIncrementForSysFileCollectionTableIsAllowed()
-    {
-        $this->subject->resetAutoIncrement('sys_file_collection');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function resetAutoIncrementForSysFileReferenceTableIsAllowed()
-    {
-        $this->subject->resetAutoIncrement('sys_file_reference');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function resetAutoIncrementForSysCategoryTableIsAllowed()
-    {
-        $this->subject->resetAutoIncrement('sys_category');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function resetAutoIncrementForSysCategoryRecordMmTableIsAllowed()
-    {
-        $this->subject->resetAutoIncrement('sys_category_record_mm');
     }
 
     /**
@@ -2440,18 +2076,9 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function setResetAutoIncrementThresholdForOneIsAllowed()
+    public function setResetAutoIncrementThresholdForOneAndOndHundredIsAllowed()
     {
         $this->subject->setResetAutoIncrementThreshold(1);
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function setResetAutoIncrementThresholdFor100IsAllowed()
-    {
         $this->subject->setResetAutoIncrementThreshold(100);
     }
 
@@ -2503,10 +2130,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            $this->subject->countRecords(
-                'pages',
-                'uid=' . $uid
-            )
+            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid)
         );
     }
 
@@ -2572,10 +2196,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->cleanUp();
         self::assertSame(
             0,
-            $this->subject->countRecords(
-                'pages',
-                'uid=' . $uid
-            )
+            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid)
         );
     }
 
@@ -2616,10 +2237,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            $this->subject->countRecords(
-                'pages',
-                'uid=' . $uid
-            )
+            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid)
         );
     }
 
@@ -2710,10 +2328,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->cleanUp();
         self::assertSame(
             0,
-            $this->subject->countRecords(
-                'pages',
-                'uid=' . $uid
-            )
+            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid)
         );
     }
 
@@ -2755,10 +2370,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            $this->subject->countRecords(
-                'sys_template',
-                'uid=' . $uid
-            )
+            $this->getDatabaseConnection()->selectCount('*', 'sys_template', 'uid=' . $uid)
         );
     }
 
@@ -2807,10 +2419,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->cleanUp();
         self::assertSame(
             0,
-            $this->subject->countRecords(
-                'sys_template',
-                'uid=' . $uid
-            )
+            $this->getDatabaseConnection()->selectCount('*', 'sys_template', 'uid=' . $uid)
         );
     }
 
@@ -2959,10 +2568,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            $this->subject->countRecords(
-                'fe_groups',
-                'uid=' . $uid
-            )
+            $this->getDatabaseConnection()->selectCount('*', 'fe_groups', 'uid=' . $uid)
         );
     }
 
@@ -2980,10 +2586,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->cleanUp();
         self::assertSame(
             0,
-            $this->subject->countRecords(
-                'fe_groups',
-                'uid=' . $uid
-            )
+            $this->getDatabaseConnection()->selectCount('*', 'fe_groups', 'uid=' . $uid)
         );
     }
 
@@ -3045,10 +2648,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            $this->subject->countRecords(
-                'fe_users',
-                'uid=' . $uid
-            )
+            $this->getDatabaseConnection()->selectCount('*', 'fe_users', 'uid=' . $uid)
         );
     }
 
@@ -3066,10 +2666,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->cleanUp();
         self::assertSame(
             0,
-            $this->subject->countRecords(
-                'fe_users',
-                'uid=' . $uid
-            )
+            $this->getDatabaseConnection()->selectCount('*', 'fe_users', 'uid=' . $uid)
         );
     }
 
@@ -3133,10 +2730,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            $this->subject->countRecords(
-                'fe_users',
-                'uid=' . $uid
-            )
+            $this->getDatabaseConnection()->selectCount('*', 'fe_users', 'uid=' . $uid)
         );
     }
 
@@ -3292,7 +2886,8 @@ class FrameworkTest extends FunctionalTestCase
     {
         self::assertSame(
             1,
-            $this->subject->countRecords(
+            $this->getDatabaseConnection()->selectCount(
+                '*',
                 'be_users',
                 'uid=' . $this->subject->createBackEndUser()
             )
@@ -3309,7 +2904,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->cleanUp();
         self::assertSame(
             0,
-            $this->subject->countRecords('be_users', 'uid=' . $uid)
+            $this->getDatabaseConnection()->selectCount('*', 'be_users', 'uid=' . $uid)
         );
     }
 
@@ -3629,7 +3224,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            $this->subject->countRecords('fe_users')
+            $this->getDatabaseConnection()->selectCount('*', 'fe_users')
         );
     }
 
@@ -3647,7 +3242,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            $this->subject->countRecords('fe_users', 'name = "John Doe"')
+            $this->getDatabaseConnection()->selectCount('*', 'fe_users', 'name = "John Doe"')
         );
     }
 
@@ -3677,7 +3272,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            $this->subject->countRecords('fe_users')
+            $this->getDatabaseConnection()->selectCount('*', 'fe_users')
         );
     }
 
@@ -3719,7 +3314,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            $this->subject->countRecords('fe_groups')
+            $this->getDatabaseConnection()->selectCount('*', 'fe_groups')
         );
     }
 
