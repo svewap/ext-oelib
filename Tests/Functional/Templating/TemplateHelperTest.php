@@ -4,7 +4,9 @@ namespace OliverKlee\Oelib\Tests\Functional\Templating;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Tests\Functional\Templating\Fixtures\TestingTemplateHelper;
+use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Test case.
@@ -24,54 +26,18 @@ class TemplateHelperTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    /**
-     * @var \Tx_Oelib_TestingFramework
-     */
-    private $testingFramework = null;
-
     protected function setUp()
     {
         parent::setUp();
 
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
-        $pageUid = $this->testingFramework->createFrontEndPage();
-        $this->testingFramework->createFakeFrontEnd($pageUid);
+        /** @var TypoScriptFrontendController|ProphecySubjectInterface $frontEndController */
+        $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
+        $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
+        $GLOBALS['TSFE'] = $frontEndController;
+
         \Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
 
         $this->subject = new TestingTemplateHelper([]);
-    }
-
-    protected function tearDown()
-    {
-        $this->testingFramework->cleanUpWithoutDatabase();
-
-        parent::tearDown();
-    }
-
-    ///////////////////////////////////////////////////////////////////////
-    // Tests for the behavior of the template helper without a front end.
-    ///////////////////////////////////////////////////////////////////////
-
-    /**
-     * @test
-     */
-    public function initMarksObjectAsInitialized()
-    {
-        $this->subject->init();
-
-        self::assertTrue(
-            $this->subject->isInitialized()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function initInitializesContentObjectRenderer()
-    {
-        $this->subject->init();
-
-        self::assertInstanceOf(ContentObjectRenderer::class, $this->subject->cObj);
     }
 
     ///////////////////////////////
@@ -128,43 +94,6 @@ class TemplateHelperTest extends FunctionalTestCase
         self::assertSame(
             '',
             $this->subject->getWrappedConfigCheckMessage()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getSubpartWithLabelsReturnsVerbatimSubpartWithoutLabels()
-    {
-        $subpartContent = 'Subpart content';
-        $templateCode = 'Text before the subpart'
-            . '<!-- ###MY_SUBPART### -->'
-            . $subpartContent
-            . '<!-- ###MY_SUBPART### -->'
-            . 'Text after the subpart.';
-
-        $this->subject->processTemplate($templateCode);
-
-        self::assertSame(
-            $subpartContent,
-            $this->subject->getSubpartWithLabels('MY_SUBPART')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getSubpartWithLabelsReplacesLabelMarkersWithLabels()
-    {
-        $templateCode = 'Text before the subpart'
-            . '<!-- ###MY_SUBPART### -->before ###LABEL_FOO### after<!-- ###MY_SUBPART### -->'
-            . 'Text after the subpart.';
-
-        $this->subject->processTemplate($templateCode);
-
-        self::assertSame(
-            'before foo after',
-            $this->subject->getSubpartWithLabels('MY_SUBPART')
         );
     }
 
@@ -283,87 +212,6 @@ class TemplateHelperTest extends FunctionalTestCase
         self::assertNotSame(
             '',
             $this->subject->getWrappedConfigCheckMessage()
-        );
-    }
-
-    ////////////////////////////////////////////
-    // Tests for automatically setting labels.
-    ////////////////////////////////////////////
-
-    /**
-     * @test
-     */
-    public function setLabels()
-    {
-        $this->subject->processTemplate(
-            'a ###LABEL_FOO### b'
-        );
-        $this->subject->setLabels();
-        self::assertSame(
-            'a foo b',
-            $this->subject->getSubpart()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setLabelsNoSalutation()
-    {
-        $this->subject->processTemplate(
-            'a ###LABEL_BAR### b'
-        );
-        $this->subject->setLabels();
-        self::assertSame(
-            'a bar (no salutation) b',
-            $this->subject->getSubpart()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setLabelsFormal()
-    {
-        $this->subject->setSalutationMode('formal');
-        $this->subject->processTemplate(
-            'a ###LABEL_BAR### b'
-        );
-        $this->subject->setLabels();
-        self::assertSame(
-            'a bar (formal) b',
-            $this->subject->getSubpart()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setLabelsInformal()
-    {
-        $this->subject->setSalutationMode('informal');
-        $this->subject->processTemplate(
-            'a ###LABEL_BAR### b'
-        );
-        $this->subject->setLabels();
-        self::assertSame(
-            'a bar (informal) b',
-            $this->subject->getSubpart()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setLabelsWithOneBeingThePrefixOfAnother()
-    {
-        $this->subject->processTemplate(
-            '###LABEL_FOO###, ###LABEL_FOO2###'
-        );
-        $this->subject->setLabels();
-        self::assertSame(
-            'foo, foo two',
-            $this->subject->getSubpart()
         );
     }
 
@@ -520,10 +368,9 @@ class TemplateHelperTest extends FunctionalTestCase
      */
     public function pageSetupInitiallyIsEmpty()
     {
-        $pageId = $this->testingFramework->createFrontEndPage();
         self::assertSame(
             [],
-            $this->subject->retrievePageConfig($pageId)
+            $this->subject->retrievePageConfig(1)
         );
     }
 }
