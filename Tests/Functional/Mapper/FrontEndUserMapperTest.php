@@ -17,27 +17,15 @@ class FrontEndUserMapperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_TestingFramework for creating dummy records
-     */
-    private $testingFramework = null;
-
-    /**
-     * @var \Tx_Oelib_Mapper_FrontEndUser the object to test
+     * @var \Tx_Oelib_Mapper_FrontEndUser
      */
     private $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
         $this->subject = new \Tx_Oelib_Mapper_FrontEndUser();
-    }
-
-    protected function tearDown()
-    {
-        $this->testingFramework->cleanUp();
-        parent::tearDown();
     }
 
     //////////////////////////
@@ -49,7 +37,8 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findWithUidOfExistingRecordReturnsFrontEndUserInstance()
     {
-        $uid = $this->testingFramework->createFrontEndUser();
+        $this->getDatabaseConnection()->insertArray('fe_users', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertInstanceOf(
             \Tx_Oelib_Model_FrontEndUser::class,
@@ -62,7 +51,8 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findWithUidOfExistingRecordReturnsModelWithThatUid()
     {
-        $uid = $this->testingFramework->createFrontEndUser();
+        $this->getDatabaseConnection()->insertArray('fe_users', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
@@ -86,7 +76,8 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $group2 = $groupMapper->getNewGhost();
         $groupUids = $group1->getUid() . ',' . $group2->getUid();
 
-        $uid = $this->testingFramework->createFrontEndUser($groupUids);
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $groupUids]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         /** @var \Tx_Oelib_Model_FrontEndUser $user */
         $user = $this->subject->find($uid);
@@ -121,9 +112,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
     public function getGroupMembersForNonExistingGroupUidReturnsEmptyList()
     {
         self::assertTrue(
-            $this->subject->getGroupMembers(
-                $this->testingFramework->getAutoIncrement('fe_groups')
-            )->isEmpty()
+            $this->subject->getGroupMembers(1)->isEmpty()
         );
     }
 
@@ -132,11 +121,12 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForGroupWithNoMembersReturnsInstanceOfOelibList()
     {
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
         self::assertInstanceOf(
             \Tx_Oelib_List::class,
-            $this->subject->getGroupMembers(
-                $this->testingFramework->createFrontEndUserGroup()
-            )
+            $this->subject->getGroupMembers($uid)
         );
     }
 
@@ -145,10 +135,11 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForGroupWithNoMembersReturnsEmptyList()
     {
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
         self::assertTrue(
-            $this->subject->getGroupMembers(
-                $this->testingFramework->createFrontEndUserGroup()
-            )->isEmpty()
+            $this->subject->getGroupMembers($uid)->isEmpty()
         );
     }
 
@@ -157,8 +148,9 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForGroupWithOneMemberReturnsOneElement()
     {
-        $feUserGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $this->testingFramework->createFrontEndUser($feUserGroupUid);
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $feUserGroupUid]);
 
         self::assertSame(
             1,
@@ -171,11 +163,9 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersIgnoresDeletedUser()
     {
-        $feUserGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $this->testingFramework->createFrontEndUser(
-            $feUserGroupUid,
-            ['deleted' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $feUserGroupUid, 'deleted' => 1]);
 
         self::assertTrue(
             $this->subject->getGroupMembers($feUserGroupUid)->isEmpty()
@@ -187,11 +177,9 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersIgnoresDisabledUser()
     {
-        $feUserGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $this->testingFramework->createFrontEndUser(
-            $feUserGroupUid,
-            ['disable' => 1]
-        );
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $feUserGroupUid, 'disable' => 1]);
 
         self::assertTrue(
             $this->subject->getGroupMembers($feUserGroupUid)->isEmpty()
@@ -203,14 +191,16 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForUserWithMultipleGroupsAndGivenGroupFirstReturnsOneElement()
     {
-        $feUserGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $userGroups = $feUserGroupUid . ',' .
-            $this->testingFramework->createFrontEndUserGroup();
-        $this->testingFramework->createFrontEndUser($userGroups);
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $userGroups = $feUserGroupUid1 . ',' . $feUserGroupUid2;
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $userGroups]);
 
         self::assertSame(
             1,
-            $this->subject->getGroupMembers($feUserGroupUid)->count()
+            $this->subject->getGroupMembers($feUserGroupUid1)->count()
         );
     }
 
@@ -219,14 +209,16 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForUserWithMultipleGroupsAndGivenGroupLastReturnsOneElement()
     {
-        $feUserGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $userGroups = $this->testingFramework->createFrontEndUserGroup() . ',' .
-            $feUserGroupUid;
-        $this->testingFramework->createFrontEndUser($userGroups);
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $userGroups = $feUserGroupUid1 . ',' . $feUserGroupUid2;
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $userGroups]);
 
         self::assertSame(
             1,
-            $this->subject->getGroupMembers($feUserGroupUid)->count()
+            $this->subject->getGroupMembers($feUserGroupUid1)->count()
         );
     }
 
@@ -235,15 +227,16 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForUserWithMultipleGroupsAndGivenGroupInTheMiddleReturnsOneElement()
     {
-        $feUserGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $userGroups = $this->testingFramework->createFrontEndUserGroup() .
-            ',' . $feUserGroupUid . ',' .
-            $this->testingFramework->createFrontEndUserGroup();
-        $this->testingFramework->createFrontEndUser($userGroups);
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $userGroups = $feUserGroupUid1 . ',' . $feUserGroupUid2;
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $userGroups]);
 
         self::assertSame(
             1,
-            $this->subject->getGroupMembers($feUserGroupUid)->count()
+            $this->subject->getGroupMembers($feUserGroupUid1)->count()
         );
     }
 
@@ -252,8 +245,9 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForGroupWithOneMemberReturnsFrontEndUserList()
     {
-        $feUserGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $this->testingFramework->createFrontEndUser($feUserGroupUid);
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $feUserGroupUid]);
 
         self::assertInstanceOf(
             \Tx_Oelib_Model_FrontEndUser::class,
@@ -266,9 +260,10 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForGroupWithTwoMembersReturnsTwoUsers()
     {
-        $feUserGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $this->testingFramework->createFrontEndUser($feUserGroupUid);
-        $this->testingFramework->createFrontEndUser($feUserGroupUid);
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $feUserGroupUid]);
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $feUserGroupUid]);
 
         self::assertSame(
             2,
@@ -281,11 +276,13 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForGroupWithOneMemberDoesNotReturnsUserNotInGivenGroup()
     {
-        $firstGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $this->testingFramework->createFrontEndUser($firstGroupUid);
-        $secondUserUid = $this->testingFramework->createFrontEndUser(
-            $this->testingFramework->createFrontEndUserGroup()
-        );
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $firstGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $secondGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $firstGroupUid]);
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $secondGroupUid]);
+        $secondUserUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertFalse(
             $this->subject->getGroupMembers($firstGroupUid)->hasUid(
@@ -299,10 +296,12 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForTwoGroupsReturnsUsersOfBothGroups()
     {
-        $firstGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $secondGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $this->testingFramework->createFrontEndUser($firstGroupUid);
-        $this->testingFramework->createFrontEndUser($secondGroupUid);
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $firstGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $secondGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $firstGroupUid]);
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $secondGroupUid]);
 
         self::assertSame(
             2,
@@ -317,9 +316,12 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForTwoGroupsReturnsUserInBothGroupsOnlyOnce()
     {
-        $userGroups = $this->testingFramework->createFrontEndUserGroup() . ',' .
-            $this->testingFramework->createFrontEndUserGroup();
-        $this->testingFramework->createFrontEndUser($userGroups);
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $feUserGroupUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $userGroups = $feUserGroupUid1 . ',' . $feUserGroupUid2;
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $userGroups]);
 
         self::assertSame(
             1,
@@ -332,12 +334,14 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function getGroupMembersForTwoGroupsCanReturnThreeUsersInGroups()
     {
-        $firstGroupUid = $this->testingFramework->createFrontEndUserGroup();
-        $secondGroupUid = $this->testingFramework->createFrontEndUserGroup();
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $firstGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('fe_groups', []);
+        $secondGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
         $userGroups = $firstGroupUid . ',' . $secondGroupUid;
-        $this->testingFramework->createFrontEndUser($firstGroupUid);
-        $this->testingFramework->createFrontEndUser($secondGroupUid);
-        $this->testingFramework->createFrontEndUser($userGroups);
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $firstGroupUid]);
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $secondGroupUid]);
+        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $userGroups]);
 
         self::assertSame(
             3,
@@ -365,8 +369,8 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameWithNameOfExistingUserReturnsFrontEndUserInstance()
     {
-        $userName = uniqid('user', true);
-        $this->testingFramework->createFrontEndUser('', ['username' => $userName]);
+        $userName = 'max.doe';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName]);
 
         self::assertInstanceOf(
             \Tx_Oelib_Model_FrontEndUser::class,
@@ -379,9 +383,12 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameWithNameOfExistingUserReturnsModelWithThatUid()
     {
-        $userName = uniqid('user', true);
+        $userName = 'max.doe';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
         self::assertSame(
-            $this->testingFramework->createFrontEndUser('', ['username' => $userName]),
+            $uid,
             $this->subject->findByUserName($userName)->getUid()
         );
     }
@@ -391,9 +398,12 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameWithUppercasedNameOfExistingLowercasedUserReturnsModelWithThatUid()
     {
-        $userName = uniqid('user', true);
+        $userName = 'max.doe';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
         self::assertSame(
-            $this->testingFramework->createFrontEndUser('', ['username' => $userName]),
+            $uid,
             $this->subject->findByUserName(strtoupper($userName))->getUid()
         );
     }
@@ -403,9 +413,12 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameWithUppercasedNameOfExistingUppercasedUserReturnsModelWithThatUid()
     {
-        $userName = strtoupper(uniqid('user', true));
+        $userName = 'MAX.DOE';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
         self::assertSame(
-            $this->testingFramework->createFrontEndUser('', ['username' => $userName]),
+            $uid,
             $this->subject->findByUserName($userName)->getUid()
         );
     }
@@ -415,9 +428,12 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameWithLowercasedNameOfExistingUppercasedUserReturnsModelWithThatUid()
     {
-        $userName = uniqid('user', true);
+        $userName = 'max.doe';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => strtoupper($userName)]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
         self::assertSame(
-            $this->testingFramework->createFrontEndUser('', ['username' => strtoupper($userName)]),
+            $uid,
             $this->subject->findByUserName($userName)->getUid()
         );
     }
@@ -429,8 +445,8 @@ class FrontEndUserMapperTest extends FunctionalTestCase
     {
         $this->expectException(\Tx_Oelib_Exception_NotFound::class);
 
-        $userName = uniqid('user', true);
-        $this->testingFramework->createFrontEndUser('', ['username' => $userName, 'deleted' => 1]);
+        $userName = 'max.doe';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName, 'deleted' => 1]);
 
         $this->subject->findByUserName($userName);
     }
