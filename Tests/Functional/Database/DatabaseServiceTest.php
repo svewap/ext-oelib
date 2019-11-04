@@ -19,11 +19,6 @@ class DatabaseServiceTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_TestingFramework
-     */
-    private $testingFramework = null;
-
-    /**
      * @var int
      */
     private $now = 1572370121;
@@ -37,17 +32,6 @@ class DatabaseServiceTest extends FunctionalTestCase
         }
 
         $GLOBALS['SIM_EXEC_TIME'] = $this->now;
-
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
-    }
-
-    protected function tearDown()
-    {
-        if ($this->testingFramework !== null) {
-            $this->testingFramework->cleanUpWithoutDatabase();
-        }
-
-        parent::tearDown();
     }
 
     /*
@@ -55,8 +39,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
 
     /**
-     * Explodes a comma-separated list of integer values and sorts them
-     * numerically.
+     * Explodes a comma-separated list of integer values and sorts them numerically.
      *
      * @param string $valueList
      *        comma-separated list of values, may be empty
@@ -196,7 +179,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function enableFieldsWithHiddenNotAllowedFindsDefaultRecord()
     {
-        $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
         $result = $this->getDatabaseConnection()->select(
             '*',
@@ -212,7 +195,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function enableFieldsWithHiddenAllowedFindsDefaultRecord()
     {
-        $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
         $result = $this->getDatabaseConnection()->select(
             '*',
@@ -243,7 +226,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function enableFieldsWithHiddenNotAllowedIgnoresHiddenRecord(array $recordData)
     {
-        $this->testingFramework->createRecord('tx_oelib_test', $recordData);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', $recordData);
 
         $result = $this->getDatabaseConnection()->select(
             '*',
@@ -263,7 +246,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function enableFieldsWithHiddenAllowedFindsHiddenRecord(array $recordData)
     {
-        $this->testingFramework->createRecord('tx_oelib_test', $recordData);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', $recordData);
 
         $result = $this->getDatabaseConnection()->select(
             '*',
@@ -324,10 +307,11 @@ class DatabaseServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecursivePageListDoesNotContainSubpagesForOnePageWithZeroRecursion()
+    public function createRecursivePageListDoesNotContainSubPagesForOnePageWithZeroRecursion()
     {
-        $uid = $this->testingFramework->createSystemFolder();
-        $this->testingFramework->createSystemFolder($uid);
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', ['pid' => $uid]);
 
         self::assertSame(
             (string)$uid,
@@ -338,11 +322,12 @@ class DatabaseServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecursivePageListDoesNotContainSubpagesForTwoPagesWithZeroRecursion()
+    public function createRecursivePageListDoesNotContainSubPagesForTwoPagesWithZeroRecursion()
     {
-        $uid1 = $this->testingFramework->createSystemFolder();
-        $this->testingFramework->createSystemFolder($uid1);
-        $uid2 = $this->testingFramework->createSystemFolder();
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', ['pid' => $uid1]);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $this->sortExplode($uid1 . ',' . $uid2),
@@ -355,11 +340,13 @@ class DatabaseServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecursivePageListDoesNotContainSubsubpagesForRecursionOfOne()
+    public function createRecursivePageListDoesNotContainSubSubPagesForRecursionOfOne()
     {
-        $uid = $this->testingFramework->createSystemFolder();
-        $subFolderUid = $this->testingFramework->createSystemFolder($uid);
-        $this->testingFramework->createSystemFolder($subFolderUid);
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', ['pid' => $uid]);
+        $subFolderUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', ['pid' => $subFolderUid]);
 
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid),
@@ -372,8 +359,9 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function createRecursivePageListDoesNotContainUnrelatedPages()
     {
-        $uid = $this->testingFramework->createSystemFolder();
-        $this->testingFramework->createSystemFolder();
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', []);
 
         self::assertSame(
             (string)$uid,
@@ -384,11 +372,14 @@ class DatabaseServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecursivePageListCanContainTwoSubpagesOfOnePage()
+    public function createRecursivePageListCanContainTwoSubPagesOfOnePage()
     {
-        $uid = $this->testingFramework->createSystemFolder();
-        $subFolderUid1 = $this->testingFramework->createSystemFolder($uid);
-        $subFolderUid2 = $this->testingFramework->createSystemFolder($uid);
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', ['pid' => $uid]);
+        $subFolderUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', ['pid' => $uid]);
+        $subFolderUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid1 . ',' . $subFolderUid2),
@@ -399,12 +390,16 @@ class DatabaseServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecursivePageListCanContainSubpagesOfTwoPages()
+    public function createRecursivePageListCanContainSubPagesOfTwoPages()
     {
-        $uid1 = $this->testingFramework->createSystemFolder();
-        $uid2 = $this->testingFramework->createSystemFolder();
-        $subFolderUid1 = $this->testingFramework->createSystemFolder($uid1);
-        $subFolderUid2 = $this->testingFramework->createSystemFolder($uid2);
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', ['pid' => $uid1]);
+        $subFolderUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', ['pid' => $uid2]);
+        $subFolderUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $this->sortExplode(
@@ -421,8 +416,10 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function createRecursivePageListHeedsIncreasingRecursionDepthOnSubsequentCalls()
     {
-        $uid = $this->testingFramework->createSystemFolder();
-        $subFolderUid = $this->testingFramework->createSystemFolder($uid);
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', ['pid' => $uid]);
+        $subFolderUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             (string)$uid,
@@ -439,8 +436,10 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function createRecursivePageListHeedsDecreasingRecursionDepthOnSubsequentCalls()
     {
-        $uid = $this->testingFramework->createSystemFolder();
-        $subFolderUid = $this->testingFramework->createSystemFolder($uid);
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('pages', ['pid' => $uid]);
+        $subFolderUid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid),
@@ -578,14 +577,18 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function deleteDeletesRecord()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         \Tx_Oelib_Db::delete(
             'tx_oelib_test',
             'uid = ' . $uid
         );
 
-        self::assertFalse($this->testingFramework->existsRecord('tx_oelib_test', 'uid = ' . $uid));
+        self::assertSame(
+            0,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $uid)
+        );
     }
 
     /**
@@ -607,7 +610,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function deleteForOneDeletedRecordReturnsOne()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             1,
@@ -623,8 +627,10 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function deleteForTwoDeletedRecordsReturnsTwo()
     {
-        $uid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid2 = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             2,
@@ -658,7 +664,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function updateChangesRecord()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         \Tx_Oelib_Db::update(
             'tx_oelib_test',
@@ -666,11 +673,9 @@ class DatabaseServiceTest extends FunctionalTestCase
             ['title' => 'foo']
         );
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "foo"'
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo"')
         );
     }
 
@@ -683,12 +688,14 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function updateCanUpdateRecordWithBooleanData($value)
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         \Tx_Oelib_Db::update('tx_oelib_test', 'uid = ' . $uid, ['bool_data1' => $value]);
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord('tx_oelib_test', 'bool_data1 = ' . (int)$value)
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value)
         );
     }
 
@@ -712,7 +719,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function updateForOneChangedRecordReturnsOne()
     {
-        $uid = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             1,
@@ -729,8 +737,10 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function updateForTwoChangedRecordsReturnsTwo()
     {
-        $uid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid2 = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             2,
@@ -781,13 +791,10 @@ class DatabaseServiceTest extends FunctionalTestCase
             'tx_oelib_test',
             ['title' => 'foo', 'is_dummy_record' => 1]
         );
-        $this->testingFramework->markTableAsDirty('tx_oelib_test');
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord(
-                'tx_oelib_test',
-                'title = "foo"'
-            )
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo"')
         );
     }
 
@@ -815,10 +822,10 @@ class DatabaseServiceTest extends FunctionalTestCase
             'tx_oelib_test',
             ['bool_data1' => $value, 'is_dummy_record' => 1]
         );
-        $this->testingFramework->markTableAsDirty('tx_oelib_test');
 
-        self::assertTrue(
-            $this->testingFramework->existsRecord('tx_oelib_test', 'bool_data1 = ' . (int)$value)
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value)
         );
     }
 
@@ -831,9 +838,11 @@ class DatabaseServiceTest extends FunctionalTestCase
             'tx_oelib_test',
             ['is_dummy_record' => 1]
         );
-        $this->testingFramework->markTableAsDirty('tx_oelib_test');
 
-        self::assertTrue($this->testingFramework->existsRecord('tx_oelib_test', 'uid = ' . $uid));
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $uid)
+        );
     }
 
     /**
@@ -842,10 +851,12 @@ class DatabaseServiceTest extends FunctionalTestCase
     public function insertMakesUidAccessibleAsLastInsertUidOnConnection()
     {
         \Tx_Oelib_Db::insert('tx_oelib_test', ['is_dummy_record' => 1]);
-        $this->testingFramework->markTableAsDirty('tx_oelib_test');
         $uid = \Tx_Oelib_Db::getDatabaseConnection()->sql_insert_id();
 
-        self::assertTrue($this->testingFramework->existsRecord('tx_oelib_test', 'uid = ' . $uid));
+        self::assertSame(
+            1,
+            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $uid)
+        );
     }
 
     /**
@@ -853,8 +864,6 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function insertForTableWithoutUidReturnsZero()
     {
-        $this->testingFramework->markTableAsDirty('tx_oelib_test_article_mm');
-
         self::assertSame(
             0,
             \Tx_Oelib_Db::insert(
@@ -913,9 +922,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectSingleCanFindOneRow()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test'
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             ['uid' => (string)$uid],
@@ -938,14 +946,9 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectSingleCanOrderTheResults()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'Title A']
-        );
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'Title B']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'Title A']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'Title B']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             ['uid' => (string)$uid],
@@ -993,9 +996,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectMultipleCanFindOneRow()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test'
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             [['uid' => (string)$uid]],
@@ -1008,14 +1010,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectMultipleCanFindTwoRows()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
 
         self::assertSame(
             [
@@ -1050,10 +1046,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectColumnForMultipleForOneMatchReturnsArrayWithColumnContent()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             ['foo'],
@@ -1070,14 +1064,10 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectColumnForMultipleForTwoMatchReturnsArrayWithColumnContents()
     {
-        $uid1 = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $uid2 = $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'bar']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'bar']);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $result = \Tx_Oelib_Db::selectColumnForMultiple(
             'title',
@@ -1134,18 +1124,9 @@ class DatabaseServiceTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function countCanBeCalledWithEmptyWhereClause()
+    public function countCanBeCalledWithEmptyOrMissingWhereClause()
     {
         \Tx_Oelib_Db::count('tx_oelib_test', '');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countCanBeCalledWithMissingWhereClause()
-    {
         \Tx_Oelib_Db::count('tx_oelib_test');
     }
 
@@ -1168,12 +1149,12 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function countForOneMatchReturnsOne()
     {
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
         self::assertSame(
             1,
-            \Tx_Oelib_Db::count(
-                'tx_oelib_test',
-                'uid = ' . $this->testingFramework->createRecord('tx_oelib_test')
-            )
+            \Tx_Oelib_Db::count('tx_oelib_test', 'uid = ' . $uid)
         );
     }
 
@@ -1182,8 +1163,10 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function countForTwoMatchesReturnsTwo()
     {
-        $uid1 = $this->testingFramework->createRecord('tx_oelib_test');
-        $uid2 = $this->testingFramework->createRecord('tx_oelib_test');
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             2,
@@ -1199,28 +1182,10 @@ class DatabaseServiceTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function countCanBeCalledForTableWithoutUid()
+    public function countCanBeCalledForTableWithoutUidOrMultipleTablesOrJoins()
     {
         \Tx_Oelib_Db::count('tx_oelib_test_article_mm');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countCanBeCalledWithMultipleTables()
-    {
         \Tx_Oelib_Db::count('tx_oelib_test, tx_oelib_testchild');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countCanBeCalledWithJoinedTables()
-    {
         \Tx_Oelib_Db::count('tx_oelib_test JOIN tx_oelib_testchild');
     }
 
@@ -1233,18 +1198,9 @@ class DatabaseServiceTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function existsRecordWithEmptyWhereClauseIsAllowed()
+    public function existsRecordWithEmptyOrMissingWhereClauseIsAllowed()
     {
         \Tx_Oelib_Db::existsRecord('tx_oelib_test', '');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function existsRecordWithMissingWhereClauseIsAllowed()
-    {
         \Tx_Oelib_Db::existsRecord('tx_oelib_test');
     }
 
@@ -1273,9 +1229,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function existsRecordForOneMatchReturnsTrue()
     {
-        $uid = $this->testingFramework->createRecord(
-            'tx_oelib_test'
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertTrue(
             \Tx_Oelib_Db::existsRecord('tx_oelib_test', 'uid = ' . $uid)
@@ -1287,14 +1242,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function existsRecordForTwoMatchesReturnsTrue()
     {
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $this->testingFramework->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
 
         self::assertTrue(
             \Tx_Oelib_Db::existsRecord('tx_oelib_test', 'title = "foo"')
