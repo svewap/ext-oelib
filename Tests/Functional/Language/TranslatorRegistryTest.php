@@ -66,7 +66,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      */
     public function getInstanceReturnsTranslatorRegistryInstance()
     {
-        $this->setUpBackEnd();
+        $this->setUpFrontEnd();
 
         self::assertInstanceOf(
             \Tx_Oelib_TranslatorRegistry::class,
@@ -79,7 +79,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      */
     public function getInstanceTwoTimesReturnsSameInstance()
     {
-        $this->setUpBackEnd();
+        $this->setUpFrontEnd();
 
         self::assertSame(
             \Tx_Oelib_TranslatorRegistry::getInstance(),
@@ -92,7 +92,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      */
     public function getInstanceAfterPurgeInstanceReturnsNewInstance()
     {
-        $this->setUpBackEnd();
+        $this->setUpFrontEnd();
 
         $firstInstance = \Tx_Oelib_TranslatorRegistry::getInstance();
         \Tx_Oelib_TranslatorRegistry::purgeInstance();
@@ -112,7 +112,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      */
     public function getWithEmptyExtensionNameThrowsException()
     {
-        $this->setUpBackEnd();
+        $this->setUpFrontEnd();
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The parameter $extensionName must not be empty.');
@@ -125,7 +125,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      */
     public function getWithNotLoadedExtensionNameThrowsException()
     {
-        $this->setUpBackEnd();
+        $this->setUpFrontEnd();
 
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage('The extension with the name "user_oelib_test_does_not_exist" is not loaded.');
@@ -138,7 +138,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      */
     public function getWithLoadedExtensionNameReturnsTranslatorInstance()
     {
-        $this->setUpBackEnd();
+        $this->setUpFrontEnd();
 
         self::assertInstanceOf(\Tx_Oelib_Translator::class, \Tx_Oelib_TranslatorRegistry::get('oelib'));
     }
@@ -148,7 +148,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      */
     public function getTwoTimesWithSameExtensionNameReturnsSameInstance()
     {
-        $this->setUpBackEnd();
+        $this->setUpFrontEnd();
 
         self::assertSame(\Tx_Oelib_TranslatorRegistry::get('oelib'), \Tx_Oelib_TranslatorRegistry::get('oelib'));
     }
@@ -368,7 +368,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      */
     public function getByExtensionNameLoadsLabelsFromFile()
     {
-        $this->setUpBackEnd();
+        $this->setUpFrontEnd();
 
         self::assertSame(
             'I am from file.',
@@ -439,7 +439,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      */
     public function getLanguageKeyForSetKeyReturnsSetKey()
     {
-        $this->setUpBackEnd();
+        $this->setUpFrontEnd();
         \Tx_Oelib_TranslatorRegistry::getInstance()->setLanguageKey('de');
 
         self::assertSame(
@@ -453,7 +453,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      */
     public function setLanguageKeyForEmptyStringGivenThrowsException()
     {
-        $this->setUpBackEnd();
+        $this->setUpFrontEnd();
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The given language key must not be empty.');
 
