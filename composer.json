@@ -32,6 +32,8 @@
         "typo3/cms-frontend": "^8.7",
         "typo3/cms-extbase": "^8.7",
         "typo3/cms-fluid": "^8.7",
+        "psr/log": "^1.0",
+        "swiftmailer/swiftmailer": "^5.4.12",
         "pelago/emogrifier": "^2.1.1"
     },
     "require-dev": {
