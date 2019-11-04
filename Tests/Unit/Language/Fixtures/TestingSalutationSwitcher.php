@@ -1,9 +1,9 @@
 <?php
 
-namespace OliverKlee\Oelib\Tests\Functional\Language\Fixtures;
+namespace OliverKlee\Oelib\Tests\Unit\Language\Fixtures;
 
 /**
- * This is mere a class used for unit tests. Don't use it for any other purpose.
+ * This is mere a class used for unit tests. Do not use it for any other purpose.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -12,7 +12,7 @@ final class TestingSalutationSwitcher extends \Tx_Oelib_SalutationSwitcher
     /**
      * @var string
      */
-    public $scriptRelPath = 'Tests/Functional/Language/Fixtures/locallang.xlf';
+    public $scriptRelPath = 'Tests/Unit/Language/Fixtures/locallang.xlf';
 
     /**
      * @var string
@@ -50,9 +50,8 @@ final class TestingSalutationSwitcher extends \Tx_Oelib_SalutationSwitcher
             // Make sure the language file are reloaded.
             $this->LOCAL_LANG_loaded = false;
             $this->LLkey = $language;
+            $this->pi_loadLL();
         }
-
-        $this->pi_loadLL();
     }
 
     /**

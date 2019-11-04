@@ -1,9 +1,10 @@
 <?php
 
-namespace OliverKlee\Oelib\Tests\Functional\Language;
+namespace OliverKlee\Oelib\Tests\Unit\Language;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use OliverKlee\Oelib\Tests\Functional\Language\Fixtures\TestingSalutationSwitcher;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Tests\Unit\Language\Fixtures\TestingSalutationSwitcher;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Test case.
@@ -12,37 +13,18 @@ use OliverKlee\Oelib\Tests\Functional\Language\Fixtures\TestingSalutationSwitche
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Benjamin Schulte <benj@minschulte.de>
  */
-class SalutationSwitcherTest extends FunctionalTestCase
+class SalutationSwitcherTest extends UnitTestCase
 {
-    /**
-     * @var string[]
-     */
-    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
-
     /**
      * @var TestingSalutationSwitcher
      */
     private $subject = null;
 
-    /**
-     * @var \Tx_Oelib_TestingFramework
-     */
-    private $testingFramework = null;
-
     protected function setUp()
     {
-        parent::setUp();
-
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
-        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
+        $GLOBALS['TSFE'] = $this->prophesize(TypoScriptFrontendController::class)->reveal();
 
         $this->subject = new TestingSalutationSwitcher([]);
-    }
-
-    protected function tearDown()
-    {
-        $this->testingFramework->cleanUpWithoutDatabase();
-        parent::tearDown();
     }
 
     /**
@@ -53,9 +35,9 @@ class SalutationSwitcherTest extends FunctionalTestCase
         self::assertNotSame('', serialize($this->subject));
     }
 
-    ////////////////////////////////////
-    // Tests for setting the language.
-    ////////////////////////////////////
+    /*
+     * Tests for setting the language.
+     */
 
     /**
      * @test
@@ -104,9 +86,9 @@ class SalutationSwitcherTest extends FunctionalTestCase
         );
     }
 
-    ///////////////////////////////////////////
-    // Tests for setting the salutation modes.
-    ///////////////////////////////////////////
+    /*
+     * Tests for setting the salutation modes.
+     */
 
     /**
      * @test

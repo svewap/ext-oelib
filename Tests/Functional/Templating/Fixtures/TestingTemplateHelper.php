@@ -12,7 +12,7 @@ final class TestingTemplateHelper extends \Tx_Oelib_TemplateHelper
     /**
      * @var string
      */
-    public $scriptRelPath = 'Tests/Functional/Language/Fixtures/locallang.xlf';
+    public $scriptRelPath = 'Tests/Unit/Language/Fixtures/locallang.xlf';
 
     /**
      * @var string the extension key
