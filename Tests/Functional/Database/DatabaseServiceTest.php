@@ -198,7 +198,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->testingFramework->createRecord('tx_oelib_test');
 
-        $result = \Tx_Oelib_Db::selectMultiple(
+        $result = $this->getDatabaseConnection()->select(
             '*',
             'tx_oelib_test',
             '1 = 1' . \Tx_Oelib_Db::enableFields('tx_oelib_test')
@@ -214,7 +214,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->testingFramework->createRecord('tx_oelib_test');
 
-        $result = \Tx_Oelib_Db::selectMultiple(
+        $result = $this->getDatabaseConnection()->select(
             '*',
             'tx_oelib_test',
             '1 = 1' . \Tx_Oelib_Db::enableFields('tx_oelib_test', 1)
@@ -245,7 +245,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->testingFramework->createRecord('tx_oelib_test', $recordData);
 
-        $result = \Tx_Oelib_Db::selectMultiple(
+        $result = $this->getDatabaseConnection()->select(
             '*',
             'tx_oelib_test',
             '1 = 1' . \Tx_Oelib_Db::enableFields('tx_oelib_test')
@@ -265,7 +265,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->testingFramework->createRecord('tx_oelib_test', $recordData);
 
-        $result = \Tx_Oelib_Db::selectMultiple(
+        $result = $this->getDatabaseConnection()->select(
             '*',
             'tx_oelib_test',
             '1 = 1' . \Tx_Oelib_Db::enableFields('tx_oelib_test', 1)

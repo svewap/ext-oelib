@@ -75,7 +75,7 @@ class FrameworkTest extends FunctionalTestCase
      */
     private function getSortingOfRelation($uidLocal, $uidForeign)
     {
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'sorting',
             'tx_oelib_test_article_mm',
             'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign
@@ -93,10 +93,11 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function markTableAsDirtyWillCleanUpNonSystemTable()
     {
-        $uid = \Tx_Oelib_Db::insert(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['is_dummy_record' => 1]
         );
+        $uid = $this->getDatabaseConnection()->lastInsertId();
 
         $this->subject->markTableAsDirty('tx_oelib_test');
         $this->subject->cleanUp();
@@ -111,10 +112,11 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function markTableAsDirtyWillCleanUpSystemTable()
     {
-        $uid = \Tx_Oelib_Db::insert(
+        $this->getDatabaseConnection()->insertArray(
             'pages',
             ['tx_oelib_is_dummy_record' => 1]
         );
+        $uid = $this->getDatabaseConnection()->lastInsertId();
 
         $this->subject->markTableAsDirty('pages');
         $this->subject->cleanUp();
@@ -129,10 +131,11 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function markTableAsDirtyWillCleanUpAdditionalAllowedTable()
     {
-        $uid = \Tx_Oelib_Db::insert(
+        $this->getDatabaseConnection()->insertArray(
             'user_oelibtest_test',
             ['tx_oelib_is_dummy_record' => 1]
         );
+        $uid = $this->getDatabaseConnection()->lastInsertId();
 
         $this->subject->markTableAsDirty('user_oelibtest_test');
         $this->subject->cleanUp();
@@ -230,7 +233,7 @@ class FrameworkTest extends FunctionalTestCase
             $uid
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'title',
             'tx_oelib_test',
             'uid = ' . $uid
@@ -377,7 +380,7 @@ class FrameworkTest extends FunctionalTestCase
             ['title' => 'bar']
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'title',
             'tx_oelib_test',
             'uid = ' . $uid
@@ -804,7 +807,7 @@ class FrameworkTest extends FunctionalTestCase
             'related_records'
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'related_records',
             'tx_oelib_test',
             'uid = ' . $firstRecordUid
@@ -834,7 +837,7 @@ class FrameworkTest extends FunctionalTestCase
             'related_records'
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'related_records',
             'tx_oelib_test',
             'uid = ' . $firstRecordUid
@@ -886,7 +889,7 @@ class FrameworkTest extends FunctionalTestCase
             'bidirectional'
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'bidirectional',
             'tx_oelib_test',
             'uid = ' . $firstRecordUid
@@ -913,7 +916,7 @@ class FrameworkTest extends FunctionalTestCase
             'bidirectional'
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'related_records',
             'tx_oelib_test',
             'uid = ' . $secondRecordUid
@@ -965,7 +968,7 @@ class FrameworkTest extends FunctionalTestCase
 
         // Creates a dummy record directly in the database, without putting this
         // table name to the list of dirty tables.
-        \Tx_Oelib_Db::insert(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test_article_mm',
             ['is_dummy_record' => 1]
         );
@@ -1097,7 +1100,7 @@ class FrameworkTest extends FunctionalTestCase
 
         // Creates a dummy record directly in the database, without putting this
         // table name to the list of dirty tables.
-        \Tx_Oelib_Db::insert(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test_article_mm',
             ['is_dummy_record' => 1]
         );
@@ -1126,8 +1129,6 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function getAutoIncrementReturnsOneForTruncatedTable()
     {
-        \Tx_Oelib_Db::getDatabaseConnection()->sql_query('TRUNCATE TABLE tx_oelib_test;');
-
         self::assertSame(
             1,
             $this->subject->getAutoIncrement('tx_oelib_test')
@@ -1142,7 +1143,7 @@ class FrameworkTest extends FunctionalTestCase
         $uid = $this->subject->createRecord('tx_oelib_test');
 
         // $uid will equals be the previous auto increment value, so $uid + 1
-        // should be equal to the current auto inrement value.
+        // should be equal to the current auto increment value.
         self::assertSame(
             $uid + 1,
             $this->subject->getAutoIncrement('tx_oelib_test')
@@ -1541,7 +1542,7 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function countRecordsIgnoresNonDummyRecords()
     {
-        \Tx_Oelib_Db::insert(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['title' => 'foo']
         );
@@ -1551,12 +1552,8 @@ class FrameworkTest extends FunctionalTestCase
             'title = "foo"'
         );
 
-        \Tx_Oelib_Db::delete(
-            'tx_oelib_test',
-            'title = "foo"'
-        );
-        // We need to do this manually to not confuse the auto_increment counter
-        // of the testing framework.
+        $this->getDatabaseConnection()->delete('tx_oelib_test', ['title' => 'foo']);
+        // We need to do this manually to not confuse the auto_increment counter of the testing framework.
         $this->subject->resetAutoIncrement('tx_oelib_test');
 
         self::assertSame(
@@ -1821,19 +1818,15 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function countIgnoresNonDummyRecords()
     {
-        \Tx_Oelib_Db::insert(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['title' => 'foo']
         );
 
         $testResult = $this->subject->count('tx_oelib_test', ['title' => 'foo']);
 
-        \Tx_Oelib_Db::delete(
-            'tx_oelib_test',
-            'title = "foo"'
-        );
-        // We need to do this manually to not confuse the auto_increment counter
-        // of the testing framework.
+        $this->getDatabaseConnection()->delete('tx_oelib_test', ['title' => 'foo']);
+        // We need to do this manually to not confuse the auto_increment counter of the testing framework.
         $this->subject->resetAutoIncrement('tx_oelib_test');
 
         self::assertSame(
@@ -1985,7 +1978,7 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function existsRecordIgnoresNonDummyRecords()
     {
-        \Tx_Oelib_Db::insert(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['title' => 'foo']
         );
@@ -1995,10 +1988,7 @@ class FrameworkTest extends FunctionalTestCase
             'title = "foo"'
         );
 
-        \Tx_Oelib_Db::delete(
-            'tx_oelib_test',
-            'title = "foo"'
-        );
+        $this->getDatabaseConnection()->delete('tx_oelib_test', ['title' => 'foo']);
         // We need to do this manually to not confuse the auto_increment counter
         // of the testing framework.
         $this->subject->resetAutoIncrement('tx_oelib_test');
@@ -2067,10 +2057,10 @@ class FrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function existsRecordWithUidForNoMatcheReturnsFalse()
+    public function existsRecordWithUidForNoMatchReturnsFalse()
     {
         $uid = $this->subject->createRecord('tx_oelib_test');
-        \Tx_Oelib_Db::delete('tx_oelib_test', 'uid = ' . $uid);
+        $this->getDatabaseConnection()->delete('tx_oelib_test', ['uid' => $uid]);
 
         self::assertFalse(
             $this->subject->existsRecordWithUid(
@@ -2097,20 +2087,18 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function existsRecordWithUidIgnoresNonDummyRecords()
     {
-        $uid = \Tx_Oelib_Db::insert(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['title' => 'foo']
         );
+        $uid = $this->getDatabaseConnection()->lastInsertId();
 
         $testResult = $this->subject->existsRecordWithUid(
             'tx_oelib_test',
             $uid
         );
 
-        \Tx_Oelib_Db::delete(
-            'tx_oelib_test',
-            'uid = ' . $uid
-        );
+        $this->getDatabaseConnection()->delete('tx_oelib_test', ['uid' => $uid]);
         // We need to do this manually to not confuse the auto_increment counter
         // of the testing framework.
         $this->subject->resetAutoIncrement('tx_oelib_test');
@@ -2230,7 +2218,7 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function existsExactlyOneRecordIgnoresNonDummyRecords()
     {
-        \Tx_Oelib_Db::insert(
+        $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
             ['title' => 'foo']
         );
@@ -2240,12 +2228,8 @@ class FrameworkTest extends FunctionalTestCase
             'title = "foo"'
         );
 
-        \Tx_Oelib_Db::delete(
-            'tx_oelib_test',
-            'title = "foo"'
-        );
-        // We need to do this manually to not confuse the auto_increment counter
-        // of the testing framework.
+        $this->getDatabaseConnection()->delete('tx_oelib_test', ['title' => 'foo']);
+        // We need to do this manually to not confuse the auto_increment counter of the testing framework.
         $this->subject->resetAutoIncrement('tx_oelib_test');
 
         self::assertFalse(
@@ -2265,7 +2249,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->resetAutoIncrement('tx_oelib_test');
 
         $latestUid = $this->subject->createRecord('tx_oelib_test');
-        \Tx_Oelib_Db::delete('tx_oelib_test', 'uid = ' . $latestUid);
+        $this->getDatabaseConnection()->delete('tx_oelib_test', ['uid' => $latestUid]);
         $this->subject->resetAutoIncrement('tx_oelib_test');
 
         self::assertSame(
@@ -2293,7 +2277,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         // Creates and deletes a record and then resets the auto increment.
         $latestUid = $this->subject->createRecord('user_oelibtest_test');
-        \Tx_Oelib_Db::delete('user_oelibtest_test', 'uid = ' . $latestUid);
+        $this->getDatabaseConnection()->delete('user_oelibtest_test', ['uid' => $latestUid]);
         $this->subject->resetAutoIncrement('user_oelibtest_test');
     }
 
@@ -2538,7 +2522,7 @@ class FrameworkTest extends FunctionalTestCase
             $uid
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'doktype',
             'pages',
             'uid = ' . $uid
@@ -2562,7 +2546,7 @@ class FrameworkTest extends FunctionalTestCase
             $uid
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'pid',
             'pages',
             'uid = ' . $uid
@@ -2602,7 +2586,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createFrontEndPage();
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'title',
             'pages',
             'uid = ' . $uid
@@ -2651,7 +2635,7 @@ class FrameworkTest extends FunctionalTestCase
             $uid
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'doktype',
             'pages',
             'uid = ' . $uid
@@ -2675,7 +2659,7 @@ class FrameworkTest extends FunctionalTestCase
             $uid
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'pid',
             'pages',
             'uid = ' . $uid
@@ -2700,7 +2684,7 @@ class FrameworkTest extends FunctionalTestCase
             $uid
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'pid',
             'pages',
             'uid = ' . $uid
@@ -2740,7 +2724,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createSystemFolder();
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'title',
             'pages',
             'uid = ' . $uid
@@ -2837,7 +2821,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate($pageId);
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'config',
             'sys_template',
             'uid = ' . $uid
@@ -2858,7 +2842,7 @@ class FrameworkTest extends FunctionalTestCase
             $pageId,
             ['config' => 'plugin.tx_oelib.test = 1']
         );
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'config',
             'sys_template',
             'uid = ' . $uid
@@ -2899,7 +2883,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate($pageId);
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'constants',
             'sys_template',
             'uid = ' . $uid
@@ -2920,7 +2904,7 @@ class FrameworkTest extends FunctionalTestCase
             $pageId,
             ['constants' => 'plugin.tx_oelib.test = 1']
         );
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'constants',
             'sys_template',
             'uid = ' . $uid
@@ -3010,7 +2994,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createFrontEndUserGroup();
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'title',
             'fe_groups',
             'uid = ' . $uid
@@ -3031,7 +3015,7 @@ class FrameworkTest extends FunctionalTestCase
             ['title' => 'Test title']
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'title',
             'fe_groups',
             'uid = ' . $uid
@@ -3096,7 +3080,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createFrontEndUser();
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'username',
             'fe_users',
             'uid = ' . $uid
@@ -3118,7 +3102,7 @@ class FrameworkTest extends FunctionalTestCase
             ['username' => 'Test name']
         );
 
-        $row = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'username',
             'fe_users',
             'uid = ' . $uid
@@ -3336,7 +3320,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createBackEndUser();
 
-        $row = \Tx_Oelib_Db::selectSingle('username', 'be_users', 'uid = ' . $uid);
+        $row = $this->getDatabaseConnection()->selectSingleRow('username', 'be_users', 'uid = ' . $uid);
 
         self::assertSame(
             '',
@@ -3351,7 +3335,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createBackEndUser(['username' => 'Test name']);
 
-        $row = \Tx_Oelib_Db::selectSingle('username', 'be_users', 'uid = ' . $uid);
+        $row = $this->getDatabaseConnection()->selectSingleRow('username', 'be_users', 'uid = ' . $uid);
 
         self::assertSame(
             'Test name',
@@ -3709,7 +3693,7 @@ class FrameworkTest extends FunctionalTestCase
             $frontEndUserGroupUid
         );
 
-        $dbResultRow = \Tx_Oelib_Db::selectSingle(
+        $row = $this->getDatabaseConnection()->selectSingleRow(
             'usergroup',
             'fe_users',
             'uid = ' . $frontEndUserUid
@@ -3717,7 +3701,7 @@ class FrameworkTest extends FunctionalTestCase
 
         self::assertSame(
             $frontEndUserGroupUid,
-            (int)$dbResultRow['usergroup']
+            (int)$row['usergroup']
         );
     }
 

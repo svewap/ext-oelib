@@ -27,6 +27,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for TYPO3 7.6 (#273, #287)
 
 ### Fixed
+- Stop using the deprecated `Db` class in the tests (#307)
 - Explicitly add transitive dependencies (#306)
 - Remove a fragile test (#302)
 - Stop using deprecated oelib functionality in the tests (#284)
