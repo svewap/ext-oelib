@@ -834,7 +834,7 @@ class ListTest extends UnitTestCase
      */
     public function sortMakesListDirty()
     {
-        /** @var \Tx_Oelib_List|PHPUnit_Framework_MockObject_MockObject $subject */
+        /** @var \Tx_Oelib_List|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->createPartialMock(\Tx_Oelib_List::class, ['markAsDirty']);
         $subject->expects(self::once())->method('markAsDirty');
 

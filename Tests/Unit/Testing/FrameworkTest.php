@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Oelib\Tests\Functional\Testing;
+namespace OliverKlee\Oelib\Tests\Unit\Testing;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use org\bovigo\vfs\vfsStream;
