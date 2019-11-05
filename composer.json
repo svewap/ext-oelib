@@ -23,29 +23,27 @@
     },
     "require": {
         "php": "~7.0 || ~7.1 || ~7.2",
-        "ext-zip": "*",
+        "ext-dom": "*",
         "ext-json": "*",
         "ext-libxml": "*",
-        "ext-dom": "*",
+        "ext-zip": "*",
+        "pelago/emogrifier": "^3.0",
+        "psr/log": "^1.0",
+        "swiftmailer/swiftmailer": "^5.4",
         "typo3/cms-core": "^8.7.9",
-        "typo3/cms-lang": "^8.7",
-        "typo3/cms-frontend": "^8.7",
         "typo3/cms-extbase": "^8.7",
         "typo3/cms-fluid": "^8.7",
-        "psr/log": "^1.0",
-        "swiftmailer/swiftmailer": "^5.4.12",
-        "pelago/emogrifier": "^3.0"
+        "typo3/cms-frontend": "^8.7",
+        "typo3/cms-lang": "^8.7"
     },
     "require-dev": {
-        "sjbr/static-info-tables": "^6.5",
+        "helhum/typo3-console": "^4.9.6",
+        "mikey179/vfsstream": "^1.6.7",
+        "nimut/testing-framework": "^4.1.8",
         "oliverklee/user-oelibtest": "@dev",
         "oliverklee/user-oelibtest2": "@dev",
-
-        "helhum/typo3-console": "^4.9.6",
-
-        "nimut/testing-framework": "^4.1.8",
         "phpunit/phpunit": "^6.5.14",
-        "mikey179/vfsstream": "^1.6.7"
+        "sjbr/static-info-tables": "^6.5"
     },
     "conflict": {
         "sjbr/static-info-tables": "6.7.1",
@@ -78,6 +76,7 @@
         "preferred-install": {
             "*": "dist"
         },
+        "sort-packages": true,
         "process-timeout": 1000,
         "vendor-dir": ".Build/vendor"
     },
