@@ -37,13 +37,13 @@
         "typo3/cms-lang": "^8.7"
     },
     "require-dev": {
-        "helhum/typo3-console": "^4.9.6",
-        "mikey179/vfsstream": "^1.6.7",
+        "helhum/typo3-console": "^5.7.2",
+        "mikey179/vfsstream": "^1.6.8",
         "nimut/testing-framework": "^4.1.8",
         "oliverklee/user-oelibtest": "@dev",
         "oliverklee/user-oelibtest2": "@dev",
         "phpunit/phpunit": "^6.5.14",
-        "sjbr/static-info-tables": "^6.5"
+        "sjbr/static-info-tables": "^6.7.5"
     },
     "conflict": {
         "sjbr/static-info-tables": "6.7.1",
@@ -53,7 +53,7 @@
         "typo3-ter/oelib": "self.version"
     },
     "suggest": {
-        "sjbr/static-info-tables": "^6.5"
+        "sjbr/static-info-tables": "^6.7"
     },
     "autoload": {
         "classmap": [
