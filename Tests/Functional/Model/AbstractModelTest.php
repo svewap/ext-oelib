@@ -25,11 +25,6 @@ class AbstractModelTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_TestingFramework
-     */
-    private $testingFramework = null;
-
-    /**
      * @var TestingModel
      */
     private $subject = null;
@@ -43,16 +38,11 @@ class AbstractModelTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
         $this->dataMapper = \Tx_Oelib_MapperRegistry::get(TestingMapper::class);
 
         $uid = $this->createTestRecord();
         $this->subject = $this->dataMapper->find($uid);
     }
-
-    /*
-     * Tests concerning __clone
-     */
 
     /**
      * Creates a test record.
@@ -61,53 +51,20 @@ class AbstractModelTest extends FunctionalTestCase
      */
     private function createTestRecord()
     {
-        return $this->testingFramework->createRecord('tx_oelib_test', ['title' => self::TEST_RECORD_TITLE]);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => self::TEST_RECORD_TITLE]);
+        return (int)$this->getDatabaseConnection()->lastInsertId();
     }
+
+    /*
+     * Tests concerning __clone
+     */
 
     /**
      * @test
      */
-    public function cloneReturnsInstanceOfSameClass()
+    public function cloneReturnsDirtyModel()
     {
-        self::assertInstanceOf(
-            get_class($this->subject),
-            clone $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function cloneReturnsNewInstance()
-    {
-        self::assertNotSame(
-            $this->subject,
-            clone $this->subject
-        );
-    }
-
-    /**
-     * @return int[][]
-     */
-    public function cloneableStatusDataProvider()
-    {
-        return [
-            'virgin' => [\Tx_Oelib_Model::STATUS_VIRGIN],
-            'ghost' => [\Tx_Oelib_Model::STATUS_GHOST],
-            'loaded' => [\Tx_Oelib_Model::STATUS_LOADED],
-        ];
-    }
-
-    /**
-     * @test
-     *
-     * @param string $status
-     *
-     * @dataProvider cloneableStatusDataProvider
-     */
-    public function cloneReturnsDirtyModel($status)
-    {
-        $this->subject->setLoadStatus($status);
+        $this->subject->setLoadStatus(\Tx_Oelib_Model::STATUS_GHOST);
 
         $clone = clone $this->subject;
         self::assertTrue(
@@ -156,73 +113,6 @@ class AbstractModelTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cloningModelWithUidReturnsModelWithoutUid()
-    {
-        self::assertTrue($this->subject->hasUid());
-
-        $clone = clone $this->subject;
-
-        self::assertFalse($clone->hasUid());
-    }
-
-    /**
-     * @test
-     */
-    public function clonedModelHasStringDataFromOriginal()
-    {
-        $clone = clone $this->subject;
-
-        self::assertSame($this->subject->getTitle(), $clone->getTitle());
-    }
-
-    /**
-     * @test
-     */
-    public function clonedModelHasNto1RelationFromOriginal()
-    {
-        $relatedRecord = new TestingModel();
-        $relatedRecord->setData([]);
-        $this->subject->setFriend($relatedRecord);
-        $this->dataMapper->save($this->subject);
-
-        $clone = clone $this->subject;
-
-        self::assertSame($this->subject->getFriend(), $clone->getFriend());
-    }
-
-    /**
-     * @test
-     */
-    public function clonedModelHasModelsFromMtoNRelationFromOriginal()
-    {
-        $relatedRecord = new TestingModel();
-        $relatedRecord->setData([]);
-        $this->subject->addRelatedRecord($relatedRecord);
-        $this->dataMapper->save($this->subject);
-
-        $clone = clone $this->subject;
-
-        self::assertSame($relatedRecord, $clone->getRelatedRecords()->first());
-    }
-
-    /**
-     * @test
-     */
-    public function clonedModelHasNewInstanceOfMtoNRelation()
-    {
-        $relatedRecord = new TestingModel();
-        $relatedRecord->setData([]);
-        $this->subject->addRelatedRecord($relatedRecord);
-        $this->dataMapper->save($this->subject);
-
-        $clone = clone $this->subject;
-
-        self::assertNotSame($clone->getRelatedRecords(), $this->subject->getRelatedRecords());
-    }
-
-    /**
-     * @test
-     */
     public function clonedModelHasMtoNRelationWithCloneAsParentModel()
     {
         $relatedRecord = new TestingModel();
@@ -253,21 +143,6 @@ class AbstractModelTest extends FunctionalTestCase
         $firstCloneChild = $clone->getComposition()->first();
         self::assertSame($childRecord->getTitle(), $firstCloneChild->getTitle());
         self::assertNotSame($childRecord, $firstCloneChild);
-    }
-
-    /**
-     * @test
-     */
-    public function clonedModelHasNewInstanceOf1toNRelation()
-    {
-        $childRecord = new TestingChildModel();
-        $childRecord->setData([]);
-        $this->subject->addCompositionRecord($childRecord);
-        $this->dataMapper->save($this->subject);
-
-        $clone = clone $this->subject;
-
-        self::assertNotSame($clone->getRelatedRecords(), $this->subject->getComposition());
     }
 
     /**

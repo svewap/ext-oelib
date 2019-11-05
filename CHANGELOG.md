@@ -10,7 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 - Upgrade to Emogrifier 3.0.0 (#316)
-- Speed up the functional tests (#308, #309, #310, #311, #312, #313, #315)
+- Speed up the functional tests (#308, #309, #310, #311, #312, #313, #315, #317)
 - Convert more tests to nimut/testing-framework (#283, #288, #290, #291, #292, #300, #301, #303, #304)
 - Update the testing libraries (#275, #279)
 - Mark tests that do not contain any assertions (#277)

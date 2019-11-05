@@ -4,6 +4,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
+use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
@@ -35,6 +36,156 @@ class AbstractModelTest extends UnitTestCase
      */
     public function load(\Tx_Oelib_Model $model)
     {
+    }
+
+    /*
+     * Tests concerning __clone
+     */
+
+    /**
+     * @test
+     */
+    public function cloneReturnsInstanceOfSameClass()
+    {
+        self::assertInstanceOf(
+            get_class($this->subject),
+            clone $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function cloneReturnsNewInstance()
+    {
+        self::assertNotSame(
+            $this->subject,
+            clone $this->subject
+        );
+    }
+
+    /**
+     * @return int[][]
+     */
+    public function cloneableStatusDataProvider()
+    {
+        return [
+            'virgin' => [\Tx_Oelib_Model::STATUS_VIRGIN],
+            'loaded' => [\Tx_Oelib_Model::STATUS_LOADED],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @param string $status
+     *
+     * @dataProvider cloneableStatusDataProvider
+     */
+    public function cloneReturnsDirtyModel($status)
+    {
+        $this->subject->setLoadStatus($status);
+
+        $clone = clone $this->subject;
+        self::assertTrue(
+            $clone->isDirty()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function cloningVirginModelReturnsVirginModel()
+    {
+        $subject = new TestingModel();
+        self::assertTrue($subject->isVirgin());
+
+        $clone = clone $subject;
+
+        self::assertTrue($clone->isVirgin());
+    }
+
+    /**
+     * @test
+     */
+    public function cloningModelWithUidReturnsModelWithoutUid()
+    {
+        $this->subject->setData(['uid' => 42]);
+        self::assertTrue($this->subject->hasUid());
+
+        $clone = clone $this->subject;
+
+        self::assertFalse($clone->hasUid());
+    }
+
+    /**
+     * @test
+     */
+    public function clonedModelHasStringDataFromOriginal()
+    {
+        $this->subject->setTitle('Bon Jovi');
+        $clone = clone $this->subject;
+
+        self::assertSame($this->subject->getTitle(), $clone->getTitle());
+    }
+
+    /**
+     * @test
+     */
+    public function clonedModelHasNto1RelationFromOriginal()
+    {
+        $relatedRecord = new TestingModel();
+        $relatedRecord->setData([]);
+        $this->subject->setFriend($relatedRecord);
+
+        $clone = clone $this->subject;
+
+        self::assertSame($this->subject->getFriend(), $clone->getFriend());
+    }
+
+    /**
+     * @test
+     */
+    public function clonedModelHasModelsFromMtoNRelationFromOriginal()
+    {
+        $this->subject->setData(['related_records' => new \Tx_Oelib_List()]);
+        $relatedRecord = new TestingModel();
+        $relatedRecord->setData([]);
+        $this->subject->addRelatedRecord($relatedRecord);
+
+        $clone = clone $this->subject;
+
+        self::assertSame($relatedRecord, $clone->getRelatedRecords()->first());
+    }
+
+    /**
+     * @test
+     */
+    public function clonedModelHasNewInstanceOfMtoNRelation()
+    {
+        $this->subject->setData(['related_records' => new \Tx_Oelib_List()]);
+        $relatedRecord = new TestingModel();
+        $relatedRecord->setData([]);
+        $this->subject->addRelatedRecord($relatedRecord);
+
+        $clone = clone $this->subject;
+
+        self::assertNotSame($clone->getRelatedRecords(), $this->subject->getRelatedRecords());
+    }
+
+    /**
+     * @test
+     */
+    public function clonedModelHasNewInstanceOf1toNRelation()
+    {
+        $this->subject->setData(['composition' => new \Tx_Oelib_List()]);
+        $childRecord = new TestingChildModel();
+        $childRecord->setData([]);
+        $this->subject->addCompositionRecord($childRecord);
+
+        $clone = clone $this->subject;
+
+        self::assertNotSame($clone->getComposition(), $this->subject->getComposition());
     }
 
     //////////////////////////////////////
