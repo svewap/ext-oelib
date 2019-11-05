@@ -211,10 +211,10 @@ class Tx_Oelib_TranslatorRegistry
         /** @var LocalizationFactory $languageFactory */
         $languageFactory = GeneralUtility::makeInstance(LocalizationFactory::class);
         $languageFile = 'EXT:' . $extensionKey . '/' . self::LANGUAGE_FILE_PATH;
-        $localizedLabels = $languageFactory->getParsedData($languageFile, $this->languageKey, 'utf-8', 0);
+        $localizedLabels = $languageFactory->getParsedData($languageFile, $this->languageKey);
 
         if ($this->alternativeLanguageKey !== '') {
-            $alternativeLabels = $languageFactory->getParsedData($languageFile, $this->languageKey, 'utf-8', 0);
+            $alternativeLabels = $languageFactory->getParsedData($languageFile, $this->languageKey);
             $localizedLabels = array_merge(
                 $alternativeLabels,
                 is_array($localizedLabels) ? $localizedLabels : []

@@ -6,7 +6,6 @@ use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
@@ -1200,7 +1199,7 @@ final class Tx_Oelib_TestingFramework
      * If $pageUid is zero, the UID of the start page of the current domain
      * will be used as page UID.
      *
-     * This function creates $GLOBALS['TSFE'] and $GLOBALS['TT'].
+     * This function creates $GLOBALS['TSFE'].
      *
      * Note: This function does not set TYPO3_MODE to "FE" (because the value of
      * a constant cannot be changed after it has once been set).
@@ -1221,7 +1220,6 @@ final class Tx_Oelib_TestingFramework
         $this->discardFakeFrontEnd();
 
         $this->registerNullPageCache();
-        $GLOBALS['TT'] = GeneralUtility::makeInstance(TimeTracker::class, false);
 
         /** @var TypoScriptFrontendController $frontEnd */
         $frontEnd =
@@ -1255,8 +1253,7 @@ final class Tx_Oelib_TestingFramework
     /**
      * Discards the fake front end.
      *
-     * This function NULLs out $GLOBALS['TSFE'] and $GLOBALS['TT']. In addition,
-     * any logged-in front-end user will be logged out.
+     * This function nulls out $GLOBALS['TSFE']. In addition, any logged-in front-end user will be logged out.
      *
      * The page record for the current front end will _not_ be deleted by this
      * function, though.
@@ -1274,7 +1271,6 @@ final class Tx_Oelib_TestingFramework
         $this->logoutFrontEndUser();
 
         $GLOBALS['TSFE'] = null;
-        $GLOBALS['TT'] = null;
         unset(
             $GLOBALS['TYPO3_CONF_VARS']['FE']['dontSetCookie'],
             $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][FrontendUserAuthentication::class]

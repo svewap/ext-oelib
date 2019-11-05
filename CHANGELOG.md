@@ -22,7 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 - Remove the deprecated `Mapper_BackEndUser::findByCliKey` (#327)
 - Drop empty constructors (#320)
-- Drop 7.6-specific code (#305, #314)
+- Drop 7.6-specific code (#305, #314, #328)
 - Drop unneeded Travis CI configuration settings (#295, #296, #297, #298)
 - Remove deprecated methods from `TestingFramework` (#285)
 - Remove deprecated parameter from `SalutationSwitcher::translate` (#282)

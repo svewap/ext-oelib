@@ -4,7 +4,6 @@ namespace OliverKlee\Oelib\Tests\Functional\Testing;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Tests\Functional\Templating\Fixtures\TestingTemplateHelper;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -2979,18 +2978,6 @@ class FrameworkTest extends FunctionalTestCase
             $this->getFrontEndController()->id,
             $result
         );
-    }
-
-    /**
-     * @test
-     */
-    public function createFakeFrontEndCreatesTimeTrackerInstance()
-    {
-        $GLOBALS['TT'] = null;
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
-
-        self::assertInstanceOf(TimeTracker::class, $GLOBALS['TT']);
     }
 
     /**
