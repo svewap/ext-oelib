@@ -1,6 +1,6 @@
 <?php
 
-use Pelago\Emogrifier;
+use Pelago\Emogrifier\CssInliner;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -245,9 +245,8 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
         }
 
         if ($this->hasCssFile()) {
-            $this->loadEmogrifierClass();
-            $emogrifier = new Emogrifier($message, $this->getCssFile());
-            $messageToStore = $emogrifier->emogrify();
+            $this->loadCssInliner();
+            $messageToStore = CssInliner::fromHtml($message)->inlineCss($this->getCssFile())->render();
         } else {
             $messageToStore = $message;
         }
@@ -256,13 +255,13 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     }
 
     /**
-     * Loads the Emogrifier class.
+     * Loads the CssInliner class.
      *
      * @return void
      */
-    protected function loadEmogrifierClass()
+    protected function loadCssInliner()
     {
-        if (!class_exists(Emogrifier::class)) {
+        if (!class_exists(CssInliner::class)) {
             require_once __DIR__ . '/../Resources/Private/Php/vendor/autoload.php';
         }
     }

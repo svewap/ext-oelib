@@ -30,11 +30,13 @@ class ComposerStaticInit86b25019a03dc65208244fe6883e0114
 
     public static $classMap = array (
         'Pelago\\Emogrifier' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier.php',
-        'Pelago\\Emogrifier\\CssConcatenator' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/CssConcatenator.php',
         'Pelago\\Emogrifier\\CssInliner' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/CssInliner.php',
         'Pelago\\Emogrifier\\HtmlProcessor\\AbstractHtmlProcessor' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/HtmlProcessor/AbstractHtmlProcessor.php',
         'Pelago\\Emogrifier\\HtmlProcessor\\CssToAttributeConverter' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/HtmlProcessor/CssToAttributeConverter.php',
         'Pelago\\Emogrifier\\HtmlProcessor\\HtmlNormalizer' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/HtmlProcessor/HtmlNormalizer.php',
+        'Pelago\\Emogrifier\\HtmlProcessor\\HtmlPruner' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/HtmlProcessor/HtmlPruner.php',
+        'Pelago\\Emogrifier\\Utilities\\ArrayIntersector' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/Utilities/ArrayIntersector.php',
+        'Pelago\\Emogrifier\\Utilities\\CssConcatenator' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/Utilities/CssConcatenator.php',
         'Symfony\\Component\\CssSelector\\CssSelectorConverter' => __DIR__ . '/..' . '/symfony/css-selector/CssSelectorConverter.php',
         'Symfony\\Component\\CssSelector\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/css-selector/Exception/ExceptionInterface.php',
         'Symfony\\Component\\CssSelector\\Exception\\ExpressionErrorException' => __DIR__ . '/..' . '/symfony/css-selector/Exception/ExpressionErrorException.php',

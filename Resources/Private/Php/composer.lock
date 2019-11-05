@@ -4,38 +4,38 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "178b00b3107357a40d4c2e42a84304d5",
+    "content-hash": "05ef9de3db5e108a228036cc0af09f97",
     "packages": [
         {
             "name": "pelago/emogrifier",
-            "version": "v2.1.1",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MyIntervals/emogrifier.git",
-                "reference": "8ee7fb5ad772915451ed3415c1992bd3697d4983"
+                "reference": "d68a8b546d242afaf429ee828deef51909f5e545"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MyIntervals/emogrifier/zipball/8ee7fb5ad772915451ed3415c1992bd3697d4983",
-                "reference": "8ee7fb5ad772915451ed3415c1992bd3697d4983",
+                "url": "https://api.github.com/repos/MyIntervals/emogrifier/zipball/d68a8b546d242afaf429ee828deef51909f5e545",
+                "reference": "d68a8b546d242afaf429ee828deef51909f5e545",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
-                "php": "^5.5.0 || ~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0",
-                "symfony/css-selector": "^3.4.0 || ^4.0.0"
+                "php": "^5.6.0 || ~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0",
+                "symfony/css-selector": "^2.8 || ^3.0 || ^4.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.2.0",
-                "phpmd/phpmd": "^2.6.0",
-                "phpunit/phpunit": "^4.8.0",
-                "squizlabs/php_codesniffer": "^3.3.2"
+                "friendsofphp/php-cs-fixer": "^2.15.3",
+                "phpmd/phpmd": "^2.7.0",
+                "phpunit/phpunit": "^5.7.27",
+                "squizlabs/php_codesniffer": "^3.5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1.x-dev"
+                    "dev-master": "4.0.x-dev"
                 }
             },
             "autoload": {
@@ -49,16 +49,6 @@
             ],
             "authors": [
                 {
-                    "name": "John Reeve",
-                    "email": "jreeve@pelagodesign.com"
-                },
-                {
-                    "name": "Cameron Brooks"
-                },
-                {
-                    "name": "Jaime Prado"
-                },
-                {
                     "name": "Oliver Klee",
                     "email": "github@oliverklee.de"
                 },
@@ -67,8 +57,18 @@
                     "email": "zoli.szabo+github@gmail.com"
                 },
                 {
+                    "name": "John Reeve",
+                    "email": "jreeve@pelagodesign.com"
+                },
+                {
                     "name": "Jake Hotson",
                     "email": "jake@qzdesign.co.uk"
+                },
+                {
+                    "name": "Cameron Brooks"
+                },
+                {
+                    "name": "Jaime Prado"
                 }
             ],
             "description": "Converts CSS styles into inline style attributes in your HTML code",
@@ -78,20 +78,20 @@
                 "email",
                 "pre-processing"
             ],
-            "time": "2018-12-10T10:36:30+00:00"
+            "time": "2019-10-01T18:21:51+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v3.4.30",
+            "version": "v3.4.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "8ca29297c29b64fb3a1a135e71cb25f67f9fdccf"
+                "reference": "f819f71ae3ba6f396b4c015bd5895de7d2f1f85f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/8ca29297c29b64fb3a1a135e71cb25f67f9fdccf",
-                "reference": "8ca29297c29b64fb3a1a135e71cb25f67f9fdccf",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/f819f71ae3ba6f396b4c015bd5895de7d2f1f85f",
+                "reference": "f819f71ae3ba6f396b4c015bd5895de7d2f1f85f",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +131,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16T09:39:14+00:00"
+            "time": "2019-10-01T11:57:37+00:00"
         }
     ],
     "packages-dev": [],
@@ -143,6 +143,6 @@
     "platform": [],
     "platform-dev": [],
     "platform-overrides": {
-        "php": "5.6.20"
+        "php": "7.0.20"
     }
 }
