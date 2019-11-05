@@ -212,7 +212,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return bool TRUE if this object is properly initialized, FALSE otherwise
      */
-    public function isInitialized(): bool
+    public function isInitialized()
     {
         return $this->isInitialized;
     }
@@ -1153,13 +1153,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
             throw new \InvalidArgumentException('$fieldName must not be empty.', 1331489528);
         }
 
-        if (!isset($this->conf['listView.'])
-            || !isset($this->conf['listView.'][$fieldName])
-        ) {
-            return '';
-        }
-
-        return $this->conf['listView.'][$fieldName];
+        return isset($this->conf['listView.'][$fieldName]) ? (string)$this->conf['listView.'][$fieldName] : '';
     }
 
     /**
@@ -1320,7 +1314,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return int the current back-end page UID (or 0 if there is an error)
      */
-    public function getCurrentBePageId(): int
+    public function getCurrentBePageId()
     {
         return \Tx_Oelib_PageFinder::getInstance()->getPageUid();
     }
