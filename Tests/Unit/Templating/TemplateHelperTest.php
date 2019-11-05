@@ -297,6 +297,46 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
+    public function getConfValueStringCastsIntToString()
+    {
+        $this->subject->setConfigurationValue('test', 42);
+
+        self::assertSame('42', $this->subject->getConfValueString('test'));
+    }
+
+    /**
+     * @test
+     */
+    public function getConfValueIntegerCastsStringToInt()
+    {
+        $this->subject->setConfigurationValue('test', '42');
+
+        self::assertSame(42, $this->subject->getConfValueInteger('test'));
+    }
+
+    /**
+     * @test
+     */
+    public function getConfValueBooleanCastsStringToBool()
+    {
+        $this->subject->setConfigurationValue('test', '1');
+
+        self::assertTrue($this->subject->getConfValueBoolean('test'));
+    }
+
+    /**
+     * @test
+     */
+    public function getConfValueBooleanCastsIntegerToBool()
+    {
+        $this->subject->setConfigurationValue('test', 1);
+
+        self::assertTrue($this->subject->getConfValueBoolean('test'));
+    }
+
+    /**
+     * @test
+     */
     public function getListViewConfigurationValueStringReturnsAString()
     {
         $this->subject->setConfigurationValue(

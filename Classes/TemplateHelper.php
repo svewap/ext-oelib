@@ -287,7 +287,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         if ($isFileName && $flexformsValue !== null && $flexformsValue !== '') {
             $flexformsValue = $this->addPathToFileName($flexformsValue);
         }
-        $confValue = $this->conf[$fieldName] ?? '';
+        $confValue = (string)($this->conf[$fieldName] ?? '');
 
         return $flexformsValue ?: $confValue;
     }

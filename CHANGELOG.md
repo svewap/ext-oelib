@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Display the name of the current functional test (#293)
 
 ### Changed
-- Use PHP 7.0 language features (#330)
+- Use PHP 7.0 language features (#330, #331)
 - Stop using the `Exception` base class (#321)
 - Sort the Composer dependencies (#319)
 - Upgrade to Emogrifier 3.0.0 (#316)
