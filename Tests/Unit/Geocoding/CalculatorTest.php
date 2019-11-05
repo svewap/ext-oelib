@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 
@@ -283,7 +284,7 @@ class CalculatorTest extends UnitTestCase
     /**
      * @return int[][]
      */
-    public function directionDataProvider()
+    public function directionDataProvider(): array
     {
         return [
             'E' => [0],

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a node for a visibility tree.
@@ -27,7 +28,7 @@ class Tx_Oelib_Visibility_Node
      *
      * @param bool $isVisible whether this node should be initially visible
      */
-    public function __construct($isVisible = false)
+    public function __construct(bool $isVisible = false)
     {
         $this->isVisible = $isVisible;
     }
@@ -68,7 +69,7 @@ class Tx_Oelib_Visibility_Node
      *
      * @return bool TRUE if this node is visible, FALSE otherwise
      */
-    public function isVisible()
+    public function isVisible(): bool
     {
         return $this->isVisible;
     }
@@ -92,7 +93,7 @@ class Tx_Oelib_Visibility_Node
      *
      * @return \Tx_Oelib_Visibility_Node[] this node's children, will be empty if no children are set
      */
-    public function getChildren()
+    public function getChildren(): array
     {
         return $this->children;
     }
@@ -100,8 +101,7 @@ class Tx_Oelib_Visibility_Node
     /**
      * Returns the parent node set for this node.
      *
-     * @return \Tx_Oelib_Visibility_Node the parent node of this node, will be
-     *                                  empty if no parent was set
+     * @return \Tx_Oelib_Visibility_Node|null
      */
     public function getParent()
     {

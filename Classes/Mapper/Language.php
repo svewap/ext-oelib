@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a mapper for languages.
@@ -34,7 +35,7 @@ class Tx_Oelib_Mapper_Language extends \Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model_Language the language
      */
-    public function findByIsoAlpha2Code($isoAlpha2Code)
+    public function findByIsoAlpha2Code(string $isoAlpha2Code): \Tx_Oelib_Model_Language
     {
         return $this->findOneByKey('lg_iso_2', $isoAlpha2Code);
     }

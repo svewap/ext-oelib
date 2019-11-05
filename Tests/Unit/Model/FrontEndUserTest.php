@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
@@ -1123,7 +1124,7 @@ class FrontEndUserTest extends UnitTestCase
         $this->subject->setData(['usergroup' => $list]);
 
         self::assertTrue(
-            $this->subject->hasGroupMembership($userGroup->getUid())
+            $this->subject->hasGroupMembership((string)$userGroup->getUid())
         );
     }
 
@@ -1141,7 +1142,7 @@ class FrontEndUserTest extends UnitTestCase
         $this->subject->setData(['usergroup' => $list]);
 
         self::assertTrue(
-            $this->subject->hasGroupMembership($userGroup->getUid())
+            $this->subject->hasGroupMembership((string)$userGroup->getUid())
         );
     }
 
@@ -1244,7 +1245,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @return int[][]
      */
-    public function genderDataProvider()
+    public function genderDataProvider(): array
     {
         return [
             'male' => [\Tx_Oelib_Model_FrontEndUser::GENDER_MALE],

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
@@ -196,7 +197,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @return array[]
      */
-    public function invalidEmailDataProvider()
+    public function invalidEmailDataProvider(): array
     {
         return [
             'null' => [null],

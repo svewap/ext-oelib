@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Email\Fixtures;
 
@@ -54,11 +55,7 @@ class TestingMailRole extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_Ma
      */
     protected function get($key)
     {
-        if (!isset($this->data[$key])) {
-            return '';
-        }
-
-        return $this->data[$key];
+        return $this->data[$key] ?? '';
     }
 
     /**

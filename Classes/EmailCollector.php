@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Mail\MailMessage;
 
@@ -44,7 +45,7 @@ class Tx_Oelib_EmailCollector extends \Tx_Oelib_AbstractMailer
      *
      * @return MailMessage[]
      */
-    public function getSentEmails()
+    public function getSentEmails(): array
     {
         return $this->sentEmails;
     }
@@ -54,7 +55,7 @@ class Tx_Oelib_EmailCollector extends \Tx_Oelib_AbstractMailer
      *
      * @return int the number of send e-mails, will be >= 0
      */
-    public function getNumberOfSentEmails()
+    public function getNumberOfSentEmails(): int
     {
         return count($this->getSentEmails());
     }

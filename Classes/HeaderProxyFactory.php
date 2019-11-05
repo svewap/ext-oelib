@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -41,7 +42,7 @@ class Tx_Oelib_HeaderProxyFactory
      *
      * @return \Tx_Oelib_HeaderProxyFactory the singleton factory
      */
-    public static function getInstance()
+    public static function getInstance(): \Tx_Oelib_HeaderProxyFactory
     {
         if (!is_object(self::$instance)) {
             self::$instance = new \Tx_Oelib_HeaderProxyFactory();

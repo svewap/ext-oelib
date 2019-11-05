@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Domain\Model;
 
@@ -36,7 +37,7 @@ class GermanZipCode extends AbstractEntity implements \Tx_Oelib_Interface_Geo
     /**
      * @return string
      */
-    public function getZipCode()
+    public function getZipCode(): string
     {
         return $this->zipCode;
     }
@@ -46,7 +47,7 @@ class GermanZipCode extends AbstractEntity implements \Tx_Oelib_Interface_Geo
      *
      * @return void
      */
-    public function setZipCode($zipCode)
+    public function setZipCode(string $zipCode)
     {
         $this->zipCode = $zipCode;
     }
@@ -54,7 +55,7 @@ class GermanZipCode extends AbstractEntity implements \Tx_Oelib_Interface_Geo
     /**
      * @return string
      */
-    public function getCityName()
+    public function getCityName(): string
     {
         return $this->cityName;
     }
@@ -64,7 +65,7 @@ class GermanZipCode extends AbstractEntity implements \Tx_Oelib_Interface_Geo
      *
      * @return void
      */
-    public function setCityName($cityName)
+    public function setCityName(string $cityName)
     {
         $this->cityName = $cityName;
     }
@@ -85,7 +86,7 @@ class GermanZipCode extends AbstractEntity implements \Tx_Oelib_Interface_Geo
     /**
      * @return float
      */
-    public function getLongitude()
+    public function getLongitude(): float
     {
         return $this->longitude;
     }
@@ -95,7 +96,7 @@ class GermanZipCode extends AbstractEntity implements \Tx_Oelib_Interface_Geo
      *
      * @return void
      */
-    public function setLongitude($longitude)
+    public function setLongitude(float $longitude)
     {
         $this->longitude = $longitude;
     }
@@ -103,7 +104,7 @@ class GermanZipCode extends AbstractEntity implements \Tx_Oelib_Interface_Geo
     /**
      * @return float
      */
-    public function getLatitude()
+    public function getLatitude(): float
     {
         return $this->latitude;
     }
@@ -113,7 +114,7 @@ class GermanZipCode extends AbstractEntity implements \Tx_Oelib_Interface_Geo
      *
      * @return void
      */
-    public function setLatitude($latitude)
+    public function setLatitude(float $latitude)
     {
         $this->latitude = $latitude;
     }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class sends HTTP headers.
@@ -18,7 +19,7 @@ class Tx_Oelib_RealHeaderProxy extends \Tx_Oelib_AbstractHeaderProxy
      *
      * @return void
      */
-    public function addHeader($header)
+    public function addHeader(string $header)
     {
         header($header);
     }

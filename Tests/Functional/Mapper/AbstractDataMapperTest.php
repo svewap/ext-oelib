@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
@@ -1892,7 +1893,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     /**
      * @return mixed[][]
      */
-    public function dataTypeDataProvider()
+    public function dataTypeDataProvider(): array
     {
         return [
             'string' => ['title', 'the title'],
@@ -2793,7 +2794,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->save($model);
 
         $row = $this->findRecordByUid($model->getUid());
-        self::assertSame('9.5', rtrim($row['float_data'], '0'));
+        self::assertSame('9.5', rtrim((string)$row['float_data'], '0'));
     }
 
     /**

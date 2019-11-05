@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Language\Fixtures;
 
@@ -62,7 +63,7 @@ final class TestingSalutationSwitcher extends \Tx_Oelib_SalutationSwitcher
      *                code and an alias for "en"), will return an empty
      *                string if no language key has been set yet
      */
-    public function getLanguage()
+    public function getLanguage(): string
     {
         return $this->LLkey;
     }
@@ -86,7 +87,7 @@ final class TestingSalutationSwitcher extends \Tx_Oelib_SalutationSwitcher
      * @return string the current salutation mode to use: "formal", "informal"
      *                or an empty string
      */
-    public function getSalutationMode()
+    public function getSalutationMode(): string
     {
         return $this->conf['salutation'];
     }

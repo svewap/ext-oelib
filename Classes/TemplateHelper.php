@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -145,7 +146,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     /**
      * @return bool
      */
-    protected function isConfigurationCheckEnabled()
+    protected function isConfigurationCheckEnabled(): bool
     {
         if ($this->extKey === '') {
             return false;
@@ -167,7 +168,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     /**
      * @return string might be empty
      */
-    protected function getDefaultConfigurationCheckClassName()
+    protected function getDefaultConfigurationCheckClassName(): string
     {
         $camelCaseClassName = 'Tx_' . ucfirst($this->extKey) . '_ConfigCheck';
         $lowercaseClassName = \strtolower($camelCaseClassName);
@@ -211,7 +212,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return bool TRUE if this object is properly initialized, FALSE otherwise
      */
-    public function isInitialized()
+    public function isInitialized(): bool
     {
         return $this->isInitialized;
     }
@@ -229,7 +230,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return array configuration array of the requested page for the
      *               current extension key
      */
-    protected function retrievePageConfig($pageId)
+    protected function retrievePageConfig(int $pageId)
     {
         /** @var TemplateService $template */
         $template = GeneralUtility::makeInstance(TemplateService::class);
@@ -248,11 +249,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         $template->runThroughTemplates($rootLine, 0);
         $template->generateConfig();
 
-        if (isset($template->setup['plugin.']['tx_' . $this->extKey . '.'])) {
-            $result = $template->setup['plugin.']['tx_' . $this->extKey . '.'];
-        } else {
-            $result = [];
-        }
+        $result = $template->setup['plugin.']['tx_' . $this->extKey . '.'] ?? [];
 
         return $result;
     }
@@ -273,11 +270,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *                entry (may be empty)
      */
     private function getConfValue(
-        $fieldName,
-        $sheet = 'sDEF',
-        $isFileName = false,
-        $ignoreFlexform = false
-    ) {
+        string $fieldName,
+        string $sheet = 'sDEF',
+        bool $isFileName = false,
+        bool $ignoreFlexform = false
+    ): string {
         $flexformsValue = '';
         if (!$ignoreFlexform) {
             $flexformsValue = $this->pi_getFFvalue(
@@ -290,8 +287,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         if ($isFileName && $flexformsValue !== null && $flexformsValue !== '') {
             $flexformsValue = $this->addPathToFileName($flexformsValue);
         }
-        $confValue = isset($this->conf[$fieldName])
-            ? $this->conf[$fieldName] : '';
+        $confValue = $this->conf[$fieldName] ?? '';
 
         return $flexformsValue ?: $confValue;
     }
@@ -317,7 +313,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return string the complete path including file name
      */
-    private function addPathToFileName($fileName, $path = '')
+    private function addPathToFileName(string $fileName, string $path = ''): string
     {
         if (empty($path)) {
             $path = 'uploads/tx_' . $this->extKey . '/';
@@ -342,11 +338,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *                TS setup entry (may be empty)
      */
     public function getConfValueString(
-        $fieldName,
-        $sheet = 'sDEF',
-        $isFileName = false,
-        $ignoreFlexform = false
-    ) {
+        string $fieldName,
+        string $sheet = 'sDEF',
+        bool $isFileName = false,
+        bool $ignoreFlexform = false
+    ): string {
         return trim(
             $this->getConfValue(
                 $fieldName,
@@ -372,10 +368,10 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *                 corresponding flexforms or TS setup entry
      */
     public function hasConfValueString(
-        $fieldName,
-        $sheet = 'sDEF',
-        $ignoreFlexform = false
-    ) {
+        string $fieldName,
+        string $sheet = 'sDEF',
+        bool $ignoreFlexform = false
+    ): bool {
         return $this->getConfValueString(
             $fieldName,
             $sheet,
@@ -396,7 +392,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return int the int value of the corresponding flexforms or
      *                 TS setup entry
      */
-    public function getConfValueInteger($fieldName, $sheet = 'sDEF')
+    public function getConfValueInteger(string $fieldName, string $sheet = 'sDEF'): int
     {
         return (int)$this->getConfValue($fieldName, $sheet);
     }
@@ -413,7 +409,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return bool whether there is a non-zero value in the
      *                 corresponding flexforms or TS setup entry
      */
-    public function hasConfValueInteger($fieldName, $sheet = 'sDEF')
+    public function hasConfValueInteger(string $fieldName, string $sheet = 'sDEF'): bool
     {
         return (bool)$this->getConfValueInteger($fieldName, $sheet);
     }
@@ -430,7 +426,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return bool the boolean value of the corresponding flexforms or
      *                 TS setup entry
      */
-    public function getConfValueBoolean($fieldName, $sheet = 'sDEF')
+    public function getConfValueBoolean(string $fieldName, string $sheet = 'sDEF'): bool
     {
         return (bool)$this->getConfValue($fieldName, $sheet);
     }
@@ -445,7 +441,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return void
      */
-    public function setConfigurationValue($key, $value)
+    public function setConfigurationValue(string $key, $value)
     {
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty', 1331489491);
@@ -468,7 +464,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return void
      */
-    public static function setCachedConfigurationValue($key, $value)
+    public static function setCachedConfigurationValue(string $key, $value)
     {
         $pageUid = \Tx_Oelib_PageFinder::getInstance()->getPageUid();
 
@@ -496,7 +492,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return array configuration array, might be empty
      */
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         $this->ensureConfigurationArray();
         return $this->conf;
@@ -523,7 +519,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return void
      */
-    public function getTemplateCode($ignoreFlexform = false)
+    public function getTemplateCode(bool $ignoreFlexform = false)
     {
         // Trying to fetch the template code via $this->cObj in BE mode leads to
         // a non-catchable error in the tslib_content class because the cObj
@@ -558,7 +554,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return \Tx_Oelib_Template the template object for the template file name
      *                           in $this->templateFileName
      */
-    protected function getTemplate()
+    protected function getTemplate(): \Tx_Oelib_Template
     {
         if ($this->template === null) {
             $this->template = \Tx_Oelib_TemplateRegistry::get(
@@ -584,7 +580,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return void
      */
-    public function processTemplate($templateCode)
+    public function processTemplate(string $templateCode)
     {
         $this->getTemplate()->processTemplate($templateCode);
     }
@@ -600,12 +596,12 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
      *     not be empty
-     * @param string $content the marker's content, may be empty
+     * @param mixed $content the marker's content, may be empty
      * @param string $prefix prefix to the marker name (may be empty, case-insensitive, will get uppercased)
      *
      * @return void
      */
-    public function setMarker($markerName, $content, $prefix = '')
+    public function setMarker(string $markerName, $content, string $prefix = '')
     {
         $this->getTemplate()->setMarker($markerName, $content, $prefix);
     }
@@ -619,7 +615,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return string the marker's content or an empty string if the
      *                marker has not been set before
      */
-    public function getMarker($markerName)
+    public function getMarker(string $markerName): string
     {
         return $this->getTemplate()->getMarker($markerName);
     }
@@ -635,12 +631,12 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @param string $subpartName
      *        the subpart's name without the ### signs, case-insensitive, will get uppercased, must not be empty
-     * @param string $content the subpart's content, may be empty
+     * @param mixed $content the subpart's content, may be empty
      * @param string $prefix prefix to the subpart name (may be empty, case-insensitive, will get uppercased)
      *
      * @return void
      */
-    public function setSubpart($subpartName, $content, $prefix = '')
+    public function setSubpart(string $subpartName, $content, string $prefix = '')
     {
         try {
             $this->getTemplate()->setSubpart($subpartName, $content, $prefix);
@@ -676,7 +672,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @see setMarkerIfNotEmpty
      */
-    public function setMarkerIfNotZero($markerName, $content, $markerPrefix = '')
+    public function setMarkerIfNotZero(string $markerName, $content, string $markerPrefix = ''): bool
     {
         return $this->getTemplate()->setMarkerIfNotZero(
             $markerName,
@@ -692,7 +688,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
      *     not be empty
-     * @param string $content content with which the marker will be filled, may be empty
+     * @param mixed $content content with which the marker will be filled, may be empty
      * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get
      *     uppercased)
      *
@@ -700,7 +696,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @see setMarkerIfNotZero
      */
-    public function setMarkerIfNotEmpty($markerName, $content, $markerPrefix = '')
+    public function setMarkerIfNotEmpty(string $markerName, $content, string $markerPrefix = ''): bool
     {
         return $this->getTemplate()->setMarkerIfNotEmpty(
             $markerName,
@@ -719,7 +715,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return bool TRUE if the subpart is visible, FALSE otherwise
      */
-    public function isSubpartVisible($subpartName)
+    public function isSubpartVisible(string $subpartName): bool
     {
         return $this->getTemplate()->isSubpartVisible($subpartName);
     }
@@ -741,7 +737,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return void
      */
-    public function hideSubparts($subparts, $prefix = '')
+    public function hideSubparts(string $subparts, string $prefix = '')
     {
         $this->getTemplate()->hideSubparts($subparts, $prefix);
     }
@@ -762,7 +758,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return void
      */
-    public function hideSubpartsArray(array $subparts, $prefix = '')
+    public function hideSubpartsArray(array $subparts, string $prefix = '')
     {
         $this->getTemplate()->hideSubpartsArray($subparts, $prefix);
     }
@@ -794,9 +790,9 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return void
      */
     public function unhideSubparts(
-        $subparts,
-        $permanentlyHiddenSubparts = '',
-        $prefix = ''
+        string $subparts,
+        string $permanentlyHiddenSubparts = '',
+        string $prefix = ''
     ) {
         $this->getTemplate()->unhideSubparts(
             $subparts,
@@ -831,7 +827,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     public function unhideSubpartsArray(
         array $subparts,
         array $permanentlyHiddenSubparts = [],
-        $prefix = ''
+        string $prefix = ''
     ) {
         $this->getTemplate()->unhideSubpartsArray(
             $subparts,
@@ -851,7 +847,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *        the marker's name without the ### signs, case-insensitive, will get uppercased, must not be empty
      * @param bool $condition
      *        if this is TRUE, the marker will be filled, otherwise the wrapped marker will be hidden
-     * @param string $content
+     * @param mixed $content
      *        content with which the marker will be filled, may be empty
      * @param string $markerPrefix
      *        prefix to the marker name for setting (may be empty, case-insensitive, will get uppercased)
@@ -865,12 +861,12 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @see hideSubparts
      */
     public function setOrDeleteMarker(
-        $markerName,
-        $condition,
+        string $markerName,
+        bool $condition,
         $content,
-        $markerPrefix = '',
-        $wrapperPrefix = ''
-    ) {
+        string $markerPrefix = '',
+        string $wrapperPrefix = ''
+    ): bool {
         return $this->getTemplate()->setOrDeleteMarker(
             $markerName,
             $condition,
@@ -907,11 +903,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @see hideSubparts
      */
     public function setOrDeleteMarkerIfNotZero(
-        $markerName,
+        string $markerName,
         $content,
-        $markerPrefix = '',
-        $wrapperPrefix = ''
-    ) {
+        string $markerPrefix = '',
+        string $wrapperPrefix = ''
+    ): bool {
         return $this->getTemplate()->setOrDeleteMarkerIfNotZero(
             $markerName,
             $content,
@@ -931,7 +927,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
      *     not be empty
-     * @param string $content content with which the marker will be filled, may be empty
+     * @param mixed $content content with which the marker will be filled, may be empty
      * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get
      *     uppercased)
      * @param string $wrapperPrefix prefix to the subpart name for hiding (may be empty, case-insensitive, will get
@@ -945,11 +941,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @see hideSubparts
      */
     public function setOrDeleteMarkerIfNotEmpty(
-        $markerName,
+        string $markerName,
         $content,
-        $markerPrefix = '',
-        $wrapperPrefix = ''
-    ) {
+        string $markerPrefix = '',
+        string $wrapperPrefix = ''
+    ): bool {
         return $this->getTemplate()->setOrDeleteMarkerIfNotEmpty(
             $markerName,
             $content,
@@ -973,7 +969,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return string the subpart content or an empty string if the
      *                subpart is hidden or the subpart name is missing
      */
-    public function getSubpart($key = '')
+    public function getSubpart(string $key = '')
     {
         try {
             return $this->getTemplate()->getSubpart($key);
@@ -1013,7 +1009,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return string the subpart content or an empty string if the subpart is hidden or the subpart name is missing
      */
-    public function getSubpartWithLabels($subpartKey = '')
+    public function getSubpartWithLabels(string $subpartKey = ''): string
     {
         $renderedSubpart = $this->getSubpart($subpartKey);
 
@@ -1151,7 +1147,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return string the contents of that field within listView., may be empty
      */
-    private function getListViewConfigurationValue($fieldName)
+    private function getListViewConfigurationValue(string $fieldName): string
     {
         if (empty($fieldName)) {
             throw new \InvalidArgumentException('$fieldName must not be empty.', 1331489528);
@@ -1174,7 +1170,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return string the trimmed contents of that field within listView.
      *                or an empty string if the value was not set
      */
-    public function getListViewConfValueString($fieldName)
+    public function getListViewConfValueString(string $fieldName): string
     {
         return trim($this->getListViewConfigurationValue($fieldName));
     }
@@ -1187,7 +1183,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return int the integer value of that field within listView. or
      *                 zero if the value was not set
      */
-    public function getListViewConfValueInteger($fieldName)
+    public function getListViewConfValueInteger(string $fieldName): int
     {
         return (int)$this->getListViewConfigurationValue($fieldName);
     }
@@ -1200,7 +1196,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return bool the boolean value of that field within listView.,
      *                 FALSE if no value was set
      */
-    public function getListViewConfValueBoolean($fieldName)
+    public function getListViewConfValueBoolean(string $fieldName): bool
     {
         return (bool)$this->getListViewConfigurationValue($fieldName);
     }
@@ -1214,7 +1210,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return void
      */
-    public function setFlavor($flavor)
+    public function setFlavor(string $flavor)
     {
         if ($this->configurationCheck) {
             $this->configurationCheck->setFlavor($flavor);
@@ -1227,7 +1223,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return string the current flavor of the object to check (or an empty
      *                string if no flavor is set)
      */
-    public function getFlavor()
+    public function getFlavor(): string
     {
         $result = '';
 
@@ -1247,7 +1243,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return void
      */
-    protected function setErrorMessage($message)
+    protected function setErrorMessage(string $message)
     {
         if ($this->configurationCheck) {
             $this->configurationCheck->setErrorMessage($message);
@@ -1265,7 +1261,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return string a formatted error message (if there are errors) or an
      *                empty string
      */
-    public function checkConfiguration($useRawMessage = false, $temporaryFlavor = '')
+    public function checkConfiguration(bool $useRawMessage = false, string $temporaryFlavor = ''): string
     {
         static $hasDisplayedMessage = false;
         $result = '';
@@ -1308,7 +1304,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * @return string the wrapped error text (or an empty string if there are no
      *                errors)
      */
-    public function getWrappedConfigCheckMessage()
+    public function getWrappedConfigCheckMessage(): string
     {
         $result = '';
 
@@ -1324,7 +1320,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * @return int the current back-end page UID (or 0 if there is an error)
      */
-    public function getCurrentBePageId()
+    public function getCurrentBePageId(): int
     {
         return \Tx_Oelib_PageFinder::getInstance()->getPageUid();
     }

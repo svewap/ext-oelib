@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -91,7 +92,7 @@ class Tx_Oelib_Template
      *
      * @return void
      */
-    public function processTemplateFromFile($fileName)
+    public function processTemplateFromFile(string $fileName)
     {
         $this->processTemplate(
             file_get_contents(GeneralUtility::getFileAbsFileName($fileName))
@@ -113,7 +114,7 @@ class Tx_Oelib_Template
      *
      * @return void
      */
-    public function processTemplate($templateCode)
+    public function processTemplate(string $templateCode)
     {
         $this->templateCode = $templateCode;
         $this->extractSubparts($templateCode);
@@ -128,7 +129,7 @@ class Tx_Oelib_Template
      *
      * @return void
      */
-    private function extractSubparts($templateCode)
+    private function extractSubparts(string $templateCode)
     {
         // If there are no HTML comments in  the template code, there cannot be
         // any subparts. So there's no need to use an expensive regular
@@ -187,7 +188,7 @@ class Tx_Oelib_Template
      *
      * @return string[] matching marker names (lowercased), might be empty
      */
-    public function getLabelMarkerNames()
+    public function getLabelMarkerNames(): array
     {
         return $this->labelMarkerNames;
     }
@@ -203,12 +204,12 @@ class Tx_Oelib_Template
      *
      * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
      *     not be empty
-     * @param string $content the marker's content, may be empty
+     * @param mixed $content the marker's content, may be empty
      * @param string $prefix prefix to the marker name (may be empty, case-insensitive, will get uppercased)
      *
      * @return void
      */
-    public function setMarker($markerName, $content, $prefix = '')
+    public function setMarker(string $markerName, $content, string $prefix = '')
     {
         $unifiedMarkerName = $this->createMarkerName($markerName, $prefix);
 
@@ -226,14 +227,10 @@ class Tx_Oelib_Template
      * @return string the marker's content or an empty string if the
      *                marker has not been set before
      */
-    public function getMarker($markerName)
+    public function getMarker(string $markerName): string
     {
         $unifiedMarkerName = $this->createMarkerName($markerName);
-        if (!isset($this->markers[$unifiedMarkerName])) {
-            return '';
-        }
-
-        return $this->markers[$unifiedMarkerName];
+        return $this->markers[$unifiedMarkerName] ?? '';
     }
 
     /**
@@ -247,12 +244,12 @@ class Tx_Oelib_Template
      *
      * @param string $subpartName
      *        the subpart's name without the ### signs, case-insensitive, will get uppercased, must not be empty
-     * @param string $content the subpart's content, may be empty
+     * @param mixed $content the subpart's content, may be empty
      * @param string $prefix prefix to the subpart name (may be empty, case-insensitive, will get uppercased)
      *
      * @return void
      */
-    public function setSubpart($subpartName, $content, $prefix = '')
+    public function setSubpart(string $subpartName, $content, string $prefix = '')
     {
         $subpartName = $this->createMarkerNameWithoutHashes(
             $subpartName,
@@ -282,7 +279,7 @@ class Tx_Oelib_Template
      *
      * @see setMarkerIfNotEmpty
      */
-    public function setMarkerIfNotZero($markerName, $content, $markerPrefix = '')
+    public function setMarkerIfNotZero(string $markerName, $content, string $markerPrefix = ''): bool
     {
         $condition = ((int)$content) !== 0;
         if ($condition) {
@@ -298,7 +295,7 @@ class Tx_Oelib_Template
      *
      * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
      *     not be empty
-     * @param string $content content with which the marker will be filled, may be empty
+     * @param mixed $content content with which the marker will be filled, may be empty
      * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get
      *     uppercased)
      *
@@ -306,7 +303,7 @@ class Tx_Oelib_Template
      *
      * @see setMarkerIfNotZero
      */
-    public function setMarkerIfNotEmpty($markerName, $content, $markerPrefix = '')
+    public function setMarkerIfNotEmpty(string $markerName, $content, string $markerPrefix = ''): bool
     {
         $condition = !empty($content);
         if ($condition) {
@@ -325,7 +322,7 @@ class Tx_Oelib_Template
      *
      * @return bool TRUE if the subpart is visible, FALSE otherwise
      */
-    public function isSubpartVisible($subpartName)
+    public function isSubpartVisible(string $subpartName): bool
     {
         if ($subpartName === '') {
             return false;
@@ -352,7 +349,7 @@ class Tx_Oelib_Template
      *
      * @return void
      */
-    public function hideSubparts($subparts, $prefix = '')
+    public function hideSubparts(string $subparts, string $prefix = '')
     {
         $subpartNames = GeneralUtility::trimExplode(',', $subparts, true);
 
@@ -375,7 +372,7 @@ class Tx_Oelib_Template
      *
      * @return void
      */
-    public function hideSubpartsArray(array $subparts, $prefix = '')
+    public function hideSubpartsArray(array $subparts, string $prefix = '')
     {
         foreach ($subparts as $currentSubpartName) {
             $fullSubpartName = $this->createMarkerNameWithoutHashes(
@@ -414,9 +411,9 @@ class Tx_Oelib_Template
      * @return void
      */
     public function unhideSubparts(
-        $subparts,
-        $permanentlyHiddenSubparts = '',
-        $prefix = ''
+        string $subparts,
+        string $permanentlyHiddenSubparts = '',
+        string $prefix = ''
     ) {
         $subpartNames = GeneralUtility::trimExplode(',', $subparts, true);
 
@@ -455,7 +452,7 @@ class Tx_Oelib_Template
     public function unhideSubpartsArray(
         array $subparts,
         array $permanentlyHiddenSubparts = [],
-        $prefix = ''
+        string $prefix = ''
     ) {
         foreach ($subparts as $currentSubpartName) {
             // Only unhide the current subpart if it is not on the list of
@@ -481,7 +478,7 @@ class Tx_Oelib_Template
      *        the marker's name without the ### signs, case-insensitive, will get uppercased, must not be empty
      * @param bool $condition
      *        if this is TRUE, the marker will be filled, otherwise the wrapped marker will be hidden
-     * @param string $content
+     * @param mixed $content
      *        content with which the marker will be filled, may be empty
      * @param string $markerPrefix
      *        prefix to the marker name for setting (may be empty, case-insensitive, will get uppercased)
@@ -495,12 +492,12 @@ class Tx_Oelib_Template
      * @see hideSubparts
      */
     public function setOrDeleteMarker(
-        $markerName,
-        $condition,
+        string $markerName,
+        bool $condition,
         $content,
-        $markerPrefix = '',
-        $wrapperPrefix = ''
-    ) {
+        string $markerPrefix = '',
+        string $wrapperPrefix = ''
+    ): bool {
         if ($condition) {
             $this->setMarker($markerName, $content, $markerPrefix);
         } else {
@@ -537,11 +534,11 @@ class Tx_Oelib_Template
      * @see hideSubparts
      */
     public function setOrDeleteMarkerIfNotZero(
-        $markerName,
+        string $markerName,
         $content,
-        $markerPrefix = '',
-        $wrapperPrefix = ''
-    ) {
+        string $markerPrefix = '',
+        string $wrapperPrefix = ''
+    ): bool {
         return $this->setOrDeleteMarker(
             $markerName,
             ((int)$content) !== 0,
@@ -562,7 +559,7 @@ class Tx_Oelib_Template
      *
      * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
      *     not be empty
-     * @param string $content content with which the marker will be filled, may be empty
+     * @param mixed $content content with which the marker will be filled, may be empty
      * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get
      *     uppercased)
      * @param string $wrapperPrefix prefix to the subpart name for hiding (may be empty, case-insensitive, will get
@@ -577,11 +574,11 @@ class Tx_Oelib_Template
      * @see hideSubparts
      */
     public function setOrDeleteMarkerIfNotEmpty(
-        $markerName,
+        string $markerName,
         $content,
-        $markerPrefix = '',
-        $wrapperPrefix = ''
-    ) {
+        string $markerPrefix = '',
+        string $wrapperPrefix = ''
+    ): bool {
         return $this->setOrDeleteMarker(
             $markerName,
             !empty($content),
@@ -606,7 +603,7 @@ class Tx_Oelib_Template
      *
      * @return string the created marker name (including the hashes), will not be empty
      */
-    private function createMarkerName($markerName, $prefix = '')
+    private function createMarkerName(string $markerName, string $prefix = ''): string
     {
         return '###' . $this->createMarkerNameWithoutHashes($markerName, $prefix) . '###';
     }
@@ -626,7 +623,7 @@ class Tx_Oelib_Template
      *
      * @return string the created marker name (without the hashes), will not be empty
      */
-    private function createMarkerNameWithoutHashes($markerName, $prefix = '')
+    private function createMarkerNameWithoutHashes(string $markerName, string $prefix = ''): string
     {
         // If a prefix is provided, uppercases it and separates it with an underscore.
         if ($prefix !== '') {
@@ -641,7 +638,7 @@ class Tx_Oelib_Template
      *
      * @return string the rendered template, might be empty
      */
-    public function render()
+    public function render(): string
     {
         return $this->replaceMarkersAndSubparts($this->templateCode);
     }
@@ -663,7 +660,7 @@ class Tx_Oelib_Template
      * @throws \InvalidArgumentException if $subpartKey is not valid
      * @throws \Tx_Oelib_Exception_NotFound if there is no subpart with the provided name
      */
-    public function getSubpart($subpartKey = '')
+    public function getSubpart(string $subpartKey = ''): string
     {
         if ($subpartKey === '') {
             return $this->render();
@@ -704,7 +701,7 @@ class Tx_Oelib_Template
      *
      * @throws \BadMethodCallException
      */
-    public function getSubpartWithLabels($subpartKey = '')
+    public function getSubpartWithLabels(string $subpartKey = ''): string
     {
         if ($this->translator === null) {
             throw new \BadMethodCallException('Please inject the translator before calling this method.', 1440106254);
@@ -729,7 +726,7 @@ class Tx_Oelib_Template
      *
      * @return string the template with all subparts and markers replaced
      */
-    protected function replaceMarkersAndSubparts($templateCode)
+    protected function replaceMarkersAndSubparts(string $templateCode): string
     {
         return $this->replaceMarkers($this->replaceSubparts($templateCode));
     }
@@ -741,7 +738,7 @@ class Tx_Oelib_Template
      *
      * @return string the template with the subparts replaced
      */
-    protected function replaceSubparts($templateCode)
+    protected function replaceSubparts(string $templateCode): string
     {
         $template = $this;
         return preg_replace_callback(
@@ -760,7 +757,7 @@ class Tx_Oelib_Template
      *
      * @return string the template with the markers replaced
      */
-    protected function replaceMarkers($templateCode)
+    protected function replaceMarkers(string $templateCode): string
     {
         return str_replace(array_keys($this->markers), $this->markers, $templateCode);
     }
@@ -779,7 +776,7 @@ class Tx_Oelib_Template
      *
      * @return bool TRUE if the marker name is valid, FALSE otherwise
      */
-    private function isMarkerNameValidWithHashes($markerName)
+    private function isMarkerNameValidWithHashes(string $markerName): bool
     {
         return isset($this->markers[$markerName])
             || (bool)preg_match('/^###[a-zA-Z](?:\\w*[a-zA-Z0-9])?###$/', $markerName);
@@ -798,7 +795,7 @@ class Tx_Oelib_Template
      *
      * @return bool TRUE if the marker name is valid, FALSE otherwise
      */
-    private function isMarkerNameValidWithoutHashes($markerName)
+    private function isMarkerNameValidWithoutHashes(string $markerName): bool
     {
         return $this->isMarkerNameValidWithHashes('###' . $markerName . '###');
     }

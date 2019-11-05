@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class stores HTTP header which were meant to be sent instead of really
@@ -26,7 +27,7 @@ class Tx_Oelib_HeaderCollector extends \Tx_Oelib_AbstractHeaderProxy
      *
      * @return void
      */
-    public function addHeader($header)
+    public function addHeader(string $header)
     {
         $this->headers[] = $header;
     }
@@ -36,7 +37,7 @@ class Tx_Oelib_HeaderCollector extends \Tx_Oelib_AbstractHeaderProxy
      *
      * @return string last header, will be empty if there are none
      */
-    public function getLastAddedHeader()
+    public function getLastAddedHeader(): string
     {
         if (empty($this->headers)) {
             return '';
@@ -51,7 +52,7 @@ class Tx_Oelib_HeaderCollector extends \Tx_Oelib_AbstractHeaderProxy
      *
      * @return string[] all added headers, will be empty if there is none
      */
-    public function getAllAddedHeaders()
+    public function getAllAddedHeaders(): array
     {
         return $this->headers;
     }

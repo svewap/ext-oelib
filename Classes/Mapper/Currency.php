@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a mapper for currencies.
@@ -34,7 +35,7 @@ class Tx_Oelib_Mapper_Currency extends \Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model_Currency the currency
      */
-    public function findByIsoAlpha3Code($isoAlpha3Code)
+    public function findByIsoAlpha3Code(string $isoAlpha3Code): \Tx_Oelib_Model_Currency
     {
         return $this->findOneByKey('cu_iso_3', $isoAlpha3Code);
     }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Domain\Fixtures;
 
@@ -23,7 +24,7 @@ class LazyLoadingModel extends AbstractEntity
     /**
      * @return EmptyModel
      */
-    public function getLazyProperty()
+    public function getLazyProperty(): EmptyModel
     {
         $this->loadLazyProperty('lazyProperty');
 

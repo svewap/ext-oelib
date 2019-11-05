@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class provides functions for calculating the distance between geo objects.
@@ -35,7 +36,7 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
     public function calculateDistanceInKilometers(
         \Tx_Oelib_Interface_Geo $object1,
         \Tx_Oelib_Interface_Geo $object2
-    ) {
+    ): float {
         if ($object1->hasGeoError()) {
             throw new \InvalidArgumentException('$object1 has a geo error.');
         }
@@ -85,7 +86,7 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
      *         a copy of $unfilteredObjects with only those objects that are
      *         located within $distance kilometers of $center
      */
-    public function filterByDistance(\Tx_Oelib_List $unfilteredObjects, \Tx_Oelib_Interface_Geo $center, $distance)
+    public function filterByDistance(\Tx_Oelib_List $unfilteredObjects, \Tx_Oelib_Interface_Geo $center, float $distance): \Tx_Oelib_List
     {
         $objectsWithinDistance = new \Tx_Oelib_List();
 
@@ -110,7 +111,7 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
      *
      * @return void
      */
-    public function move(\Tx_Oelib_Interface_Geo $object, $direction, $distance)
+    public function move(\Tx_Oelib_Interface_Geo $object, float $direction, float $distance)
     {
         $directionInRadians = \deg2rad($direction);
 
@@ -149,7 +150,7 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
      *
      * @throws \InvalidArgumentException
      */
-    public function moveByRandomDistance(\Tx_Oelib_Interface_Geo $object, $direction, $maximumDistance)
+    public function moveByRandomDistance(\Tx_Oelib_Interface_Geo $object, float $direction, float $maximumDistance)
     {
         if ($maximumDistance < 0) {
             throw new \InvalidArgumentException(
@@ -159,7 +160,7 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
         }
 
         $distanceMultiplier = 10000;
-        $randomDistance = \mt_rand(0, $maximumDistance * ($distanceMultiplier - 1)) / $distanceMultiplier;
+        $randomDistance = \random_int(0, (int)($maximumDistance * ($distanceMultiplier - 1))) / $distanceMultiplier;
         $this->move($object, $direction, $randomDistance);
     }
 
@@ -173,9 +174,9 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
      *
      * @return void
      */
-    public function moveInRandomDirection(\Tx_Oelib_Interface_Geo $object, $distance)
+    public function moveInRandomDirection(\Tx_Oelib_Interface_Geo $object, float $distance)
     {
-        $direction = \mt_rand(0, 360);
+        $direction = \random_int(0, 360);
         $this->move($object, $direction, $distance);
     }
 
@@ -189,9 +190,9 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
      *
      * @return void
      */
-    public function moveInRandomDirectionAndDistance(\Tx_Oelib_Interface_Geo $object, $maximumDistance)
+    public function moveInRandomDirectionAndDistance(\Tx_Oelib_Interface_Geo $object, float $maximumDistance)
     {
-        $direction = \mt_rand(0, 360);
+        $direction = \random_int(0, 360);
         $this->moveByRandomDistance($object, $direction, $maximumDistance);
     }
 }

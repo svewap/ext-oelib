@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures;
 
@@ -154,7 +155,7 @@ class TestingGeo extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_Geo
     /**
      * @return string
      */
-    public function getGeoErrorReason()
+    public function getGeoErrorReason(): string
     {
         return $this->geoErrorReason;
     }

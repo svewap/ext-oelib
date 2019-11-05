@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -46,7 +47,7 @@ class Tx_Oelib_Mapper_FrontEndUser extends \Tx_Oelib_DataMapper
      *         if there is no front-end user with the provided user name in the
      *         database
      */
-    public function findByUserName($userName)
+    public function findByUserName(string $userName): \Tx_Oelib_Model_FrontEndUser
     {
         return $this->findOneByKey('username', $userName);
     }
@@ -54,22 +55,22 @@ class Tx_Oelib_Mapper_FrontEndUser extends \Tx_Oelib_DataMapper
     /**
      * Returns the users which are in the groups with the given UIDs.
      *
-     * @param string $groupUids
+     * @param string|int $groupUids
      *        the UIDs of the user groups from which to get the users, must be a
      *        comma-separated list of group UIDs, must not be empty
      *
      * @return \Tx_Oelib_List<\Tx_Oelib_Model_FrontEndUser> the found user models, will be empty if
      *                       no users were found for the given groups
      */
-    public function getGroupMembers($groupUids)
+    public function getGroupMembers($groupUids): \Tx_Oelib_List
     {
-        if ($groupUids === '') {
+        if ((string)$groupUids === '') {
             throw new \InvalidArgumentException('$groupUids must not be an empty string.', 1331488505);
         }
 
         $tableName = $this->getTableName();
         $where = $this->getUniversalWhereClause() . ' AND ' .
-            'usergroup REGEXP \'(^|,)(' . implode('|', GeneralUtility::intExplode(',', $groupUids)) . ')($|,)\'';
+            'usergroup REGEXP \'(^|,)(' . implode('|', GeneralUtility::intExplode(',', (string)$groupUids)) . ')($|,)\'';
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
         $statement = $connection->query('SELECT * FROM `' . $tableName . '` WHERE ' . $where);
 

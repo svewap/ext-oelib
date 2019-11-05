@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Testing;
 
@@ -47,7 +48,7 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @return TypoScriptFrontendController
      */
-    private function getFrontEndController()
+    private function getFrontEndController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
     }
@@ -64,7 +65,7 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @return int the sorting value of the relation
      */
-    private function getSortingOfRelation($uidLocal, $uidForeign)
+    private function getSortingOfRelation($uidLocal, $uidForeign): int
     {
         $row = $this->getDatabaseConnection()->selectSingleRow(
             'sorting',
@@ -88,7 +89,7 @@ class FrameworkTest extends FunctionalTestCase
             'tx_oelib_test',
             ['is_dummy_record' => 1]
         );
-        $uid = $this->getDatabaseConnection()->lastInsertId();
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $this->subject->markTableAsDirty('tx_oelib_test');
         $this->subject->cleanUp();
@@ -107,7 +108,7 @@ class FrameworkTest extends FunctionalTestCase
             'pages',
             ['tx_oelib_is_dummy_record' => 1]
         );
-        $uid = $this->getDatabaseConnection()->lastInsertId();
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $this->subject->markTableAsDirty('pages');
         $this->subject->cleanUp();
@@ -126,7 +127,7 @@ class FrameworkTest extends FunctionalTestCase
             'user_oelibtest_test',
             ['tx_oelib_is_dummy_record' => 1]
         );
-        $uid = $this->getDatabaseConnection()->lastInsertId();
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $this->subject->markTableAsDirty('user_oelibtest_test');
         $this->subject->cleanUp();
@@ -322,7 +323,7 @@ class FrameworkTest extends FunctionalTestCase
     /**
      * @return bool[][]
      */
-    public function booleanDataProvider()
+    public function booleanDataProvider(): array
     {
         return [
             'false' => [false],
@@ -1807,7 +1808,7 @@ class FrameworkTest extends FunctionalTestCase
             'tx_oelib_test',
             ['title' => 'foo']
         );
-        $uid = $this->getDatabaseConnection()->lastInsertId();
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         $testResult = $this->subject->existsRecordWithUid(
             'tx_oelib_test',

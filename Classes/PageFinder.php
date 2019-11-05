@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -62,7 +63,7 @@ class Tx_Oelib_PageFinder
      *
      * @return \Tx_Oelib_PageFinder the current Singleton instance
      */
-    public static function getInstance()
+    public static function getInstance(): \Tx_Oelib_PageFinder
     {
         if (!self::$instance) {
             self::$instance = new \Tx_Oelib_PageFinder();
@@ -92,7 +93,7 @@ class Tx_Oelib_PageFinder
      * @return int the ID of the current page, will be zero if no page is
      *                 present or no page source could be found
      */
-    public function getPageUid()
+    public function getPageUid(): int
     {
         switch ($this->getCurrentSource()) {
             case self::SOURCE_MANUAL:
@@ -118,7 +119,7 @@ class Tx_Oelib_PageFinder
      *
      * @return void
      */
-    public function setPageUid($uidToStore)
+    public function setPageUid(int $uidToStore)
     {
         if ($uidToStore <= 0) {
             throw new \InvalidArgumentException(
@@ -137,7 +138,7 @@ class Tx_Oelib_PageFinder
      *
      * @return void
      */
-    public function forceSource($modeToForce)
+    public function forceSource(int $modeToForce)
     {
         $this->manualPageUidSource = $modeToForce;
     }
@@ -148,7 +149,7 @@ class Tx_Oelib_PageFinder
      * @return int either SOURCE_BACK_END, SOURCE_FRONT_END or SOURCE_MANUAL,
      *                 will be NO_SOURCE_FOUND if no source could be detected
      */
-    public function getCurrentSource()
+    public function getCurrentSource(): int
     {
         if ($this->manualPageUidSource !== self::SOURCE_AUTO) {
             $result = $this->manualPageUidSource;
@@ -171,7 +172,7 @@ class Tx_Oelib_PageFinder
      * @return bool TRUE if there is a front end with a non-zero page UID,
      *                 FALSE otherwise
      */
-    private function hasFrontEnd()
+    private function hasFrontEnd(): bool
     {
         return ($this->getFrontEndController() !== null) && ($this->getFrontEndController()->id > 0);
     }
@@ -181,7 +182,7 @@ class Tx_Oelib_PageFinder
      *
      * @return bool TRUE if a back-end page UID has been set, FALSE otherwise
      */
-    private function hasBackEnd()
+    private function hasBackEnd(): bool
     {
         return (int)GeneralUtility::_GP('id') > 0;
     }
@@ -191,7 +192,7 @@ class Tx_Oelib_PageFinder
      *
      * @return bool TRUE if a page UID has been set manually, FALSE otherwise
      */
-    private function hasManualPageUid()
+    private function hasManualPageUid(): bool
     {
         return $this->storedPageUid > 0;
     }
@@ -203,6 +204,6 @@ class Tx_Oelib_PageFinder
      */
     protected function getFrontEndController()
     {
-        return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : null;
+        return $GLOBALS['TSFE'] ?? null;
     }
 }

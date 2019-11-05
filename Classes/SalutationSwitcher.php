@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -85,7 +86,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      *
      * @return string the requested local language key, might be empty
      */
-    public function translate($key)
+    public function translate(string $key): string
     {
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1331489025);
@@ -116,7 +117,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      *
      * @return string the requested local language key, might be empty
      */
-    private function translateInBackEnd($key)
+    private function translateInBackEnd(string $key): string
     {
         return $this->getLanguageService()->getLL($key);
     }
@@ -140,7 +141,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      *
      * @return string the requested local language key, might be empty
      */
-    private function translateInFrontEnd($key)
+    private function translateInFrontEnd(string $key): string
     {
         $hasFoundATranslation = false;
         $result = '';
@@ -169,7 +170,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      *
      * @return string[] a list of language keys (may be empty)
      */
-    private function getAvailableLanguages()
+    private function getAvailableLanguages(): array
     {
         if ($this->availableLanguages === null) {
             $this->availableLanguages = [];
@@ -204,7 +205,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      *
      * @return string[] ordered list of suffixes from "", "_formal" and "_informal", will not be empty
      */
-    private function getSuffixesToTry()
+    private function getSuffixesToTry(): array
     {
         if ($this->suffixesToTry === null) {
             $this->suffixesToTry = [];
@@ -228,7 +229,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      */
     protected function getFrontEndController()
     {
-        return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : null;
+        return $GLOBALS['TSFE'] ?? null;
     }
 
     /**
@@ -238,6 +239,6 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      */
     protected function getLanguageService()
     {
-        return isset($GLOBALS['LANG']) ? $GLOBALS['LANG'] : null;
+        return $GLOBALS['LANG'] ?? null;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class returns localized labels in the given languages.
@@ -38,7 +39,7 @@ class Tx_Oelib_Translator
      *        'languageKey' => array('labelkey' => 'label'),
      *        may be empty
      */
-    public function __construct($languageKey, $alternativeLanguageKey, array $localizedLabels)
+    public function __construct(string $languageKey, string $alternativeLanguageKey, array $localizedLabels)
     {
         $this->languageKey = $languageKey;
         $this->alternativeLanguageKey = $alternativeLanguageKey;
@@ -55,7 +56,7 @@ class Tx_Oelib_Translator
      *
      * @return string the localized label, might be empty
      */
-    public function translate($key, $useHtmlSpecialChars = false)
+    public function translate(string $key, bool $useHtmlSpecialChars = false): string
     {
         if ($key === '') {
             throw new \InvalidArgumentException('The parameter $key must not be empty.', 1331489544);
@@ -73,7 +74,7 @@ class Tx_Oelib_Translator
      *
      * @return string the localized label, might be empty
      */
-    protected function translateForNewTypo3($key)
+    protected function translateForNewTypo3(string $key): string
     {
         if (isset($this->localizedLabels[$this->languageKey][$key][0]['target'])) {
             $translation = $this->localizedLabels[$this->languageKey][$key][0]['target'];
@@ -98,7 +99,7 @@ class Tx_Oelib_Translator
      *
      * @return string the language key in $this->languageKey, may be empty
      */
-    public function getLanguageKey()
+    public function getLanguageKey(): string
     {
         return $this->languageKey;
     }
@@ -111,7 +112,7 @@ class Tx_Oelib_Translator
      * @return string the alternative language key in
      *                $this->alternativeLanguageKey, may be empty
      */
-    public function getAlternativeLanguageKey()
+    public function getAlternativeLanguageKey(): string
     {
         return $this->alternativeLanguageKey;
     }

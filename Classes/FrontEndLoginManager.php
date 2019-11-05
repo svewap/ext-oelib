@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -119,6 +120,6 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
      */
     protected function getFrontEndController()
     {
-        return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : null;
+        return $GLOBALS['TSFE'] ?? null;
     }
 }

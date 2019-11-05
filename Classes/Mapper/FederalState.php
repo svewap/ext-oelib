@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a mapper for federal state models.
@@ -32,7 +33,7 @@ class Tx_Oelib_Mapper_FederalState extends \Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model_FederalState the federal state with the requested code
      */
-    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode($isoAlpha2CountryCode, $isoAlpha2ZoneCode)
+    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode(string $isoAlpha2CountryCode, string $isoAlpha2ZoneCode): \Tx_Oelib_Model_FederalState
     {
         return $this->findOneByCompoundKey([
             'zn_country_iso_2' => $isoAlpha2CountryCode,

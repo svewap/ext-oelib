@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents an e-mail attachment.
@@ -30,7 +31,7 @@ class Tx_Oelib_Attachment
      *
      * @return void
      */
-    public function setFileName($fileName)
+    public function setFileName(string $fileName)
     {
         if ($fileName === '') {
             throw new \InvalidArgumentException('$fileName must not be empty.', 1331318400);
@@ -44,7 +45,7 @@ class Tx_Oelib_Attachment
      *
      * @return string the file name of the attachment, will be empty if not set
      */
-    public function getFileName()
+    public function getFileName(): string
     {
         return $this->fileName;
     }
@@ -58,7 +59,7 @@ class Tx_Oelib_Attachment
      *
      * @return void
      */
-    public function setContentType($contentType)
+    public function setContentType(string $contentType)
     {
         if ($contentType === '') {
             throw new \InvalidArgumentException('$contentType must not be empty.', 1331318411);
@@ -72,7 +73,7 @@ class Tx_Oelib_Attachment
      *
      * @return string the content type of the attachment, will be empty if not set
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return $this->contentType;
     }
@@ -85,7 +86,7 @@ class Tx_Oelib_Attachment
      *
      * @return void
      */
-    public function setContent($content)
+    public function setContent(string $content)
     {
         $this->content = $content;
     }
@@ -95,7 +96,7 @@ class Tx_Oelib_Attachment
      *
      * @return string the content of the attachment, might be empty
      */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }

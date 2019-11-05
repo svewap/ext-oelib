@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Templating\Fixtures;
 
@@ -65,7 +66,7 @@ final class TestingTemplateHelper extends \Tx_Oelib_TemplateHelper
      * @return array configuration array of the requested page for the current
      *               extension key
      */
-    public function retrievePageConfig($pageId)
+    public function retrievePageConfig(int $pageId): array
     {
         return parent::retrievePageConfig($pageId);
     }

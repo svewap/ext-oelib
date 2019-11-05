@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model\Fixtures;
 
@@ -13,7 +14,7 @@ class TestingChildModel extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_S
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->getAsString('title');
     }

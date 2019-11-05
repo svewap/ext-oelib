@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -29,7 +30,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return string this user's user name, will not be empty for valid users
      */
-    public function getUserName()
+    public function getUserName(): string
     {
         return $this->getAsString('username');
     }
@@ -44,7 +45,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @throws \InvalidArgumentException
      */
-    public function setUserName($userName)
+    public function setUserName(string $userName)
     {
         if ($userName === '') {
             throw new \InvalidArgumentException('$userName must not be empty.');
@@ -58,7 +59,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return string the password, might be empty
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->getAsString('password');
     }
@@ -72,7 +73,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @throws \InvalidArgumentException
      */
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         if ($password === '') {
             throw new \InvalidArgumentException('$password must not be empty.');
@@ -108,7 +109,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has a non-empty name, FALSE otherwise
      */
-    public function hasName()
+    public function hasName(): bool
     {
         return $this->hasString('name') || $this->hasFirstName()
             || $this->hasLastName();
@@ -121,7 +122,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return void
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->setAsString('name', $name);
     }
@@ -131,7 +132,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return string this user's company, may be empty
      */
-    public function getCompany()
+    public function getCompany(): string
     {
         return $this->getAsString('company');
     }
@@ -141,7 +142,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has a company set, FALSE otherwise
      */
-    public function hasCompany()
+    public function hasCompany(): bool
     {
         return $this->hasString('company');
     }
@@ -153,7 +154,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return void
      */
-    public function setCompany($company)
+    public function setCompany(string $company)
     {
         $this->setAsString('company', $company);
     }
@@ -173,7 +174,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has a street set, FALSE otherwise
      */
-    public function hasStreet()
+    public function hasStreet(): bool
     {
         return $this->hasString('address');
     }
@@ -185,7 +186,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return void
      */
-    public function setStreet($street)
+    public function setStreet(string $street)
     {
         $this->setAsString('address', $street);
     }
@@ -205,7 +206,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has a ZIP code set, FALSE otherwise
      */
-    public function hasZip()
+    public function hasZip(): bool
     {
         return $this->hasString('zip');
     }
@@ -217,7 +218,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return void
      */
-    public function setZip($zipCode)
+    public function setZip(string $zipCode)
     {
         $this->setAsString('zip', $zipCode);
     }
@@ -237,7 +238,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has a city set, FALSE otherwise
      */
-    public function hasCity()
+    public function hasCity(): bool
     {
         return $this->hasString('city');
     }
@@ -249,7 +250,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return void
      */
-    public function setCity($city)
+    public function setCity(string $city)
     {
         $this->setAsString('city', $city);
     }
@@ -260,7 +261,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      * @return string this user's ZIP code city, will be empty if the user has
      *                no city set
      */
-    public function getZipAndCity()
+    public function getZipAndCity(): string
     {
         if (!$this->hasCity()) {
             return '';
@@ -284,7 +285,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has a phone number set, FALSE otherwise
      */
-    public function hasPhoneNumber()
+    public function hasPhoneNumber(): bool
     {
         return $this->hasString('telephone');
     }
@@ -296,7 +297,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return void
      */
-    public function setPhoneNumber($phoneNumber)
+    public function setPhoneNumber(string $phoneNumber)
     {
         $this->setAsString('telephone', $phoneNumber);
     }
@@ -317,7 +318,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      * @return bool TRUE if this user has an e-mail address set, FALSE
      *                 otherwise
      */
-    public function hasEmailAddress()
+    public function hasEmailAddress(): bool
     {
         return $this->hasString('email');
     }
@@ -329,7 +330,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return void
      */
-    public function setEmailAddress($eMailAddress)
+    public function setEmailAddress(string $eMailAddress)
     {
         $this->setAsString('email', $eMailAddress);
     }
@@ -349,7 +350,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has a homepage set, FALSE otherwise
      */
-    public function hasHomepage()
+    public function hasHomepage(): bool
     {
         return $this->hasString('www');
     }
@@ -359,7 +360,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return string this user's image path, may be empty
      */
-    public function getImage()
+    public function getImage(): string
     {
         return $this->getAsString('image');
     }
@@ -369,7 +370,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has an image set, FALSE otherwise
      */
-    public function hasImage()
+    public function hasImage(): bool
     {
         return $this->hasString('image');
     }
@@ -380,7 +381,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      * @return bool TRUE if the user agreed to receive HTML e-mails, FALSE
      *                 otherwise
      */
-    public function wantsHtmlEmail()
+    public function wantsHtmlEmail(): bool
     {
         return $this->getAsBoolean('module_sys_dmail_html');
     }
@@ -391,7 +392,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      * @return \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> this user's FE user groups, will not be empty if
      *                       the user data is valid
      */
-    public function getUserGroups()
+    public function getUserGroups(): \Tx_Oelib_List
     {
         return $this->getAsList('usergroup');
     }
@@ -432,7 +433,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @throws \InvalidArgumentException
      */
-    public function hasGroupMembership($uidList)
+    public function hasGroupMembership(string $uidList): bool
     {
         if ($uidList === '') {
             throw new \InvalidArgumentException('$uidList must not be empty.', 1331488635);
@@ -460,7 +461,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *                 \Tx_Oelib_Model_FrontEndUser::GENDER_MALE or
      *                 \Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN
      */
-    public function getGender()
+    public function getGender(): int
     {
         if (!self::hasGenderField()) {
             return self::GENDER_UNKNOWN;
@@ -474,7 +475,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool
      */
-    public static function hasGenderField()
+    public static function hasGenderField(): bool
     {
         return isset($GLOBALS['TCA']['fe_users']['columns']['gender']);
     }
@@ -488,7 +489,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @throws \InvalidArgumentException
      */
-    public function setGender($genderKey)
+    public function setGender(int $genderKey)
     {
         $validGenderKeys = [self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_UNKNOWN];
         if (!in_array($genderKey, $validGenderKeys, true)) {
@@ -506,7 +507,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if the user has a first name, FALSE otherwise
      */
-    public function hasFirstName()
+    public function hasFirstName(): bool
     {
         return $this->hasString('first_name');
     }
@@ -517,7 +518,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      * @return string the first name of this user, will be empty if no first
      *                name is set
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->getAsString('first_name');
     }
@@ -529,7 +530,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return void
      */
-    public function setFirstName($firstName)
+    public function setFirstName(string $firstName)
     {
         $this->setAsString('first_name', $firstName);
     }
@@ -539,7 +540,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if the user has a last name, FALSE otherwise
      */
-    public function hasLastName()
+    public function hasLastName(): bool
     {
         return $this->hasString('last_name');
     }
@@ -550,7 +551,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      * @return string the last name of this user, will be empty if no last name
      *                is set
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->getAsString('last_name');
     }
@@ -562,7 +563,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return void
      */
-    public function setLastName($lastName)
+    public function setLastName(string $lastName)
     {
         $this->setAsString('last_name', $lastName);
     }
@@ -574,7 +575,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      * @return string the first name of this user if it exists, will return the
      *                user's full name otherwise
      */
-    public function getFirstOrFullName()
+    public function getFirstOrFullName(): string
     {
         return $this->hasFirstName() ? $this->getFirstName() : $this->getName();
     }
@@ -586,7 +587,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      * @return string the last name of this user if it exists, will return the
      *                user's full name otherwise
      */
-    public function getLastOrFullName()
+    public function getLastOrFullName(): string
     {
         return $this->hasLastName() ? $this->getLastName() : $this->getName();
     }
@@ -597,7 +598,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      * @return int the user's date of birth, will be zero if no date has
      *                 been set
      */
-    public function getDateOfBirth()
+    public function getDateOfBirth(): int
     {
         return $this->getAsInteger('date_of_birth');
     }
@@ -607,7 +608,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has a non-zero date of birth, FALSE otherwise
      */
-    public function hasDateOfBirth()
+    public function hasDateOfBirth(): bool
     {
         return $this->hasInteger('date_of_birth');
     }
@@ -620,7 +621,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return int this user's age in years, will be 0 if this user has no birth date set
      */
-    public function getAge()
+    public function getAge(): int
     {
         if (!$this->hasDateOfBirth()) {
             return 0;
@@ -654,7 +655,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return int the user's last login date and time, will be zero if the user has never logged in
      */
-    public function getLastLoginAsUnixTimestamp()
+    public function getLastLoginAsUnixTimestamp(): int
     {
         return $this->getAsInteger('lastlogin');
     }
@@ -664,7 +665,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has a non-zero last login date, FALSE
      */
-    public function hasLastLogin()
+    public function hasLastLogin(): bool
     {
         return $this->hasInteger('lastlogin');
     }
@@ -674,7 +675,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * Note: This function uses the "country code" field, not the free-text country field.
      *
-     * @return \Tx_Oelib_Model_Country the country of this user, will be NULL if no valid country has been set
+     * @return \Tx_Oelib_Model_Country|null
      */
     public function getCountry()
     {
@@ -715,7 +716,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has a country, FALSE otherwise
      */
-    public function hasCountry()
+    public function hasCountry(): bool
     {
         return $this->getCountry() !== null;
     }
@@ -725,7 +726,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return string this user's job title, may be empty
      */
-    public function getJobTitle()
+    public function getJobTitle(): string
     {
         return $this->getAsString('title');
     }
@@ -735,7 +736,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return bool TRUE if this user has an job title set, FALSE otherwise
      */
-    public function hasJobTitle()
+    public function hasJobTitle(): bool
     {
         return $this->hasString('title');
     }
@@ -747,7 +748,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_I
      *
      * @return void
      */
-    public function setJobTitle($jobTitle)
+    public function setJobTitle(string $jobTitle)
     {
         $this->setAsString('title', $jobTitle);
     }

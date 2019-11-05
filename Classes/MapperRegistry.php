@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -48,7 +49,7 @@ class Tx_Oelib_MapperRegistry
      *
      * @return \Tx_Oelib_MapperRegistry the current Singleton instance
      */
-    public static function getInstance()
+    public static function getInstance(): \Tx_Oelib_MapperRegistry
     {
         if (!self::$instance) {
             self::$instance = new \Tx_Oelib_MapperRegistry();
@@ -79,7 +80,7 @@ class Tx_Oelib_MapperRegistry
      *
      * @see getByClassName
      */
-    public static function get($className)
+    public static function get(string $className): \Tx_Oelib_DataMapper
     {
         return self::getInstance()->getByClassName($className);
     }
@@ -93,7 +94,7 @@ class Tx_Oelib_MapperRegistry
      *
      * @throws \InvalidArgumentException
      */
-    private function getByClassName($className)
+    private function getByClassName(string $className): \Tx_Oelib_DataMapper
     {
         if ($className === '') {
             throw new \InvalidArgumentException('$className must not be empty.', 1331488868);
@@ -132,7 +133,7 @@ class Tx_Oelib_MapperRegistry
      *
      * @return string the unified class name
      */
-    protected static function unifyClassName($className)
+    protected static function unifyClassName(string $className): string
     {
         return strtolower($className);
     }
@@ -175,7 +176,7 @@ class Tx_Oelib_MapperRegistry
      *
      * @return void
      */
-    public static function set($className, \Tx_Oelib_DataMapper $mapper)
+    public static function set(string $className, \Tx_Oelib_DataMapper $mapper)
     {
         self::getInstance()->setByClassName(self::unifyClassName($className), $mapper);
     }
@@ -191,7 +192,7 @@ class Tx_Oelib_MapperRegistry
      *
      * @return void
      */
-    private function setByClassName($className, \Tx_Oelib_DataMapper $mapper)
+    private function setByClassName(string $className, \Tx_Oelib_DataMapper $mapper)
     {
         if (!($mapper instanceof $className)) {
             throw new \InvalidArgumentException(

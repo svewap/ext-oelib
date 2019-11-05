@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Domain\Repository;
 
@@ -27,7 +28,7 @@ class GermanZipCodeRepository extends Repository
      *
      * @return GermanZipCode|null
      */
-    public function findOneByZipCode($zipCode)
+    public function findOneByZipCode(string $zipCode)
     {
         if (!\preg_match('/^\\d{5}$/', $zipCode)) {
             return null;

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
@@ -115,6 +116,6 @@ class Tx_Oelib_BackEndLoginManager implements \Tx_Oelib_Interface_LoginManager
      */
     protected function getBackEndUserAuthentication()
     {
-        return isset($GLOBALS['BE_USER']) ? $GLOBALS['BE_USER'] : null;
+        return $GLOBALS['BE_USER'] ?? null;
     }
 }

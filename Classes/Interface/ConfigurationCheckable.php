@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This interface represents an object that can have an automatic configuration check.

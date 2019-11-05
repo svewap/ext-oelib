@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This singleton class provides access to an extension's global configuration
@@ -54,7 +55,7 @@ class Tx_Oelib_ConfigurationProxy extends \Tx_Oelib_PublicObject
      *
      * @throws \InvalidArgumentException
      */
-    public static function getInstance($extensionKey)
+    public static function getInstance(string $extensionKey): \Tx_Oelib_ConfigurationProxy
     {
         if ($extensionKey === '') {
             throw new \InvalidArgumentException('The extension key was not set.', 1331318826);
@@ -102,7 +103,7 @@ class Tx_Oelib_ConfigurationProxy extends \Tx_Oelib_PublicObject
     public function retrieveConfiguration()
     {
         if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey])) {
-            $this->configuration = unserialize(
+            $this->configuration = (array)unserialize(
                 $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey]
             );
         } else {
@@ -120,7 +121,7 @@ class Tx_Oelib_ConfigurationProxy extends \Tx_Oelib_PublicObject
      * @return bool whether $key occurs in the configuration array of
      *                 the extension named $this->extensionKey
      */
-    private function hasConfigurationValue($key)
+    private function hasConfigurationValue(string $key): bool
     {
         $this->loadConfigurationLazily();
 
@@ -173,7 +174,7 @@ class Tx_Oelib_ConfigurationProxy extends \Tx_Oelib_PublicObject
      *
      * @return array an extension's configuration, empty if the configuration was not retrieved before
      */
-    public function getCompleteConfiguration()
+    public function getCompleteConfiguration(): array
     {
         $this->loadConfigurationLazily();
 

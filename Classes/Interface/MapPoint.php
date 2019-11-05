@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This interface represents an object that can be positioned on a map, e.g.,

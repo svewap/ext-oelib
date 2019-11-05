@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -84,7 +85,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      *         HTML for the Google Map, will be empty if there are no map points
      *         with coordinates
      */
-    public function render(array $mapPoints = [], $width = '600px', $height = '400px')
+    public function render(array $mapPoints = [], string $width = '600px', string $height = '400px'): string
     {
         if (!\preg_match('/^\\d+(px|%)$/', $width)) {
             throw new \InvalidArgumentException(
@@ -140,7 +141,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      *
      * @return string the generated JavaScript, will not be empty
      */
-    protected function generateJavaScript($mapId, array $mapPoints, $initializeFunctionName)
+    protected function generateJavaScript(string $mapId, array $mapPoints, string $initializeFunctionName): string
     {
         // Note: If there are several map points with coordinates and the map
         // is fit to the map points, the Google Maps API still requires a center
@@ -173,7 +174,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      * @return \Tx_Oelib_Interface_MapPoint[]
      *         the map points from $mapPoints that have coordinates, might be empty
      */
-    protected function findMapPointsWithCoordinates(array $mapPoints)
+    protected function findMapPointsWithCoordinates(array $mapPoints): array
     {
         $mapPointsWithCoordinates = [];
 
@@ -205,7 +206,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      *         the JavaScript code to create all markers, will be empty if
      *         $mapPoints is empty
      */
-    protected function createMapMarkers(array $mapPoints, $mapId)
+    protected function createMapMarkers(array $mapPoints, string $mapId): string
     {
         $javaScript = '';
 
@@ -269,9 +270,9 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      */
     protected function createInfoWindowJavaScript(
         \Tx_Oelib_Interface_MapPoint $mapPoint,
-        $markerVariableName,
-        $index
-    ) {
+        string $markerVariableName,
+        int $index
+    ): string {
         if (!$mapPoint->hasInfoWindowContent()) {
             return '';
         }
@@ -299,7 +300,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      *
      * @return string the map ID, will not be empty
      */
-    public function getMapId()
+    public function getMapId(): string
     {
         return self::MAP_HTML_ID_PREFIX . '_' . $this->mapNumber;
     }
@@ -309,7 +310,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
      *
      * @return TypoScriptFrontendController
      */
-    protected function getFrontEndController()
+    protected function getFrontEndController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
     }

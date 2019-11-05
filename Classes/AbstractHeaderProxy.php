@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class declares the function addHeader() for its inheritants. So they
@@ -18,5 +19,5 @@ abstract class Tx_Oelib_AbstractHeaderProxy
      *
      * @return void
      */
-    abstract public function addHeader($header);
+    abstract public function addHeader(string $header);
 }

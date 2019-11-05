@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents an identity map that stores and retrieves model instances by their UIDs.
@@ -44,7 +45,7 @@ class Tx_Oelib_IdentityMap
      *
      * @return \Tx_Oelib_Model the stored model with the UID $uid
      */
-    public function get($uid)
+    public function get(int $uid): \Tx_Oelib_Model
     {
         if ($uid <= 0) {
             throw new \InvalidArgumentException('$uid must be > 0.', 1331488761);
@@ -66,7 +67,7 @@ class Tx_Oelib_IdentityMap
      *
      * @return int a new UID, will be > 0
      */
-    public function getNewUid()
+    public function getNewUid(): int
     {
         return $this->highestUid + 1;
     }

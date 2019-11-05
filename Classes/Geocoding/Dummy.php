@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a faked service to look up geo coordinates.
@@ -49,7 +50,7 @@ class Tx_Oelib_Geocoding_Dummy implements \Tx_Oelib_Interface_GeocodingLookup
      *
      * @return void
      */
-    public function setCoordinates($latitude, $longitude)
+    public function setCoordinates(float $latitude, float $longitude)
     {
         $this->coordinates = [
             'latitude' => $latitude,

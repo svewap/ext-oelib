@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -31,7 +32,7 @@ class Tx_Oelib_TemplateRegistry
      *
      * @return \Tx_Oelib_TemplateRegistry the current Singleton instance
      */
-    public static function getInstance()
+    public static function getInstance(): \Tx_Oelib_TemplateRegistry
     {
         if (!self::$instance) {
             self::$instance = new \Tx_Oelib_TemplateRegistry();
@@ -65,7 +66,7 @@ class Tx_Oelib_TemplateRegistry
      *
      * @see getByFileName
      */
-    public static function get($templateFileName)
+    public static function get(string $templateFileName): \Tx_Oelib_Template
     {
         return self::getInstance()->getByFileName($templateFileName);
     }
@@ -83,7 +84,7 @@ class Tx_Oelib_TemplateRegistry
      *
      * @return \Tx_Oelib_Template the template for the given template file name
      */
-    public function getByFileName($fileName)
+    public function getByFileName(string $fileName): \Tx_Oelib_Template
     {
         if (!isset($this->templates[$fileName])) {
             /** @var \Tx_Oelib_Template $template */

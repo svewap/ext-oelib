@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -113,7 +114,7 @@ abstract class Tx_Oelib_AbstractMailer
      *
      * @throws \InvalidArgumentException
      */
-    protected function validateEmailAddress($emailAddress, $roleDescription)
+    protected function validateEmailAddress(string $emailAddress, string $roleDescription)
     {
         if ($emailAddress === '') {
             throw new \InvalidArgumentException(
@@ -136,7 +137,7 @@ abstract class Tx_Oelib_AbstractMailer
      *
      * @return bool
      */
-    protected function isLocalhostAddress($emailAddress)
+    protected function isLocalhostAddress(string $emailAddress): bool
     {
         return (bool)preg_match('/[\\-_\\.a-zA-Z0-9]+@localhost/', $emailAddress);
     }
@@ -159,7 +160,7 @@ abstract class Tx_Oelib_AbstractMailer
      *
      * @return void
      */
-    public function sendFormattedEmails($enableFormatting)
+    public function sendFormattedEmails(bool $enableFormatting)
     {
         $this->enableFormatting = $enableFormatting;
     }
@@ -175,7 +176,7 @@ abstract class Tx_Oelib_AbstractMailer
      *
      * @return string e-mail body, formatted if formatting is enabled, will not be empty
      */
-    protected function formatEmailBody($rawEmailBody)
+    protected function formatEmailBody(string $rawEmailBody): string
     {
         if (!$this->enableFormatting) {
             return $rawEmailBody;

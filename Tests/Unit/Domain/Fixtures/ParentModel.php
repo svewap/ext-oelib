@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Domain\Fixtures;
 
@@ -29,7 +30,7 @@ class ParentModel extends AbstractEntity
     /**
      * @return ObjectStorage
      */
-    public function getChildren()
+    public function getChildren(): ObjectStorage
     {
         return $this->children;
     }
@@ -47,7 +48,7 @@ class ParentModel extends AbstractEntity
     /**
      * @return int
      */
-    public function getChildrenCount()
+    public function getChildrenCount(): int
     {
         return $this->getCachedRelationCount('children');
     }

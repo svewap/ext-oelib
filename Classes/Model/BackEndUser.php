@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a back-end user.
@@ -18,7 +19,7 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_In
      *
      * @return string this user's user name, will not be empty for valid users
      */
-    public function getUserName()
+    public function getUserName(): string
     {
         return $this->getAsString('username');
     }
@@ -49,7 +50,7 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_In
      *
      * @return string this user's language key, will not be empty
      */
-    public function getLanguage()
+    public function getLanguage(): string
     {
         $configuration = $this->getConfiguration();
         $result = !empty($configuration['lang']) ? $configuration['lang'] : $this->getDefaultLanguage();
@@ -66,7 +67,7 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_In
      *
      * @return void
      */
-    public function setDefaultLanguage($language)
+    public function setDefaultLanguage(string $language)
     {
         if ($language === '') {
             throw new \InvalidArgumentException('$language must not be empty.', 1331488621);
@@ -84,7 +85,7 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_In
      * @return bool TRUE if this user has a non-default language set, FALSE
      *                 otherwise
      */
-    public function hasLanguage()
+    public function hasLanguage(): bool
     {
         return $this->getLanguage() !== 'default';
     }
@@ -95,7 +96,7 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_In
      * @return \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> the user's direct groups, will be empty if this
      *                       user has no groups
      */
-    public function getGroups()
+    public function getGroups(): \Tx_Oelib_List
     {
         return $this->getAsList('usergroup');
     }
@@ -106,7 +107,7 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_In
      * @return \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> all groups and subgroups of this user, will be
      *                       empty if this user has no groups
      */
-    public function getAllGroups()
+    public function getAllGroups(): \Tx_Oelib_List
     {
         $result = new \Tx_Oelib_List();
         $groupsToProcess = $this->getGroups();
@@ -135,10 +136,10 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_In
      *
      * @return string[] the user's configuration, will be empty if the user has no configuration set
      */
-    private function getConfiguration()
+    private function getConfiguration(): array
     {
         if (empty($this->configuration)) {
-            $this->configuration = unserialize($this->getAsString('uc'));
+            $this->configuration = (array)unserialize($this->getAsString('uc'));
         }
 
         return $this->configuration;
@@ -150,7 +151,7 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_In
      * @return string the user's default language, will be empty if no default
      *                language has been set
      */
-    private function getDefaultLanguage()
+    private function getDefaultLanguage(): string
     {
         return $this->getAsString('lang');
     }

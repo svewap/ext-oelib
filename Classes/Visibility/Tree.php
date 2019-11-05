@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -80,7 +81,7 @@ class Tx_Oelib_Visibility_Tree
      *
      * @return string[] the key of the subparts which are hidden, will be empty if no elements are hidden
      */
-    public function getKeysOfHiddenSubparts()
+    public function getKeysOfHiddenSubparts(): array
     {
         $keysToHide = [];
 
@@ -98,7 +99,7 @@ class Tx_Oelib_Visibility_Tree
      *
      * @return \Tx_Oelib_Visibility_Node the root node
      */
-    public function getRootNode()
+    public function getRootNode(): \Tx_Oelib_Visibility_Node
     {
         return $this->rootNode;
     }

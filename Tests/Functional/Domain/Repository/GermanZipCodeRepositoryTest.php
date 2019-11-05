@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Model;
 
@@ -79,7 +80,7 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
     /**
      * @return string[][]
      */
-    public function nonMatchedZipCodesDataProvider()
+    public function nonMatchedZipCodesDataProvider(): array
     {
         return [
             '5 digits without match' => ['00000'],

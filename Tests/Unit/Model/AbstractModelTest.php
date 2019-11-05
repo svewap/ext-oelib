@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
@@ -67,7 +68,7 @@ class AbstractModelTest extends UnitTestCase
     /**
      * @return int[][]
      */
-    public function cloneableStatusDataProvider()
+    public function cloneableStatusDataProvider(): array
     {
         return [
             'virgin' => [\Tx_Oelib_Model::STATUS_VIRGIN],
@@ -1459,7 +1460,7 @@ class AbstractModelTest extends UnitTestCase
     /**
      * @return int[][]
      */
-    public function uncloneableStatusDataProvider()
+    public function uncloneableStatusDataProvider(): array
     {
         return [
             'loading' => [\Tx_Oelib_Model::STATUS_LOADING],

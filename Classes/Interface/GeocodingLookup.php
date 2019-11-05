@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This interface provides functions for looking up the coordinates of an

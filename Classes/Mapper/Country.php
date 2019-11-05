@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a mapper for countries.
@@ -34,7 +35,7 @@ class Tx_Oelib_Mapper_Country extends \Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model_Country the country
      */
-    public function findByIsoAlpha2Code($isoAlpha2Code)
+    public function findByIsoAlpha2Code($isoAlpha2Code): \Tx_Oelib_Model_Country
     {
         return $this->findOneByKey('cn_iso_2', $isoAlpha2Code);
     }
@@ -50,7 +51,7 @@ class Tx_Oelib_Mapper_Country extends \Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model_Country the country
      */
-    public function findByIsoAlpha3Code($isoAlpha3Code)
+    public function findByIsoAlpha3Code(string $isoAlpha3Code): \Tx_Oelib_Model_Country
     {
         return $this->findOneByKey('cn_iso_3', $isoAlpha3Code);
     }

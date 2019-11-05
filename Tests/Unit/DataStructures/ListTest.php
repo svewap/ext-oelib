@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\DataStructures;
 
@@ -38,7 +39,7 @@ class ListTest extends UnitTestCase
      *
      * @return int
      */
-    public function sortByTitleAscending(TestingModel $firstModel, TestingModel $secondModel)
+    public function sortByTitleAscending(TestingModel $firstModel, TestingModel $secondModel): int
     {
         return strcmp($firstModel->getTitle(), $secondModel->getTitle());
     }
@@ -49,7 +50,7 @@ class ListTest extends UnitTestCase
      *
      * @return int
      */
-    public function sortByTitleDescending(TestingModel $firstModel, TestingModel $secondModel)
+    public function sortByTitleDescending(TestingModel $firstModel, TestingModel $secondModel): int
     {
         return strcmp($secondModel->getTitle(), $firstModel->getTitle());
     }
@@ -1413,7 +1414,7 @@ class ListTest extends UnitTestCase
     /**
      * @test
      */
-    public function parentModelBydefaultIsNull()
+    public function parentModelByDefaultIsNull()
     {
         self::assertNull($this->subject->getParentModel());
     }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Domain\Model\Traits;
 
@@ -16,7 +17,7 @@ trait LazyLoadingProperties
      *
      * @return void
      */
-    private function loadLazyProperty($propertyName)
+    private function loadLazyProperty(string $propertyName)
     {
         if ($this->$propertyName instanceof LazyLoadingProxy) {
             $this->$propertyName = $this->$propertyName->_loadRealInstance();

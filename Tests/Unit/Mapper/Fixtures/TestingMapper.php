@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures;
 
@@ -57,7 +58,7 @@ class TestingMapper extends \Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model[]
      */
-    public function getCachedModels()
+    public function getCachedModels(): array
     {
         return $this->cachedModels;
     }
@@ -101,7 +102,7 @@ class TestingMapper extends \Tx_Oelib_DataMapper
      *
      * @return void
      */
-    public function setModelClassName($className)
+    public function setModelClassName(string $className)
     {
         $this->modelClassName = $className;
     }
@@ -133,14 +134,14 @@ class TestingMapper extends \Tx_Oelib_DataMapper
      * @param string $sorting
      *        the sorting for the found records, must be a valid DB field
      *        optionally followed by "ASC" or "DESC", may be empty
-     * @param string $limit the LIMIT value ([begin,]max), may be empty
+     * @param string|int $limit the LIMIT value ([begin,]max), may be empty
      *
      * @return \Tx_Oelib_List<<\Tx_Oelib_Model>> all models found in DB for the given where clause,
      *                       will be an empty list if no models were found
      *
      * @deprecated will be removed in oelib 4.0.0
      */
-    public function findByWhereClause($whereClause = '', $sorting = '', $limit = '')
+    public function findByWhereClause(string $whereClause = '', string $sorting = '', $limit = '')
     {
         return parent::findByWhereClause($whereClause, $sorting, $limit);
     }
@@ -159,7 +160,7 @@ class TestingMapper extends \Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model the cached model
      */
-    public function findOneByKeyFromCache($key, $value)
+    public function findOneByKeyFromCache(string $key, $value)
     {
         return parent::findOneByKeyFromCache($key, $value);
     }
@@ -196,7 +197,7 @@ class TestingMapper extends \Tx_Oelib_DataMapper
      *
      * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
      */
-    public function findOneByTitleAndHeader($title, $header)
+    public function findOneByTitleAndHeader($title, $header): \Tx_Oelib_Model
     {
         $value = [];
         $value['title'] = $title;

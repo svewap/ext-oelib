@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use Pelago\Emogrifier\CssInliner;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -69,11 +70,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      */
     protected function get($key)
     {
-        if (!isset($this->data[$key])) {
-            return '';
-        }
-
-        return $this->data[$key];
+        return $this->data[$key] ?? '';
     }
 
     /**
@@ -91,7 +88,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     /**
      * Returns the sender of the e-mail.
      *
-     * @return \Tx_Oelib_Interface_MailRole the sender of the e-mail, will be NULL if the sender has not been set
+     * @return \Tx_Oelib_Interface_MailRole|null
      */
     public function getSender()
     {
@@ -103,7 +100,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return bool TRUE if the e-mail has a sender, FALSE otherwise
      */
-    public function hasSender()
+    public function hasSender(): bool
     {
         return is_object($this->sender);
     }
@@ -129,7 +126,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     /**
      * @return bool
      */
-    public function hasReplyTo()
+    public function hasReplyTo(): bool
     {
         return $this->replyTo !== null;
     }
@@ -151,7 +148,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return \Tx_Oelib_Interface_MailRole[] the recipients of the e-mail, will be empty if no recipients have been set
      */
-    public function getRecipients()
+    public function getRecipients(): array
     {
         return $this->recipients;
     }
@@ -165,7 +162,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @throws \InvalidArgumentException
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject)
     {
         if ($subject === '') {
             throw new \InvalidArgumentException('$subject must not be empty.', 1331488802);
@@ -186,7 +183,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return string the subject of the e-mail, will be empty if the subject has not been set
      */
-    public function getSubject()
+    public function getSubject(): string
     {
         return $this->getAsString('subject');
     }
@@ -200,7 +197,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @throws \InvalidArgumentException
      */
-    public function setMessage($message)
+    public function setMessage(string $message)
     {
         if ($message === '') {
             throw new \InvalidArgumentException('$message must not be empty.', 1331488834);
@@ -214,7 +211,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return string the message of the e-mail, will be empty if the message has not been set
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->getAsString('message');
     }
@@ -224,7 +221,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return bool TRUE if the e-mail has a message, FALSE otherwise
      */
-    public function hasMessage()
+    public function hasMessage(): bool
     {
         return $this->hasString('message');
     }
@@ -238,7 +235,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @throws \InvalidArgumentException
      */
-    public function setHTMLMessage($message)
+    public function setHTMLMessage(string $message)
     {
         if ($message === '') {
             throw new \InvalidArgumentException('$message must not be empty.', 1331488845);
@@ -271,7 +268,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return string the HTML message of the e-mail, will be empty if the message has not been set
      */
-    public function getHTMLMessage()
+    public function getHTMLMessage(): string
     {
         return $this->getAsString('html_message');
     }
@@ -279,9 +276,9 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     /**
      * Returns whether the e-mail has an HTML message.
      *
-     * @return string TRUE if the e-mail has an HTML message, FALSE otherwise
+     * @return bool
      */
-    public function hasHTMLMessage()
+    public function hasHTMLMessage(): bool
     {
         return $this->hasString('html_message');
     }
@@ -303,7 +300,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return \Tx_Oelib_Attachment[] the attachments of the e-mail, might be empty
      */
-    public function getAttachments()
+    public function getAttachments(): array
     {
         return $this->attachments;
     }
@@ -315,7 +312,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return void
      */
-    public function setCssFile($cssFile)
+    public function setCssFile(string $cssFile)
     {
         if (!$this->cssFileIsCached($cssFile)) {
             $absoluteFileName = GeneralUtility::getFileAbsFileName($cssFile);
@@ -335,7 +332,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return bool TRUE if a CSS file has been set, FALSE otherwise
      */
-    public function hasCssFile()
+    public function hasCssFile(): bool
     {
         return $this->hasString('cssFile');
     }
@@ -345,7 +342,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return string the file contents of the CSS file, will be empty if no CSS file was stored
      */
-    public function getCssFile()
+    public function getCssFile(): string
     {
         return $this->getAsString('cssFile');
     }
@@ -357,7 +354,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return bool TRUE when the CSS file was read earlier, FALSE otherwise
      */
-    private function cssFileIsCached($cssFile)
+    private function cssFileIsCached(string $cssFile): bool
     {
         return isset(self::$cssFileCache[$cssFile]);
     }
@@ -373,7 +370,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return void
      */
-    public function setReturnPath($returnPath)
+    public function setReturnPath(string $returnPath)
     {
         $this->returnPath = $returnPath;
     }
@@ -383,7 +380,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
      *
      * @return string the return path, will be an empty string if nothing has been stored
      */
-    public function getReturnPath()
+    public function getReturnPath(): string
     {
         return $this->returnPath;
     }

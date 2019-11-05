@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This exception can be used to indicate that a user has no access to a page.

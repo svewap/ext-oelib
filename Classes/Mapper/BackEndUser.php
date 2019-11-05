@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
@@ -44,7 +45,7 @@ class Tx_Oelib_Mapper_BackEndUser extends \Tx_Oelib_DataMapper
      * @throws \Tx_Oelib_Exception_NotFound if there is no back-end user with the
      *                                     provided user name in the be_user table
      */
-    public function findByUserName($userName)
+    public function findByUserName($userName): \Tx_Oelib_Model_BackEndUser
     {
         return $this->findOneByKey('username', $userName);
     }
@@ -77,7 +78,7 @@ class Tx_Oelib_Mapper_BackEndUser extends \Tx_Oelib_DataMapper
      *
      * @return BackendUserAuthentication
      */
-    protected function getBackEndUserAuthentication()
+    protected function getBackEndUserAuthentication(): BackendUserAuthentication
     {
         return $GLOBALS['BE_USER'];
     }

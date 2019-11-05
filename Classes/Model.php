@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a general domain model which is capable of lazy loading (using ghosts).
@@ -170,7 +171,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      * @return array this model's complete data, will be empty if a model has
      *               no data
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
@@ -360,7 +361,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return \Tx_Oelib_List<\Tx_Oelib_Model> the data item for the given key
      */
-    public function getAsList($key)
+    public function getAsList(string $key): \Tx_Oelib_List
     {
         $this->checkForNonEmptyKey($key);
 
@@ -428,7 +429,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return int
      */
-    protected function getLoadStatus()
+    protected function getLoadStatus(): int
     {
         return $this->loadStatus;
     }
@@ -440,7 +441,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return void
      */
-    protected function setLoadStatus($status)
+    protected function setLoadStatus(int $status)
     {
         $this->loadStatus = $status;
     }
@@ -450,7 +451,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return bool TRUE if this is a virgin model, FALSE otherwise
      */
-    public function isVirgin()
+    public function isVirgin(): bool
     {
         return $this->getLoadStatus() === self::STATUS_VIRGIN;
     }
@@ -461,7 +462,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return bool TRUE if this model is a ghost, FALSE otherwise
      */
-    public function isGhost()
+    public function isGhost(): bool
     {
         return $this->getLoadStatus() === self::STATUS_GHOST;
     }
@@ -471,7 +472,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return bool TRUE if this model is loading, FALSE otherwise
      */
-    public function isLoading()
+    public function isLoading(): bool
     {
         return $this->getLoadStatus() === self::STATUS_LOADING;
     }
@@ -481,7 +482,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return bool TRUE if this model is fully loaded, FALSE otherwise
      */
-    public function isLoaded()
+    public function isLoaded(): bool
     {
         return $this->getLoadStatus() === self::STATUS_LOADED;
     }
@@ -492,7 +493,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return bool TRUE if this model is dead, FALSE otherwise
      */
-    public function isDead()
+    public function isDead(): bool
     {
         return $this->getLoadStatus() === self::STATUS_DEAD;
     }
@@ -502,7 +503,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return bool TRUE if this model is hidden, FALSE otherwise
      */
-    public function isHidden()
+    public function isHidden(): bool
     {
         return $this->getAsBoolean('hidden');
     }
@@ -545,7 +546,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return bool TRUE if this model has a loading callback function set, FALSE otherwise
      */
-    private function hasLoadCallBack()
+    private function hasLoadCallBack(): bool
     {
         return !empty($this->loadCallback);
     }
@@ -576,7 +577,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return bool TRUE if this model has been marked as dirty
      */
-    public function isDirty()
+    public function isDirty(): bool
     {
         return $this->isDirty;
     }
@@ -603,7 +604,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return bool TRUE if this model is set to deleted, FALSE otherwise
      */
-    public function isDeleted()
+    public function isDeleted(): bool
     {
         return $this->getAsBoolean('deleted');
     }
@@ -613,7 +614,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return bool TRUE if this model is read-only, FALSE if it is writable
      */
-    public function isReadOnly()
+    public function isReadOnly(): bool
     {
         return $this->readOnly;
     }
@@ -621,7 +622,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
     /**
      * @return int
      */
-    public function getModificationDateAsUnixTimeStamp()
+    public function getModificationDateAsUnixTimeStamp(): int
     {
         return $this->getAsInteger('tstamp');
     }
@@ -639,7 +640,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
     /**
      * @return int
      */
-    public function getCreationDateAsUnixTimeStamp()
+    public function getCreationDateAsUnixTimeStamp(): int
     {
         return $this->getAsInteger('crdate');
     }
@@ -663,7 +664,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return int the page UID of this model, will be >= 0
      */
-    public function getPageUid()
+    public function getPageUid(): int
     {
         return $this->getAsInteger('pid');
     }
@@ -676,7 +677,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return void
      */
-    public function setPageUid($pageUid)
+    public function setPageUid(int $pageUid)
     {
         if ($pageUid < 0) {
             throw new \InvalidArgumentException('$pageUid must be >= 0.');
@@ -690,7 +691,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
      *
      * @return bool TRUE if this model is empty, FALSE if it is writable
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         if ($this->isGhost()) {
             $this->load();

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Email;
 
@@ -16,7 +17,7 @@ class SystemEmailFromBuilder
      *
      * @return bool
      */
-    public function canBuild()
+    public function canBuild(): bool
     {
         $configuration = $this->getEmailConfiguration();
         $emailAddress = (string)$configuration['defaultMailFromAddress'];
@@ -31,7 +32,7 @@ class SystemEmailFromBuilder
      *
      * @throws \UnexpectedValueException
      */
-    public function build()
+    public function build(): GeneralEmailRole
     {
         if (!$this->canBuild()) {
             throw new \UnexpectedValueException(
@@ -53,7 +54,7 @@ class SystemEmailFromBuilder
     /**
      * @return array
      */
-    protected function getEmailConfiguration()
+    protected function getEmailConfiguration(): array
     {
         return $GLOBALS['TYPO3_CONF_VARS']['MAIL'];
     }

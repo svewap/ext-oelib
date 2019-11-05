@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This model represents a federal state, e.g., Nordrhein-Westfalen (in Germany).
@@ -17,7 +18,7 @@ class Tx_Oelib_Model_FederalState extends \Tx_Oelib_Model
      *
      * @return string the local name, will not be empty
      */
-    public function getLocalName()
+    public function getLocalName(): string
     {
         return $this->getAsString('zn_name_local');
     }
@@ -27,7 +28,7 @@ class Tx_Oelib_Model_FederalState extends \Tx_Oelib_Model
      *
      * @return string the English name, will not be empty
      */
-    public function getEnglishName()
+    public function getEnglishName(): string
     {
         return $this->getAsString('zn_name_en');
     }
@@ -37,7 +38,7 @@ class Tx_Oelib_Model_FederalState extends \Tx_Oelib_Model
      *
      * @return string the ISO 3166-1 alpha-2 code, will not be empty
      */
-    public function getIsoAlpha2Code()
+    public function getIsoAlpha2Code(): string
     {
         return $this->getAsString('zn_country_iso_2');
     }
@@ -47,7 +48,7 @@ class Tx_Oelib_Model_FederalState extends \Tx_Oelib_Model
      *
      * @return string the ISO 3166-2 alpha-2 code, will not be empty
      */
-    public function getIsoAlpha2ZoneCode()
+    public function getIsoAlpha2ZoneCode(): string
     {
         return $this->getAsString('zn_code');
     }

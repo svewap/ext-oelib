@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a fake session that doesn't use any real sessions,
@@ -20,8 +21,10 @@ class Tx_Oelib_FakeSession extends \Tx_Oelib_Session
      *
      * This constructor is public to allow direct instantiation of this class
      * for the unit tests, also bypassing the check for a front end.
+     *
+     * @param int $type
      */
-    public function __construct()
+    public function __construct(int $type = 0)
     {
     }
 
@@ -35,11 +38,7 @@ class Tx_Oelib_FakeSession extends \Tx_Oelib_Session
      */
     protected function get($key)
     {
-        if (!isset($this->sessionData[$key])) {
-            return '';
-        }
-
-        return $this->sessionData[$key];
+        return $this->sessionData[$key] ?? '';
     }
 
     /**

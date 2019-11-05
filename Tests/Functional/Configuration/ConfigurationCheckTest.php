@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Configuration;
 
@@ -63,7 +64,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
      *
      * @return TypoScriptFrontendController
      */
-    private function getFrontEndController()
+    private function getFrontEndController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
     }

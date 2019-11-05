@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Database;
 
@@ -46,7 +47,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      *
      * @return int[] the separate values, sorted numerically, may be empty
      */
-    private function sortExplode($valueList)
+    private function sortExplode($valueList): array
     {
         if ($valueList === '') {
             return [];
@@ -209,7 +210,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     /**
      * @return int[][]
      */
-    public function hiddenRecordDataProvider()
+    public function hiddenRecordDataProvider(): array
     {
         return [
             'hidden' => [['hidden' => 1]],
@@ -801,7 +802,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     /**
      * @return bool[][]
      */
-    public function booleanDataProvider()
+    public function booleanDataProvider(): array
     {
         return [
             'false' => [false],

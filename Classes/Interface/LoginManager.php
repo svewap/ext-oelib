@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This interface represents a manager for logins, providing access to the logged-in user.

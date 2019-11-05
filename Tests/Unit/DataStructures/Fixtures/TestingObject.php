@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures;
 
@@ -37,11 +38,7 @@ class TestingObject extends \Tx_Oelib_PublicObject
      */
     protected function get($key)
     {
-        if (!isset($this->data[$key])) {
-            return '';
-        }
-
-        return $this->data[$key];
+        return $this->data[$key] ?? '';
     }
 
     /**

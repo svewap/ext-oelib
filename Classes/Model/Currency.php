@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a currency.
@@ -18,7 +19,7 @@ class Tx_Oelib_Model_Currency extends \Tx_Oelib_Model
      * @return string the ISO 4217 alpha-3 code of this currency, will not be
      *                empty
      */
-    public function getIsoAlpha3Code()
+    public function getIsoAlpha3Code(): string
     {
         return $this->getAsString('cu_iso_3');
     }
@@ -28,7 +29,7 @@ class Tx_Oelib_Model_Currency extends \Tx_Oelib_Model
      *
      * @return bool TRUE if this currency has a left symbol, FALSE otherwise
      */
-    public function hasLeftSymbol()
+    public function hasLeftSymbol(): bool
     {
         return $this->hasString('cu_symbol_left');
     }
@@ -39,7 +40,7 @@ class Tx_Oelib_Model_Currency extends \Tx_Oelib_Model
      * @return string the left currency symbol, will be empty if this currency
      *                has no left symbol
      */
-    public function getLeftSymbol()
+    public function getLeftSymbol(): string
     {
         return $this->getAsString('cu_symbol_left');
     }
@@ -49,7 +50,7 @@ class Tx_Oelib_Model_Currency extends \Tx_Oelib_Model
      *
      * @return bool TRUE if this currency has a right symbol, FALSE otherwise
      */
-    public function hasRightSymbol()
+    public function hasRightSymbol(): bool
     {
         return $this->hasString('cu_symbol_right');
     }
@@ -60,7 +61,7 @@ class Tx_Oelib_Model_Currency extends \Tx_Oelib_Model
      * @return string the right currency symbol, will be empty if this currency
      *                has no right symbol
      */
-    public function getRightSymbol()
+    public function getRightSymbol(): string
     {
         return $this->getAsString('cu_symbol_right');
     }
@@ -70,7 +71,7 @@ class Tx_Oelib_Model_Currency extends \Tx_Oelib_Model
      *
      * @return string the thousands separator, will not be empty
      */
-    public function getThousandsSeparator()
+    public function getThousandsSeparator(): string
     {
         return $this->getAsString('cu_thousands_point');
     }
@@ -80,7 +81,7 @@ class Tx_Oelib_Model_Currency extends \Tx_Oelib_Model
      *
      * @return string the decimal separator, will not be empty
      */
-    public function getDecimalSeparator()
+    public function getDecimalSeparator(): string
     {
         return $this->getAsString('cu_decimal_point');
     }
@@ -90,7 +91,7 @@ class Tx_Oelib_Model_Currency extends \Tx_Oelib_Model
      *
      * @return int the number of decimal digits, will be >= 0
      */
-    public function getDecimalDigits()
+    public function getDecimalDigits(): int
     {
         return $this->getAsInteger('cu_decimal_digits');
     }

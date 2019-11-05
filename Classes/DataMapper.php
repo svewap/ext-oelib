@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -136,7 +137,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model the model with the UID $uid
      */
-    public function find($uid)
+    public function find(int $uid): \Tx_Oelib_Model
     {
         try {
             $model = $this->map->get($uid);
@@ -161,13 +162,13 @@ abstract class Tx_Oelib_DataMapper
      *                        provided in case it did not have any data in
      *                        memory before
      */
-    public function getModel(array $data)
+    public function getModel(array $data): \Tx_Oelib_Model
     {
         if (!isset($data['uid'])) {
             throw new \InvalidArgumentException('$data must contain an element "uid".', 1331319491);
         }
 
-        $model = $this->find($data['uid']);
+        $model = $this->find((int)$data['uid']);
 
         if ($model->isGhost()) {
             $this->fillModel($model, $data);
@@ -192,7 +193,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @see getModel()
      */
-    public function getListOfModels(array $dataOfModels)
+    public function getListOfModels(array $dataOfModels): \Tx_Oelib_List
     {
         $list = new \Tx_Oelib_List();
 
@@ -237,7 +238,7 @@ abstract class Tx_Oelib_DataMapper
      * @return bool TRUE if a model with the UID $uid exists in the database,
      *                 FALSE otherwise
      */
-    public function existsModel($uid, $allowHidden = false)
+    public function existsModel(int $uid, bool $allowHidden = false): bool
     {
         $model = $this->find($uid);
 
@@ -407,7 +408,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @throws \BadMethodCallException
      */
-    private function getRelationConfigurationFromTca($key)
+    private function getRelationConfigurationFromTca(string $key): array
     {
         $tca = $this->getTcaForTable($this->getTableName());
 
@@ -431,7 +432,7 @@ abstract class Tx_Oelib_DataMapper
      * @return bool
      *         TRUE if the relation is an 1:n relation, FALSE otherwise
      */
-    private function isOneToManyRelationConfigured($key)
+    private function isOneToManyRelationConfigured(string $key): bool
     {
         $relationConfiguration = $this->getRelationConfigurationFromTca($key);
 
@@ -448,7 +449,7 @@ abstract class Tx_Oelib_DataMapper
      * @return bool
      *         TRUE if the relation is an n:1 relation, FALSE otherwise
      */
-    private function isManyToOneRelationConfigured($key)
+    private function isManyToOneRelationConfigured(string $key): bool
     {
         $relationConfiguration = $this->getRelationConfigurationFromTca($key);
         $cardinality = isset($relationConfiguration['maxitems']) ? (int)$relationConfiguration['maxitems'] : 1;
@@ -467,7 +468,7 @@ abstract class Tx_Oelib_DataMapper
      *         TRUE if the relation's configuration provides an m:n table,
      *         FALSE otherwise
      */
-    private function isManyToManyRelationConfigured($key)
+    private function isManyToManyRelationConfigured(string $key): bool
     {
         $relationConfiguration = $this->getRelationConfigurationFromTca($key);
 
@@ -487,7 +488,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return void
      */
-    private function createOneToManyRelation(array &$data, $key, \Tx_Oelib_Model $model)
+    private function createOneToManyRelation(array &$data, string $key, \Tx_Oelib_Model $model)
     {
         $modelData = [];
 
@@ -532,7 +533,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return void
      */
-    private function createManyToOneRelation(array &$data, $key)
+    private function createManyToOneRelation(array &$data, string $key)
     {
         $uid = isset($data[$key]) ? (int)$data[$key] : 0;
 
@@ -552,12 +553,12 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return void
      */
-    private function createCommaSeparatedRelation(array &$data, $key, \Tx_Oelib_Model $model)
+    private function createCommaSeparatedRelation(array &$data, string $key, \Tx_Oelib_Model $model)
     {
         $list = new \Tx_Oelib_List();
         $list->setParentModel($model);
 
-        $uidList = isset($data[$key]) ? trim($data[$key]) : '';
+        $uidList = isset($data[$key]) ? trim((string)$data[$key]) : '';
         if ($uidList !== '') {
             $mapper = \Tx_Oelib_MapperRegistry::get($this->relations[$key]);
             $uids = GeneralUtility::intExplode(',', $uidList, true);
@@ -589,7 +590,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return void
      */
-    private function createMToNRelation(array &$data, $key, \Tx_Oelib_Model $model)
+    private function createMToNRelation(array &$data, string $key, \Tx_Oelib_Model $model)
     {
         $list = new \Tx_Oelib_List();
         $list->setParentModel($model);
@@ -638,7 +639,7 @@ abstract class Tx_Oelib_DataMapper
      * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB which matches the WHERE clause
      * @throws \Tx_Oelib_Exception_NotFound if database access is disabled
      */
-    protected function retrieveRecord(array $whereClauseParts)
+    protected function retrieveRecord(array $whereClauseParts): array
     {
         if (!$this->hasDatabaseAccess()) {
             throw new \Tx_Oelib_Exception_NotFound(
@@ -674,7 +675,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB with the UID $uid
      */
-    protected function retrieveRecordByUid($uid)
+    protected function retrieveRecordByUid(int $uid)
     {
         return $this->retrieveRecord(['uid' => $uid]);
     }
@@ -686,7 +687,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model a ghost model with the UID $uid
      */
-    protected function createGhost($uid)
+    protected function createGhost(int $uid): \Tx_Oelib_Model
     {
         /** @var \Tx_Oelib_Model $model */
         $model = GeneralUtility::makeInstance($this->modelClassName);
@@ -706,7 +707,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model a new ghost
      */
-    public function getNewGhost()
+    public function getNewGhost(): \Tx_Oelib_Model
     {
         $model = $this->createGhost($this->map->getNewUid());
         $this->registerModelAsMemoryOnlyDummy($model);
@@ -740,7 +741,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model a new model loaded with $data
      */
-    public function getLoadedTestingModel(array $data)
+    public function getLoadedTestingModel(array $data): \Tx_Oelib_Model
     {
         $model = $this->getNewGhost();
         $this->fillModel($model, $data);
@@ -767,7 +768,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return bool TRUE is database access is granted, FALSE otherwise
      */
-    public function hasDatabaseAccess()
+    public function hasDatabaseAccess(): bool
     {
         return !$this->denyDatabaseAccess;
     }
@@ -833,7 +834,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return array the model's data prepared for the database, will not be empty
      */
-    private function getPreparedModelData(\Tx_Oelib_Model $model)
+    private function getPreparedModelData(\Tx_Oelib_Model $model): array
     {
         if (!$model->hasUid()) {
             $model->setCreationDate();
@@ -1076,7 +1077,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return int[] the record data for an intermediate m:n-relation record
      */
-    protected function getManyToManyRelationIntermediateRecordData($mnTable, $uidLocal, $uidForeign, $sorting)
+    protected function getManyToManyRelationIntermediateRecordData(string $mnTable, int $uidLocal, int $uidForeign, int $sorting): array
     {
         $recordData = ['uid_local' => $uidLocal, 'uid_foreign' => $uidForeign, 'sorting' => $sorting];
 
@@ -1164,7 +1165,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_List<\Tx_Oelib_Model> all models from the DB, already loaded
      */
-    public function findAll($sorting = '')
+    public function findAll(string $sorting = ''): \Tx_Oelib_List
     {
         $queryResult = $this->getConnection()
             ->select(['*'], $this->getTableName(), [], [], $this->sortingToOrderArray($sorting))->fetchAll();
@@ -1177,7 +1178,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return string[]
      */
-    protected function sortingToOrderArray($sorting)
+    protected function sortingToOrderArray(string $sorting): array
     {
         $trimmedSorting = \trim($sorting);
         if ($trimmedSorting === '') {
@@ -1203,7 +1204,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @deprecated will be removed in oelib 4.0.0
      */
-    protected function getUniversalWhereClause($allowHiddenRecords = false)
+    protected function getUniversalWhereClause(bool $allowHiddenRecords = false): string
     {
         $tableName = $this->getTableName();
         if ($this->testingFramework !== null) {
@@ -1239,7 +1240,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return bool TRUE if $model is a memory-only dummy, FALSE otherwise
      */
-    private function isModelAMemoryOnlyDummy(\Tx_Oelib_Model $model)
+    private function isModelAMemoryOnlyDummy(\Tx_Oelib_Model $model): bool
     {
         if (!$model->hasUid()) {
             return false;
@@ -1258,14 +1259,14 @@ abstract class Tx_Oelib_DataMapper
      * @param string $sorting
      *        the sorting for the found records, must be a valid DB field
      *        optionally followed by "ASC" or "DESC", may be empty
-     * @param string $limit the LIMIT value ([begin,]max), may be empty
+     * @param string|int $limit the LIMIT value ([begin,]max), may be empty
      *
      * @return \Tx_Oelib_List<\Tx_Oelib_Model> all models found in DB for the given where clause,
      *                       will be an empty list if no models were found
      *
      * @deprecated will be removed in oelib 4.0.0
      */
-    protected function findByWhereClause($whereClause = '', $sorting = '', $limit = '')
+    protected function findByWhereClause(string $whereClause = '', string $sorting = '', $limit = '')
     {
         $orderBy = '';
 
@@ -1302,21 +1303,21 @@ abstract class Tx_Oelib_DataMapper
     /**
      * Finds all records which are located on the given pages.
      *
-     * @param string $pageUids
+     * @param string|int $pageUids
      *        comma-separated UIDs of the pages on which the records should be
      *        found, may be empty
      * @param string $sorting
      *        the sorting for the found records, must be a valid DB field
      *        optionally followed by "ASC" or "DESC", may be empty
-     * @param string $limit the LIMIT value ([begin,]max), may be empty
+     * @param string|int $limit the LIMIT value ([begin,]max), may be empty
      *
      * @return \Tx_Oelib_List<\Tx_Oelib_Model> all records with the matching page UIDs, will be
      *                       empty if no records have been found
      */
-    public function findByPageUid($pageUids, $sorting = '', $limit = '')
+    public function findByPageUid($pageUids, string $sorting = '', $limit = ''): \Tx_Oelib_List
     {
         $query = $this->getQueryBuilder()->select('*')->from($this->getTableName());
-        $this->addPageUidRestriction($query, $pageUids);
+        $this->addPageUidRestriction($query, (string)$pageUids);
         $this->addOrdering($query, $sorting);
 
         return $this->getListOfModels($query->execute()->fetchAll());
@@ -1328,7 +1329,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return void
      */
-    protected function addPageUidRestriction(QueryBuilder $query, $pageUids)
+    protected function addPageUidRestriction(QueryBuilder $query, string $pageUids)
     {
         if (\in_array($pageUids, ['', '0', 0], true)) {
             return;
@@ -1344,7 +1345,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return void
      */
-    protected function addOrdering(QueryBuilder $query, $sorting)
+    protected function addOrdering(QueryBuilder $query, string $sorting)
     {
         foreach ($this->sortingToOrderArray($sorting) as $fieldName => $order) {
             $query->addOrderBy($fieldName, $order);
@@ -1366,7 +1367,7 @@ abstract class Tx_Oelib_DataMapper
      * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
      * @throws \InvalidArgumentException
      */
-    protected function findOneByKeyFromCache($key, $value)
+    protected function findOneByKeyFromCache(string $key, $value)
     {
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1416847364);
@@ -1399,7 +1400,7 @@ abstract class Tx_Oelib_DataMapper
      * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
      * @throws \InvalidArgumentException
      */
-    public function findOneByCompoundKeyFromCache($value)
+    public function findOneByCompoundKeyFromCache($value): \Tx_Oelib_Model
     {
         if ($value === '') {
             throw new \InvalidArgumentException('$value must not be empty.', 1331319992);
@@ -1505,7 +1506,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @throws \Tx_Oelib_Exception_NotFound if there is no match (neither in the cache nor in the database)
      */
-    public function findOneByKey($key, $value)
+    public function findOneByKey(string $key, $value): \Tx_Oelib_Model
     {
         try {
             $model = $this->findOneByKeyFromCache($key, $value);
@@ -1532,7 +1533,7 @@ abstract class Tx_Oelib_DataMapper
      * @throws \Tx_Oelib_Exception_NotFound if there is no match (neither in the cache nor in the database)
      * @throws \InvalidArgumentException if parameter array $keyValue is empty
      */
-    public function findOneByCompoundKey(array $compoundKeyValues)
+    public function findOneByCompoundKey(array $compoundKeyValues): \Tx_Oelib_Model
     {
         if (empty($compoundKeyValues)) {
             throw new \InvalidArgumentException(
@@ -1562,7 +1563,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @throws \InvalidArgumentException
      */
-    protected function extractCompoundKeyValues(array $compoundKeyValues)
+    protected function extractCompoundKeyValues(array $compoundKeyValues): string
     {
         $values = [];
         foreach ($this->compoundKeyParts as $key) {
@@ -1593,9 +1594,9 @@ abstract class Tx_Oelib_DataMapper
      */
     public function findAllByRelation(
         \Tx_Oelib_Model $model,
-        $relationKey,
+        string $relationKey,
         \Tx_Oelib_List $ignoreList = null
-    ) {
+    ): \Tx_Oelib_List {
         if (!$model->hasUid()) {
             throw new \InvalidArgumentException('$model must have a UID.', 1331319915);
         }
@@ -1624,7 +1625,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @deprecated will be removed in oelib 4.0
      */
-    public function countByWhereClause($whereClause = '')
+    public function countByWhereClause(string $whereClause = ''): int
     {
         $completeWhereClause = ($whereClause === '')
             ? ''
@@ -1641,7 +1642,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return int the number of records located on the given pages
      */
-    public function countByPageUid($pageUids)
+    public function countByPageUid(string $pageUids): int
     {
         $query = $this->getQueryBuilder()->count('*')->from($this->getTableName());
         $this->addPageUidRestriction($query, $pageUids);
@@ -1654,7 +1655,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return string the table name, will not be empty for correctly build data mappers
      */
-    public function getTableName()
+    public function getTableName(): string
     {
         return $this->tableName;
     }
@@ -1666,7 +1667,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return array[] associative array with the TCA description for this table
      */
-    protected function getTcaForTable($tableName)
+    protected function getTcaForTable(string $tableName): array
     {
         if (!isset($GLOBALS['TCA'][$tableName])) {
             throw new \BadMethodCallException('The table "' . $tableName . '" has no TCA.', 1565462958);
@@ -1678,7 +1679,7 @@ abstract class Tx_Oelib_DataMapper
     /**
      * @return Connection
      */
-    protected function getConnection()
+    protected function getConnection(): Connection
     {
         return $this->getConnectionForTable($this->getTableName());
     }
@@ -1688,7 +1689,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return Connection
      */
-    protected function getConnectionForTable($tableName)
+    protected function getConnectionForTable(string $tableName): Connection
     {
         return $this->getConnectionPool()->getConnectionForTable($tableName);
     }
@@ -1696,7 +1697,7 @@ abstract class Tx_Oelib_DataMapper
     /**
      * @return QueryBuilder
      */
-    protected function getQueryBuilder()
+    protected function getQueryBuilder(): QueryBuilder
     {
         return $this->getConnectionPool()->getQueryBuilderForTable($this->getTableName());
     }
@@ -1706,7 +1707,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return QueryBuilder
      */
-    protected function getQueryBuilderForTable($tableName)
+    protected function getQueryBuilderForTable(string $tableName): QueryBuilder
     {
         return $this->getConnectionPool()->getQueryBuilderForTable($tableName);
     }
@@ -1714,7 +1715,7 @@ abstract class Tx_Oelib_DataMapper
     /**
      * @return ConnectionPool
      */
-    private function getConnectionPool()
+    private function getConnectionPool(): ConnectionPool
     {
         return GeneralUtility::makeInstance(ConnectionPool::class);
     }

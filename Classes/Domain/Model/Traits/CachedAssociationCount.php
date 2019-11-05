@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Domain\Model\Traits;
 
@@ -31,7 +32,7 @@ trait CachedAssociationCount
      *
      * @return int
      */
-    protected function getCachedRelationCount($propertyName)
+    protected function getCachedRelationCount(string $propertyName): int
     {
         if (array_key_exists($propertyName, $this->cachedRelationCountsCount)) {
             return $this->cachedRelationCountsCount[$propertyName];
@@ -68,7 +69,7 @@ trait CachedAssociationCount
      *
      * @throws \ReflectionException
      */
-    protected function getUncachedRelationCount($propertyName)
+    protected function getUncachedRelationCount(string $propertyName): int
     {
         if ($this->$propertyName instanceof LazyObjectStorage) {
             $reflectionClass = new \ReflectionClass(LazyObjectStorage::class);

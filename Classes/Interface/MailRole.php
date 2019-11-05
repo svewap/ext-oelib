@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This interfaces represents an e-mail role, e.g. a sender or a recipient.

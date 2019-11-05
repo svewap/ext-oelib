@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Authentication;
 
@@ -59,7 +60,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
      *
      * @return BackendUserAuthentication
      */
-    private function getBackEndUserAuthentication()
+    private function getBackEndUserAuthentication(): BackendUserAuthentication
     {
         return $GLOBALS['BE_USER'];
     }

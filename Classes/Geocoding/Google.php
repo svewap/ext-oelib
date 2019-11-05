@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -63,7 +64,7 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
      *
      * @return \Tx_Oelib_Interface_GeocodingLookup the Singleton GoogleMaps look-up
      */
-    public static function getInstance()
+    public static function getInstance(): \Tx_Oelib_Interface_GeocodingLookup
     {
         if (self::$instance === null) {
             self::$instance = new \Tx_Oelib_Geocoding_Google();
@@ -103,7 +104,7 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
      *
      * @return void
      */
-    public function setMaximumDelay($delay)
+    public function setMaximumDelay(int $delay)
     {
         $this->maximumDelayInMicroseconds = $delay;
     }
@@ -188,7 +189,7 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
      *
      * @return string|bool string with the JSON result from the Google Maps server, or false if an error has occurred
      */
-    protected function sendRequest($url)
+    protected function sendRequest(string $url)
     {
         return GeneralUtility::getUrl($url);
     }

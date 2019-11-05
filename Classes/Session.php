@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -47,7 +48,7 @@ class Tx_Oelib_Session extends \Tx_Oelib_PublicObject
      *
      * @param int $type the type of the session to use; either TYPE_USER or TYPE_TEMPORARY
      */
-    protected function __construct($type)
+    protected function __construct(int $type)
     {
         if ($this->getFrontEndController() === null) {
             throw new \BadMethodCallException(
@@ -70,7 +71,7 @@ class Tx_Oelib_Session extends \Tx_Oelib_PublicObject
      * @return \Tx_Oelib_Session the current Singleton instance for the given
      *                          type
      */
-    public static function getInstance($type)
+    public static function getInstance(int $type): \Tx_Oelib_Session
     {
         self::checkType($type);
 
@@ -89,7 +90,7 @@ class Tx_Oelib_Session extends \Tx_Oelib_PublicObject
      *
      * @return void
      */
-    public static function setInstance($type, \Tx_Oelib_Session $instance)
+    public static function setInstance(int $type, \Tx_Oelib_Session $instance)
     {
         self::checkType($type);
 
@@ -105,7 +106,7 @@ class Tx_Oelib_Session extends \Tx_Oelib_PublicObject
      *
      * @return void
      */
-    protected static function checkType($type)
+    protected static function checkType(int $type)
     {
         if (($type !== self::TYPE_USER) && ($type !== self::TYPE_TEMPORARY)) {
             throw new \InvalidArgumentException(
@@ -159,6 +160,6 @@ class Tx_Oelib_Session extends \Tx_Oelib_PublicObject
      */
     protected function getFrontEndController()
     {
-        return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : null;
+        return $GLOBALS['TSFE'] ?? null;
     }
 }

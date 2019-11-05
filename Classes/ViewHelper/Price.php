@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a view helper for formatting a price.
@@ -31,7 +32,7 @@ class Tx_Oelib_ViewHelper_Price
      *
      * @return void
      */
-    public function setValue($value)
+    public function setValue(float $value)
     {
         $this->value = $value;
     }
@@ -45,7 +46,7 @@ class Tx_Oelib_ViewHelper_Price
      *
      * @return void
      */
-    public function setCurrencyFromIsoAlpha3Code($isoAlpha3Code)
+    public function setCurrencyFromIsoAlpha3Code(string $isoAlpha3Code)
     {
         if (\strlen($isoAlpha3Code) !== 3) {
             $this->currency = null;
@@ -71,7 +72,7 @@ class Tx_Oelib_ViewHelper_Price
      *
      * @return string the rendered price
      */
-    public function render()
+    public function render(): string
     {
         $currency = $this->currency;
         if ($currency === null) {

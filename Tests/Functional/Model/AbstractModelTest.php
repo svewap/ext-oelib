@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Model;
 
@@ -49,7 +50,7 @@ class AbstractModelTest extends FunctionalTestCase
      *
      * @return int the UID
      */
-    private function createTestRecord()
+    private function createTestRecord(): int
     {
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => self::TEST_RECORD_TITLE]);
         return (int)$this->getDatabaseConnection()->lastInsertId();

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -14,7 +15,7 @@ class Tx_Oelib_ViewHelpers_UppercaseViewHelper extends AbstractViewHelper
      *
      * @return string the uppercased rendered children, might be empty
      */
-    public function render()
+    public function render(): string
     {
         $renderedChildren = $this->renderChildren();
         $encoding = mb_detect_encoding($renderedChildren);

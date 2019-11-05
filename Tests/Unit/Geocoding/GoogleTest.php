@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 
@@ -138,7 +139,7 @@ class GoogleTest extends UnitTestCase
     /**
      * @return string[][]
      */
-    public function noResultsStatusDataProvider()
+    public function noResultsStatusDataProvider(): array
     {
         return [
             'zero results' => ['ZERO_RESULTS'],

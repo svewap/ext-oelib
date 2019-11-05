@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -40,7 +41,7 @@ class Tx_Oelib_ConfigurationRegistry
      *
      * @return void
      */
-    private function dropConfiguration($namespace)
+    private function dropConfiguration(string $namespace)
     {
         unset($this->configurations[$namespace]);
     }
@@ -50,7 +51,7 @@ class Tx_Oelib_ConfigurationRegistry
      *
      * @return \Tx_Oelib_ConfigurationRegistry the current Singleton instance
      */
-    public static function getInstance()
+    public static function getInstance(): \Tx_Oelib_ConfigurationRegistry
     {
         if (!self::$instance) {
             self::$instance = new \Tx_Oelib_ConfigurationRegistry();
@@ -81,7 +82,7 @@ class Tx_Oelib_ConfigurationRegistry
      *
      * @see getByNamespace
      */
-    public static function get($namespace)
+    public static function get(string $namespace): \Tx_Oelib_Configuration
     {
         return self::getInstance()->getByNamespace($namespace);
     }
@@ -95,7 +96,7 @@ class Tx_Oelib_ConfigurationRegistry
      *
      * @return \Tx_Oelib_Configuration the configuration for the given namespace
      */
-    private function getByNamespace($namespace)
+    private function getByNamespace(string $namespace): \Tx_Oelib_Configuration
     {
         $this->checkForNonEmptyNamespace($namespace);
 
@@ -117,7 +118,7 @@ class Tx_Oelib_ConfigurationRegistry
      *
      * @return void
      */
-    public function set($namespace, \Tx_Oelib_Configuration $configuration)
+    public function set(string $namespace, \Tx_Oelib_Configuration $configuration)
     {
         $this->checkForNonEmptyNamespace($namespace);
 
@@ -138,7 +139,7 @@ class Tx_Oelib_ConfigurationRegistry
      *
      * @return void
      */
-    private function checkForNonEmptyNamespace($namespace)
+    private function checkForNonEmptyNamespace(string $namespace)
     {
         if ($namespace === '') {
             throw new \InvalidArgumentException('$namespace must not be empty.', 1331318549);
@@ -154,7 +155,7 @@ class Tx_Oelib_ConfigurationRegistry
      *
      * @return \Tx_Oelib_Configuration the TypoScript configuration for that namespace, might be empty
      */
-    private function retrieveConfigurationFromTypoScriptSetup($namespace)
+    private function retrieveConfigurationFromTypoScriptSetup(string $namespace): \Tx_Oelib_Configuration
     {
         $data = $this->getCompleteTypoScriptSetup();
 
@@ -181,7 +182,7 @@ class Tx_Oelib_ConfigurationRegistry
      * @return array the TypoScriptSetup for the current page, will be empty if
      *               no page is selected or if the TS setup of the page is empty
      */
-    private function getCompleteTypoScriptSetup()
+    private function getCompleteTypoScriptSetup(): array
     {
         $pageUid = \Tx_Oelib_PageFinder::getInstance()->getPageUid();
         if ($pageUid === 0) {
@@ -215,7 +216,7 @@ class Tx_Oelib_ConfigurationRegistry
      * @return bool TRUE if there is an initialized front end, FALSE
      *                 otherwise
      */
-    private function existsFrontEnd()
+    private function existsFrontEnd(): bool
     {
         $frontEndController = $this->getFrontEndController();
         return ($frontEndController !== null) && is_object($frontEndController->tmpl)
@@ -229,6 +230,6 @@ class Tx_Oelib_ConfigurationRegistry
      */
     protected function getFrontEndController()
     {
-        return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : null;
+        return $GLOBALS['TSFE'] ?? null;
     }
 }

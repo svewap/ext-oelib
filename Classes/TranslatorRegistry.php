@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -107,7 +108,7 @@ class Tx_Oelib_TranslatorRegistry
      *
      * @return \Tx_Oelib_TranslatorRegistry the current Singleton instance
      */
-    public static function getInstance()
+    public static function getInstance(): \Tx_Oelib_TranslatorRegistry
     {
         if (self::$instance === null) {
             self::$instance = new \Tx_Oelib_TranslatorRegistry();
@@ -139,7 +140,7 @@ class Tx_Oelib_TranslatorRegistry
      *
      * @see getByExtensionName()
      */
-    public static function get($extensionName)
+    public static function get(string $extensionName): \Tx_Oelib_Translator
     {
         return self::getInstance()->getByExtensionName($extensionName);
     }
@@ -154,7 +155,7 @@ class Tx_Oelib_TranslatorRegistry
      * @return \Tx_Oelib_Translator the Translator for the specified extension
      *                             name
      */
-    private function getByExtensionName($extensionName)
+    private function getByExtensionName(string $extensionName): \Tx_Oelib_Translator
     {
         if ($extensionName === '') {
             throw new \InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489578);
@@ -202,7 +203,7 @@ class Tx_Oelib_TranslatorRegistry
      *
      * @return string[] the localized labels from an extension's language file, will be empty if there are none
      */
-    private function getLocalizedLabelsFromFile($extensionKey)
+    private function getLocalizedLabelsFromFile(string $extensionKey): array
     {
         if ($extensionKey === '') {
             throw new \InvalidArgumentException('$extensionKey must not be empty.', 1331489618);
@@ -235,7 +236,7 @@ class Tx_Oelib_TranslatorRegistry
      *
      * @return string[] the localized labels from the extension's TypoScript setup, will be empty if there are none
      */
-    private function getLocalizedLabelsFromTypoScript($extensionName)
+    private function getLocalizedLabelsFromTypoScript(string $extensionName): array
     {
         if ($extensionName === '') {
             throw new \InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489630);
@@ -260,7 +261,7 @@ class Tx_Oelib_TranslatorRegistry
      *
      * @return void
      */
-    public function setLanguageKey($languageKey)
+    public function setLanguageKey(string $languageKey)
     {
         if ($languageKey === '') {
             throw new \InvalidArgumentException('The given language key must not be empty.', 1331489643);
@@ -275,7 +276,7 @@ class Tx_Oelib_TranslatorRegistry
      * @return string the language key of the translator, will not be
      *         empty
      */
-    public function getLanguageKey()
+    public function getLanguageKey(): string
     {
         return $this->languageKey;
     }
@@ -287,7 +288,7 @@ class Tx_Oelib_TranslatorRegistry
      */
     protected function getFrontEndController()
     {
-        return isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : null;
+        return $GLOBALS['TSFE'] ?? null;
     }
 
     /**
@@ -297,6 +298,6 @@ class Tx_Oelib_TranslatorRegistry
      */
     protected function getLanguageService()
     {
-        return isset($GLOBALS['LANG']) ? $GLOBALS['LANG'] : null;
+        return $GLOBALS['LANG'] ?? null;
     }
 }

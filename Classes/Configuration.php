@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a set of configuration options within a certain
@@ -74,7 +75,7 @@ class Tx_Oelib_Configuration extends \Tx_Oelib_PublicObject
      * @return bool TRUE if a data item with the key $key exists, FALSE
      *                 otherwise
      */
-    protected function existsKey($key)
+    protected function existsKey(string $key): bool
     {
         return isset($this->data[$key]);
     }
@@ -89,7 +90,7 @@ class Tx_Oelib_Configuration extends \Tx_Oelib_PublicObject
      *
      * @return string[] the array keys of the data item for the key $key, may be empty
      */
-    public function getArrayKeys($key = '')
+    public function getArrayKeys(string $key = ''): array
     {
         if ($key === '') {
             return array_keys($this->data);
@@ -117,7 +118,7 @@ class Tx_Oelib_Configuration extends \Tx_Oelib_PublicObject
      * @return array the data for the key $key as a multidimensional array, may
      *               be empty
      */
-    public function getAsMultidimensionalArray($key)
+    public function getAsMultidimensionalArray(string $key): array
     {
         if (!isset($this->data[$key]) || !is_array($this->data[$key])) {
             return [];

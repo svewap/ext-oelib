@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model\Fixtures;
 
@@ -16,7 +17,7 @@ class TestingModel extends \Tx_Oelib_Model
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->getAsString('title');
     }
@@ -34,7 +35,7 @@ class TestingModel extends \Tx_Oelib_Model
     /**
      * @return string
      */
-    public function getHeader()
+    public function getHeader(): string
     {
         return $this->getAsString('header');
     }
@@ -84,7 +85,7 @@ class TestingModel extends \Tx_Oelib_Model
     /**
      * Gets the "friend" data item. This is an n:1 relation.
      *
-     * @return TestingModel
+     * @return TestingModel|null
      */
     public function getFriend()
     {
@@ -108,7 +109,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return \Tx_Oelib_Model_FrontEndUser
      */
-    public function getOwner()
+    public function getOwner(): \Tx_Oelib_Model_FrontEndUser
     {
         return $this->getAsModel('owner');
     }
@@ -118,7 +119,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return \Tx_Oelib_List<TestingModel>
      */
-    public function getChildren()
+    public function getChildren(): \Tx_Oelib_List
     {
         return $this->getAsList('children');
     }
@@ -128,7 +129,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return \Tx_Oelib_List<TestingModel>
      */
-    public function getRelatedRecords()
+    public function getRelatedRecords(): \Tx_Oelib_List
     {
         return $this->getAsList('related_records');
     }
@@ -150,7 +151,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return \Tx_Oelib_List<TestingModel>
      */
-    public function getBidirectional()
+    public function getBidirectional(): \Tx_Oelib_List
     {
         return $this->getAsList('bidirectional');
     }
@@ -160,7 +161,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return \Tx_Oelib_List<TestingChildModel>
      */
-    public function getComposition()
+    public function getComposition(): \Tx_Oelib_List
     {
         return $this->getAsList('composition');
     }
@@ -195,7 +196,7 @@ class TestingModel extends \Tx_Oelib_Model
      * @return \Tx_Oelib_List<\Tx_Oelib_Model> the "composition2" data item, will be empty (but
      *                       not NULL) if this model has no composition2
      */
-    public function getComposition2()
+    public function getComposition2(): \Tx_Oelib_List
     {
         return $this->getAsList('composition2');
     }
@@ -205,7 +206,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return \Tx_Oelib_List<\Tx_Oelib_Model>
      */
-    public function getCompositionWithoutSorting()
+    public function getCompositionWithoutSorting(): \Tx_Oelib_List
     {
         return $this->getAsList('composition_without_sorting');
     }
@@ -215,7 +216,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return float the data from the "float_data" column
      */
-    public function getFloatFromFloatData()
+    public function getFloatFromFloatData(): float
     {
         return $this->getAsFloat('float_data');
     }
@@ -225,7 +226,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return float the data from the "decimal_data" column
      */
-    public function getFloatFromDecimalData()
+    public function getFloatFromDecimalData(): float
     {
         return $this->getAsFloat('decimal_data');
     }
@@ -235,7 +236,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return float the data from the "string_data" column
      */
-    public function getFloatFromStringData()
+    public function getFloatFromStringData(): float
     {
         return $this->getAsFloat('string_data');
     }
@@ -291,7 +292,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return void
      */
-    public function setLoadStatus($status)
+    public function setLoadStatus(int $status)
     {
         parent::setLoadStatus($status);
     }

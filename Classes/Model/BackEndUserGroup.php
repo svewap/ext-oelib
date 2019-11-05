@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 /**
  * This class represents a back-end user group.
@@ -14,7 +15,7 @@ class Tx_Oelib_Model_BackEndUserGroup extends \Tx_Oelib_Model
      * @return string the title of this group, will be empty if the group has
      *                none
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->getAsString('title');
     }
@@ -25,7 +26,7 @@ class Tx_Oelib_Model_BackEndUserGroup extends \Tx_Oelib_Model
      * @return \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> this group's direct subgroups, will be empty if
      *                       this group has no subgroups
      */
-    public function getSubgroups()
+    public function getSubgroups(): \Tx_Oelib_List
     {
         return $this->getAsList('subgroup');
     }
