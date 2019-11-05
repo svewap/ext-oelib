@@ -64,18 +64,6 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Inte
     private $loadCallback = [];
 
     /**
-     * The (empty) constructor.
-     *
-     * After instantiation, this model's data can be set via via setData() or set().
-     *
-     * @see setData
-     * @see set
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Clone.
      *
      * @throws \BadMethodCallException

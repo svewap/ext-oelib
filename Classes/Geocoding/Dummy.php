@@ -16,13 +16,6 @@ class Tx_Oelib_Geocoding_Dummy implements \Tx_Oelib_Interface_GeocodingLookup
     private $coordinates = [];
 
     /**
-     * The constructor.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Looks up the geo coordinates of the address of an object and sets its
      * geo coordinates.
      *

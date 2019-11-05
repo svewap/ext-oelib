@@ -71,13 +71,6 @@ class Tx_Oelib_Template
     protected $translator = null;
 
     /**
-     * The constructor. Does nothing.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Injects the translator.
      *
      * @param \Tx_Oelib_Translator $translator

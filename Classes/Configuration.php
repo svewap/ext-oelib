@@ -14,19 +14,6 @@ class Tx_Oelib_Configuration extends \Tx_Oelib_PublicObject
     private $data = [];
 
     /**
-     * The (empty) constructor.
-     *
-     * After instantiation, this configuration's data can be set via via
-     * setData() or set().
-     *
-     * @see setData
-     * @see set
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Sets the complete data for this configuration.
      *
      * This function can be called multiple times.
