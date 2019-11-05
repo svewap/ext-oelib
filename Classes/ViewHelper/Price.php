@@ -47,6 +47,11 @@ class Tx_Oelib_ViewHelper_Price
      */
     public function setCurrencyFromIsoAlpha3Code($isoAlpha3Code)
     {
+        if (\strlen($isoAlpha3Code) !== 3) {
+            $this->currency = null;
+            return;
+        }
+
         try {
             /** @var \Tx_Oelib_Mapper_Currency $mapper */
             $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Currency::class);
@@ -68,25 +73,26 @@ class Tx_Oelib_ViewHelper_Price
      */
     public function render()
     {
-        if (!$this->currency) {
-            return number_format($this->value, 2, '.', '');
+        $currency = $this->currency;
+        if ($currency === null) {
+            return \number_format($this->value, 2, '.', '');
         }
 
         $result = '';
 
-        if ($this->currency->hasLeftSymbol()) {
-            $result .= $this->currency->getLeftSymbol() . ' ';
+        if ($currency->hasLeftSymbol()) {
+            $result .= $currency->getLeftSymbol() . ' ';
         }
 
-        $result .= number_format(
+        $result .= \number_format(
             $this->value,
-            $this->currency->getDecimalDigits(),
-            $this->currency->getDecimalSeparator(),
-            $this->currency->getThousandsSeparator()
+            $currency->getDecimalDigits(),
+            $currency->getDecimalSeparator(),
+            $currency->getThousandsSeparator()
         );
 
-        if ($this->currency->hasRightSymbol()) {
-            $result .= ' ' . $this->currency->getRightSymbol();
+        if ($currency->hasRightSymbol()) {
+            $result .= ' ' . $currency->getRightSymbol();
         }
 
         return $result;

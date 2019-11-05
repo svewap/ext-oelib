@@ -1,11 +1,9 @@
 <?php
 
-namespace OliverKlee\Oelib\Tests\Unit\Visibility;
+namespace OliverKlee\Oelib\Tests\Functional\ViewHelper;
 
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Test case.
@@ -43,10 +41,7 @@ class PriceViewHelperTest extends FunctionalTestCase
      */
     private function importStaticData()
     {
-        $tableName = 'static_currencies';
-        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        $connection = $connectionPool->getConnectionForTable($tableName);
-        $count = $connection->count('*', $tableName, []);
+        $count = $this->getDatabaseConnection()->selectCount('*', 'static_currencies');
         if ($count === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Currencies.xml');
         }
@@ -55,31 +50,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function renderWithoutSettingValueOrCurrencyFirstRendersZeroWithTwoDigits()
-    {
-        self::assertSame(
-            '0.00',
-            $this->subject->render()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function renderWithValueWithoutSettingCurrencyUsesDecimalPointAndTwoRoundedDecimalDigits()
-    {
-        $this->subject->setValue(12345.678);
-
-        self::assertSame(
-            '12345.68',
-            $this->subject->render()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function renderAfterSettingAnInvalidCurrencyUsesDecimalPointAndTwoRoundedDecimalDigits()
+    public function renderAfterSettingAnInvalidCurrencyUsesDecimalPointAndTwoDecimalDigits()
     {
         $this->subject->setValue(12345.678);
         $this->subject->setCurrencyFromIsoAlpha3Code('FOO');
@@ -156,20 +127,6 @@ class PriceViewHelperTest extends FunctionalTestCase
 
         self::assertSame(
             '€ 123,45',
-            $this->subject->render()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function renderForCurrencyWithThreeDecimalDigitsReturnsPriceWithThreeDecimalDigits()
-    {
-        $this->subject->setValue(123.456);
-        $this->subject->setCurrencyFromIsoAlpha3Code('KWD');
-
-        self::assertSame(
-            'KD 123,456',
             $this->subject->render()
         );
     }
