@@ -20,6 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Remove the deprecated `Mapper_BackEndUser::findByCliKey` (#327)
 - Drop empty constructors (#320)
 - Drop 7.6-specific code (#305, #314)
 - Drop unneeded Travis CI configuration settings (#295, #296, #297, #298)

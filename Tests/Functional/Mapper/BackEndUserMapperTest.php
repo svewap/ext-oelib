@@ -159,31 +159,6 @@ class BackEndUserMapperTest extends FunctionalTestCase
         $this->subject->findByUserName('foo');
     }
 
-    //////////////////////////////////
-    // Tests concerning findByCliKey
-    //////////////////////////////////
-
-    /**
-     * @test
-     */
-    public function findByCliKeyForCliKeyDefinedReturnsBackEndUserInstance()
-    {
-        $this->testingFramework->createBackEndUser(['username' => 'foo']);
-        /**
-         * fakes the CLI definition
-         *
-         * @var string
-         */
-        define('TYPO3_cliKey', 'oelib_mapper_test');
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']
-        ['cliKeys'][TYPO3_cliKey][1] = 'foo';
-
-        self::assertInstanceOf(
-            \Tx_Oelib_Model_BackEndUser::class,
-            $this->subject->findByCliKey()
-        );
-    }
-
     ///////////////////////////////////
     // Tests concerning the relations
     ///////////////////////////////////

@@ -36,15 +36,13 @@ class Tx_Oelib_Mapper_BackEndUser extends \Tx_Oelib_DataMapper
      * Finds a back-end user by user name. Hidden user records will be retrieved
      * as well.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no back-end user with the
-     *                                     provided user name in the be_user
-     *                                     table
-     *
      * @param string $userName
      *        user name, case-insensitive, must not be empty
      *
-     * @return \Tx_Oelib_Model_BackEndUser model of the back-end user with the
-     *                                    provided user name
+     * @return \Tx_Oelib_Model_BackEndUser model of the back-end user with the provided user name
+     *
+     * @throws \Tx_Oelib_Exception_NotFound if there is no back-end user with the
+     *                                     provided user name in the be_user table
      */
     public function findByUserName($userName)
     {
@@ -52,42 +50,14 @@ class Tx_Oelib_Mapper_BackEndUser extends \Tx_Oelib_DataMapper
     }
 
     /**
-     * Finds a back-end user by CLI key.
-     *
-     * Note: This function must only be called if the constant "TYPO3_cliKey"
-     * is defined.
-     *
-     * @return \Tx_Oelib_Model_BackEndUser model of the back-end user for the
-     *                                    defined CLI key
-     */
-    public function findByCliKey()
-    {
-        if (!defined('TYPO3_cliKey')) {
-            throw new \BadMethodCallException(
-                'Please make sure the constant "TYPO3_cliKey" is defined before using this function. Usually this is done '
-                .
-                'automatically when executing "/typo3/cli_dispatch.phpsh".',
-                1331488485
-            );
-        }
-
-        $userName = $GLOBALS['TYPO3_CONF_VARS']
-        ['SC_OPTIONS']['GLOBAL']['cliKeys'][TYPO3_cliKey][1];
-
-        return $this->findByUserName($userName);
-    }
-
-    /**
      * Reads a record from the database by UID (from this mapper's table). Also
      * hidden records will be retrieved.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB
-     *                                     with the UID $uid
-     *
-     * @param int $uid
-     *        the UID of the record to retrieve, must be > 0
+     * @param int $uid the UID of the record to retrieve, must be > 0
      *
      * @return array the record from the database, will not be empty
+     *
+     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB with the UID $uid
      */
     protected function retrieveRecordByUid($uid)
     {
