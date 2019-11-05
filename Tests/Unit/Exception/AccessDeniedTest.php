@@ -16,6 +16,6 @@ class AccessDeniedTest extends UnitTestCase
      */
     public function isException()
     {
-        self::assertInstanceOf(\Exception::class, new \Tx_Oelib_Exception_AccessDenied());
+        self::assertInstanceOf(\RuntimeException::class, new \Tx_Oelib_Exception_AccessDenied());
     }
 }

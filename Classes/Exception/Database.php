@@ -8,6 +8,6 @@
  *
  * @deprecated will be removed in oelib 4.0
  */
-class Tx_Oelib_Exception_Database extends \Exception
+class Tx_Oelib_Exception_Database extends \RuntimeException
 {
 }

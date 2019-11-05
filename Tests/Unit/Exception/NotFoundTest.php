@@ -16,6 +16,6 @@ class NotFoundTest extends UnitTestCase
      */
     public function isException()
     {
-        self::assertInstanceOf(\Exception::class, new \Tx_Oelib_Exception_NotFound());
+        self::assertInstanceOf(\RuntimeException::class, new \Tx_Oelib_Exception_NotFound());
     }
 }

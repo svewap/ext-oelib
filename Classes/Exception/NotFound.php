@@ -5,6 +5,6 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Exception_NotFound extends \Exception
+class Tx_Oelib_Exception_NotFound extends \RuntimeException
 {
 }

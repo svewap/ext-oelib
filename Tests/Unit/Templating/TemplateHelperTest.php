@@ -1319,6 +1319,90 @@ class TemplateHelperTest extends UnitTestCase
         );
     }
 
+    ///////////////////////////////////////////////////
+    // Tests for getting subparts with invalid names.
+    ///////////////////////////////////////////////////
+
+    /**
+     * @test
+     */
+    public function subpartWithNameWithSpaceThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->processTemplate(
+            '<!-- ###MY SUBPART### -->'
+            . 'Some text.'
+            . '<!-- ###MY SUBPART### -->'
+        );
+
+        $this->subject->getSubpart('MY SUBPART');
+    }
+
+    /**
+     * @test
+     */
+    public function subpartWithNameWithUtf8UmlautThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->processTemplate(
+            '<!-- ###MY_SÜBPART### -->'
+            . 'Some text.'
+            . '<!-- ###MY_SÜBPART### -->'
+        );
+
+        $this->subject->getSubpart('MY_SÜBPART');
+    }
+
+    /**
+     * @test
+     */
+    public function subpartWithNameWithUnderscoreSuffixThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->processTemplate(
+            '<!-- ###MY_SUBPART_### -->'
+            . 'Some text.'
+            . '<!-- ###MY_SUBPART_### -->'
+        );
+
+        $this->subject->getSubpart('MY_SUBPART_');
+    }
+
+    /**
+     * @test
+     */
+    public function subpartWithNameStartingWithUnderscoreThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->processTemplate(
+            '<!-- ###_MY_SUBPART### -->'
+            . 'Some text.'
+            . '<!-- ###_MY_SUBPART### -->'
+        );
+
+        $this->subject->getSubpart('_MY_SUBPART');
+    }
+
+    /**
+     * @test
+     */
+    public function subpartWithNameStartingWithNumberThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->processTemplate(
+            '<!-- ###1_MY_SUBPART### -->'
+            . 'Some text.'
+            . '<!-- ###1_MY_SUBPART### -->'
+        );
+
+        $this->subject->getSubpart('1_MY_SUBPART');
+    }
+
     ///////////////////////////////////////////////////////////////
     // Tests for retrieving subparts with names that are prefixes
     // or suffixes of other subpart names.
@@ -2859,6 +2943,64 @@ class TemplateHelperTest extends UnitTestCase
     ////////////////////////////////
     // Tests for setting subparts.
     ////////////////////////////////
+
+    /**
+     * @test
+     */
+    public function setNewSubpartWithNameWithSpaceThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->processTemplate('Some text.');
+        $this->subject->setSubpart('MY SUBPART', 'foo');
+    }
+
+    /**
+     * @test
+     */
+    public function setNewSubpartWithNameWithUtf8UmlautThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->processTemplate('Some text.');
+        $this->subject->setSubpart('MY_SÜBPART', 'foo');
+    }
+
+    /**
+     * @test
+     */
+    public function setNewSubpartWithNameWithUnderscoreSuffixThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->processTemplate('Some text.');
+
+        $this->subject->setSubpart('MY_SUBPART_', 'foo');
+    }
+
+    /**
+     * @test
+     */
+    public function setNewSubpartWithNameStartingWithUnderscoreThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->processTemplate('Some text.');
+
+        $this->subject->setSubpart('_MY_SUBPART', 'foo');
+    }
+
+    /**
+     * @test
+     */
+    public function setNewSubpartWithNameStartingWithNumberThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->processTemplate('Some text.');
+
+        $this->subject->setSubpart('1_MY_SUBPART', 'foo');
+    }
 
     /**
      * @test

@@ -644,7 +644,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     {
         try {
             $this->getTemplate()->setSubpart($subpartName, $content, $prefix);
-        } catch (Exception $exception) {
+        } catch (\Tx_Oelib_Exception_NotFound $exception) {
             $this->setErrorMessage(
                 'The subpart <strong>' . $subpartName .
                 '</strong> is missing in the HTML template file <strong>' .
@@ -977,7 +977,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     {
         try {
             return $this->getTemplate()->getSubpart($key);
-        } catch (Exception $exception) {
+        } catch (\Tx_Oelib_Exception_NotFound $exception) {
             $this->setErrorMessage(
                 'The subpart <strong>' . $key .
                 '</strong> is missing in the HTML template file <strong>' .
@@ -1040,15 +1040,8 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      */
     public function setLabels()
     {
-        $template = $this->getTemplate();
-        try {
-            $labels = $template->getLabelMarkerNames();
-        } catch (Exception $exception) {
-            $labels = [];
-        }
-
-        foreach ($labels as $label) {
-            $template->setMarker($label, $this->translate($label));
+        foreach ($this->getTemplate()->getLabelMarkerNames() as $label) {
+            $this->getTemplate()->setMarker($label, $this->translate($label));
         }
     }
 

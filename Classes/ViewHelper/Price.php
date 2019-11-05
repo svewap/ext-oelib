@@ -56,7 +56,7 @@ class Tx_Oelib_ViewHelper_Price
             /** @var \Tx_Oelib_Mapper_Currency $mapper */
             $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Currency::class);
             $this->currency = $mapper->findByIsoAlpha3Code($isoAlpha3Code);
-        } catch (Exception $exception) {
+        } catch (\Tx_Oelib_Exception_NotFound $exception) {
             $this->currency = null;
         }
     }

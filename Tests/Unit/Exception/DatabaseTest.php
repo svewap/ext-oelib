@@ -16,6 +16,6 @@ class DatabaseTest extends UnitTestCase
      */
     public function isException()
     {
-        self::assertInstanceOf(\Exception::class, new \Tx_Oelib_Exception_Database());
+        self::assertInstanceOf(\RuntimeException::class, new \Tx_Oelib_Exception_Database());
     }
 }

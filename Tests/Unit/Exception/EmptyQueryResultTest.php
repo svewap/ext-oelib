@@ -16,6 +16,6 @@ class EmptyQueryResultTest extends UnitTestCase
      */
     public function isException()
     {
-        self::assertInstanceOf(\Exception::class, new \Tx_Oelib_Exception_EmptyQueryResult());
+        self::assertInstanceOf(\RuntimeException::class, new \Tx_Oelib_Exception_EmptyQueryResult());
     }
 }
