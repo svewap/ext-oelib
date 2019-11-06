@@ -308,6 +308,62 @@ class DatabaseServiceTest extends FunctionalTestCase
     /**
      * @test
      */
+    public function createRecursivePageListForStringPageForRecursionWithoutSubPagesReturnsOnlyTheGivenPage()
+    {
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
+        self::assertSame(
+            (string)$uid,
+            \Tx_Oelib_Db::createRecursivePageList((string)$uid, 1)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function createRecursivePageListForIntPageForRecursionWithoutSubPagesReturnsOnlyTheGivenPage()
+    {
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
+        self::assertSame(
+            (string)$uid,
+            \Tx_Oelib_Db::createRecursivePageList($uid, 1)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function createRecursivePageListForStringPageWithoutRecursionWithoutSubPagesReturnsOnlyTheGivenPage()
+    {
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
+        self::assertSame(
+            (string)$uid,
+            \Tx_Oelib_Db::createRecursivePageList((string)$uid)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function createRecursivePageListForIntPageWithoutRecursionWithoutSubPagesReturnsOnlyTheGivenPage()
+    {
+        $this->getDatabaseConnection()->insertArray('pages', []);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
+        self::assertSame(
+            (string)$uid,
+            \Tx_Oelib_Db::createRecursivePageList($uid)
+        );
+    }
+
+    /**
+     * @test
+     */
     public function createRecursivePageListDoesNotContainSubPagesForOnePageWithZeroRecursion()
     {
         $this->getDatabaseConnection()->insertArray('pages', []);

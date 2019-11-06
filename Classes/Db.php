@@ -126,8 +126,7 @@ class Tx_Oelib_Db
      *
      * @param string|int $startPages
      *        comma-separated list of page UIDs to start from, must only contain numbers and commas, may be empty
-     * @param int $recursionDepth
-     *        maximum depth of recursion, must be >= 0
+     * @param int $recursionDepth maximum depth of recursion, must be >= 0
      *
      * @return string comma-separated list of subpage UIDs including the
      *                UIDs provided in $startPages, will be empty if
@@ -140,30 +139,33 @@ class Tx_Oelib_Db
         if ($recursionDepth < 0) {
             throw new \InvalidArgumentException('$recursionDepth must be >= 0.', 1331319974);
         }
+
+        $trimmedStartPages = \trim((string)$startPages);
         if ($recursionDepth === 0) {
-            return (string)$startPages;
+            return $trimmedStartPages;
         }
-        if ((string)$startPages === '') {
+        if ($trimmedStartPages === '') {
             return '';
         }
 
         $dbResult = self::select(
             'uid',
             'pages',
-            'pid IN (' . $startPages . ')' . self::enableFields('pages')
+            'pid IN (' . $trimmedStartPages . ')' . self::enableFields('pages')
         );
 
         $subPages = [];
         $databaseConnection = self::getDatabaseConnection();
         while (($row = $databaseConnection->sql_fetch_assoc($dbResult))) {
-            $subPages[] = $row['uid'];
+            $subPages[] = (int)$row['uid'];
         }
         $databaseConnection->sql_free_result($dbResult);
 
         if (!empty($subPages)) {
-            $result = $startPages . ',' . self::createRecursivePageList(implode(',', $subPages), $recursionDepth - 1);
+            $result = $trimmedStartPages . ',' .
+                self::createRecursivePageList(\implode(',', $subPages), $recursionDepth - 1);
         } else {
-            $result = $startPages;
+            $result = $trimmedStartPages;
         }
 
         return $result;

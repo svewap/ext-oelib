@@ -337,7 +337,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueStringReturnsAString()
+    public function getListViewConfValueStringReturnsAString()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -353,7 +353,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueStringReturnsATrimmedString()
+    public function getListViewConfValueStringReturnsATrimmedString()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -369,7 +369,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueStringReturnsEmptyStringWhichWasSet()
+    public function getListViewConfValueStringReturnsEmptyStringWhichWasSet()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -385,7 +385,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueStringReturnsEmptyStringIfNoValueSet()
+    public function getListViewConfValueStringReturnsEmptyStringIfNoValueSet()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -401,7 +401,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueIntegerReturnsNumber()
+    public function getListViewConfValueIntegerReturnsNumber()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -417,7 +417,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueIntegerReturnsZeroIfTheValueWasEmpty()
+    public function getListViewConfValueIntegerReturnsZeroIfTheValueWasEmpty()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -433,7 +433,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueIntegerReturnsZeroIfTheValueWasNoInteger()
+    public function getListViewConfValueIntegerReturnsZeroIfTheValueWasNoInteger()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -449,7 +449,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueIntegerReturnsZeroIfNoValueWasSet()
+    public function getListViewConfValueIntegerReturnsZeroIfNoValueWasSet()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -465,7 +465,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueBooleanReturnsTrue()
+    public function getListViewConfValueBooleanReturnsTrue()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -480,7 +480,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueBooleanReturnsTrueIfTheValueWasAPositiveInteger()
+    public function getListViewConfValueBooleanReturnsTrueIfTheValueWasAPositiveInteger()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -495,7 +495,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueBooleanReturnsFalseIfTheValueWasZero()
+    public function getListViewConfValueBooleanReturnsFalseIfTheValueWasZero()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -510,7 +510,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueBooleanReturnsFalseIfTheValueWasAnEmptyString()
+    public function getListViewConfValueBooleanReturnsFalseIfTheValueWasAnEmptyString()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -525,7 +525,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueBooleanReturnsFalseIfTheValueWasNotSet()
+    public function getListViewConfValueBooleanReturnsFalseIfTheValueWasNotSet()
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -540,7 +540,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfigurationValueThrowsAnExceptionIfNoFieldNameWasProvided()
+    public function getListViewConfValueThrowsAnExceptionIfNoFieldNameWasProvided()
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -550,6 +550,46 @@ class TemplateHelperTest extends UnitTestCase
         );
 
         $this->subject->getListViewConfValueBoolean('');
+    }
+
+    /**
+     * @test
+     */
+    public function getListViewConfValueStringCastsIntToString()
+    {
+        $this->subject->setConfigurationValue('listView.', ['test' => 42]);
+
+        self::assertSame('42', $this->subject->getListViewConfValueString('test'));
+    }
+
+    /**
+     * @test
+     */
+    public function getListViewConfValueIntegerCastsStringToInt()
+    {
+        $this->subject->setConfigurationValue('listView.', ['test' => '42']);
+
+        self::assertSame(42, $this->subject->getListViewConfValueInteger('test'));
+    }
+
+    /**
+     * @test
+     */
+    public function getListViewConfValueBooleanCastsStringToBool()
+    {
+        $this->subject->setConfigurationValue('listView.', ['test' => '1']);
+
+        self::assertTrue($this->subject->getListViewConfValueBoolean('test'));
+    }
+
+    /**
+     * @test
+     */
+    public function getListViewConfValueBooleanCastsIntegerToBool()
+    {
+        $this->subject->setConfigurationValue('listView.', ['test' => 1]);
+
+        self::assertTrue($this->subject->getListViewConfValueBoolean('test'));
     }
 
     ////////////////////////////////////////////

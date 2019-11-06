@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Display the name of the current functional test (#293)
 
 ### Changed
-- Use PHP 7.0 language features (#330, #331, #332)
+- Use PHP 7.0 language features (#330, #331, #332, #333)
 - Stop using the `Exception` base class (#321)
 - Sort the Composer dependencies (#319)
 - Upgrade to Emogrifier 3.0.0 (#316)
@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Mark tests that do not contain any assertions (#277)
 
 ### Deprecated
+- Deprecate the 4th parameter of `TestingFramework::createRelation` (#333)
 
 ### Removed
 - Remove the deprecated `Mapper_BackEndUser::findByCliKey` (#327)

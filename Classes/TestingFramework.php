@@ -619,7 +619,7 @@ final class Tx_Oelib_TestingFramework
      * @param string $table name of the m:n table to which the record should be added, must not be empty
      * @param int $uidLocal UID of the local table, must be > 0
      * @param int $uidForeign UID of the foreign table, must be > 0
-     * @param int $sorting
+     * @param int $sorting @deprecated will be removed in oelib 4.0.0
      *        sorting value of the relation, the default value is 0, which enables automatic sorting,
      *        a value >= 0 overwrites the automatic sorting
      *
@@ -634,18 +634,11 @@ final class Tx_Oelib_TestingFramework
             throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490358);
         }
 
-        // Checks that the two given UIDs are valid.
-        if ((int)$uidLocal <= 0) {
-            throw new \InvalidArgumentException(
-                '$uidLocal must be an integer > 0, but actually is "' . $uidLocal . '"',
-                1331490370
-            );
+        if ($uidLocal <= 0) {
+            throw new \InvalidArgumentException('$uidLocal must be > 0, but is: ' . $uidLocal, 1331490370);
         }
-        if ((int)$uidForeign <= 0) {
-            throw new \InvalidArgumentException(
-                '$uidForeign must be an integer > 0, but actually is "' . $uidForeign . '"',
-                1331490378
-            );
+        if ($uidForeign <= 0) {
+            throw new \InvalidArgumentException('$uidForeign must be > 0, but is: ' . $uidForeign, 1331490378);
         }
 
         $this->markTableAsDirty($table);

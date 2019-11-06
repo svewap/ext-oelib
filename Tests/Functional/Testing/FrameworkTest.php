@@ -665,13 +665,11 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function createRelationWithZeroFirstUid()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$uidLocal must be an integer > 0, but actually is "0"'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$uidLocal must be > 0, but is: 0');
+
         $uid = $this->subject->createRecord('tx_oelib_test');
+
         $this->subject->createRelation('tx_oelib_test_article_mm', 0, $uid);
     }
 
@@ -680,13 +678,11 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function createRelationWithZeroSecondUid()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$uidForeign must be an integer > 0, but actually is "0"'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$uidForeign must be > 0, but is: 0');
+
         $uid = $this->subject->createRecord('tx_oelib_test');
+
         $this->subject->createRelation('tx_oelib_test_article_mm', $uid, 0);
     }
 
@@ -695,13 +691,11 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function createRelationWithNegativeFirstUid()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$uidLocal must be an integer > 0, but actually is "-1"'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$uidLocal must be > 0, but is: -1');
+
         $uid = $this->subject->createRecord('tx_oelib_test');
+
         $this->subject->createRelation('tx_oelib_test_article_mm', -1, $uid);
     }
 
@@ -710,13 +704,11 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function createRelationWithNegativeSecondUid()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$uidForeign must be an integer > 0, but actually is "-1"'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$uidForeign must be > 0, but is: -1');
+
         $uid = $this->subject->createRecord('tx_oelib_test');
+
         $this->subject->createRelation('tx_oelib_test_article_mm', $uid, -1);
     }
 

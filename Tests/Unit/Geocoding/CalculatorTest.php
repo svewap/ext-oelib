@@ -205,6 +205,40 @@ class CalculatorTest extends UnitTestCase
     /**
      * @test
      */
+    public function filterByDistanceDropsElementWithoutCoordinates()
+    {
+        $bonn = new TestingGeo();
+        $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
+        $nowhere = new TestingGeo();
+
+        $list = new \Tx_Oelib_List();
+        $list->add($nowhere);
+
+        $filteredList = $this->subject->filterByDistance($list, $bonn, 25.0);
+
+        self::assertTrue($filteredList->isEmpty());
+    }
+
+    /**
+     * @test
+     */
+    public function filterByDistanceForElementWithoutCoordinatesReturnsEmptyList()
+    {
+        $bonn = new TestingGeo();
+        $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
+        $nowhere = new TestingGeo();
+
+        $list = new \Tx_Oelib_List();
+        $list->add($bonn);
+
+        $filteredList = $this->subject->filterByDistance($list, $nowhere, 25.0);
+
+        self::assertTrue($filteredList->isEmpty());
+    }
+
+    /**
+     * @test
+     */
     public function filterByDistanceCanReturnTwoElements()
     {
         $bonn = new TestingGeo();
@@ -219,6 +253,18 @@ class CalculatorTest extends UnitTestCase
         $filteredList = $this->subject->filterByDistance($list, $cologne, 27.0);
 
         self::assertSame(2, $filteredList->count());
+    }
+
+    /**
+     * @test
+     */
+    public function moveWithoutCoordinatesNotSetsAnyCoordinates()
+    {
+        $geoObject = new TestingGeo();
+
+        $this->subject->move($geoObject, 0, 100);
+
+        self::assertFalse($geoObject->hasGeoCoordinates());
     }
 
     /**

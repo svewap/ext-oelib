@@ -86,13 +86,19 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
      *         a copy of $unfilteredObjects with only those objects that are
      *         located within $distance kilometers of $center
      */
-    public function filterByDistance(\Tx_Oelib_List $unfilteredObjects, \Tx_Oelib_Interface_Geo $center, float $distance): \Tx_Oelib_List
-    {
-        $objectsWithinDistance = new \Tx_Oelib_List();
+    public function filterByDistance(
+        \Tx_Oelib_List $unfilteredObjects,
+        \Tx_Oelib_Interface_Geo $center,
+        float $distance
+    ): \Tx_Oelib_List {
+        if (!$center->hasGeoCoordinates()) {
+            return new \Tx_Oelib_List();
+        }
 
+        $objectsWithinDistance = new \Tx_Oelib_List();
         /** @var \Tx_Oelib_Interface_Geo|\Tx_Oelib_Model $object */
         foreach ($unfilteredObjects as $object) {
-            if ($this->calculateDistanceInKilometers($center, $object) <= $distance) {
+            if ($object->hasGeoCoordinates() && $this->calculateDistanceInKilometers($center, $object) <= $distance) {
                 $objectsWithinDistance->add($object);
             }
         }
@@ -113,6 +119,10 @@ class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterfac
      */
     public function move(\Tx_Oelib_Interface_Geo $object, float $direction, float $distance)
     {
+        if (!$object->hasGeoCoordinates()) {
+            return;
+        }
+
         $directionInRadians = \deg2rad($direction);
 
         $originalCoordinates = $object->getGeoCoordinates();
