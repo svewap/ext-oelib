@@ -35,6 +35,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for TYPO3 7.6 (#273, #287)
 
 ### Fixed
+- Convert more calls in the `Db` class to `ConnectionPool` (#334)
 - Fix class resolution warnings (#326)
 - Fix potentially undefined variable (#323)
 - Stop using the deprecated `Db` class in the tests (#307)

@@ -4,7 +4,9 @@ declare(strict_types = 1);
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
@@ -13,8 +15,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  *
- * @deprecated will be removed in oelib 4.0 (and cannot be used in TYPO3 9);
- * use the ConnectionPool instead for TYPO3 >= 8.4
+ * @deprecated will be removed in oelib 4.0; use the ConnectionPool instead for TYPO3 >= 8.4
  */
 class Tx_Oelib_Db
 {
@@ -70,9 +71,7 @@ class Tx_Oelib_Db
      */
     public static function enableFields(string $table, int $showHidden = -1): string
     {
-        $intShowHidden = (int)$showHidden;
-
-        if (!in_array($intShowHidden, [-1, 0, 1], true)) {
+        if (!in_array($showHidden, [-1, 0, 1], true)) {
             throw new \InvalidArgumentException(
                 '$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden,
                 1331319963
@@ -80,7 +79,7 @@ class Tx_Oelib_Db
         }
 
         // maps $showHidden (-1..1) to (0..2) which ensures valid array keys
-        $showHiddenKey = (string)($intShowHidden + 1);
+        $showHiddenKey = (string)($showHidden + 1);
         if ($showHidden > 0) {
             $enrichedIgnores = ['starttime' => true, 'endtime' => true, 'fe_group' => true];
         } else {
@@ -122,9 +121,9 @@ class Tx_Oelib_Db
      * ...,
      * 250 = all descendants for all sane cases
      *
-     * Note: The returned page list is _not_ sorted.
+     * Note: The returned page list will _not_ be sorted.
      *
-     * @param string|int $startPages
+     * @param string|int $concatenatedStartPages
      *        comma-separated list of page UIDs to start from, must only contain numbers and commas, may be empty
      * @param int $recursionDepth maximum depth of recursion, must be >= 0
      *
@@ -134,13 +133,13 @@ class Tx_Oelib_Db
      *
      * @throws \InvalidArgumentException
      */
-    public static function createRecursivePageList($startPages, int $recursionDepth = 0): string
+    public static function createRecursivePageList($concatenatedStartPages, int $recursionDepth = 0): string
     {
         if ($recursionDepth < 0) {
             throw new \InvalidArgumentException('$recursionDepth must be >= 0.', 1331319974);
         }
 
-        $trimmedStartPages = \trim((string)$startPages);
+        $trimmedStartPages = \trim((string)$concatenatedStartPages);
         if ($recursionDepth === 0) {
             return $trimmedStartPages;
         }
@@ -148,18 +147,13 @@ class Tx_Oelib_Db
             return '';
         }
 
-        $dbResult = self::select(
-            'uid',
-            'pages',
-            'pid IN (' . $trimmedStartPages . ')' . self::enableFields('pages')
-        );
+        $query = self::getQueryBuilderForTable('pages')->select('uid')->from('pages');
+        $query->andWhere($query->expr()->in('pid', GeneralUtility::intExplode(',', $trimmedStartPages)));
 
         $subPages = [];
-        $databaseConnection = self::getDatabaseConnection();
-        while (($row = $databaseConnection->sql_fetch_assoc($dbResult))) {
+        foreach ($query->execute()->fetchAll() as $row) {
             $subPages[] = (int)$row['uid'];
         }
-        $databaseConnection->sql_free_result($dbResult);
 
         if (!empty($subPages)) {
             $result = $trimmedStartPages . ',' .
@@ -186,7 +180,6 @@ class Tx_Oelib_Db
      * @return int the number of affected rows, might be 0
      *
      * @throws \InvalidArgumentException
-     * @throws \Tx_Oelib_Exception_Database if an error has occurred
      */
     public static function delete(string $tableName, string $whereClause): int
     {
@@ -194,52 +187,51 @@ class Tx_Oelib_Db
             throw new \InvalidArgumentException('The table name must not be empty.', 1331488193);
         }
 
-        $dbResult = self::getDatabaseConnection()->exec_DELETEquery(
-            $tableName,
-            $whereClause
-        );
-        if (!$dbResult) {
-            throw new \Tx_Oelib_Exception_Database();
-        }
+        $connection = self::getConnectionForTable($tableName);
+        $sql = 'DELETE FROM ' . $connection->quoteIdentifier($tableName);
+        $sql .= $whereClause !== '' ? ' WHERE ' . $whereClause : '';
 
-        return self::getDatabaseConnection()->sql_affected_rows();
+        return $connection->query($sql)->rowCount();
     }
 
     /**
      * Executes an UPDATE query.
      *
-     * @param string $tableName
+     * @param string $table
      *        the name of the table to change, must not be empty
      * @param string $whereClause
      *        the WHERE clause to select the records, may be empty
-     * @param array $fields
+     * @param array $data
      *        key/value pairs of the fields to change, may be empty
      *
      * @return int the number of affected rows, might be 0
      *
      * @throws \InvalidArgumentException
-     * @throws \Tx_Oelib_Exception_Database if an error has occurred
      */
-    public static function update(string $tableName, string $whereClause, array $fields): int
+    public static function update(string $table, string $whereClause, array $data): int
     {
-        if ($tableName === '') {
+        if ($table === '') {
             throw new \InvalidArgumentException('The table name must not be empty.', 1331488204);
         }
 
-        $dbResult = self::getDatabaseConnection()->exec_UPDATEquery(
-            $tableName,
-            $whereClause,
-            $fields
-        );
-        if (!$dbResult) {
-            throw new \Tx_Oelib_Exception_Database();
+        $set = [];
+        $paramValues = [];
+        foreach (self::normalizeDatabaseRow($data) as $columnName => $value) {
+            $set[] = $columnName . ' = ?';
+            $paramValues[] = $value;
         }
 
-        return self::getDatabaseConnection()->sql_affected_rows();
+        $connection = self::getConnectionForTable($table);
+        $sql = 'UPDATE ' . $connection->quoteIdentifier($table) . ' SET ' . \implode(', ', $set);
+        $sql .= $whereClause !== '' ? ' WHERE ' . $whereClause : '';
+
+        return $connection->executeUpdate($sql, $paramValues);
     }
 
     /**
-     * Executes an INSERT query.
+     * Executes an INSERT query for a single record.
+     *
+     * For TYPO3 < 9LTS, the insert ID will also be available in $GLOBALS['TYPO3_DB']->sql_insert_id.
      *
      * @param string $tableName
      *        the name of the table in which the record should be created, must not be empty
@@ -260,12 +252,19 @@ class Tx_Oelib_Db
             throw new \InvalidArgumentException('$recordData must not be empty.', 1331488230);
         }
 
-        $connection = self::getDatabaseConnection();
-        $dbResult = $connection->exec_INSERTquery($tableName, $recordData);
-        if ($dbResult === false) {
-            throw new \Tx_Oelib_Exception_Database();
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
+            self::getConnectionForTable($tableName)->insert($tableName, self::normalizeDatabaseRow($recordData));
+            $uid = (int)self::getConnectionForTable($tableName)->lastInsertId();
+        } else {
+            $connection = self::getDatabaseConnection();
+            $dbResult = $connection->exec_INSERTquery($tableName, $recordData);
+            if ($dbResult === false) {
+                throw new \Tx_Oelib_Exception_Database();
+            }
+            $uid = $connection->sql_insert_id();
         }
-        return $connection->sql_insert_id();
+
+        return $uid;
     }
 
     /**
@@ -282,6 +281,8 @@ class Tx_Oelib_Db
      *
      * @throws \InvalidArgumentException
      * @throws \Tx_Oelib_Exception_Database if an error has occurred
+     *
+     * @deprecated This method will not work in TYPO3 >= 9LTS.
      */
     public static function select(
         string $fields,
@@ -337,14 +338,7 @@ class Tx_Oelib_Db
         string $groupBy = '',
         string $orderBy = ''
     ): array {
-        $result = self::selectMultiple(
-            $fields,
-            $tableNames,
-            $whereClause,
-            $groupBy,
-            $orderBy,
-            1
-        );
+        $result = self::selectMultiple($fields, $tableNames, $whereClause, $groupBy, $orderBy, 1);
         if (empty($result)) {
             throw new \Tx_Oelib_Exception_EmptyQueryResult();
         }
@@ -353,43 +347,41 @@ class Tx_Oelib_Db
     }
 
     /**
-     * Executes a SELECT query and returns the result rows as a two-dimensional
-     * associative array.
+     * Executes a SELECT query and returns the result rows as a two-dimensional associative array.
      *
-     * @param string $fieldNames list of fields to select, may be "*", must not be empty
-     * @param string $tableNames comma-separated list of tables from which to select, must not be empty
-     * @param string $whereClause WHERE clause, may be empty
+     * @param string $fields list of fields to select, may be "*", must not be empty
+     * @param string $tables comma-separated list of tables from which to select, must not be empty
+     * @param string $where WHERE clause, may be empty
      * @param string $groupBy GROUP BY field(s), may be empty
      * @param string $orderBy ORDER BY field(s), may be empty
      * @param string|int $limit LIMIT value ([begin,]max), may be empty
      *
      * @return array[] the query result rows, will be empty if there are no matching records
+     *
+     * @throws \InvalidArgumentException
      */
     public static function selectMultiple(
-        string $fieldNames,
-        string $tableNames,
-        string $whereClause = '',
+        string $fields,
+        string $tables,
+        string $where = '',
         string $groupBy = '',
         string $orderBy = '',
         $limit = ''
     ): array {
-        $result = [];
-        $dbResult = self::select(
-            $fieldNames,
-            $tableNames,
-            $whereClause,
-            $groupBy,
-            $orderBy,
-            $limit
-        );
-
-        $databaseConnection = self::getDatabaseConnection();
-        while ($recordData = $databaseConnection->sql_fetch_assoc($dbResult)) {
-            $result[] = $recordData;
+        if ($tables === '') {
+            throw new \InvalidArgumentException('The table names must not be empty.', 1573061293);
         }
-        $databaseConnection->sql_free_result($dbResult);
+        if ($fields === '') {
+            throw new \InvalidArgumentException('$fields must not be empty.', 1573061298);
+        }
 
-        return $result;
+        $sql = 'SELECT ' . $fields . ' FROM ' . $tables;
+        $sql .= $where !== '' ? ' WHERE ' . $where : '';
+        $sql .= $groupBy !== '' ? ' GROUP BY ' . $groupBy : '';
+        $sql .= $orderBy !== '' ? ' ORDER BY ' . $orderBy : '';
+        $sql .= (string)$limit !== '' ? ' LIMIT ' . $limit : '';
+
+        return self::getConnectionForTable($tables)->query($sql)->fetchAll();
     }
 
     /**
@@ -413,16 +405,8 @@ class Tx_Oelib_Db
         string $groupBy = '',
         string $orderBy = ''
     ): array {
-        $rows = self::selectMultiple(
-            $fieldName,
-            $tableNames,
-            $whereClause,
-            $groupBy,
-            $orderBy
-        );
-
         $result = [];
-        foreach ($rows as $row) {
+        foreach (self::selectMultiple($fieldName, $tableNames, $whereClause, $groupBy, $orderBy) as $row) {
             $result[] = $row[$fieldName];
         }
 
@@ -508,7 +492,9 @@ class Tx_Oelib_Db
         }
 
         $connection = self::getConnectionPool()->getConnectionByName('Default');
-        $queryResult = $connection->query('SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`');
+        $queryResult = $connection->query(
+            'SHOW TABLE STATUS FROM ' . $connection->quoteIdentifier($connection->getDatabase())
+        );
         $tableNames = [];
         foreach ($queryResult->fetchAll() as $tableInformation) {
             $tableNames[$tableInformation['Name']] = $tableInformation;
@@ -576,10 +562,11 @@ class Tx_Oelib_Db
             throw new \BadMethodCallException('The table "' . $table . '" does not exist.', 1331488327);
         }
 
+        $connection = self::getConnectionForTable($table);
         $columns = [];
-        $queryResult = self::getConnectionForTable($table)->query('SHOW FULL COLUMNS FROM `' . $table . '`');
-        foreach ($queryResult->fetchAll() as $fieldRow) {
-            $columns[$fieldRow['Field']] = $fieldRow;
+        $queryResult = $connection->query('SHOW FULL COLUMNS FROM ' . $connection->quoteIdentifier($table));
+        foreach ($queryResult->fetchAll() as $row) {
+            $columns[$row['Field']] = $row;
         }
 
         self::$tableColumnCache[$table] = $columns;
@@ -640,6 +627,33 @@ class Tx_Oelib_Db
     private static function getConnectionPool(): ConnectionPool
     {
         return GeneralUtility::makeInstance(ConnectionPool::class);
+    }
+
+    /**
+     * @param string $tableName
+     *
+     * @return QueryBuilder
+     */
+    private static function getQueryBuilderForTable(string $tableName): QueryBuilder
+    {
+        return self::getConnectionPool()->getQueryBuilderForTable($tableName);
+    }
+
+    /**
+     * Normalizes the types in the given data so that the data con be inserted into a DB.
+     *
+     * @param array $rawData
+     *
+     * @return array
+     */
+    private static function normalizeDatabaseRow(array $rawData): array
+    {
+        $dataToInsert = [];
+        foreach ($rawData as $key => $value) {
+            $dataToInsert[$key] = \is_bool($value) ? (int)$value : $value;
+        }
+
+        return $dataToInsert;
     }
 
     /**

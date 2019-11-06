@@ -28,10 +28,6 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) > 9000000) {
-            self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
-        }
-
         $GLOBALS['SIM_EXEC_TIME'] = $this->now;
     }
 
@@ -907,6 +903,10 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function insertMakesUidAccessibleAsLastInsertUidOnConnection()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
+            self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
+        }
+
         \Tx_Oelib_Db::insert('tx_oelib_test', ['is_dummy_record' => 1]);
         $uid = \Tx_Oelib_Db::getDatabaseConnection()->sql_insert_id();
 
@@ -939,6 +939,10 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectForEmptyTableNameThrowsException()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
+            self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
+        }
+
         $this->expectException(\InvalidArgumentException::class);
 
         \Tx_Oelib_Db::select('*', '');
@@ -949,6 +953,10 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectForEmptyFieldListThrowsException()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
+            self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
+        }
+
         $this->expectException(\InvalidArgumentException::class);
 
         \Tx_Oelib_Db::select('', 'tx_oelib_test');
@@ -983,7 +991,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
-            ['uid' => (string)$uid],
+            ['uid' => $uid],
             \Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', 'uid = ' . $uid)
         );
     }
@@ -1008,7 +1016,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
-            ['uid' => (string)$uid],
+            ['uid' => $uid],
             \Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', '', '', 'title DESC')
         );
     }
@@ -1057,7 +1065,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
-            [['uid' => (string)$uid]],
+            [['uid' => $uid]],
             \Tx_Oelib_Db::selectMultiple('uid', 'tx_oelib_test', 'uid = ' . $uid)
         );
     }
@@ -1312,9 +1320,10 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function getDatabaseConnectionReturnsGlobalsDatabaseConnection()
     {
-        self::assertSame(
-            $GLOBALS['TYPO3_DB'],
-            \Tx_Oelib_Db::getDatabaseConnection()
-        );
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
+            self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
+        }
+
+        self::assertSame($GLOBALS['TYPO3_DB'], \Tx_Oelib_Db::getDatabaseConnection());
     }
 }
