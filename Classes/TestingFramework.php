@@ -2029,16 +2029,16 @@ final class Tx_Oelib_TestingFramework
      */
     private function getHooks(): array
     {
-        if (!self::$hooksHaveBeenRetrieved) {
-            $hookClasses = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oelib']['testingFrameworkCleanUp'];
-            if (is_array($hookClasses)) {
-                foreach ($hookClasses as $hookClass) {
-                    self::$hooks[] = GeneralUtility::getUserObj($hookClass);
-                }
-            }
-
-            self::$hooksHaveBeenRetrieved = true;
+        if (self::$hooksHaveBeenRetrieved) {
+            return self::$hooks;
         }
+
+        $hookClasses = (array)($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oelib']['testingFrameworkCleanUp'] ?? []);
+        foreach ($hookClasses as $hookClass) {
+            self::$hooks[] = GeneralUtility::makeInstance($hookClass);
+        }
+
+        self::$hooksHaveBeenRetrieved = true;
 
         return self::$hooks;
     }
