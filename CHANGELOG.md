@@ -36,6 +36,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for TYPO3 7.6 (#273, #287)
 
 ### Fixed
+- git-ignore the tests-generated `var/log/` folder (#338)
 - Convert more calls in the `Db` class to `ConnectionPool` (#334)
 - Fix class resolution warnings (#326)
 - Fix potentially undefined variable (#323)
