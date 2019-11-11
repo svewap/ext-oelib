@@ -35,8 +35,9 @@ class SalutationSwitcherTest extends UnitTestCase
         $this->subject = new TestingSalutationSwitcher([]);
     }
 
-    protected function tearDown() {
-        GeneralUtility::purgeInstances();;
+    protected function tearDown()
+    {
+        GeneralUtility::purgeInstances();
         parent::tearDown();
     }
 
