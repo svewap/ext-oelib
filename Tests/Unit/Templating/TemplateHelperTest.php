@@ -9,6 +9,8 @@ use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\PluginWithCustomConfiguratio
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingConfigurationCheck;
 use Prophecy\Prophecy\ObjectProphecy;
 use Prophecy\Prophecy\ProphecySubjectInterface;
+use TYPO3\CMS\Core\Cache\Backend\NullBackend;
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -37,6 +39,10 @@ class TemplateHelperTest extends UnitTestCase
 
     protected function setUp()
     {
+        /** @var CacheManager $cacheManager */
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        $cacheManager->setCacheConfigurations(['l10n' => ['backend' => NullBackend::class]]);
+
         /** @var TypoScriptFrontendController|ProphecySubjectInterface $frontEndController */
         $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
         $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
@@ -57,9 +63,7 @@ class TemplateHelperTest extends UnitTestCase
 
     protected function tearDown()
     {
-        $templateHelperStub = $this->prophesize(\Tx_Oelib_TemplateHelper::class)->reveal();
-        GeneralUtility::makeInstance(TestingConfigurationCheck::class, $templateHelperStub);
-        GeneralUtility::makeInstance(\Tx_Oelib_ConfigCheck::class, $templateHelperStub);
+        GeneralUtility::purgeInstances();
         \Tx_Oelib_ConfigurationProxy::purgeInstances();
         parent::tearDown();
     }

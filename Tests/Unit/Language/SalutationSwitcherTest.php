@@ -5,6 +5,9 @@ namespace OliverKlee\Oelib\Tests\Unit\Language;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\Language\Fixtures\TestingSalutationSwitcher;
+use TYPO3\CMS\Core\Cache\Backend\NullBackend;
+use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -23,9 +26,18 @@ class SalutationSwitcherTest extends UnitTestCase
 
     protected function setUp()
     {
+        /** @var CacheManager $cacheManager */
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        $cacheManager->setCacheConfigurations(['l10n' => ['backend' => NullBackend::class]]);
+
         $GLOBALS['TSFE'] = $this->prophesize(TypoScriptFrontendController::class)->reveal();
 
         $this->subject = new TestingSalutationSwitcher([]);
+    }
+
+    protected function tearDown() {
+        GeneralUtility::purgeInstances();;
+        parent::tearDown();
     }
 
     /**
