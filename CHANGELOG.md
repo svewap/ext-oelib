@@ -36,6 +36,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for TYPO3 7.6 (#273, #287)
 
 ### Fixed
+- Fix 1:n relations without `maxitems` (like BE subgroups) (#339)
 - Stop using the deprecated `GeneralUtility::getUserObj` (#341)
 - Disable the L10N cache in the unit tests (#340)
 - git-ignore the tests-generated `var/log/` folder (#338)

@@ -436,7 +436,8 @@ abstract class Tx_Oelib_DataMapper
     {
         $relationConfiguration = $this->getRelationConfigurationFromTca($key);
 
-        return isset($relationConfiguration['foreign_field'], $relationConfiguration['foreign_table']);
+        return isset($relationConfiguration['foreign_field'], $relationConfiguration['foreign_table'])
+            && $this->possiblyAllowsMultipleSelectionByType($key);
     }
 
     /**
@@ -452,7 +453,10 @@ abstract class Tx_Oelib_DataMapper
     private function isManyToOneRelationConfigured(string $key): bool
     {
         $relationConfiguration = $this->getRelationConfigurationFromTca($key);
-        $cardinality = isset($relationConfiguration['maxitems']) ? (int)$relationConfiguration['maxitems'] : 1;
+        $cardinality = (int)($relationConfiguration['maxitems'] ?? 0);
+        if ($cardinality === 0) {
+            $cardinality = $this->possiblyAllowsMultipleSelectionByType($key) ? 99999 : 1;
+        }
 
         return $cardinality === 1;
     }
@@ -473,6 +477,18 @@ abstract class Tx_Oelib_DataMapper
         $relationConfiguration = $this->getRelationConfigurationFromTca($key);
 
         return isset($relationConfiguration['MM']);
+    }
+
+    private function possiblyAllowsMultipleSelectionByType(string $key): bool
+    {
+        $relationConfiguration = $this->getRelationConfigurationFromTca($key);
+
+        if (!\in_array($relationConfiguration['type'], ['select', 'inline', 'group'], true)) {
+            return false;
+        }
+
+        $renderType = ($relationConfiguration['renderType'] ?? '');
+        return $renderType !== 'selectSingle';
     }
 
     /**
@@ -1077,8 +1093,12 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return int[] the record data for an intermediate m:n-relation record
      */
-    protected function getManyToManyRelationIntermediateRecordData(string $mnTable, int $uidLocal, int $uidForeign, int $sorting): array
-    {
+    protected function getManyToManyRelationIntermediateRecordData(
+        string $mnTable,
+        int $uidLocal,
+        int $uidForeign,
+        int $sorting
+    ): array {
         $recordData = ['uid_local' => $uidLocal, 'uid_foreign' => $uidForeign, 'sorting' => $sorting];
 
         if ($this->testingFramework !== null) {

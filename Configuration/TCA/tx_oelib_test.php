@@ -77,7 +77,6 @@ return [
                 'foreign_table' => 'tx_oelib_test',
                 'size' => 4,
                 'minitems' => 0,
-                'maxitems' => 99,
             ],
         ],
         'related_records' => [
