@@ -18,7 +18,7 @@ class PluginWithCustomConfigurationCheck extends \Tx_Oelib_TemplateHelper
     /**
      * @return string
      */
-    protected function getConfigurationCheckClassName()
+    protected function getConfigurationCheckClassName(): string
     {
         return TestingConfigurationCheck::class;
     }

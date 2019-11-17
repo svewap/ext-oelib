@@ -44,7 +44,7 @@ class TestingGeo extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_Geo
      * @return string this object's address formatted for a geo lookup,
      *                will be empty if this object has no address
      */
-    public function getGeoAddress()
+    public function getGeoAddress(): string
     {
         return $this->address;
     }
@@ -70,7 +70,7 @@ class TestingGeo extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_Geo
      * @return bool TRUE if this object has a non-empty address, FALSE
      *                 otherwise
      */
-    public function hasGeoAddress()
+    public function hasGeoAddress(): bool
     {
         return $this->address !== '';
     }
@@ -82,7 +82,7 @@ class TestingGeo extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_Geo
      *         this object's geo coordinates using the keys "latitude" and
      *         "longitude", will be empty if this object has no coordinates
      */
-    public function getGeoCoordinates()
+    public function getGeoCoordinates(): array
     {
         return $this->coordinates;
     }
@@ -107,7 +107,7 @@ class TestingGeo extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_Geo
      * @return bool TRUE if this object has both a non-empty longitude and
      *                 a non-empty latitude, FALSE otherwise
      */
-    public function hasGeoCoordinates()
+    public function hasGeoCoordinates(): bool
     {
         return !empty($this->coordinates);
     }
@@ -134,7 +134,7 @@ class TestingGeo extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_Geo
      *
      * @return bool TRUE if there has been an error, FALSE otherwise
      */
-    public function hasGeoError()
+    public function hasGeoError(): bool
     {
         return $this->hasGeoError;
     }

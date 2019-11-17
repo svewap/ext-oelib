@@ -109,8 +109,7 @@ class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
         $this->mapNumber = self::$mapCounter;
         $mapId = $this->getMapId();
 
-        $configuration = Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib');
-        $apiKey = $configuration->getAsString('googleMapsApiKey');
+        $apiKey = \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')->getAsString('googleMapsApiKey');
 
         // pageRenderer->addJsLibrary() would not work here if this ViewHelper
         // is used in an uncached plugin on a cached page.

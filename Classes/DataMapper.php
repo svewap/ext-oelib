@@ -388,12 +388,10 @@ abstract class Tx_Oelib_DataMapper
                 $this->createOneToManyRelation($data, $key, $model);
             } elseif ($this->isManyToOneRelationConfigured($key)) {
                 $this->createManyToOneRelation($data, $key);
+            } elseif ($this->isManyToManyRelationConfigured($key)) {
+                $this->createMToNRelation($data, $key, $model);
             } else {
-                if ($this->isManyToManyRelationConfigured($key)) {
-                    $this->createMToNRelation($data, $key, $model);
-                } else {
-                    $this->createCommaSeparatedRelation($data, $key, $model);
-                }
+                $this->createCommaSeparatedRelation($data, $key, $model);
             }
         }
     }
@@ -577,9 +575,7 @@ abstract class Tx_Oelib_DataMapper
         $uidList = isset($data[$key]) ? trim((string)$data[$key]) : '';
         if ($uidList !== '') {
             $mapper = \Tx_Oelib_MapperRegistry::get($this->relations[$key]);
-            $uids = GeneralUtility::intExplode(',', $uidList, true);
-
-            foreach ($uids as $uid) {
+            foreach (GeneralUtility::intExplode(',', $uidList, true) as $uid) {
                 // Some relations might have a junk 0 in it. We ignore it to avoid crashing.
                 if ($uid === 0) {
                     continue;
@@ -617,14 +613,14 @@ abstract class Tx_Oelib_DataMapper
             $mnTable = $relationConfiguration['MM'];
 
             $rightUid = (int)$data['uid'];
-            if (!isset($relationConfiguration['MM_opposite_field'])) {
-                $leftColumn = 'uid_foreign';
-                $rightColumn = 'uid_local';
-                $orderBy = 'sorting';
-            } else {
+            if (isset($relationConfiguration['MM_opposite_field'])) {
                 $leftColumn = 'uid_local';
                 $rightColumn = 'uid_foreign';
                 $orderBy = 'uid_local';
+            } else {
+                $leftColumn = 'uid_foreign';
+                $rightColumn = 'uid_local';
+                $orderBy = 'sorting';
             }
             $queryResult = $this->getConnectionForTable($mnTable)
                 ->select([$leftColumn], $mnTable, [$rightColumn => $rightUid], [], [$orderBy => 'ASC'])
@@ -1037,7 +1033,7 @@ abstract class Tx_Oelib_DataMapper
 
             $relatedMapper = \Tx_Oelib_MapperRegistry::get($relation);
             $foreignField = $relationConfiguration['foreign_field'];
-            if (strpos($foreignField, 'tx_') === 0) {
+            if (\strncmp($foreignField, 'tx_', 3) === 0) {
                 $foreignKey = ucfirst(
                     preg_replace('/tx_[a-z]+_/', '', $foreignField)
                 );
@@ -1400,7 +1396,7 @@ abstract class Tx_Oelib_DataMapper
         }
 
         if (!isset($this->cacheByKey[$key][$value])) {
-            throw new \Tx_Oelib_Exception_NotFound();
+            throw new \Tx_Oelib_Exception_NotFound('Not found', 1573836483);
         }
 
         return $this->cacheByKey[$key][$value];
@@ -1427,7 +1423,7 @@ abstract class Tx_Oelib_DataMapper
         }
 
         if (!isset($this->cacheByCompoundKey[$value])) {
-            throw new \Tx_Oelib_Exception_NotFound();
+            throw new \Tx_Oelib_Exception_NotFound('Not found.', 1573836491);
         }
 
         return $this->cacheByCompoundKey[$value];
@@ -1667,7 +1663,7 @@ abstract class Tx_Oelib_DataMapper
         $query = $this->getQueryBuilder()->count('*')->from($this->getTableName());
         $this->addPageUidRestriction($query, $pageUids);
 
-        return $query->execute()->fetchColumn(0);
+        return (int)$query->execute()->fetchColumn();
     }
 
     /**

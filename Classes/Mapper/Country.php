@@ -37,7 +37,10 @@ class Tx_Oelib_Mapper_Country extends \Tx_Oelib_DataMapper
      */
     public function findByIsoAlpha2Code($isoAlpha2Code): \Tx_Oelib_Model_Country
     {
-        return $this->findOneByKey('cn_iso_2', $isoAlpha2Code);
+        /** @var \Tx_Oelib_Model_Country $result */
+        $result = $this->findOneByKey('cn_iso_2', $isoAlpha2Code);
+
+        return $result;
     }
 
     /**
@@ -53,6 +56,9 @@ class Tx_Oelib_Mapper_Country extends \Tx_Oelib_DataMapper
      */
     public function findByIsoAlpha3Code(string $isoAlpha3Code): \Tx_Oelib_Model_Country
     {
-        return $this->findOneByKey('cn_iso_3', $isoAlpha3Code);
+        /** @var \Tx_Oelib_Model_Country $result */
+        $result = $this->findOneByKey('cn_iso_3', $isoAlpha3Code);
+
+        return $result;
     }
 }

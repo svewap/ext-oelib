@@ -37,6 +37,9 @@ class Tx_Oelib_Mapper_Currency extends \Tx_Oelib_DataMapper
      */
     public function findByIsoAlpha3Code(string $isoAlpha3Code): \Tx_Oelib_Model_Currency
     {
-        return $this->findOneByKey('cu_iso_3', $isoAlpha3Code);
+        /** @var \Tx_Oelib_Model_Currency $result */
+        $result = $this->findOneByKey('cu_iso_3', $isoAlpha3Code);
+
+        return $result;
     }
 }

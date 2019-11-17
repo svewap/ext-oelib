@@ -380,12 +380,12 @@ class TemplateTest extends UnitTestCase
         // 228 = ä, 223 = ß (in ISO8859-1)
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
-            chr(228) . chr(223) .
+            \chr(228) . \chr(223) .
             '<!-- ###MY_SUBPART### -->'
         );
 
         self::assertSame(
-            chr(228) . chr(223),
+            \chr(228) . \chr(223),
             $this->subject->getSubpart('MY_SUBPART')
         );
     }
@@ -610,10 +610,10 @@ class TemplateTest extends UnitTestCase
     public function renderCanContainIso88591Umlauts()
     {
         // 228 = ä, 223 = ß (in ISO8859-1)
-        $this->subject->processTemplate(chr(228) . chr(223));
+        $this->subject->processTemplate(\chr(228) . \chr(223));
 
         self::assertSame(
-            chr(228) . chr(223),
+            \chr(228) . \chr(223),
             $this->subject->render()
         );
     }
@@ -710,10 +710,10 @@ class TemplateTest extends UnitTestCase
             '###BAR###'
         );
         // 228 = ä, 223 = ß (in ISO8859-1)
-        $this->subject->setMarker('bar', chr(228) . chr(223));
+        $this->subject->setMarker('bar', \chr(228) . \chr(223));
 
         self::assertSame(
-            chr(228) . chr(223),
+            \chr(228) . \chr(223),
             $this->subject->getMarker('bar')
         );
     }
@@ -2671,10 +2671,10 @@ class TemplateTest extends UnitTestCase
             '<!-- ###MY_SUBPART### -->'
         );
         // 228 = ä, 223 = ß (in ISO8859-1)
-        $this->subject->setSubpart('MY_SUBPART', chr(228) . chr(223));
+        $this->subject->setSubpart('MY_SUBPART', \chr(228) . \chr(223));
 
         self::assertSame(
-            chr(228) . chr(223),
+            \chr(228) . \chr(223),
             $this->subject->getSubpart('MY_SUBPART')
         );
     }

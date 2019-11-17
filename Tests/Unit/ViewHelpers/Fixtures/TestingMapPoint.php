@@ -18,10 +18,9 @@ class TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interfa
     /**
      * Gets this object's UID.
      *
-     * @return int
-     *         this object's UID, will be zero if this object does not have a UID yet
+     * @return int this object's UID, will be zero if this object does not have a UID yet
      */
-    public function getUid()
+    public function getUid(): int
     {
         return $this->uid;
     }
@@ -31,7 +30,7 @@ class TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interfa
      *
      * @return bool TRUE if this object has a non-zero UID, FALSE otherwise
      */
-    public function hasUid()
+    public function hasUid(): bool
     {
         return $this->getUid() !== 0;
     }
@@ -57,7 +56,7 @@ class TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interfa
      *         this object's geo coordinates using the keys "latitude" and
      *         "longitude", will be empty if this object has no coordinates
      */
-    public function getGeoCoordinates()
+    public function getGeoCoordinates(): array
     {
         return ['latitude' => 11.2, 'longitude' => 4.9];
     }
@@ -69,7 +68,7 @@ class TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interfa
      *         TRUE if this object has both a non-empty longitude and a
      *         non-empty latitude, FALSE otherwise
      */
-    public function hasGeoCoordinates()
+    public function hasGeoCoordinates(): bool
     {
         return true;
     }
@@ -79,7 +78,7 @@ class TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interfa
      *
      * @return string the tooltip title (plain text), might be empty
      */
-    public function getTooltipTitle()
+    public function getTooltipTitle(): string
     {
         return '';
     }
@@ -90,7 +89,7 @@ class TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interfa
      * @return bool
      *         TRUE if this object has a non-empty tooltip title, FALSE otherwise
      */
-    public function hasTooltipTitle()
+    public function hasTooltipTitle(): bool
     {
         return false;
     }
@@ -100,7 +99,7 @@ class TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interfa
      *
      * @return string the info window content (HTML), might be empty
      */
-    public function getInfoWindowContent()
+    public function getInfoWindowContent(): string
     {
         return '';
     }
@@ -111,7 +110,7 @@ class TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interfa
      * @return bool
      *         TRUE if this object has a non-empty info window content, FALSE otherwise
      */
-    public function hasInfoWindowContent()
+    public function hasInfoWindowContent(): bool
     {
         return false;
     }

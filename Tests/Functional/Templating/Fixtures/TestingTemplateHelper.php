@@ -28,7 +28,7 @@ final class TestingTemplateHelper extends \Tx_Oelib_TemplateHelper
      */
     public function __construct(array $configuration = [])
     {
-        parent::init($configuration);
+        $this->init($configuration);
     }
 
     /**

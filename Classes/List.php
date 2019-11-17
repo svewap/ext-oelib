@@ -97,8 +97,10 @@ class Tx_Oelib_List extends SplObjectStorage
     public function first()
     {
         $this->rewind();
+        /** @var \Tx_Oelib_Model|null $current */
+        $current = $this->current();
 
-        return $this->current();
+        return $current;
     }
 
     /**

@@ -101,8 +101,11 @@ class Tx_Oelib_MapperRegistry
         }
         $unifiedClassName = self::unifyClassName($className);
 
-        if (!isset($this->mappers[$unifiedClassName])) {
-            if (!class_exists($className, true)) {
+        if (isset($this->mappers[$unifiedClassName])) {
+            /** @var \Tx_Oelib_DataMapper $mapper */
+            $mapper = $this->mappers[$unifiedClassName];
+        } else {
+            if (!class_exists($className)) {
                 throw new \InvalidArgumentException(
                     'No mapper class "' . $className . '" could be found.'
                 );
@@ -111,9 +114,6 @@ class Tx_Oelib_MapperRegistry
             /** @var \Tx_Oelib_DataMapper $mapper */
             $mapper = GeneralUtility::makeInstance($unifiedClassName);
             $this->mappers[$unifiedClassName] = $mapper;
-        } else {
-            /** @var \Tx_Oelib_DataMapper $mapper */
-            $mapper = $this->mappers[$unifiedClassName];
         }
 
         if ($this->testingMode) {

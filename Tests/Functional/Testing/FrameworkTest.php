@@ -2465,8 +2465,7 @@ class FrameworkTest extends FunctionalTestCase
             $pageId,
             ['config' => 'plugin.tx_oelib.test = 42']
         );
-        $templateHelper = new TestingTemplateHelper([]);
-        $configuration = $templateHelper->retrievePageConfig($pageId);
+        $configuration = (new TestingTemplateHelper([]))->retrievePageConfig($pageId);
 
         self::assertTrue(
             isset($configuration['test'])
@@ -2530,8 +2529,7 @@ class FrameworkTest extends FunctionalTestCase
                 'config' => 'plugin.tx_oelib.test = {$plugin.tx_oelib.test}',
             ]
         );
-        $templateHelper = new TestingTemplateHelper([]);
-        $configuration = $templateHelper->retrievePageConfig($pageId);
+        $configuration = (new TestingTemplateHelper([]))->retrievePageConfig($pageId);
 
         self::assertTrue(
             isset($configuration['test'])

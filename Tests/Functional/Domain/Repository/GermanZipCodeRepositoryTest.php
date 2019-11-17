@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace OliverKlee\Oelib\Tests\Functional\Model;
+namespace OliverKlee\Oelib\Tests\Functional\Domain\Repository;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Domain\Model\GermanZipCode;

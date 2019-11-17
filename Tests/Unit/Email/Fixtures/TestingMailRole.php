@@ -63,7 +63,7 @@ class TestingMailRole extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_Ma
      *
      * @return string the real name of the e-mail role, might be empty
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->getAsString('name');
     }
@@ -86,7 +86,7 @@ class TestingMailRole extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_Ma
      *
      * @return string the e-mail address of the e-mail role, might be empty
      */
-    public function getEmailAddress()
+    public function getEmailAddress(): string
     {
         return $this->getAsString('email');
     }

@@ -34,7 +34,7 @@ trait CachedAssociationCount
      */
     protected function getCachedRelationCount(string $propertyName): int
     {
-        if (array_key_exists($propertyName, $this->cachedRelationCountsCount)) {
+        if (\array_key_exists($propertyName, $this->cachedRelationCountsCount)) {
             return $this->cachedRelationCountsCount[$propertyName];
         }
 
@@ -72,8 +72,7 @@ trait CachedAssociationCount
     protected function getUncachedRelationCount(string $propertyName): int
     {
         if ($this->$propertyName instanceof LazyObjectStorage) {
-            $reflectionClass = new \ReflectionClass(LazyObjectStorage::class);
-            $reflectionProperty = $reflectionClass->getProperty('fieldValue');
+            $reflectionProperty = (new \ReflectionClass(LazyObjectStorage::class))->getProperty('fieldValue');
             $reflectionProperty->setAccessible(true);
             $count = (int)$reflectionProperty->getValue($this->$propertyName);
         } else {

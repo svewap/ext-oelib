@@ -259,7 +259,7 @@ class Tx_Oelib_Db
             $connection = self::getDatabaseConnection();
             $dbResult = $connection->exec_INSERTquery($tableName, $recordData);
             if ($dbResult === false) {
-                throw new \Tx_Oelib_Exception_Database();
+                throw new \Tx_Oelib_Exception_Database('Database error.', 1573836507);
             }
             $uid = $connection->sql_insert_id();
         }
@@ -308,7 +308,7 @@ class Tx_Oelib_Db
             $limit
         );
         if (!$dbResult) {
-            throw new \Tx_Oelib_Exception_Database();
+            throw new \Tx_Oelib_Exception_Database('Database error.', 1573836521);
         }
 
         return $dbResult;
@@ -340,7 +340,7 @@ class Tx_Oelib_Db
     ): array {
         $result = self::selectMultiple($fields, $tableNames, $whereClause, $groupBy, $orderBy, 1);
         if (empty($result)) {
-            throw new \Tx_Oelib_Exception_EmptyQueryResult();
+            throw new \Tx_Oelib_Exception_EmptyQueryResult('Database error.', 1573836525);
         }
 
         return $result[0];

@@ -37,6 +37,9 @@ class Tx_Oelib_Mapper_Language extends \Tx_Oelib_DataMapper
      */
     public function findByIsoAlpha2Code(string $isoAlpha2Code): \Tx_Oelib_Model_Language
     {
-        return $this->findOneByKey('lg_iso_2', $isoAlpha2Code);
+        /** @var \Tx_Oelib_Model_Language $result */
+        $result = $this->findOneByKey('lg_iso_2', $isoAlpha2Code);
+
+        return $result;
     }
 }

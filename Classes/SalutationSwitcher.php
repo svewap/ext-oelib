@@ -151,7 +151,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
             $completeKey = $key . $suffix;
             foreach ($availableLanguages as $language) {
                 if (isset($this->LOCAL_LANG[$language][$completeKey])) {
-                    $result = parent::pi_getLL($completeKey);
+                    $result = $this->pi_getLL($completeKey);
                     $hasFoundATranslation = true;
                     break 2;
                 }

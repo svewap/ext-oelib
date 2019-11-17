@@ -5,8 +5,6 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Test case.
@@ -43,11 +41,7 @@ class CurrencyMapperTest extends FunctionalTestCase
      */
     private function importStaticData()
     {
-        $tableName = 'static_currencies';
-        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        $connection = $connectionPool->getConnectionForTable($tableName);
-        $count = $connection->count('*', $tableName, []);
-        if ($count === 0) {
+        if ($this->getDatabaseConnection()->selectCount('*', 'static_currencies') === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Currencies.xml');
         }
     }

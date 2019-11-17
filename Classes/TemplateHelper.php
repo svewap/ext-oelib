@@ -246,12 +246,10 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         $rootLine = $page->getRootLine($pageId);
 
         // Generates the constants/config and hierarchy info for the template.
-        $template->runThroughTemplates($rootLine, 0);
+        $template->runThroughTemplates($rootLine);
         $template->generateConfig();
 
-        $result = $template->setup['plugin.']['tx_' . $this->extKey . '.'] ?? [];
-
-        return $result;
+        return $template->setup['plugin.']['tx_' . $this->extKey . '.'] ?? [];
     }
 
     /**
@@ -1016,7 +1014,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         $translator = $this;
         return preg_replace_callback(
             \Tx_Oelib_Template::LABEL_PATTERN,
-            function (array $matches) use ($translator) {
+            static function (array $matches) use ($translator) {
                 return $translator->translate(strtolower($matches[1]));
             },
             $renderedSubpart
@@ -1036,8 +1034,9 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      */
     public function setLabels()
     {
-        foreach ($this->getTemplate()->getLabelMarkerNames() as $label) {
-            $this->getTemplate()->setMarker($label, $this->translate($label));
+        $template = $this->getTemplate();
+        foreach ($template->getLabelMarkerNames() as $label) {
+            $template->setMarker($label, $this->translate($label));
         }
     }
 

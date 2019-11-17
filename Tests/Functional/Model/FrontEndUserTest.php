@@ -5,8 +5,6 @@ namespace OliverKlee\Oelib\Tests\Functional\Model;
 
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Test case.
@@ -40,11 +38,7 @@ class FrontEndUserTest extends FunctionalTestCase
      */
     private function importStaticData()
     {
-        $tableName = 'static_countries';
-        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        $connection = $connectionPool->getConnectionForTable($tableName);
-        $count = $connection->count('*', $tableName, []);
-        if ($count === 0) {
+        if ($this->getDatabaseConnection()->selectCount('*', 'static_countries') === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Countries.xml');
         }
     }

@@ -85,7 +85,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @var string[]
      */
-    private $allowedSystemTables = [
+    const ALLOWED_SYSTEM_TABLES = [
         'be_users',
         'fe_groups',
         'fe_users',
@@ -702,13 +702,7 @@ final class Tx_Oelib_TestingFramework
             );
         }
 
-        if (!isset($relationConfiguration['config']['MM_opposite_field'])) {
-            $this->createRelation(
-                $relationConfiguration['config']['MM'],
-                $uidLocal,
-                $uidForeign
-            );
-        } else {
+        if (isset($relationConfiguration['config']['MM_opposite_field'])) {
             // Switches the order of $uidForeign and $uidLocal as the relation
             // is the reverse part of a bidirectional relation.
             $this->createRelationAndUpdateCounter(
@@ -716,6 +710,12 @@ final class Tx_Oelib_TestingFramework
                 $uidForeign,
                 $uidLocal,
                 $relationConfiguration['config']['MM_opposite_field']
+            );
+        } else {
+            $this->createRelation(
+                $relationConfiguration['config']['MM'],
+                $uidLocal,
+                $uidForeign
             );
         }
 
@@ -811,7 +811,7 @@ final class Tx_Oelib_TestingFramework
     private function cleanUpTableSet(bool $useSystemTables, bool $performDeepCleanUp)
     {
         if ($useSystemTables) {
-            $tablesToCleanUp = $performDeepCleanUp ? $this->allowedSystemTables : $this->dirtySystemTables;
+            $tablesToCleanUp = $performDeepCleanUp ? self::ALLOWED_SYSTEM_TABLES : $this->dirtySystemTables;
         } else {
             $tablesToCleanUp = $performDeepCleanUp ? $this->ownAllowedTables : $this->dirtyTables;
         }
@@ -1229,7 +1229,7 @@ final class Tx_Oelib_TestingFramework
         $frontEnd->config = [];
 
         if (($pageUid > 0) && in_array('sys_template', $this->dirtySystemTables, true)) {
-            $frontEnd->tmpl->runThroughTemplates($frontEnd->sys_page->getRootLine($pageUid), 0);
+            $frontEnd->tmpl->runThroughTemplates($frontEnd->sys_page->getRootLine($pageUid));
             $frontEnd->tmpl->generateConfig();
             $frontEnd->tmpl->loaded = 1;
             $frontEnd->settingLanguage();
@@ -1323,7 +1323,7 @@ final class Tx_Oelib_TestingFramework
      */
     private function loginFrontEndUser(int $userId)
     {
-        if ((int)$userId <= 0) {
+        if ($userId <= 0) {
             throw new \InvalidArgumentException('The user ID must be > 0.', 1331490798);
         }
         if (!$this->hasFakeFrontEnd()) {
@@ -1387,7 +1387,7 @@ final class Tx_Oelib_TestingFramework
         $this->getFrontEndController()->fe_user->logoff();
         $this->getFrontEndController()->loginUser = false;
 
-        \Tx_Oelib_FrontEndLoginManager::getInstance()->logInUser(null);
+        \Tx_Oelib_FrontEndLoginManager::getInstance()->logInUser();
     }
 
     /**
@@ -1542,7 +1542,7 @@ final class Tx_Oelib_TestingFramework
      */
     private function isSystemTableNameAllowed(string $table): bool
     {
-        return in_array($table, $this->allowedSystemTables, true);
+        return in_array($table, self::ALLOWED_SYSTEM_TABLES, true);
     }
 
     /**
@@ -1672,7 +1672,7 @@ final class Tx_Oelib_TestingFramework
             $query->andWhere($query->expr()->eq($identifier, $query->createNamedParameter($value)));
         }
 
-        return (int)$query->execute()->fetchColumn(0);
+        return (int)$query->execute()->fetchColumn();
     }
 
     /**

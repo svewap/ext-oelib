@@ -89,7 +89,10 @@ class TestingModel extends \Tx_Oelib_Model
      */
     public function getFriend()
     {
-        return $this->getAsModel('friend');
+        /** @var TestingModel|null $model */
+        $model = $this->getAsModel('friend');
+
+        return $model;
     }
 
     /**
@@ -111,7 +114,10 @@ class TestingModel extends \Tx_Oelib_Model
      */
     public function getOwner(): \Tx_Oelib_Model_FrontEndUser
     {
-        return $this->getAsModel('owner');
+        /** @var \Tx_Oelib_Model_FrontEndUser $model */
+        $model = $this->getAsModel('owner');
+
+        return $model;
     }
 
     /**
@@ -250,7 +256,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return bool
      */
-    public function existsKey($key)
+    public function existsKey($key): bool
     {
         return parent::existsKey($key);
     }
@@ -272,7 +278,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return bool
      */
-    public function getAsBoolean($key)
+    public function getAsBoolean($key): bool
     {
         return parent::getAsBoolean($key);
     }
@@ -282,7 +288,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return int
      */
-    public function getAsInteger($key)
+    public function getAsInteger($key): int
     {
         return parent::getAsInteger($key);
     }

@@ -143,10 +143,7 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
         while (true) {
             \usleep($delayInMicroseconds);
             $response = $this->sendRequest($url);
-            if ($response === false) {
-                $resultParts = [];
-                $status = 'General network problem.';
-            } else {
+            if ($response !== false) {
                 $resultParts = \json_decode($response, true);
                 $status = $resultParts['status'];
                 if ($status === self::STATUS_OK) {
@@ -167,6 +164,9 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
                     $geoObject->setGeoError($errorText);
                     break;
                 }
+            } else {
+                $resultParts = [];
+                $status = 'General network problem.';
             }
 
             if ($delayInMicroseconds * 2 > $this->maximumDelayInMicroseconds) {

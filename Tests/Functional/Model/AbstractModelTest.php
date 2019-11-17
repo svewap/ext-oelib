@@ -138,10 +138,8 @@ class AbstractModelTest extends FunctionalTestCase
         $this->subject->addCompositionRecord($childRecord);
         $this->dataMapper->save($this->subject);
 
-        $clone = clone $this->subject;
-
         /** @var TestingChildModel $firstCloneChild */
-        $firstCloneChild = $clone->getComposition()->first();
+        $firstCloneChild = (clone $this->subject)->getComposition()->first();
         self::assertSame($childRecord->getTitle(), $firstCloneChild->getTitle());
         self::assertNotSame($childRecord, $firstCloneChild);
     }

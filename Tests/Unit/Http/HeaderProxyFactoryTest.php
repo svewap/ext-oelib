@@ -39,7 +39,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     {
         self::assertSame(
             \Tx_Oelib_HeaderCollector::class,
-            get_class($this->subject)
+            \get_class($this->subject)
         );
     }
 
@@ -53,7 +53,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
 
         self::assertSame(
             \Tx_Oelib_RealHeaderProxy::class,
-            get_class(\Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy())
+            \get_class(\Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy())
         );
     }
 

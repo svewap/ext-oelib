@@ -34,7 +34,10 @@ class TestingChildModel extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_S
      */
     public function getParent()
     {
-        return $this->getAsModel('parent');
+        /** @var TestingModel|null $model */
+        $model = $this->getAsModel('parent');
+
+        return $model;
     }
 
     /**
@@ -54,7 +57,10 @@ class TestingChildModel extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_S
      */
     public function getParent2()
     {
-        return $this->getAsModel('tx_oelib_parent2');
+        /** @var TestingModel|null $model */
+        $model = $this->getAsModel('tx_oelib_parent2');
+
+        return $model;
     }
 
     /**
@@ -82,7 +88,7 @@ class TestingChildModel extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_S
     /**
      * @return int
      */
-    public function getSorting()
+    public function getSorting(): int
     {
         return $this->getAsInteger('sorting');
     }

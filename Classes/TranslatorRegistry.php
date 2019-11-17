@@ -172,9 +172,10 @@ class Tx_Oelib_TranslatorRegistry
             $localizedLabels = $this->getLocalizedLabelsFromFile($extensionName);
             // Overrides the localized labels with labels from TypoScript only in the front end.
 
-            if (($this->getFrontEndController() !== null)
-                && isset($localizedLabels[$this->languageKey])
-                && is_array($localizedLabels[$this->languageKey])
+            if (
+                isset($localizedLabels[$this->languageKey])
+                && \is_array($localizedLabels[$this->languageKey])
+                && $this->getFrontEndController() !== null
             ) {
                 foreach ($this->getLocalizedLabelsFromTypoScript($extensionName) as $labelKey => $labelFromTypoScript) {
                     $localizedLabels[$this->languageKey][$labelKey][0]['target'] = $labelFromTypoScript;

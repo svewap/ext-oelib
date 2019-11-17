@@ -21,14 +21,9 @@ class AbstractMailerTest extends UnitTestCase
     private $subject = null;
 
     /**
-     * @var MailMessage
-     */
-    private $message1 = null;
-
-    /**
      * @var string[]
      */
-    private $email = [
+    const EMAIL = [
         'recipient' => 'any-recipient@email-address.org',
         'subject' => 'any subject',
         'message' => 'any message',
@@ -39,8 +34,8 @@ class AbstractMailerTest extends UnitTestCase
     {
         $this->subject = new \Tx_Oelib_EmailCollector();
 
-        $this->message1 = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
-        GeneralUtility::addInstance(MailMessage::class, $this->message1);
+        $message = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
+        GeneralUtility::addInstance(MailMessage::class, $message);
     }
 
     protected function tearDown()
@@ -283,12 +278,12 @@ class AbstractMailerTest extends UnitTestCase
     public function sendSetsSenderNameAndEmail()
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
 
         $this->subject->send($eMail);
 
@@ -305,12 +300,12 @@ class AbstractMailerTest extends UnitTestCase
     public function sendSetsRecipientNameAndEmail()
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
 
         $this->subject->send($eMail);
 
@@ -329,8 +324,8 @@ class AbstractMailerTest extends UnitTestCase
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
         $recipient1 = new TestingMailRole('John Doe', 'joe@example.com');
         $eMail->addRecipient($recipient1);
         $recipient2 = new TestingMailRole('Jane Doe', 'jane@example.com');
@@ -350,18 +345,18 @@ class AbstractMailerTest extends UnitTestCase
     public function sendSetsSubject()
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
 
         $this->subject->send($eMail);
 
         $sentEmail = $this->subject->getFirstSentEmail();
         self::assertSame(
-            $this->email['subject'],
+            self::EMAIL['subject'],
             $sentEmail->getSubject()
         );
     }
@@ -372,12 +367,12 @@ class AbstractMailerTest extends UnitTestCase
     public function sendingPlainTextMailUsesDefaultCharacterSet()
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
 
         $this->subject->send($eMail);
 
@@ -393,18 +388,18 @@ class AbstractMailerTest extends UnitTestCase
     public function sendSetsPlainTextBody()
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
 
         $this->subject->send($eMail);
 
         $sentEmail = $this->subject->getFirstSentEmail();
         self::assertSame(
-            $this->email['message'],
+            self::EMAIL['message'],
             $sentEmail->getBody()
         );
     }
@@ -415,12 +410,12 @@ class AbstractMailerTest extends UnitTestCase
     public function sendingPlainTextMailUsesPlainTextEncoding()
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
 
         $this->subject->send($eMail);
 
@@ -436,11 +431,11 @@ class AbstractMailerTest extends UnitTestCase
     public function sendingPlainTextMailByDefaultRemovesAnyCarriageReturnFromBody()
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
+        $eMail->setSubject(self::EMAIL['subject']);
         $eMail->setMessage(
             'one long line ...........................................' . CRLF .
             'now a blank line:' . LF . LF .
@@ -464,11 +459,11 @@ class AbstractMailerTest extends UnitTestCase
         $this->subject->sendFormattedEmails(true);
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
+        $eMail->setSubject(self::EMAIL['subject']);
         $eMail->setMessage(
             'one long line ...........................................' . CRLF .
             'now a blank line:' . LF . LF .
@@ -492,11 +487,11 @@ class AbstractMailerTest extends UnitTestCase
         $this->subject->sendFormattedEmails(false);
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
+        $eMail->setSubject(self::EMAIL['subject']);
         $eMail->setMessage(
             'one long line ...........................................' . CRLF .
             'now a blank line:' . LF . LF .
@@ -519,11 +514,11 @@ class AbstractMailerTest extends UnitTestCase
     {
         $htmlMessage = '<h1>Very cool HTML message</h1>' . LF . '<p>Great to have HTML e-mails in oelib.</p>';
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('', $this->email['recipient']);
+        $recipient = new TestingMailRole('', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
+        $eMail->setSubject(self::EMAIL['subject']);
         $eMail->setMessage('This is the plain text message.');
         $eMail->setHTMLMessage($htmlMessage);
 
@@ -545,11 +540,11 @@ class AbstractMailerTest extends UnitTestCase
     {
         $htmlMessage = '<h1>Very cool HTML message</h1>' . LF . '<p>Great to have HTML e-mails in oelib.</p>';
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('', $this->email['recipient']);
+        $recipient = new TestingMailRole('', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
+        $eMail->setSubject(self::EMAIL['subject']);
         $eMail->setMessage('This is the plain text message.');
         $eMail->setHTMLMessage($htmlMessage);
 
@@ -572,12 +567,12 @@ class AbstractMailerTest extends UnitTestCase
         $returnPath = 'return@example.com';
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
         $eMail->setReturnPath($returnPath);
 
         $this->subject->send($eMail);
@@ -595,12 +590,12 @@ class AbstractMailerTest extends UnitTestCase
     public function sendWithoutReturnPathNotSetsReturnPath()
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
 
         $this->subject->send($eMail);
 

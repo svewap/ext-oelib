@@ -36,13 +36,6 @@ class Tx_Oelib_Template
     private $subparts = [];
 
     /**
-     * all uppercased marker names in the current template without the hashes, for example ("FOO", "BAR")
-     *
-     * @var string[]
-     */
-    private $markerNames = [];
-
-    /**
      * all lowercased label marker names in the current template without the hashes, for example ("label_foo",
      * "label_bar")
      *
@@ -173,9 +166,8 @@ class Tx_Oelib_Template
             $matches
         );
 
-        $this->markerNames = array_unique($matches[1]);
-        foreach ($this->markerNames as $markerName) {
-            if (strpos($markerName, 'LABEL_') === 0) {
+        foreach (\array_unique($matches[1]) as $markerName) {
+            if (\strncmp($markerName, 'LABEL_', 6) === 0) {
                 $this->labelMarkerNames[] = strtolower($markerName);
             }
         }
@@ -712,7 +704,7 @@ class Tx_Oelib_Template
         $translator = $this->translator;
         return preg_replace_callback(
             self::LABEL_PATTERN,
-            function (array $matches) use ($translator) {
+            static function (array $matches) use ($translator) {
                 return $translator->translate(strtolower($matches[1]));
             },
             $renderedSubpart
@@ -743,7 +735,7 @@ class Tx_Oelib_Template
         $template = $this;
         return preg_replace_callback(
             self::SUBPART_PATTERN,
-            function (array $matches) use ($template) {
+            static function (array $matches) use ($template) {
                 return $template->getSubpart($matches[1]);
             },
             $templateCode

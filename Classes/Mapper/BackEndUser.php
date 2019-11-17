@@ -47,7 +47,10 @@ class Tx_Oelib_Mapper_BackEndUser extends \Tx_Oelib_DataMapper
      */
     public function findByUserName($userName): \Tx_Oelib_Model_BackEndUser
     {
-        return $this->findOneByKey('username', $userName);
+        /** @var \Tx_Oelib_Model_BackEndUser $result */
+        $result = $this->findOneByKey('username', $userName);
+
+        return $result;
     }
 
     /**
@@ -60,11 +63,10 @@ class Tx_Oelib_Mapper_BackEndUser extends \Tx_Oelib_DataMapper
      *
      * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB with the UID $uid
      */
-    protected function retrieveRecordByUid($uid)
+    protected function retrieveRecordByUid(int $uid)
     {
         $authentication = $this->getBackEndUserAuthentication();
-        if (\Tx_Oelib_BackEndLoginManager::getInstance()->isLoggedIn()
-            && ((int)$authentication->user['uid'] === $uid)) {
+        if ((int)$authentication->user['uid'] === $uid && \Tx_Oelib_BackEndLoginManager::getInstance()->isLoggedIn()) {
             $data = $authentication->user;
         } else {
             $data = parent::retrieveRecordByUid($uid);

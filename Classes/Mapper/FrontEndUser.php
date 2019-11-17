@@ -49,7 +49,10 @@ class Tx_Oelib_Mapper_FrontEndUser extends \Tx_Oelib_DataMapper
      */
     public function findByUserName(string $userName): \Tx_Oelib_Model_FrontEndUser
     {
-        return $this->findOneByKey('username', $userName);
+        /** @var \Tx_Oelib_Model_FrontEndUser $result */
+        $result = $this->findOneByKey('username', $userName);
+
+        return $result;
     }
 
     /**

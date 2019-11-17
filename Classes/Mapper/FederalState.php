@@ -33,11 +33,16 @@ class Tx_Oelib_Mapper_FederalState extends \Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model_FederalState the federal state with the requested code
      */
-    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode(string $isoAlpha2CountryCode, string $isoAlpha2ZoneCode): \Tx_Oelib_Model_FederalState
-    {
-        return $this->findOneByCompoundKey([
+    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode(
+        string $isoAlpha2CountryCode,
+        string $isoAlpha2ZoneCode
+    ): \Tx_Oelib_Model_FederalState {
+        /** @var \Tx_Oelib_Model_FederalState $result */
+        $result = $this->findOneByCompoundKey([
             'zn_country_iso_2' => $isoAlpha2CountryCode,
             'zn_code' => $isoAlpha2ZoneCode,
         ]);
+
+        return $result;
     }
 }

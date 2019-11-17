@@ -26,14 +26,9 @@ class AbstractMailerTest extends FunctionalTestCase
     private $subject = null;
 
     /**
-     * @var MailMessage
-     */
-    private $message1 = null;
-
-    /**
      * @var string[]
      */
-    private $email = [
+    const EMAIL = [
         'recipient' => 'any-recipient@example.com',
         'subject' => 'any subject',
         'message' => 'any message',
@@ -46,8 +41,8 @@ class AbstractMailerTest extends FunctionalTestCase
 
         $this->subject = new \Tx_Oelib_EmailCollector();
 
-        $this->message1 = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
-        GeneralUtility::addInstance(MailMessage::class, $this->message1);
+        $message = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
+        GeneralUtility::addInstance(MailMessage::class, $message);
     }
 
     protected function tearDown()
@@ -72,12 +67,12 @@ class AbstractMailerTest extends FunctionalTestCase
         $attachment->setContentType('text/plain');
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
 
         $eMail->addAttachment($attachment);
 
@@ -107,12 +102,12 @@ class AbstractMailerTest extends FunctionalTestCase
         $attachment->setContentType('text/html');
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
 
         $eMail->addAttachment($attachment);
 
@@ -144,12 +139,12 @@ class AbstractMailerTest extends FunctionalTestCase
         $attachment->setContentType('text/html');
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
 
         $eMail->addAttachment($attachment);
 
@@ -178,12 +173,12 @@ class AbstractMailerTest extends FunctionalTestCase
     public function sendCanAddTwoAttachments()
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $recipient = new TestingMailRole('John Doe', $this->email['recipient']);
+        $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
         $eMail = new \Tx_Oelib_Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
-        $eMail->setSubject($this->email['subject']);
-        $eMail->setMessage($this->email['message']);
+        $eMail->setSubject(self::EMAIL['subject']);
+        $eMail->setMessage(self::EMAIL['message']);
 
         $attachment1 = new \Tx_Oelib_Attachment();
         $attachment1->setFileName(__DIR__ . '/Fixtures/test.txt');

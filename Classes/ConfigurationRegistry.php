@@ -159,8 +159,7 @@ class Tx_Oelib_ConfigurationRegistry
     {
         $data = $this->getCompleteTypoScriptSetup();
 
-        $namespaceParts = explode('.', $namespace);
-        foreach ($namespaceParts as $namespacePart) {
+        foreach (\explode('.', $namespace) as $namespacePart) {
             if (!array_key_exists($namespacePart . '.', $data)) {
                 $data = [];
                 break;
@@ -201,7 +200,7 @@ class Tx_Oelib_ConfigurationRegistry
         /** @var PageRepository $page */
         $page = GeneralUtility::makeInstance(PageRepository::class);
         $rootline = $page->getRootLine($pageUid);
-        $template->runThroughTemplates($rootline, 0);
+        $template->runThroughTemplates($rootline);
         $template->generateConfig();
 
         return $template->setup;

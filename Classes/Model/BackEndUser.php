@@ -117,9 +117,8 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_In
             $result->append($groupsToProcess);
             /** @var \Tx_Oelib_Model_BackEndUserGroup $group */
             foreach ($groupsToProcess as $group) {
-                $subgroups = $group->getSubgroups();
                 /** @var \Tx_Oelib_Model_BackEndUserGroup $subgroup */
-                foreach ($subgroups as $subgroup) {
+                foreach ($group->getSubgroups() as $subgroup) {
                     if (!$result->hasUid($subgroup->getUid())) {
                         $groupsForNextStep->add($subgroup);
                     }
@@ -139,7 +138,7 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_In
     private function getConfiguration(): array
     {
         if (empty($this->configuration)) {
-            $this->configuration = (array)unserialize($this->getAsString('uc'));
+            $this->configuration = (array)\unserialize($this->getAsString('uc'));
         }
 
         return $this->configuration;

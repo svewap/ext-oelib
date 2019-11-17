@@ -1145,7 +1145,7 @@ class Tx_Oelib_ConfigCheck
 
         $result = 'plugin.tx_' . $this->objectToCheck->extKey;
         $matches = [];
-        if (preg_match('/_pi[0-9]+$/', $this->className, $matches)) {
+        if (\preg_match('/_pi\\d+$/', $this->className, $matches)) {
             $result .= $matches[0];
         }
 
@@ -1619,17 +1619,7 @@ class Tx_Oelib_ConfigCheck
     {
         $fieldName = 'listView.';
 
-        if (!isset($this->objectToCheck->conf[$fieldName])) {
-            $this->setErrorMessageAndRequestCorrection(
-                $fieldName,
-                false,
-                'The TS setup variable group <strong>' . $this->getTSSetupPath()
-                . $fieldName . '</strong> is not set. This setting controls '
-                . 'the list view. '
-                . 'If this part of the setup is missing, sorting and the '
-                . 'result browser will not work correctly.'
-            );
-        } else {
+        if (isset($this->objectToCheck->conf[$fieldName])) {
             $this->checkListViewIfSingleInSetNotEmpty(
                 'orderBy',
                 'This setting controls by which field the list view will be '
@@ -1659,6 +1649,16 @@ class Tx_Oelib_ConfigCheck
                 . 'the list view. '
                 . 'If this value is not set correctly, the result browser '
                 . 'will not work correctly.'
+            );
+        } else {
+            $this->setErrorMessageAndRequestCorrection(
+                $fieldName,
+                false,
+                'The TS setup variable group <strong>' . $this->getTSSetupPath()
+                . $fieldName . '</strong> is not set. This setting controls '
+                . 'the list view. '
+                . 'If this part of the setup is missing, sorting and the '
+                . 'result browser will not work correctly.'
             );
         }
     }
