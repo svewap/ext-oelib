@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Email;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -22,7 +23,7 @@ class RealMailerTest extends UnitTestCase
     private $subject = null;
 
     /**
-     * @var MailMessage|\PHPUnit_Framework_MockObject_MockObject
+     * @var MailMessage|MockObject
      */
     private $message = null;
 

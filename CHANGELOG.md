@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop unused fixture methods from the tests (#345)
 
 ### Fixed
+- Use the new class name for mocks (#349)
 
 ## 3.0.0
 

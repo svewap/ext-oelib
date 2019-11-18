@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Unit\DataStructures;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Test case.
@@ -836,7 +837,7 @@ class ListTest extends UnitTestCase
      */
     public function sortMakesListDirty()
     {
-        /** @var \Tx_Oelib_List|\PHPUnit_Framework_MockObject_MockObject $subject */
+        /** @var \Tx_Oelib_List|MockObject $subject */
         $subject = $this->createPartialMock(\Tx_Oelib_List::class, ['markAsDirty']);
         $subject->expects(self::once())->method('markAsDirty');
 

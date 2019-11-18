@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
 use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
 use OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures\TestingMapPoint;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -26,7 +27,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     private $configuration = null;
 
     /**
-     * @var \Tx_Oelib_Interface_MapPoint|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Tx_Oelib_Interface_MapPoint|MockObject
      */
     private $mapPointWithCoordinates = null;
 
