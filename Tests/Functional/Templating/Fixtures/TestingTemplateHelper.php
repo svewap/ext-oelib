@@ -47,7 +47,7 @@ final class TestingTemplateHelper extends \Tx_Oelib_TemplateHelper
      *
      * @return void
      */
-    public function setSalutationMode($salutation)
+    public function setSalutationMode(string $salutation)
     {
         $this->setConfigurationValue('salutation', $salutation);
     }

@@ -19,11 +19,10 @@ final class ReadOnlyModel extends \Tx_Oelib_Model
      * Sets the "title" data item for this model.
      *
      * @param string $value
-     *        the value to set, may be empty
      *
      * @return void
      */
-    public function setTitle($value)
+    public function setTitle(string $value)
     {
         $this->setAsString('title', $value);
     }

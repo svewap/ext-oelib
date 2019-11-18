@@ -98,7 +98,7 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
      *
      * @dataProvider nonMatchedZipCodesDataProvider
      */
-    public function findOneByZipCodeWithoutMatchReturnsNull($zipCode)
+    public function findOneByZipCodeWithoutMatchReturnsNull(string $zipCode)
     {
         $result = $this->subject->findOneByZipCode($zipCode);
 

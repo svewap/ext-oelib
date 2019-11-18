@@ -111,7 +111,7 @@ class TestingMapper extends \Tx_Oelib_DataMapper
      * Processes a model's data and creates any relations that are hidden within
      * it using foreign key mapping.
      *
-     * @param array &$data
+     * @param array $data
      *        the model data to process, might be modified
      * @param \Tx_Oelib_Model $model
      *        the model to create the relations for

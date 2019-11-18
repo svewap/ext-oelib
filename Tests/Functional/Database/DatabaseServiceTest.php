@@ -43,7 +43,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      *
      * @return int[] the separate values, sorted numerically, may be empty
      */
-    private function sortExplode($valueList): array
+    private function sortExplode(string $valueList): array
     {
         if ($valueList === '') {
             return [];
@@ -739,7 +739,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      *
      * @dataProvider booleanDataProvider
      */
-    public function updateCanUpdateRecordWithBooleanData($value)
+    public function updateCanUpdateRecordWithBooleanData(bool $value)
     {
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
@@ -869,7 +869,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      *
      * @dataProvider booleanDataProvider
      */
-    public function insertCanInsertRecordWithBooleanData($value)
+    public function insertCanInsertRecordWithBooleanData(bool $value)
     {
         \Tx_Oelib_Db::insert(
             'tx_oelib_test',

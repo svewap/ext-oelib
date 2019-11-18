@@ -24,7 +24,7 @@ class TestingChildModel extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_S
      *
      * @return void
      */
-    public function setTitle($value)
+    public function setTitle(string $value)
     {
         $this->setAsString('title', $value);
     }

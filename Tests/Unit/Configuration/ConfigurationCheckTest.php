@@ -209,7 +209,8 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      *
-     * @param string $emailAddress
+     * @param mixed $emailAddress
+     *
      * @dataProvider invalidEmailDataProvider
      */
     public function checkIsValidDefaultFromEmailAddressForInalidAddressMarksItAsInvalid($emailAddress)

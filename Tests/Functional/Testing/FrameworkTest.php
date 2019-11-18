@@ -65,7 +65,7 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @return int the sorting value of the relation
      */
-    private function getSortingOfRelation($uidLocal, $uidForeign): int
+    private function getSortingOfRelation(int $uidLocal, int $uidForeign): int
     {
         $row = $this->getDatabaseConnection()->selectSingleRow(
             'sorting',
@@ -338,7 +338,7 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @dataProvider booleanDataProvider
      */
-    public function createRecordPersistsBooleansAsIntegers($value)
+    public function createRecordPersistsBooleansAsIntegers(bool $value)
     {
         $this->subject->createRecord('tx_oelib_test', ['bool_data1' => $value]);
 
@@ -572,7 +572,7 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @dataProvider booleanDataProvider
      */
-    public function changeRecordPersistsBooleansAsIntegers($value)
+    public function changeRecordPersistsBooleansAsIntegers(bool $value)
     {
         $uid = $this->subject->createRecord('tx_oelib_test');
 
@@ -1585,7 +1585,7 @@ class FrameworkTest extends FunctionalTestCase
      *
      * @dataProvider booleanDataProvider
      */
-    public function countCanFindWithBooleanValues($value)
+    public function countCanFindWithBooleanValues(bool $value)
     {
         $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',

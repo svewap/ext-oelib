@@ -27,7 +27,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return void
      */
-    public function setTitle($value)
+    public function setTitle(string $value)
     {
         $this->setAsString('title', $value);
     }
@@ -45,7 +45,7 @@ class TestingModel extends \Tx_Oelib_Model
      *
      * @return void
      */
-    public function setHeader($value)
+    public function setHeader(string $value)
     {
         $this->setAsString('header', $value);
     }

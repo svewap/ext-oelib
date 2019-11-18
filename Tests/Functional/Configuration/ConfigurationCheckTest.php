@@ -78,7 +78,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
      *
      * @return void
      */
-    private function setConfigurationForLocale($localeKey)
+    private function setConfigurationForLocale(string $localeKey)
     {
         $this->getFrontEndController()->config['config']['locale_all'] = $localeKey;
     }

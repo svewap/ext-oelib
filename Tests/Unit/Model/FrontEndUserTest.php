@@ -1258,9 +1258,10 @@ class FrontEndUserTest extends UnitTestCase
      * @test
      *
      * @param int $gender
+     *
      * @dataProvider genderDataProvider
      */
-    public function setGenderCanSetGender($gender)
+    public function setGenderCanSetGender(int $gender)
     {
         $this->enableGenderField();
         $this->subject->setData([]);

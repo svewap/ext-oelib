@@ -45,7 +45,7 @@ final class TestingSalutationSwitcher extends \Tx_Oelib_SalutationSwitcher
      *
      * @return void
      */
-    public function setLanguage($language)
+    public function setLanguage(string $language)
     {
         if ($this->getLanguage() !== $language) {
             // Make sure the language file are reloaded.
@@ -71,12 +71,11 @@ final class TestingSalutationSwitcher extends \Tx_Oelib_SalutationSwitcher
     /**
      * Sets the salutation mode.
      *
-     * @param string $salutation
-     *        the salutation mode to use ("formal" or "informal")
+     * @param string $salutation the salutation mode to use ("formal" or "informal")
      *
      * @return void
      */
-    public function setSalutationMode($salutation)
+    public function setSalutationMode(string $salutation)
     {
         $this->conf['salutation'] = $salutation;
     }

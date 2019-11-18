@@ -18,15 +18,13 @@ class TestingMailRole extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_Ma
     /**
      * The constructor. Sets the name and the e-mail address of the e-mail role.
      *
-     * @param string $name
-     *        the name of the e-mail role, may be empty
-     * @param string $eMail
-     *        the e-mail address of the e-mail role, may be empty
+     * @param string $name the name of the e-mail role, may be empty
+     * @param string $email the e-mail address of the e-mail role, may be empty
      */
-    public function __construct($name, $eMail)
+    public function __construct(string $name, string $email)
     {
         $this->setName($name);
-        $this->setEmailAddress($eMail);
+        $this->setEmailAddress($email);
     }
 
     /**
@@ -76,7 +74,7 @@ class TestingMailRole extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_Ma
      *
      * @return void
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->setAsString('name', $name);
     }
@@ -94,13 +92,13 @@ class TestingMailRole extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_Ma
     /**
      * Sets the e-mail address of the e-mail role.
      *
-     * @param string $eMail
+     * @param string $email
      *        the e-mail address of the e-mail role, may be empty
      *
      * @return void
      */
-    public function setEmailAddress($eMail)
+    public function setEmailAddress(string $email)
     {
-        $this->setAsString('email', $eMail);
+        $this->setAsString('email', $email);
     }
 }

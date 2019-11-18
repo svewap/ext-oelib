@@ -229,7 +229,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      *
      * @dataProvider frontEndConfigurationDataProvider
      */
-    public function initializeFrontEndWithoutFrontEndLanguageSetsLanguageDefault($namespace)
+    public function initializeFrontEndWithoutFrontEndLanguageSetsLanguageDefault(string $namespace)
     {
         $this->setUpBackEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData([]);
@@ -247,7 +247,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      *
      * @dataProvider frontEndConfigurationDataProvider
      */
-    public function initializeFrontEndWithFrontEndLanguageEnglishSetsLanguageEnglish($namespace)
+    public function initializeFrontEndWithFrontEndLanguageEnglishSetsLanguageEnglish(string $namespace)
     {
         $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'default']);
@@ -265,7 +265,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      *
      * @dataProvider frontEndConfigurationDataProvider
      */
-    public function initializeFrontEndWithFrontEndLanguageGermanSetsLanguageGerman($namespace)
+    public function initializeFrontEndWithFrontEndLanguageGermanSetsLanguageGerman(string $namespace)
     {
         $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'de']);
@@ -283,7 +283,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      *
      * @dataProvider frontEndConfigurationDataProvider
      */
-    public function initializeFrontEndWithoutAlternativeFrontEndLanguageDoesNotSetAlternativeLanguage($namespace)
+    public function initializeFrontEndWithoutAlternativeFrontEndLanguageDoesNotSetAlternative(string $namespace)
     {
         $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData([]);
@@ -301,7 +301,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      *
      * @dataProvider frontEndConfigurationDataProvider
      */
-    public function initializeFrontEndWithAlternativeFrontEndLanguageEnglishSetsAlternativeLanguageEnglish($namespace)
+    public function initializeFrontEndWithAlternativeFrontEndLanguageEnglishSetsAlternativeEnglish(string $namespace)
     {
         $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'de', 'language_alt' => 'default']);
@@ -319,7 +319,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
      *
      * @dataProvider frontEndConfigurationDataProvider
      */
-    public function initializeFrontEndWithAlternativeFrontEndLanguageGermanSetsAlternativeLanguageGerman($namespace)
+    public function initializeFrontEndWithAlternativeFrontEndLanguageGermanSetsAlternativeGerman(string $namespace)
     {
         $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'default', 'language_alt' => 'de']);

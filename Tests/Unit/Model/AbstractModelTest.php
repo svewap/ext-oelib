@@ -83,7 +83,7 @@ class AbstractModelTest extends UnitTestCase
      *
      * @dataProvider cloneableStatusDataProvider
      */
-    public function cloneReturnsDirtyModel($status)
+    public function cloneReturnsDirtyModel(int $status)
     {
         $this->subject->setLoadStatus($status);
 
@@ -1475,7 +1475,7 @@ class AbstractModelTest extends UnitTestCase
      *
      * @dataProvider uncloneableStatusDataProvider
      */
-    public function cloneWithInvalidStatusThrowsException($status)
+    public function cloneWithInvalidStatusThrowsException(int $status)
     {
         $this->expectException(\BadMethodCallException::class);
 

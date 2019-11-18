@@ -1914,7 +1914,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      *
      * @dataProvider dataTypeDataProvider
      */
-    public function savePersistsAllBasicDataTypes($propertyName, $expectedValue)
+    public function savePersistsAllBasicDataTypes(string $propertyName, $expectedValue)
     {
         $model = new TestingModel();
         $model->setData(
@@ -2828,7 +2828,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      *
      * @return array|null
      */
-    private function findRecordByUid($uid)
+    private function findRecordByUid(int $uid)
     {
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tx_oelib_test');
