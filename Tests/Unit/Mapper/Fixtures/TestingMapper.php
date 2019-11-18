@@ -182,23 +182,4 @@ class TestingMapper extends \Tx_Oelib_DataMapper
     {
         $this->cachedModels[] = $model;
     }
-
-    /**
-     * Looks up a model in the cache by compound key.
-     *
-     * When this function reports "no match", the model could still exist in the
-     * database, though.
-     *
-     *
-     * @param string $title
-     * @param string $header
-     *
-     * @return \Tx_Oelib_Model the cached model
-     *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
-     */
-    public function findOneByTitleAndHeader($title, $header): \Tx_Oelib_Model
-    {
-        return $this->findOneByCompoundKeyFromCache($title . ':' . $header);
-    }
 }

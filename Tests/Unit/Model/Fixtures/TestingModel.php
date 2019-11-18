@@ -10,10 +10,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Model\Fixtures;
  */
 class TestingModel extends \Tx_Oelib_Model
 {
-    /*
-     * normal getters and setters
-     */
-
     /**
      * @return string
      */
@@ -30,14 +26,6 @@ class TestingModel extends \Tx_Oelib_Model
     public function setTitle(string $value)
     {
         $this->setAsString('title', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getHeader(): string
-    {
-        return $this->getAsString('header');
     }
 
     /**
@@ -173,18 +161,6 @@ class TestingModel extends \Tx_Oelib_Model
     }
 
     /**
-     * Sets the "composition" data item. This is an 1:n relation.
-     *
-     * @param \Tx_Oelib_List $components <TestingChildModel>
-     *
-     * @return void
-     */
-    public function setComposition(\Tx_Oelib_List $components)
-    {
-        $this->set('composition', $components);
-    }
-
-    /**
      * Adds $model to the "composition" relation.
      *
      * @param TestingChildModel $model
@@ -246,10 +222,6 @@ class TestingModel extends \Tx_Oelib_Model
     {
         return $this->getAsFloat('string_data');
     }
-
-    /*
-     * proxy methods
-     */
 
     /**
      * @param string $key
