@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Remove unused `limit` parameter from `DataMapper::findByPageUid` (#348)
 - Drop unused fixture methods from the tests (#345)
 
 ### Fixed

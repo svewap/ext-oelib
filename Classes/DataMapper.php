@@ -1321,12 +1321,11 @@ abstract class Tx_Oelib_DataMapper
      * @param string $sorting
      *        the sorting for the found records, must be a valid DB field
      *        optionally followed by "ASC" or "DESC", may be empty
-     * @param string|int $limit the LIMIT value ([begin,]max), may be empty
      *
      * @return \Tx_Oelib_List<\Tx_Oelib_Model> all records with the matching page UIDs, will be
      *                       empty if no records have been found
      */
-    public function findByPageUid($pageUids, string $sorting = '', $limit = ''): \Tx_Oelib_List
+    public function findByPageUid($pageUids, string $sorting = ''): \Tx_Oelib_List
     {
         $query = $this->getQueryBuilder()->select('*')->from($this->getTableName());
         $this->addPageUidRestriction($query, (string)$pageUids);
