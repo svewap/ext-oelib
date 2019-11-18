@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
@@ -1116,8 +1117,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function hasGroupMembershipForUserOnlyInProvidedGroupReturnsTrue()
     {
-        $userGroup = \Tx_Oelib_MapperRegistry
-            ::get(\Tx_Oelib_Mapper_FrontEndUserGroup::class)->getNewGhost();
+        $userGroup = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUserGroup::class)->getNewGhost();
         $list = new \Tx_Oelib_List();
         $list->add($userGroup);
 

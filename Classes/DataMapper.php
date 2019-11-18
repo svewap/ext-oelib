@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -803,7 +804,8 @@ abstract class Tx_Oelib_DataMapper
             );
         }
 
-        if (!$this->hasDatabaseAccess()
+        if (
+            !$this->hasDatabaseAccess()
             || !$model->isDirty()
             || !$model->isLoaded()
             || $model->isReadOnly()
@@ -1291,18 +1293,12 @@ abstract class Tx_Oelib_DataMapper
             $orderBy = $sorting;
         } elseif (isset($tca['ctrl']['default_sortby'])) {
             $matches = [];
-            if (preg_match(
-                '/^ORDER BY (.+)$/',
-                $tca['ctrl']['default_sortby'],
-                $matches
-            )) {
+            if (\preg_match('/^ORDER BY (.+)$/', $tca['ctrl']['default_sortby'], $matches)) {
                 $orderBy = $matches[1];
             }
         }
 
-        $completeWhereClause = ($whereClause === '')
-            ? ''
-            : $whereClause . ' AND ';
+        $completeWhereClause = ($whereClause === '') ? '' : $whereClause . ' AND ';
 
         $rows = \Tx_Oelib_Db::selectMultiple(
             '*',
@@ -1375,8 +1371,7 @@ abstract class Tx_Oelib_DataMapper
      * database, though.
      *
      * @param string $key an existing key, must not be empty
-     * @param string $value
-     *        the value for the key of the model to find, must not be empty
+     * @param string $value the value for the key of the model to find, must not be empty
      *
      * @return \Tx_Oelib_Model the cached model
      *

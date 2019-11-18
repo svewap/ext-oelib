@@ -1,6 +1,7 @@
 <?php
 defined('TYPO3_MODE') or die('Access denied.');
 
+$labelPrefix = 'LLL:EXT:oelib/Resources/Private/Language/locallang_db.xlf:tx_oelib_domain_model_germanzipcode';
 return [
     'ctrl' => [
         'default_sortby' => 'zip_code',
@@ -13,14 +14,14 @@ return [
         'readOnly' => true,
         'rootLevel' => 1,
         'searchFields' => 'zip_code, city_name',
-        'title' => 'LLL:EXT:oelib/Resources/Private/Language/locallang_db.xlf:tx_oelib_domain_model_germanzipcode',
+        'title' => $labelPrefix,
     ],
     'interface' => [
         'showRecordFieldList' => 'zip_code, city_name, longitude, latitude',
     ],
     'columns' => [
         'zip_code' => [
-            'label' => 'LLL:EXT:oelib/Resources/Private/Language/locallang_db.xlf:tx_oelib_domain_model_germanzipcode.zip_code',
+            'label' => $labelPrefix . '.zip_code',
             'config' => [
                 'type' => 'input',
                 'readOnly' => true,
@@ -28,7 +29,7 @@ return [
             ],
         ],
         'city_name' => [
-            'label' => 'LLL:EXT:oelib/Resources/Private/Language/locallang_db.xlf:tx_oelib_domain_model_germanzipcode.city_name',
+            'label' => $labelPrefix . '.city_name',
             'config' => [
                 'type' => 'input',
                 'readOnly' => true,
@@ -36,7 +37,7 @@ return [
             ],
         ],
         'longitude' => [
-            'label' => 'LLL:EXT:oelib/Resources/Private/Language/locallang_db.xlf:tx_oelib_domain_model_germanzipcode.longitude',
+            'label' => $labelPrefix . '.longitude',
             'config' => [
                 'type' => 'input',
                 'readOnly' => true,
@@ -44,7 +45,7 @@ return [
             ],
         ],
         'latitude' => [
-            'label' => 'LLL:EXT:oelib/Resources/Private/Language/locallang_db.xlf:tx_oelib_domain_model_germanzipcode.latitude',
+            'label' => $labelPrefix . '.latitude',
             'config' => [
                 'type' => 'input',
                 'readOnly' => true,

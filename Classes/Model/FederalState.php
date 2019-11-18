@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 /**
  * This model represents a federal state, e.g., Nordrhein-Westfalen (in Germany).

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Visibility;
 
@@ -256,8 +257,8 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getKeysOfHiddenSubpartsForTreeWithOneHiddenParentNodeAndOneHiddenChildNodeReturnsArrayWithBothNodeNames(
-    ) {
+    public function getKeysOfHiddenSubpartsForTreeWithHiddenParentNodeAndHiddenChildNodeReturnsArrayWithBothNodeNames()
+    {
         $this->subject = new \Tx_Oelib_Visibility_Tree(['child' => ['parent' => false]]);
 
         self::assertSame(
@@ -269,8 +270,8 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getKeysOfHiddenSubpartsForTreeWithVisibleParentNodeAndOneHiddenChildNodeReturnsArrayWithChildNodeName(
-    ) {
+    public function getKeysOfHiddenSubpartsForTreeWithVisibleParentNodeAndHiddenChildNodeReturnsArrayWithChildNodeName()
+    {
         $this->subject = new \Tx_Oelib_Visibility_Tree(['parent' => ['hidden' => false, 'visible' => true]]);
 
         self::assertSame(

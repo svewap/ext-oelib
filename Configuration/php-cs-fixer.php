@@ -40,7 +40,7 @@ return \PhpCsFixer\Config::create()
             'combine_consecutive_unsets' => true,
             'compact_nullable_typehint' => true,
             'concat_space' => ['spacing' => 'one'],
-            'declare_equal_normalize' => ['space' => 'single'],
+            'declare_equal_normalize' => true,
             'dir_constant' => true,
             'elseif' => true,
             'encoding' => true,

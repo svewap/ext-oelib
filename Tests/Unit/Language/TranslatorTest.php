@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Language;
 
@@ -63,8 +64,8 @@ class TranslatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function translateForLabelInexistentInGermanWithEmptyAlternativeLanguageWithLanguageGermanReturnsEnglishLabel(
-    ) {
+    public function translateForLabelInexistentInGermanWithEmptyAlternativeLanguageWithGermanReturnsEnglishLabel()
+    {
         $localizedLabels = [
             'default' => ['label_test' => [0 => ['source' => 'English', 'target' => 'English']]],
         ];

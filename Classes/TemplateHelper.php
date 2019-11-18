@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -1097,7 +1098,8 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
             array_merge(
                 ['showUid', 'pointer', 'mode'],
                 $additionalPiVars
-            ) as $key) {
+            ) as $key
+        ) {
             if (isset($this->piVars[$key])) {
                 $this->piVars[$key] = (int)$this->piVars[$key];
             } else {
@@ -1121,9 +1123,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         }
 
         foreach ($keys as $key) {
-            if (!isset($this->piVars[$key])
-                || !is_array($this->piVars[$key])
-            ) {
+            if (!isset($this->piVars[$key]) || !is_array($this->piVars[$key])) {
                 continue;
             }
 

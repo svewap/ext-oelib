@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
@@ -72,8 +73,8 @@ class FederalStateMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithIsoAlpha2CodeOfExistingRecordReturnsFederalStateInstance(
-    ) {
+    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithDataOfExistingRecordReturnsFederalStateInstance()
+    {
         self::assertInstanceOf(
             \Tx_Oelib_Model_FederalState::class,
             $this->subject->findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode('DE', 'NW')
@@ -83,8 +84,8 @@ class FederalStateMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithIsoAlpha2CodeOfExistingRecordReturnsRecordAsModel(
-    ) {
+    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithDataOfExistingRecordReturnsRecordAsModel()
+    {
         self::assertSame(
             'NW',
             $this->subject->findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode('DE', 'NW')->getIsoAlpha2ZoneCode()

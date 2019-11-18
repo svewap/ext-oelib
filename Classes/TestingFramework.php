@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
@@ -492,8 +493,7 @@ final class Tx_Oelib_TestingFramework
         if ($frontEndUserGroupsWithoutSpaces === '') {
             $frontEndUserGroupsWithoutSpaces = (string)$this->createFrontEndUserGroup();
         }
-        if (!preg_match('/^(?:[1-9]+\\d*,?)+$/', $frontEndUserGroupsWithoutSpaces)
-        ) {
+        if (!\preg_match('/^(?:[1-9]+\\d*,?)+$/', $frontEndUserGroupsWithoutSpaces)) {
             throw new \InvalidArgumentException(
                 '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.',
                 1331489824
@@ -1130,10 +1130,7 @@ final class Tx_Oelib_TestingFramework
      */
     public function getPathRelativeToUploadDirectory(string $absolutePath): string
     {
-        if (!preg_match(
-            '/^' . str_replace('/', '\\/', $this->getUploadFolderPath()) . '.*$/',
-            $absolutePath
-        )) {
+        if (!\preg_match('/^' . \str_replace('/', '\\/', $this->getUploadFolderPath()) . '.*$/', $absolutePath)) {
             throw new \InvalidArgumentException(
                 'The first parameter $absolutePath is not within the calling extension\'s upload directory.',
                 1331490760
@@ -1816,7 +1813,8 @@ final class Tx_Oelib_TestingFramework
             return;
         }
 
-        if ($this->getAutoIncrement($table) >
+        if (
+            $this->getAutoIncrement($table) >
             ($this->getMaximumUidFromTable($table) + $this->resetAutoIncrementThreshold)
         ) {
             $this->resetAutoIncrement($table);

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Model;
 
@@ -123,10 +124,8 @@ class BackEndUserTest extends FunctionalTestCase
             ->getLoadedTestingModel([]);
         $subgroup = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)
             ->getLoadedTestingModel(['subgroup' => $subsubgroup->getUid()]);
-        $group = \Tx_Oelib_MapperRegistry::
-        get(\Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel(
-            ['subgroup' => $subgroup->getUid()]
-        );
+        $group = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)
+            ->getLoadedTestingModel(['subgroup' => $subgroup->getUid()]);
         $groups = new \Tx_Oelib_List();
         $groups->add($group);
         $this->subject->setData(['usergroup' => $groups]);

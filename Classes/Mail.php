@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 use Pelago\Emogrifier\CssInliner;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -316,7 +317,8 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     {
         if (!$this->cssFileIsCached($cssFile)) {
             $absoluteFileName = GeneralUtility::getFileAbsFileName($cssFile);
-            if (($cssFile !== '') && is_readable($absoluteFileName)
+            if (
+                ($cssFile !== '') && is_readable($absoluteFileName)
             ) {
                 self::$cssFileCache[$cssFile] = file_get_contents($absoluteFileName);
             } else {

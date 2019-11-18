@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
@@ -213,7 +214,7 @@ class ConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider invalidEmailDataProvider
      */
-    public function checkIsValidDefaultFromEmailAddressForInalidAddressMarksItAsInvalid($emailAddress)
+    public function checkIsValidDefaultFromEmailAddressForInvalidAddressMarksItAsInvalid($emailAddress)
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $emailAddress;
 

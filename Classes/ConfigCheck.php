@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -317,7 +318,8 @@ class Tx_Oelib_ConfigCheck
             'creating any output from this extension.'
         );
 
-        if (($this->getFrontEndController() !== null)
+        if (
+            ($this->getFrontEndController() !== null)
             && $this->objectToCheck->hasConfValueString('templateFile', 's_template_special')
         ) {
             $rawFileName = $this->objectToCheck->getConfValueString(

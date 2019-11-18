@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -72,8 +73,8 @@ class Tx_Oelib_Mapper_FrontEndUser extends \Tx_Oelib_DataMapper
         }
 
         $tableName = $this->getTableName();
-        $where = $this->getUniversalWhereClause() . ' AND ' .
-            'usergroup REGEXP \'(^|,)(' . implode('|', GeneralUtility::intExplode(',', (string)$groupUids)) . ')($|,)\'';
+        $where = $this->getUniversalWhereClause() . ' AND usergroup REGEXP \'(^|,)(' .
+            \implode('|', GeneralUtility::intExplode(',', (string)$groupUids)) . ')($|,)\'';
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
         $statement = $connection->query('SELECT * FROM `' . $tableName . '` WHERE ' . $where);
 

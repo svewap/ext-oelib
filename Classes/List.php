@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 /**
  * This class represents a list of models.
@@ -56,10 +57,11 @@ class Tx_Oelib_List extends SplObjectStorage
 
         if ($model->hasUid()) {
             $uid = $model->getUid();
-            // This should never happen, but still seems to happen sometimes. This exception should help debugging the problem.
-            if (!is_array($this->uids)) {
+            // This should never happen, but still seems to happen sometimes.
+            // This exception should help debugging the problem.
+            if (!\is_array($this->uids)) {
                 throw new \UnexpectedValueException(
-                    '$this->uids was expected to be an array, but actually is: ' . gettype($this->uids),
+                    '$this->uids was expected to be an array, but actually is: ' . \gettype($this->uids),
                     1440104082
                 );
             }

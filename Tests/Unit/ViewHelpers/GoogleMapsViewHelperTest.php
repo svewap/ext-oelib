@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
@@ -242,7 +243,8 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         self::assertContains(
             '<script src="https://maps.googleapis.com/maps/api/js?key=' . $apiKey
             . '" type="text/javascript"></script>',
-            $this->mockFrontEnd->additionalHeaderData[\Tx_Oelib_ViewHelpers_GoogleMapsViewHelper::LIBRARY_JAVASCRIPT_HEADER_KEY]
+            $this->mockFrontEnd
+                ->additionalHeaderData[\Tx_Oelib_ViewHelpers_GoogleMapsViewHelper::LIBRARY_JAVASCRIPT_HEADER_KEY]
         );
     }
 

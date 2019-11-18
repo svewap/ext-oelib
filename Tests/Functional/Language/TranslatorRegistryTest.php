@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Language;
 
@@ -348,8 +349,8 @@ class TranslatorRegistryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function initializeFrontEndWithAlternativeLanguageSetInConfigAndInPageConfigSetsAlternativeLanguageFromPageConfig(
-    ) {
+    public function initializeFrontEndWithAlternativeLanguageSetInConfigAndInPageConfigUsesFromPageConfig()
+    {
         $this->setUpFrontEnd();
         \Tx_Oelib_ConfigurationRegistry::get('config')->setData(['language' => 'de', 'language_alt' => 'cz']);
         \Tx_Oelib_ConfigurationRegistry::get('page.config')->setData(['language' => 'fr', 'language_alt' => 'ja']);
@@ -387,8 +388,8 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         \Tx_Oelib_ConfigurationRegistry::get('config')->set('language', 'default');
         \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
-        \Tx_Oelib_ConfigurationRegistry::
-        get('plugin.tx_oelib._LOCAL_LANG.default')->set('label_test', 'I am from TypoScript.');
+        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
+            ->set('label_test', 'I am from TypoScript.');
 
         self::assertSame(
             'I am from TypoScript.',

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Email;
 
@@ -62,7 +63,8 @@ class MailTest extends FunctionalTestCase
      */
     public function setCssFileForGivenCssFileWithAbsolutePathSetsCssFile()
     {
-        $this->subject->setCssFile(ExtensionManagementUtility::extPath('oelib') . 'Tests/Functional/Email/Fixtures/test.css');
+        $this->subject
+            ->setCssFile(ExtensionManagementUtility::extPath('oelib') . 'Tests/Functional/Email/Fixtures/test.css');
 
         self::assertTrue(
             $this->subject->hasCssFile()
