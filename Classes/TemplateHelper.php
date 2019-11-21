@@ -82,7 +82,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         // Calls the base class's constructor manually as this isn't done automatically.
         parent::__construct();
 
-        $this->initializeConfiguration($configuration);
+        $this->conf = $configuration;
         $this->ensureContentObject();
 
         if ($this->extKey !== '') {
@@ -95,14 +95,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     }
 
     /**
-     * @param array|null $configuration
-     *
      * @return void
      */
-    protected function initializeConfiguration(array $configuration = null)
+    protected function initializeConfiguration()
     {
-        if ($configuration !== null) {
-            $this->conf = $configuration;
+        if ($this->conf !== null) {
             return;
         }
 
@@ -121,7 +118,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
                 $this->conf = $this->retrievePageConfig($pageId);
             } else {
                 // On the front end, we can use the provided template setup.
-                $this->conf = ($this->extKey !== '')
+                $this->conf = $this->extKey !== ''
                     ? $frontEnd->tmpl->setup['plugin.']['tx_' . $this->extKey . '.'] : [];
             }
 
@@ -274,21 +271,19 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         bool $isFileName = false,
         bool $ignoreFlexform = false
     ): string {
-        $flexformsValue = '';
+        $this->initializeConfiguration();
+
+        $flexFormsValue = '';
         if (!$ignoreFlexform) {
-            $flexformsValue = $this->pi_getFFvalue(
-                $this->cObj->data['pi_flexform'],
-                $fieldName,
-                $sheet
-            );
+            $flexFormsValue = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $fieldName, $sheet);
         }
 
-        if ($isFileName && $flexformsValue !== null && $flexformsValue !== '') {
-            $flexformsValue = $this->addPathToFileName($flexformsValue);
+        if ($isFileName && $flexFormsValue !== null && $flexFormsValue !== '') {
+            $flexFormsValue = $this->addPathToFileName($flexFormsValue);
         }
         $confValue = (string)($this->conf[$fieldName] ?? '');
 
-        return $flexformsValue ?: $confValue;
+        return $flexFormsValue ?: $confValue;
     }
 
     /**
@@ -1049,9 +1044,9 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      *
      * This function may only be called if $this->$prefixId has been set.
      *
-     * @deprecated will be removed in oelib 4.0
-     *
      * @return void
+     *
+     * @deprecated will be removed in oelib 4.0
      */
     public function addJavaScriptToPageHeader()
     {
@@ -1197,11 +1192,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     /**
      * Sets the "flavor" of the object to check.
      *
-     * @deprecated Will be removed in oelib 4.0. Use custom config check classes instead.
-     *
      * @param string $flavor a short string identifying the "flavor" of the object to check (may be empty)
      *
      * @return void
+     *
+     * @deprecated Will be removed in oelib 4.0. Use custom config check classes instead.
      */
     public function setFlavor(string $flavor)
     {
