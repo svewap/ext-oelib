@@ -92,20 +92,23 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1331489025);
         }
-
         if (isset($this->translationCache[$key])) {
-            $result = $this->translationCache[$key];
-        } else {
-            if (is_array($this->LOCAL_LANG) && ($this->getFrontEndController() !== null)) {
-                $result = $this->translateInFrontEnd($key);
-            } elseif ($this->getLanguageService() !== null) {
-                $result = $this->translateInBackEnd($key);
-            } else {
-                $result = $key;
-            }
-
-            $this->translationCache[$key] = $result;
+            return $this->translationCache[$key];
         }
+        if ($this->extKey === '') {
+            return $key;
+        }
+
+        $this->pi_loadLL();
+        if (\is_array($this->LOCAL_LANG) && $this->getFrontEndController() !== null) {
+            $result = $this->translateInFrontEnd($key);
+        } elseif ($this->getLanguageService() !== null) {
+            $result = $this->translateInBackEnd($key);
+        } else {
+            $result = $key;
+        }
+
+        $this->translationCache[$key] = $result;
 
         return $result;
     }

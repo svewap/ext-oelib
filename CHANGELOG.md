@@ -8,10 +8,10 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Initialize `TemplateHelper` lazily (#350, #351, #352)
 - Use more type declarations in the tests (#346)
 
 ### Deprecated
-- Initialize `TemplateHelper` lazily (#350)
 
 ### Removed
 - Remove unused `limit` parameter from `DataMapper::findByPageUid` (#348)

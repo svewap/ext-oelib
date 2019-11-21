@@ -87,7 +87,6 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
 
         if ($this->extKey !== '') {
             $this->pi_setPiVarDefaults();
-            $this->pi_loadLL();
             $this->initializeConfigurationCheck();
         }
 
