@@ -107,21 +107,23 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
             $frontEndController->config['config'] = [];
         }
 
-        $pageId = $this->getCurrentBePageId();
-        if (isset(self::$cachedConfigurations[$pageId])) {
-            $this->conf = self::$cachedConfigurations[$pageId];
+        $pageUid = $this->getCurrentBePageId();
+        if ($pageUid === 0) {
+            $this->conf = [];
+        } elseif (isset(self::$cachedConfigurations[$pageUid])) {
+            $this->conf = self::$cachedConfigurations[$pageUid];
         } else {
             // We need to create our own template setup if we are in the
             // BE and we aren't currently creating a DirectMail page.
             if (TYPO3_MODE === 'BE' && $frontEndController === null) {
-                $this->conf = $this->retrievePageConfig($pageId);
+                $this->conf = $this->retrievePageConfig($pageUid);
             } else {
                 // On the front end, we can use the provided template setup.
                 $this->conf = $this->extKey !== ''
                     ? $frontEndController->tmpl->setup['plugin.']['tx_' . $this->extKey . '.'] : [];
             }
 
-            self::$cachedConfigurations[$pageId] = $this->conf;
+            self::$cachedConfigurations[$pageUid] = $this->conf;
         }
     }
 
@@ -365,12 +367,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         string $sheet = 'sDEF',
         bool $ignoreFlexform = false
     ): bool {
-        return $this->getConfValueString(
-            $fieldName,
-            $sheet,
-            false,
-            $ignoreFlexform
-        ) !== '';
+        return $this->getConfValueString($fieldName, $sheet, false, $ignoreFlexform) !== '';
     }
 
     /**
