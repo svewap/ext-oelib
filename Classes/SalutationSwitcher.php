@@ -92,11 +92,11 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1331489025);
         }
-        if (isset($this->translationCache[$key])) {
-            return $this->translationCache[$key];
-        }
         if ($this->extKey === '') {
             return $key;
+        }
+        if (isset($this->translationCache[$key])) {
+            return $this->translationCache[$key];
         }
 
         $this->pi_loadLL();
@@ -183,16 +183,11 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
                 $this->availableLanguages[] = $this->LLkey;
             }
             // The key for English is "default", not "en".
-            $this->availableLanguages = str_replace(
-                'en',
-                'default',
-                $this->availableLanguages
-            );
+            $this->availableLanguages = \str_replace('en', 'default', $this->availableLanguages);
             // Remove duplicates in case the default language is the same as the fall-back language.
-            $this->availableLanguages = array_unique($this->availableLanguages);
+            $this->availableLanguages = \array_unique($this->availableLanguages);
 
-            // Now check that we only keep languages for which we have
-            // translations.
+            // Now check that we only keep languages for which we have translations.
             foreach ($this->availableLanguages as $index => $code) {
                 if (!isset($this->LOCAL_LANG[$code])) {
                     unset($this->availableLanguages[$index]);
