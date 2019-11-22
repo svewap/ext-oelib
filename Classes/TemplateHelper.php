@@ -78,16 +78,16 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         if ($this->isInitialized) {
             return;
         }
-
-        // Calls the base class's constructor manually as this isn't done automatically.
-        parent::__construct();
+        if ($this->templateService === null) {
+            // Calls the base class's constructor manually as this isn't done automatically.
+            parent::__construct();
+        }
 
         $this->conf = $configuration;
         $this->ensureContentObject();
 
-        if ($this->extKey !== '') {
+        if ($this->extKey !== '' && !empty($this->conf)) {
             $this->pi_setPiVarDefaults();
-            $this->initializeConfigurationCheck();
         }
 
         $this->isInitialized = true;
@@ -132,7 +132,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      */
     protected function initializeConfigurationCheck()
     {
-        if (!$this->isConfigurationCheckEnabled()) {
+        if ($this->configurationCheck !== null || !$this->isConfigurationCheckEnabled()) {
             return;
         }
 
@@ -1185,7 +1185,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      */
     public function setFlavor(string $flavor)
     {
-        if ($this->configurationCheck) {
+        if ($this->getConfigurationCheck() !== null) {
             $this->configurationCheck->setFlavor($flavor);
         }
     }
@@ -1198,13 +1198,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      */
     public function getFlavor(): string
     {
-        $result = '';
-
-        if ($this->configurationCheck) {
-            $result = $this->configurationCheck->getFlavor();
+        if ($this->getConfigurationCheck() === null) {
+            return '';
         }
 
-        return $result;
+        return $this->configurationCheck->getFlavor();
     }
 
     /**
@@ -1218,9 +1216,19 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      */
     protected function setErrorMessage(string $message)
     {
-        if ($this->configurationCheck) {
+        if ($this->getConfigurationCheck() !== null) {
             $this->configurationCheck->setErrorMessage($message);
         }
+    }
+
+    /**
+     * @return \Tx_Oelib_ConfigCheck|null
+     */
+    public function getConfigurationCheck()
+    {
+        $this->initializeConfigurationCheck();
+
+        return $this->configurationCheck;
     }
 
     /**
@@ -1237,30 +1245,31 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     public function checkConfiguration(bool $useRawMessage = false, string $temporaryFlavor = ''): string
     {
         static $hasDisplayedMessage = false;
+
+        $configurationCheck = $this->getConfigurationCheck();
+        if ($configurationCheck === null) {
+            return '';
+        }
+
         $result = '';
+        if (!empty($temporaryFlavor)) {
+            $oldFlavor = $this->getFlavor();
+            $this->setFlavor($temporaryFlavor);
+        } else {
+            $oldFlavor = '';
+        }
 
-        if ($this->configurationCheck !== null) {
-            if (!empty($temporaryFlavor)) {
-                $oldFlavor = $this->getFlavor();
-                $this->setFlavor($temporaryFlavor);
-            } else {
-                $oldFlavor = '';
-            }
+        $message = $useRawMessage ? $configurationCheck->checkIt() : $configurationCheck->checkItAndWrapIt();
 
-            $message = $useRawMessage
-                ? $this->configurationCheck->checkIt()
-                : $this->configurationCheck->checkItAndWrapIt();
+        if (!empty($temporaryFlavor)) {
+            $this->setFlavor($oldFlavor);
+        }
 
-            if (!empty($temporaryFlavor)) {
-                $this->setFlavor($oldFlavor);
-            }
-
-            // If we have a message, only returns it if it is the first message
-            // for objects of this class.
-            if (!empty($message) && !$hasDisplayedMessage) {
-                $result = $message;
-                $hasDisplayedMessage = true;
-            }
+        // If we have a message, only returns it if it is the first message
+        // for objects of this class.
+        if (!empty($message) && !$hasDisplayedMessage) {
+            $result = $message;
+            $hasDisplayedMessage = true;
         }
 
         return $result;
@@ -1279,13 +1288,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      */
     public function getWrappedConfigCheckMessage(): string
     {
-        $result = '';
-
-        if ($this->configurationCheck) {
-            $result = $this->configurationCheck->getWrappedMessage();
+        if ($this->getConfigurationCheck() === null) {
+            return '';
         }
 
-        return $result;
+        return $this->configurationCheck->getWrappedMessage();
     }
 
     /**

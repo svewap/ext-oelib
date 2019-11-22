@@ -33,14 +33,6 @@ final class TestingTemplateHelper extends \Tx_Oelib_TemplateHelper
     }
 
     /**
-     * @return \Tx_Oelib_ConfigCheck|null
-     */
-    public function getConfigurationCheck()
-    {
-        return $this->configurationCheck;
-    }
-
-    /**
      * Sets the salutation mode.
      *
      * @param string $salutation
