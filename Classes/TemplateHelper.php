@@ -102,9 +102,9 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
             return;
         }
 
-        $frontEnd = $this->getFrontEndController();
-        if ($frontEnd !== null && !isset($frontEnd->config['config'])) {
-            $frontEnd->config['config'] = [];
+        $frontEndController = $this->getFrontEndController();
+        if ($frontEndController !== null && !isset($frontEndController->config['config'])) {
+            $frontEndController->config['config'] = [];
         }
 
         $pageId = $this->getCurrentBePageId();
@@ -113,12 +113,12 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         } else {
             // We need to create our own template setup if we are in the
             // BE and we aren't currently creating a DirectMail page.
-            if (TYPO3_MODE === 'BE' && $frontEnd === null) {
+            if (TYPO3_MODE === 'BE' && $frontEndController === null) {
                 $this->conf = $this->retrievePageConfig($pageId);
             } else {
                 // On the front end, we can use the provided template setup.
                 $this->conf = $this->extKey !== ''
-                    ? $frontEnd->tmpl->setup['plugin.']['tx_' . $this->extKey . '.'] : [];
+                    ? $frontEndController->tmpl->setup['plugin.']['tx_' . $this->extKey . '.'] : [];
             }
 
             self::$cachedConfigurations[$pageId] = $this->conf;
@@ -439,8 +439,8 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty', 1331489491);
         }
+        $this->initializeConfiguration();
 
-        $this->ensureConfigurationArray();
         $this->conf[$key] = $value;
     }
 
@@ -487,20 +487,9 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      */
     public function getConfiguration(): array
     {
-        $this->ensureConfigurationArray();
-        return $this->conf;
-    }
+        $this->initializeConfiguration();
 
-    /**
-     * Ensures that $this->conf is set and that it is an array.
-     *
-     * @return void
-     */
-    private function ensureConfigurationArray()
-    {
-        if (!is_array($this->conf)) {
-            $this->conf = [];
-        }
+        return $this->conf;
     }
 
     /**

@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
-- Initialize `TemplateHelper` lazily (#350, #351, #352)
+- Initialize `TemplateHelper` lazily (#350, #351, #352, #353)
 - Use more type declarations in the tests (#346)
 
 ### Deprecated
