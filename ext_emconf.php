@@ -3,7 +3,7 @@
 $EM_CONF[$_EXTKEY] = [
     'title' => 'One is Enough Library',
     'description' => 'Useful stuff for TYPO3 extension development: helper functions for unit testing, templating and automatic configuration checks.',
-    'version' => '3.0.0',
+    'version' => '3.0.1',
     'category' => 'services',
     'constraints' => [
         'depends' => [
@@ -14,7 +14,7 @@ $EM_CONF[$_EXTKEY] = [
         'conflicts' => [
         ],
         'suggests' => [
-            'static_info_tables' => '6.5.0-',
+            'static_info_tables' => '6.7.1-',
         ],
     ],
     'state' => 'stable',
