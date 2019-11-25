@@ -98,7 +98,8 @@
         ],
         "ci:static": [
             "@ci:php:lint",
-            "@ci:php:sniff"
+            "@ci:php:sniff",
+            "@ci:php:fixer"
         ],
         "ci": [
             "@ci:static",
