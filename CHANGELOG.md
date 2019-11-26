@@ -6,14 +6,22 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
-- Add php-cs-fixer to the CI (#358, #359)
 
 ### Changed
-- Use PHP 7.2 for the release script (#357)
 
 ### Deprecated
 
 ### Removed
+
+### Fixed
+
+## 3.0.2
+
+### Added
+- Add php-cs-fixer to the CI (#358, #359)
+
+### Changed
+- Use PHP 7.2 for the release script (#357)
 
 ### Fixed
 - Always provide the table when getting the last insert ID (#361)
