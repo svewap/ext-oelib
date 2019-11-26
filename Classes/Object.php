@@ -212,7 +212,7 @@ abstract class Tx_Oelib_Object
     {
         $this->checkForNonEmptyKey($key);
 
-        $this->set($key, (bool)$value);
+        $this->set($key, (int)(bool)$value);
     }
 
     /**

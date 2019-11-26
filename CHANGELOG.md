@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Internally store boolean properties as integers (#360)
 
 ## 3.0.1
 
