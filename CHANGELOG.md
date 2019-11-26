@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Always provide the table when getting the last insert ID (#361)
 - Internally store boolean properties as integers (#360)
 
 ## 3.0.1

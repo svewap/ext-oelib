@@ -255,7 +255,7 @@ class Tx_Oelib_Db
 
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
             self::getConnectionForTable($tableName)->insert($tableName, self::normalizeDatabaseRow($recordData));
-            $uid = (int)self::getConnectionForTable($tableName)->lastInsertId();
+            $uid = (int)self::getConnectionForTable($tableName)->lastInsertId($tableName);
         } else {
             $connection = self::getDatabaseConnection();
             $dbResult = $connection->exec_INSERTquery($tableName, $recordData);
