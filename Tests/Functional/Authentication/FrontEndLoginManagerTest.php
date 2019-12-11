@@ -45,18 +45,21 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         parent::tearDown();
     }
 
-    ////////////////////////////////
-    // Tests concerning isLoggedIn
-    ////////////////////////////////
+    private function getFrontEndController(): TypoScriptFrontendController
+    {
+        return $GLOBALS['TSFE'];
+    }
+
+    /*
+     * Tests concerning isLoggedIn
+     */
 
     /**
      * @test
      */
     public function isLoggedInForNoFrontEndReturnsFalse()
     {
-        self::assertFalse(
-            $this->subject->isLoggedIn()
-        );
+        self::assertFalse($this->subject->isLoggedIn());
     }
 
     /**
@@ -66,9 +69,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
 
-        self::assertFalse(
-            $this->subject->isLoggedIn()
-        );
+        self::assertFalse($this->subject->isLoggedIn());
     }
 
     /**
@@ -78,9 +79,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
 
-        /** @var TypoScriptFrontendController $frontEndController */
-        $frontEndController = $GLOBALS['TSFE'];
-        $frontEndController->fe_user->setAndSaveSessionData('oelib_test', 1);
+        $this->getFrontEndController()->fe_user->setAndSaveSessionData('oelib_test', 1);
 
         self::assertFalse($this->subject->isLoggedIn());
     }
@@ -93,26 +92,19 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->createAndLoginFrontEndUser();
 
-        self::assertTrue(
-            $this->subject->isLoggedIn()
-        );
+        self::assertTrue($this->subject->isLoggedIn());
     }
 
-    /////////////////////////////////////
-    // Tests concerning getLoggedInUser
-    /////////////////////////////////////
+    /*
+     * Tests concerning getLoggedInUser
+     */
 
     /**
      * @test
      */
     public function getLoggedInUserWithEmptyMapperNameThrowsException()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$mapperName must not be empty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->getLoggedInUser('');
     }
@@ -122,9 +114,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
      */
     public function getLoggedInUserWithoutFrontEndReturnsNull()
     {
-        self::assertNull(
-            $this->subject->getLoggedInUser()
-        );
+        self::assertNull($this->subject->getLoggedInUser());
     }
 
     /**
@@ -135,9 +125,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->logoutFrontEndUser();
 
-        self::assertNull(
-            $this->subject->getLoggedInUser()
-        );
+        self::assertNull($this->subject->getLoggedInUser());
     }
 
     /**
@@ -148,10 +136,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->createAndLoginFrontEndUser();
 
-        self::assertInstanceOf(
-            \Tx_Oelib_Model_FrontEndUser::class,
-            $this->subject->getLoggedInUser()
-        );
+        self::assertInstanceOf(\Tx_Oelib_Model_FrontEndUser::class, $this->subject->getLoggedInUser());
     }
 
     /**
@@ -173,10 +158,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $uid = $this->testingFramework->createAndLoginFrontEndUser();
 
-        self::assertSame(
-            $uid,
-            $this->subject->getLoggedInUser()->getUid()
-        );
+        self::assertSame($uid, $this->subject->getLoggedInUser()->getUid());
     }
 
     /**
@@ -186,15 +168,13 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $uid = $this->testingFramework->createAndLoginFrontEndUser();
+
         /** @var \Tx_Oelib_Mapper_FrontEndUser $mapper */
         $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUser::class);
         /** @var \Tx_Oelib_Model_FrontEndUser $user */
         $user = $mapper->find($uid);
 
-        self::assertSame(
-            $user,
-            $this->subject->getLoggedInUser()
-        );
+        self::assertSame($user, $this->subject->getLoggedInUser());
     }
 
     /**
@@ -203,29 +183,18 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     public function getLoggedInUserUsesMappedUserDataFromMemory()
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
-        $feUserUid = $this->testingFramework->createAndLoginFrontEndUser(
-            '',
-            ['name' => 'John Doe']
-        );
+        $oldName = 'John Doe';
+        $feUserUid = $this->testingFramework->createAndLoginFrontEndUser('', ['name' => $oldName]);
 
-        /** @var TypoScriptFrontendController $frontEndController */
-        $frontEndController = $GLOBALS['TSFE'];
-        $frontEndController->fe_user->user['name'] = 'Jane Doe';
-        $this->testingFramework->changeRecord(
-            'fe_users',
-            $feUserUid,
-            ['name' => 'James Doe']
-        );
+        $this->getFrontEndController()->fe_user->user['name'] = 'Jane Doe';
+        $this->testingFramework->changeRecord('fe_users', $feUserUid, ['name' => 'James Doe']);
 
-        self::assertSame(
-            'John Doe',
-            $this->subject->getLoggedInUser()->getName()
-        );
+        self::assertSame($oldName, $this->subject->getLoggedInUser()->getName());
     }
 
-    ///////////////////////////////
-    // Tests concerning logInUser
-    ///////////////////////////////
+    /*
+     * Tests concerning logInUser
+     */
 
     /**
      * @test
@@ -238,9 +207,6 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $user = new \Tx_Oelib_Model_FrontEndUser();
         $this->subject->logInUser($user);
 
-        self::assertSame(
-            $user,
-            $this->subject->getLoggedInUser()
-        );
+        self::assertSame($user, $this->subject->getLoggedInUser());
     }
 }

@@ -17,7 +17,7 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
     private static $instance = null;
 
     /**
-     * the simulated logged-in user
+     * the real or simulated logged-in user
      *
      * @var \Tx_Oelib_Model_FrontEndUser
      */
@@ -33,12 +33,12 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
     /**
      * Returns an instance of this class.
      *
-     * @return \Tx_Oelib_FrontEndLoginManager the current Singleton instance
+     * @return static the current Singleton instance
      */
     public static function getInstance()
     {
         if (!self::$instance) {
-            self::$instance = new \Tx_Oelib_FrontEndLoginManager();
+            self::$instance = new self();
         }
 
         return self::$instance;
@@ -56,16 +56,15 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
     }
 
     /**
-     * Checks whether any front-end user is logged in (and whether a front end
-     * exists at all).
+     * Checks whether any front-end user is logged in (and whether a front end exists at all).
      *
-     * @return bool TRUE if a front end exists and a front-end user is logged
-     *                 in, FALSE otherwise
+     * @return bool
      */
-    public function isLoggedIn()
+    public function isLoggedIn(): bool
     {
-        $isSimulatedLoggedIn = ($this->loggedInUser !== null);
-        $isReallyLoggedIn = $this->getFrontEndController() !== null && $this->getFrontEndController()->loginUser;
+        $isSimulatedLoggedIn = $this->loggedInUser instanceof \Tx_Oelib_Model_FrontEndUser;
+        $controller = $this->getFrontEndController();
+        $isReallyLoggedIn = $controller instanceof TypoScriptFrontendController && $controller->loginUser;
 
         return $isSimulatedLoggedIn || $isReallyLoggedIn;
     }
@@ -75,11 +74,12 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
      *
      * @param string $mapperName the name of the mapper to use for getting the front-end user model, must not be empty
      *
-     * @return \Tx_Oelib_Model_FrontEndUser the logged-in front-end user, will
-     *                                     be NULL if no user is logged in or
-     *                                     if there is no front end
+     * @return \Tx_Oelib_Model_FrontEndUser|null the logged-in front-end user, will
+     *                                     be null if no user is logged in or if there is no front end
+     *
+     * @throws \InvalidArgumentException
      */
-    public function getLoggedInUser($mapperName = \Tx_Oelib_Mapper_FrontEndUser::class)
+    public function getLoggedInUser(string $mapperName = \Tx_Oelib_Mapper_FrontEndUser::class)
     {
         if ($mapperName === '') {
             throw new \InvalidArgumentException('$mapperName must not be empty.', 1331488730);
@@ -88,16 +88,13 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
             return null;
         }
 
-        if ($this->loggedInUser !== null) {
-            $user = $this->loggedInUser;
-        } else {
+        if (!$this->loggedInUser instanceof \Tx_Oelib_Model_FrontEndUser) {
             /** @var \Tx_Oelib_Mapper_FrontEndUser $mapper */
             $mapper = \Tx_Oelib_MapperRegistry::get($mapperName);
-            /** @var \Tx_Oelib_Model_FrontEndUser $user */
-            $user = $mapper->find($this->getFrontEndController()->fe_user->user['uid']);
+            $this->loggedInUser = $mapper->find((int)$this->getFrontEndController()->fe_user->user['uid']);
         }
 
-        return $user;
+        return $this->loggedInUser;
     }
 
     /**

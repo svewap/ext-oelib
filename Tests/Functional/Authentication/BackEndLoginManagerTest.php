@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Authentication;
 
+use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-use TYPO3\CMS\Core\Core\Bootstrap;
 
 /**
  * Test case.
@@ -28,11 +28,6 @@ class BackEndLoginManagerTest extends FunctionalTestCase
     private $subject = null;
 
     /**
-     * @var \Tx_Oelib_TestingFramework
-     */
-    private $testingFramework = null;
-
-    /**
      * @var \Tx_Oelib_Mapper_BackEndUser
      */
     private $backEndUserMapper = null;
@@ -41,19 +36,19 @@ class BackEndLoginManagerTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->setUpBackendUserFromFixture(1);
-        Bootstrap::getInstance()->initializeBackendAuthentication();
-
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
         $this->backEndUserMapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUser::class);
 
         $this->subject = \Tx_Oelib_BackEndLoginManager::getInstance();
     }
 
-    protected function tearDown()
+    /**
+     * @return void
+     *
+     * @throws NimutException
+     */
+    private function logInBackEndUser()
     {
-        $this->testingFramework->cleanUpWithoutDatabase();
-        parent::tearDown();
+        $this->setUpBackendUserFromFixture(1);
     }
 
     /**
@@ -66,15 +61,25 @@ class BackEndLoginManagerTest extends FunctionalTestCase
         return $GLOBALS['BE_USER'];
     }
 
-    ////////////////////////////////
-    // Tests concerning isLoggedIn
-    ////////////////////////////////
+    /*
+     * Tests concerning isLoggedIn
+     */
+
+    /**
+     * @test
+     */
+    public function isLoggedInWithoutLoggedInBackEndUserReturnsFalse()
+    {
+        self::assertFalse($this->subject->isLoggedIn());
+    }
 
     /**
      * @test
      */
     public function isLoggedInWithLoggedInBackEndUserReturnsTrue()
     {
+        $this->logInBackEndUser();
+
         self::assertTrue($this->subject->isLoggedIn());
     }
 
@@ -90,15 +95,25 @@ class BackEndLoginManagerTest extends FunctionalTestCase
         self::assertTrue($this->subject->isLoggedIn());
     }
 
-    /////////////////////////////////////
-    // Tests concerning getLoggedInUser
-    /////////////////////////////////////
+    /*
+     * Tests concerning getLoggedInUser
+     */
+
+    /**
+     * @test
+     */
+    public function getLoggedInUserWithoutLoggedInUserReturnsNull()
+    {
+        self::assertNull($this->subject->getLoggedInUser());
+    }
 
     /**
      * @test
      */
     public function getLoggedInUserWithLoggedInUserReturnsBackEndUserInstance()
     {
+        $this->logInBackEndUser();
+
         self::assertInstanceOf(\Tx_Oelib_Model_BackEndUser::class, $this->subject->getLoggedInUser());
     }
 
@@ -107,7 +122,11 @@ class BackEndLoginManagerTest extends FunctionalTestCase
      */
     public function getLoggedInUserWithOtherMapperNameAndLoggedInUserReturnsCorrespondingModel()
     {
-        self::assertInstanceOf(TestingModel::class, $this->subject->getLoggedInUser(TestingMapper::class));
+        $this->logInBackEndUser();
+
+        $result = $this->subject->getLoggedInUser(TestingMapper::class);
+
+        self::assertInstanceOf(TestingModel::class, $result);
     }
 
     /**
@@ -115,10 +134,11 @@ class BackEndLoginManagerTest extends FunctionalTestCase
      */
     public function getLoggedInUserWithLoggedInUserReturnsBackEndUserWithUidOfLoggedInUser()
     {
-        self::assertSame(
-            (int)$this->getBackEndUserAuthentication()->user['uid'],
-            $this->subject->getLoggedInUser()->getUid()
-        );
+        $this->logInBackEndUser();
+
+        $result = $this->subject->getLoggedInUser();
+
+        self::assertSame((int)$this->getBackEndUserAuthentication()->user['uid'], $result->getUid());
     }
 
     /**
@@ -126,6 +146,8 @@ class BackEndLoginManagerTest extends FunctionalTestCase
      */
     public function getLoggedInUserWithAlreadyCreatedUserModelReturnsThatInstance()
     {
+        $this->logInBackEndUser();
+
         /** @var \Tx_Oelib_Model_BackEndUser $user */
         $user = $this->backEndUserMapper->find($this->getBackEndUserAuthentication()->user['uid']);
 
@@ -137,14 +159,17 @@ class BackEndLoginManagerTest extends FunctionalTestCase
      */
     public function getLoggedInUserUsesMappedUserDataFromMemory()
     {
-        $this->getBackEndUserAuthentication()->user['realName'] = 'John Doe';
+        $this->logInBackEndUser();
 
-        self::assertSame('John Doe', $this->subject->getLoggedInUser()->getName());
+        $name = 'John Doe';
+        $this->getBackEndUserAuthentication()->user['realName'] = $name;
+
+        self::assertSame($name, $this->subject->getLoggedInUser()->getName());
     }
 
-    ////////////////////////////////////
-    // Tests concerning setLoggedInUser
-    ////////////////////////////////////
+    /*
+     * Tests concerning setLoggedInUser
+     */
 
     /**
      * @test
@@ -166,6 +191,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
         /** @var \Tx_Oelib_Model_BackEndUser $oldBackEndUser */
         $oldBackEndUser = $this->backEndUserMapper->getNewGhost();
         $this->subject->setLoggedInUser($oldBackEndUser);
+
         /** @var \Tx_Oelib_Model_BackEndUser $newBackEndUser */
         $newBackEndUser = $this->backEndUserMapper->getNewGhost();
         $this->subject->setLoggedInUser($newBackEndUser);
