@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -55,6 +58,11 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
         self::$instance = null;
     }
 
+    private function getContext(): Context
+    {
+        return GeneralUtility::makeInstance(Context::class);
+    }
+
     /**
      * Checks whether any front-end user is logged in (and whether a front end exists at all).
      *
@@ -63,10 +71,14 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
     public function isLoggedIn(): bool
     {
         $isSimulatedLoggedIn = $this->loggedInUser instanceof \Tx_Oelib_Model_FrontEndUser;
-        $controller = $this->getFrontEndController();
-        $isReallyLoggedIn = $controller instanceof TypoScriptFrontendController && $controller->loginUser;
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+            $controller = $this->getFrontEndController();
+            $sessionExists = $controller instanceof TypoScriptFrontendController && $controller->loginUser;
+        } else {
+            $sessionExists = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
+        }
 
-        return $isSimulatedLoggedIn || $isReallyLoggedIn;
+        return $isSimulatedLoggedIn || $sessionExists;
     }
 
     /**
@@ -74,8 +86,8 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
      *
      * @param string $mapperName the name of the mapper to use for getting the front-end user model, must not be empty
      *
-     * @return \Tx_Oelib_Model_FrontEndUser|null the logged-in front-end user, will
-     *                                     be null if no user is logged in or if there is no front end
+     * @return \Tx_Oelib_Model_FrontEndUser|null the logged-in front-end user
+     *                                     will be null if no user is logged in or if there is no front end
      *
      * @throws \InvalidArgumentException
      */
@@ -84,15 +96,21 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
         if ($mapperName === '') {
             throw new \InvalidArgumentException('$mapperName must not be empty.', 1331488730);
         }
+        if ($this->loggedInUser instanceof \Tx_Oelib_Model_FrontEndUser) {
+            return $this->loggedInUser;
+        }
         if (!$this->isLoggedIn()) {
             return null;
         }
 
-        if (!$this->loggedInUser instanceof \Tx_Oelib_Model_FrontEndUser) {
-            /** @var \Tx_Oelib_Mapper_FrontEndUser $mapper */
-            $mapper = \Tx_Oelib_MapperRegistry::get($mapperName);
-            $this->loggedInUser = $mapper->find((int)$this->getFrontEndController()->fe_user->user['uid']);
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+            $uid = (int)$this->getFrontEndController()->fe_user->user['uid'];
+        } else {
+            $uid = (int)$this->getContext()->getPropertyFromAspect('frontend.user', 'id');
         }
+        /** @var \Tx_Oelib_Mapper_FrontEndUser $mapper */
+        $mapper = \Tx_Oelib_MapperRegistry::get($mapperName);
+        $this->loggedInUser = $mapper->find($uid);
 
         return $this->loggedInUser;
     }

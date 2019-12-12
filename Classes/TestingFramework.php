@@ -10,6 +10,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -1348,14 +1349,15 @@ final class Tx_Oelib_TestingFramework
 
         $this->suppressFrontEndCookies();
 
-        // Instead of passing the actual user data to createUserSession, we
-        // pass an empty array to improve performance (e.g. no session record
-        // will be written to the database).
+        // Instead of passing the actual user data to createUserSession, we pass an empty array to improve performance
+        // (e.g., no session record will be written to the database).
         $frontEnd = $this->getFrontEndController();
         $frontEnd->fe_user->createUserSession(['uid' => $userId, 'disableIPlock' => true]);
         $frontEnd->fe_user->user = $dataToSet;
         $frontEnd->fe_user->fetchGroupData();
-        $frontEnd->loginUser = true;
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+            $this->getFrontEndController()->loginUser = true;
+        }
     }
 
     /**
@@ -1380,9 +1382,10 @@ final class Tx_Oelib_TestingFramework
         }
 
         $this->suppressFrontEndCookies();
-
         $this->getFrontEndController()->fe_user->logoff();
-        $this->getFrontEndController()->loginUser = false;
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+            $this->getFrontEndController()->loginUser = false;
+        }
 
         \Tx_Oelib_FrontEndLoginManager::getInstance()->logInUser();
     }

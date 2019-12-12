@@ -6,7 +6,10 @@ namespace OliverKlee\Oelib\Tests\Functional\Testing;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Tests\Functional\Templating\Fixtures\TestingTemplateHelper;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -52,6 +55,11 @@ class FrameworkTest extends FunctionalTestCase
     private function getFrontEndController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
+    }
+
+    private function getContext(): Context
+    {
+        return GeneralUtility::makeInstance(Context::class);
     }
 
     /**
@@ -3084,9 +3092,13 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        self::assertFalse(
-            $this->getFrontEndController()->loginUser
-        );
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+            $isLoggedIn = $this->getFrontEndController()->loginUser;
+        } else {
+            $isLoggedIn = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
+        }
+
+        self::assertFalse($isLoggedIn);
     }
 
     /**
@@ -3097,10 +3109,13 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        self::assertSame(
-            '0,-1',
-            $this->getFrontEndController()->gr_list
-        );
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+            $groups = GeneralUtility::intExplode(',', $this->getFrontEndController()->gr_list);
+        } else {
+            $groups = (array)$this->getContext()->getPropertyFromAspect('frontend.user', 'groupIds');
+        }
+
+        self::assertSame([0, -1], $groups);
     }
 
     /**
@@ -3142,9 +3157,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        self::assertFalse(
-            $this->subject->isLoggedIn()
-        );
+        self::assertFalse($this->subject->isLoggedIn());
     }
 
     /**
@@ -3158,9 +3171,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->createAndLoginFrontEndUser();
         $this->subject->logoutFrontEndUser();
 
-        self::assertFalse(
-            \Tx_Oelib_FrontEndLoginManager::getInstance()->isLoggedIn()
-        );
+        self::assertFalse(\Tx_Oelib_FrontEndLoginManager::getInstance()->isLoggedIn());
     }
 
     /**
@@ -3173,9 +3184,13 @@ class FrameworkTest extends FunctionalTestCase
 
         $this->subject->logoutFrontEndUser();
 
-        self::assertFalse(
-            $this->getFrontEndController()->loginUser
-        );
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+            $isLoggedIn = $this->getFrontEndController()->loginUser;
+        } else {
+            $isLoggedIn = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
+        }
+
+        self::assertFalse($isLoggedIn);
     }
 
     /**
@@ -3234,9 +3249,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->createFakeFrontEnd();
         $this->subject->createAndLoginFrontEndUser();
 
-        self::assertTrue(
-            $this->subject->isLoggedIn()
-        );
+        self::assertTrue($this->subject->isLoggedIn());
     }
 
     /**
@@ -3307,9 +3320,7 @@ class FrameworkTest extends FunctionalTestCase
         $frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
         $this->subject->createAndLoginFrontEndUser($frontEndUserGroupUid);
 
-        self::assertTrue(
-            $this->subject->isLoggedIn()
-        );
+        self::assertTrue($this->subject->isLoggedIn());
     }
 
     /**
