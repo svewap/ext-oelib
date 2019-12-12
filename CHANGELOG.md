@@ -14,6 +14,10 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+
+## 3.0.3
+
+### Fixed
 - Use the context API in TYPO3 9.5 for the FE login (#363, #366)
 - Streamline the login managers (#365)
 
