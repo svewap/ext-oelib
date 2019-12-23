@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Sort the entries in the `.gitignore` and `.gitattributes` (#368)
 
 ### Deprecated
 
