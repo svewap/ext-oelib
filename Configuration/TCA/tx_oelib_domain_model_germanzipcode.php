@@ -1,4 +1,5 @@
 <?php
+
 defined('TYPO3_MODE') or die('Access denied.');
 
 $labelPrefix = 'LLL:EXT:oelib/Resources/Private/Language/locallang_db.xlf:tx_oelib_domain_model_germanzipcode';

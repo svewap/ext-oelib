@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Improve the code autoformatting (#370)
 
 ## 3.0.3
 
