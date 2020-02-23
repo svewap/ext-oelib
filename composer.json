@@ -22,7 +22,7 @@
         "issues": "https://github.com/oliverklee/ext-oelib/issues"
     },
     "require": {
-        "php": "~7.0 || ~7.1 || ~7.2",
+        "php": "~7.0 || ~7.1 || ~7.2 || ~7.3",
         "ext-dom": "*",
         "ext-json": "*",
         "ext-libxml": "*",
@@ -44,7 +44,7 @@
         "oliverklee/user-oelibtest": "@dev",
         "oliverklee/user-oelibtest2": "@dev",
         "phpunit/phpunit": "^6.5.14",
-        "sjbr/static-info-tables": "^6.7.5",
+        "sjbr/static-info-tables": "@dev",
         "squizlabs/php_codesniffer": "^3.5.4"
     },
     "conflict": {
