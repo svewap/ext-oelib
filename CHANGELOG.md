@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix warnings in the `travis.yml` (#373)
 - Improve the code autoformatting (#370)
 
 ## 3.0.3
