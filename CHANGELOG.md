@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Do not build with PHP 7.4 for TYPO3 8.7 on Travis CI (#381)
 - Do not cache `vendor/` on Travis CI (#380)
 - Fix warnings in the `travis.yml` (#373)
 - Improve the code autoformatting (#370)
