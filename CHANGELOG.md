@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Support PHP 7.3 (#369)
 
 ### Changed
+- Update `pelago/emogrifier` to 3.1.0 (#382)
 - Upgrade PHPUnit to 7.5.20 for TYPO3 >= 9.5 (#377)
 - Sort the entries in the `.gitignore` and `.gitattributes` (#368)
 

@@ -15,6 +15,17 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+## 3.1.0
+
+### Added
+- Add support for PHP 7.4
+  ([#821](https://github.com/MyIntervals/emogrifier/pull/821),
+  [#829](https://github.com/MyIntervals/emogrifier/pull/829))
+
+### Changed
+- Upgrade to Symfony 5.0
+  ([#822](https://github.com/MyIntervals/emogrifier/pull/820)
+
 ## 3.0.0
 
 ### Added

@@ -8,23 +8,23 @@
     "packages": [
         {
             "name": "pelago/emogrifier",
-            "version": "v3.0.0",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MyIntervals/emogrifier.git",
-                "reference": "d68a8b546d242afaf429ee828deef51909f5e545"
+                "reference": "f6a5c7d44612d86c3901c93f1592f5440e6b2cd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MyIntervals/emogrifier/zipball/d68a8b546d242afaf429ee828deef51909f5e545",
-                "reference": "d68a8b546d242afaf429ee828deef51909f5e545",
+                "url": "https://api.github.com/repos/MyIntervals/emogrifier/zipball/f6a5c7d44612d86c3901c93f1592f5440e6b2cd8",
+                "reference": "f6a5c7d44612d86c3901c93f1592f5440e6b2cd8",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
-                "php": "^5.6.0 || ~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0",
-                "symfony/css-selector": "^2.8 || ^3.0 || ^4.0"
+                "php": "^5.6 || ~7.0 || ~7.1 || ~7.2 || ~7.3 || ~7.4",
+                "symfony/css-selector": "^2.8 || ^3.0 || ^4.0 || ^5.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.15.3",
@@ -78,20 +78,20 @@
                 "email",
                 "pre-processing"
             ],
-            "time": "2019-10-01T18:21:51+00:00"
+            "time": "2019-12-26T19:37:31+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v3.4.33",
+            "version": "v3.4.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "f819f71ae3ba6f396b4c015bd5895de7d2f1f85f"
+                "reference": "ee9b946e7223b11257329a054c64396b19d619e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/f819f71ae3ba6f396b4c015bd5895de7d2f1f85f",
-                "reference": "f819f71ae3ba6f396b4c015bd5895de7d2f1f85f",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/ee9b946e7223b11257329a054c64396b19d619e1",
+                "reference": "ee9b946e7223b11257329a054c64396b19d619e1",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +131,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2019-10-01T11:57:37+00:00"
+            "time": "2020-02-04T08:04:52+00:00"
         }
     ],
     "packages-dev": [],
@@ -144,5 +144,6 @@
     "platform-dev": [],
     "platform-overrides": {
         "php": "7.0.20"
-    }
+    },
+    "plugin-api-version": "1.1.0"
 }
