@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Support PHP 7.3 (#369)
 
 ### Changed
+- Use `MailUtility` in `SystemEmailFromBuilder` (#386, #375)
 - Slim down the Travis setup (#384)
 - Update `pelago/emogrifier` to 3.1.0 (#382)
 - Upgrade PHPUnit to 7.5.20 for TYPO3 >= 9.5 (#377)

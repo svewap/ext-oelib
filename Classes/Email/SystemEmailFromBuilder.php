@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Email;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\MailUtility;
 
 /**
  * This class builds email subjects with the email data from the install tool.
@@ -27,11 +28,19 @@ class SystemEmailFromBuilder
     }
 
     /**
+     * @return array
+     */
+    protected function getEmailConfiguration(): array
+    {
+        return $GLOBALS['TYPO3_CONF_VARS']['MAIL'];
+    }
+
+    /**
      * @return GeneralEmailRole
      *
-     * @deprecated will be removed in oelib 4.0
-     *
      * @throws \UnexpectedValueException
+     *
+     * @deprecated will be removed in oelib 4.0
      */
     public function build(): GeneralEmailRole
     {
@@ -42,21 +51,10 @@ class SystemEmailFromBuilder
             );
         }
 
-        $configuration = $this->getEmailConfiguration();
-        $result = GeneralUtility::makeInstance(
+        return GeneralUtility::makeInstance(
             GeneralEmailRole::class,
-            (string)$configuration['defaultMailFromAddress'],
-            (string)$configuration['defaultMailFromName']
+            (string)MailUtility::getSystemFromAddress(),
+            (string)MailUtility::getSystemFromName()
         );
-
-        return $result;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getEmailConfiguration(): array
-    {
-        return $GLOBALS['TYPO3_CONF_VARS']['MAIL'];
     }
 }
