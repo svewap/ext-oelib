@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -71,7 +71,7 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
     public function isLoggedIn(): bool
     {
         $isSimulatedLoggedIn = $this->loggedInUser instanceof \Tx_Oelib_Model_FrontEndUser;
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+        if (Typo3Version::isNotHigherThan(8)) {
             $controller = $this->getFrontEndController();
             $sessionExists = $controller instanceof TypoScriptFrontendController && $controller->loginUser;
         } else {
@@ -103,7 +103,7 @@ class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
             return null;
         }
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+        if (Typo3Version::isNotHigherThan(8)) {
             $uid = (int)$this->getFrontEndController()->fe_user->user['uid'];
         } else {
             $uid = (int)$this->getContext()->getPropertyFromAspect('frontend.user', 'id');

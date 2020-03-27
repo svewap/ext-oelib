@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
@@ -253,7 +253,7 @@ class Tx_Oelib_Db
             throw new \InvalidArgumentException('$recordData must not be empty.', 1331488230);
         }
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
+        if (Typo3Version::isAtLeast(9)) {
             self::getConnectionForTable($tableName)->insert($tableName, self::normalizeDatabaseRow($recordData));
             $uid = (int)self::getConnectionForTable($tableName)->lastInsertId($tableName);
         } else {

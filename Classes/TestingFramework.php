@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
@@ -10,7 +11,6 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -1355,7 +1355,7 @@ final class Tx_Oelib_TestingFramework
         $frontEnd->fe_user->createUserSession(['uid' => $userId, 'disableIPlock' => true]);
         $frontEnd->fe_user->user = $dataToSet;
         $frontEnd->fe_user->fetchGroupData();
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+        if (Typo3Version::isNotHigherThan(8)) {
             $this->getFrontEndController()->loginUser = true;
         }
     }
@@ -1383,7 +1383,7 @@ final class Tx_Oelib_TestingFramework
 
         $this->suppressFrontEndCookies();
         $this->getFrontEndController()->fe_user->logoff();
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+        if (Typo3Version::isNotHigherThan(8)) {
             $this->getFrontEndController()->loginUser = false;
         }
 

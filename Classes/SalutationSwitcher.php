@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 use TYPO3\CMS\Lang\LanguageService;
@@ -44,7 +44,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
     public function __sleep()
     {
         $fieldsToSave = \get_object_vars($this);
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9000000) {
+        if (Typo3Version::isNotHigherThan(8)) {
             unset($fieldsToSave['frontendController'], $fieldsToSave['databaseConnection']);
         } else {
             unset($fieldsToSave['frontendController']);
@@ -60,7 +60,7 @@ abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
      */
     public function __wakeup()
     {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9000000) {
+        if (Typo3Version::isNotHigherThan(8)) {
             $this->databaseConnection = $GLOBALS['TYPO3_DB'];
         }
         $this->frontendController = $this->getFrontEndController();
