@@ -4717,9 +4717,20 @@ class TemplateHelperTest extends UnitTestCase
         );
     }
 
-    ////////////////////////////////////////////
-    // Tests for automatically setting labels.
-    ////////////////////////////////////////////
+    /*
+     * Tests for automatically setting labels.
+     */
+
+    /**
+     * @test
+     *
+     * @doesNotPerformAssertions
+     */
+    public function setLabelsAfterGetTemplateCodeWithoutTemplatePathDoesNotCrash()
+    {
+        $this->subject->getTemplateCode();
+        $this->subject->setLabels();
+    }
 
     /**
      * @test

@@ -490,9 +490,9 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     }
 
     /**
-     * Retrieves the plugin template file set in $this->conf['templateFile'] (or
-     * also via flexforms if TYPO3 mode is FE) and writes it to
-     * $this->templateCode. The subparts will be written to $this->templateCache.
+     * Retrieves the plugin template file set in `$this->conf['templateFile']`
+     * (or also via flexforms if TYPO3 mode is FE) and writes it to `$this->templateCode`.
+     * The subparts will be written to $this->templateCache.
      *
      * @param bool $ignoreFlexform whether the settings in the Flexform should be ignored
      *
@@ -500,12 +500,11 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      */
     public function getTemplateCode(bool $ignoreFlexform = false)
     {
-        // Trying to fetch the template code via $this->cObj in BE mode leads to
-        // a non-catchable error in the tslib_content class because the cObj
+        // Trying to fetch the template code via `$this->cObj` in BE mode leads to
+        // a non-catchable error in the `ContentObjectRenderer` class because the `cObj`
         // configuration array is not initialized properly.
-        // As flexforms can be used in FE mode only, $ignoreFlexform is set TRUE
-        // if we are in the BE mode. By this, $this->cObj->fileResource can be
-        // sheltered from being called.
+        // As flexforms can be used in FE mode only, `$ignoreFlexform` is set true if we are in the BE mode.
+        // By this, `$this->cObj->fileResource` can be sheltered from being called.
         if (TYPO3_MODE === 'BE') {
             $ignoreFlexform = true;
         }
@@ -518,9 +517,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
         );
 
         if (!$ignoreFlexform) {
-            $templateFileName = $this->getFrontEndController()->tmpl->getFileName(
-                $templateFileName
-            );
+            $templateFileName = (string)$this->getFrontEndController()->tmpl->getFileName($templateFileName);
         }
 
         $this->templateFileName = $templateFileName;
@@ -530,15 +527,12 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      * Returns the template object from the template registry for the file name
      * in $this->templateFileName.
      *
-     * @return \Tx_Oelib_Template the template object for the template file name
-     *                           in $this->templateFileName
+     * @return \Tx_Oelib_Template the template object for the template file name in `$this->templateFileName`
      */
     protected function getTemplate(): \Tx_Oelib_Template
     {
         if ($this->template === null) {
-            $this->template = \Tx_Oelib_TemplateRegistry::get(
-                $this->templateFileName
-            );
+            $this->template = \Tx_Oelib_TemplateRegistry::get($this->templateFileName);
         }
 
         return $this->template;
@@ -1003,13 +997,12 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     }
 
     /**
-     * Writes all localized labels for the current template into their
-     * corresponding template markers.
+     * Writes all localized labels for the current template into their corresponding template markers.
      *
      * For this, the label markers in the template must be prefixed with
-     * "LABEL_" (e.g. "###LABEL_FOO###"), and the corresponding localization
+     * "LABEL_" (e.g., "###LABEL_FOO###"), and the corresponding localization
      * entry must have the same key, but lowercased and without the ###
-     * (e.g. "label_foo").
+     * (e.g., "label_foo").
      *
      * @return void
      */
