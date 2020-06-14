@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 3.1.0
+
+### Added
 - Add a TYPO3 version comparison class (#385)
 - Support PHP 7.4 (#376)
 - Support PHP 7.3 (#369)
@@ -16,10 +28,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Update `pelago/emogrifier` to 4.0.0 (#382, #392)
 - Upgrade PHPUnit to 7.5.20 for TYPO3 >= 9.5 (#377)
 - Sort the entries in the `.gitignore` and `.gitattributes` (#368)
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 - Add `.0` version suffixes to PHP version requirements (#393)
