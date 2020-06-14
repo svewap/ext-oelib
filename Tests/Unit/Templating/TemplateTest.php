@@ -722,6 +722,20 @@ class TemplateTest extends UnitTestCase
     /**
      * @test
      */
+    public function getMarkerReturnsIntegerContentAsString()
+    {
+        $value = 42;
+        $this->subject->processTemplate('###BAR###');
+        $this->subject->setMarker('bar', $value);
+
+        $result = $this->subject->getMarker('bar');
+
+        self::assertSame((string)$value, $result);
+    }
+
+    /**
+     * @test
+     */
     public function setLowercaseMarkerInCompleteTemplate()
     {
         $this->subject->processTemplate(

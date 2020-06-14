@@ -207,7 +207,7 @@ class Tx_Oelib_Template
         $unifiedMarkerName = $this->createMarkerName($markerName, $prefix);
 
         if ($this->isMarkerNameValidWithHashes($unifiedMarkerName)) {
-            $this->markers[$unifiedMarkerName] = $content;
+            $this->markers[$unifiedMarkerName] = (string)$content;
         }
     }
 

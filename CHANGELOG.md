@@ -22,6 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Allow non-string marker contents in templates (#390, #391)
 - Fix crash if no HTML template path is provided (#389)
 - Always use Composer-installed versions of the dev tools (#388)
 - Do not build with PHP 7.4 for TYPO3 8.7 on Travis CI (#381)
