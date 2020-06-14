@@ -27,7 +27,7 @@
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-zip": "*",
-        "pelago/emogrifier": "^3.0",
+        "pelago/emogrifier": "^4.0",
         "psr/log": "^1.0",
         "swiftmailer/swiftmailer": "^5.4",
         "typo3/cms-core": "^8.7.9 || ^9.5.7",

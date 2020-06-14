@@ -10,10 +10,93 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 ### Deprecated
+- Support for PHP 7.1 will be removed in Emogrifier 6.0.
 
 ### Removed
 
 ### Fixed
+
+## 4.0.0
+
+### Added
+- Extract and inject `@font-face` rules into head
+  ([#870](https://github.com/MyIntervals/emogrifier/pull/870))
+- Test tag omission in conformant supplied HTML
+  ([#868](https://github.com/MyIntervals/emogrifier/pull/868))
+- Check for missing return type hint annotations in the code sniffs
+  ([#860](https://github.com/MyIntervals/emogrifier/pull/860))
+- Support `:only-of-type` (with a type)
+  ([#849](https://github.com/MyIntervals/emogrifier/issues/849),
+  [#856](https://github.com/MyIntervals/emogrifier/pull/856))
+- Configuration setting methods now all return `$this` to allow chaining
+  ([#824](https://github.com/MyIntervals/emogrifier/pull/824),
+  [#854](https://github.com/MyIntervals/emogrifier/pull/854))
+- Disable php-cs-fixer Yoda conditions
+  ([#791](https://github.com/MyIntervals/emogrifier/issues/791),
+  [#794](https://github.com/MyIntervals/emogrifier/pull/794))
+- Check the code with psalm
+  ([#537](https://github.com/MyIntervals/emogrifier/issues/537),
+  [#779](https://github.com/MyIntervals/emogrifier/pull/779))
+- Composer script to run tests with `--stop-on-failure`
+  ([#782](https://github.com/MyIntervals/emogrifier/pull/782))
+- Test universal selector with combinators
+  ([#776](https://github.com/MyIntervals/emogrifier/pull/776))
+
+### Changed
+- Normalize DOCTYPE declaration according to polyglot markup recommendation
+  ([#866](https://github.com/MyIntervals/emogrifier/pull/866))
+- Upgrade to V2 of the PHP setup GitHub action
+  ([#861](https://github.com/MyIntervals/emogrifier/pull/861))
+- Move the development tools to Phive
+  ([#850](https://github.com/MyIntervals/emogrifier/pull/850),
+  [#851](https://github.com/MyIntervals/emogrifier/pull/851))
+- Switch the parallel linting to a maintained fork
+  ([#842](https://github.com/MyIntervals/emogrifier/pull/842))
+- Move continuous integration from Travis CI to GitHub actions
+  ([#832](https://github.com/MyIntervals/emogrifier/pull/832),
+  [#834](https://github.com/MyIntervals/emogrifier/pull/834),
+  [#838](https://github.com/MyIntervals/emogrifier/pull/838),
+  [#839](https://github.com/MyIntervals/emogrifier/pull/839),
+  [#840](https://github.com/MyIntervals/emogrifier/pull/840),
+  [#841](https://github.com/MyIntervals/emogrifier/pull/841),
+  [#843](https://github.com/MyIntervals/emogrifier/pull/843),
+  [#846](https://github.com/MyIntervals/emogrifier/pull/846),
+  [#849](https://github.com/MyIntervals/emogrifier/pull/849))
+- Clean up the folder structure and autoloading configuration
+  ([#529](https://github.com/MyIntervals/emogrifier/issues/529),
+  [#785](https://github.com/MyIntervals/emogrifier/pull/785))
+- Use `self` as the return type for `fromHtml`
+  ([#784](https://github.com/MyIntervals/emogrifier/pull/784))
+- Make use of PHP 7.0 language features
+  ([#777](https://github.com/MyIntervals/emogrifier/pull/777))
+
+### Deprecated
+- Support for PHP 7.0 will be removed in Emogrifier 5.0.
+
+### Removed
+- Drop support for Symfony versions that have reached their end of life
+  ([#847](https://github.com/MyIntervals/emogrifier/pull/847))
+- Drop the `Emogrifier` class
+  ([#774](https://github.com/MyIntervals/emogrifier/pull/774))
+- Drop support for PHP 5.6
+  ([#773](https://github.com/MyIntervals/emogrifier/pull/773))
+
+### Fixed
+- Allow `:last-of-type` etc. without type, without causing exception
+  ([#875](https://github.com/MyIntervals/emogrifier/pull/875))
+- Make sure to use the Composer-installed development tools
+  ([#862](https://github.com/MyIntervals/emogrifier/pull/862),
+  [#865](https://github.com/MyIntervals/emogrifier/pull/865))
+- Add missing `<head>` element when there's a `<header>` element
+  ([#844](https://github.com/MyIntervals/emogrifier/pull/844),
+  [#853](https://github.com/MyIntervals/emogrifier/pull/853))
+- Fix mapping width/height when decimal is used
+  ([#845](https://github.com/MyIntervals/emogrifier/pull/845))
+- Actually use the specified PHP version on GitHub actions
+  ([#836](https://github.com/MyIntervals/emogrifier/pull/836))
+- Support `ci:php:lint` on Windows
+  ([#740](https://github.com/MyIntervals/emogrifier/issues/740),
+  [#780](https://github.com/MyIntervals/emogrifier/pull/780))
 
 ## 3.1.0
 
@@ -24,7 +107,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 - Upgrade to Symfony 5.0
-  ([#822](https://github.com/MyIntervals/emogrifier/pull/820)
+  ([#820](https://github.com/MyIntervals/emogrifier/pull/820))
 
 ## 3.0.0
 
@@ -77,7 +160,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
   ([#380](https://github.com/MyIntervals/emogrifier/issues/380),
   [#724](https://github.com/MyIntervals/emogrifier/pull/724))
 - Check on Travis that PHP-CS-Fixer will not change anything
-  [#727](https://github.com/MyIntervals/emogrifier/pull/727))
+  ([#727](https://github.com/MyIntervals/emogrifier/pull/727))
 - Support `:not(…)` as an entire selector
   ([#469](https://github.com/MyIntervals/emogrifier/issues/469),
   [#725](https://github.com/MyIntervals/emogrifier/pull/725))

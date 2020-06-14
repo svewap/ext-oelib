@@ -3,7 +3,7 @@
     "description": "dependencies of the oelib extension",
     "license": "GPL-2.0-or-later",
     "require": {
-        "pelago/emogrifier": "^3.0"
+        "pelago/emogrifier": "^4.0"
     },
     "prefer-stable": true,
     "config": {

@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Component\\CssSelector\\' => array($vendorDir . '/symfony/css-selector'),
-    'Pelago\\' => array($vendorDir . '/pelago/emogrifier/src'),
+    'Pelago\\Emogrifier\\' => array($vendorDir . '/pelago/emogrifier/src'),
 );
