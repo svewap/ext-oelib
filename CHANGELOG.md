@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- Move the testing framework dummy files from `uploads`-folder to `typo3temp` (#399, #403)
+
 ### Deprecated
 
 ### Removed

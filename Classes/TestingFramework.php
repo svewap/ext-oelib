@@ -6,6 +6,7 @@ use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -206,13 +207,17 @@ final class Tx_Oelib_TestingFramework
      */
     public function __construct(string $tablePrefix, array $additionalTablePrefixes = [])
     {
-        if (!defined('PATH_site')) {
+        if ((Typo3Version::isNotHigherThan(8)) && !defined('PATH_site')) {
             throw new \UnexpectedValueException('PATH_site is not set.', 1475862825228);
         }
 
         $this->tablePrefix = $tablePrefix;
         $this->additionalTablePrefixes = $additionalTablePrefixes;
-        $this->uploadFolderPath = PATH_site . 'uploads/' . $this->tablePrefix . '/';
+        if (Typo3Version::isNotHigherThan(8)) {
+            $this->uploadFolderPath = PATH_site . 'typo3temp/' . $this->tablePrefix . '/';
+        } else {
+            $this->uploadFolderPath = Environment::getPublicPath() . '/typo3temp/' . $this->tablePrefix . '/';
+        }
 
         /** @var array $rootLineCacheConfiguration */
         $rootLineCacheConfiguration =
