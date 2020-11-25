@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Domain\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Domain\Model\GermanZipCode;
+use OliverKlee\Oelib\Interfaces\Geo;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -38,7 +39,7 @@ class GermanZipCodeTest extends UnitTestCase
      */
     public function isGeo()
     {
-        self::assertInstanceOf(\Tx_Oelib_Interface_Geo::class, $this->subject);
+        self::assertInstanceOf(Geo::class, $this->subject);
     }
 
     /**

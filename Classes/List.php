@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Interfaces\Sortable;
+
 /**
  * This class represents a list of models.
  *
@@ -304,7 +306,7 @@ class Tx_Oelib_List extends SplObjectStorage
      * Sorts this list item in ascending order by their sorting.
      *
      * This function may only be used if all items in this list implement the
-     * \Tx_Oelib_Interface_Sortable interface.
+     * SortableInterface interface.
      *
      * @internal
      *
@@ -320,16 +322,16 @@ class Tx_Oelib_List extends SplObjectStorage
      *
      * This function is not intended to be used from the outside.
      *
-     * @param \Tx_Oelib_Interface_Sortable $object1 the first object
-     * @param \Tx_Oelib_Interface_Sortable $object2 the second object
+     * @param Sortable $object1 the first object
+     * @param Sortable $object2 the second object
      *
      * @return int a negative number if $model1 should be before $model2,
      *                 a positive number if $model1 should be after $model2,
      *                 zero if both are equal for sorting
      */
     public function compareSortings(
-        \Tx_Oelib_Interface_Sortable $object1,
-        \Tx_Oelib_Interface_Sortable $object2
+        Sortable $object1,
+        Sortable $object2
     ): int {
         return $object1->getSorting() - $object2->getSorting();
     }

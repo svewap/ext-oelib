@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Interfaces\GeocodingLookup;
+use OliverKlee\Oelib\Interfaces\Geo;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -11,7 +13,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
+class Tx_Oelib_Geocoding_Google implements GeocodingLookup
 {
     /**
      * @var string
@@ -33,7 +35,7 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
     /**
      * the Singleton instance
      *
-     * @var \Tx_Oelib_Interface_GeocodingLookup
+     * @var GeocodingLookup
      */
     private static $instance = null;
 
@@ -63,9 +65,9 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
     /**
      * Retrieves the Singleton instance of the GoogleMaps look-up.
      *
-     * @return \Tx_Oelib_Interface_GeocodingLookup the Singleton GoogleMaps look-up
+     * @return GeocodingLookup the Singleton GoogleMaps look-up
      */
-    public static function getInstance(): \Tx_Oelib_Interface_GeocodingLookup
+    public static function getInstance(): GeocodingLookup
     {
         if (self::$instance === null) {
             self::$instance = new \Tx_Oelib_Geocoding_Google();
@@ -79,11 +81,11 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
      *
      * Note: This function is to be used for testing only.
      *
-     * @param \Tx_Oelib_Interface_GeocodingLookup $instance the instance which getInstance() should return
+     * @param GeocodingLookup $instance the instance which getInstance() should return
      *
      * @return void
      */
-    public static function setInstance(\Tx_Oelib_Interface_GeocodingLookup $instance)
+    public static function setInstance(GeocodingLookup $instance)
     {
         self::$instance = $instance;
     }
@@ -113,13 +115,13 @@ class Tx_Oelib_Geocoding_Google implements \Tx_Oelib_Interface_GeocodingLookup
     /**
      * Looks up the geo coordinates of the address of an object and sets its geo coordinates.
      *
-     * @param \Tx_Oelib_Interface_Geo $geoObject
+     * @param Geo $geoObject
      *
      * @return void
      *
      * @throws \UnexpectedValueException if the API key is empty or not set
      */
-    public function lookUp(\Tx_Oelib_Interface_Geo $geoObject)
+    public function lookUp(Geo $geoObject)
     {
         if ($geoObject->hasGeoError() || $geoObject->hasGeoCoordinates()) {
             return;

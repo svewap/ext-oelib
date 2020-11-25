@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Interfaces\MailRole;
+
 /**
  * This class represents a back-end user.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_MailRole
+class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements MailRole
 {
     /**
      * @var string[] the user's configuration (unserialized)

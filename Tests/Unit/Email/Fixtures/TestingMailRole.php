@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Email\Fixtures;
 
+use OliverKlee\Oelib\Interfaces\MailRole;
+
 /**
  * This class represents an e-mail role, e.g., a sender or a recipient.
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class TestingMailRole extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_MailRole
+class TestingMailRole extends \Tx_Oelib_Object implements MailRole
 {
     /**
      * @var string[] the data of this object

@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Interfaces;
+
 /**
  * This interface represents an object that can have an automatic configuration check.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface Tx_Oelib_Interface_ConfigurationCheckable
+interface ConfigurationCheckable
 {
     /**
      * Returns the prefix for the configuration to check, e.g. "plugin.tx_seminars_pi1.".

@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures;
 
+use OliverKlee\Oelib\Interfaces\Identity;
+use OliverKlee\Oelib\Interfaces\MapPoint;
+
 /**
  * This is just a dummy class that implements the MapPoint interface and the Identity interface.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestingMapPoint implements \Tx_Oelib_Interface_MapPoint, \Tx_Oelib_Interface_Identity
+class TestingMapPoint implements MapPoint, Identity
 {
     /**
      * @var int

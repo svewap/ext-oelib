@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Interfaces\Identity;
+
 /**
  * This class represents a general domain model which is capable of lazy loading (using ghosts).
  *
@@ -10,7 +12,7 @@ declare(strict_types=1);
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements \Tx_Oelib_Interface_Identity
+abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements Identity
 {
     /**
      * @var int a status indicating that this model has neither data nor UID yet

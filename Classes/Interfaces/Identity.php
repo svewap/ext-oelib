@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Interfaces;
+
 /**
  * This interface represents something that has an identity, i.e., a UID.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface Tx_Oelib_Interface_Identity
+interface Identity
 {
     /**
      * Gets this object's UID.

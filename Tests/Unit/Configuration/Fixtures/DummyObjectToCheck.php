@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures;
 
+use OliverKlee\Oelib\Interfaces\ConfigurationCheckable;
+
 /**
  * This is mere a class to test the configuration check class.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class DummyObjectToCheck extends \Tx_Oelib_TemplateHelper implements \Tx_Oelib_Interface_ConfigurationCheckable
+class DummyObjectToCheck extends \Tx_Oelib_TemplateHelper implements ConfigurationCheckable
 {
     /**
      * The constructor.

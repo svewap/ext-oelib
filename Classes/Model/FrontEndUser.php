@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Interfaces\Address;
+use OliverKlee\Oelib\Interfaces\MailRole;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -9,9 +11,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements
-    \Tx_Oelib_Interface_MailRole,
-    \Tx_Oelib_Interface_Address
+class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements MailRole, Address
 {
     /**
      * @var int represents the male gender for this user

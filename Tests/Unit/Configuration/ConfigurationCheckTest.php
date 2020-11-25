@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Interfaces\ConfigurationCheckable;
 use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\DummyObjectToCheck;
 
 /**
@@ -50,7 +51,7 @@ class ConfigurationCheckTest extends UnitTestCase
     public function objectToCheckIsCheckable()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Interface_ConfigurationCheckable::class,
+            ConfigurationCheckable::class,
             $this->objectToCheck
         );
     }

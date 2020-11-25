@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Domain\Model;
 
+use OliverKlee\Oelib\Interfaces\Geo;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -13,7 +14,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de
  */
-class GermanZipCode extends AbstractEntity implements \Tx_Oelib_Interface_Geo
+class GermanZipCode extends AbstractEntity implements Geo
 {
     /**
      * @var string

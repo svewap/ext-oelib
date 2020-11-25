@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Interfaces;
+
 /**
  * This interface represents a manager for logins, providing access to the logged-in user.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface Tx_Oelib_Interface_LoginManager
+interface LoginManager
 {
     /**
      * Returns an instance of this class.

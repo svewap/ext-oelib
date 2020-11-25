@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Interfaces\LoginManager;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -12,7 +13,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_FrontEndLoginManager implements \Tx_Oelib_Interface_LoginManager
+class Tx_Oelib_FrontEndLoginManager implements LoginManager
 {
     /**
      * @var \Tx_Oelib_FrontEndLoginManager the Singleton instance

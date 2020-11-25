@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Email;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Email\GeneralEmailRole;
+use OliverKlee\Oelib\Interfaces\MailRole;
 
 /**
  * Test case.
@@ -21,7 +22,7 @@ class GeneralEmailRoleTest extends UnitTestCase
     {
         $subject = new GeneralEmailRole('jade@example.com');
 
-        self::assertInstanceOf(\Tx_Oelib_Interface_MailRole::class, $subject);
+        self::assertInstanceOf(MailRole::class, $subject);
     }
 
     /**

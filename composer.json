@@ -119,6 +119,11 @@
         "typo3/cms": {
             "extension-key": "oelib",
             "web-dir": ".Build/public"
+        },
+        "typo3/class-alias-loader": {
+            "class-alias-maps": [
+                "Migrations/Code/ClassAliasMap.php"
+            ]
         }
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Email;
 
+use OliverKlee\Oelib\Interfaces\MailRole;
+
 /**
  * A general email subject.
  *
@@ -11,7 +13,7 @@ namespace OliverKlee\Oelib\Email;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class GeneralEmailRole implements \Tx_Oelib_Interface_MailRole
+class GeneralEmailRole implements MailRole
 {
     /**
      * @var string

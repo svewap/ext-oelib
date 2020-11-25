@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Interfaces;
+
 /**
  * This interface represents an object that can have geo coordinates.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface Tx_Oelib_Interface_Geo
+interface Geo
 {
     /**
      * Returns this object's address formatted for a geo lookup, for example

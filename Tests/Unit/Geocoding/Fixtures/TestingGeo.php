@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures;
 
+use OliverKlee\Oelib\Interfaces\Geo;
+
 /**
  * This class represents an testing object that can have an address and geo coordinates.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestingGeo extends \Tx_Oelib_Model implements \Tx_Oelib_Interface_Geo
+class TestingGeo extends \Tx_Oelib_Model implements Geo
 {
     /**
      * whether this object has a geo error

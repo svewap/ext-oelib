@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Interfaces;
+
 /**
  * This interface represents an object that can be positioned on a map, e.g.,
  * on a Google Map.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface Tx_Oelib_Interface_MapPoint
+interface MapPoint
 {
     /**
      * Returns this object's coordinates.

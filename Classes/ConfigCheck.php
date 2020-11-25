@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
+use OliverKlee\Oelib\Interfaces\ConfigurationCheckable;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -32,7 +33,7 @@ class Tx_Oelib_ConfigCheck
     /**
      * the object whose configuration should be checked
      *
-     * @var \Tx_Oelib_TemplateHelper|\Tx_Oelib_Interface_ConfigurationCheckable
+     * @var \Tx_Oelib_TemplateHelper|ConfigurationCheckable
      */
     protected $objectToCheck = null;
 
@@ -1141,7 +1142,7 @@ class Tx_Oelib_ConfigCheck
      */
     protected function getTSSetupPath(): string
     {
-        if ($this->objectToCheck instanceof \Tx_Oelib_Interface_ConfigurationCheckable) {
+        if ($this->objectToCheck instanceof ConfigurationCheckable) {
             return $this->objectToCheck->getTypoScriptNamespace();
         }
 

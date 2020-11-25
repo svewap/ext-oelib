@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Interfaces;
+
 /**
  * This interfaces represents a postal address.
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-interface Tx_Oelib_Interface_Address
+interface Address
 {
     /**
      * Returns the city of the current address.

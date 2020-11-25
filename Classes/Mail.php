@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Interfaces\MailRole;
 use Pelago\Emogrifier\CssInliner;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -15,17 +16,17 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class Tx_Oelib_Mail extends \Tx_Oelib_Object
 {
     /**
-     * @var \Tx_Oelib_Interface_MailRole the sender of the e-mail
+     * @var MailRole the sender of the e-mail
      */
     private $sender = null;
 
     /**
-     * @var \Tx_Oelib_Interface_MailRole
+     * @var MailRole
      */
     private $replyTo = null;
 
     /**
-     * @var \Tx_Oelib_Interface_MailRole[] the recipients of the e-mail
+     * @var MailRole[] the recipients of the e-mail
      */
     private $recipients = [];
 
@@ -77,11 +78,11 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     /**
      * Sets the sender of the e-mail.
      *
-     * @param \Tx_Oelib_Interface_MailRole $sender the sender of the e-mail
+     * @param MailRole $sender the sender of the e-mail
      *
      * @return void
      */
-    public function setSender(\Tx_Oelib_Interface_MailRole $sender)
+    public function setSender(MailRole $sender)
     {
         $this->sender = $sender;
     }
@@ -89,7 +90,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     /**
      * Returns the sender of the e-mail.
      *
-     * @return \Tx_Oelib_Interface_MailRole|null
+     * @return MailRole|null
      */
     public function getSender()
     {
@@ -107,7 +108,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     }
 
     /**
-     * @return \Tx_Oelib_Interface_MailRole|null
+     * @return MailRole|null
      */
     public function getReplyTo()
     {
@@ -115,11 +116,11 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     }
 
     /**
-     * @param \Tx_Oelib_Interface_MailRole $replyTo
+     * @param MailRole $replyTo
      *
      * @return void
      */
-    public function setReplyTo(\Tx_Oelib_Interface_MailRole $replyTo)
+    public function setReplyTo(MailRole $replyTo)
     {
         $this->replyTo = $replyTo;
     }
@@ -135,11 +136,11 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     /**
      * Adds a recipient for the e-mail.
      *
-     * @param \Tx_Oelib_Interface_MailRole $recipient a recipient for the e-mail, must not be empty
+     * @param MailRole $recipient a recipient for the e-mail, must not be empty
      *
      * @return void
      */
-    public function addRecipient(\Tx_Oelib_Interface_MailRole $recipient)
+    public function addRecipient(MailRole $recipient)
     {
         $this->recipients[] = $recipient;
     }
@@ -147,7 +148,7 @@ class Tx_Oelib_Mail extends \Tx_Oelib_Object
     /**
      * Returns the recipients of the e-mail.
      *
-     * @return \Tx_Oelib_Interface_MailRole[] the recipients of the e-mail, will be empty if no recipients have been set
+     * @return MailRole[] the recipients of the e-mail, will be empty if no recipients have been set
      */
     public function getRecipients(): array
     {
