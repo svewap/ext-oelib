@@ -363,3 +363,23 @@ namespace {
 
     }
 }
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Visibility_Node extends \OliverKlee\Oelib\Visibility\Node
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Visibility_Tree extends \OliverKlee\Oelib\Visibility\Tree
+    {
+
+    }
+}

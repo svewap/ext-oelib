@@ -2,20 +2,22 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Visibility;
+
 /**
  * This class represents a node for a visibility tree.
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Visibility_Node
+class Node
 {
     /**
-     * @var \Tx_Oelib_Visibility_Node[] numeric array with all direct children of this node
+     * @var Node[] numeric array with all direct children of this node
      */
     private $children = [];
 
     /**
-     * @var \Tx_Oelib_Visibility_Node the parent node of this node
+     * @var Node the parent node of this node
      */
     private $parentNode = null;
 
@@ -37,11 +39,11 @@ class Tx_Oelib_Visibility_Node
     /**
      * Adds a child to this node.
      *
-     * @param \Tx_Oelib_Visibility_Node $child the child to add to this node
+     * @param Node $child the child to add to this node
      *
      * @return void
      */
-    public function addChild(\Tx_Oelib_Visibility_Node $child)
+    public function addChild(Node $child)
     {
         $this->children[] = $child;
         $child->setParent($this);
@@ -52,11 +54,11 @@ class Tx_Oelib_Visibility_Node
      *
      * The parent can only be set once.
      *
-     * @param \Tx_Oelib_Visibility_Node $parentNode the parent node to add
+     * @param Node $parentNode the parent node to add
      *
      * @return void
      */
-    public function setParent(\Tx_Oelib_Visibility_Node $parentNode)
+    public function setParent(Node $parentNode)
     {
         if ($this->parentNode !== null) {
             throw new \InvalidArgumentException('This node already has a parent node.', 1331488668);
@@ -92,7 +94,7 @@ class Tx_Oelib_Visibility_Node
     /**
      * Returns the children set for the current node.
      *
-     * @return \Tx_Oelib_Visibility_Node[] this node's children, will be empty if no children are set
+     * @return Node[] this node's children, will be empty if no children are set
      */
     public function getChildren(): array
     {
@@ -102,7 +104,7 @@ class Tx_Oelib_Visibility_Node
     /**
      * Returns the parent node set for this node.
      *
-     * @return \Tx_Oelib_Visibility_Node|null
+     * @return Node|null
      */
     public function getParent()
     {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Visibility;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Visibility\Node;
 
 /**
  * Test case.
@@ -14,13 +15,13 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class NodeTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Visibility_Node
+     * @var Node
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_Visibility_Node();
+        $this->subject = new Node();
     }
 
     //////////////////////////////
@@ -32,7 +33,7 @@ class NodeTest extends UnitTestCase
      */
     public function isVisibleIfSetToVisibleConstructionReturnsVisibilityFromConstruction()
     {
-        $subject = new \Tx_Oelib_Visibility_Node(true);
+        $subject = new Node(true);
 
         self::assertTrue(
             $subject->isVisible()
@@ -44,7 +45,7 @@ class NodeTest extends UnitTestCase
      */
     public function isVisibleIfSetToHiddenConstructionReturnsVisibilityFromConstruction()
     {
-        $subject = new \Tx_Oelib_Visibility_Node(false);
+        $subject = new Node(false);
 
         self::assertFalse(
             $subject->isVisible()
@@ -71,7 +72,7 @@ class NodeTest extends UnitTestCase
      */
     public function addChildWithOneGivenChildrenAddsOneChildToNode()
     {
-        $childNode = new \Tx_Oelib_Visibility_Node();
+        $childNode = new Node();
         $this->subject->addChild($childNode);
 
         self::assertSame(
@@ -85,8 +86,8 @@ class NodeTest extends UnitTestCase
      */
     public function addChildForNodeWithOneChildAndAnotherChildGivenAddsAnotherChildToNode()
     {
-        $this->subject->addChild(new \Tx_Oelib_Visibility_Node());
-        $this->subject->addChild(new \Tx_Oelib_Visibility_Node());
+        $this->subject->addChild(new Node());
+        $this->subject->addChild(new Node());
 
         self::assertCount(
             2,
@@ -99,7 +100,7 @@ class NodeTest extends UnitTestCase
      */
     public function addChildAddsParentToChild()
     {
-        $childNode = new \Tx_Oelib_Visibility_Node();
+        $childNode = new Node();
         $this->subject->addChild($childNode);
 
         self::assertSame(
@@ -127,7 +128,7 @@ class NodeTest extends UnitTestCase
      */
     public function setParentWithGivenParentSetsThisNodeAsParent()
     {
-        $childNode = new \Tx_Oelib_Visibility_Node();
+        $childNode = new Node();
         $childNode->setParent($this->subject);
 
         self::assertSame(
@@ -147,7 +148,7 @@ class NodeTest extends UnitTestCase
         $this->expectExceptionMessage(
             'This node already has a parent node.'
         );
-        $childNode = new \Tx_Oelib_Visibility_Node();
+        $childNode = new Node();
         $childNode->setParent($this->subject);
 
         $childNode->setParent($this->subject);
@@ -174,7 +175,7 @@ class NodeTest extends UnitTestCase
      */
     public function markAsVisibleForVisibleNodeSetsVisibilityTrue()
     {
-        $visibleNode = new \Tx_Oelib_Visibility_Node(true);
+        $visibleNode = new Node(true);
         $visibleNode->markAsVisible();
 
         self::assertTrue(
@@ -187,7 +188,7 @@ class NodeTest extends UnitTestCase
      */
     public function markAsVisibleForNodeWithParentMarksParentAsVisible()
     {
-        $childNode = new \Tx_Oelib_Visibility_Node();
+        $childNode = new Node();
         $childNode->setParent($this->subject);
         $childNode->markAsVisible();
 
@@ -201,8 +202,8 @@ class NodeTest extends UnitTestCase
      */
     public function markAsVisibleForNodeWithParentAndGrandparentMarksGrandparentNodeAsVisible()
     {
-        $childNode = new \Tx_Oelib_Visibility_Node();
-        $grandChildNode = new \Tx_Oelib_Visibility_Node();
+        $childNode = new Node();
+        $grandChildNode = new Node();
         $childNode->setParent($this->subject);
         $grandChildNode->setParent($childNode);
         $grandChildNode->markAsVisible();

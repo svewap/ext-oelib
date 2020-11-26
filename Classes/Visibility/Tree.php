@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Visibility;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -9,15 +11,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Visibility_Tree
+class Tree
 {
     /**
-     * @var \Tx_Oelib_Visibility_Node[] all nodes within the tree referenced by their keys
+     * @var Node[] all nodes within the tree referenced by their keys
      */
     private $nodes = [];
 
     /**
-     * @var \Tx_Oelib_Visibility_Node
+     * @var Node
      */
     private $rootNode = null;
 
@@ -40,7 +42,7 @@ class Tx_Oelib_Visibility_Tree
      */
     public function __construct(array $treeStructure)
     {
-        $this->rootNode = GeneralUtility::makeInstance(\Tx_Oelib_Visibility_Node::class);
+        $this->rootNode = GeneralUtility::makeInstance(Node::class);
 
         $this->buildTreeFromArray($treeStructure, $this->rootNode);
     }
@@ -50,18 +52,18 @@ class Tx_Oelib_Visibility_Tree
      *
      * @param array $treeStructure
      *        the tree structure as array, may be empty
-     * @param \Tx_Oelib_Visibility_Node $parentNode
+     * @param Node $parentNode
      *        the parent node for the current key
      *
      * @return void
      */
     private function buildTreeFromArray(
         array $treeStructure,
-        \Tx_Oelib_Visibility_Node $parentNode
+        Node $parentNode
     ) {
         foreach ($treeStructure as $nodeKey => $nodeContents) {
-            /** @var \Tx_Oelib_Visibility_Node $childNode */
-            $childNode = GeneralUtility::makeInstance(\Tx_Oelib_Visibility_Node::class);
+            /** @var Node $childNode */
+            $childNode = GeneralUtility::makeInstance(Node::class);
             $parentNode->addChild($childNode);
 
             if (is_array($nodeContents)) {
@@ -98,9 +100,9 @@ class Tx_Oelib_Visibility_Tree
     /**
      * Returns the root node.
      *
-     * @return \Tx_Oelib_Visibility_Node the root node
+     * @return Node the root node
      */
-    public function getRootNode(): \Tx_Oelib_Visibility_Node
+    public function getRootNode(): Node
     {
         return $this->rootNode;
     }

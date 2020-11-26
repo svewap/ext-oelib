@@ -50,4 +50,7 @@ return [
     'Tx_Oelib_ViewHelper_Price' => \OliverKlee\Oelib\ViewHelpers\PriceViewhelper::class,
     'Tx_Oelib_ViewHelpers_UppercaseViewHelper' => \OliverKlee\Oelib\ViewHelpers\UppercaseViewHelper::class,
 
+    // Visibility
+    'Tx_Oelib_Visibility_Node' => \OliverKlee\Oelib\Visibility\Node::class,
+    'Tx_Oelib_Visibility_Tree' => \OliverKlee\Oelib\Visibility\Tree::class,
 ];
