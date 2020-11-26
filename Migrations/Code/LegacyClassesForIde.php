@@ -333,3 +333,33 @@ namespace {
 
     }
 }
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends \OliverKlee\Oelib\ViewHelpers\GoogleMapsViewHelper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_ViewHelper_Price extends \OliverKlee\Oelib\ViewHelpers\PriceViewhelper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_ViewHelpers_UppercaseViewHelper extends \OliverKlee\Oelib\ViewHelpers\UppercaseViewHelper
+    {
+
+    }
+}

@@ -44,4 +44,10 @@ return [
     'Tx_Oelib_Model_FrontEndUser' => \OliverKlee\Oelib\Model\FrontEndUser::class,
     'Tx_Oelib_Model_FrontEndUserGroup' => \OliverKlee\Oelib\Model\FrontEndUserGroup::class,
     'Tx_Oelib_Model_Language' => \OliverKlee\Oelib\Model\Language::class,
+
+    // Viewhelpers
+    'Tx_Oelib_ViewHelpers_GoogleMapsViewHelper' => \OliverKlee\Oelib\ViewHelpers\GoogleMapsViewHelper::class,
+    'Tx_Oelib_ViewHelper_Price' => \OliverKlee\Oelib\ViewHelpers\PriceViewhelper::class,
+    'Tx_Oelib_ViewHelpers_UppercaseViewHelper' => \OliverKlee\Oelib\ViewHelpers\UppercaseViewHelper::class,
+
 ];

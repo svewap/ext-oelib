@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
 use OliverKlee\Oelib\Interfaces\MapPoint;
 use OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures\TestingMapPoint;
+use OliverKlee\Oelib\ViewHelpers\GoogleMapsViewHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -18,7 +19,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 {
     /**
-     * @var \Tx_Oelib_ViewHelpers_GoogleMapsViewHelper
+     * @var GoogleMapsViewHelper
      */
     private $subject = null;
 
@@ -55,7 +56,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $this->mapPointWithCoordinates->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
 
-        $this->subject = new \Tx_Oelib_ViewHelpers_GoogleMapsViewHelper();
+        $this->subject = new GoogleMapsViewHelper();
     }
 
     protected function tearDown()
@@ -70,9 +71,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function twoMapsAfterRenderingHaveDifferentMapIds()
     {
-        $map1 = new \Tx_Oelib_ViewHelpers_GoogleMapsViewHelper();
+        $map1 = new GoogleMapsViewHelper();
         $map1->render([$this->mapPointWithCoordinates]);
-        $map2 = new \Tx_Oelib_ViewHelpers_GoogleMapsViewHelper();
+        $map2 = new GoogleMapsViewHelper();
         $map2->render([$this->mapPointWithCoordinates]);
 
         self::assertNotSame($map1->getMapId(), $map2->getMapId());
@@ -116,7 +117,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     public function renderReturnsDivWithIdWithGeneralMapId()
     {
         self::assertContains(
-            '<div id="' . \Tx_Oelib_ViewHelpers_GoogleMapsViewHelper::MAP_HTML_ID_PREFIX,
+            '<div id="' . GoogleMapsViewHelper::MAP_HTML_ID_PREFIX,
             $this->subject->render([$this->mapPointWithCoordinates])
         );
     }
@@ -246,7 +247,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
             '<script src="https://maps.googleapis.com/maps/api/js?key=' . $apiKey
             . '" type="text/javascript"></script>',
             $this->mockFrontEnd
-                ->additionalHeaderData[\Tx_Oelib_ViewHelpers_GoogleMapsViewHelper::LIBRARY_JAVASCRIPT_HEADER_KEY]
+                ->additionalHeaderData[GoogleMapsViewHelper::LIBRARY_JAVASCRIPT_HEADER_KEY]
         );
     }
 

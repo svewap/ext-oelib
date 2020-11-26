@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\ViewHelpers;
+
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\CurrencyMapper;
 use OliverKlee\Oelib\Model\Currency;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * This class represents a view helper for formatting a price.
@@ -17,7 +20,7 @@ use OliverKlee\Oelib\Model\Currency;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_ViewHelper_Price
+class PriceViewhelper extends AbstractViewHelper
 {
     /**
      * @var float the value of the price to render

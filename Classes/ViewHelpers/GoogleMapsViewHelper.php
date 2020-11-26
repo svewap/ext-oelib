@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\ViewHelpers;
+
 use OliverKlee\Oelib\Interfaces\Identity;
 use OliverKlee\Oelib\Interfaces\MapPoint;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -23,7 +25,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_ViewHelpers_GoogleMapsViewHelper extends AbstractViewHelper
+class GoogleMapsViewHelper extends AbstractViewHelper
 {
     /**
      * array key in $GLOBALS['TSFE']->additionalHeaderData for the Google Maps

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\ViewHelpers;
+
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -9,7 +11,7 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_ViewHelpers_UppercaseViewHelper extends AbstractViewHelper
+class UppercaseViewHelper extends AbstractViewHelper
 {
     /**
      * Converts the rendered children to uppercase.
