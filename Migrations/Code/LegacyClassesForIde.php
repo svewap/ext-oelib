@@ -143,3 +143,33 @@ namespace {
 
     }
 }
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Geocoding_Calculcator extends \OliverKlee\Oelib\Geocoding\GeoCalculcator
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Geocoding_Dummy extends \OliverKlee\Oelib\Geocoding\DummyGeocodingLookup
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Geocoding_Google extends \OliverKlee\Oelib\Geocoding\GoogleGeocoding
+    {
+
+    }
+}

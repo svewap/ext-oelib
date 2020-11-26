@@ -2,14 +2,17 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Geocoding;
+
 use OliverKlee\Oelib\Interfaces\Geo;
+use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * This class provides functions for calculating the distance between geo objects.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Geocoding_Calculator implements \TYPO3\CMS\Core\SingletonInterface
+class GeoCalculcator implements SingletonInterface
 {
     /**
      * the earth radius in kilometers

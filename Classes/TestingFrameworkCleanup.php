@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -22,7 +23,7 @@ class Tx_Oelib_TestingFrameworkCleanup
         \Tx_Oelib_BackEndLoginManager::purgeInstance();
         \Tx_Oelib_ConfigurationRegistry::purgeInstance();
         \Tx_Oelib_FrontEndLoginManager::purgeInstance();
-        \Tx_Oelib_Geocoding_Google::purgeInstance();
+        GoogleGeocoding::purgeInstance();
         \Tx_Oelib_HeaderProxyFactory::purgeInstance();
         \Tx_Oelib_MapperRegistry::purgeInstance();
         \Tx_Oelib_PageFinder::purgeInstance();

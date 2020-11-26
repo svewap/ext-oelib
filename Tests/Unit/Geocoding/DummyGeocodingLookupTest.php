@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Geocoding\DummyGeocodingLookup;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 
 /**
@@ -12,16 +13,16 @@ use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class DummyTest extends UnitTestCase
+class DummyGeocodingLookupTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Geocoding_Dummy
+     * @var DummyGeocodingLookup
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_Geocoding_Dummy();
+        $this->subject = new DummyGeocodingLookup();
     }
 
     /////////////////////

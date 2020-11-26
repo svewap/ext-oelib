@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Geocoding;
+
 use OliverKlee\Oelib\Interfaces\GeocodingLookup;
 use OliverKlee\Oelib\Interfaces\Geo;
 
@@ -11,7 +13,7 @@ use OliverKlee\Oelib\Interfaces\Geo;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Geocoding_Dummy implements GeocodingLookup
+class DummyGeocodingLookup implements GeocodingLookup
 {
     /**
      * faked coordinates with the keys "latitude" and "longitude" or empty if there are none

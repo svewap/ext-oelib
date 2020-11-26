@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Geocoding;
+
 use OliverKlee\Oelib\Interfaces\GeocodingLookup;
 use OliverKlee\Oelib\Interfaces\Geo;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -13,7 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Geocoding_Google implements GeocodingLookup
+class GoogleGeocoding implements GeocodingLookup
 {
     /**
      * @var string
@@ -70,7 +72,7 @@ class Tx_Oelib_Geocoding_Google implements GeocodingLookup
     public static function getInstance(): GeocodingLookup
     {
         if (self::$instance === null) {
-            self::$instance = new \Tx_Oelib_Geocoding_Google();
+            self::$instance = new GoogleGeocoding();
         }
 
         return self::$instance;
