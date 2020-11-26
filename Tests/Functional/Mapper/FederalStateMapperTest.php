@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\FederalStateMapper;
+use OliverKlee\Oelib\Model\FederalState;
 
 /**
  * Test case.
@@ -53,7 +54,7 @@ class FederalStateMapperTest extends FunctionalTestCase
     public function findWithUidOfExistingRecordReturnsFederalStateInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Model_FederalState::class,
+            FederalState::class,
             $this->subject->find(88)
         );
     }
@@ -63,7 +64,7 @@ class FederalStateMapperTest extends FunctionalTestCase
      */
     public function findWithUidOfExistingRecordReturnsRecordAsModel()
     {
-        /** @var \Tx_Oelib_Model_FederalState $model */
+        /** @var FederalState $model */
         $model = $this->subject->find(88);
         self::assertSame(
             'NW',
@@ -77,7 +78,7 @@ class FederalStateMapperTest extends FunctionalTestCase
     public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithDataOfExistingRecordReturnsFederalStateInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Model_FederalState::class,
+            FederalState::class,
             $this->subject->findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCode('DE', 'NW')
         );
     }

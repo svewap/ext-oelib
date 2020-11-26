@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\CurrencyMapper;
+use OliverKlee\Oelib\Model\Currency;
 
 /**
  * Test case.
@@ -58,7 +59,7 @@ class CurrencyMapperTest extends FunctionalTestCase
     public function findWithUidOfExistingRecordReturnsCurrencyInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Model_Currency::class,
+            Currency::class,
             $this->subject->find(49)
         );
     }
@@ -73,7 +74,7 @@ class CurrencyMapperTest extends FunctionalTestCase
     public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsCurrencyInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Model_Currency::class,
+            Currency::class,
             $this->subject->findByIsoAlpha3Code('EUR')
         );
     }

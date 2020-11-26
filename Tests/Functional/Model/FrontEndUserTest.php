@@ -7,6 +7,8 @@ namespace OliverKlee\Oelib\Tests\Functional\Model;
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\CountryMapper;
+use OliverKlee\Oelib\Model\Country;
+use OliverKlee\Oelib\Model\FrontEndUser;
 
 /**
  * Test case.
@@ -21,14 +23,14 @@ class FrontEndUserTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/static_info_tables', 'typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_Model_FrontEndUser
+     * @var FrontEndUser
      */
     private $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = new \Tx_Oelib_Model_FrontEndUser();
+        $this->subject = new FrontEndUser();
     }
 
     /**
@@ -74,7 +76,7 @@ class FrontEndUserTest extends FunctionalTestCase
 
         /** @var CountryMapper $mapper */
         $mapper = \Tx_Oelib_MapperRegistry::get(CountryMapper::class);
-        /** @var \Tx_Oelib_Model_Country $country */
+        /** @var Country $country */
         $country = $mapper->find(54);
         $this->subject->setData(['static_info_country' => $country->getIsoAlpha3Code()]);
 
@@ -90,7 +92,7 @@ class FrontEndUserTest extends FunctionalTestCase
 
         /** @var CountryMapper $mapper */
         $mapper = \Tx_Oelib_MapperRegistry::get(CountryMapper::class);
-        /** @var \Tx_Oelib_Model_Country $country */
+        /** @var Country $country */
         $country = $mapper->find(54);
 
         $this->subject->setCountry($country);
@@ -139,7 +141,7 @@ class FrontEndUserTest extends FunctionalTestCase
 
         /** @var CountryMapper $mapper */
         $mapper = \Tx_Oelib_MapperRegistry::get(CountryMapper::class);
-        /** @var \Tx_Oelib_Model_Country $country */
+        /** @var Country $country */
         $country = $mapper->find(54);
         $this->subject->setCountry($country);
 

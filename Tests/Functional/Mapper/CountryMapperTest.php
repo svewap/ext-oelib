@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\CountryMapper;
+use OliverKlee\Oelib\Model\Country;
 
 /**
  * Test case.
@@ -56,10 +57,7 @@ class CountryMapperTest extends FunctionalTestCase
      */
     public function findWithUidOfExistingRecordReturnsCountryInstance()
     {
-        self::assertInstanceOf(
-            \Tx_Oelib_Model_Country::class,
-            $this->subject->find(54)
-        );
+        self::assertInstanceOf(Country::class, $this->subject->find(54));
     }
 
     /**
@@ -67,7 +65,7 @@ class CountryMapperTest extends FunctionalTestCase
      */
     public function findWithUidOfExistingRecordReturnsRecordAsModel()
     {
-        /** @var \Tx_Oelib_Model_Country $model */
+        /** @var Country $model */
         $model = $this->subject->find(54);
         self::assertSame(
             'DE',
@@ -85,7 +83,7 @@ class CountryMapperTest extends FunctionalTestCase
     public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsCountryInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Model_Country::class,
+            Country::class,
             $this->subject->findByIsoAlpha2Code('DE')
         );
     }
@@ -111,7 +109,7 @@ class CountryMapperTest extends FunctionalTestCase
     public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsCountryInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Model_Country::class,
+            Country::class,
             $this->subject->findByIsoAlpha3Code('DEU')
         );
     }

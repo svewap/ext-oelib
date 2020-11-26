@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use OliverKlee\Oelib\Interfaces\LoginManager;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
+use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -24,7 +25,7 @@ class Tx_Oelib_FrontEndLoginManager implements LoginManager
     /**
      * the real or simulated logged-in user
      *
-     * @var \Tx_Oelib_Model_FrontEndUser
+     * @var FrontEndUser
      */
     private $loggedInUser = null;
 
@@ -72,7 +73,7 @@ class Tx_Oelib_FrontEndLoginManager implements LoginManager
      */
     public function isLoggedIn(): bool
     {
-        $isSimulatedLoggedIn = $this->loggedInUser instanceof \Tx_Oelib_Model_FrontEndUser;
+        $isSimulatedLoggedIn = $this->loggedInUser instanceof FrontEndUser;
         if (Typo3Version::isNotHigherThan(8)) {
             $controller = $this->getFrontEndController();
             $sessionExists = $controller instanceof TypoScriptFrontendController && $controller->loginUser;
@@ -88,7 +89,7 @@ class Tx_Oelib_FrontEndLoginManager implements LoginManager
      *
      * @param string $mapperName the name of the mapper to use for getting the front-end user model, must not be empty
      *
-     * @return \Tx_Oelib_Model_FrontEndUser|null the logged-in front-end user
+     * @return FrontEndUser|null the logged-in front-end user
      *                                     will be null if no user is logged in or if there is no front end
      *
      * @throws \InvalidArgumentException
@@ -98,7 +99,7 @@ class Tx_Oelib_FrontEndLoginManager implements LoginManager
         if ($mapperName === '') {
             throw new \InvalidArgumentException('$mapperName must not be empty.', 1331488730);
         }
-        if ($this->loggedInUser instanceof \Tx_Oelib_Model_FrontEndUser) {
+        if ($this->loggedInUser instanceof FrontEndUser) {
             return $this->loggedInUser;
         }
         if (!$this->isLoggedIn()) {
@@ -122,11 +123,11 @@ class Tx_Oelib_FrontEndLoginManager implements LoginManager
      *
      * This function is intended to be used for unit test only. Don't use it in the production code.
      *
-     * @param \Tx_Oelib_Model_FrontEndUser|null $user the user to log in, set to NULL for no logged-in user
+     * @param FrontEndUser|null $user the user to log in, set to NULL for no logged-in user
      *
      * @return void
      */
-    public function logInUser(\Tx_Oelib_Model_FrontEndUser $user = null)
+    public function logInUser(FrontEndUser $user = null)
     {
         $this->loggedInUser = $user;
     }

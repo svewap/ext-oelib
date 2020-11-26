@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Mapper;
 
+use OliverKlee\Oelib\Model\BackEndUserGroup;
+
 /**
  * This class represents a mapper for back-end user groups.
  *
@@ -19,7 +21,7 @@ class BackEndUserGroupMapper extends \Tx_Oelib_DataMapper
     /**
      * @var string the model class name for this mapper, must not be empty
      */
-    protected $modelClassName = \Tx_Oelib_Model_BackEndUserGroup::class;
+    protected $modelClassName = BackEndUserGroup::class;
 
     /**
      * @var string[] the (possible) relations of the created models in the format DB column name => mapper name

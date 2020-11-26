@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Model;
+
 /**
  * This class represents a currency.
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Model_Currency extends \Tx_Oelib_Model
+class Currency extends \Tx_Oelib_Model
 {
     /**
      * @var bool whether this model is read-only

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Model\Country;
 
 /**
  * Test case.
@@ -14,13 +15,13 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class CountryTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Model_Country
+     * @var Country
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_Model_Country();
+        $this->subject = new Country();
     }
 
     /**

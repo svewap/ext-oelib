@@ -8,6 +8,8 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
+use OliverKlee\Oelib\Model\BackEndUser;
+use OliverKlee\Oelib\Model\BackEndUserGroup;
 
 /**
  * Test case.
@@ -56,7 +58,7 @@ class BackEndUserMapperTest extends FunctionalTestCase
     public function findWithUidOfExistingRecordReturnsBackEndUserInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Model_BackEndUser::class,
+            BackEndUser::class,
             $this->subject->find($this->testingFramework->createBackEndUser())
         );
     }
@@ -101,7 +103,7 @@ class BackEndUserMapperTest extends FunctionalTestCase
         $this->testingFramework->createBackEndUser(['username' => 'foo']);
 
         self::assertInstanceOf(
-            \Tx_Oelib_Model_BackEndUser::class,
+            BackEndUser::class,
             $this->subject->findByUserName('foo')
         );
     }
@@ -173,16 +175,13 @@ class BackEndUserMapperTest extends FunctionalTestCase
      */
     public function userGroupRelationIsUserGroupList()
     {
-        /** @var \Tx_Oelib_Model_BackEndUserGroup $group */
+        /** @var BackEndUserGroup $group */
         $group = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
         $groupUid = $group->getUid();
         $userUid = $this->subject->getLoadedTestingModel(['usergroup' => $groupUid])->getUid();
 
-        /** @var \Tx_Oelib_Model_BackEndUser $user */
+        /** @var BackEndUser $user */
         $user = $this->subject->find($userUid);
-        self::assertInstanceOf(
-            \Tx_Oelib_Model_BackEndUserGroup::class,
-            $user->getGroups()->first()
-        );
+        self::assertInstanceOf(BackEndUserGroup::class, $user->getGroups()->first());
     }
 }

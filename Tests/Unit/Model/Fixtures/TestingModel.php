@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model\Fixtures;
 
+use OliverKlee\Oelib\Model\FrontEndUser;
+
 /**
  * Testing model.
  *
@@ -99,11 +101,11 @@ class TestingModel extends \Tx_Oelib_Model
     /**
      * Gets the "owner" data item. This is an n:1 relation.
      *
-     * @return \Tx_Oelib_Model_FrontEndUser
+     * @return FrontEndUser
      */
-    public function getOwner(): \Tx_Oelib_Model_FrontEndUser
+    public function getOwner(): FrontEndUser
     {
-        /** @var \Tx_Oelib_Model_FrontEndUser $model */
+        /** @var FrontEndUser $model */
         $model = $this->getAsModel('owner');
 
         return $model;

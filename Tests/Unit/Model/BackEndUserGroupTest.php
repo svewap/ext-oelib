@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Model\BackEndUserGroup;
 
 /**
  * Test case.
@@ -15,13 +16,13 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class BackEndUserGroupTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Model_BackEndUserGroup
+     * @var BackEndUserGroup
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_Model_BackEndUserGroup();
+        $this->subject = new BackEndUserGroup();
     }
 
     ////////////////////////////////

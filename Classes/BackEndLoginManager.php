@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use OliverKlee\Oelib\Interfaces\LoginManager;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
+use OliverKlee\Oelib\Model\BackEndUser;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
@@ -19,7 +20,7 @@ class Tx_Oelib_BackEndLoginManager implements LoginManager
     private static $instance = null;
 
     /**
-     * @var \Tx_Oelib_Model_BackEndUser a logged-in back-end user (real or faked)
+     * @var BackEndUser a logged-in back-end user (real or faked)
      */
     private $loggedInUser = null;
 
@@ -62,7 +63,7 @@ class Tx_Oelib_BackEndLoginManager implements LoginManager
      */
     public function isLoggedIn(): bool
     {
-        return $this->loggedInUser instanceof \Tx_Oelib_Model_BackEndUser
+        return $this->loggedInUser instanceof BackEndUser
             || $this->getBackEndUserAuthentication() instanceof BackendUserAuthentication;
     }
 
@@ -72,7 +73,7 @@ class Tx_Oelib_BackEndLoginManager implements LoginManager
      * @param string $mapperName
      *        the name of the mapper to use for getting the back-end user model, must not be empty
      *
-     * @return \Tx_Oelib_Model_BackEndUser|null the logged-in back-end user, will be null if no user is logged in
+     * @return BackEndUser|null the logged-in back-end user, will be null if no user is logged in
      *
      * @throws \InvalidArgumentException
      */
@@ -84,7 +85,7 @@ class Tx_Oelib_BackEndLoginManager implements LoginManager
         if (!$this->isLoggedIn()) {
             return null;
         }
-        if ($this->loggedInUser instanceof \Tx_Oelib_Model_BackEndUser) {
+        if ($this->loggedInUser instanceof BackEndUser) {
             return $this->loggedInUser;
         }
 
@@ -100,11 +101,11 @@ class Tx_Oelib_BackEndLoginManager implements LoginManager
      *
      * This function is for testing purposes only!
      *
-     * @param \Tx_Oelib_Model_BackEndUser $loggedInUser the fake logged-in back-end user
+     * @param BackEndUser $loggedInUser the fake logged-in back-end user
      *
      * @return void
      */
-    public function setLoggedInUser(\Tx_Oelib_Model_BackEndUser $loggedInUser)
+    public function setLoggedInUser(BackEndUser $loggedInUser)
     {
         $this->loggedInUser = $loggedInUser;
     }

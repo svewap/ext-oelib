@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Language;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Model\BackEndUser;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Lang\LanguageService;
@@ -166,7 +167,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
     {
         $this->setUpBackEnd();
 
-        $backEndUser = new \Tx_Oelib_Model_BackEndUser();
+        $backEndUser = new BackEndUser();
         $backEndUser->setDefaultLanguage('default');
         \Tx_Oelib_BackEndLoginManager::getInstance()->setLoggedInUser($backEndUser);
 
@@ -183,7 +184,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
     {
         $this->setUpBackEnd();
 
-        $backEndUser = new \Tx_Oelib_Model_BackEndUser();
+        $backEndUser = new BackEndUser();
         $backEndUser->setDefaultLanguage('de');
         \Tx_Oelib_BackEndLoginManager::getInstance()->setLoggedInUser($backEndUser);
 

@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Model;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
+use OliverKlee\Oelib\Model\BackEndUser;
 
 /**
  * Test case.
@@ -21,14 +22,14 @@ class BackEndUserTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_Model_BackEndUser
+     * @var BackEndUser
      */
     private $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = new \Tx_Oelib_Model_BackEndUser();
+        $this->subject = new BackEndUser();
     }
 
     //////////////////////////////////

@@ -253,3 +253,83 @@ namespace {
 
     }
 }
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Model_BackEndUser extends \OliverKlee\Oelib\Model\BackEndUser
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Model_BackEndUserGroup extends \OliverKlee\Oelib\Model\BackEndUserGroup
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Model_Country extends \OliverKlee\Oelib\Model\Country
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Model_Currency extends \OliverKlee\Oelib\Model\Currency
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Model_FederalState extends \OliverKlee\Oelib\Model\FederalState
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Model_FrontEndUser extends \OliverKlee\Oelib\Model\FrontEndUser
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Model_FrontEndUserGroup extends \OliverKlee\Oelib\Model\FrontEndUserGroup
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Model_Language extends \OliverKlee\Oelib\Model\Language
+    {
+
+    }
+}

@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Authentication;
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
+use OliverKlee\Oelib\Model\BackEndUser;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
@@ -89,7 +90,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
      */
     public function isLoggedInForFakedUserReturnsTrue()
     {
-        /** @var \Tx_Oelib_Model_BackEndUser $ghostUser */
+        /** @var BackEndUser $ghostUser */
         $ghostUser = $this->backEndUserMapper->getNewGhost();
         $this->subject->setLoggedInUser($ghostUser);
 
@@ -115,7 +116,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
     {
         $this->logInBackEndUser();
 
-        self::assertInstanceOf(\Tx_Oelib_Model_BackEndUser::class, $this->subject->getLoggedInUser());
+        self::assertInstanceOf(BackEndUser::class, $this->subject->getLoggedInUser());
     }
 
     /**
@@ -149,7 +150,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
     {
         $this->logInBackEndUser();
 
-        /** @var \Tx_Oelib_Model_BackEndUser $user */
+        /** @var BackEndUser $user */
         $user = $this->backEndUserMapper->find($this->getBackEndUserAuthentication()->user['uid']);
 
         self::assertSame($user, $this->subject->getLoggedInUser());
@@ -177,7 +178,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
      */
     public function setLoggedInUserForUserGivenSetsTheLoggedInUser()
     {
-        /** @var \Tx_Oelib_Model_BackEndUser $backEndUser */
+        /** @var BackEndUser $backEndUser */
         $backEndUser = $this->backEndUserMapper->getNewGhost();
         $this->subject->setLoggedInUser($backEndUser);
 
@@ -189,11 +190,11 @@ class BackEndLoginManagerTest extends FunctionalTestCase
      */
     public function setLoggedInUserForUserGivenAndAlreadyStoredLoggedInUserOverridesTheOldUserWithTheNewOne()
     {
-        /** @var \Tx_Oelib_Model_BackEndUser $oldBackEndUser */
+        /** @var BackEndUser $oldBackEndUser */
         $oldBackEndUser = $this->backEndUserMapper->getNewGhost();
         $this->subject->setLoggedInUser($oldBackEndUser);
 
-        /** @var \Tx_Oelib_Model_BackEndUser $newBackEndUser */
+        /** @var BackEndUser $newBackEndUser */
         $newBackEndUser = $this->backEndUserMapper->getNewGhost();
         $this->subject->setLoggedInUser($newBackEndUser);
 

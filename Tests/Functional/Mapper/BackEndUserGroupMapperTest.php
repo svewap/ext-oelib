@@ -6,6 +6,8 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
+use OliverKlee\Oelib\Model\BackEndUserGroup;
+use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
 /**
  * Test case.
@@ -39,7 +41,7 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
      */
     public function findReturnsBackEndUserGroupInstance()
     {
-        self::assertInstanceOf(\Tx_Oelib_Model_BackEndUserGroup::class, $this->subject->find(1));
+        self::assertInstanceOf(BackEndUserGroup::class, $this->subject->find(1));
     }
 
     /**
@@ -47,7 +49,7 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
      */
     public function loadForExistingUserGroupCanLoadUserGroupData()
     {
-        /** @var \Tx_Oelib_Model_FrontEndUserGroup $userGroup */
+        /** @var FrontEndUserGroup $userGroup */
         $userGroup = $this->subject->find(1);
         $this->subject->load($userGroup);
 
@@ -59,8 +61,8 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
      */
     public function subgroupRelationIsUserGroupList()
     {
-        /** @var \Tx_Oelib_Model_BackEndUserGroup $group */
+        /** @var BackEndUserGroup $group */
         $group = $this->subject->find(1);
-        self::assertInstanceOf(\Tx_Oelib_Model_BackEndUserGroup::class, $group->getSubgroups()->first());
+        self::assertInstanceOf(BackEndUserGroup::class, $group->getSubgroups()->first());
     }
 }

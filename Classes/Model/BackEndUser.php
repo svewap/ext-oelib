@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Model;
+
 use OliverKlee\Oelib\Interfaces\MailRole;
 
 /**
@@ -10,7 +12,7 @@ use OliverKlee\Oelib\Interfaces\MailRole;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements MailRole
+class BackEndUser extends \Tx_Oelib_Model implements MailRole
 {
     /**
      * @var string[] the user's configuration (unserialized)
@@ -96,7 +98,7 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements MailRole
     /**
      * Returns the direct user groups of this user.
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> the user's direct groups, will be empty if this
+     * @return \Tx_Oelib_List<BackEndUserGroup> the user's direct groups, will be empty if this
      *                       user has no groups
      */
     public function getGroups(): \Tx_Oelib_List
@@ -107,7 +109,7 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements MailRole
     /**
      * Recursively gets all groups and subgroups of this user.
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> all groups and subgroups of this user, will be
+     * @return \Tx_Oelib_List<BackEndUserGroup> all groups and subgroups of this user, will be
      *                       empty if this user has no groups
      */
     public function getAllGroups(): \Tx_Oelib_List
@@ -118,9 +120,9 @@ class Tx_Oelib_Model_BackEndUser extends \Tx_Oelib_Model implements MailRole
         do {
             $groupsForNextStep = new \Tx_Oelib_List();
             $result->append($groupsToProcess);
-            /** @var \Tx_Oelib_Model_BackEndUserGroup $group */
+            /** @var BackEndUserGroup $group */
             foreach ($groupsToProcess as $group) {
-                /** @var \Tx_Oelib_Model_BackEndUserGroup $subgroup */
+                /** @var BackEndUserGroup $subgroup */
                 foreach ($group->getSubgroups() as $subgroup) {
                     if (!$result->hasUid($subgroup->getUid())) {
                         $groupsForNextStep->add($subgroup);

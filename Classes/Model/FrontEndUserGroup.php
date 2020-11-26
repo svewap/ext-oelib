@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Model;
+
 /**
  * This class represents a front-end user group.
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Model_FrontEndUserGroup extends \Tx_Oelib_Model
+class FrontEndUserGroup extends \Tx_Oelib_Model
 {
     /**
      * Gets this group's title.

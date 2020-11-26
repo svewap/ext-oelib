@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Model;
+
 /**
  * This model represents a federal state, e.g., Nordrhein-Westfalen (in Germany).
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Model_FederalState extends \Tx_Oelib_Model
+class FederalState extends \Tx_Oelib_Model
 {
     /**
      * @var bool

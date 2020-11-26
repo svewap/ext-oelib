@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Mapper;
 
+use OliverKlee\Oelib\Model\FrontEndUserGroup;
+
 /**
  * This class represents a mapper for front-end user groups.
  *
@@ -19,5 +21,5 @@ class FrontEndUserGroupMapper extends \Tx_Oelib_DataMapper
     /**
      * @var string the model class name for this mapper, must not be empty
      */
-    protected $modelClassName = \Tx_Oelib_Model_FrontEndUserGroup::class;
+    protected $modelClassName = FrontEndUserGroup::class;
 }

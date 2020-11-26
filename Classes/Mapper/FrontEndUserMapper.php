@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Mapper;
 
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Model\FrontEndUser;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -23,7 +24,7 @@ class FrontEndUserMapper extends \Tx_Oelib_DataMapper
     /**
      * @var string the model class name for this mapper, must not be empty
      */
-    protected $modelClassName = \Tx_Oelib_Model_FrontEndUser::class;
+    protected $modelClassName = FrontEndUser::class;
 
     /**
      * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
@@ -44,16 +45,16 @@ class FrontEndUserMapper extends \Tx_Oelib_DataMapper
      * @param string $userName
      *        user name, case-insensitive, must not be empty
      *
-     * @return \Tx_Oelib_Model_FrontEndUser
+     * @return FrontEndUser
      *         model of the front-end user with the provided user name
      *
      * @throws NotFoundException
      *         if there is no front-end user with the provided user name in the
      *         database
      */
-    public function findByUserName(string $userName): \Tx_Oelib_Model_FrontEndUser
+    public function findByUserName(string $userName): FrontEndUser
     {
-        /** @var \Tx_Oelib_Model_FrontEndUser $result */
+        /** @var FrontEndUser $result */
         $result = $this->findOneByKey('username', $userName);
 
         return $result;
@@ -66,7 +67,7 @@ class FrontEndUserMapper extends \Tx_Oelib_DataMapper
      *        the UIDs of the user groups from which to get the users, must be a
      *        comma-separated list of group UIDs, must not be empty
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model_FrontEndUser> the found user models, will be empty if
+     * @return \Tx_Oelib_List<FrontEndUser> the found user models, will be empty if
      *                       no users were found for the given groups
      */
     public function getGroupMembers($groupUids): \Tx_Oelib_List

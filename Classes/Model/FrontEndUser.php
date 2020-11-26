@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Model;
+
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Interfaces\Address;
 use OliverKlee\Oelib\Interfaces\MailRole;
@@ -13,7 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements MailRole, Address
+class FrontEndUser extends \Tx_Oelib_Model implements MailRole, Address
 {
     /**
      * @var int represents the male gender for this user
@@ -394,7 +396,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements MailRole, A
     /**
      * Gets this user's user groups.
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> this user's FE user groups, will not be empty if
+     * @return \Tx_Oelib_List<BackEndUserGroup> this user's FE user groups, will not be empty if
      *                       the user data is valid
      */
     public function getUserGroups(): \Tx_Oelib_List
@@ -405,7 +407,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements MailRole, A
     /**
      * Sets this user's direct user groups.
      *
-     * @param \Tx_Oelib_List<\Tx_Oelib_Model_BackEndUserGroup> $userGroups the user groups to set, may be empty
+     * @param \Tx_Oelib_List<BackEndUserGroup> $userGroups the user groups to set, may be empty
      *
      * @return void
      */
@@ -417,11 +419,11 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements MailRole, A
     /**
      * Adds $group to this user's direct groups.
      *
-     * @param \Tx_Oelib_Model_FrontEndUserGroup $group
+     * @param FrontEndUserGroup $group
      *
      * @return void
      */
-    public function addUserGroup(\Tx_Oelib_Model_FrontEndUserGroup $group)
+    public function addUserGroup(FrontEndUserGroup $group)
     {
         $this->getUserGroups()->add($group);
     }
@@ -680,7 +682,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements MailRole, A
      *
      * Note: This function uses the "country code" field, not the free-text country field.
      *
-     * @return \Tx_Oelib_Model_Country|null
+     * @return Country|null
      */
     public function getCountry()
     {
@@ -692,7 +694,7 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements MailRole, A
         try {
             /** @var CountryMapper $countryMapper */
             $countryMapper = \Tx_Oelib_MapperRegistry::get(CountryMapper::class);
-            /** @var \Tx_Oelib_Model_Country $country */
+            /** @var Country $country */
             $country = $countryMapper->findByIsoAlpha3Code($countryCode);
         } catch (NotFoundException $exception) {
             $country = null;
@@ -704,12 +706,12 @@ class Tx_Oelib_Model_FrontEndUser extends \Tx_Oelib_Model implements MailRole, A
     /**
      * Sets the country of this user.
      *
-     * @param \Tx_Oelib_Model_Country $country
+     * @param Country $country
      *        the country to set for this place, can be NULL for "no country"
      *
      * @return void
      */
-    public function setCountry(\Tx_Oelib_Model_Country $country = null)
+    public function setCountry(Country $country = null)
     {
         $countryCode = ($country !== null) ? $country->getIsoAlpha3Code() : '';
 

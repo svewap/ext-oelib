@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Authentication;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
+use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -137,7 +138,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->createAndLoginFrontEndUser();
 
-        self::assertInstanceOf(\Tx_Oelib_Model_FrontEndUser::class, $this->subject->getLoggedInUser());
+        self::assertInstanceOf(FrontEndUser::class, $this->subject->getLoggedInUser());
     }
 
     /**
@@ -172,7 +173,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
 
         /** @var FrontEndUserMapper $mapper */
         $mapper = \Tx_Oelib_MapperRegistry::get(FrontEndUserMapper::class);
-        /** @var \Tx_Oelib_Model_FrontEndUser $user */
+        /** @var FrontEndUser $user */
         $user = $mapper->find($uid);
 
         self::assertSame($user, $this->subject->getLoggedInUser());
@@ -205,7 +206,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->createAndLoginFrontEndUser();
 
-        $user = new \Tx_Oelib_Model_FrontEndUser();
+        $user = new FrontEndUser();
         $this->subject->logInUser($user);
 
         self::assertSame($user, $this->subject->getLoggedInUser());

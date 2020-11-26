@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Authentication;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Model\FrontEndUser;
 
 /**
  * Test case.
@@ -71,7 +72,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
      */
     public function logInUserChangesToLoggedInStatus()
     {
-        $user = new \Tx_Oelib_Model_FrontEndUser();
+        $user = new FrontEndUser();
         $this->subject->logInUser($user);
 
         self::assertTrue(
@@ -84,7 +85,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
      */
     public function logInUserSetsLoggedInUser()
     {
-        $user = new \Tx_Oelib_Model_FrontEndUser();
+        $user = new FrontEndUser();
         $this->subject->logInUser($user);
 
         self::assertSame(
@@ -98,9 +99,9 @@ class FrontEndLoginManagerTest extends UnitTestCase
      */
     public function logInUserOverwritesFormerSimulatedLoggedInUser()
     {
-        $oldUser = new \Tx_Oelib_Model_FrontEndUser();
+        $oldUser = new FrontEndUser();
         $this->subject->logInUser($oldUser);
-        $newUser = new \Tx_Oelib_Model_FrontEndUser();
+        $newUser = new FrontEndUser();
         $this->subject->logInUser($newUser);
 
         self::assertSame(
@@ -114,7 +115,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
      */
     public function logInUserWithNullSetsUserToNull()
     {
-        $user = new \Tx_Oelib_Model_FrontEndUser();
+        $user = new FrontEndUser();
         $this->subject->logInUser($user);
 
         $this->subject->logInUser(null);
@@ -129,7 +130,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
      */
     public function logInUserWithNullSetsStatusToNotLoggedIn()
     {
-        $user = new \Tx_Oelib_Model_FrontEndUser();
+        $user = new FrontEndUser();
         $this->subject->logInUser($user);
 
         $this->subject->logInUser(null);

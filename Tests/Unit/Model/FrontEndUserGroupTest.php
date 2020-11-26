@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
 /**
  * Test case.
@@ -14,13 +15,13 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class FrontEndUserGroupTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Model_FrontEndUserGroup
+     * @var FrontEndUserGroup
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_Model_FrontEndUserGroup();
+        $this->subject = new FrontEndUserGroup();
     }
 
     ////////////////////////////////

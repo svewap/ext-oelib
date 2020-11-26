@@ -34,4 +34,14 @@ return [
     'Tx_Oelib_Mapper_FrontEndUser' => \OliverKlee\Oelib\Mapper\FrontEndUserMapper::class,
     'Tx_Oelib_Mapper_FrontEndUserGroup' => \OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper::class,
     'Tx_Oelib_Mapper_Language' => \OliverKlee\Oelib\Mapper\LanguageMapper::class,
+
+    // Models
+    'Tx_Oelib_Model_BackEndUser' => \OliverKlee\Oelib\Model\BackEndUser::class,
+    'Tx_Oelib_Model_BackEndUserGroup' => \OliverKlee\Oelib\Model\BackEndUserGroup::class,
+    'Tx_Oelib_Model_Country' => \OliverKlee\Oelib\Model\Country::class,
+    'Tx_Oelib_Model_Currency' => \OliverKlee\Oelib\Model\Currency::class,
+    'Tx_Oelib_Model_FederalState' => \OliverKlee\Oelib\Model\FederalState::class,
+    'Tx_Oelib_Model_FrontEndUser' => \OliverKlee\Oelib\Model\FrontEndUser::class,
+    'Tx_Oelib_Model_FrontEndUserGroup' => \OliverKlee\Oelib\Model\FrontEndUserGroup::class,
+    'Tx_Oelib_Model_Language' => \OliverKlee\Oelib\Model\Language::class,
 ];

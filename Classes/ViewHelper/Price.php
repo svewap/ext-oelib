@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\CurrencyMapper;
+use OliverKlee\Oelib\Model\Currency;
 
 /**
  * This class represents a view helper for formatting a price.
@@ -24,7 +25,7 @@ class Tx_Oelib_ViewHelper_Price
     protected $value = 0.000;
 
     /**
-     * @var \Tx_Oelib_Model_Currency the currency of the price to render
+     * @var Currency the currency of the price to render
      */
     protected $currency = null;
 

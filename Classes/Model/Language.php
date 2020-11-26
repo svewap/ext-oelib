@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Model;
+
 /**
  * This class represents a language.
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Model_Language extends \Tx_Oelib_Model
+class Language extends \Tx_Oelib_Model
 {
     /**
      * @var bool whether this model is read-only

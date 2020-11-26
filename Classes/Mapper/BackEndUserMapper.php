@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Mapper;
 
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Model\BackEndUser;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
@@ -23,7 +24,7 @@ class BackEndUserMapper extends \Tx_Oelib_DataMapper
     /**
      * @var string the model class name for this mapper, must not be empty
      */
-    protected $modelClassName = \Tx_Oelib_Model_BackEndUser::class;
+    protected $modelClassName = BackEndUser::class;
 
     /**
      * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
@@ -44,14 +45,14 @@ class BackEndUserMapper extends \Tx_Oelib_DataMapper
      * @param string $userName
      *        user name, case-insensitive, must not be empty
      *
-     * @return \Tx_Oelib_Model_BackEndUser model of the back-end user with the provided user name
+     * @return BackEndUser model of the back-end user with the provided user name
      *
      * @throws NotFoundException if there is no back-end user with the
      *                                     provided user name in the be_user table
      */
-    public function findByUserName($userName): \Tx_Oelib_Model_BackEndUser
+    public function findByUserName($userName): BackEndUser
     {
-        /** @var \Tx_Oelib_Model_BackEndUser $result */
+        /** @var BackEndUser $result */
         $result = $this->findOneByKey('username', $userName);
 
         return $result;

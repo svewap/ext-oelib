@@ -8,6 +8,7 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
+use OliverKlee\Oelib\Model\FrontEndUser;
 
 /**
  * Test case.
@@ -46,7 +47,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertInstanceOf(
-            \Tx_Oelib_Model_FrontEndUser::class,
+            FrontEndUser::class,
             $this->subject->find($uid)
         );
     }
@@ -84,7 +85,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $groupUids]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        /** @var \Tx_Oelib_Model_FrontEndUser $user */
+        /** @var FrontEndUser $user */
         $user = $this->subject->find($uid);
         self::assertSame(
             $groupUids,
@@ -255,7 +256,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $feUserGroupUid]);
 
         self::assertInstanceOf(
-            \Tx_Oelib_Model_FrontEndUser::class,
+            FrontEndUser::class,
             $this->subject->getGroupMembers($feUserGroupUid)->first()
         );
     }
@@ -378,7 +379,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName]);
 
         self::assertInstanceOf(
-            \Tx_Oelib_Model_FrontEndUser::class,
+            FrontEndUser::class,
             $this->subject->findByUserName($userName)
         );
     }

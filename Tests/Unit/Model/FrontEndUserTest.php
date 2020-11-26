@@ -6,6 +6,8 @@ namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
+use OliverKlee\Oelib\Model\FrontEndUser;
+use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
 /**
  * Test case.
@@ -15,7 +17,7 @@ use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
 class FrontEndUserTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Model_FrontEndUser
+     * @var FrontEndUser
      */
     private $subject = null;
 
@@ -31,7 +33,7 @@ class FrontEndUserTest extends UnitTestCase
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_Model_FrontEndUser();
+        $this->subject = new FrontEndUser();
 
         $this->globalExecTimeBackup = $GLOBALS['EXEC_TIME'];
         $this->tcaBackup = $GLOBALS['TCA']['fe_users'];
@@ -1091,7 +1093,7 @@ class FrontEndUserTest extends UnitTestCase
         $userGroups = new \Tx_Oelib_List();
         $this->subject->setUserGroups($userGroups);
 
-        $userGroup = new \Tx_Oelib_Model_FrontEndUserGroup();
+        $userGroup = new FrontEndUserGroup();
         $this->subject->addUserGroup($userGroup);
 
         self::assertTrue(
@@ -1196,7 +1198,7 @@ class FrontEndUserTest extends UnitTestCase
     {
         $this->removeGenderField();
 
-        self::assertFalse(\Tx_Oelib_Model_FrontEndUser::hasGenderField());
+        self::assertFalse(FrontEndUser::hasGenderField());
     }
 
     /**
@@ -1206,7 +1208,7 @@ class FrontEndUserTest extends UnitTestCase
     {
         $this->enableGenderField();
 
-        self::assertTrue(\Tx_Oelib_Model_FrontEndUser::hasGenderField());
+        self::assertTrue(FrontEndUser::hasGenderField());
     }
 
     /**
@@ -1216,7 +1218,7 @@ class FrontEndUserTest extends UnitTestCase
     {
         $this->removeGenderField();
 
-        self::assertSame(\Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN, $this->subject->getGender());
+        self::assertSame(FrontEndUser::GENDER_UNKNOWN, $this->subject->getGender());
     }
 
     /**
@@ -1228,7 +1230,7 @@ class FrontEndUserTest extends UnitTestCase
 
         $this->subject->setData(['gender' => 0]);
 
-        self::assertSame(\Tx_Oelib_Model_FrontEndUser::GENDER_MALE, $this->subject->getGender());
+        self::assertSame(FrontEndUser::GENDER_MALE, $this->subject->getGender());
     }
 
     /**
@@ -1240,7 +1242,7 @@ class FrontEndUserTest extends UnitTestCase
 
         $this->subject->setData(['gender' => 1]);
 
-        self::assertSame(\Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE, $this->subject->getGender());
+        self::assertSame(FrontEndUser::GENDER_FEMALE, $this->subject->getGender());
     }
 
     /**
@@ -1249,9 +1251,9 @@ class FrontEndUserTest extends UnitTestCase
     public function genderDataProvider(): array
     {
         return [
-            'male' => [\Tx_Oelib_Model_FrontEndUser::GENDER_MALE],
-            'female' => [\Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE],
-            'unknown' => [\Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN],
+            'male' => [FrontEndUser::GENDER_MALE],
+            'female' => [FrontEndUser::GENDER_FEMALE],
+            'unknown' => [FrontEndUser::GENDER_UNKNOWN],
         ];
     }
 

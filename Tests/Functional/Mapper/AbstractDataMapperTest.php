@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
@@ -948,7 +949,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         self::assertInstanceOf(
-            \Tx_Oelib_Model_FrontEndUser::class,
+            FrontEndUser::class,
             $model->getOwner()
         );
     }

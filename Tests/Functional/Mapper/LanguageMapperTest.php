@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\LanguageMapper;
+use OliverKlee\Oelib\Model\Language;
 
 /**
  * Test case.
@@ -56,7 +57,7 @@ class LanguageMapperTest extends FunctionalTestCase
     public function findWithUidOfExistingRecordReturnsLanguageInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Model_Language::class,
+            Language::class,
             $this->subject->find(43)
         );
     }
@@ -66,7 +67,7 @@ class LanguageMapperTest extends FunctionalTestCase
      */
     public function findWithUidOfExistingRecordReturnsRecordAsModel()
     {
-        /** @var \Tx_Oelib_Model_Language $model */
+        /** @var Language $model */
         $model = $this->subject->find(43);
         self::assertSame(
             'DE',
@@ -84,7 +85,7 @@ class LanguageMapperTest extends FunctionalTestCase
     public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsLanguageInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Model_Language::class,
+            Language::class,
             $this->subject->findByIsoAlpha2Code('DE')
         );
     }

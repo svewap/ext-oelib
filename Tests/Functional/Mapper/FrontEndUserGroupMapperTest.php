@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
+use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
 /**
  * Test case.
@@ -55,7 +56,7 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
         $uid = $this->testingFramework->createFrontEndUserGroup();
 
         self::assertInstanceOf(
-            \Tx_Oelib_Model_FrontEndUserGroup::class,
+            FrontEndUserGroup::class,
             $this->subject->find($uid)
         );
     }
@@ -65,7 +66,7 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
      */
     public function loadForExistingUserGroupCanLoadUserGroupData()
     {
-        /** @var \Tx_Oelib_Model_FrontEndUserGroup $userGroup */
+        /** @var FrontEndUserGroup $userGroup */
         $userGroup = $this->subject->find(
             $this->testingFramework->createFrontEndUserGroup(['title' => 'foo'])
         );
