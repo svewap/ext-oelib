@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Geocoding;
 
-use OliverKlee\Oelib\Interfaces\GeocodingLookup;
 use OliverKlee\Oelib\Interfaces\Geo;
+use OliverKlee\Oelib\Interfaces\GeocodingLookup;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**

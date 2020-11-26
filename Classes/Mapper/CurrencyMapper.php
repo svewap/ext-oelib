@@ -37,8 +37,8 @@ class CurrencyMapper extends \Tx_Oelib_DataMapper
      *        the ISO 4217 alpha-3 code to find, must not be empty
      *
      * @return Currency the currency
-     * @throws NotFoundException if there is no record with the
-     *                                     provided ISO 4217 alpha-3 code
+     *
+     * @throws NotFoundException if there is no record with the provided ISO 4217 alpha-3 code
      */
     public function findByIsoAlpha3Code(string $isoAlpha3Code): Currency
     {

@@ -37,8 +37,8 @@ class CountryMapper extends \Tx_Oelib_DataMapper
      *        the ISO 3166-1 alpha-2 code to find, must not be empty
      *
      * @return Country the country
-     * @throws NotFoundException if there is no record with the
-     *                                     provided ISO 3166-1 alpha-2 code
+     *
+     * @throws NotFoundException if there is no record with the provided ISO 3166-1 alpha-2 code
      */
     public function findByIsoAlpha2Code($isoAlpha2Code): Country
     {
@@ -55,8 +55,8 @@ class CountryMapper extends \Tx_Oelib_DataMapper
      *        the ISO 3166-1 alpha-3 code to find, must not be empty
      *
      * @return Country the country
-     * @throws NotFoundException if there is no record with the
-     *                                     provided ISO 3166-1 alpha-3 code
+     *
+     * @throws NotFoundException if there is no record with the provided ISO 3166-1 alpha-3 code
      */
     public function findByIsoAlpha3Code(string $isoAlpha3Code): Country
     {
