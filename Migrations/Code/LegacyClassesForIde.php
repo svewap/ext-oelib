@@ -133,3 +133,13 @@ namespace {
 
     }
 }
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_FrontEnd_UserWithoutCookies extends \OliverKlee\Oelib\Frontend\UserWithoutCookies
+    {
+
+    }
+}

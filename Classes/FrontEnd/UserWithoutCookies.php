@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Frontend;
+
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 
 /**
@@ -9,7 +11,7 @@ use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_FrontEnd_UserWithoutCookies extends FrontendUserAuthentication
+class UserWithoutCookies extends FrontendUserAuthentication
 {
     /**
      * @var bool

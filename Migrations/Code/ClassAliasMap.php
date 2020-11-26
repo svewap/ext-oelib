@@ -13,5 +13,5 @@ return [
     'Tx_Oelib_Exception_Database' => \OliverKlee\Oelib\Exception\DatabaseException::class,
     'Tx_Oelib_Exception_EmptyQueryResult' => \OliverKlee\Oelib\Exception\EmptyQueryResultException::class,
     'Tx_Oelib_Exception_NotFound' => \OliverKlee\Oelib\Exception\NotFoundException::class,
-
+    'Tx_Oelib_FrontEnd_UserWithoutCookies' => \OliverKlee\Oelib\Frontend\UserWithoutCookies::class,
 ];

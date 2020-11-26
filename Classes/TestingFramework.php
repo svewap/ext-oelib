@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use OliverKlee\Oelib\Exception\DatabaseException;
+use OliverKlee\Oelib\Frontend\UserWithoutCookies;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
@@ -1302,7 +1303,7 @@ final class Tx_Oelib_TestingFramework
         $GLOBALS['_GET']['FE_SESSION_KEY'] = '';
 
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][FrontendUserAuthentication::class]
-            = ['className' => \Tx_Oelib_FrontEnd_UserWithoutCookies::class];
+            = ['className' => UserWithoutCookies::class];
     }
 
     /*
