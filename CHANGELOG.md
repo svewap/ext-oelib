@@ -8,8 +8,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
-
-- Move the testing framework dummy files from `uploads`-folder to `typo3temp` (#399, #403)
+- Switch the default git branch from `master` to `main` (#424)
+- Move the testing framework dummy files from `uploads/` folder to `typo3temp/` (#399, #403)
 
 ### Deprecated
 
