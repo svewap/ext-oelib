@@ -9,4 +9,9 @@ return [
     'Tx_Oelib_Interface_MailRole' => \OliverKlee\Oelib\Interfaces\MailRole::class,
     'Tx_Oelib_Interface_MapPoint' => \OliverKlee\Oelib\Interfaces\MapPoint::class,
     'Tx_Oelib_Interface_Sortable' => \OliverKlee\Oelib\Interfaces\Sortable::class,
+    'Tx_Oelib_Exception_AccessDenied' => \OliverKlee\Oelib\Exception\AccessDeniedException::class,
+    'Tx_Oelib_Exception_Database' => \OliverKlee\Oelib\Exception\DatabaseException::class,
+    'Tx_Oelib_Exception_EmptyQueryResult' => \OliverKlee\Oelib\Exception\EmptyQueryResultException::class,
+    'Tx_Oelib_Exception_NotFound' => \OliverKlee\Oelib\Exception\NotFoundException::class,
+
 ];

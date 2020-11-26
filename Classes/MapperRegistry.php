@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Exception\NotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -73,7 +74,7 @@ class Tx_Oelib_MapperRegistry
     /**
      * Retrieves a dataMapper by class name.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no such mapper
+     * @throws NotFoundException if there is no such mapper
      *
      * @param string $className the name of an existing mapper class, must not be empty
      *

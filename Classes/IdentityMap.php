@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Exception\NotFoundException;
+
 /**
  * This class represents an identity map that stores and retrieves model instances by their UIDs.
  *
@@ -39,7 +41,7 @@ class Tx_Oelib_IdentityMap
     /**
      * Retrieves a model from the map by UID.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if this map does not have a model
+     * @throws NotFoundException if this map does not have a model
      *                                     with that particular UID
      *
      * @param int $uid the UID of the model to retrieve, must be > 0
@@ -53,7 +55,7 @@ class Tx_Oelib_IdentityMap
         }
 
         if (!isset($this->items[$uid])) {
-            throw new \Tx_Oelib_Exception_NotFound(
+            throw new NotFoundException(
                 'This map currently does not contain a model with the UID ' .
                 $uid . '.'
             );

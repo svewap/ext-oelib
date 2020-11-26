@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Database;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Exception\EmptyQueryResultException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
@@ -1002,7 +1003,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectSingleForNoResultsThrowsEmptyQueryResultException()
     {
-        $this->expectException(\Tx_Oelib_Exception_EmptyQueryResult::class);
+        $this->expectException(EmptyQueryResultException::class);
 
         \Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', 'title = "nothing"');
     }

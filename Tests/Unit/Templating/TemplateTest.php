@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Templating;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Exception\NotFoundException;
 
 /**
  * Test case.
@@ -80,9 +81,7 @@ class TemplateTest extends UnitTestCase
      */
     public function getSubpartWithNotExistingSubpartNameThrowsException()
     {
-        $this->expectException(
-            \Tx_Oelib_Exception_NotFound::class
-        );
+        $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(
             '$key contained the subpart name "FOOBAR", but only the following subparts are available: ()'
         );
@@ -98,9 +97,7 @@ class TemplateTest extends UnitTestCase
      */
     public function getSubpartWithNotExistingSubpartNameThrowsExceptionWithSubpartNames()
     {
-        $this->expectException(
-            \Tx_Oelib_Exception_NotFound::class
-        );
+        $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(
             '$key contained the subpart name "COFFEE", but only the following subparts are available: (FOO, BAR)'
         );
@@ -3887,9 +3884,7 @@ class TemplateTest extends UnitTestCase
      */
     public function getSubpartWithLowercaseNameWithUsingLowercaseThrowsException()
     {
-        $this->expectException(
-            \Tx_Oelib_Exception_NotFound::class
-        );
+        $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(
             '$key contained the subpart name "my_subpart", but only the following subparts are available: ()'
         );
@@ -3908,9 +3903,7 @@ class TemplateTest extends UnitTestCase
      */
     public function getSubpartWithLowercaseNameWithUsingUppercaseThrowsException()
     {
-        $this->expectException(
-            \Tx_Oelib_Exception_NotFound::class
-        );
+        $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(
             '$key contained the subpart name "MY_SUBPART", but only the following subparts are available: ()'
         );

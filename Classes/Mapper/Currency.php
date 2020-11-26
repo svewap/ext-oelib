@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Exception\NotFoundException;
+
 /**
  * This class represents a mapper for currencies.
  *
@@ -28,7 +30,7 @@ class Tx_Oelib_Mapper_Currency extends \Tx_Oelib_DataMapper
     /**
      * Finds a language by its ISO 4217 alpha-3 code.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no record with the
+     * @throws NotFoundException if there is no record with the
      *                                     provided ISO 4217 alpha-3 code
      *
      * @param string $isoAlpha3Code

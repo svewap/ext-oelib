@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures;
 
+use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
@@ -80,7 +81,7 @@ class TestingMapper extends \Tx_Oelib_DataMapper
      * Retrieves a model based on the WHERE clause given in the parameter
      * $whereClauseParts. Hidden records will be retrieved as well.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB
+     * @throws NotFoundException if there is no record in the DB
      *                                     which matches the WHERE clause
      *
      * @param string[] $whereClauseParts
@@ -153,7 +154,7 @@ class TestingMapper extends \Tx_Oelib_DataMapper
      * When this function reports "no match", the model could still exist in the
      * database, though.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
+     * @throws NotFoundException if there is no match in the cache yet
      *
      * @param string $key an existing key, must not be empty
      * @param string $value

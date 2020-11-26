@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Exception\DatabaseException;
+use OliverKlee\Oelib\Exception\EmptyQueryResultException;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -242,7 +244,7 @@ class Tx_Oelib_Db
      * @return int the UID of the created record, will be 0 if the table has no UID column
      *
      * @throws \InvalidArgumentException
-     * @throws \Tx_Oelib_Exception_Database if an error has occurred
+     * @throws DatabaseException if an error has occurred
      */
     public static function insert(string $tableName, array $recordData): int
     {
@@ -260,7 +262,7 @@ class Tx_Oelib_Db
             $connection = self::getDatabaseConnection();
             $dbResult = $connection->exec_INSERTquery($tableName, $recordData);
             if ($dbResult === false) {
-                throw new \Tx_Oelib_Exception_Database('Database error.', 1573836507);
+                throw new DatabaseException('Database error.', 1573836507);
             }
             $uid = $connection->sql_insert_id();
         }
@@ -281,7 +283,7 @@ class Tx_Oelib_Db
      * @return \mysqli_result MySQLi result object
      *
      * @throws \InvalidArgumentException
-     * @throws \Tx_Oelib_Exception_Database if an error has occurred
+     * @throws DatabaseException if an error has occurred
      *
      * @deprecated This method will not work in TYPO3 >= 9LTS.
      */
@@ -309,7 +311,7 @@ class Tx_Oelib_Db
             $limit
         );
         if (!$dbResult) {
-            throw new \Tx_Oelib_Exception_Database('Database error.', 1573836521);
+            throw new DatabaseException('Database error.', 1573836521);
         }
 
         return $dbResult;
@@ -330,7 +332,7 @@ class Tx_Oelib_Db
      *
      * @return string[] the single result row, will not be empty
      *
-     * @throws \Tx_Oelib_Exception_EmptyQueryResult if there is no matching record
+     * @throws EmptyQueryResultException if there is no matching record
      */
     public static function selectSingle(
         string $fields,
@@ -341,7 +343,7 @@ class Tx_Oelib_Db
     ): array {
         $result = self::selectMultiple($fields, $tableNames, $whereClause, $groupBy, $orderBy, 1);
         if (empty($result)) {
-            throw new \Tx_Oelib_Exception_EmptyQueryResult('Database error.', 1573836525);
+            throw new EmptyQueryResultException('Database error.', 1573836525);
         }
 
         return $result[0];
@@ -425,7 +427,7 @@ class Tx_Oelib_Db
      *
      * @return int the number of matching records, will be >= 0
      *
-     * @throws \Tx_Oelib_Exception_Database if an error has occurred
+     * @throws DatabaseException if an error has occurred
      */
     public static function count(string $tableNames, string $whereClause = ''): int
     {

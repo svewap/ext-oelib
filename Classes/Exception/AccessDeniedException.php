@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Exception;
+
 /**
  * This exception can be used to indicate that a user has no access to a page.
  *
@@ -9,6 +11,6 @@ declare(strict_types=1);
  *
  * @deprecated will be removed in oelib 4.0
  */
-class Tx_Oelib_Exception_AccessDenied extends \RuntimeException
+class AccessDeniedException extends \RuntimeException
 {
 }

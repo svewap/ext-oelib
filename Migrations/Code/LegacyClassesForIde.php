@@ -93,3 +93,43 @@ namespace {
 
     }
 }
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Exception_AccessDenied extends \OliverKlee\Oelib\Exception\AccessDeniedException
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Exception_Database extends \OliverKlee\Oelib\Exception\DatabaseException
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Exception_EmptyQueryResult extends \OliverKlee\Oelib\Exception\EmptyQueryResultException
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Exception_NotFound extends \OliverKlee\Oelib\Exception\NotFoundException
+    {
+
+    }
+}

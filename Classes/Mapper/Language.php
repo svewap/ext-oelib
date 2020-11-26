@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Exception\NotFoundException;
+
 /**
  * This class represents a mapper for languages.
  *
@@ -28,7 +30,7 @@ class Tx_Oelib_Mapper_Language extends \Tx_Oelib_DataMapper
     /**
      * Finds a language by its ISO 639-1 alpha-2 code.
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no record with the
+     * @throws NotFoundException if there is no record with the
      *                                     provided ISO 639-1 alpha-2 code
      *
      * @param string $isoAlpha2Code

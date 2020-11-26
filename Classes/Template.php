@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Exception\NotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -651,7 +652,7 @@ class Tx_Oelib_Template
      * @return string the subpart content or an empty string if the subpart is hidden or the subpart name is missing
      *
      * @throws \InvalidArgumentException if $subpartKey is not valid
-     * @throws \Tx_Oelib_Exception_NotFound if there is no subpart with the provided name
+     * @throws NotFoundException if there is no subpart with the provided name
      */
     public function getSubpart(string $subpartKey = ''): string
     {
@@ -662,7 +663,7 @@ class Tx_Oelib_Template
             throw new \InvalidArgumentException('The value of the parameter $key is not valid.', 1331489215);
         }
         if (!isset($this->subparts[$subpartKey])) {
-            throw new \Tx_Oelib_Exception_NotFound(
+            throw new NotFoundException(
                 '$key contained the subpart name "' . $subpartKey
                 . '", but only the following subparts are available: (' .
                 implode(', ', array_keys($this->subparts)) . ')'

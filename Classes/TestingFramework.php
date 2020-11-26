@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Exception\DatabaseException;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
@@ -1755,7 +1756,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws \Tx_Oelib_Exception_Database
+     * @throws DatabaseException
      * @throws \InvalidArgumentException
      *
      * @see resetAutoIncrementLazily
@@ -1879,7 +1880,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return int the current auto_increment value of table $table, will be > 0
      *
-     * @throws \Tx_Oelib_Exception_Database
+     * @throws DatabaseException
      * @throws \InvalidArgumentException
      */
     public function getAutoIncrement(string $table): int
@@ -1977,7 +1978,7 @@ final class Tx_Oelib_TestingFramework
      *
      * @return void
      *
-     * @throws \Tx_Oelib_Exception_Database
+     * @throws DatabaseException
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
      */

@@ -2,12 +2,16 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Exception;
+
 /**
  * This class represents an exception that should be thrown when a database
- * query has an empty result, but shouldn't have.
+ * error has occurred.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
+ *
+ * @deprecated will be removed in oelib 4.0
  */
-class Tx_Oelib_Exception_EmptyQueryResult extends \RuntimeException
+class DatabaseException extends \RuntimeException
 {
 }

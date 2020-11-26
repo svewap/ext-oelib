@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
@@ -786,7 +787,7 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getOnDeadModelThrowsException()
     {
-        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(NotFoundException::class);
 
         $this->subject->markAsDead();
         $this->subject->getTitle();
@@ -808,7 +809,7 @@ class AbstractModelTest extends UnitTestCase
      */
     public function isHiddenOnDeadModelThrowsException()
     {
-        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(NotFoundException::class);
 
         $this->subject->markAsDead();
         $this->subject->isHidden();

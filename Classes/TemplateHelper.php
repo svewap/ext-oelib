@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Exception\NotFoundException;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
@@ -613,7 +614,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     {
         try {
             $this->getTemplate()->setSubpart($subpartName, $content, $prefix);
-        } catch (\Tx_Oelib_Exception_NotFound $exception) {
+        } catch (NotFoundException $exception) {
             $this->setErrorMessage(
                 'The subpart <strong>' . $subpartName .
                 '</strong> is missing in the HTML template file <strong>' .
@@ -946,7 +947,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     {
         try {
             return $this->getTemplate()->getSubpart($key);
-        } catch (\Tx_Oelib_Exception_NotFound $exception) {
+        } catch (NotFoundException $exception) {
             $this->setErrorMessage(
                 'The subpart <strong>' . $key .
                 '</strong> is missing in the HTML template file <strong>' .

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Exception\NotFoundException;
 
 /**
  * Test case.
@@ -445,7 +446,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameWithNameOfNonExistentUserThrowsException()
     {
-        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(NotFoundException::class);
 
         $userName = 'max.doe';
         $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName, 'deleted' => 1]);

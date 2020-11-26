@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Mapper;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
@@ -138,9 +139,7 @@ class IdentityMapTest extends UnitTestCase
      */
     public function getForInexistentUidThrowsNotFoundException()
     {
-        $this->expectException(
-            \Tx_Oelib_Exception_NotFound::class
-        );
+        $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(
             'This map currently does not contain a model with the UID 42.'
         );
@@ -165,7 +164,7 @@ class IdentityMapTest extends UnitTestCase
      */
     public function getNewUidForNonEmptyMapReturnsUidNotInMap()
     {
-        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(NotFoundException::class);
 
         $model = new TestingModel();
         $model->setUid(1);

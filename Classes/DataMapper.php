@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Exception\NotFoundException;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -142,7 +143,7 @@ abstract class Tx_Oelib_DataMapper
     {
         try {
             $model = $this->map->get($uid);
-        } catch (\Tx_Oelib_Exception_NotFound $exception) {
+        } catch (NotFoundException $exception) {
             $model = $this->createGhost($uid);
         }
 
@@ -216,7 +217,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model the model
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB which matches the WHERE clause
+     * @throws NotFoundException if there is no record in the DB which matches the WHERE clause
      */
     protected function findSingleByWhereClause(array $whereClauseParts)
     {
@@ -284,7 +285,7 @@ abstract class Tx_Oelib_DataMapper
         try {
             $data = $this->retrieveRecordByUid($model->getUid());
             $this->fillModel($model, $data);
-        } catch (\Tx_Oelib_Exception_NotFound $exception) {
+        } catch (NotFoundException $exception) {
             $model->markAsDead();
         }
     }
@@ -326,7 +327,7 @@ abstract class Tx_Oelib_DataMapper
         try {
             $data = $this->retrieveRecordByUid($model->getUid());
             $this->refillModel($model, $data);
-        } catch (\Tx_Oelib_Exception_NotFound $exception) {
+        } catch (NotFoundException $exception) {
             $model->markAsDead();
         }
     }
@@ -649,13 +650,13 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return string[] the record from the database, will not be empty
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB which matches the WHERE clause
-     * @throws \Tx_Oelib_Exception_NotFound if database access is disabled
+     * @throws NotFoundException if there is no record in the DB which matches the WHERE clause
+     * @throws NotFoundException if database access is disabled
      */
     protected function retrieveRecord(array $whereClauseParts): array
     {
         if (!$this->hasDatabaseAccess()) {
-            throw new \Tx_Oelib_Exception_NotFound(
+            throw new NotFoundException(
                 'No record can be retrieved from the database because database' .
                 ' access is disabled for this mapper instance.'
             );
@@ -670,7 +671,7 @@ abstract class Tx_Oelib_DataMapper
         }
         $data = $query->execute()->fetch();
         if ($data === false) {
-            throw new \Tx_Oelib_Exception_NotFound(
+            throw new NotFoundException(
                 'No records found in the table "' . $tableName . '" matching: ' . \json_encode($whereClauseParts)
             );
         }
@@ -686,7 +687,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return string[] the record from the database, will not be empty
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no record in the DB with the UID $uid
+     * @throws NotFoundException if there is no record in the DB with the UID $uid
      */
     protected function retrieveRecordByUid(int $uid)
     {
@@ -1374,7 +1375,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model the cached model
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
+     * @throws NotFoundException if there is no match in the cache yet
      * @throws \InvalidArgumentException
      */
     protected function findOneByKeyFromCache(string $key, $value)
@@ -1390,7 +1391,7 @@ abstract class Tx_Oelib_DataMapper
         }
 
         if (!isset($this->cacheByKey[$key][$value])) {
-            throw new \Tx_Oelib_Exception_NotFound('Not found', 1573836483);
+            throw new NotFoundException('Not found', 1573836483);
         }
 
         return $this->cacheByKey[$key][$value];
@@ -1407,7 +1408,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model the cached model
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no match in the cache yet
+     * @throws NotFoundException if there is no match in the cache yet
      * @throws \InvalidArgumentException
      */
     public function findOneByCompoundKeyFromCache($value): \Tx_Oelib_Model
@@ -1417,7 +1418,7 @@ abstract class Tx_Oelib_DataMapper
         }
 
         if (!isset($this->cacheByCompoundKey[$value])) {
-            throw new \Tx_Oelib_Exception_NotFound('Not found.', 1573836491);
+            throw new NotFoundException('Not found.', 1573836491);
         }
 
         return $this->cacheByCompoundKey[$value];
@@ -1514,13 +1515,13 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model the cached model
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no match (neither in the cache nor in the database)
+     * @throws NotFoundException if there is no match (neither in the cache nor in the database)
      */
     public function findOneByKey(string $key, $value): \Tx_Oelib_Model
     {
         try {
             $model = $this->findOneByKeyFromCache($key, $value);
-        } catch (\Tx_Oelib_Exception_NotFound $exception) {
+        } catch (NotFoundException $exception) {
             $model = $this->findSingleByWhereClause([$key => $value]);
         }
 
@@ -1540,7 +1541,7 @@ abstract class Tx_Oelib_DataMapper
      *
      * @return \Tx_Oelib_Model the cached model
      *
-     * @throws \Tx_Oelib_Exception_NotFound if there is no match (neither in the cache nor in the database)
+     * @throws NotFoundException if there is no match (neither in the cache nor in the database)
      * @throws \InvalidArgumentException if parameter array $keyValue is empty
      */
     public function findOneByCompoundKey(array $compoundKeyValues): \Tx_Oelib_Model
@@ -1554,7 +1555,7 @@ abstract class Tx_Oelib_DataMapper
 
         try {
             $model = $this->findOneByCompoundKeyFromCache($this->extractCompoundKeyValues($compoundKeyValues));
-        } catch (\Tx_Oelib_Exception_NotFound $exception) {
+        } catch (NotFoundException $exception) {
             $model = $this->findSingleByWhereClause($compoundKeyValues);
         }
 

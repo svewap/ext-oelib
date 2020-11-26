@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
@@ -591,7 +592,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function isHiddenOnGhostNotInDatabaseThrowsException()
     {
-        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(NotFoundException::class);
 
         $this->subject->find(1)->isHidden();
     }
@@ -1697,7 +1698,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findSingleByWhereClauseWithUidOfInexistentRecordThrowsException()
     {
-        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(NotFoundException::class);
 
         $this->subject->findSingleByWhereClause(
             ['uid' => 1]
@@ -3347,7 +3348,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findOneByKeyForInexistentThrowsException()
     {
-        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(NotFoundException::class);
 
         $this->subject->findOneByKey('title', 'Darjeeling');
     }
@@ -3468,7 +3469,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findOneByCompoundKeyForNonExistentThrowsException()
     {
-        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(NotFoundException::class);
 
         $this->subject->findOneByCompoundKey(['title' => 'Darjeeling', 'header' => 'Tea Time']);
     }

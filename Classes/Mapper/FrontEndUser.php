@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Exception\NotFoundException;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -44,7 +45,7 @@ class Tx_Oelib_Mapper_FrontEndUser extends \Tx_Oelib_DataMapper
      * @return \Tx_Oelib_Model_FrontEndUser
      *         model of the front-end user with the provided user name
      *
-     * @throws \Tx_Oelib_Exception_NotFound
+     * @throws NotFoundException
      *         if there is no front-end user with the provided user name in the
      *         database
      */

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Mapper;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\ColumnLessTestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\ModelLessTestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TableLessTestingMapper;
@@ -320,9 +321,7 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findSingleByWhereClauseAndDatabaseAccessDisabledThrowsException()
     {
-        $this->expectException(
-            \Tx_Oelib_Exception_NotFound::class
-        );
+        $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(
             'No record can be retrieved from the database because database ' .
             'access is disabled for this mapper instance.'
@@ -405,7 +404,7 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findOneByKeyFromCacheForModelNotInCacheThrowsException()
     {
-        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(NotFoundException::class);
 
         $this->subject->findOneByKeyFromCache('title', 'bar');
     }
@@ -464,7 +463,7 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findOneByCompoundKeyFromCacheForEmptyCompoundKeyThrowsException()
     {
-        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(NotFoundException::class);
 
         $this->subject->findOneByCompoundKeyFromCache('bar');
     }
@@ -484,7 +483,7 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findOneByCompoundKeyFromCacheForModelNotInCacheThrowsException()
     {
-        $this->expectException(\Tx_Oelib_Exception_NotFound::class);
+        $this->expectException(NotFoundException::class);
 
         $this->subject->findOneByCompoundKeyFromCache('foo.bar');
     }
