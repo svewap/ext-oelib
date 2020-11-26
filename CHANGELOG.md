@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add an `.editorconfig` file (#432)
 
 ### Changed
 - Move the CI from Travis CI to GitHub Actions (#427, #428)
@@ -191,7 +192,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 - Move more tests to Tests/Unit/ and Tests/Functional/ (#203)
-- Speed up the new functional by omitting the auto increment reset (#191) 
+- Speed up the new functional by omitting the auto increment reset (#191)
 - Rename the PersistAll interface and trait to DirectPersist (#190)
 - Run the functional tests in parallel to each other (#183)
 
@@ -267,7 +268,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 - Work around the PHAR inclusion problem (#84)
-- Stop PHP-linting the removed Migrations/ folder (#82) 
+- Stop PHP-linting the removed Migrations/ folder (#82)
 - Hide the test tables from BE user table permission lists (#81)
 - Fix more deprecation warnings (#80)
 - Stop using the deprecated NullTimeTracker in 8.7 (#79)
@@ -291,7 +292,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove the deprecated ConfigCheck::checkCssStyledContent (#67)
 - Drop the deprecated TestingFramework::getTcaForTable (#66)
 - Remove Template::getPrefixedMarkers and ::setCss (#65)
-- Remove the deprecated Double3Validator (#64) 
+- Remove the deprecated Double3Validator (#64)
 - Drop deprecated mailer functions (#61)
 - Require TYPO3 7.6 and drop support for TYPO3 6.2 (#60)
 - Drop support for PHP 5.5 (#58)
