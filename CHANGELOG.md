@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix Composer cache keys in the CI configuration file (#433)
 
 ## 3.1.0
 
