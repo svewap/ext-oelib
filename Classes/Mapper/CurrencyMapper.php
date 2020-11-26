@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Mapper;
+
 use OliverKlee\Oelib\Exception\NotFoundException;
 
 /**
@@ -10,7 +12,7 @@ use OliverKlee\Oelib\Exception\NotFoundException;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Mapper_Currency extends \Tx_Oelib_DataMapper
+class CurrencyMapper extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string the name of the database table for this mapper

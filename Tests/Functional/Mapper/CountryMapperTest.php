@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Mapper\CountryMapper;
 
 /**
  * Test case.
@@ -20,7 +21,7 @@ class CountryMapperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
 
     /**
-     * @var \Tx_Oelib_Mapper_Country
+     * @var CountryMapper
      */
     private $subject = null;
 
@@ -29,7 +30,7 @@ class CountryMapperTest extends FunctionalTestCase
         parent::setUp();
         $this->importStaticData();
 
-        $this->subject = new \Tx_Oelib_Mapper_Country();
+        $this->subject = new CountryMapper();
     }
 
     /**

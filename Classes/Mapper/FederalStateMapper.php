@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Mapper;
+
 /**
  * This class represents a mapper for federal state models.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Mapper_FederalState extends \Tx_Oelib_DataMapper
+class FederalStateMapper extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Authentication;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -169,8 +170,8 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $uid = $this->testingFramework->createAndLoginFrontEndUser();
 
-        /** @var \Tx_Oelib_Mapper_FrontEndUser $mapper */
-        $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUser::class);
+        /** @var FrontEndUserMapper $mapper */
+        $mapper = \Tx_Oelib_MapperRegistry::get(FrontEndUserMapper::class);
         /** @var \Tx_Oelib_Model_FrontEndUser $user */
         $user = $mapper->find($uid);
 

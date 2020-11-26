@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Mapper;
+
 use OliverKlee\Oelib\Exception\NotFoundException;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -11,7 +13,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Mapper_FrontEndUser extends \Tx_Oelib_DataMapper
+class FrontEndUserMapper extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string the name of the database table for this mapper
@@ -27,7 +29,7 @@ class Tx_Oelib_Mapper_FrontEndUser extends \Tx_Oelib_DataMapper
      * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
      */
     protected $relations = [
-        'usergroup' => \Tx_Oelib_Mapper_FrontEndUserGroup::class,
+        'usergroup' => FrontEndUserGroupMapper::class,
     ];
 
     /**

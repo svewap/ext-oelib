@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Mapper\LanguageMapper;
 
 /**
  * Test case.
@@ -20,7 +21,7 @@ class LanguageMapperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
 
     /**
-     * @var \Tx_Oelib_Mapper_Language
+     * @var LanguageMapper
      */
     private $subject = null;
 
@@ -28,7 +29,7 @@ class LanguageMapperTest extends FunctionalTestCase
     {
         parent::setUp();
         $this->importStaticData();
-        $this->subject = new \Tx_Oelib_Mapper_Language();
+        $this->subject = new LanguageMapper();
     }
 
     /**

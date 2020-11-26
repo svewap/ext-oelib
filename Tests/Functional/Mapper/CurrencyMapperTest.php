@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Mapper\CurrencyMapper;
 
 /**
  * Test case.
@@ -20,7 +21,7 @@ class CurrencyMapperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
 
     /**
-     * @var \Tx_Oelib_Mapper_Currency
+     * @var CurrencyMapper
      */
     private $subject = null;
 
@@ -30,7 +31,7 @@ class CurrencyMapperTest extends FunctionalTestCase
 
         $this->importStaticData();
 
-        $this->subject = new \Tx_Oelib_Mapper_Currency();
+        $this->subject = new CurrencyMapper();
     }
 
     /**

@@ -85,7 +85,7 @@ for examples:
 
 ::
 
-   class Tx_Oelib_Mapper_FrontEndUser extends Tx_Oelib_DataMapper {
+   class FrontEndUserMapper extends Tx_Oelib_DataMapper {
          /**
         * @var string the name of the database table for this mapper
         */
@@ -101,7 +101,7 @@ for examples:
         *            DB column name => mapper name
         */
          protected $relations = array(
-                 'usergroup' => Tx_Oelib_Mapper_FrontEndUserGroup::class,
+                 'usergroup' => FrontEndUserGroupMapper::class,
        );
    }
 

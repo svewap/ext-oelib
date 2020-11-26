@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures;
 
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
@@ -29,7 +30,7 @@ class TestingMapper extends \Tx_Oelib_DataMapper
      */
     protected $relations = [
         'friend' => TestingMapper::class,
-        'owner' => \Tx_Oelib_Mapper_FrontEndUser::class,
+        'owner' => FrontEndUserMapper::class,
         'children' => TestingMapper::class,
         'related_records' => TestingMapper::class,
         'composition' => TestingChildMapper::class,

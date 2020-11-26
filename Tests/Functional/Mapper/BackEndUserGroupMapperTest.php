@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
 
 /**
  * Test case.
@@ -20,7 +21,7 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_Mapper_BackEndUserGroup
+     * @var BackEndUserGroupMapper
      */
     private $subject = null;
 
@@ -28,7 +29,7 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->subject = new \Tx_Oelib_Mapper_BackEndUserGroup();
+        $this->subject = new BackEndUserGroupMapper();
 
         $this->importDataSet(__DIR__ . '/../Fixtures/BackEndUsers.xml');
     }

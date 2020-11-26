@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use OliverKlee\Oelib\Interfaces\LoginManager;
+use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -92,7 +93,7 @@ class Tx_Oelib_FrontEndLoginManager implements LoginManager
      *
      * @throws \InvalidArgumentException
      */
-    public function getLoggedInUser(string $mapperName = \Tx_Oelib_Mapper_FrontEndUser::class)
+    public function getLoggedInUser(string $mapperName = FrontEndUserMapper::class)
     {
         if ($mapperName === '') {
             throw new \InvalidArgumentException('$mapperName must not be empty.', 1331488730);
@@ -109,7 +110,7 @@ class Tx_Oelib_FrontEndLoginManager implements LoginManager
         } else {
             $uid = (int)$this->getContext()->getPropertyFromAspect('frontend.user', 'id');
         }
-        /** @var \Tx_Oelib_Mapper_FrontEndUser $mapper */
+        /** @var FrontEndUserMapper $mapper */
         $mapper = \Tx_Oelib_MapperRegistry::get($mapperName);
         $this->loggedInUser = $mapper->find($uid);
 

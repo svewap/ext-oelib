@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Mapper;
+
 /**
  * This class represents a mapper for front-end user groups.
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_Mapper_FrontEndUserGroup extends \Tx_Oelib_DataMapper
+class FrontEndUserGroupMapper extends \Tx_Oelib_DataMapper
 {
     /**
      * @var string the name of the database table for this mapper

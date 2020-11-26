@@ -6,6 +6,8 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
+use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 
 /**
  * Test case.
@@ -20,7 +22,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_Mapper_FrontEndUser
+     * @var FrontEndUserMapper
      */
     private $subject = null;
 
@@ -28,7 +30,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->subject = new \Tx_Oelib_Mapper_FrontEndUser();
+        $this->subject = new FrontEndUserMapper();
     }
 
     //////////////////////////
@@ -73,7 +75,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
     public function getUserGroupsGetsRelatedGroupsAsList()
     {
         $groupMapper
-            = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_FrontEndUserGroup::class);
+            = \Tx_Oelib_MapperRegistry::get(FrontEndUserGroupMapper::class);
 
         $group1 = $groupMapper->getNewGhost();
         $group2 = $groupMapper->getNewGhost();

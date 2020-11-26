@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Model;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
 
 /**
  * Test case.
@@ -64,7 +65,7 @@ class BackEndUserTest extends FunctionalTestCase
      */
     public function getAllGroupsForOneGroupReturnsListWithThatGroup()
     {
-        $group = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel([]);
+        $group = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
         $groups = new \Tx_Oelib_List();
         $groups->add($group);
         $this->subject->setData(['usergroup' => $groups]);
@@ -80,8 +81,8 @@ class BackEndUserTest extends FunctionalTestCase
      */
     public function getAllGroupsForTwoGroupsReturnsBothGroups()
     {
-        $group1 = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel([]);
-        $group2 = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel([]);
+        $group1 = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
+        $group2 = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
         $groups = new \Tx_Oelib_List();
         $groups->add($group1);
         $groups->add($group2);
@@ -100,8 +101,8 @@ class BackEndUserTest extends FunctionalTestCase
      */
     public function getAllGroupsForGroupWithSubgroupReturnsBothGroups()
     {
-        $subgroup = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)->getLoadedTestingModel([]);
-        $group = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)
+        $subgroup = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
+        $group = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)
             ->getLoadedTestingModel(['subgroup' => $subgroup->getUid()]);
         $groups = new \Tx_Oelib_List();
         $groups->add($group);
@@ -120,11 +121,11 @@ class BackEndUserTest extends FunctionalTestCase
      */
     public function getAllGroupsForGroupWithSubsubgroupContainsSubsubgroup()
     {
-        $subsubgroup = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)
+        $subsubgroup = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)
             ->getLoadedTestingModel([]);
-        $subgroup = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)
+        $subgroup = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)
             ->getLoadedTestingModel(['subgroup' => $subsubgroup->getUid()]);
-        $group = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)
+        $group = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)
             ->getLoadedTestingModel(['subgroup' => $subgroup->getUid()]);
         $groups = new \Tx_Oelib_List();
         $groups->add($group);
@@ -140,7 +141,7 @@ class BackEndUserTest extends FunctionalTestCase
      */
     public function getAllGroupsForGroupWithSubgroupSelfReferenceReturnsOnlyOneGroup()
     {
-        $group = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)->getNewGhost();
+        $group = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
         $subgroups = new \Tx_Oelib_List();
         $subgroups->add($group);
         $group->setData(['subgroup' => $subgroups]);
@@ -160,8 +161,8 @@ class BackEndUserTest extends FunctionalTestCase
      */
     public function getAllGroupsForGroupWithSubgroupCycleReturnsBothGroups()
     {
-        $group1 = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)->getNewGhost();
-        $group2 = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)->getNewGhost();
+        $group1 = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
+        $group2 = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
 
         $subgroups1 = new \Tx_Oelib_List();
         $subgroups1->add($group2);

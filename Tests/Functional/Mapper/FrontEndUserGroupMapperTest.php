@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
 
 /**
  * Test case.
@@ -24,7 +25,7 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
     private $testingFramework = null;
 
     /**
-     * @var \Tx_Oelib_Mapper_FrontEndUserGroup the object to test
+     * @var FrontEndUserGroupMapper the object to test
      */
     private $subject = null;
 
@@ -33,7 +34,7 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
         parent::setUp();
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
-        $this->subject = new \Tx_Oelib_Mapper_FrontEndUserGroup();
+        $this->subject = new FrontEndUserGroupMapper();
     }
 
     protected function tearDown()

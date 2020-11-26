@@ -6,6 +6,8 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
+use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 
 /**
  * Test case.
@@ -26,7 +28,7 @@ class BackEndUserMapperTest extends FunctionalTestCase
     private $testingFramework = null;
 
     /**
-     * @var \Tx_Oelib_Mapper_BackEndUser the object to test
+     * @var BackEndUserMapper the object to test
      */
     private $subject = null;
 
@@ -35,7 +37,7 @@ class BackEndUserMapperTest extends FunctionalTestCase
         parent::setUp();
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
-        $this->subject = new \Tx_Oelib_Mapper_BackEndUser();
+        $this->subject = new BackEndUserMapper();
     }
 
     protected function tearDown()
@@ -172,7 +174,7 @@ class BackEndUserMapperTest extends FunctionalTestCase
     public function userGroupRelationIsUserGroupList()
     {
         /** @var \Tx_Oelib_Model_BackEndUserGroup $group */
-        $group = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_BackEndUserGroup::class)->getNewGhost();
+        $group = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
         $groupUid = $group->getUid();
         $userUid = $this->subject->getLoadedTestingModel(['usergroup' => $groupUid])->getUid();
 

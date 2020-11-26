@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Mapper\CurrencyMapper;
 
 /**
  * This class represents a view helper for formatting a price.
@@ -57,8 +58,8 @@ class Tx_Oelib_ViewHelper_Price
         }
 
         try {
-            /** @var \Tx_Oelib_Mapper_Currency $mapper */
-            $mapper = \Tx_Oelib_MapperRegistry::get(\Tx_Oelib_Mapper_Currency::class);
+            /** @var CurrencyMapper $mapper */
+            $mapper = \Tx_Oelib_MapperRegistry::get(CurrencyMapper::class);
             $this->currency = $mapper->findByIsoAlpha3Code($isoAlpha3Code);
         } catch (NotFoundException $exception) {
             $this->currency = null;

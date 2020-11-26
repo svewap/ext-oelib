@@ -173,3 +173,83 @@ namespace {
 
     }
 }
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Mapper_BackEndUser extends \OliverKlee\Oelib\Mapper\BackEndUserMapper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Mapper_BackEndUserGroup extends \OliverKlee\Oelib\Mapper\BackEndUserGroupMapper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Mapper_Country extends \OliverKlee\Oelib\Mapper\CountryMapper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Mapper_Currency extends \OliverKlee\Oelib\Mapper\CurrencyMapper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Mapper_FederalState extends \OliverKlee\Oelib\Mapper\FederalStateMapper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Mapper_FrontEndUser extends \OliverKlee\Oelib\Mapper\FrontEndUserMapper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Mapper_FrontEndUserGroup extends \OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Mapper_Language extends \OliverKlee\Oelib\Mapper\LanguageMapper
+    {
+
+    }
+}

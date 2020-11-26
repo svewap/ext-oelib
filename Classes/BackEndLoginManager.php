@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use OliverKlee\Oelib\Interfaces\LoginManager;
+use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
@@ -75,7 +76,7 @@ class Tx_Oelib_BackEndLoginManager implements LoginManager
      *
      * @throws \InvalidArgumentException
      */
-    public function getLoggedInUser(string $mapperName = \Tx_Oelib_Mapper_BackEndUser::class)
+    public function getLoggedInUser(string $mapperName = BackEndUserMapper::class)
     {
         if ($mapperName === '') {
             throw new \InvalidArgumentException('$mapperName must not be empty.', 1331318483);
@@ -87,7 +88,7 @@ class Tx_Oelib_BackEndLoginManager implements LoginManager
             return $this->loggedInUser;
         }
 
-        /** @var \Tx_Oelib_Mapper_BackEndUser $mapper */
+        /** @var BackEndUserMapper $mapper */
         $mapper = \Tx_Oelib_MapperRegistry::get($mapperName);
         $this->loggedInUser = $mapper->find((int)$this->getBackEndUserAuthentication()->user['uid']);
 
