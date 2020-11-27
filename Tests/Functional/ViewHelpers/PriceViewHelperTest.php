@@ -6,7 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\ViewHelpers;
 
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use OliverKlee\Oelib\ViewHelpers\PriceViewhelper;
+use OliverKlee\Oelib\ViewHelpers\PriceViewHelper;
 
 /**
  * Test case.
@@ -22,7 +22,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
 
     /**
-     * @var PriceViewhelper
+     * @var PriceViewHelper
      */
     private $subject = null;
 
@@ -32,7 +32,7 @@ class PriceViewHelperTest extends FunctionalTestCase
 
         $this->importStaticData();
 
-        $this->subject = new PriceViewhelper();
+        $this->subject = new PriceViewHelper();
     }
 
     /**

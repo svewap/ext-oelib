@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use OliverKlee\Oelib\ViewHelpers\PriceViewhelper;
+use OliverKlee\Oelib\ViewHelpers\PriceViewHelper;
 
 /**
  * Test case.
@@ -16,13 +16,13 @@ use OliverKlee\Oelib\ViewHelpers\PriceViewhelper;
 class PriceViewHelperTest extends UnitTestCase
 {
     /**
-     * @var PriceViewhelper
+     * @var PriceViewHelper
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new PriceViewhelper();
+        $this->subject = new PriceViewHelper();
     }
 
     /**

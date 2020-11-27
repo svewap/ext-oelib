@@ -21,7 +21,7 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class PriceViewhelper extends AbstractViewHelper
+class PriceViewHelper extends AbstractViewHelper
 {
     /**
      * @var float the value of the price to render
