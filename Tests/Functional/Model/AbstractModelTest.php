@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Model;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
@@ -66,7 +67,7 @@ class AbstractModelTest extends FunctionalTestCase
      */
     public function cloneReturnsDirtyModel()
     {
-        $this->subject->setLoadStatus(\Tx_Oelib_Model::STATUS_GHOST);
+        $this->subject->setLoadStatus(AbstractModel::STATUS_GHOST);
 
         $clone = clone $this->subject;
         self::assertTrue(

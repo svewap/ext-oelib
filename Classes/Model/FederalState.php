@@ -9,7 +9,7 @@ namespace OliverKlee\Oelib\Model;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class FederalState extends \Tx_Oelib_Model
+class FederalState extends AbstractModel
 {
     /**
      * @var bool

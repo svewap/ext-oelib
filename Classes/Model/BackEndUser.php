@@ -12,7 +12,7 @@ use OliverKlee\Oelib\Interfaces\MailRole;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class BackEndUser extends \Tx_Oelib_Model implements MailRole
+class BackEndUser extends AbstractModel implements MailRole
 {
     /**
      * @var string[] the user's configuration (unserialized)

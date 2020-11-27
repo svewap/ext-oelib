@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Model\AbstractModel;
 
 /**
  * This class represents an identity map that stores and retrieves model instances by their UIDs.
@@ -12,7 +13,7 @@ use OliverKlee\Oelib\Exception\NotFoundException;
 class Tx_Oelib_IdentityMap
 {
     /**
-     * @var \Tx_Oelib_Model[] the items in this map with their UIDs as keys
+     * @var AbstractModel[] the items in this map with their UIDs as keys
      */
     protected $items = [];
 
@@ -24,11 +25,11 @@ class Tx_Oelib_IdentityMap
     /**
      * Adds a model to the identity map.
      *
-     * @param \Tx_Oelib_Model $model the model to add, must have a UID
+     * @param AbstractModel $model the model to add, must have a UID
      *
      * @return void
      */
-    public function add(\Tx_Oelib_Model $model)
+    public function add(AbstractModel $model)
     {
         if (!$model->hasUid()) {
             throw new \InvalidArgumentException('Add() requires a model that has a UID.', 1331488748);
@@ -46,9 +47,9 @@ class Tx_Oelib_IdentityMap
      *
      * @param int $uid the UID of the model to retrieve, must be > 0
      *
-     * @return \Tx_Oelib_Model the stored model with the UID $uid
+     * @return AbstractModel the stored model with the UID $uid
      */
-    public function get(int $uid): \Tx_Oelib_Model
+    public function get(int $uid): AbstractModel
     {
         if ($uid <= 0) {
             throw new \InvalidArgumentException('$uid must be > 0.', 1331488761);

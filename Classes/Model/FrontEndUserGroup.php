@@ -9,7 +9,7 @@ namespace OliverKlee\Oelib\Model;
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class FrontEndUserGroup extends \Tx_Oelib_Model
+class FrontEndUserGroup extends AbstractModel
 {
     /**
      * Gets this group's title.

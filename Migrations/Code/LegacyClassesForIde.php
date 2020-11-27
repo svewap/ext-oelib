@@ -279,6 +279,16 @@ namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
      */
+    class Tx_Oelib_Model extends \OliverKlee\Oelib\Model\AbstractModel
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
     class Tx_Oelib_Model_BackEndUser extends \OliverKlee\Oelib\Model\BackEndUser
     {
 

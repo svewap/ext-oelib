@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
@@ -33,11 +34,11 @@ class AbstractModelTest extends UnitTestCase
     /**
      * Loading function stub.
      *
-     * @param \Tx_Oelib_Model $model
+     * @param AbstractModel $model
      *
      * @return void
      */
-    public function load(\Tx_Oelib_Model $model)
+    public function load(AbstractModel $model)
     {
     }
 
@@ -73,8 +74,8 @@ class AbstractModelTest extends UnitTestCase
     public function cloneableStatusDataProvider(): array
     {
         return [
-            'virgin' => [\Tx_Oelib_Model::STATUS_VIRGIN],
-            'loaded' => [\Tx_Oelib_Model::STATUS_LOADED],
+            'virgin' => [AbstractModel::STATUS_VIRGIN],
+            'loaded' => [AbstractModel::STATUS_LOADED],
         ];
     }
 
@@ -1465,8 +1466,8 @@ class AbstractModelTest extends UnitTestCase
     public function uncloneableStatusDataProvider(): array
     {
         return [
-            'loading' => [\Tx_Oelib_Model::STATUS_LOADING],
-            'deleted' => [\Tx_Oelib_Model::STATUS_DEAD],
+            'loading' => [AbstractModel::STATUS_LOADING],
+            'deleted' => [AbstractModel::STATUS_DEAD],
         ];
     }
 

@@ -37,7 +37,8 @@ return [
     'Tx_Oelib_Mapper_Language' => \OliverKlee\Oelib\Mapper\LanguageMapper::class,
     'Tx_Oelib_MapperRegistry' => \OliverKlee\Oelib\Mapper\MapperRegistry::class,
 
-    // Models
+    // Model
+    'Tx_Oelib_Model' => \OliverKlee\Oelib\Model\AbstractModel::class,
     'Tx_Oelib_Model_BackEndUser' => \OliverKlee\Oelib\Model\BackEndUser::class,
     'Tx_Oelib_Model_BackEndUserGroup' => \OliverKlee\Oelib\Model\BackEndUserGroup::class,
     'Tx_Oelib_Model_Country' => \OliverKlee\Oelib\Model\Country::class,

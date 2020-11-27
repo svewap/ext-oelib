@@ -9,7 +9,7 @@ namespace OliverKlee\Oelib\Model;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Country extends \Tx_Oelib_Model
+class Country extends AbstractModel
 {
     /**
      * @var bool whether this model is read-only

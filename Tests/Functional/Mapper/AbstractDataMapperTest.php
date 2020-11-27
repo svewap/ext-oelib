@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
@@ -148,7 +149,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     public function getModelForNonMappedUidReturnsModelInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Model::class,
+            AbstractModel::class,
             $this->subject->getModel(['uid' => 2])
         );
     }
@@ -171,7 +172,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $mappedUid = $this->subject->getNewGhost()->getUid();
 
         self::assertInstanceOf(
-            \Tx_Oelib_Model::class,
+            AbstractModel::class,
             $this->subject->getModel(['uid' => $mappedUid])
         );
     }
@@ -354,7 +355,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     public function getListOfModelsReturnsListOfModelInstances()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Model::class,
+            AbstractModel::class,
             $this->subject->getListOfModels([['uid' => 1]])->current()
         );
     }
@@ -794,7 +795,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->disableDatabaseAccess();
 
         self::assertInstanceOf(
-            \Tx_Oelib_Model::class,
+            AbstractModel::class,
             $this->subject->getLoadedTestingModel([])
         );
     }

@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class FrontEndUser extends \Tx_Oelib_Model implements MailRole, Address
+class FrontEndUser extends AbstractModel implements MailRole, Address
 {
     /**
      * @var int represents the male gender for this user

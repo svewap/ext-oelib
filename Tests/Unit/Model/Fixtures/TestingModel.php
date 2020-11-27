@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model\Fixtures;
 
+use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Model\FrontEndUser;
 
 /**
@@ -11,7 +12,7 @@ use OliverKlee\Oelib\Model\FrontEndUser;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestingModel extends \Tx_Oelib_Model
+class TestingModel extends AbstractModel
 {
     /**
      * @return string
@@ -178,7 +179,7 @@ class TestingModel extends \Tx_Oelib_Model
     /**
      * Gets the "composition2" data item. This is an 1:n relation.
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model> the "composition2" data item, will be empty (but
+     * @return \Tx_Oelib_List<AbstractModel> the "composition2" data item, will be empty (but
      *                       not NULL) if this model has no composition2
      */
     public function getComposition2(): \Tx_Oelib_List
@@ -189,7 +190,7 @@ class TestingModel extends \Tx_Oelib_Model
     /**
      * Gets the "composition2" data item. This is an 1:n relation without sorting.
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model>
+     * @return \Tx_Oelib_List<AbstractModel>
      */
     public function getCompositionWithoutSorting(): \Tx_Oelib_List
     {
@@ -239,7 +240,7 @@ class TestingModel extends \Tx_Oelib_Model
     /**
      * @param string $key
      *
-     * @return \Tx_Oelib_Model|null
+     * @return AbstractModel|null
      *
      * @throws \UnexpectedValueException
      */

@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Mapper;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\ColumnLessTestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\ModelLessTestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TableLessTestingMapper;
@@ -228,7 +229,7 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function getNewGhostReturnsModel()
     {
-        self::assertInstanceOf(\Tx_Oelib_Model::class, $this->subject->getNewGhost());
+        self::assertInstanceOf(AbstractModel::class, $this->subject->getNewGhost());
     }
 
     /**

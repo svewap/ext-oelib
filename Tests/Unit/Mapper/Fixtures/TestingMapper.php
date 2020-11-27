@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
+use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
@@ -51,7 +52,7 @@ class TestingMapper extends AbstractDataMapper
     protected $compoundKeyParts = ['title', 'header'];
 
     /**
-     * @var \Tx_Oelib_Model[]
+     * @var AbstractModel[]
      */
     protected $cachedModels = [];
 
@@ -60,7 +61,7 @@ class TestingMapper extends AbstractDataMapper
      *
      * This function is intended for testing whether models have been cached.
      *
-     * @return \Tx_Oelib_Model[]
+     * @return AbstractModel[]
      */
     public function getCachedModels(): array
     {
@@ -91,9 +92,9 @@ class TestingMapper extends AbstractDataMapper
      *        consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
      *
-     * @return \Tx_Oelib_Model
+     * @return AbstractModel
      */
-    public function findSingleByWhereClause(array $whereClauseParts): \Tx_Oelib_Model
+    public function findSingleByWhereClause(array $whereClauseParts): AbstractModel
     {
         return parent::findSingleByWhereClause($whereClauseParts);
     }
@@ -117,12 +118,12 @@ class TestingMapper extends AbstractDataMapper
      *
      * @param array $data
      *        the model data to process, might be modified
-     * @param \Tx_Oelib_Model $model
+     * @param AbstractModel $model
      *        the model to create the relations for
      *
      * @return void
      */
-    public function createRelations(array &$data, \Tx_Oelib_Model $model)
+    public function createRelations(array &$data, AbstractModel $model)
     {
         parent::createRelations($data, $model);
     }
@@ -140,7 +141,7 @@ class TestingMapper extends AbstractDataMapper
      *        optionally followed by "ASC" or "DESC", may be empty
      * @param string|int $limit the LIMIT value ([begin,]max), may be empty
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model> all models found in DB for the given where clause,
+     * @return \Tx_Oelib_List<AbstractModel> all models found in DB for the given where clause,
      *                       will be an empty list if no models were found
      *
      * @deprecated will be removed in oelib 4.0.0
@@ -162,9 +163,9 @@ class TestingMapper extends AbstractDataMapper
      * @param string $value
      *        the value for the key of the model to find, must not be empty
      *
-     * @return \Tx_Oelib_Model the cached model
+     * @return AbstractModel the cached model
      */
-    public function findOneByKeyFromCache(string $key, $value): \Tx_Oelib_Model
+    public function findOneByKeyFromCache(string $key, $value): AbstractModel
     {
         return parent::findOneByKeyFromCache($key, $value);
     }
@@ -175,14 +176,14 @@ class TestingMapper extends AbstractDataMapper
      * This method needs to be overwritten in subclasses to work. However, it is recommended to use
      * cacheModelByCompoundKey instead. So this method primarily is here for backwards compatibility.
      *
-     * @param \Tx_Oelib_Model $model the model to cache
+     * @param AbstractModel $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      *
      * @see cacheModelByCompoundKey
      */
-    protected function cacheModelByCombinedKeys(\Tx_Oelib_Model $model, array $data)
+    protected function cacheModelByCombinedKeys(AbstractModel $model, array $data)
     {
         $this->cachedModels[] = $model;
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\DataStructures;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -22,7 +23,7 @@ class ListTest extends UnitTestCase
     private $subject = null;
 
     /**
-     * @var \Tx_Oelib_Model[] models that need to be cleaned up during tearDown.
+     * @var AbstractModel[] models that need to be cleaned up during tearDown.
      */
     private $modelStorage = [];
 

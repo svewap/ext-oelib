@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Model;
+
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Interfaces\Identity;
+use UnexpectedValueException;
 
 /**
  * This class represents a general domain model which is capable of lazy loading (using ghosts).
@@ -13,7 +16,7 @@ use OliverKlee\Oelib\Interfaces\Identity;
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements Identity
+abstract class AbstractModel extends \Tx_Oelib_Object implements Identity
 {
     /**
      * @var int a status indicating that this model has neither data nor UID yet
@@ -90,14 +93,14 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements Identity
 
         $this->resetUid();
 
-        /** @var int|string|bool|float|\Tx_Oelib_List|\Tx_Oelib_Model|null $dataItem */
+        /** @var int|string|bool|float|\Tx_Oelib_List|AbstractModel|null $dataItem */
         foreach ($this->data as $key => $dataItem) {
             if ($dataItem instanceof \Tx_Oelib_List) {
                 /** \Tx_Oelib_List $dataItem */
                 if ($dataItem->isRelationOwnedByParent()) {
                     $newDataItem = new \Tx_Oelib_List();
                     $newDataItem->markAsOwnedByParent();
-                    /** @var \Tx_Oelib_Model $childModel */
+                    /** @var AbstractModel $childModel */
                     foreach ($dataItem as $childModel) {
                         $newDataItem->add(clone $childModel);
                     }
@@ -330,7 +333,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements Identity
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
-     * @return \Tx_Oelib_Model|null
+     * @return AbstractModel|null
      *
      * @throws UnexpectedValueException
      *         if there is a data item stored for the key $key that is not a model instance
@@ -363,7 +366,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements Identity
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model> the data item for the given key
+     * @return \Tx_Oelib_List<AbstractModel> the data item for the given key
      */
     public function getAsList(string $key): \Tx_Oelib_List
     {

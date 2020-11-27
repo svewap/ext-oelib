@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Mapper;
 
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Model\AbstractModel;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -77,7 +78,7 @@ abstract class AbstractDataMapper
      * [compound key value] => model
      * The column values are concatenated via a dot as compound key value.
      *
-     * @var \Tx_Oelib_Model[]
+     * @var AbstractModel[]
      */
     protected $cacheByCompoundKey = [];
 
@@ -139,9 +140,9 @@ abstract class AbstractDataMapper
      * @param int $uid
      *        the UID of the record to retrieve, must be > 0
      *
-     * @return \Tx_Oelib_Model the model with the UID $uid
+     * @return AbstractModel the model with the UID $uid
      */
-    public function find(int $uid): \Tx_Oelib_Model
+    public function find(int $uid): AbstractModel
     {
         try {
             $model = $this->map->get($uid);
@@ -162,11 +163,11 @@ abstract class AbstractDataMapper
      *        data for the model to return, must at least contain an element
      *        with the key "uid"
      *
-     * @return \Tx_Oelib_Model model for the provided UID, filled with the data
+     * @return AbstractModel model for the provided UID, filled with the data
      *                        provided in case it did not have any data in
      *                        memory before
      */
-    public function getModel(array $data): \Tx_Oelib_Model
+    public function getModel(array $data): AbstractModel
     {
         if (!isset($data['uid'])) {
             throw new \InvalidArgumentException('$data must contain an element "uid".', 1331319491);
@@ -189,7 +190,7 @@ abstract class AbstractDataMapper
      *        two-dimensional array, each inner array must at least contain the
      *        element "uid", may be empty
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model>
+     * @return \Tx_Oelib_List<AbstractModel>
      *         Models with the UIDs provided. The models will be filled with the
      *         data provided in case they did not have any data before,
      *         otherwise the already loaded data will be used. If $dataOfModels
@@ -217,7 +218,7 @@ abstract class AbstractDataMapper
      *        consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
      *
-     * @return \Tx_Oelib_Model the model
+     * @return AbstractModel the model
      *
      * @throws NotFoundException if there is no record in the DB which matches the WHERE clause
      */
@@ -262,14 +263,14 @@ abstract class AbstractDataMapper
      *
      * Note: This method may only be called at most once per model instance.
      *
-     * @param \Tx_Oelib_Model $model
+     * @param AbstractModel $model
      *        the model to fill, must already have a UID
      *
      * @return void
      *
      * @throws \InvalidArgumentException if $model has no UID or has been created via getNewGhost
      */
-    public function load(\Tx_Oelib_Model $model)
+    public function load(AbstractModel $model)
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
             throw new \InvalidArgumentException(
@@ -304,14 +305,14 @@ abstract class AbstractDataMapper
      *
      * This method may be called more than once per model instance.
      *
-     * @param \Tx_Oelib_Model $model
+     * @param AbstractModel $model
      *        the model to fill, must already have a UID
      *
      * @return void
      *
      * @throws \InvalidArgumentException if $model has no UID or has been created via getNewGhost
      */
-    public function reload(\Tx_Oelib_Model $model)
+    public function reload(AbstractModel $model)
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
             throw new \InvalidArgumentException(
@@ -341,13 +342,13 @@ abstract class AbstractDataMapper
      *
      * This method must be called at most once per model instance.
      *
-     * @param \Tx_Oelib_Model $model
+     * @param AbstractModel $model
      *        the model to fill, needs to have a UID
      * @param array $data the model data to process as it comes from the DB
      *
      * @return void
      */
-    private function fillModel(\Tx_Oelib_Model $model, array $data)
+    private function fillModel(AbstractModel $model, array $data)
     {
         $this->cacheModelByKeys($model, $data);
         $this->createRelations($data, $model);
@@ -361,13 +362,13 @@ abstract class AbstractDataMapper
      *
      * This method may be called more than once per model instance.
      *
-     * @param \Tx_Oelib_Model $model
+     * @param AbstractModel $model
      *        the model to fill, needs to have a UID
      * @param array $data the model data to process as it comes from the DB
      *
      * @return void
      */
-    private function refillModel(\Tx_Oelib_Model $model, array $data)
+    private function refillModel(AbstractModel $model, array $data)
     {
         $this->cacheModelByKeys($model, $data);
         $this->createRelations($data, $model);
@@ -380,12 +381,12 @@ abstract class AbstractDataMapper
      *
      * @param array &$data
      *        the model data to process, might be modified
-     * @param \Tx_Oelib_Model $model
+     * @param AbstractModel $model
      *        the model to create the relations for
      *
      * @return void
      */
-    protected function createRelations(array &$data, \Tx_Oelib_Model $model)
+    protected function createRelations(array &$data, AbstractModel $model)
     {
         foreach (array_keys($this->relations) as $key) {
             if ($this->isOneToManyRelationConfigured($key)) {
@@ -501,12 +502,12 @@ abstract class AbstractDataMapper
      * @param string $key
      *        the key of the data item for which the relation should be created,
      *        must not be empty
-     * @param \Tx_Oelib_Model $model
+     * @param AbstractModel $model
      *        the model to create the relation for
      *
      * @return void
      */
-    private function createOneToManyRelation(array &$data, string $key, \Tx_Oelib_Model $model)
+    private function createOneToManyRelation(array &$data, string $key, AbstractModel $model)
     {
         $modelData = [];
 
@@ -567,11 +568,11 @@ abstract class AbstractDataMapper
      *        the model data to process, will be modified
      * @param string $key
      *        the key of the data item for which the relation should be created, must not be empty
-     * @param \Tx_Oelib_Model $model the model to create the relation for
+     * @param AbstractModel $model the model to create the relation for
      *
      * @return void
      */
-    private function createCommaSeparatedRelation(array &$data, string $key, \Tx_Oelib_Model $model)
+    private function createCommaSeparatedRelation(array &$data, string $key, AbstractModel $model)
     {
         $list = new \Tx_Oelib_List();
         $list->setParentModel($model);
@@ -602,11 +603,11 @@ abstract class AbstractDataMapper
      *        the model data to process, will be modified
      * @param string $key
      *        the key of the data item for which the relation should be created, must not be empty
-     * @param \Tx_Oelib_Model $model the model to create the relation for
+     * @param AbstractModel $model the model to create the relation for
      *
      * @return void
      */
-    private function createMToNRelation(array &$data, string $key, \Tx_Oelib_Model $model)
+    private function createMToNRelation(array &$data, string $key, AbstractModel $model)
     {
         $list = new \Tx_Oelib_List();
         $list->setParentModel($model);
@@ -701,11 +702,11 @@ abstract class AbstractDataMapper
      *
      * @param int $uid the UID of the to-create ghost
      *
-     * @return \Tx_Oelib_Model a ghost model with the UID $uid
+     * @return AbstractModel a ghost model with the UID $uid
      */
-    protected function createGhost(int $uid): \Tx_Oelib_Model
+    protected function createGhost(int $uid): AbstractModel
     {
-        /** @var \Tx_Oelib_Model $model */
+        /** @var AbstractModel $model */
         $model = GeneralUtility::makeInstance($this->modelClassName);
         $model->setUid($uid);
         $model->setLoadCallback([$this, 'load']);
@@ -721,9 +722,9 @@ abstract class AbstractDataMapper
      * Important: As this ghost's UID has nothing to do with the real UIDs in
      * the database, this ghost must not be loaded or saved.
      *
-     * @return \Tx_Oelib_Model a new ghost
+     * @return AbstractModel a new ghost
      */
-    public function getNewGhost(): \Tx_Oelib_Model
+    public function getNewGhost(): AbstractModel
     {
         $model = $this->createGhost($this->map->getNewUid());
         $this->registerModelAsMemoryOnlyDummy($model);
@@ -739,7 +740,7 @@ abstract class AbstractDataMapper
      * eg. m:1 relations are provided as the foreign UID, not as the constituded
      * model.
      *
-     * (\Tx_Oelib_Model::setData works differently: There you need to provide the
+     * (AbstractModel::setData works differently: There you need to provide the
      * data with the relations already being the model/list objects.)
      *
      * This function should only be used in unit tests for mappers (to avoid
@@ -755,9 +756,9 @@ abstract class AbstractDataMapper
      *
      * @param string[] $data the data as it would come from the database, may be empty
      *
-     * @return \Tx_Oelib_Model a new model loaded with $data
+     * @return AbstractModel a new model loaded with $data
      */
-    public function getLoadedTestingModel(array $data): \Tx_Oelib_Model
+    public function getLoadedTestingModel(array $data): AbstractModel
     {
         $model = $this->getNewGhost();
         $this->fillModel($model, $data);
@@ -794,11 +795,11 @@ abstract class AbstractDataMapper
      * denied, if the model is clean, if the model has status dead, virgin or
      * ghost, if the model is read-only or if there is no data to set.
      *
-     * @param \Tx_Oelib_Model $model the model to write to the database
+     * @param AbstractModel $model the model to write to the database
      *
      * @return void
      */
-    public function save(\Tx_Oelib_Model $model)
+    public function save(AbstractModel $model)
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
             throw new \InvalidArgumentException(

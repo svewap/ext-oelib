@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Geocoding;
 
 use OliverKlee\Oelib\Interfaces\Geo;
+use OliverKlee\Oelib\Model\AbstractModel;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
@@ -100,7 +101,7 @@ class GeoCalculcator implements SingletonInterface
         }
 
         $objectsWithinDistance = new \Tx_Oelib_List();
-        /** @var Geo|\Tx_Oelib_Model $object */
+        /** @var Geo|AbstractModel $object */
         foreach ($unfilteredObjects as $object) {
             if ($object->hasGeoCoordinates() && $this->calculateDistanceInKilometers($center, $object) <= $distance) {
                 $objectsWithinDistance->add($object);

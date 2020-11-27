@@ -10,7 +10,7 @@ namespace OliverKlee\Oelib\Model;
  * @author Bernd Schönbach <bernd@oliverklee.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class BackEndUserGroup extends \Tx_Oelib_Model
+class BackEndUserGroup extends AbstractModel
 {
     /**
      * Gets this group's title.

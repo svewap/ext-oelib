@@ -9,7 +9,7 @@ namespace OliverKlee\Oelib\Model;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Language extends \Tx_Oelib_Model
+class Language extends AbstractModel
 {
     /**
      * @var bool whether this model is read-only

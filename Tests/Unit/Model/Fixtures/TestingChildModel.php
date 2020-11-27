@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Model\Fixtures;
 
 use OliverKlee\Oelib\Interfaces\Sortable;
+use OliverKlee\Oelib\Model\AbstractModel;
 
 /**
  * This class represents a domain model for testing purposes.
@@ -12,7 +13,7 @@ use OliverKlee\Oelib\Interfaces\Sortable;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestingChildModel extends \Tx_Oelib_Model implements Sortable
+class TestingChildModel extends AbstractModel implements Sortable
 {
     /**
      * @return string

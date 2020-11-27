@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model\Fixtures;
 
+use OliverKlee\Oelib\Model\AbstractModel;
+
 /**
  * This class represents a read-only model for testing purposes.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-final class ReadOnlyModel extends \Tx_Oelib_Model
+final class ReadOnlyModel extends AbstractModel
 {
     /**
      * @var bool whether this model is read-only
