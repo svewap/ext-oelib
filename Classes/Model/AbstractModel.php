@@ -6,7 +6,6 @@ namespace OliverKlee\Oelib\Model;
 
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Interfaces\Identity;
-use UnexpectedValueException;
 
 /**
  * This class represents a general domain model which is capable of lazy loading (using ghosts).
@@ -335,7 +334,7 @@ abstract class AbstractModel extends \Tx_Oelib_Object implements Identity
      *
      * @return AbstractModel|null
      *
-     * @throws UnexpectedValueException
+     * @throws \UnexpectedValueException
      *         if there is a data item stored for the key $key that is not a model instance
      */
     protected function getAsModel($key)
@@ -348,7 +347,7 @@ abstract class AbstractModel extends \Tx_Oelib_Object implements Identity
         }
 
         if (!$result instanceof self) {
-            throw new UnexpectedValueException(
+            throw new \UnexpectedValueException(
                 'The data item for the key "' . $key . '" is no model instance.',
                 1331489359
             );
@@ -360,7 +359,7 @@ abstract class AbstractModel extends \Tx_Oelib_Object implements Identity
     /**
      * Gets the value stored in under the key $key as a list of models.
      *
-     * @throws UnexpectedValueException
+     * @throws \UnexpectedValueException
      *         if there is a data item stored for the key $key that is not a list instance or if that item has not been
      *     set yet
      *
@@ -374,7 +373,7 @@ abstract class AbstractModel extends \Tx_Oelib_Object implements Identity
 
         $result = $this->get($key);
         if (!$result instanceof \Tx_Oelib_List) {
-            throw new UnexpectedValueException(
+            throw new \UnexpectedValueException(
                 'The data item for the key "' . $key . '" is no list instance.',
                 1331489379
             );
