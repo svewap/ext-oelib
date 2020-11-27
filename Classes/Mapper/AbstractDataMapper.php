@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Mapper;
+
 use OliverKlee\Oelib\Exception\NotFoundException;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -15,7 +17,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-abstract class Tx_Oelib_DataMapper
+abstract class AbstractDataMapper
 {
     /**
      * @var string the name of the database table for this mapper,
@@ -115,7 +117,7 @@ abstract class Tx_Oelib_DataMapper
      * Sets the testing framework. During functional tests, this makes sure that records created with this mapper
      * will be deleted during cleanUp again.
      *
-     * @param Tx_Oelib_TestingFramework $testingFramework
+     * @param \Tx_Oelib_TestingFramework $testingFramework
      *
      * @return void
      */
@@ -919,11 +921,11 @@ abstract class Tx_Oelib_DataMapper
      * Saves the related model of an n:1-relation.
      *
      * @param \Tx_Oelib_Model $model the model to save
-     * @param \Tx_Oelib_DataMapper $mapper the mapper to use for saving
+     * @param AbstractDataMapper $mapper the mapper to use for saving
      *
      * @return void
      */
-    private function saveManyToOneRelatedModels(\Tx_Oelib_Model $model, \Tx_Oelib_DataMapper $mapper)
+    private function saveManyToOneRelatedModels(\Tx_Oelib_Model $model, AbstractDataMapper $mapper)
     {
         $mapper->save($model);
     }
@@ -932,11 +934,11 @@ abstract class Tx_Oelib_DataMapper
      * Saves the related models of a comma-separated and a regular m:n relation.
      *
      * @param \Tx_Oelib_List<\Tx_Oelib_Model> $list the list of models to save
-     * @param \Tx_Oelib_DataMapper $mapper the mapper to use for saving
+     * @param AbstractDataMapper $mapper the mapper to use for saving
      *
      * @return void
      */
-    private function saveManyToManyAndCommaSeparatedRelatedModels(\Tx_Oelib_List $list, \Tx_Oelib_DataMapper $mapper)
+    private function saveManyToManyAndCommaSeparatedRelatedModels(\Tx_Oelib_List $list, AbstractDataMapper $mapper)
     {
         /** @var \Tx_Oelib_Model $model */
         foreach ($list as $model) {

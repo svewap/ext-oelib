@@ -118,7 +118,7 @@ abstract class Tx_Oelib_Model extends \Tx_Oelib_Object implements Identity
      * The data which is set via this function is considered to be the initial
      * data. Fields with relations must already be filled with the constituted
      * models/lists, not just with the UIDs (unlike the format that
-     * \Tx_Oelib_DataMapper::getLoadedTestingModel takes).
+     * AbstractDataMapper::getLoadedTestingModel takes).
      *
      * This function should be called directly after instantiation and must only
      * be called once. Usually, this function is called on only a few occasions:

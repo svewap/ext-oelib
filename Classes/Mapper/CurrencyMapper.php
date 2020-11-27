@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Model\Currency;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class CurrencyMapper extends \Tx_Oelib_DataMapper
+class CurrencyMapper extends AbstractDataMapper
 {
     /**
      * @var string the name of the database table for this mapper

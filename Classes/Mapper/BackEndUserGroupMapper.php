@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Model\BackEndUserGroup;
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class BackEndUserGroupMapper extends \Tx_Oelib_DataMapper
+class BackEndUserGroupMapper extends AbstractDataMapper
 {
     /**
      * @var string the name of the database table for this mapper

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Mapper;
+
 use OliverKlee\Oelib\Exception\NotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -12,7 +14,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_MapperRegistry
+class MapperRegistry
 {
     /**
      * @var \Tx_Oelib_MapperRegistry the Singleton instance
@@ -20,7 +22,7 @@ class Tx_Oelib_MapperRegistry
     private static $instance = null;
 
     /**
-     * @var \Tx_Oelib_DataMapper[] already created mappers (by class name)
+     * @var AbstractDataMapper[] already created mappers (by class name)
      */
     private $mappers = [];
 
@@ -78,11 +80,11 @@ class Tx_Oelib_MapperRegistry
      *
      * @param string $className the name of an existing mapper class, must not be empty
      *
-     * @return \Tx_Oelib_DataMapper the mapper with the class $className
+     * @return AbstractDataMapper the mapper with the class $className
      *
      * @see getByClassName
      */
-    public static function get(string $className): \Tx_Oelib_DataMapper
+    public static function get(string $className): AbstractDataMapper
     {
         return self::getInstance()->getByClassName($className);
     }
@@ -92,11 +94,11 @@ class Tx_Oelib_MapperRegistry
      *
      * @param string $className the name of an existing mapper class, must not be empty
      *
-     * @return \Tx_Oelib_DataMapper the requested mapper instance
+     * @return AbstractDataMapper the requested mapper instance
      *
      * @throws \InvalidArgumentException
      */
-    private function getByClassName(string $className): \Tx_Oelib_DataMapper
+    private function getByClassName(string $className): AbstractDataMapper
     {
         if ($className === '') {
             throw new \InvalidArgumentException('$className must not be empty.', 1331488868);
@@ -104,7 +106,7 @@ class Tx_Oelib_MapperRegistry
         $unifiedClassName = self::unifyClassName($className);
 
         if (isset($this->mappers[$unifiedClassName])) {
-            /** @var \Tx_Oelib_DataMapper $mapper */
+            /** @var AbstractDataMapper $mapper */
             $mapper = $this->mappers[$unifiedClassName];
         } else {
             if (!class_exists($className)) {
@@ -113,7 +115,7 @@ class Tx_Oelib_MapperRegistry
                 );
             }
 
-            /** @var \Tx_Oelib_DataMapper $mapper */
+            /** @var AbstractDataMapper $mapper */
             $mapper = GeneralUtility::makeInstance($unifiedClassName);
             $this->mappers[$unifiedClassName] = $mapper;
         }
@@ -171,14 +173,14 @@ class Tx_Oelib_MapperRegistry
      * This function is to be used for testing purposes only.
      *
      * @param string $className the class name of the mapper to set
-     * @param \Tx_Oelib_DataMapper $mapper
+     * @param AbstractDataMapper $mapper
      *        the mapper to set, must be an instance of $className
      *
      * @see setByClassName
      *
      * @return void
      */
-    public static function set(string $className, \Tx_Oelib_DataMapper $mapper)
+    public static function set(string $className, AbstractDataMapper $mapper)
     {
         self::getInstance()->setByClassName(self::unifyClassName($className), $mapper);
     }
@@ -189,12 +191,12 @@ class Tx_Oelib_MapperRegistry
      * This function is to be used for testing purposes only.
      *
      * @param string $className the class name of the mapper to set
-     * @param \Tx_Oelib_DataMapper $mapper
+     * @param AbstractDataMapper $mapper
      *        the mapper to set, must be an instance of $className
      *
      * @return void
      */
-    private function setByClassName(string $className, \Tx_Oelib_DataMapper $mapper)
+    private function setByClassName(string $className, AbstractDataMapper $mapper)
     {
         if (!($mapper instanceof $className)) {
             throw new \InvalidArgumentException(

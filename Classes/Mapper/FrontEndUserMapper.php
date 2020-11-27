@@ -14,7 +14,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class FrontEndUserMapper extends \Tx_Oelib_DataMapper
+class FrontEndUserMapper extends AbstractDataMapper
 {
     /**
      * @var string the name of the database table for this mapper

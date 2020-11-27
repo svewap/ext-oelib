@@ -85,7 +85,7 @@ for examples:
 
 ::
 
-   class FrontEndUserMapper extends Tx_Oelib_DataMapper {
+   class FrontEndUserMapper extends AbstractDataMapper {
          /**
         * @var string the name of the database table for this mapper
         */

@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Model\Country;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class CountryMapper extends \Tx_Oelib_DataMapper
+class CountryMapper extends AbstractDataMapper
 {
     /**
      * @var string the name of the database table for this mapper

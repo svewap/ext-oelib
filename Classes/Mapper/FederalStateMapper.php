@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Model\FederalState;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class FederalStateMapper extends \Tx_Oelib_DataMapper
+class FederalStateMapper extends AbstractDataMapper
 {
     /**
      * @var string

@@ -1,4 +1,5 @@
 <?php
+
 namespace {
     die('Access denied');
 }
@@ -178,6 +179,16 @@ namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
      */
+    class Tx_Oelib_DataMapper extends \OliverKlee\Oelib\Mapper\AbstractDataMapper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
     class Tx_Oelib_Mapper_BackEndUser extends \OliverKlee\Oelib\Mapper\BackEndUserMapper
     {
 
@@ -249,6 +260,16 @@ namespace {
      * @deprecated will be removed in oelib 4.0.0
      */
     class Tx_Oelib_Mapper_Language extends \OliverKlee\Oelib\Mapper\LanguageMapper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_MapperRegistry extends \OliverKlee\Oelib\Mapper\MapperRegistry
     {
 
     }

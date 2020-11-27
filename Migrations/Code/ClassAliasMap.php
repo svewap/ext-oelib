@@ -26,6 +26,7 @@ return [
     'Tx_Oelib_Geocoding_Google' => \OliverKlee\Oelib\Geocoding\GoogleGeocoding::class,
 
     // Mapper
+    'Tx_Oelib_DataMapper' => \OliverKlee\Oelib\Mapper\AbstractDataMapper::class,
     'Tx_Oelib_Mapper_BackEndUser' => \OliverKlee\Oelib\Mapper\BackEndUserMapper::class,
     'Tx_Oelib_Mapper_BackEndUserGroup' => \OliverKlee\Oelib\Mapper\BackEndUserGroupMapper::class,
     'Tx_Oelib_Mapper_Country' => \OliverKlee\Oelib\Mapper\CountryMapper::class,
@@ -34,6 +35,7 @@ return [
     'Tx_Oelib_Mapper_FrontEndUser' => \OliverKlee\Oelib\Mapper\FrontEndUserMapper::class,
     'Tx_Oelib_Mapper_FrontEndUserGroup' => \OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper::class,
     'Tx_Oelib_Mapper_Language' => \OliverKlee\Oelib\Mapper\LanguageMapper::class,
+    'Tx_Oelib_MapperRegistry' => \OliverKlee\Oelib\Mapper\MapperRegistry::class,
 
     // Models
     'Tx_Oelib_Model_BackEndUser' => \OliverKlee\Oelib\Model\BackEndUser::class,

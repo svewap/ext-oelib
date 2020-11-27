@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures;
 
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
@@ -13,7 +14,7 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestingMapper extends \Tx_Oelib_DataMapper
+class TestingMapper extends AbstractDataMapper
 {
     /**
      * @var string the name of the database table for this mapper

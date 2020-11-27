@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures;
 
+use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 
 /**
@@ -11,7 +12,7 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class TestingChildMapper extends \Tx_Oelib_DataMapper
+class TestingChildMapper extends AbstractDataMapper
 {
     /**
      * @var string the name of the database table for this mapper

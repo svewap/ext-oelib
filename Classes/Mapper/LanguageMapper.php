@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Model\Language;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class LanguageMapper extends \Tx_Oelib_DataMapper
+class LanguageMapper extends AbstractDataMapper
 {
     /**
      * @var string the name of the database table for this mapper
