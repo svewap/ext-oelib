@@ -37,13 +37,13 @@ mapper classes for the following:
 Models
 """"""
 
-All models needto inherit from tx\_oelib\_Model and be located in the
+All models needto inherit from AbstractModel and be located in the
 Model/ directory of your extension. Have a look at the front-end user
 model in oelib as an example:
 
 ::
 
-   class Tx_Oelib_Model_FrontEndUser extends Tx_Oelib_Model implements
+   class Tx_Oelib_Model_FrontEndUser extends AbstractModel implements
          Tx_Oelib_Interface_MailRole, Tx_Oelib_Interface_Address
    {
          /**

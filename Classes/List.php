@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use OliverKlee\Oelib\Interfaces\Sortable;
+use OliverKlee\Oelib\Model\AbstractModel;
 
 /**
  * This class represents a list of models.
@@ -23,7 +24,7 @@ class Tx_Oelib_List extends SplObjectStorage
      * This is used for modeling relations and will remain NULL in any other
      * context.
      *
-     * @var \Tx_Oelib_Model
+     * @var AbstractModel
      */
     private $parentModel = null;
 
@@ -47,13 +48,13 @@ class Tx_Oelib_List extends SplObjectStorage
      *
      * The model to add need not necessarily have a UID.
      *
-     * @param \Tx_Oelib_Model $model the model to add, need not have a UID
+     * @param AbstractModel $model the model to add, need not have a UID
      *
      * @return void
      *
      * @throws \UnexpectedValueException
      */
-    public function add(\Tx_Oelib_Model $model)
+    public function add(AbstractModel $model)
     {
         $this->attach($model);
 
@@ -96,12 +97,12 @@ class Tx_Oelib_List extends SplObjectStorage
      *
      * Note: This method rewinds the iterator.
      *
-     * @return \Tx_Oelib_Model|null
+     * @return AbstractModel|null
      */
     public function first()
     {
         $this->rewind();
-        /** @var \Tx_Oelib_Model|null $current */
+        /** @var AbstractModel|null $current */
         $current = $this->current();
 
         return $current;
@@ -155,7 +156,7 @@ class Tx_Oelib_List extends SplObjectStorage
     {
         $this->hasItemWithoutUid = false;
 
-        /** @var \Tx_Oelib_Model $item */
+        /** @var AbstractModel $item */
         foreach ($this as $item) {
             if ($item->hasUid()) {
                 $uid = $item->getUid();
@@ -183,7 +184,7 @@ class Tx_Oelib_List extends SplObjectStorage
         $items = iterator_to_array($this, false);
         usort($items, $callbackFunction);
 
-        /** @var \Tx_Oelib_Model $item */
+        /** @var AbstractModel $item */
         foreach ($items as $item) {
             $this->detach($item);
             $this->attach($item);
@@ -199,13 +200,13 @@ class Tx_Oelib_List extends SplObjectStorage
      * cases an synonym to appendUnique() as SplObjectStorage makes sure that
      * no object is added more than once to it.
      *
-     * @param \Tx_Oelib_List<\Tx_Oelib_Model> $list the list to append, may be empty
+     * @param \Tx_Oelib_List<AbstractModel> $list the list to append, may be empty
      *
      * @return void
      */
     public function append(\Tx_Oelib_List $list)
     {
-        /** @var \Tx_Oelib_Model $item */
+        /** @var AbstractModel $item */
         foreach ($list as $item) {
             $this->add($item);
         }
@@ -243,7 +244,7 @@ class Tx_Oelib_List extends SplObjectStorage
      *
      * @internal
      *
-     * @return \Tx_Oelib_Model|null
+     * @return AbstractModel|null
      */
     public function getParentModel()
     {
@@ -255,11 +256,11 @@ class Tx_Oelib_List extends SplObjectStorage
      *
      * @internal
      *
-     * @param \Tx_Oelib_Model $model the model this list belongs to
+     * @param AbstractModel $model the model this list belongs to
      *
      * @return void
      */
-    public function setParentModel(\Tx_Oelib_Model $model)
+    public function setParentModel(AbstractModel $model)
     {
         $this->parentModel = $model;
     }
@@ -297,7 +298,7 @@ class Tx_Oelib_List extends SplObjectStorage
      */
     protected function markAsDirty()
     {
-        if ($this->parentModel instanceof \Tx_Oelib_Model) {
+        if ($this->parentModel instanceof AbstractModel) {
             $this->parentModel->markAsDirty();
         }
     }
@@ -347,7 +348,7 @@ class Tx_Oelib_List extends SplObjectStorage
      * @param int $start the zero-based start position, must be >= 0
      * @param int $length the number of elements to return, must be >= 0
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model>
+     * @return \Tx_Oelib_List<AbstractModel>
      *         the selected elements starting at $start
      */
     public function inRange(int $start, int $length): \Tx_Oelib_List
@@ -363,7 +364,7 @@ class Tx_Oelib_List extends SplObjectStorage
 
         $lastPosition = $start + $length - 1;
         $currentIndex = 0;
-        /** @var \Tx_Oelib_Model $item */
+        /** @var AbstractModel $item */
         foreach ($this as $item) {
             if ($currentIndex > $lastPosition) {
                 break;
@@ -383,7 +384,7 @@ class Tx_Oelib_List extends SplObjectStorage
      * @param int $position
      *        the zero-based position of the model to retrieve, must be >= 0
      *
-     * @return \Tx_Oelib_Model|null
+     * @return AbstractModel|null
      */
     public function at(int $position)
     {
@@ -393,13 +394,13 @@ class Tx_Oelib_List extends SplObjectStorage
     /**
      * Returns the elements of this list in an array.
      *
-     * @return \Tx_Oelib_Model[]
+     * @return AbstractModel[]
      *         the elements of this list, might be empty
      */
     public function toArray(): array
     {
         $elements = [];
-        /** @var \Tx_Oelib_Model $model */
+        /** @var AbstractModel $model */
         foreach ($this as $model) {
             $elements[] = $model;
         }

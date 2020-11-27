@@ -848,11 +848,11 @@ abstract class AbstractDataMapper
      * database-applicable format. Sets the timestamp and sets the "crdate" for
      * new models.
      *
-     * @param \Tx_Oelib_Model $model the model to write to the database
+     * @param AbstractModel $model the model to write to the database
      *
      * @return array the model's data prepared for the database, will not be empty
      */
-    private function getPreparedModelData(\Tx_Oelib_Model $model): array
+    private function getPreparedModelData(AbstractModel $model): array
     {
         if (!$model->hasUid()) {
             $model->setCreationDate();
@@ -867,7 +867,7 @@ abstract class AbstractDataMapper
             } elseif ($this->isManyToOneRelationConfigured($key)) {
                 $functionName = 'getUid';
 
-                if ($data[$key] instanceof \Tx_Oelib_Model) {
+                if ($data[$key] instanceof AbstractModel) {
                     $this->saveManyToOneRelatedModels(
                         $data[$key],
                         MapperRegistry::get($relation)
@@ -921,12 +921,12 @@ abstract class AbstractDataMapper
     /**
      * Saves the related model of an n:1-relation.
      *
-     * @param \Tx_Oelib_Model $model the model to save
+     * @param AbstractModel $model the model to save
      * @param AbstractDataMapper $mapper the mapper to use for saving
      *
      * @return void
      */
-    private function saveManyToOneRelatedModels(\Tx_Oelib_Model $model, AbstractDataMapper $mapper)
+    private function saveManyToOneRelatedModels(AbstractModel $model, AbstractDataMapper $mapper)
     {
         $mapper->save($model);
     }
@@ -934,14 +934,14 @@ abstract class AbstractDataMapper
     /**
      * Saves the related models of a comma-separated and a regular m:n relation.
      *
-     * @param \Tx_Oelib_List<\Tx_Oelib_Model> $list the list of models to save
+     * @param \Tx_Oelib_List<AbstractModel> $list the list of models to save
      * @param AbstractDataMapper $mapper the mapper to use for saving
      *
      * @return void
      */
     private function saveManyToManyAndCommaSeparatedRelatedModels(\Tx_Oelib_List $list, AbstractDataMapper $mapper)
     {
-        /** @var \Tx_Oelib_Model $model */
+        /** @var AbstractModel $model */
         foreach ($list as $model) {
             $mapper->save($model);
         }
@@ -951,12 +951,12 @@ abstract class AbstractDataMapper
      * Deletes the records in the intermediate table of m:n relations for a
      * given model.
      *
-     * @param \Tx_Oelib_Model $model the model to delete the records in the
+     * @param AbstractModel $model the model to delete the records in the
      *                              intermediate table of m:n relations for
      *
      * @return void
      */
-    private function deleteManyToManyRelationIntermediateRecords(\Tx_Oelib_Model $model)
+    private function deleteManyToManyRelationIntermediateRecords(AbstractModel $model)
     {
         foreach (array_keys($this->relations) as $key) {
             if (!$this->isManyToManyRelationConfigured($key)) {
@@ -973,11 +973,11 @@ abstract class AbstractDataMapper
     /**
      * Creates records in the intermediate table of m:n relations for a given model.
      *
-     * @param \Tx_Oelib_Model $model the model to create the records in the intermediate table of m:n relations for
+     * @param AbstractModel $model the model to create the records in the intermediate table of m:n relations for
      *
      * @return void
      */
-    private function createManyToManyRelationIntermediateRecords(\Tx_Oelib_Model $model)
+    private function createManyToManyRelationIntermediateRecords(AbstractModel $model)
     {
         $data = $model->getData();
 
@@ -990,7 +990,7 @@ abstract class AbstractDataMapper
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
             $mnTable = $relationConfiguration['MM'];
 
-            /** @var \Tx_Oelib_Model $relatedModel */
+            /** @var AbstractModel $relatedModel */
             foreach ($data[$key] as $relatedModel) {
                 if (isset($relationConfiguration['MM_opposite_field'])) {
                     $uidLocal = $relatedModel->getUid();
@@ -1011,11 +1011,11 @@ abstract class AbstractDataMapper
     /**
      * Saves records that this model relates to as 1:n.
      *
-     * @param \Tx_Oelib_Model $model the model to save the related records for
+     * @param AbstractModel $model the model to save the related records for
      *
      * @return void
      */
-    private function saveOneToManyRelationRecords(\Tx_Oelib_Model $model)
+    private function saveOneToManyRelationRecords(AbstractModel $model)
     {
         $data = $model->getData();
 
@@ -1049,7 +1049,7 @@ abstract class AbstractDataMapper
             $getter = 'get' . $foreignKey;
             $setter = 'set' . $foreignKey;
 
-            /** @var \Tx_Oelib_Model $relatedModel */
+            /** @var AbstractModel $relatedModel */
             foreach ($relatedModels->toArray() as $relatedModel) {
                 if (!method_exists($relatedModel, $getter)) {
                     throw new \BadMethodCallException(
@@ -1077,7 +1077,7 @@ abstract class AbstractDataMapper
                     $foreignField,
                     $relatedModels
                 );
-                /** @var \Tx_Oelib_Model $unconnectedModel */
+                /** @var AbstractModel $unconnectedModel */
                 foreach ($unconnectedModels as $unconnectedModel) {
                     $relatedMapper->delete($unconnectedModel);
                 }
@@ -1115,13 +1115,13 @@ abstract class AbstractDataMapper
     /**
      * Marks $model as deleted and saves it to the DB (if it has a UID).
      *
-     * @param \Tx_Oelib_Model $model
+     * @param AbstractModel $model
      *        the model to delete, must not be a memory-only dummy, must not be
      *        read-only
      *
      * @return void
      */
-    public function delete(\Tx_Oelib_Model $model)
+    public function delete(AbstractModel $model)
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
             throw new \InvalidArgumentException(
@@ -1150,12 +1150,12 @@ abstract class AbstractDataMapper
     /**
      * Deletes all one-to-many related models of this model.
      *
-     * @param \Tx_Oelib_Model $model
+     * @param AbstractModel $model
      *        the model for which to delete the related models
      *
      * @return void
      */
-    private function deleteOneToManyRelations(\Tx_Oelib_Model $model)
+    private function deleteOneToManyRelations(AbstractModel $model)
     {
         $data = $model->getData();
 
@@ -1167,7 +1167,7 @@ abstract class AbstractDataMapper
                 }
 
                 $mapper = MapperRegistry::get($mapperName);
-                /** @var \Tx_Oelib_Model $relatedModel */
+                /** @var AbstractModel $relatedModel */
                 foreach ($relatedModels as $relatedModel) {
                     $mapper->delete($relatedModel);
                 }
@@ -1185,7 +1185,7 @@ abstract class AbstractDataMapper
      *        optionally followed by "ASC" or "DESC" or may
      *        be empty
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model> all models from the DB, already loaded
+     * @return \Tx_Oelib_List<AbstractModel> all models from the DB, already loaded
      */
     public function findAll(string $sorting = ''): \Tx_Oelib_List
     {
@@ -1242,11 +1242,11 @@ abstract class AbstractDataMapper
     /**
      * Registers a model as a memory-only dummy that must not be saved.
      *
-     * @param \Tx_Oelib_Model $model the model to register
+     * @param AbstractModel $model the model to register
      *
      * @return void
      */
-    private function registerModelAsMemoryOnlyDummy(\Tx_Oelib_Model $model)
+    private function registerModelAsMemoryOnlyDummy(AbstractModel $model)
     {
         if (!$model->hasUid()) {
             return;
@@ -1258,11 +1258,11 @@ abstract class AbstractDataMapper
     /**
      * Checks whether $model is a memory-only dummy that must not be saved
      *
-     * @param \Tx_Oelib_Model $model the model to check
+     * @param AbstractModel $model the model to check
      *
      * @return bool TRUE if $model is a memory-only dummy, FALSE otherwise
      */
-    private function isModelAMemoryOnlyDummy(\Tx_Oelib_Model $model): bool
+    private function isModelAMemoryOnlyDummy(AbstractModel $model): bool
     {
         if (!$model->hasUid()) {
             return false;
@@ -1283,7 +1283,7 @@ abstract class AbstractDataMapper
      *        optionally followed by "ASC" or "DESC", may be empty
      * @param string|int $limit the LIMIT value ([begin,]max), may be empty
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model> all models found in DB for the given where clause,
+     * @return \Tx_Oelib_List<AbstractModel> all models found in DB for the given where clause,
      *                       will be an empty list if no models were found
      *
      * @deprecated will be removed in oelib 4.0.0
@@ -1326,7 +1326,7 @@ abstract class AbstractDataMapper
      *        the sorting for the found records, must be a valid DB field
      *        optionally followed by "ASC" or "DESC", may be empty
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model> all records with the matching page UIDs, will be
+     * @return \Tx_Oelib_List<AbstractModel> all records with the matching page UIDs, will be
      *                       empty if no records have been found
      */
     public function findByPageUid($pageUids, string $sorting = ''): \Tx_Oelib_List
@@ -1376,7 +1376,7 @@ abstract class AbstractDataMapper
      * @param string $key an existing key, must not be empty
      * @param string $value the value for the key of the model to find, must not be empty
      *
-     * @return \Tx_Oelib_Model the cached model
+     * @return AbstractModel the cached model
      *
      * @throws NotFoundException if there is no match in the cache yet
      * @throws \InvalidArgumentException
@@ -1409,12 +1409,12 @@ abstract class AbstractDataMapper
      * @param string $value
      *        the value for the compound key of the model to find, must not be empty
      *
-     * @return \Tx_Oelib_Model the cached model
+     * @return AbstractModel the cached model
      *
      * @throws NotFoundException if there is no match in the cache yet
      * @throws \InvalidArgumentException
      */
-    public function findOneByCompoundKeyFromCache($value): \Tx_Oelib_Model
+    public function findOneByCompoundKeyFromCache($value): AbstractModel
     {
         if ($value === '') {
             throw new \InvalidArgumentException('$value must not be empty.', 1331319992);
@@ -1431,12 +1431,12 @@ abstract class AbstractDataMapper
      * Puts a model in the cache-by-keys (if the model has any non-empty
      * additional keys).
      *
-     * @param \Tx_Oelib_Model $model the model to cache
+     * @param AbstractModel $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      */
-    private function cacheModelByKeys(\Tx_Oelib_Model $model, array $data)
+    private function cacheModelByKeys(AbstractModel $model, array $data)
     {
         foreach ($this->additionalKeys as $key) {
             if (isset($data[$key])) {
@@ -1459,14 +1459,14 @@ abstract class AbstractDataMapper
      * This method needs to be overwritten in subclasses to work. However, it is recommended to use
      * cacheModelByCompoundKey instead. So this method primarily is here for backwards compatibility.
      *
-     * @param \Tx_Oelib_Model $model the model to cache
+     * @param AbstractModel $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      *
      * @see cacheModelByCompoundKey
      */
-    protected function cacheModelByCombinedKeys(\Tx_Oelib_Model $model, array $data)
+    protected function cacheModelByCombinedKeys(AbstractModel $model, array $data)
     {
     }
 
@@ -1477,14 +1477,14 @@ abstract class AbstractDataMapper
      *
      * This method works automatically; it is not necessary to overwrite it.
      *
-     * @param \Tx_Oelib_Model $model the model to cache
+     * @param AbstractModel $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      *
      * @throws \BadMethodCallException
      */
-    protected function cacheModelByCompoundKey(\Tx_Oelib_Model $model, array $data)
+    protected function cacheModelByCompoundKey(AbstractModel $model, array $data)
     {
         if (empty($this->compoundKeyParts)) {
             throw new \BadMethodCallException(
@@ -1516,11 +1516,11 @@ abstract class AbstractDataMapper
      * @param string $value
      *        the value for the key of the model to find, must not be empty
      *
-     * @return \Tx_Oelib_Model the cached model
+     * @return AbstractModel the cached model
      *
      * @throws NotFoundException if there is no match (neither in the cache nor in the database)
      */
-    public function findOneByKey(string $key, $value): \Tx_Oelib_Model
+    public function findOneByKey(string $key, $value): AbstractModel
     {
         try {
             $model = $this->findOneByKeyFromCache($key, $value);
@@ -1542,12 +1542,12 @@ abstract class AbstractDataMapper
      *        The array must have all the keys that are set in the additionalCompoundKey array.
      *        The array values contain the model data with which to look up.
      *
-     * @return \Tx_Oelib_Model the cached model
+     * @return AbstractModel the cached model
      *
      * @throws NotFoundException if there is no match (neither in the cache nor in the database)
      * @throws \InvalidArgumentException if parameter array $keyValue is empty
      */
-    public function findOneByCompoundKey(array $compoundKeyValues): \Tx_Oelib_Model
+    public function findOneByCompoundKey(array $compoundKeyValues): AbstractModel
     {
         if (empty($compoundKeyValues)) {
             throw new \InvalidArgumentException(
@@ -1596,18 +1596,18 @@ abstract class AbstractDataMapper
     /**
      * Finds all records that are related to $model via the field $key.
      *
-     * @param \Tx_Oelib_Model $model
+     * @param AbstractModel $model
      *        the model to which the matches should be related
      * @param string $relationKey
      *        the key of the field in the matches that should contain the UID
      *        of $model
-     * @param \Tx_Oelib_List<\Tx_Oelib_Model> $ignoreList
+     * @param \Tx_Oelib_List<AbstractModel> $ignoreList
      *        related records that should _not_ be returned
      *
-     * @return \Tx_Oelib_List<\Tx_Oelib_Model> the related models, will be empty if there are no matches
+     * @return \Tx_Oelib_List<AbstractModel> the related models, will be empty if there are no matches
      */
     public function findAllByRelation(
-        \Tx_Oelib_Model $model,
+        AbstractModel $model,
         string $relationKey,
         \Tx_Oelib_List $ignoreList = null
     ): \Tx_Oelib_List {
