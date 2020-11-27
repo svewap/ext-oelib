@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use OliverKlee\Oelib\Interfaces\LoginManager;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Context\Context;
@@ -112,7 +113,7 @@ class Tx_Oelib_FrontEndLoginManager implements LoginManager
             $uid = (int)$this->getContext()->getPropertyFromAspect('frontend.user', 'id');
         }
         /** @var FrontEndUserMapper $mapper */
-        $mapper = \Tx_Oelib_MapperRegistry::get($mapperName);
+        $mapper = MapperRegistry::get($mapperName);
         $this->loggedInUser = $mapper->find($uid);
 
         return $this->loggedInUser;

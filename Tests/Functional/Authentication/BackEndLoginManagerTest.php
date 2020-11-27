@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Authentication;
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
@@ -38,7 +39,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->backEndUserMapper = \Tx_Oelib_MapperRegistry::get(BackEndUserMapper::class);
+        $this->backEndUserMapper = MapperRegistry::get(BackEndUserMapper::class);
 
         $this->subject = \Tx_Oelib_BackEndLoginManager::getInstance();
     }

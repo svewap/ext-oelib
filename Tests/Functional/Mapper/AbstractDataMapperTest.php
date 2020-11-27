@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
@@ -38,12 +39,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->subject = \Tx_Oelib_MapperRegistry::get(TestingMapper::class);
+        $this->subject = MapperRegistry::get(TestingMapper::class);
     }
 
     protected function tearDown()
     {
-        \Tx_Oelib_MapperRegistry::purgeInstance();
+        MapperRegistry::purgeInstance();
         parent::tearDown();
     }
 
@@ -2351,7 +2352,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $model->setTitle('bar');
 
         $composition = $model->getComposition();
-        $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
+        $mapper = MapperRegistry::get(TestingChildMapper::class);
         $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', []);
         $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
         $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', []);
@@ -2379,7 +2380,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $model->setTitle('bar');
 
         $composition = $model->getComposition();
-        $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
+        $mapper = MapperRegistry::get(TestingChildMapper::class);
         $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', []);
         $childUid = (int)$this->getDatabaseConnection()->lastInsertId();
         $component = $mapper->find($childUid);
@@ -2494,7 +2495,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $model->markAsDirty();
 
         $composition = $model->getComposition();
-        $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
+        $mapper = MapperRegistry::get(TestingChildMapper::class);
         $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
         $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
         /** @var TestingModel $component1 */
@@ -3647,7 +3648,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
 
-        \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class)->findAllByRelation($model, '');
+        MapperRegistry::get(TestingChildMapper::class)->findAllByRelation($model, '');
     }
 
     /**
@@ -3659,7 +3660,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $model = $this->subject->find($uid);
 
-        $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
+        $mapper = MapperRegistry::get(TestingChildMapper::class);
         self::assertTrue(
             $mapper->findAllByRelation($model, 'parent')->isEmpty()
         );
@@ -3678,7 +3679,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $anotherModel = $this->subject->find($uid2);
         $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $anotherModel->getUid()]);
 
-        $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
+        $mapper = MapperRegistry::get(TestingChildMapper::class);
         self::assertTrue(
             $mapper->findAllByRelation($model, 'parent')->isEmpty()
         );
@@ -3692,7 +3693,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $model = $this->subject->find($uid);
-        $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
+        $mapper = MapperRegistry::get(TestingChildMapper::class);
         $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
         $relatedUid = (int)$this->getDatabaseConnection()->lastInsertId();
         $relatedModel = $mapper->find($relatedUid);
@@ -3719,7 +3720,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
         $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
 
-        $result = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class)
+        $result = MapperRegistry::get(TestingChildMapper::class)
             ->findAllByRelation($model, 'parent');
         self::assertSame(
             2,
@@ -3735,7 +3736,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $model = $this->subject->find($uid);
-        $mapper = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class);
+        $mapper = MapperRegistry::get(TestingChildMapper::class);
         $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
         $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
         $relatedModel = $mapper->find($childUid1);
@@ -3746,7 +3747,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $ignoreList = new \Tx_Oelib_List();
         $ignoreList->add($ignoredRelatedModel);
 
-        $result = \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class)
+        $result = MapperRegistry::get(TestingChildMapper::class)
             ->findAllByRelation($model, 'parent', $ignoreList);
         self::assertSame(
             1,

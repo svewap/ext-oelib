@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Model;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
@@ -41,7 +42,7 @@ class AbstractModelTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->dataMapper = \Tx_Oelib_MapperRegistry::get(TestingMapper::class);
+        $this->dataMapper = MapperRegistry::get(TestingMapper::class);
 
         $uid = $this->createTestRecord();
         $this->subject = $this->dataMapper->find($uid);

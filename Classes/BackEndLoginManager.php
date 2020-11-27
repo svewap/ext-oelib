@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use OliverKlee\Oelib\Interfaces\LoginManager;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
@@ -90,7 +91,7 @@ class Tx_Oelib_BackEndLoginManager implements LoginManager
         }
 
         /** @var BackEndUserMapper $mapper */
-        $mapper = \Tx_Oelib_MapperRegistry::get($mapperName);
+        $mapper = MapperRegistry::get($mapperName);
         $this->loggedInUser = $mapper->find((int)$this->getBackEndUserAuthentication()->user['uid']);
 
         return $this->loggedInUser;

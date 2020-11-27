@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\ViewHelpers;
 
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\CurrencyMapper;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\Currency;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -63,7 +64,7 @@ class PriceViewhelper extends AbstractViewHelper
 
         try {
             /** @var CurrencyMapper $mapper */
-            $mapper = \Tx_Oelib_MapperRegistry::get(CurrencyMapper::class);
+            $mapper = MapperRegistry::get(CurrencyMapper::class);
             $this->currency = $mapper->findByIsoAlpha3Code($isoAlpha3Code);
         } catch (NotFoundException $exception) {
             $this->currency = null;

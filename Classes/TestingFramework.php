@@ -5,6 +5,7 @@ declare(strict_types=1);
 use OliverKlee\Oelib\Exception\DatabaseException;
 use OliverKlee\Oelib\Frontend\UserWithoutCookies;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
@@ -1344,7 +1345,7 @@ final class Tx_Oelib_TestingFramework
         }
 
         /** @var FrontEndUserMapper $mapper */
-        $mapper = \Tx_Oelib_MapperRegistry::get(FrontEndUserMapper::class);
+        $mapper = MapperRegistry::get(FrontEndUserMapper::class);
         // loads the model from database if it is a ghost
         $mapper->existsModel($userId);
         $dataToSet = $mapper->find($userId)->getData();

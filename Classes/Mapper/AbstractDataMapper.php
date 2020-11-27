@@ -536,7 +536,7 @@ abstract class AbstractDataMapper
         }
 
         /** @var \Tx_Oelib_List $models */
-        $models = \Tx_Oelib_MapperRegistry::get($this->relations[$key])->getListOfModels($modelData);
+        $models = MapperRegistry::get($this->relations[$key])->getListOfModels($modelData);
         $models->setParentModel($model);
         $models->markAsOwnedByParent();
         $data[$key] = $models;
@@ -557,7 +557,7 @@ abstract class AbstractDataMapper
         $uid = isset($data[$key]) ? (int)$data[$key] : 0;
 
         $data[$key] = ($uid > 0)
-            ? \Tx_Oelib_MapperRegistry::get($this->relations[$key])->find($uid)
+            ? MapperRegistry::get($this->relations[$key])->find($uid)
             : null;
     }
 
@@ -579,7 +579,7 @@ abstract class AbstractDataMapper
 
         $uidList = isset($data[$key]) ? trim((string)$data[$key]) : '';
         if ($uidList !== '') {
-            $mapper = \Tx_Oelib_MapperRegistry::get($this->relations[$key]);
+            $mapper = MapperRegistry::get($this->relations[$key]);
             foreach (GeneralUtility::intExplode(',', $uidList, true) as $uid) {
                 // Some relations might have a junk 0 in it. We ignore it to avoid crashing.
                 if ($uid === 0) {
@@ -613,7 +613,7 @@ abstract class AbstractDataMapper
         $list->setParentModel($model);
 
         if ((int)$data[$key] > 0) {
-            $mapper = \Tx_Oelib_MapperRegistry::get($this->relations[$key]);
+            $mapper = MapperRegistry::get($this->relations[$key]);
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
             $mnTable = $relationConfiguration['MM'];
 
@@ -870,7 +870,7 @@ abstract class AbstractDataMapper
                 if ($data[$key] instanceof \Tx_Oelib_Model) {
                     $this->saveManyToOneRelatedModels(
                         $data[$key],
-                        \Tx_Oelib_MapperRegistry::get($relation)
+                        MapperRegistry::get($relation)
                     );
                 }
             } else {
@@ -883,7 +883,7 @@ abstract class AbstractDataMapper
                 if ($data[$key] instanceof \Tx_Oelib_List) {
                     $this->saveManyToManyAndCommaSeparatedRelatedModels(
                         $data[$key],
-                        \Tx_Oelib_MapperRegistry::get($relation)
+                        MapperRegistry::get($relation)
                     );
                 }
             }
@@ -1037,7 +1037,7 @@ abstract class AbstractDataMapper
                 );
             }
 
-            $relatedMapper = \Tx_Oelib_MapperRegistry::get($relation);
+            $relatedMapper = MapperRegistry::get($relation);
             $foreignField = $relationConfiguration['foreign_field'];
             if (\strncmp($foreignField, 'tx_', 3) === 0) {
                 $foreignKey = ucfirst(
@@ -1166,7 +1166,7 @@ abstract class AbstractDataMapper
                     continue;
                 }
 
-                $mapper = \Tx_Oelib_MapperRegistry::get($mapperName);
+                $mapper = MapperRegistry::get($mapperName);
                 /** @var \Tx_Oelib_Model $relatedModel */
                 foreach ($relatedModels as $relatedModel) {
                     $mapper->delete($relatedModel);

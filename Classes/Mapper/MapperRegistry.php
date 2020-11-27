@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class MapperRegistry
 {
     /**
-     * @var \Tx_Oelib_MapperRegistry the Singleton instance
+     * @var MapperRegistry the Singleton instance
      */
     private static $instance = null;
 
@@ -51,12 +51,12 @@ class MapperRegistry
     /**
      * Returns an instance of this class.
      *
-     * @return \Tx_Oelib_MapperRegistry the current Singleton instance
+     * @return MapperRegistry the current Singleton instance
      */
-    public static function getInstance(): \Tx_Oelib_MapperRegistry
+    public static function getInstance(): MapperRegistry
     {
         if (!self::$instance) {
-            self::$instance = new \Tx_Oelib_MapperRegistry();
+            self::$instance = new MapperRegistry();
         }
 
         return self::$instance;

@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Mapper;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\ColumnLessTestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\ModelLessTestingMapper;
@@ -517,8 +518,7 @@ class AbstractDataMapperTest extends UnitTestCase
 
         $model = new TestingModel();
 
-        \Tx_Oelib_MapperRegistry::get(TestingChildMapper::class)
-            ->findAllByRelation($model, 'parent');
+        MapperRegistry::get(TestingChildMapper::class)->findAllByRelation($model, 'parent');
     }
 
     /**

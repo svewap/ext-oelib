@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Mapper;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 
@@ -17,7 +18,7 @@ class MapperRegistryTest extends UnitTestCase
 {
     protected function tearDown()
     {
-        \Tx_Oelib_MapperRegistry::purgeInstance();
+        MapperRegistry::purgeInstance();
         parent::tearDown();
     }
 
@@ -31,8 +32,8 @@ class MapperRegistryTest extends UnitTestCase
     public function getInstanceReturnsMapperRegistryInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_MapperRegistry::class,
-            \Tx_Oelib_MapperRegistry::getInstance()
+            MapperRegistry::class,
+            MapperRegistry::getInstance()
         );
     }
 
@@ -42,8 +43,8 @@ class MapperRegistryTest extends UnitTestCase
     public function getInstanceTwoTimesReturnsSameInstance()
     {
         self::assertSame(
-            \Tx_Oelib_MapperRegistry::getInstance(),
-            \Tx_Oelib_MapperRegistry::getInstance()
+            MapperRegistry::getInstance(),
+            MapperRegistry::getInstance()
         );
     }
 
@@ -52,12 +53,12 @@ class MapperRegistryTest extends UnitTestCase
      */
     public function getInstanceAfterPurgeInstanceReturnsNewInstance()
     {
-        $firstInstance = \Tx_Oelib_MapperRegistry::getInstance();
-        \Tx_Oelib_MapperRegistry::purgeInstance();
+        $firstInstance = MapperRegistry::getInstance();
+        MapperRegistry::purgeInstance();
 
         self::assertNotSame(
             $firstInstance,
-            \Tx_Oelib_MapperRegistry::getInstance()
+            MapperRegistry::getInstance()
         );
     }
 
@@ -77,7 +78,7 @@ class MapperRegistryTest extends UnitTestCase
             '$className must not be empty.'
         );
 
-        \Tx_Oelib_MapperRegistry::get('');
+        MapperRegistry::get('');
     }
 
     /**
@@ -87,7 +88,7 @@ class MapperRegistryTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_MapperRegistry::get('Tx_Oelib_InexistentMapper');
+        MapperRegistry::get('Tx_Oelib_InexistentMapper');
     }
 
     /**
@@ -95,7 +96,7 @@ class MapperRegistryTest extends UnitTestCase
      */
     public function getForExistingClassReturnsObjectOfRequestedClass()
     {
-        self::assertInstanceOf(TestingMapper::class, \Tx_Oelib_MapperRegistry::get(TestingMapper::class));
+        self::assertInstanceOf(TestingMapper::class, MapperRegistry::get(TestingMapper::class));
     }
 
     /**
@@ -104,8 +105,8 @@ class MapperRegistryTest extends UnitTestCase
     public function getForExistingClassCalledTwoTimesReturnsTheSameInstance()
     {
         self::assertSame(
-            \Tx_Oelib_MapperRegistry::get(TestingMapper::class),
-            \Tx_Oelib_MapperRegistry::get(TestingMapper::class)
+            MapperRegistry::get(TestingMapper::class),
+            MapperRegistry::get(TestingMapper::class)
         );
     }
 
@@ -118,10 +119,10 @@ class MapperRegistryTest extends UnitTestCase
      */
     public function getAfterDenyDatabaseAccessReturnsNewMapperInstanceWithDatabaseAccessDisabled()
     {
-        \Tx_Oelib_MapperRegistry::denyDatabaseAccess();
+        MapperRegistry::denyDatabaseAccess();
 
         self::assertFalse(
-            \Tx_Oelib_MapperRegistry::get(TestingMapper::class)->hasDatabaseAccess()
+            MapperRegistry::get(TestingMapper::class)->hasDatabaseAccess()
         );
     }
 
@@ -130,11 +131,11 @@ class MapperRegistryTest extends UnitTestCase
      */
     public function getAfterDenyDatabaseAccessReturnsExistingMapperInstanceWithDatabaseAccessDisabled()
     {
-        \Tx_Oelib_MapperRegistry::get(TestingMapper::class);
-        \Tx_Oelib_MapperRegistry::denyDatabaseAccess();
+        MapperRegistry::get(TestingMapper::class);
+        MapperRegistry::denyDatabaseAccess();
 
         self::assertFalse(
-            \Tx_Oelib_MapperRegistry::get(TestingMapper::class)->hasDatabaseAccess()
+            MapperRegistry::get(TestingMapper::class)->hasDatabaseAccess()
         );
     }
 
@@ -143,12 +144,12 @@ class MapperRegistryTest extends UnitTestCase
      */
     public function getAfterInstanceWithDeniedDatabaseAccessWasPurgedReturnsMapperWithDatabaseAccessGranted()
     {
-        \Tx_Oelib_MapperRegistry::getInstance();
-        \Tx_Oelib_MapperRegistry::denyDatabaseAccess();
-        \Tx_Oelib_MapperRegistry::purgeInstance();
+        MapperRegistry::getInstance();
+        MapperRegistry::denyDatabaseAccess();
+        MapperRegistry::purgeInstance();
 
         self::assertTrue(
-            \Tx_Oelib_MapperRegistry::get(TestingMapper::class)->hasDatabaseAccess()
+            MapperRegistry::get(TestingMapper::class)->hasDatabaseAccess()
         );
     }
 
@@ -162,14 +163,14 @@ class MapperRegistryTest extends UnitTestCase
     public function getReturnsMapperSetViaSet()
     {
         $mapper = new TestingMapper();
-        \Tx_Oelib_MapperRegistry::set(
+        MapperRegistry::set(
             TestingMapper::class,
             $mapper
         );
 
         self::assertSame(
             $mapper,
-            \Tx_Oelib_MapperRegistry::get(TestingMapper::class)
+            MapperRegistry::get(TestingMapper::class)
         );
     }
 
@@ -181,7 +182,7 @@ class MapperRegistryTest extends UnitTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $mapper = new TestingMapper();
-        \Tx_Oelib_MapperRegistry::set(TestingChildMapper::class, $mapper);
+        MapperRegistry::set(TestingChildMapper::class, $mapper);
     }
 
     /**
@@ -191,9 +192,9 @@ class MapperRegistryTest extends UnitTestCase
     {
         $this->expectException(\BadMethodCallException::class);
 
-        \Tx_Oelib_MapperRegistry::get(TestingMapper::class);
+        MapperRegistry::get(TestingMapper::class);
 
         $mapper = new TestingMapper();
-        \Tx_Oelib_MapperRegistry::set(TestingMapper::class, $mapper);
+        MapperRegistry::set(TestingMapper::class, $mapper);
     }
 }

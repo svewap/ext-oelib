@@ -214,8 +214,7 @@ $tender->setData(array(
 
 $tender->markAsDirty();
 
-tx\_oelib\_MapperRegistry::get('tx\_geotenders\_Mapper\_Tender')->save
-($tender);
+MapperRegistry::get('tx\_geotenders\_Mapper\_Tender')->save($tender);
 
 Related records are automatically saved recursively. Unmodified record
 are not saved.

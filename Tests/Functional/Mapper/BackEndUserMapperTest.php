@@ -8,6 +8,7 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
 
@@ -176,7 +177,7 @@ class BackEndUserMapperTest extends FunctionalTestCase
     public function userGroupRelationIsUserGroupList()
     {
         /** @var BackEndUserGroup $group */
-        $group = \Tx_Oelib_MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
+        $group = MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
         $groupUid = $group->getUid();
         $userUid = $this->subject->getLoadedTestingModel(['usergroup' => $groupUid])->getUid();
 

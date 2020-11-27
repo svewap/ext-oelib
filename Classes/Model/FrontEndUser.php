@@ -8,6 +8,7 @@ use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Interfaces\Address;
 use OliverKlee\Oelib\Interfaces\MailRole;
 use OliverKlee\Oelib\Mapper\CountryMapper;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -693,7 +694,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
 
         try {
             /** @var CountryMapper $countryMapper */
-            $countryMapper = \Tx_Oelib_MapperRegistry::get(CountryMapper::class);
+            $countryMapper = MapperRegistry::get(CountryMapper::class);
             /** @var Country $country */
             $country = $countryMapper->findByIsoAlpha3Code($countryCode);
         } catch (NotFoundException $exception) {

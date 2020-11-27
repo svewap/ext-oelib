@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
+use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
@@ -1120,7 +1121,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function hasGroupMembershipForUserOnlyInProvidedGroupReturnsTrue()
     {
-        $userGroup = \Tx_Oelib_MapperRegistry::get(FrontEndUserGroupMapper::class)->getNewGhost();
+        $userGroup = MapperRegistry::get(FrontEndUserGroupMapper::class)->getNewGhost();
         $list = new \Tx_Oelib_List();
         $list->add($userGroup);
 
@@ -1136,7 +1137,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function hasGroupMembershipForUserInProvidedGroupAndInAnotherReturnsTrue()
     {
-        $groupMapper = \Tx_Oelib_MapperRegistry::get(FrontEndUserGroupMapper::class);
+        $groupMapper = MapperRegistry::get(FrontEndUserGroupMapper::class);
         $userGroup = $groupMapper->getNewGhost();
         $list = new \Tx_Oelib_List();
         $list->add($groupMapper->getNewGhost());
@@ -1154,7 +1155,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function hasGroupMembershipForUserInOneOfTheProvidedGroupsReturnsTrue()
     {
-        $groupMapper = \Tx_Oelib_MapperRegistry::get(FrontEndUserGroupMapper::class);
+        $groupMapper = MapperRegistry::get(FrontEndUserGroupMapper::class);
         $userGroup = $groupMapper->getNewGhost();
         $list = new \Tx_Oelib_List();
         $list->add($userGroup);
@@ -1173,7 +1174,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function hasGroupMembershipForUserNoneOfTheProvidedGroupsReturnsFalse()
     {
-        $groupMapper = \Tx_Oelib_MapperRegistry::get(FrontEndUserGroupMapper::class);
+        $groupMapper = MapperRegistry::get(FrontEndUserGroupMapper::class);
         $list = new \Tx_Oelib_List();
         $list->add($groupMapper->getNewGhost());
         $list->add($groupMapper->getNewGhost());
