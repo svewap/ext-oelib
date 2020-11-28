@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Authentication;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
@@ -25,7 +26,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_FrontEndLoginManager
+     * @var FrontEndLoginManager
      */
     private $subject = null;
 
@@ -39,7 +40,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         parent::setUp();
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
-        $this->subject = \Tx_Oelib_FrontEndLoginManager::getInstance();
+        $this->subject = FrontEndLoginManager::getInstance();
     }
 
     protected function tearDown()

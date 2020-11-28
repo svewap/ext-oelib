@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Authentication;
 
 use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
@@ -26,7 +27,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_BackEndLoginManager
+     * @var BackEndLoginManager
      */
     private $subject = null;
 
@@ -41,7 +42,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
 
         $this->backEndUserMapper = MapperRegistry::get(BackEndUserMapper::class);
 
-        $this->subject = \Tx_Oelib_BackEndLoginManager::getInstance();
+        $this->subject = BackEndLoginManager::getInstance();
     }
 
     /**

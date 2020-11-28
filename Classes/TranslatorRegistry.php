@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -101,7 +102,7 @@ class Tx_Oelib_TranslatorRegistry
      */
     private function initializeBackEnd()
     {
-        $this->languageKey = \Tx_Oelib_BackEndLoginManager::getInstance()->getLoggedInUser()->getLanguage();
+        $this->languageKey = BackEndLoginManager::getInstance()->getLoggedInUser()->getLanguage();
     }
 
     /**

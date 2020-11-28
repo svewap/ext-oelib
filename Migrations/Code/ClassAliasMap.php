@@ -1,5 +1,9 @@
 <?php
 return [
+    // Authentication
+    'Tx_Oelib_BackEndLoginManager' => \OliverKlee\Oelib\Authentication\BackEndLoginManager::class,
+    'Tx_Oelib_FrontEndLoginManager' => \OliverKlee\Oelib\Authentication\FrontEndLoginManager::class,
+
     // Interfaces
     'Tx_Oelib_Interface_Address' => \OliverKlee\Oelib\Interfaces\Address::class,
     'Tx_Oelib_Interface_ConfigurationCheckable' => \OliverKlee\Oelib\Interfaces\ConfigurationCheckable::class,

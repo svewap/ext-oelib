@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Authentication;
+
 use OliverKlee\Oelib\Interfaces\LoginManager;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
@@ -13,10 +15,10 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_BackEndLoginManager implements LoginManager
+class BackEndLoginManager implements LoginManager
 {
     /**
-     * @var \Tx_Oelib_BackEndLoginManager the Singleton instance
+     * @var BackEndLoginManager the Singleton instance
      */
     private static $instance = null;
 

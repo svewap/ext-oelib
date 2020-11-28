@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Testing;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\System\Typo3Version;
 use OliverKlee\Oelib\Tests\Functional\Templating\Fixtures\TestingTemplateHelper;
 use TYPO3\CMS\Core\Context\Context;
@@ -3177,7 +3178,7 @@ class FrameworkTest extends FunctionalTestCase
         $this->subject->createAndLoginFrontEndUser();
         $this->subject->logoutFrontEndUser();
 
-        self::assertFalse(\Tx_Oelib_FrontEndLoginManager::getInstance()->isLoggedIn());
+        self::assertFalse(FrontEndLoginManager::getInstance()->isLoggedIn());
     }
 
     /**

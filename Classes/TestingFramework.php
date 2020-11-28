@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\DatabaseException;
 use OliverKlee\Oelib\Frontend\UserWithoutCookies;
@@ -1397,7 +1398,7 @@ final class Tx_Oelib_TestingFramework
             $this->getFrontEndController()->loginUser = false;
         }
 
-        \Tx_Oelib_FrontEndLoginManager::getInstance()->logInUser();
+        FrontEndLoginManager::getInstance()->logInUser();
     }
 
     /**
@@ -1413,7 +1414,7 @@ final class Tx_Oelib_TestingFramework
             throw new \BadMethodCallException('Please create a front end before calling isLoggedIn.', 1331490846);
         }
 
-        return \Tx_Oelib_FrontEndLoginManager::getInstance()->isLoggedIn();
+        return FrontEndLoginManager::getInstance()->isLoggedIn();
     }
 
     // ----------------------------------------------------------------------

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Authentication;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 
 /**
  * Test case.
@@ -14,13 +15,13 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class BackEndLoginManagerTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_BackEndLoginManager
+     * @var BackEndLoginManager
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = \Tx_Oelib_BackEndLoginManager::getInstance();
+        $this->subject = BackEndLoginManager::getInstance();
     }
 
     /**
@@ -28,7 +29,7 @@ class BackEndLoginManagerTest extends UnitTestCase
      */
     public function getInstanceReturnsBackEndLoginManagerInstance()
     {
-        self::assertInstanceOf(\Tx_Oelib_BackEndLoginManager::class, $this->subject);
+        self::assertInstanceOf(BackEndLoginManager::class, $this->subject);
     }
 
     /**
@@ -36,7 +37,7 @@ class BackEndLoginManagerTest extends UnitTestCase
      */
     public function getInstanceTwoTimesReturnsSameInstance()
     {
-        self::assertSame($this->subject, \Tx_Oelib_BackEndLoginManager::getInstance());
+        self::assertSame($this->subject, BackEndLoginManager::getInstance());
     }
 
     /**
@@ -44,9 +45,9 @@ class BackEndLoginManagerTest extends UnitTestCase
      */
     public function getInstanceAfterPurgeInstanceReturnsNewInstance()
     {
-        \Tx_Oelib_BackEndLoginManager::purgeInstance();
+        BackEndLoginManager::purgeInstance();
 
-        self::assertNotSame($this->subject, \Tx_Oelib_BackEndLoginManager::getInstance());
+        self::assertNotSame($this->subject, BackEndLoginManager::getInstance());
     }
 
     /**

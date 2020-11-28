@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Language;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use OliverKlee\Oelib\Model\BackEndUser;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -169,7 +170,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         $backEndUser = new BackEndUser();
         $backEndUser->setDefaultLanguage('default');
-        \Tx_Oelib_BackEndLoginManager::getInstance()->setLoggedInUser($backEndUser);
+        BackEndLoginManager::getInstance()->setLoggedInUser($backEndUser);
 
         self::assertSame(
             'default',
@@ -186,7 +187,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         $backEndUser = new BackEndUser();
         $backEndUser->setDefaultLanguage('de');
-        \Tx_Oelib_BackEndLoginManager::getInstance()->setLoggedInUser($backEndUser);
+        BackEndLoginManager::getInstance()->setLoggedInUser($backEndUser);
 
         self::assertSame(
             'de',

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Mapper;
 
+use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\BackEndUser;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
@@ -71,7 +72,7 @@ class BackEndUserMapper extends AbstractDataMapper
     protected function retrieveRecordByUid(int $uid)
     {
         $authentication = $this->getBackEndUserAuthentication();
-        if ((int)$authentication->user['uid'] === $uid && \Tx_Oelib_BackEndLoginManager::getInstance()->isLoggedIn()) {
+        if ((int)$authentication->user['uid'] === $uid && BackEndLoginManager::getInstance()->isLoggedIn()) {
             $data = $authentication->user;
         } else {
             $data = parent::retrieveRecordByUid($uid);

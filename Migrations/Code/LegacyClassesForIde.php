@@ -4,14 +4,36 @@ namespace {
     die('Access denied');
 }
 
-namespace {
-     /**
-      * @deprecated will be removed in oelib 4.0.0
-      */
-     interface Tx_Oelib_Interface_Address extends \OliverKlee\Oelib\Interfaces\Address
-     {
+// Authentication
 
-     }
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_BackEndLoginManager extends \OliverKlee\Oelib\Authentication\BackEndLoginManager
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_FrontEndLoginManager extends \OliverKlee\Oelib\Authentication\FrontEndLoginManager
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    interface Tx_Oelib_Interface_Address extends \OliverKlee\Oelib\Interfaces\Address
+    {
+
+    }
 }
 
 namespace {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Authentication;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\Model\FrontEndUser;
 
 /**
@@ -15,13 +16,13 @@ use OliverKlee\Oelib\Model\FrontEndUser;
 class FrontEndLoginManagerTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_FrontEndLoginManager
+     * @var FrontEndLoginManager
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = \Tx_Oelib_FrontEndLoginManager::getInstance();
+        $this->subject = FrontEndLoginManager::getInstance();
     }
 
     ////////////////////////////////////////////
@@ -34,7 +35,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
     public function getInstanceReturnsFrontEndLoginManagerInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_FrontEndLoginManager::class,
+            FrontEndLoginManager::class,
             $this->subject
         );
     }
@@ -46,7 +47,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
     {
         self::assertSame(
             $this->subject,
-            \Tx_Oelib_FrontEndLoginManager::getInstance()
+            FrontEndLoginManager::getInstance()
         );
     }
 
@@ -55,11 +56,11 @@ class FrontEndLoginManagerTest extends UnitTestCase
      */
     public function getInstanceAfterPurgeInstanceReturnsNewInstance()
     {
-        \Tx_Oelib_FrontEndLoginManager::purgeInstance();
+        FrontEndLoginManager::purgeInstance();
 
         self::assertNotSame(
             $this->subject,
-            \Tx_Oelib_FrontEndLoginManager::getInstance()
+            FrontEndLoginManager::getInstance()
         );
     }
 
