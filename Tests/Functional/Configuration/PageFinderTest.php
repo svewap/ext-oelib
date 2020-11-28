@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Configuration;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Configuration\PageFinder;
 
 /**
  * Test case.
@@ -24,7 +25,7 @@ class PageFinderTest extends FunctionalTestCase
     private $testingFramework = null;
 
     /**
-     * @var \Tx_Oelib_PageFinder
+     * @var PageFinder
      */
     private $subject = null;
 
@@ -33,7 +34,7 @@ class PageFinderTest extends FunctionalTestCase
         parent::setUp();
         $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
 
-        $this->subject = \Tx_Oelib_PageFinder::getInstance();
+        $this->subject = PageFinder::getInstance();
     }
 
     protected function tearDown()
@@ -116,7 +117,7 @@ class PageFinderTest extends FunctionalTestCase
      */
     public function forceSourceWithSourceSetToFrontEndAndManuallySetPageUidReturnsFrontEndPageUid()
     {
-        $this->subject->forceSource(\Tx_Oelib_PageFinder::SOURCE_FRONT_END);
+        $this->subject->forceSource(PageFinder::SOURCE_FRONT_END);
         $frontEndPageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createFakeFrontEnd($frontEndPageUid);
 
@@ -133,7 +134,7 @@ class PageFinderTest extends FunctionalTestCase
      */
     public function forceSourceWithSourceSetToBackEndAndSetFrontEndUidReturnsBackEndEndPageUid()
     {
-        $this->subject->forceSource(\Tx_Oelib_PageFinder::SOURCE_BACK_END);
+        $this->subject->forceSource(PageFinder::SOURCE_BACK_END);
         $frontEndPageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createFakeFrontEnd($frontEndPageUid);
 
@@ -149,7 +150,7 @@ class PageFinderTest extends FunctionalTestCase
      */
     public function forceSourceWithSourceSetToFrontEndAndManuallySetPageUidButNoFrontEndUidSetReturnsZero()
     {
-        $this->subject->forceSource(\Tx_Oelib_PageFinder::SOURCE_FRONT_END);
+        $this->subject->forceSource(PageFinder::SOURCE_FRONT_END);
 
         $this->subject->setPageUid(15);
 
@@ -169,7 +170,7 @@ class PageFinderTest extends FunctionalTestCase
     public function getCurrentSourceForNoSourceForcedAndNoPageUidSetReturnsNoSourceFound()
     {
         self::assertSame(
-            \Tx_Oelib_PageFinder::NO_SOURCE_FOUND,
+            PageFinder::NO_SOURCE_FOUND,
             $this->subject->getCurrentSource()
         );
     }
@@ -179,10 +180,10 @@ class PageFinderTest extends FunctionalTestCase
      */
     public function getCurrentSourceForSourceForcedToFrontEndReturnsSourceFrontEnd()
     {
-        $this->subject->forceSource(\Tx_Oelib_PageFinder::SOURCE_FRONT_END);
+        $this->subject->forceSource(PageFinder::SOURCE_FRONT_END);
 
         self::assertSame(
-            \Tx_Oelib_PageFinder::SOURCE_FRONT_END,
+            PageFinder::SOURCE_FRONT_END,
             $this->subject->getCurrentSource()
         );
     }
@@ -192,10 +193,10 @@ class PageFinderTest extends FunctionalTestCase
      */
     public function getCurrentSourceForSourceForcedToBackEndReturnsSourceBackEnd()
     {
-        $this->subject->forceSource(\Tx_Oelib_PageFinder::SOURCE_BACK_END);
+        $this->subject->forceSource(PageFinder::SOURCE_BACK_END);
 
         self::assertSame(
-            \Tx_Oelib_PageFinder::SOURCE_BACK_END,
+            PageFinder::SOURCE_BACK_END,
             $this->subject->getCurrentSource()
         );
     }
@@ -208,7 +209,7 @@ class PageFinderTest extends FunctionalTestCase
         $this->subject->setPageUid(42);
 
         self::assertSame(
-            \Tx_Oelib_PageFinder::SOURCE_MANUAL,
+            PageFinder::SOURCE_MANUAL,
             $this->subject->getCurrentSource()
         );
     }
@@ -222,7 +223,7 @@ class PageFinderTest extends FunctionalTestCase
         $this->testingFramework->createFakeFrontEnd($frontEndPageUid);
 
         self::assertSame(
-            \Tx_Oelib_PageFinder::SOURCE_FRONT_END,
+            PageFinder::SOURCE_FRONT_END,
             $this->subject->getCurrentSource()
         );
     }
@@ -237,7 +238,7 @@ class PageFinderTest extends FunctionalTestCase
         unset($_POST['id']);
 
         self::assertSame(
-            \Tx_Oelib_PageFinder::SOURCE_BACK_END,
+            PageFinder::SOURCE_BACK_END,
             $pageSource
         );
     }

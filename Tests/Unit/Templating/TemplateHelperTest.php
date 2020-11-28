@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Templating;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Configuration\ConfigurationCheck;
+use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Tests\Functional\Templating\Fixtures\TestingTemplateHelper;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\PluginWithCustomConfigurationCheck;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingConfigurationCheck;
@@ -29,7 +31,7 @@ class TemplateHelperTest extends UnitTestCase
     private $subject = null;
 
     /**
-     * @var \Tx_Oelib_ConfigCheck|ObjectProphecy
+     * @var ConfigurationCheck|ObjectProphecy
      */
     private $defaultConfigurationCheckProphecy = null;
 
@@ -54,10 +56,10 @@ class TemplateHelperTest extends UnitTestCase
         $customConfigurationCheck = $this->customConfigurationCheckProphecy->reveal();
         GeneralUtility::addInstance(TestingConfigurationCheck::class, $customConfigurationCheck);
 
-        $this->defaultConfigurationCheckProphecy = $this->prophesize(\Tx_Oelib_ConfigCheck::class);
-        /** @var \Tx_Oelib_ConfigCheck|ProphecySubjectInterface $defaultConfigurationCheck */
+        $this->defaultConfigurationCheckProphecy = $this->prophesize(ConfigurationCheck::class);
+        /** @var ConfigurationCheck|ProphecySubjectInterface $defaultConfigurationCheck */
         $defaultConfigurationCheck = $this->defaultConfigurationCheckProphecy->reveal();
-        GeneralUtility::addInstance(\Tx_Oelib_ConfigCheck::class, $defaultConfigurationCheck);
+        GeneralUtility::addInstance(ConfigurationCheck::class, $defaultConfigurationCheck);
 
         $this->subject = new TestingTemplateHelper([]);
     }
@@ -65,7 +67,7 @@ class TemplateHelperTest extends UnitTestCase
     protected function tearDown()
     {
         GeneralUtility::purgeInstances();
-        \Tx_Oelib_ConfigurationProxy::purgeInstances();
+        ConfigurationProxy::purgeInstances();
         parent::tearDown();
     }
 
@@ -74,10 +76,10 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function defaultConfigurationCheckCanBeUsed()
     {
-        \Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
         $subject = new TestingTemplateHelper([]);
 
-        self::assertInstanceOf(\Tx_Oelib_ConfigCheck::class, $subject->getConfigurationCheck());
+        self::assertInstanceOf(ConfigurationCheck::class, $subject->getConfigurationCheck());
     }
 
     /**
@@ -85,7 +87,7 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function checkConfigurationWithEnabledConfigurationAndDefaultConfigurationCheckCheckChecksIt()
     {
-        \Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
         $subject = new TestingTemplateHelper([]);
 
         $this->defaultConfigurationCheckProphecy->checkItAndWrapIt()->shouldBeCalled();
@@ -98,7 +100,7 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function customConfigurationCheckCanBeSet()
     {
-        \Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
         $subject = new PluginWithCustomConfigurationCheck();
         $subject->init([]);
 
@@ -110,7 +112,7 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function checkConfigurationWithEnabledConfigurationAndCustomConfigurationCheckCheckChecksIt()
     {
-        \Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
         $subject = new PluginWithCustomConfigurationCheck();
         $subject->init([]);
 
@@ -154,7 +156,7 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function configurationCheckCreationForEnabledConfigurationCheck()
     {
-        \Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
         $result = (new TestingTemplateHelper())->getConfigurationCheck();
 
         self::assertNotNull($result);
@@ -165,7 +167,7 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function configurationCheckCreationForDisabledConfigurationCheck()
     {
-        \Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', false);
+        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', false);
 
         $result = (new TestingTemplateHelper())->getConfigurationCheck();
 

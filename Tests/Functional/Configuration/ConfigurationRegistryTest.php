@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Configuration;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Configuration\Configuration;
+use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
+use OliverKlee\Oelib\Configuration\PageFinder;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -45,13 +48,13 @@ class ConfigurationRegistryTest extends FunctionalTestCase
      */
     public function getForNonEmptyNamespaceReturnsConfigurationInstance()
     {
-        \Tx_Oelib_PageFinder::getInstance()->setPageUid(
+        PageFinder::getInstance()->setPageUid(
             $this->testingFramework->createFrontEndPage()
         );
 
         self::assertInstanceOf(
-            \Tx_Oelib_Configuration::class,
-            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            Configuration::class,
+            ConfigurationRegistry::get('plugin.tx_oelib')
         );
     }
 
@@ -60,13 +63,13 @@ class ConfigurationRegistryTest extends FunctionalTestCase
      */
     public function getForTheSameNamespaceCalledTwoTimesReturnsTheSameInstance()
     {
-        \Tx_Oelib_PageFinder::getInstance()->setPageUid(
+        PageFinder::getInstance()->setPageUid(
             $this->testingFramework->createFrontEndPage()
         );
 
         self::assertSame(
-            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib'),
-            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            ConfigurationRegistry::get('plugin.tx_oelib'),
+            ConfigurationRegistry::get('plugin.tx_oelib')
         );
     }
 
@@ -85,11 +88,11 @@ class ConfigurationRegistryTest extends FunctionalTestCase
             ['config' => 'plugin.tx_oelib.test = 42']
         );
 
-        \Tx_Oelib_PageFinder::getInstance()->setPageUid($pageUid);
+        PageFinder::getInstance()->setPageUid($pageUid);
 
         self::assertSame(
             42,
-            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            ConfigurationRegistry::get('plugin.tx_oelib')
                 ->getAsInteger('test')
         );
     }
@@ -106,13 +109,13 @@ class ConfigurationRegistryTest extends FunctionalTestCase
         );
         $_POST['id'] = $pageUid;
 
-        \Tx_Oelib_PageFinder::getInstance()->forceSource(
-            \Tx_Oelib_PageFinder::SOURCE_BACK_END
+        PageFinder::getInstance()->forceSource(
+            PageFinder::SOURCE_BACK_END
         );
 
         self::assertSame(
             42,
-            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            ConfigurationRegistry::get('plugin.tx_oelib')
                 ->getAsInteger('test')
         );
 
@@ -131,13 +134,13 @@ class ConfigurationRegistryTest extends FunctionalTestCase
         );
 
         $this->testingFramework->createFakeFrontEnd($pageUid);
-        \Tx_Oelib_PageFinder::getInstance()->forceSource(
-            \Tx_Oelib_PageFinder::SOURCE_FRONT_END
+        PageFinder::getInstance()->forceSource(
+            PageFinder::SOURCE_FRONT_END
         );
 
         self::assertSame(
             42,
-            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            ConfigurationRegistry::get('plugin.tx_oelib')
                 ->getAsInteger('test')
         );
     }
@@ -154,8 +157,8 @@ class ConfigurationRegistryTest extends FunctionalTestCase
         );
 
         $this->testingFramework->createFakeFrontEnd($pageUid);
-        \Tx_Oelib_PageFinder::getInstance()->forceSource(
-            \Tx_Oelib_PageFinder::SOURCE_FRONT_END
+        PageFinder::getInstance()->forceSource(
+            PageFinder::SOURCE_FRONT_END
         );
         /** @var TypoScriptFrontendController $frontEndController */
         $frontEndController = $GLOBALS['TSFE'];
@@ -166,7 +169,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             42,
-            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            ConfigurationRegistry::get('plugin.tx_oelib')
                 ->getAsInteger('test')
         );
     }
@@ -181,15 +184,15 @@ class ConfigurationRegistryTest extends FunctionalTestCase
             $pageUid,
             ['config' => 'plugin.tx_oelib.bar = 42']
         );
-        \Tx_Oelib_PageFinder::getInstance()->setPageUid($pageUid);
+        PageFinder::getInstance()->setPageUid($pageUid);
 
-        $configuration = new \Tx_Oelib_Configuration();
-        \Tx_Oelib_ConfigurationRegistry::getInstance()
+        $configuration = new Configuration();
+        ConfigurationRegistry::getInstance()
             ->set('plugin.tx_oelib', $configuration);
 
         self::assertSame(
             $configuration,
-            \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')
+            ConfigurationRegistry::get('plugin.tx_oelib')
         );
     }
 }

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Configuration;
+
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 
 /**
@@ -10,7 +12,7 @@ use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Configuration extends AbstractObjectWithPublicAccessors
+class Configuration extends AbstractObjectWithPublicAccessors
 {
     /**
      * @var array the data for this configuration

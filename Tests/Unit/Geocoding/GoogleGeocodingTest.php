@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Configuration\Configuration;
+use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Geocoding\DummyGeocodingLookup;
 use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
@@ -23,15 +25,15 @@ class GoogleGeocodingTest extends UnitTestCase
     private $subject = null;
 
     /**
-     * @var \Tx_Oelib_Configuration
+     * @var Configuration
      */
     private $configuration = null;
 
     protected function setUp()
     {
-        $configurationRegistry = \Tx_Oelib_ConfigurationRegistry::getInstance();
-        $configurationRegistry->set('plugin', new \Tx_Oelib_Configuration());
-        $this->configuration = new \Tx_Oelib_Configuration();
+        $configurationRegistry = ConfigurationRegistry::getInstance();
+        $configurationRegistry->set('plugin', new Configuration());
+        $this->configuration = new Configuration();
         $configurationRegistry->set('plugin.tx_oelib', $this->configuration);
 
         $this->subject = GoogleGeocoding::getInstance();
@@ -41,7 +43,7 @@ class GoogleGeocodingTest extends UnitTestCase
     protected function tearDown()
     {
         GoogleGeocoding::purgeInstance();
-        \Tx_Oelib_ConfigurationRegistry::purgeInstance();
+        ConfigurationRegistry::purgeInstance();
     }
 
     /*

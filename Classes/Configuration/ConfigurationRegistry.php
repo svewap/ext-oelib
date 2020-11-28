@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Configuration;
+
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -13,15 +15,15 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_ConfigurationRegistry
+class ConfigurationRegistry
 {
     /**
-     * @var \Tx_Oelib_ConfigurationRegistry the Singleton instance
+     * @var ConfigurationRegistry the Singleton instance
      */
     private static $instance = null;
 
     /**
-     * @var \Tx_Oelib_Configuration[] already created configurations (by namespace)
+     * @var Configuration[] already created configurations (by namespace)
      */
     private $configurations = [];
 
@@ -50,12 +52,12 @@ class Tx_Oelib_ConfigurationRegistry
     /**
      * Returns an instance of this class.
      *
-     * @return \Tx_Oelib_ConfigurationRegistry the current Singleton instance
+     * @return ConfigurationRegistry the current Singleton instance
      */
-    public static function getInstance(): \Tx_Oelib_ConfigurationRegistry
+    public static function getInstance(): ConfigurationRegistry
     {
         if (!self::$instance) {
-            self::$instance = new \Tx_Oelib_ConfigurationRegistry();
+            self::$instance = new ConfigurationRegistry();
         }
 
         return self::$instance;
@@ -79,11 +81,11 @@ class Tx_Oelib_ConfigurationRegistry
      *        the name of a configuration namespace, e.g., "plugin.tx_oelib",
      *        must not be empty
      *
-     * @return \Tx_Oelib_Configuration the configuration for the given namespace
+     * @return Configuration the configuration for the given namespace
      *
      * @see getByNamespace
      */
-    public static function get(string $namespace): \Tx_Oelib_Configuration
+    public static function get(string $namespace): Configuration
     {
         return self::getInstance()->getByNamespace($namespace);
     }
@@ -95,9 +97,9 @@ class Tx_Oelib_ConfigurationRegistry
      *        the name of a configuration namespace, e.g., "plugin.tx_oelib",
      *        must not be empty
      *
-     * @return \Tx_Oelib_Configuration the configuration for the given namespace
+     * @return Configuration the configuration for the given namespace
      */
-    private function getByNamespace(string $namespace): \Tx_Oelib_Configuration
+    private function getByNamespace(string $namespace): Configuration
     {
         $this->checkForNonEmptyNamespace($namespace);
 
@@ -114,12 +116,12 @@ class Tx_Oelib_ConfigurationRegistry
      *
      * @param string $namespace
      *        the namespace of the configuration to set, must not be empty
-     * @param \Tx_Oelib_Configuration $configuration
+     * @param Configuration $configuration
      *        the configuration to set
      *
      * @return void
      */
-    public function set(string $namespace, \Tx_Oelib_Configuration $configuration)
+    public function set(string $namespace, Configuration $configuration)
     {
         $this->checkForNonEmptyNamespace($namespace);
 
@@ -154,9 +156,9 @@ class Tx_Oelib_ConfigurationRegistry
      * @param string $namespace
      *        the namespace of the configuration to retrieve, must not be empty
      *
-     * @return \Tx_Oelib_Configuration the TypoScript configuration for that namespace, might be empty
+     * @return Configuration the TypoScript configuration for that namespace, might be empty
      */
-    private function retrieveConfigurationFromTypoScriptSetup(string $namespace): \Tx_Oelib_Configuration
+    private function retrieveConfigurationFromTypoScriptSetup(string $namespace): Configuration
     {
         $data = $this->getCompleteTypoScriptSetup();
 
@@ -169,8 +171,8 @@ class Tx_Oelib_ConfigurationRegistry
             $data = $data[$namespacePart . '.'];
         }
 
-        /** @var \Tx_Oelib_Configuration $configuration */
-        $configuration = GeneralUtility::makeInstance(\Tx_Oelib_Configuration::class);
+        /** @var Configuration $configuration */
+        $configuration = GeneralUtility::makeInstance(Configuration::class);
         $configuration->setData($data);
         return $configuration;
     }
@@ -184,7 +186,7 @@ class Tx_Oelib_ConfigurationRegistry
      */
     private function getCompleteTypoScriptSetup(): array
     {
-        $pageUid = \Tx_Oelib_PageFinder::getInstance()->getPageUid();
+        $pageUid = PageFinder::getInstance()->getPageUid();
         if ($pageUid === 0) {
             return [];
         }

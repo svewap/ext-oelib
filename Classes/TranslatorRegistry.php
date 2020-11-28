@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use OliverKlee\Oelib\Authentication\BackEndLoginManager;
+use OliverKlee\Oelib\Configuration\Configuration;
+use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -68,8 +70,8 @@ class Tx_Oelib_TranslatorRegistry
      */
     private function initializeFrontEnd()
     {
-        $this->setLanguageKeyFromConfiguration(\Tx_Oelib_ConfigurationRegistry::get('config'));
-        $this->setLanguageKeyFromConfiguration(\Tx_Oelib_ConfigurationRegistry::get('page.config'));
+        $this->setLanguageKeyFromConfiguration(ConfigurationRegistry::get('config'));
+        $this->setLanguageKeyFromConfiguration(ConfigurationRegistry::get('page.config'));
     }
 
     /**
@@ -79,11 +81,11 @@ class Tx_Oelib_TranslatorRegistry
      * The language key is read from the "language" key and the alternate language is read
      * from the language_alt key.
      *
-     * @param \Tx_Oelib_Configuration $configuration the configuration to read
+     * @param Configuration $configuration the configuration to read
      *
      * @return void
      */
-    private function setLanguageKeyFromConfiguration(\Tx_Oelib_Configuration $configuration)
+    private function setLanguageKeyFromConfiguration(Configuration $configuration)
     {
         if (!$configuration->hasString('language')) {
             return;
@@ -248,7 +250,7 @@ class Tx_Oelib_TranslatorRegistry
         $result = [];
         $namespace = 'plugin.tx_' . $extensionName . '._LOCAL_LANG.' . $this->languageKey;
 
-        $configuration = \Tx_Oelib_ConfigurationRegistry::get($namespace);
+        $configuration = ConfigurationRegistry::get($namespace);
         foreach ($configuration->getArrayKeys() as $key) {
             $result[$key] = $configuration->getAsString($key);
         }

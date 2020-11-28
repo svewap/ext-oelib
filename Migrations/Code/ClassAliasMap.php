@@ -63,6 +63,13 @@ return [
     'Tx_Oelib_Visibility_Node' => \OliverKlee\Oelib\Visibility\Node::class,
     'Tx_Oelib_Visibility_Tree' => \OliverKlee\Oelib\Visibility\Tree::class,
 
+    // Configuration
+    'Tx_Oelib_ConfigCheck' => \OliverKlee\Oelib\Configuration\ConfigurationCheck::class,
+    'Tx_Oelib_Configuration' => \OliverKlee\Oelib\Configuration\Configuration::class,
+    'Tx_Oelib_ConfigurationProxy' => \OliverKlee\Oelib\Configuration\ConfigurationProxy::class,
+    'Tx_Oelib_ConfigurationRegistry' => \OliverKlee\Oelib\Configuration\ConfigurationRegistry::class,
+    'Tx_Oelib_PageFinder' => \OliverKlee\Oelib\Configuration\PageFinder::class,
+
     // DataStructures
     'Tx_Oelib_Object' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors::class,
     'Tx_Oelib_PublicObject' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors::class,

@@ -5,7 +5,6 @@ namespace {
 }
 
 // Authentication
-
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
@@ -21,6 +20,57 @@ namespace {
      * @deprecated will be removed in oelib 4.0.0
      */
     class Tx_Oelib_FrontEndLoginManager extends \OliverKlee\Oelib\Authentication\FrontEndLoginManager
+    {
+
+    }
+}
+
+// Configuration
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_ConfigCheck extends \OliverKlee\Oelib\Configuration\ConfigurationCheck
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Configuration extends \OliverKlee\Oelib\Configuration\Configuration
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_ConfigurationProxy extends \OliverKlee\Oelib\Configuration\ConfigurationProxy
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_ConfigurationRegistry extends \OliverKlee\Oelib\Configuration\ConfigurationRegistry
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_PageFinder extends \OliverKlee\Oelib\Configuration\PageFinder
     {
 
     }

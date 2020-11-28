@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Configuration\ConfigurationCheck;
 use OliverKlee\Oelib\Interfaces\ConfigurationCheckable;
 use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\DummyObjectToCheck;
 
@@ -16,7 +17,7 @@ use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\DummyObjectToCheck;
 class ConfigurationCheckTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_ConfigCheck configuration check object to be tested
+     * @var ConfigurationCheck configuration check object to be tested
      */
     private $subject = null;
 
@@ -38,7 +39,7 @@ class ConfigurationCheckTest extends UnitTestCase
                 'inexistentColumn' => 'does_not_exist',
             ]
         );
-        $this->subject = new \Tx_Oelib_ConfigCheck($this->objectToCheck);
+        $this->subject = new ConfigurationCheck($this->objectToCheck);
     }
 
     /*

@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\Configuration\ConfigurationCheck;
+use OliverKlee\Oelib\Configuration\ConfigurationProxy;
+use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -37,7 +40,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     protected $isInitialized = false;
 
     /**
-     * @var \Tx_Oelib_ConfigCheck
+     * @var ConfigurationCheck
      */
     protected $configurationCheck = null;
 
@@ -152,7 +155,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
             return false;
         }
 
-        return \Tx_Oelib_ConfigurationProxy::getInstance($this->extKey)->getAsBoolean('enableConfigCheck');
+        return ConfigurationProxy::getInstance($this->extKey)->getAsBoolean('enableConfigCheck');
     }
 
     /**
@@ -457,7 +460,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      */
     public static function setCachedConfigurationValue(string $key, $value)
     {
-        $pageUid = \Tx_Oelib_PageFinder::getInstance()->getPageUid();
+        $pageUid = PageFinder::getInstance()->getPageUid();
 
         if (!isset(self::$cachedConfigurations[$pageUid])) {
             self::$cachedConfigurations[$pageUid] = [];
@@ -1216,7 +1219,7 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
     }
 
     /**
-     * @return \Tx_Oelib_ConfigCheck|null
+     * @return ConfigurationCheck |null
      */
     public function getConfigurationCheck()
     {
@@ -1296,6 +1299,6 @@ class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
      */
     public function getCurrentBePageId()
     {
-        return \Tx_Oelib_PageFinder::getInstance()->getPageUid();
+        return PageFinder::getInstance()->getPageUid();
     }
 }

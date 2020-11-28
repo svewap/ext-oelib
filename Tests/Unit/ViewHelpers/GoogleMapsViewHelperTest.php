@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
 use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
+use OliverKlee\Oelib\Configuration\Configuration;
+use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Interfaces\MapPoint;
 use OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures\TestingMapPoint;
 use OliverKlee\Oelib\ViewHelpers\GoogleMapsViewHelper;
@@ -24,7 +26,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     private $subject = null;
 
     /**
-     * @var \Tx_Oelib_Configuration
+     * @var Configuration
      */
     private $configuration = null;
 
@@ -42,9 +44,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     {
         parent::setUp();
 
-        $configurationRegistry = \Tx_Oelib_ConfigurationRegistry::getInstance();
-        $configurationRegistry->set('plugin', new \Tx_Oelib_Configuration());
-        $this->configuration = new \Tx_Oelib_Configuration();
+        $configurationRegistry = ConfigurationRegistry::getInstance();
+        $configurationRegistry->set('plugin', new Configuration());
+        $this->configuration = new Configuration();
         $configurationRegistry->set('plugin.tx_oelib', $this->configuration);
 
         $this->mockFrontEnd = $this->createMock(TypoScriptFrontendController::class);
@@ -61,7 +63,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 
     protected function tearDown()
     {
-        \Tx_Oelib_ConfigurationRegistry::purgeInstance();
+        ConfigurationRegistry::purgeInstance();
         parent::tearDown();
         unset($GLOBALS['TSFE']);
     }

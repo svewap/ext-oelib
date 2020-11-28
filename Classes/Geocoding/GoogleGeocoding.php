@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Geocoding;
 
+use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Interfaces\Geo;
 use OliverKlee\Oelib\Interfaces\GeocodingLookup;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -133,7 +134,7 @@ class GoogleGeocoding implements GeocodingLookup
             return;
         }
 
-        $apiKey = \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')->getAsString('googleGeocodingApiKey');
+        $apiKey = ConfigurationRegistry::get('plugin.tx_oelib')->getAsString('googleGeocodingApiKey');
         if ($apiKey === '') {
             throw new \UnexpectedValueException(
                 'Please set the Google geocoding API key using TypoScrip setup plugin.tx_oelib.googleGeocodingApiKey',

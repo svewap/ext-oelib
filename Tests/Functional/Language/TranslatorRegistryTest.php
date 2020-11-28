@@ -6,6 +6,8 @@ namespace OliverKlee\Oelib\Tests\Functional\Language;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\BackEndLoginManager;
+use OliverKlee\Oelib\Configuration\Configuration;
+use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -28,13 +30,13 @@ class TranslatorRegistryTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $configurationRegistry = \Tx_Oelib_ConfigurationRegistry::getInstance();
-        $configurationRegistry->set('config', new \Tx_Oelib_Configuration());
-        $configurationRegistry->set('page.config', new \Tx_Oelib_Configuration());
-        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG', new \Tx_Oelib_Configuration());
-        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.default', new \Tx_Oelib_Configuration());
-        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.de', new \Tx_Oelib_Configuration());
-        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.fr', new \Tx_Oelib_Configuration());
+        $configurationRegistry = ConfigurationRegistry::getInstance();
+        $configurationRegistry->set('config', new Configuration());
+        $configurationRegistry->set('page.config', new Configuration());
+        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG', new Configuration());
+        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.default', new Configuration());
+        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.de', new Configuration());
+        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.fr', new Configuration());
     }
 
     private function setUpFrontEnd()
@@ -235,7 +237,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithoutFrontEndLanguageSetsLanguageDefault(string $namespace)
     {
         $this->setUpBackEnd();
-        \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData([]);
+        ConfigurationRegistry::get($namespace)->setData([]);
 
         self::assertSame(
             'default',
@@ -253,7 +255,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithFrontEndLanguageEnglishSetsLanguageEnglish(string $namespace)
     {
         $this->setUpFrontEnd();
-        \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'default']);
+        ConfigurationRegistry::get($namespace)->setData(['language' => 'default']);
 
         self::assertSame(
             'default',
@@ -271,7 +273,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithFrontEndLanguageGermanSetsLanguageGerman(string $namespace)
     {
         $this->setUpFrontEnd();
-        \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'de']);
+        ConfigurationRegistry::get($namespace)->setData(['language' => 'de']);
 
         self::assertSame(
             'de',
@@ -289,7 +291,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithoutAlternativeFrontEndLanguageDoesNotSetAlternative(string $namespace)
     {
         $this->setUpFrontEnd();
-        \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData([]);
+        ConfigurationRegistry::get($namespace)->setData([]);
 
         self::assertSame(
             '',
@@ -307,7 +309,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithAlternativeFrontEndLanguageEnglishSetsAlternativeEnglish(string $namespace)
     {
         $this->setUpFrontEnd();
-        \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'de', 'language_alt' => 'default']);
+        ConfigurationRegistry::get($namespace)->setData(['language' => 'de', 'language_alt' => 'default']);
 
         self::assertSame(
             'default',
@@ -325,7 +327,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithAlternativeFrontEndLanguageGermanSetsAlternativeGerman(string $namespace)
     {
         $this->setUpFrontEnd();
-        \Tx_Oelib_ConfigurationRegistry::get($namespace)->setData(['language' => 'default', 'language_alt' => 'de']);
+        ConfigurationRegistry::get($namespace)->setData(['language' => 'default', 'language_alt' => 'de']);
 
         self::assertSame(
             'de',
@@ -339,8 +341,8 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithLanguageSetInConfigAndInPageConfigSetsLanguageFromPageConfig()
     {
         $this->setUpFrontEnd();
-        \Tx_Oelib_ConfigurationRegistry::get('config')->setData(['language' => 'de']);
-        \Tx_Oelib_ConfigurationRegistry::get('page.config')->setData(['language' => 'fr']);
+        ConfigurationRegistry::get('config')->setData(['language' => 'de']);
+        ConfigurationRegistry::get('page.config')->setData(['language' => 'fr']);
 
         self::assertSame(
             'fr',
@@ -354,8 +356,8 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithAlternativeLanguageSetInConfigAndInPageConfigUsesFromPageConfig()
     {
         $this->setUpFrontEnd();
-        \Tx_Oelib_ConfigurationRegistry::get('config')->setData(['language' => 'de', 'language_alt' => 'cz']);
-        \Tx_Oelib_ConfigurationRegistry::get('page.config')->setData(['language' => 'fr', 'language_alt' => 'ja']);
+        ConfigurationRegistry::get('config')->setData(['language' => 'de', 'language_alt' => 'cz']);
+        ConfigurationRegistry::get('page.config')->setData(['language' => 'fr', 'language_alt' => 'ja']);
 
         self::assertSame(
             'ja',
@@ -388,9 +390,9 @@ class TranslatorRegistryTest extends FunctionalTestCase
         $this->setUpFrontEnd();
         $this->getFrontEndController()->initLLvars();
 
-        \Tx_Oelib_ConfigurationRegistry::get('config')->set('language', 'default');
-        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
-        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
+        ConfigurationRegistry::get('config')->set('language', 'default');
+        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
+        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
             ->set('label_test', 'I am from TypoScript.');
 
         self::assertSame(
@@ -406,8 +408,8 @@ class TranslatorRegistryTest extends FunctionalTestCase
     {
         $this->setUpBackEnd();
 
-        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
-        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
+        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
+        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
             ->set('label_test', 'I am from TypoScript.');
 
         self::assertSame(
@@ -423,9 +425,9 @@ class TranslatorRegistryTest extends FunctionalTestCase
     {
         $this->setUpFrontEnd();
         $this->getFrontEndController()->initLLvars();
-        \Tx_Oelib_ConfigurationRegistry::get('config')->set('language', 'default');
-        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
-        \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
+        ConfigurationRegistry::get('config')->set('language', 'default');
+        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
+        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
             ->set('label_test_2', 'I am from TypoScript.');
 
         self::assertSame(

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Configuration\Configuration;
+use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 
 /**
  * Test case.
@@ -23,8 +25,8 @@ class ConfigurationRegistryTest extends UnitTestCase
     public function getInstanceReturnsConfigurationRegistryInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_ConfigurationRegistry::class,
-            \Tx_Oelib_ConfigurationRegistry::getInstance()
+            ConfigurationRegistry::class,
+            ConfigurationRegistry::getInstance()
         );
     }
 
@@ -34,8 +36,8 @@ class ConfigurationRegistryTest extends UnitTestCase
     public function getInstanceTwoTimesReturnsSameInstance()
     {
         self::assertSame(
-            \Tx_Oelib_ConfigurationRegistry::getInstance(),
-            \Tx_Oelib_ConfigurationRegistry::getInstance()
+            ConfigurationRegistry::getInstance(),
+            ConfigurationRegistry::getInstance()
         );
     }
 
@@ -44,12 +46,12 @@ class ConfigurationRegistryTest extends UnitTestCase
      */
     public function getInstanceAfterPurgeInstanceReturnsNewInstance()
     {
-        $firstInstance = \Tx_Oelib_ConfigurationRegistry::getInstance();
-        \Tx_Oelib_ConfigurationRegistry::purgeInstance();
+        $firstInstance = ConfigurationRegistry::getInstance();
+        ConfigurationRegistry::purgeInstance();
 
         self::assertNotSame(
             $firstInstance,
-            \Tx_Oelib_ConfigurationRegistry::getInstance()
+            ConfigurationRegistry::getInstance()
         );
     }
 
@@ -69,7 +71,7 @@ class ConfigurationRegistryTest extends UnitTestCase
             '$namespace must not be empty.'
         );
 
-        \Tx_Oelib_ConfigurationRegistry::get('');
+        ConfigurationRegistry::get('');
     }
 
     /**
@@ -84,9 +86,9 @@ class ConfigurationRegistryTest extends UnitTestCase
             '$namespace must not be empty.'
         );
 
-        \Tx_Oelib_ConfigurationRegistry::getInstance()->set(
+        ConfigurationRegistry::getInstance()->set(
             '',
-            new \Tx_Oelib_Configuration()
+            new Configuration()
         );
     }
 
@@ -95,14 +97,14 @@ class ConfigurationRegistryTest extends UnitTestCase
      */
     public function getAfterSetReturnsTheSetInstance()
     {
-        $configuration = new \Tx_Oelib_Configuration();
+        $configuration = new Configuration();
 
-        \Tx_Oelib_ConfigurationRegistry::getInstance()
+        ConfigurationRegistry::getInstance()
             ->set('foo', $configuration);
 
         self::assertSame(
             $configuration,
-            \Tx_Oelib_ConfigurationRegistry::get('foo')
+            ConfigurationRegistry::get('foo')
         );
     }
 
@@ -113,13 +115,13 @@ class ConfigurationRegistryTest extends UnitTestCase
      */
     public function setTwoTimesForTheSameNamespaceDoesNotFail()
     {
-        \Tx_Oelib_ConfigurationRegistry::getInstance()->set(
+        ConfigurationRegistry::getInstance()->set(
             'foo',
-            new \Tx_Oelib_Configuration()
+            new Configuration()
         );
-        \Tx_Oelib_ConfigurationRegistry::getInstance()->set(
+        ConfigurationRegistry::getInstance()->set(
             'foo',
-            new \Tx_Oelib_Configuration()
+            new Configuration()
         );
     }
 }

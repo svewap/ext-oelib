@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Configuration;
+
 use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 use OliverKlee\Oelib\Interfaces\ConfigurationCheckable;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -28,7 +30,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_ConfigCheck
+class ConfigurationCheck
 {
     /**
      * the object whose configuration should be checked

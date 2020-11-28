@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Templating;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Tests\Functional\Templating\Fixtures\TestingTemplateHelper;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -37,7 +38,7 @@ class TemplateHelperTest extends FunctionalTestCase
         $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
         $GLOBALS['TSFE'] = $frontEndController;
 
-        \Tx_Oelib_ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
 
         $this->subject = new TestingTemplateHelper([]);
     }

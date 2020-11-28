@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Configuration;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -10,7 +12,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Bernd Schönbach <bernd@oliverklee.de>
  */
-class Tx_Oelib_PageFinder
+class PageFinder
 {
     /**
      * @var int
@@ -38,7 +40,7 @@ class Tx_Oelib_PageFinder
     const NO_SOURCE_FOUND = 4;
 
     /**
-     * @var \Tx_Oelib_PageFinder the Singleton instance
+     * @var PageFinder the Singleton instance
      */
     private static $instance = null;
 
@@ -62,12 +64,12 @@ class Tx_Oelib_PageFinder
     /**
      * Returns an instance of this class.
      *
-     * @return \Tx_Oelib_PageFinder the current Singleton instance
+     * @return PageFinder the current Singleton instance
      */
-    public static function getInstance(): \Tx_Oelib_PageFinder
+    public static function getInstance(): PageFinder
     {
         if (!self::$instance) {
-            self::$instance = new \Tx_Oelib_PageFinder();
+            self::$instance = new PageFinder();
         }
 
         return self::$instance;

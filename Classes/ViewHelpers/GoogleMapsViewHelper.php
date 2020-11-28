@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\ViewHelpers;
 
+use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Interfaces\Identity;
 use OliverKlee\Oelib\Interfaces\MapPoint;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -114,7 +115,7 @@ class GoogleMapsViewHelper extends AbstractViewHelper
         $this->mapNumber = self::$mapCounter;
         $mapId = $this->getMapId();
 
-        $apiKey = \Tx_Oelib_ConfigurationRegistry::get('plugin.tx_oelib')->getAsString('googleMapsApiKey');
+        $apiKey = ConfigurationRegistry::get('plugin.tx_oelib')->getAsString('googleMapsApiKey');
 
         // pageRenderer->addJsLibrary() would not work here if this ViewHelper
         // is used in an uncached plugin on a cached page.

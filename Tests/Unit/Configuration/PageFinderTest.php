@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Configuration\PageFinder;
 
 /**
  * Test case.
@@ -19,13 +20,13 @@ class PageFinderTest extends UnitTestCase
     private $testingFramework;
 
     /**
-     * @var \Tx_Oelib_PageFinder
+     * @var PageFinder
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = \Tx_Oelib_PageFinder::getInstance();
+        $this->subject = PageFinder::getInstance();
     }
 
     ////////////////////////////////////////////
@@ -38,8 +39,8 @@ class PageFinderTest extends UnitTestCase
     public function getInstanceReturnsPageFinderInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_PageFinder::class,
-            \Tx_Oelib_PageFinder::getInstance()
+            PageFinder::class,
+            PageFinder::getInstance()
         );
     }
 
@@ -49,8 +50,8 @@ class PageFinderTest extends UnitTestCase
     public function getInstanceTwoTimesReturnsSameInstance()
     {
         self::assertSame(
-            \Tx_Oelib_PageFinder::getInstance(),
-            \Tx_Oelib_PageFinder::getInstance()
+            PageFinder::getInstance(),
+            PageFinder::getInstance()
         );
     }
 
@@ -59,12 +60,12 @@ class PageFinderTest extends UnitTestCase
      */
     public function getInstanceAfterPurgeInstanceReturnsNewInstance()
     {
-        $firstInstance = \Tx_Oelib_PageFinder::getInstance();
-        \Tx_Oelib_PageFinder::purgeInstance();
+        $firstInstance = PageFinder::getInstance();
+        PageFinder::purgeInstance();
 
         self::assertNotSame(
             $firstInstance,
-            \Tx_Oelib_PageFinder::getInstance()
+            PageFinder::getInstance()
         );
     }
 

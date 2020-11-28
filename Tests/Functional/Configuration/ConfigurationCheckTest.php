@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Configuration;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Configuration\ConfigurationCheck;
 use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\DummyObjectToCheck;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -26,7 +27,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
     private $testingFramework = null;
 
     /**
-     * @var \Tx_Oelib_ConfigCheck configuration check object to be tested
+     * @var ConfigurationCheck configuration check object to be tested
      */
     private $subject = null;
 
@@ -46,7 +47,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
                 'inexistentColumn' => 'does_not_exist',
             ]
         );
-        $this->subject = new \Tx_Oelib_ConfigCheck($objectToCheck);
+        $this->subject = new ConfigurationCheck($objectToCheck);
     }
 
     protected function tearDown()

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
+use OliverKlee\Oelib\Configuration\ConfigurationProxy;
+use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
+use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -22,14 +25,14 @@ class Tx_Oelib_TestingFrameworkCleanup
      */
     public function cleanUp()
     {
-        \Tx_Oelib_ConfigurationProxy::purgeInstances();
         BackEndLoginManager::purgeInstance();
-        \Tx_Oelib_ConfigurationRegistry::purgeInstance();
+        ConfigurationProxy::purgeInstances();
+        ConfigurationRegistry::purgeInstance();
         FrontEndLoginManager::purgeInstance();
         GoogleGeocoding::purgeInstance();
         \Tx_Oelib_HeaderProxyFactory::purgeInstance();
         MapperRegistry::purgeInstance();
-        \Tx_Oelib_PageFinder::purgeInstance();
+        PageFinder::purgeInstance();
         \Tx_Oelib_Session::purgeInstances();
         \Tx_Oelib_TemplateHelper::purgeCachedConfigurations();
         \Tx_Oelib_TranslatorRegistry::purgeInstance();

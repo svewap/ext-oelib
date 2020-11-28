@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Configuration\Configuration;
 
 /**
  * Test case.
@@ -14,13 +15,13 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class ConfigurationTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Configuration
+     * @var Configuration
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_Configuration();
+        $this->subject = new Configuration();
     }
 
     //////////////////////////////////////
