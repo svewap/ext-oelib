@@ -39,7 +39,7 @@ abstract class AbstractDataMapper
     protected $columns = '*';
 
     /**
-     * @var \Tx_Oelib_IdentityMap a map that holds the models that already
+     * @var IdentityMap a map that holds the models that already
      *                           have been retrieved
      */
     protected $map = null;
@@ -108,7 +108,7 @@ abstract class AbstractDataMapper
             throw new \InvalidArgumentException(get_class($this) . '::modelClassName must not be empty.', 1331319378);
         }
 
-        $this->map = new \Tx_Oelib_IdentityMap();
+        $this->map = new IdentityMap();
 
         foreach ($this->additionalKeys as $key) {
             $this->cacheByKey[$key] = [];

@@ -27,6 +27,7 @@ return [
 
     // Mapper
     'Tx_Oelib_DataMapper' => \OliverKlee\Oelib\Mapper\AbstractDataMapper::class,
+    'Tx_Oelib_IdentityMap' => \OliverKlee\Oelib\Mapper\IdentityMap::class,
     'Tx_Oelib_Mapper_BackEndUser' => \OliverKlee\Oelib\Mapper\BackEndUserMapper::class,
     'Tx_Oelib_Mapper_BackEndUserGroup' => \OliverKlee\Oelib\Mapper\BackEndUserGroupMapper::class,
     'Tx_Oelib_Mapper_Country' => \OliverKlee\Oelib\Mapper\CountryMapper::class,

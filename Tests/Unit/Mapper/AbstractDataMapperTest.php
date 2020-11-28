@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Mapper;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Mapper\IdentityMap;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\ColumnLessTestingMapper;
@@ -185,7 +186,7 @@ class AbstractDataMapperTest extends UnitTestCase
         $model = new TestingModel();
         $model->setUid(1);
 
-        $map = new \Tx_Oelib_IdentityMap();
+        $map = new IdentityMap();
         $map->add($model);
         $this->subject->setMap($map);
 

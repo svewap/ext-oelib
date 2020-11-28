@@ -8,6 +8,7 @@ use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
+use OliverKlee\Oelib\Mapper\IdentityMap;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
@@ -72,11 +73,11 @@ class TestingMapper extends AbstractDataMapper
     /**
      * Sets the map for this mapper.
      *
-     * @param \Tx_Oelib_IdentityMap $map
+     * @param IdentityMap $map
      *
      * @return void
      */
-    public function setMap(\Tx_Oelib_IdentityMap $map)
+    public function setMap(IdentityMap $map)
     {
         $this->map = $map;
     }

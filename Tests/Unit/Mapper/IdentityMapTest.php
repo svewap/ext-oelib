@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Mapper;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Mapper\IdentityMap;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
@@ -16,13 +17,13 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 class IdentityMapTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_IdentityMap
+     * @var IdentityMap
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_IdentityMap();
+        $this->subject = new IdentityMap();
     }
 
     //////////////////////////

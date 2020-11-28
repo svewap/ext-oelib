@@ -209,6 +209,16 @@ namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
      */
+    class Tx_Oelib_IdentityMap extends \OliverKlee\Oelib\Mapper\IdentityMap
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
     class Tx_Oelib_DataMapper extends \OliverKlee\Oelib\Mapper\AbstractDataMapper
     {
 

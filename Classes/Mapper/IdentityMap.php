@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Mapper;
+
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\AbstractModel;
 
@@ -10,7 +12,7 @@ use OliverKlee\Oelib\Model\AbstractModel;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_IdentityMap
+class IdentityMap
 {
     /**
      * @var AbstractModel[] the items in this map with their UIDs as keys
