@@ -10,6 +10,7 @@ return [
     'Tx_Oelib_Interface_MailRole' => \OliverKlee\Oelib\Interfaces\MailRole::class,
     'Tx_Oelib_Interface_MapPoint' => \OliverKlee\Oelib\Interfaces\MapPoint::class,
     'Tx_Oelib_Interface_Sortable' => \OliverKlee\Oelib\Interfaces\Sortable::class,
+    'Tx_Oelib_Time' => \OliverKlee\Oelib\Interfaces\Time::class,
 
     // Exception
     'Tx_Oelib_Exception_AccessDenied' => \OliverKlee\Oelib\Exception\AccessDeniedException::class,

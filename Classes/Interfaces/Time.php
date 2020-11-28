@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Interfaces;
+
 /**
  * This class provides time-related constants.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-abstract class Tx_Oelib_Time
+interface Time
 {
     /**
      * the number of seconds per minute

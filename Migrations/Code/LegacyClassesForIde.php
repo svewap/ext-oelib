@@ -99,6 +99,16 @@ namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
      */
+    interface Tx_Oelib_Time extends \OliverKlee\Oelib\Interfaces\Time
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
     abstract class Tx_Oelib_Object extends \OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors
     {
 
