@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\DataStructures;
+
 use OliverKlee\Oelib\Interfaces\Sortable;
 use OliverKlee\Oelib\Model\AbstractModel;
+use SplObjectStorage;
 
 /**
  * This class represents a list of models.
@@ -11,7 +14,7 @@ use OliverKlee\Oelib\Model\AbstractModel;
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_List extends SplObjectStorage
+class Collection extends SplObjectStorage
 {
     /**
      * @var int[] the UIDs in the list using the UIDs as both the keys and values
@@ -196,15 +199,15 @@ class Tx_Oelib_List extends SplObjectStorage
     /**
      * Appends the contents of $list to this list.
      *
-     * Note: Since \Tx_Oelib_List extends SplObjectStorage this method is in most
+     * Note: Since Collection extends SplObjectStorage this method is in most
      * cases an synonym to appendUnique() as SplObjectStorage makes sure that
      * no object is added more than once to it.
      *
-     * @param \Tx_Oelib_List<AbstractModel> $list the list to append, may be empty
+     * @param Collection<AbstractModel> $list the list to append, may be empty
      *
      * @return void
      */
-    public function append(\Tx_Oelib_List $list)
+    public function append(Collection $list)
     {
         /** @var AbstractModel $item */
         foreach ($list as $item) {
@@ -348,10 +351,10 @@ class Tx_Oelib_List extends SplObjectStorage
      * @param int $start the zero-based start position, must be >= 0
      * @param int $length the number of elements to return, must be >= 0
      *
-     * @return \Tx_Oelib_List<AbstractModel>
+     * @return Collection<AbstractModel>
      *         the selected elements starting at $start
      */
-    public function inRange(int $start, int $length): \Tx_Oelib_List
+    public function inRange(int $start, int $length): Collection
     {
         if ($start < 0) {
             throw new \InvalidArgumentException('$start must be >= 0.');

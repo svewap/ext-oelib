@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
 
 /**
@@ -64,7 +65,7 @@ class BackEndUserGroupTest extends UnitTestCase
      */
     public function getSubgroupsReturnsListFromSubgroupField()
     {
-        $groups = new \Tx_Oelib_List();
+        $groups = new Collection();
 
         $this->subject->setData(['subgroup' => $groups]);
 

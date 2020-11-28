@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\DatabaseException;
 use OliverKlee\Oelib\Frontend\UserWithoutCookies;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
@@ -1351,7 +1352,7 @@ final class Tx_Oelib_TestingFramework
         $dataToSet = $mapper->find($userId)->getData();
         $dataToSet['uid'] = $userId;
         if (isset($dataToSet['usergroup'])) {
-            /** @var \Tx_Oelib_List $userGroups */
+            /** @var Collection $userGroups */
             $userGroups = $dataToSet['usergroup'];
             $dataToSet['usergroup'] = $userGroups->getUids();
         }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Model;
 
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Interfaces\Address;
 use OliverKlee\Oelib\Interfaces\MailRole;
@@ -397,10 +398,10 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     /**
      * Gets this user's user groups.
      *
-     * @return \Tx_Oelib_List<BackEndUserGroup> this user's FE user groups, will not be empty if
+     * @return Collection<BackEndUserGroup> this user's FE user groups, will not be empty if
      *                       the user data is valid
      */
-    public function getUserGroups(): \Tx_Oelib_List
+    public function getUserGroups(): Collection
     {
         return $this->getAsList('usergroup');
     }
@@ -408,11 +409,11 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     /**
      * Sets this user's direct user groups.
      *
-     * @param \Tx_Oelib_List<BackEndUserGroup> $userGroups the user groups to set, may be empty
+     * @param Collection<BackEndUserGroup> $userGroups the user groups to set, may be empty
      *
      * @return void
      */
-    public function setUserGroups(\Tx_Oelib_List $userGroups)
+    public function setUserGroups(Collection $userGroups)
     {
         $this->set('usergroup', $userGroups);
     }

@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+
 /**
  * This singleton class provides access to an extension's global configuration
  * and allows to fake global configuration values for testing purposes.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class Tx_Oelib_ConfigurationProxy extends \Tx_Oelib_PublicObject
+class Tx_Oelib_ConfigurationProxy extends AbstractObjectWithPublicAccessors
 {
     /**
      * @var \Tx_Oelib_ConfigurationProxy[] the singleton configuration proxy objects

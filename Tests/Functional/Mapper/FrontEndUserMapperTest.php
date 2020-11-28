@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
@@ -131,7 +132,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertInstanceOf(
-            \Tx_Oelib_List::class,
+            Collection::class,
             $this->subject->getGroupMembers($uid)
         );
     }

@@ -56,4 +56,9 @@ return [
     // Visibility
     'Tx_Oelib_Visibility_Node' => \OliverKlee\Oelib\Visibility\Node::class,
     'Tx_Oelib_Visibility_Tree' => \OliverKlee\Oelib\Visibility\Tree::class,
+
+    // DataStructures
+    'Tx_Oelib_Object' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors::class,
+    'Tx_Oelib_PublicObject' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors::class,
+    'Tx_Oelib_List' => \OliverKlee\Oelib\DataStructures\Collection::class,
 ];

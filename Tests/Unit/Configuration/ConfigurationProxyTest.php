@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 
 /**
  * Test case.
@@ -101,7 +102,7 @@ class ConfigurationProxyTest extends UnitTestCase
     public function extendsPublicObject()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_PublicObject::class,
+            AbstractObjectWithPublicAccessors::class,
             $this->subject
         );
     }

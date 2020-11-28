@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Model;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
@@ -42,10 +43,10 @@ class BackEndUserTest extends FunctionalTestCase
      */
     public function getAllGroupsForNoGroupsReturnsList()
     {
-        $this->subject->setData(['usergroup' => new \Tx_Oelib_List()]);
+        $this->subject->setData(['usergroup' => new Collection()]);
 
         self::assertInstanceOf(
-            \Tx_Oelib_List::class,
+            Collection::class,
             $this->subject->getAllGroups()
         );
     }
@@ -55,7 +56,7 @@ class BackEndUserTest extends FunctionalTestCase
      */
     public function getAllGroupsForNoGroupsReturnsEmptyList()
     {
-        $this->subject->setData(['usergroup' => new \Tx_Oelib_List()]);
+        $this->subject->setData(['usergroup' => new Collection()]);
 
         self::assertTrue(
             $this->subject->getAllGroups()->isEmpty()
@@ -68,7 +69,7 @@ class BackEndUserTest extends FunctionalTestCase
     public function getAllGroupsForOneGroupReturnsListWithThatGroup()
     {
         $group = MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
-        $groups = new \Tx_Oelib_List();
+        $groups = new Collection();
         $groups->add($group);
         $this->subject->setData(['usergroup' => $groups]);
 
@@ -85,7 +86,7 @@ class BackEndUserTest extends FunctionalTestCase
     {
         $group1 = MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
         $group2 = MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
-        $groups = new \Tx_Oelib_List();
+        $groups = new Collection();
         $groups->add($group1);
         $groups->add($group2);
         $this->subject->setData(['usergroup' => $groups]);
@@ -106,7 +107,7 @@ class BackEndUserTest extends FunctionalTestCase
         $subgroup = MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
         $group = MapperRegistry::get(BackEndUserGroupMapper::class)
             ->getLoadedTestingModel(['subgroup' => $subgroup->getUid()]);
-        $groups = new \Tx_Oelib_List();
+        $groups = new Collection();
         $groups->add($group);
         $this->subject->setData(['usergroup' => $groups]);
 
@@ -129,7 +130,7 @@ class BackEndUserTest extends FunctionalTestCase
             ->getLoadedTestingModel(['subgroup' => $subsubgroup->getUid()]);
         $group = MapperRegistry::get(BackEndUserGroupMapper::class)
             ->getLoadedTestingModel(['subgroup' => $subgroup->getUid()]);
-        $groups = new \Tx_Oelib_List();
+        $groups = new Collection();
         $groups->add($group);
         $this->subject->setData(['usergroup' => $groups]);
 
@@ -144,11 +145,11 @@ class BackEndUserTest extends FunctionalTestCase
     public function getAllGroupsForGroupWithSubgroupSelfReferenceReturnsOnlyOneGroup()
     {
         $group = MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
-        $subgroups = new \Tx_Oelib_List();
+        $subgroups = new Collection();
         $subgroups->add($group);
         $group->setData(['subgroup' => $subgroups]);
 
-        $groups = new \Tx_Oelib_List();
+        $groups = new Collection();
         $groups->add($group);
         $this->subject->setData(['usergroup' => $groups]);
 
@@ -166,15 +167,15 @@ class BackEndUserTest extends FunctionalTestCase
         $group1 = MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
         $group2 = MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
 
-        $subgroups1 = new \Tx_Oelib_List();
+        $subgroups1 = new Collection();
         $subgroups1->add($group2);
         $group1->setData(['subgroup' => $subgroups1]);
 
-        $subgroups2 = new \Tx_Oelib_List();
+        $subgroups2 = new Collection();
         $subgroups2->add($group1);
         $group2->setData(['subgroup' => $subgroups2]);
 
-        $groups = new \Tx_Oelib_List();
+        $groups = new Collection();
         $groups->add($group1);
         $this->subject->setData(['usergroup' => $groups]);
 

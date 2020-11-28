@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
@@ -152,7 +153,7 @@ class AbstractModelTest extends UnitTestCase
      */
     public function clonedModelHasModelsFromMtoNRelationFromOriginal()
     {
-        $this->subject->setData(['related_records' => new \Tx_Oelib_List()]);
+        $this->subject->setData(['related_records' => new Collection()]);
         $relatedRecord = new TestingModel();
         $relatedRecord->setData([]);
         $this->subject->addRelatedRecord($relatedRecord);
@@ -167,7 +168,7 @@ class AbstractModelTest extends UnitTestCase
      */
     public function clonedModelHasNewInstanceOfMtoNRelation()
     {
-        $this->subject->setData(['related_records' => new \Tx_Oelib_List()]);
+        $this->subject->setData(['related_records' => new Collection()]);
         $relatedRecord = new TestingModel();
         $relatedRecord->setData([]);
         $this->subject->addRelatedRecord($relatedRecord);
@@ -182,7 +183,7 @@ class AbstractModelTest extends UnitTestCase
      */
     public function clonedModelHasNewInstanceOf1toNRelation()
     {
-        $this->subject->setData(['composition' => new \Tx_Oelib_List()]);
+        $this->subject->setData(['composition' => new Collection()]);
         $childRecord = new TestingChildModel();
         $childRecord->setData([]);
         $this->subject->addCompositionRecord($childRecord);
@@ -544,7 +545,7 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getAsListReturnsListSetViaSetData()
     {
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $this->subject->setData(
             ['foo' => $list]
         );

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Geocoding\GeoCalculcator;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -169,7 +170,7 @@ class GeoCalculcatorTest extends UnitTestCase
         $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->add($bonn);
 
         $filteredList = $this->subject->filterByDistance(
@@ -192,7 +193,7 @@ class GeoCalculcatorTest extends UnitTestCase
         $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->add($bonn);
 
         $filteredList = $this->subject->filterByDistance(
@@ -213,7 +214,7 @@ class GeoCalculcatorTest extends UnitTestCase
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
         $nowhere = new TestingGeo();
 
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->add($nowhere);
 
         $filteredList = $this->subject->filterByDistance($list, $bonn, 25.0);
@@ -230,7 +231,7 @@ class GeoCalculcatorTest extends UnitTestCase
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
         $nowhere = new TestingGeo();
 
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->add($bonn);
 
         $filteredList = $this->subject->filterByDistance($list, $nowhere, 25.0);
@@ -248,7 +249,7 @@ class GeoCalculcatorTest extends UnitTestCase
         $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->add($bonn);
         $list->add($cologne);
 

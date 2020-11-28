@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Model;
 
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Interfaces\MailRole;
 
 /**
@@ -98,10 +99,10 @@ class BackEndUser extends AbstractModel implements MailRole
     /**
      * Returns the direct user groups of this user.
      *
-     * @return \Tx_Oelib_List<BackEndUserGroup> the user's direct groups, will be empty if this
+     * @return Collection<BackEndUserGroup> the user's direct groups, will be empty if this
      *                       user has no groups
      */
-    public function getGroups(): \Tx_Oelib_List
+    public function getGroups(): Collection
     {
         return $this->getAsList('usergroup');
     }
@@ -109,16 +110,16 @@ class BackEndUser extends AbstractModel implements MailRole
     /**
      * Recursively gets all groups and subgroups of this user.
      *
-     * @return \Tx_Oelib_List<BackEndUserGroup> all groups and subgroups of this user, will be
+     * @return Collection<BackEndUserGroup> all groups and subgroups of this user, will be
      *                       empty if this user has no groups
      */
-    public function getAllGroups(): \Tx_Oelib_List
+    public function getAllGroups(): Collection
     {
-        $result = new \Tx_Oelib_List();
+        $result = new Collection();
         $groupsToProcess = $this->getGroups();
 
         do {
-            $groupsForNextStep = new \Tx_Oelib_List();
+            $groupsForNextStep = new Collection();
             $result->append($groupsToProcess);
             /** @var BackEndUserGroup $group */
             foreach ($groupsToProcess as $group) {

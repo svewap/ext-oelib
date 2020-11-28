@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model\Fixtures;
 
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Model\FrontEndUser;
 
@@ -115,9 +116,9 @@ class TestingModel extends AbstractModel
     /**
      * Gets the "children" data item. This is a 1:n relation.
      *
-     * @return \Tx_Oelib_List<TestingModel>
+     * @return Collection<TestingModel>
      */
-    public function getChildren(): \Tx_Oelib_List
+    public function getChildren(): Collection
     {
         return $this->getAsList('children');
     }
@@ -125,9 +126,9 @@ class TestingModel extends AbstractModel
     /**
      * Gets the "related_records" data item. This is an m:n relation.
      *
-     * @return \Tx_Oelib_List<TestingModel>
+     * @return Collection<TestingModel>
      */
-    public function getRelatedRecords(): \Tx_Oelib_List
+    public function getRelatedRecords(): Collection
     {
         return $this->getAsList('related_records');
     }
@@ -147,9 +148,9 @@ class TestingModel extends AbstractModel
     /**
      * Gets the "bidirectional" data item. This is an m:n relation.
      *
-     * @return \Tx_Oelib_List<TestingModel>
+     * @return Collection<TestingModel>
      */
-    public function getBidirectional(): \Tx_Oelib_List
+    public function getBidirectional(): Collection
     {
         return $this->getAsList('bidirectional');
     }
@@ -157,9 +158,9 @@ class TestingModel extends AbstractModel
     /**
      * Gets the "composition" data item. This is an 1:n relation.
      *
-     * @return \Tx_Oelib_List<TestingChildModel>
+     * @return Collection<TestingChildModel>
      */
-    public function getComposition(): \Tx_Oelib_List
+    public function getComposition(): Collection
     {
         return $this->getAsList('composition');
     }
@@ -179,10 +180,10 @@ class TestingModel extends AbstractModel
     /**
      * Gets the "composition2" data item. This is an 1:n relation.
      *
-     * @return \Tx_Oelib_List<AbstractModel> the "composition2" data item, will be empty (but
+     * @return Collection<AbstractModel> the "composition2" data item, will be empty (but
      *                       not NULL) if this model has no composition2
      */
-    public function getComposition2(): \Tx_Oelib_List
+    public function getComposition2(): Collection
     {
         return $this->getAsList('composition2');
     }
@@ -190,9 +191,9 @@ class TestingModel extends AbstractModel
     /**
      * Gets the "composition2" data item. This is an 1:n relation without sorting.
      *
-     * @return \Tx_Oelib_List<AbstractModel>
+     * @return Collection<AbstractModel>
      */
-    public function getCompositionWithoutSorting(): \Tx_Oelib_List
+    public function getCompositionWithoutSorting(): Collection
     {
         return $this->getAsList('composition_without_sorting');
     }

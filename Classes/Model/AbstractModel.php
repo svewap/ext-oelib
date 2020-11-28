@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Model;
 
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Interfaces\Identity;
 
@@ -92,12 +93,12 @@ abstract class AbstractModel extends \Tx_Oelib_Object implements Identity
 
         $this->resetUid();
 
-        /** @var int|string|bool|float|\Tx_Oelib_List|AbstractModel|null $dataItem */
+        /** @var int|string|bool|float|Collection|AbstractModel|null $dataItem */
         foreach ($this->data as $key => $dataItem) {
-            if ($dataItem instanceof \Tx_Oelib_List) {
-                /** \Tx_Oelib_List $dataItem */
+            if ($dataItem instanceof Collection) {
+                /** Collection $dataItem */
                 if ($dataItem->isRelationOwnedByParent()) {
-                    $newDataItem = new \Tx_Oelib_List();
+                    $newDataItem = new Collection();
                     $newDataItem->markAsOwnedByParent();
                     /** @var AbstractModel $childModel */
                     foreach ($dataItem as $childModel) {
@@ -365,14 +366,14 @@ abstract class AbstractModel extends \Tx_Oelib_Object implements Identity
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
-     * @return \Tx_Oelib_List<AbstractModel> the data item for the given key
+     * @return Collection<AbstractModel> the data item for the given key
      */
-    public function getAsList(string $key): \Tx_Oelib_List
+    public function getAsList(string $key): Collection
     {
         $this->checkForNonEmptyKey($key);
 
         $result = $this->get($key);
-        if (!$result instanceof \Tx_Oelib_List) {
+        if (!$result instanceof Collection) {
             throw new \UnexpectedValueException(
                 'The data item for the key "' . $key . '" is no list instance.',
                 1331489379

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures;
 
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
@@ -141,12 +142,12 @@ class TestingMapper extends AbstractDataMapper
      *        optionally followed by "ASC" or "DESC", may be empty
      * @param string|int $limit the LIMIT value ([begin,]max), may be empty
      *
-     * @return \Tx_Oelib_List<AbstractModel> all models found in DB for the given where clause,
+     * @return Collection<AbstractModel> all models found in DB for the given where clause,
      *                       will be an empty list if no models were found
      *
      * @deprecated will be removed in oelib 4.0.0
      */
-    public function findByWhereClause(string $whereClause = '', string $sorting = '', $limit = ''): \Tx_Oelib_List
+    public function findByWhereClause(string $whereClause = '', string $sorting = '', $limit = ''): Collection
     {
         return parent::findByWhereClause($whereClause, $sorting, $limit);
     }

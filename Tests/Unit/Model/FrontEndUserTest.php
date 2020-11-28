@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
@@ -1061,7 +1062,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getUserGroupsForReturnsUserGroups()
     {
-        $userGroups = new \Tx_Oelib_List();
+        $userGroups = new Collection();
 
         $this->subject->setData(['usergroup' => $userGroups]);
 
@@ -1076,7 +1077,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function setUserGroupsSetsUserGroups()
     {
-        $userGroups = new \Tx_Oelib_List();
+        $userGroups = new Collection();
 
         $this->subject->setUserGroups($userGroups);
 
@@ -1091,7 +1092,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function addUserGroupAddsUserGroup()
     {
-        $userGroups = new \Tx_Oelib_List();
+        $userGroups = new Collection();
         $this->subject->setUserGroups($userGroups);
 
         $userGroup = new FrontEndUserGroup();
@@ -1122,7 +1123,7 @@ class FrontEndUserTest extends UnitTestCase
     public function hasGroupMembershipForUserOnlyInProvidedGroupReturnsTrue()
     {
         $userGroup = MapperRegistry::get(FrontEndUserGroupMapper::class)->getNewGhost();
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->add($userGroup);
 
         $this->subject->setData(['usergroup' => $list]);
@@ -1139,7 +1140,7 @@ class FrontEndUserTest extends UnitTestCase
     {
         $groupMapper = MapperRegistry::get(FrontEndUserGroupMapper::class);
         $userGroup = $groupMapper->getNewGhost();
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->add($groupMapper->getNewGhost());
         $list->add($userGroup);
 
@@ -1157,7 +1158,7 @@ class FrontEndUserTest extends UnitTestCase
     {
         $groupMapper = MapperRegistry::get(FrontEndUserGroupMapper::class);
         $userGroup = $groupMapper->getNewGhost();
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->add($userGroup);
 
         $this->subject->setData(['usergroup' => $list]);
@@ -1175,7 +1176,7 @@ class FrontEndUserTest extends UnitTestCase
     public function hasGroupMembershipForUserNoneOfTheProvidedGroupsReturnsFalse()
     {
         $groupMapper = MapperRegistry::get(FrontEndUserGroupMapper::class);
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->add($groupMapper->getNewGhost());
         $list->add($groupMapper->getNewGhost());
 

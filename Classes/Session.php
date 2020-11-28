@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -9,7 +10,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Session extends \Tx_Oelib_PublicObject
+class Tx_Oelib_Session extends AbstractObjectWithPublicAccessors
 {
     /**
      * @var int session type for persistent data that is stored for the

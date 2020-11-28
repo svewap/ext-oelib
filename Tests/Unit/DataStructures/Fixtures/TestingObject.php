@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures;
 
+use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+
 /**
  * This class represents an object for testing purposes.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestingObject extends \Tx_Oelib_PublicObject
+class TestingObject extends AbstractObjectWithPublicAccessors
 {
     /**
      * @var array the data for this object

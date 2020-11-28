@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Mapper;
 
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\AbstractModel;
 use TYPO3\CMS\Core\Database\Connection;
@@ -190,7 +191,7 @@ abstract class AbstractDataMapper
      *        two-dimensional array, each inner array must at least contain the
      *        element "uid", may be empty
      *
-     * @return \Tx_Oelib_List<AbstractModel>
+     * @return Collection<AbstractModel>
      *         Models with the UIDs provided. The models will be filled with the
      *         data provided in case they did not have any data before,
      *         otherwise the already loaded data will be used. If $dataOfModels
@@ -198,9 +199,9 @@ abstract class AbstractDataMapper
      *
      * @see getModel()
      */
-    public function getListOfModels(array $dataOfModels): \Tx_Oelib_List
+    public function getListOfModels(array $dataOfModels): Collection
     {
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
 
         foreach ($dataOfModels as $modelRecord) {
             $list->add($this->getModel($modelRecord));
@@ -535,7 +536,7 @@ abstract class AbstractDataMapper
                 ->fetchAll();
         }
 
-        /** @var \Tx_Oelib_List $models */
+        /** @var Collection $models */
         $models = MapperRegistry::get($this->relations[$key])->getListOfModels($modelData);
         $models->setParentModel($model);
         $models->markAsOwnedByParent();
@@ -574,7 +575,7 @@ abstract class AbstractDataMapper
      */
     private function createCommaSeparatedRelation(array &$data, string $key, AbstractModel $model)
     {
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->setParentModel($model);
 
         $uidList = isset($data[$key]) ? trim((string)$data[$key]) : '';
@@ -609,7 +610,7 @@ abstract class AbstractDataMapper
      */
     private function createMToNRelation(array &$data, string $key, AbstractModel $model)
     {
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->setParentModel($model);
 
         if ((int)$data[$key] > 0) {
@@ -880,7 +881,7 @@ abstract class AbstractDataMapper
                     $functionName = 'getUids';
                 }
 
-                if ($data[$key] instanceof \Tx_Oelib_List) {
+                if ($data[$key] instanceof Collection) {
                     $this->saveManyToManyAndCommaSeparatedRelatedModels(
                         $data[$key],
                         MapperRegistry::get($relation)
@@ -934,12 +935,12 @@ abstract class AbstractDataMapper
     /**
      * Saves the related models of a comma-separated and a regular m:n relation.
      *
-     * @param \Tx_Oelib_List<AbstractModel> $list the list of models to save
+     * @param Collection<AbstractModel> $list the list of models to save
      * @param AbstractDataMapper $mapper the mapper to use for saving
      *
      * @return void
      */
-    private function saveManyToManyAndCommaSeparatedRelatedModels(\Tx_Oelib_List $list, AbstractDataMapper $mapper)
+    private function saveManyToManyAndCommaSeparatedRelatedModels(Collection $list, AbstractDataMapper $mapper)
     {
         /** @var AbstractModel $model */
         foreach ($list as $model) {
@@ -982,7 +983,7 @@ abstract class AbstractDataMapper
         $data = $model->getData();
 
         foreach (\array_keys($this->relations) as $key) {
-            if (!($data[$key] instanceof \Tx_Oelib_List) || !$this->isManyToManyRelationConfigured($key)) {
+            if (!($data[$key] instanceof Collection) || !$this->isManyToManyRelationConfigured($key)) {
                 continue;
             }
 
@@ -1024,7 +1025,7 @@ abstract class AbstractDataMapper
                 continue;
             }
             $relatedModels = $data[$key];
-            if (!($relatedModels instanceof \Tx_Oelib_List)) {
+            if (!($relatedModels instanceof Collection)) {
                 continue;
             }
 
@@ -1185,9 +1186,9 @@ abstract class AbstractDataMapper
      *        optionally followed by "ASC" or "DESC" or may
      *        be empty
      *
-     * @return \Tx_Oelib_List<AbstractModel> all models from the DB, already loaded
+     * @return Collection<AbstractModel> all models from the DB, already loaded
      */
-    public function findAll(string $sorting = ''): \Tx_Oelib_List
+    public function findAll(string $sorting = ''): Collection
     {
         $queryResult = $this->getConnection()
             ->select(['*'], $this->getTableName(), [], [], $this->sortingToOrderArray($sorting))->fetchAll();
@@ -1283,7 +1284,7 @@ abstract class AbstractDataMapper
      *        optionally followed by "ASC" or "DESC", may be empty
      * @param string|int $limit the LIMIT value ([begin,]max), may be empty
      *
-     * @return \Tx_Oelib_List<AbstractModel> all models found in DB for the given where clause,
+     * @return Collection<AbstractModel> all models found in DB for the given where clause,
      *                       will be an empty list if no models were found
      *
      * @deprecated will be removed in oelib 4.0.0
@@ -1326,10 +1327,10 @@ abstract class AbstractDataMapper
      *        the sorting for the found records, must be a valid DB field
      *        optionally followed by "ASC" or "DESC", may be empty
      *
-     * @return \Tx_Oelib_List<AbstractModel> all records with the matching page UIDs, will be
+     * @return Collection<AbstractModel> all records with the matching page UIDs, will be
      *                       empty if no records have been found
      */
-    public function findByPageUid($pageUids, string $sorting = ''): \Tx_Oelib_List
+    public function findByPageUid($pageUids, string $sorting = ''): Collection
     {
         $query = $this->getQueryBuilder()->select('*')->from($this->getTableName());
         $this->addPageUidRestriction($query, (string)$pageUids);
@@ -1601,16 +1602,16 @@ abstract class AbstractDataMapper
      * @param string $relationKey
      *        the key of the field in the matches that should contain the UID
      *        of $model
-     * @param \Tx_Oelib_List<AbstractModel> $ignoreList
+     * @param Collection<AbstractModel> $ignoreList
      *        related records that should _not_ be returned
      *
-     * @return \Tx_Oelib_List<AbstractModel> the related models, will be empty if there are no matches
+     * @return Collection<AbstractModel> the related models, will be empty if there are no matches
      */
     public function findAllByRelation(
         AbstractModel $model,
         string $relationKey,
-        \Tx_Oelib_List $ignoreList = null
-    ): \Tx_Oelib_List {
+        Collection $ignoreList = null
+    ): Collection {
         if (!$model->hasUid()) {
             throw new \InvalidArgumentException('$model must have a UID.', 1331319915);
         }

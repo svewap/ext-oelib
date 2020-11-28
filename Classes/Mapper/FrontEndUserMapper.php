@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Mapper;
 
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -67,10 +68,10 @@ class FrontEndUserMapper extends AbstractDataMapper
      *        the UIDs of the user groups from which to get the users, must be a
      *        comma-separated list of group UIDs, must not be empty
      *
-     * @return \Tx_Oelib_List<FrontEndUser> the found user models, will be empty if
+     * @return Collection<FrontEndUser> the found user models, will be empty if
      *                       no users were found for the given groups
      */
-    public function getGroupMembers($groupUids): \Tx_Oelib_List
+    public function getGroupMembers($groupUids): Collection
     {
         if ((string)$groupUids === '') {
             throw new \InvalidArgumentException('$groupUids must not be an empty string.', 1331488505);

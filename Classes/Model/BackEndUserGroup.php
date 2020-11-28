@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Model;
 
+use OliverKlee\Oelib\DataStructures\Collection;
+
 /**
  * This class represents a back-end user group.
  *
@@ -26,10 +28,10 @@ class BackEndUserGroup extends AbstractModel
     /**
      * Returns this group's direct subgroups.
      *
-     * @return \Tx_Oelib_List<BackEndUserGroup> this group's direct subgroups, will be empty if
+     * @return Collection<BackEndUserGroup> this group's direct subgroups, will be empty if
      *                       this group has no subgroups
      */
-    public function getSubgroups(): \Tx_Oelib_List
+    public function getSubgroups(): Collection
     {
         return $this->getAsList('subgroup');
     }

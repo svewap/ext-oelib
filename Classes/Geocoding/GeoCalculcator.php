@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Geocoding;
 
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Interfaces\Geo;
 use OliverKlee\Oelib\Model\AbstractModel;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -79,7 +80,7 @@ class GeoCalculcator implements SingletonInterface
      * $center, including objects that are located at a distance of exactly
      * $distance.
      *
-     * @param \Tx_Oelib_List<Geo> $unfilteredObjects
+     * @param Collection<Geo> $unfilteredObjects
      *        the list to filter, may be empty
      * @param Geo $center
      *        the center to which $distance related
@@ -87,20 +88,20 @@ class GeoCalculcator implements SingletonInterface
      *        the distance in kilometers within which the returned objects must
      *        be located
      *
-     * @return \Tx_Oelib_List<Geo>
+     * @return Collection<Geo>
      *         a copy of $unfilteredObjects with only those objects that are
      *         located within $distance kilometers of $center
      */
     public function filterByDistance(
-        \Tx_Oelib_List $unfilteredObjects,
+        Collection $unfilteredObjects,
         Geo $center,
         float $distance
-    ): \Tx_Oelib_List {
+    ): Collection {
         if (!$center->hasGeoCoordinates()) {
-            return new \Tx_Oelib_List();
+            return new Collection();
         }
 
-        $objectsWithinDistance = new \Tx_Oelib_List();
+        $objectsWithinDistance = new Collection();
         /** @var Geo|AbstractModel $object */
         foreach ($unfilteredObjects as $object) {
             if ($object->hasGeoCoordinates() && $this->calculateDistanceInKilometers($center, $object) <= $distance) {

@@ -99,6 +99,36 @@ namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
      */
+    abstract class Tx_Oelib_Object extends \OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    abstract class Tx_Oelib_PublicObject extends \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_List extends \OliverKlee\Oelib\DataStructures\Collection
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
     class Tx_Oelib_Exception_AccessDenied extends \OliverKlee\Oelib\Exception\AccessDeniedException
     {
 

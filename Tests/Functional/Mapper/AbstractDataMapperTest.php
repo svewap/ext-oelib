@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
 use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
@@ -285,7 +286,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         /** @var TestingModel $model */
         $model = $this->subject->getModel(['uid' => 2]);
         self::assertInstanceOf(
-            \Tx_Oelib_List::class,
+            Collection::class,
             $model->getChildren()
         );
     }
@@ -313,7 +314,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     public function getListOfModelsReturnsInstanceOfList()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_List::class,
+            Collection::class,
             $this->subject->getListOfModels([['uid' => 1]])
         );
     }
@@ -2638,7 +2639,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         /** @var TestingModel $parent */
         $parent = $this->subject->find($parentUid);
         $child = $this->subject->getNewGhost();
-        $list = new \Tx_Oelib_List();
+        $list = new Collection();
         $list->add($child);
 
         $parent->getChildren()->append($list);
@@ -3744,7 +3745,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
         $ignoredRelatedModel = $mapper->find($childUid2);
 
-        $ignoreList = new \Tx_Oelib_List();
+        $ignoreList = new Collection();
         $ignoreList->add($ignoredRelatedModel);
 
         $result = MapperRegistry::get(TestingChildMapper::class)

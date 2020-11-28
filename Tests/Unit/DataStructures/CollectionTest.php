@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\DataStructures;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
@@ -15,10 +16,10 @@ use PHPUnit\Framework\MockObject\MockObject;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class ListTest extends UnitTestCase
+class CollectionTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_List
+     * @var Collection
      */
     private $subject = null;
 
@@ -29,7 +30,7 @@ class ListTest extends UnitTestCase
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_List();
+        $this->subject = new Collection();
     }
 
     ///////////////////////
@@ -838,8 +839,8 @@ class ListTest extends UnitTestCase
      */
     public function sortMakesListDirty()
     {
-        /** @var \Tx_Oelib_List|MockObject $subject */
-        $subject = $this->createPartialMock(\Tx_Oelib_List::class, ['markAsDirty']);
+        /** @var Collection|MockObject $subject */
+        $subject = $this->createPartialMock(Collection::class, ['markAsDirty']);
         $subject->expects(self::once())->method('markAsDirty');
 
         $subject->sort([$this, 'sortByTitleAscending']);
@@ -854,7 +855,7 @@ class ListTest extends UnitTestCase
      */
     public function appendEmptyListToEmptyListMakesEmptyList()
     {
-        $otherList = new \Tx_Oelib_List();
+        $otherList = new Collection();
         $this->subject->append($otherList);
 
         self::assertTrue(
@@ -867,7 +868,7 @@ class ListTest extends UnitTestCase
      */
     public function appendTwoItemListToEmptyListMakesTwoItemList()
     {
-        $otherList = new \Tx_Oelib_List();
+        $otherList = new Collection();
         $model1 = new TestingModel();
         $otherList->add($model1);
         $model2 = new TestingModel();
@@ -888,7 +889,7 @@ class ListTest extends UnitTestCase
     {
         $this->addModelsToFixture(['First', 'Second']);
 
-        $otherList = new \Tx_Oelib_List();
+        $otherList = new Collection();
         $this->subject->append($otherList);
 
         self::assertSame(
@@ -906,7 +907,7 @@ class ListTest extends UnitTestCase
         $model->setUid(42);
         $this->subject->add($model);
 
-        $otherList = new \Tx_Oelib_List();
+        $otherList = new Collection();
         $otherList->add($model);
 
         $this->subject->append($otherList);
@@ -922,7 +923,7 @@ class ListTest extends UnitTestCase
      */
     public function appendTwoItemListKeepsOrderOfAppendedItems()
     {
-        $otherList = new \Tx_Oelib_List();
+        $otherList = new Collection();
         $model1 = new TestingModel();
         $otherList->add($model1);
         $model2 = new TestingModel();
@@ -944,7 +945,7 @@ class ListTest extends UnitTestCase
         $model = new TestingModel();
         $this->subject->add($model);
 
-        $otherList = new \Tx_Oelib_List();
+        $otherList = new Collection();
         $otherModel = new TestingModel();
         $otherList->add($otherModel);
 
