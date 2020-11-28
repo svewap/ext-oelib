@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Mapper;
 
+use OliverKlee\Oelib\Database\DatabaseService;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\AbstractModel;
@@ -1232,12 +1233,12 @@ abstract class AbstractDataMapper
         $tableName = $this->getTableName();
         if ($this->testingFramework !== null) {
             $dummyColumnName = $this->testingFramework->getDummyColumnName($tableName);
-            $leftPart = \Tx_Oelib_Db::tableHasColumn($this->getTableName(), $dummyColumnName)
+            $leftPart = DatabaseService ::tableHasColumn($this->getTableName(), $dummyColumnName)
                 ? $dummyColumnName . ' = 1' : '1 = 1';
         } else {
             $leftPart = '1 = 1';
         }
-        return $leftPart . \Tx_Oelib_Db::enableFields($tableName, ($allowHiddenRecords ? 1 : -1));
+        return $leftPart . DatabaseService ::enableFields($tableName, ($allowHiddenRecords ? 1 : -1));
     }
 
     /**
@@ -1305,7 +1306,7 @@ abstract class AbstractDataMapper
 
         $completeWhereClause = ($whereClause === '') ? '' : $whereClause . ' AND ';
 
-        $rows = \Tx_Oelib_Db::selectMultiple(
+        $rows = DatabaseService ::selectMultiple(
             '*',
             $this->getTableName(),
             $completeWhereClause . $this->getUniversalWhereClause(),
@@ -1646,7 +1647,7 @@ abstract class AbstractDataMapper
             ? ''
             : $whereClause . ' AND ';
 
-        return \Tx_Oelib_Db::count($this->getTableName(), $completeWhereClause . $this->getUniversalWhereClause());
+        return DatabaseService ::count($this->getTableName(), $completeWhereClause . $this->getUniversalWhereClause());
     }
 
     /**

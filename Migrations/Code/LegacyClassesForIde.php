@@ -78,6 +78,17 @@ namespace {
     }
 }
 
+// Database
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Db extends \OliverKlee\Oelib\Database\DatabaseService
+    {
+
+    }
+}
+
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0

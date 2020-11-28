@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Database;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Database\DatabaseService;
 use OliverKlee\Oelib\Exception\EmptyQueryResultException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
@@ -116,7 +117,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::enableFields('tx_oelib_test', -2);
+        DatabaseService ::enableFields('tx_oelib_test', -2);
     }
 
     /**
@@ -126,7 +127,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::enableFields('tx_oelib_test', 2);
+        DatabaseService ::enableFields('tx_oelib_test', 2);
     }
 
     /**
@@ -135,8 +136,8 @@ class DatabaseServiceTest extends FunctionalTestCase
     public function enableFieldsIsDifferentForDifferentTables()
     {
         self::assertNotSame(
-            \Tx_Oelib_Db::enableFields('tx_oelib_test'),
-            \Tx_Oelib_Db::enableFields('pages')
+            DatabaseService ::enableFields('tx_oelib_test'),
+            DatabaseService ::enableFields('pages')
         );
     }
 
@@ -146,8 +147,8 @@ class DatabaseServiceTest extends FunctionalTestCase
     public function enableFieldsCanBeDifferentForShowHiddenZeroAndOne()
     {
         self::assertNotSame(
-            \Tx_Oelib_Db::enableFields('tx_oelib_test', 0),
-            \Tx_Oelib_Db::enableFields('tx_oelib_test', 1)
+            DatabaseService ::enableFields('tx_oelib_test', 0),
+            DatabaseService ::enableFields('tx_oelib_test', 1)
         );
     }
 
@@ -157,8 +158,8 @@ class DatabaseServiceTest extends FunctionalTestCase
     public function enableFieldsAreTheSameForShowHiddenZeroAndMinusOne()
     {
         self::assertSame(
-            \Tx_Oelib_Db::enableFields('tx_oelib_test', 0),
-            \Tx_Oelib_Db::enableFields('tx_oelib_test', -1)
+            DatabaseService ::enableFields('tx_oelib_test', 0),
+            DatabaseService ::enableFields('tx_oelib_test', -1)
         );
     }
 
@@ -168,8 +169,8 @@ class DatabaseServiceTest extends FunctionalTestCase
     public function enableFieldsCanBeDifferentForShowHiddenOneAndMinusOne()
     {
         self::assertNotSame(
-            \Tx_Oelib_Db::enableFields('tx_oelib_test', 1),
-            \Tx_Oelib_Db::enableFields('tx_oelib_test', -1)
+            DatabaseService ::enableFields('tx_oelib_test', 1),
+            DatabaseService ::enableFields('tx_oelib_test', -1)
         );
     }
 
@@ -183,7 +184,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $result = $this->getDatabaseConnection()->select(
             '*',
             'tx_oelib_test',
-            '1 = 1' . \Tx_Oelib_Db::enableFields('tx_oelib_test')
+            '1 = 1' . DatabaseService ::enableFields('tx_oelib_test')
         );
 
         self::assertCount(1, $result);
@@ -199,7 +200,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $result = $this->getDatabaseConnection()->select(
             '*',
             'tx_oelib_test',
-            '1 = 1' . \Tx_Oelib_Db::enableFields('tx_oelib_test', 1)
+            '1 = 1' . DatabaseService ::enableFields('tx_oelib_test', 1)
         );
 
         self::assertCount(1, $result);
@@ -230,7 +231,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $result = $this->getDatabaseConnection()->select(
             '*',
             'tx_oelib_test',
-            '1 = 1' . \Tx_Oelib_Db::enableFields('tx_oelib_test')
+            '1 = 1' . DatabaseService ::enableFields('tx_oelib_test')
         );
 
         self::assertCount(0, $result);
@@ -250,7 +251,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $result = $this->getDatabaseConnection()->select(
             '*',
             'tx_oelib_test',
-            '1 = 1' . \Tx_Oelib_Db::enableFields('tx_oelib_test', 1)
+            '1 = 1' . DatabaseService ::enableFields('tx_oelib_test', 1)
         );
 
         self::assertCount(1, $result);
@@ -267,7 +268,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         self::assertSame(
             '',
-            \Tx_Oelib_Db::createRecursivePageList('')
+            DatabaseService ::createRecursivePageList('')
         );
     }
 
@@ -278,7 +279,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         self::assertSame(
             '',
-            \Tx_Oelib_Db::createRecursivePageList('', 0)
+            DatabaseService ::createRecursivePageList('', 0)
         );
     }
 
@@ -289,7 +290,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         self::assertSame(
             '',
-            \Tx_Oelib_Db::createRecursivePageList('', 1)
+            DatabaseService ::createRecursivePageList('', 1)
         );
     }
 
@@ -300,7 +301,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::createRecursivePageList('', -1);
+        DatabaseService ::createRecursivePageList('', -1);
     }
 
     /**
@@ -313,7 +314,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             (string)$uid,
-            \Tx_Oelib_Db::createRecursivePageList((string)$uid, 1)
+            DatabaseService ::createRecursivePageList((string)$uid, 1)
         );
     }
 
@@ -327,7 +328,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             (string)$uid,
-            \Tx_Oelib_Db::createRecursivePageList($uid, 1)
+            DatabaseService ::createRecursivePageList($uid, 1)
         );
     }
 
@@ -341,7 +342,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             (string)$uid,
-            \Tx_Oelib_Db::createRecursivePageList((string)$uid)
+            DatabaseService ::createRecursivePageList((string)$uid)
         );
     }
 
@@ -355,7 +356,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             (string)$uid,
-            \Tx_Oelib_Db::createRecursivePageList($uid)
+            DatabaseService ::createRecursivePageList($uid)
         );
     }
 
@@ -370,7 +371,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             (string)$uid,
-            \Tx_Oelib_Db::createRecursivePageList((string)$uid, 0)
+            DatabaseService ::createRecursivePageList((string)$uid, 0)
         );
     }
 
@@ -387,7 +388,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         self::assertSame(
             $this->sortExplode($uid1 . ',' . $uid2),
             $this->sortExplode(
-                \Tx_Oelib_Db::createRecursivePageList($uid1 . ',' . $uid2, 0)
+                DatabaseService ::createRecursivePageList($uid1 . ',' . $uid2, 0)
             )
         );
     }
@@ -405,7 +406,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid),
-            $this->sortExplode(\Tx_Oelib_Db::createRecursivePageList($uid, 1))
+            $this->sortExplode(DatabaseService ::createRecursivePageList($uid, 1))
         );
     }
 
@@ -420,7 +421,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             (string)$uid,
-            \Tx_Oelib_Db::createRecursivePageList($uid, 0)
+            DatabaseService ::createRecursivePageList($uid, 0)
         );
     }
 
@@ -438,7 +439,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid1 . ',' . $subFolderUid2),
-            $this->sortExplode(\Tx_Oelib_Db::createRecursivePageList($uid, 1))
+            $this->sortExplode(DatabaseService ::createRecursivePageList($uid, 1))
         );
     }
 
@@ -461,7 +462,7 @@ class DatabaseServiceTest extends FunctionalTestCase
                 $uid1 . ',' . $uid2 . ',' . $subFolderUid1 . ',' . $subFolderUid2
             ),
             $this->sortExplode(
-                \Tx_Oelib_Db::createRecursivePageList($uid1 . ',' . $uid2, 1)
+                DatabaseService ::createRecursivePageList($uid1 . ',' . $uid2, 1)
             )
         );
     }
@@ -478,11 +479,11 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             (string)$uid,
-            \Tx_Oelib_Db::createRecursivePageList($uid, 0)
+            DatabaseService ::createRecursivePageList($uid, 0)
         );
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid),
-            $this->sortExplode(\Tx_Oelib_Db::createRecursivePageList($uid, 1))
+            $this->sortExplode(DatabaseService ::createRecursivePageList($uid, 1))
         );
     }
 
@@ -498,11 +499,11 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid),
-            $this->sortExplode(\Tx_Oelib_Db::createRecursivePageList($uid, 1))
+            $this->sortExplode(DatabaseService ::createRecursivePageList($uid, 1))
         );
         self::assertSame(
             (string)$uid,
-            \Tx_Oelib_Db::createRecursivePageList($uid, 0)
+            DatabaseService ::createRecursivePageList($uid, 0)
         );
     }
 
@@ -517,7 +518,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::getColumnsInTable('');
+        DatabaseService ::getColumnsInTable('');
     }
 
     /**
@@ -527,7 +528,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\BadMethodCallException::class);
 
-        \Tx_Oelib_Db::getColumnsInTable('tx_oelib_doesnotexist');
+        DatabaseService ::getColumnsInTable('tx_oelib_doesnotexist');
     }
 
     /**
@@ -535,7 +536,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function getColumnsInTableReturnsArrayThatContainsExistingColumn()
     {
-        $columns = \Tx_Oelib_Db::getColumnsInTable('tx_oelib_test');
+        $columns = DatabaseService ::getColumnsInTable('tx_oelib_test');
 
         self::assertTrue(
             isset($columns['title'])
@@ -547,7 +548,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function getColumnsInTableReturnsArrayThatNotContainsInexistentColumn()
     {
-        $columns = \Tx_Oelib_Db::getColumnsInTable('tx_oelib_test');
+        $columns = DatabaseService ::getColumnsInTable('tx_oelib_test');
 
         self::assertFalse(
             isset($columns['does_not_exist'])
@@ -564,7 +565,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     public function tableHasColumnReturnsTrueOnTableWithColumn()
     {
         self::assertTrue(
-            \Tx_Oelib_Db::tableHasColumn(
+            DatabaseService ::tableHasColumn(
                 'tx_oelib_test',
                 'title'
             )
@@ -577,7 +578,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     public function tableHasColumnReturnsFalseOnTableWithoutColumn()
     {
         self::assertFalse(
-            \Tx_Oelib_Db::tableHasColumn(
+            DatabaseService ::tableHasColumn(
                 'tx_oelib_test',
                 'inexistent_column'
             )
@@ -591,7 +592,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::tableHasColumn(
+        DatabaseService ::tableHasColumn(
             '',
             'title'
         );
@@ -603,7 +604,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     public function tableHasColumnReturnsFalseOnEmptyColumnName()
     {
         self::assertFalse(
-            \Tx_Oelib_Db::tableHasColumn(
+            DatabaseService ::tableHasColumn(
                 'tx_oelib_test',
                 ''
             )
@@ -621,7 +622,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::delete(
+        DatabaseService ::delete(
             '',
             'uid = 0'
         );
@@ -635,7 +636,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        \Tx_Oelib_Db::delete(
+        DatabaseService ::delete(
             'tx_oelib_test',
             'uid = ' . $uid
         );
@@ -653,7 +654,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         self::assertSame(
             0,
-            \Tx_Oelib_Db::delete(
+            DatabaseService ::delete(
                 'tx_oelib_test',
                 'uid = 0'
             )
@@ -670,7 +671,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            \Tx_Oelib_Db::delete(
+            DatabaseService ::delete(
                 'tx_oelib_test',
                 'uid = ' . $uid
             )
@@ -689,7 +690,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             2,
-            \Tx_Oelib_Db::delete(
+            DatabaseService ::delete(
                 'tx_oelib_test',
                 'uid IN(' . $uid1 . ',' . $uid2 . ')'
             )
@@ -707,7 +708,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::update(
+        DatabaseService ::update(
             '',
             'uid = 0',
             []
@@ -722,7 +723,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        \Tx_Oelib_Db::update(
+        DatabaseService ::update(
             'tx_oelib_test',
             'uid = ' . $uid,
             ['title' => 'foo']
@@ -746,7 +747,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        \Tx_Oelib_Db::update('tx_oelib_test', 'uid = ' . $uid, ['bool_data1' => $value]);
+        DatabaseService ::update('tx_oelib_test', 'uid = ' . $uid, ['bool_data1' => $value]);
 
         self::assertSame(
             1,
@@ -761,7 +762,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         self::assertSame(
             0,
-            \Tx_Oelib_Db::update(
+            DatabaseService ::update(
                 'tx_oelib_test',
                 'uid = 0',
                 ['title' => 'foo']
@@ -779,7 +780,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            \Tx_Oelib_Db::update(
+            DatabaseService ::update(
                 'tx_oelib_test',
                 'uid = ' . $uid,
                 ['title' => 'foo']
@@ -799,7 +800,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             2,
-            \Tx_Oelib_Db::update(
+            DatabaseService ::update(
                 'tx_oelib_test',
                 'uid IN(' . $uid1 . ',' . $uid2 . ')',
                 ['title' => 'foo']
@@ -818,7 +819,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::insert(
+        DatabaseService ::insert(
             '',
             ['is_dummy_record' => 1]
         );
@@ -831,7 +832,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::insert(
+        DatabaseService ::insert(
             'tx_oelib_test',
             []
         );
@@ -842,7 +843,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function insertInsertsRecord()
     {
-        \Tx_Oelib_Db::insert(
+        DatabaseService ::insert(
             'tx_oelib_test',
             ['title' => 'foo', 'is_dummy_record' => 1]
         );
@@ -873,7 +874,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function insertCanInsertRecordWithBooleanData(bool $value)
     {
-        \Tx_Oelib_Db::insert(
+        DatabaseService ::insert(
             'tx_oelib_test',
             ['bool_data1' => $value, 'is_dummy_record' => 1]
         );
@@ -889,7 +890,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function insertForTableWithUidReturnsUidOfCreatedRecord()
     {
-        $uid = \Tx_Oelib_Db::insert(
+        $uid = DatabaseService ::insert(
             'tx_oelib_test',
             ['is_dummy_record' => 1]
         );
@@ -909,8 +910,8 @@ class DatabaseServiceTest extends FunctionalTestCase
             self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
         }
 
-        \Tx_Oelib_Db::insert('tx_oelib_test', ['is_dummy_record' => 1]);
-        $uid = \Tx_Oelib_Db::getDatabaseConnection()->sql_insert_id();
+        DatabaseService ::insert('tx_oelib_test', ['is_dummy_record' => 1]);
+        $uid = DatabaseService ::getDatabaseConnection()->sql_insert_id();
 
         self::assertSame(
             1,
@@ -925,7 +926,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         self::assertSame(
             0,
-            \Tx_Oelib_Db::insert(
+            DatabaseService ::insert(
                 'tx_oelib_test_article_mm',
                 ['is_dummy_record' => 1]
             )
@@ -947,7 +948,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::select('*', '');
+        DatabaseService ::select('*', '');
     }
 
     /**
@@ -961,7 +962,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::select('', 'tx_oelib_test');
+        DatabaseService ::select('', 'tx_oelib_test');
     }
 
     /**
@@ -971,7 +972,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::selectSingle('*', '');
+        DatabaseService ::selectSingle('*', '');
     }
 
     /**
@@ -981,7 +982,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::selectSingle('', 'tx_oelib_test');
+        DatabaseService ::selectSingle('', 'tx_oelib_test');
     }
 
     /**
@@ -994,7 +995,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             ['uid' => $uid],
-            \Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', 'uid = ' . $uid)
+            DatabaseService ::selectSingle('uid', 'tx_oelib_test', 'uid = ' . $uid)
         );
     }
 
@@ -1005,7 +1006,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(EmptyQueryResultException::class);
 
-        \Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', 'title = "nothing"');
+        DatabaseService ::selectSingle('uid', 'tx_oelib_test', 'title = "nothing"');
     }
 
     /**
@@ -1019,7 +1020,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             ['uid' => $uid],
-            \Tx_Oelib_Db::selectSingle('uid', 'tx_oelib_test', '', '', 'title DESC')
+            DatabaseService ::selectSingle('uid', 'tx_oelib_test', '', '', 'title DESC')
         );
     }
 
@@ -1030,7 +1031,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::selectMultiple('*', '');
+        DatabaseService ::selectMultiple('*', '');
     }
 
     /**
@@ -1040,7 +1041,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::selectMultiple('', 'tx_oelib_test');
+        DatabaseService ::selectMultiple('', 'tx_oelib_test');
     }
 
     /**
@@ -1050,7 +1051,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         self::assertSame(
             [],
-            \Tx_Oelib_Db::selectMultiple(
+            DatabaseService ::selectMultiple(
                 'uid',
                 'tx_oelib_test',
                 'title = "nothing"'
@@ -1068,7 +1069,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             [['uid' => $uid]],
-            \Tx_Oelib_Db::selectMultiple('uid', 'tx_oelib_test', 'uid = ' . $uid)
+            DatabaseService ::selectMultiple('uid', 'tx_oelib_test', 'uid = ' . $uid)
         );
     }
 
@@ -1085,7 +1086,7 @@ class DatabaseServiceTest extends FunctionalTestCase
                 ['title' => 'foo'],
                 ['title' => 'foo'],
             ],
-            \Tx_Oelib_Db::selectMultiple(
+            DatabaseService ::selectMultiple(
                 'title',
                 'tx_oelib_test',
                 'title = "foo"'
@@ -1100,7 +1101,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         self::assertSame(
             [],
-            \Tx_Oelib_Db::selectColumnForMultiple(
+            DatabaseService ::selectColumnForMultiple(
                 'title',
                 'tx_oelib_test',
                 'title = "nothing"'
@@ -1118,7 +1119,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             ['foo'],
-            \Tx_Oelib_Db::selectColumnForMultiple(
+            DatabaseService ::selectColumnForMultiple(
                 'title',
                 'tx_oelib_test',
                 'uid = ' . $uid
@@ -1136,7 +1137,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'bar']);
         $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        $result = \Tx_Oelib_Db::selectColumnForMultiple(
+        $result = DatabaseService ::selectColumnForMultiple(
             'title',
             'tx_oelib_test',
             'uid = ' . $uid1 . ' OR uid = ' . $uid2
@@ -1159,7 +1160,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::existsTable('');
+        DatabaseService ::existsTable('');
     }
 
     /**
@@ -1168,7 +1169,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     public function existsTableForExistingTableReturnsTrue()
     {
         self::assertTrue(
-            \Tx_Oelib_Db::existsTable('tx_oelib_test')
+            DatabaseService ::existsTable('tx_oelib_test')
         );
     }
 
@@ -1178,7 +1179,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     public function existsTableForInexistentTableReturnsFalse()
     {
         self::assertFalse(
-            \Tx_Oelib_Db::existsTable('tx_oelib_doesnotexist')
+            DatabaseService ::existsTable('tx_oelib_doesnotexist')
         );
     }
 
@@ -1193,8 +1194,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function countCanBeCalledWithEmptyOrMissingWhereClause()
     {
-        \Tx_Oelib_Db::count('tx_oelib_test', '');
-        \Tx_Oelib_Db::count('tx_oelib_test');
+        DatabaseService ::count('tx_oelib_test', '');
+        DatabaseService ::count('tx_oelib_test');
     }
 
     /**
@@ -1204,7 +1205,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         self::assertSame(
             0,
-            \Tx_Oelib_Db::count(
+            DatabaseService ::count(
                 'tx_oelib_test',
                 'uid = 42'
             )
@@ -1221,7 +1222,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             1,
-            \Tx_Oelib_Db::count('tx_oelib_test', 'uid = ' . $uid)
+            DatabaseService ::count('tx_oelib_test', 'uid = ' . $uid)
         );
     }
 
@@ -1237,7 +1238,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             2,
-            \Tx_Oelib_Db::count(
+            DatabaseService ::count(
                 'tx_oelib_test',
                 'uid IN(' . $uid1 . ',' . $uid2 . ')'
             )
@@ -1251,9 +1252,9 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function countCanBeCalledForTableWithoutUidOrMultipleTablesOrJoins()
     {
-        \Tx_Oelib_Db::count('tx_oelib_test_article_mm');
-        \Tx_Oelib_Db::count('tx_oelib_test, tx_oelib_testchild');
-        \Tx_Oelib_Db::count('tx_oelib_test JOIN tx_oelib_testchild');
+        DatabaseService ::count('tx_oelib_test_article_mm');
+        DatabaseService ::count('tx_oelib_test, tx_oelib_testchild');
+        DatabaseService ::count('tx_oelib_test JOIN tx_oelib_testchild');
     }
 
     /*
@@ -1267,8 +1268,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function existsRecordWithEmptyOrMissingWhereClauseIsAllowed()
     {
-        \Tx_Oelib_Db::existsRecord('tx_oelib_test', '');
-        \Tx_Oelib_Db::existsRecord('tx_oelib_test');
+        DatabaseService ::existsRecord('tx_oelib_test', '');
+        DatabaseService ::existsRecord('tx_oelib_test');
     }
 
     /**
@@ -1278,7 +1279,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \Tx_Oelib_Db::existsRecord('');
+        DatabaseService ::existsRecord('');
     }
 
     /**
@@ -1287,7 +1288,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     public function existsRecordForNoMatchesReturnsFalse()
     {
         self::assertFalse(
-            \Tx_Oelib_Db::existsRecord('tx_oelib_test', 'uid = 42')
+            DatabaseService ::existsRecord('tx_oelib_test', 'uid = 42')
         );
     }
 
@@ -1300,7 +1301,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertTrue(
-            \Tx_Oelib_Db::existsRecord('tx_oelib_test', 'uid = ' . $uid)
+            DatabaseService ::existsRecord('tx_oelib_test', 'uid = ' . $uid)
         );
     }
 
@@ -1313,7 +1314,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
 
         self::assertTrue(
-            \Tx_Oelib_Db::existsRecord('tx_oelib_test', 'title = "foo"')
+            DatabaseService ::existsRecord('tx_oelib_test', 'title = "foo"')
         );
     }
 
@@ -1326,6 +1327,6 @@ class DatabaseServiceTest extends FunctionalTestCase
             self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
         }
 
-        self::assertSame($GLOBALS['TYPO3_DB'], \Tx_Oelib_Db::getDatabaseConnection());
+        self::assertSame($GLOBALS['TYPO3_DB'], DatabaseService ::getDatabaseConnection());
     }
 }

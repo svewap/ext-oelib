@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Database;
+
 use OliverKlee\Oelib\Exception\DatabaseException;
 use OliverKlee\Oelib\Exception\EmptyQueryResultException;
 use OliverKlee\Oelib\System\Typo3Version;
@@ -20,7 +22,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  *
  * @deprecated will be removed in oelib 4.0; use the ConnectionPool instead for TYPO3 >= 8.4
  */
-class Tx_Oelib_Db
+class DatabaseService
 {
     /**
      * page object which we will use to call enableFields on

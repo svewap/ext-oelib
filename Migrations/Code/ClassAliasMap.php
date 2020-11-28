@@ -78,6 +78,9 @@ return [
     'Tx_Oelib_PublicObject' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors::class,
     'Tx_Oelib_List' => \OliverKlee\Oelib\DataStructures\Collection::class,
 
+    // DB
+    'Tx_Oelib_Db' => \OliverKlee\Oelib\Database\DatabaseService::class,
+
     // Http
     'Tx_Oelib_AbstractHeaderProxy' => \OliverKlee\Oelib\Http\Interfaces\HeaderProxy::class,
     'Tx_Oelib_HeaderCollector' => \OliverKlee\Oelib\Http\HeaderCollector::class,
