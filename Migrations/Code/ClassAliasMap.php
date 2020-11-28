@@ -74,4 +74,11 @@ return [
     'Tx_Oelib_Object' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors::class,
     'Tx_Oelib_PublicObject' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors::class,
     'Tx_Oelib_List' => \OliverKlee\Oelib\DataStructures\Collection::class,
+
+    // Http
+    'Tx_Oelib_AbstractHeaderProxy' => \OliverKlee\Oelib\Http\Interfaces\HeaderProxy::class,
+    'Tx_Oelib_HeaderCollector' => \OliverKlee\Oelib\Http\HeaderCollector::class,
+    'Tx_Oelib_HeaderProxyFactory' => \OliverKlee\Oelib\Http\HeaderProxyFactory::class,
+    'Tx_Oelib_RealHeaderProxy' => \OliverKlee\Oelib\Http\RealHeaderProxy::class,
+
 ];

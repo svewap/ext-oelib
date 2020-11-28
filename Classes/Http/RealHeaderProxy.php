@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Http;
+
+use OliverKlee\Oelib\Http\Interfaces\HeaderProxy;
+
 /**
  * This class sends HTTP headers.
  *
@@ -11,7 +15,7 @@ declare(strict_types=1);
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class Tx_Oelib_RealHeaderProxy extends \Tx_Oelib_AbstractHeaderProxy
+class RealHeaderProxy implements HeaderProxy
 {
     /**
      * Adds a header.

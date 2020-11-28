@@ -29,7 +29,7 @@ first:
 
 ::
 
-   Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy()->addHeader($header);
+   HeaderProxyFactory::getInstance()->getHeaderProxy()->addHeader($header);
 
 In non-test mode, addHeader() behaves similar to the PHP function
 header().
@@ -48,12 +48,12 @@ The following lines show what a test might look like:
 ::
 
    public function setUp() {
-     Tx_Oelib_HeaderProxyFactory::getInstance()->enableTestMode();
+     HeaderProxyFactory::getInstance()->enableTestMode();
      $this->fixture = new classToTest();
    }
 
    public function tearDown() {
-     Tx_Oelib_HeaderProxyFactory::getInstance()->discardInstance();
+     HeaderProxyFactory::getInstance()->discardInstance();
      unset($this->fixture);
    }
 
@@ -61,7 +61,7 @@ The following lines show what a test might look like:
      $this->fixture->showPageIfUserHasAccess();
      $this->assertEquals(
              'Status: 403 Forbidden',
-             Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy()->getLastAddedHeader()
+             HeaderProxyFactory::getInstance()->getHeaderProxy()->getLastAddedHeader()
      );
    }
 
@@ -70,7 +70,7 @@ since the last clean-up:
 
 ::
 
-   Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy()->getAllAddedHeaders();
+   HeaderProxyFactory::getInstance()->getHeaderProxy()->getAllAddedHeaders();
 
 
 Send HTML mails

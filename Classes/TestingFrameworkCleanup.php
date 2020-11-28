@@ -8,6 +8,7 @@ use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
+use OliverKlee\Oelib\Http\HeaderProxyFactory;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -30,7 +31,7 @@ class Tx_Oelib_TestingFrameworkCleanup
         ConfigurationRegistry::purgeInstance();
         FrontEndLoginManager::purgeInstance();
         GoogleGeocoding::purgeInstance();
-        \Tx_Oelib_HeaderProxyFactory::purgeInstance();
+        HeaderProxyFactory::purgeInstance();
         MapperRegistry::purgeInstance();
         PageFinder::purgeInstance();
         \Tx_Oelib_Session::purgeInstances();

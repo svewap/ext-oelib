@@ -287,6 +287,48 @@ namespace {
     }
 }
 
+// Http
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    interface Tx_Oelib_AbstractHeaderProxy extends \OliverKlee\Oelib\Http\Interfaces\HeaderProxy
+    {
+
+    }
+}
+
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_HeaderCollector extends \OliverKlee\Oelib\Http\HeaderCollector
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_HeaderProxyFactory extends \OliverKlee\Oelib\Http\HeaderProxyFactory
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_RealHeaderProxy extends \OliverKlee\Oelib\Http\RealHeaderProxy
+    {
+
+    }
+}
+
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0

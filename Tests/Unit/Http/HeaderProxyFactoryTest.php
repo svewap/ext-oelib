@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Http;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Http\HeaderCollector;
+use OliverKlee\Oelib\Http\HeaderProxyFactory;
+use OliverKlee\Oelib\Http\RealHeaderProxy;
 
 /**
  * Test case.
@@ -15,21 +18,21 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class HeaderProxyFactoryTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_HeaderCollector
+     * @var HeaderCollector
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp()
     {
         // Only the instance with an enabled test mode can be tested as in the
         // non-test mode added headers are not accessible.
-        \Tx_Oelib_HeaderProxyFactory::getInstance()->enableTestMode();
-        $this->subject = \Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy();
+        HeaderProxyFactory::getInstance()->enableTestMode();
+        $this->subject = HeaderProxyFactory::getInstance()->getHeaderProxy();
     }
 
     protected function tearDown()
     {
-        \Tx_Oelib_HeaderProxyFactory::purgeInstance();
+        HeaderProxyFactory::purgeInstance();
         parent::tearDown();
     }
 
@@ -39,7 +42,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     public function getHeaderProxyInTestMode()
     {
         self::assertSame(
-            \Tx_Oelib_HeaderCollector::class,
+            HeaderCollector::class,
             \get_class($this->subject)
         );
     }
@@ -50,11 +53,11 @@ class HeaderProxyFactoryTest extends UnitTestCase
     public function getHeaderProxyInNonTestMode()
     {
         // new instances always have a disabled test mode
-        \Tx_Oelib_HeaderProxyFactory::purgeInstance();
+        HeaderProxyFactory::purgeInstance();
 
         self::assertSame(
-            \Tx_Oelib_RealHeaderProxy::class,
-            \get_class(\Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy())
+            RealHeaderProxy ::class,
+            \get_class(HeaderProxyFactory::getInstance()->getHeaderProxy())
         );
     }
 
@@ -63,13 +66,13 @@ class HeaderProxyFactoryTest extends UnitTestCase
      */
     public function getHeaderProxyInSameModeAfterPurgeInstanceReturnsNewInstance()
     {
-        \Tx_Oelib_HeaderProxyFactory::purgeInstance();
-        $instance = \Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy();
-        \Tx_Oelib_HeaderProxyFactory::purgeInstance();
+        HeaderProxyFactory::purgeInstance();
+        $instance = HeaderProxyFactory::getInstance()->getHeaderProxy();
+        HeaderProxyFactory::purgeInstance();
 
         self::assertNotSame(
             $instance,
-            \Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy()
+            HeaderProxyFactory::getInstance()->getHeaderProxy()
         );
     }
 
@@ -80,7 +83,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     {
         self::assertSame(
             $this->subject,
-            \Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy()
+            HeaderProxyFactory::getInstance()->getHeaderProxy()
         );
     }
 
@@ -90,11 +93,11 @@ class HeaderProxyFactoryTest extends UnitTestCase
     public function getHeaderProxyNotReturnsTheSameObjectWhenCalledInTheSameClassInAnotherMode()
     {
         // new instances always have a disabled test mode
-        \Tx_Oelib_HeaderProxyFactory::purgeInstance();
+        HeaderProxyFactory::purgeInstance();
 
         self::assertNotSame(
             $this->subject,
-            \Tx_Oelib_HeaderProxyFactory::getInstance()->getHeaderProxy()
+            HeaderProxyFactory::getInstance()->getHeaderProxy()
         );
     }
 
