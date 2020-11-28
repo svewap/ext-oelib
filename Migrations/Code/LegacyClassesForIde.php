@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {
     die('Access denied');
 }
@@ -105,7 +107,6 @@ namespace {
 
     }
 }
-
 
 namespace {
     /**

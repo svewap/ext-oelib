@@ -83,7 +83,7 @@
     },
     "scripts": {
         "php:fix": ".Build/vendor/bin/php-cs-fixer --config=Configuration/php-cs-fixer.php fix Classes Tests && .Build/vendor/bin/phpcbf Classes Configuration Tests TestExtensions",
-        "ci:php:lint": "find *.php Classes Configuration TestExtensions Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+        "ci:php:lint": "find *.php Classes Configuration Migrations TestExtensions Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
         "ci:php:sniff": ".Build/vendor/bin/phpcs Classes Configuration Tests TestExtensions",
         "ci:php:fixer": ".Build/vendor/bin/php-cs-fixer --config=Configuration/php-cs-fixer.php fix --dry-run -v --show-progress=dots --diff-format=udiff Classes Tests",
         "ci:tests:unit": ".Build/vendor/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/",

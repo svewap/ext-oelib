@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 return [
     // Authentication
     'Tx_Oelib_BackEndLoginManager' => \OliverKlee\Oelib\Authentication\BackEndLoginManager::class,
