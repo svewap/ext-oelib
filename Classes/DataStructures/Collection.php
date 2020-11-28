@@ -6,7 +6,6 @@ namespace OliverKlee\Oelib\DataStructures;
 
 use OliverKlee\Oelib\Interfaces\Sortable;
 use OliverKlee\Oelib\Model\AbstractModel;
-use SplObjectStorage;
 
 /**
  * This class represents a list of models.
@@ -14,7 +13,7 @@ use SplObjectStorage;
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Collection extends SplObjectStorage
+class Collection extends \SplObjectStorage
 {
     /**
      * @var int[] the UIDs in the list using the UIDs as both the keys and values
@@ -199,8 +198,8 @@ class Collection extends SplObjectStorage
     /**
      * Appends the contents of $list to this list.
      *
-     * Note: Since Collection extends SplObjectStorage this method is in most
-     * cases an synonym to appendUnique() as SplObjectStorage makes sure that
+     * Note: Since Collection extends \SplObjectStorage, this method is in most
+     * cases an synonym to appendUnique() as \SplObjectStorage makes sure that
      * no object is added more than once to it.
      *
      * @param Collection<AbstractModel> $list the list to append, may be empty
