@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Configuration;
 
 use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 use OliverKlee\Oelib\Interfaces\ConfigurationCheckable;
+use OliverKlee\Oelib\Templating\TemplateHelper;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -35,7 +36,7 @@ class ConfigurationCheck
     /**
      * the object whose configuration should be checked
      *
-     * @var \Tx_Oelib_TemplateHelper|ConfigurationCheckable
+     * @var TemplateHelper|ConfigurationCheckable
      */
     protected $objectToCheck = null;
 
@@ -58,10 +59,10 @@ class ConfigurationCheck
     /**
      * The constructor.
      *
-     * @param \Tx_Oelib_TemplateHelper $objectToCheck
+     * @param TemplateHelper $objectToCheck
      *        the object that will be checked for configuration problems
      */
-    public function __construct(\Tx_Oelib_TemplateHelper $objectToCheck)
+    public function __construct(TemplateHelper $objectToCheck)
     {
         $this->objectToCheck = $objectToCheck;
         $this->className = get_class($this->objectToCheck);

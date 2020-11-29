@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Templating\Fixtures;
 
+use OliverKlee\Oelib\Templating\TemplateHelper;
+
 /**
  * Testing subclass of TemplateHelper with a custom configuration check class.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class PluginWithCustomConfigurationCheck extends \Tx_Oelib_TemplateHelper
+class PluginWithCustomConfigurationCheck extends TemplateHelper
 {
     /**
      * @var string

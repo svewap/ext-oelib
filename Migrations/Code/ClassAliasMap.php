@@ -103,4 +103,7 @@ return [
     // Session
     'Tx_Oelib_FakeSession' => \OliverKlee\Oelib\Session\FakeSession::class,
     'Tx_Oelib_Session' => \OliverKlee\Oelib\Session\Session::class,
+
+    // Templating
+    'Tx_Oelib_TemplateHelper' => \OliverKlee\Oelib\Templating\TemplateHelper::class,
 ];

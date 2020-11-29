@@ -13,6 +13,7 @@ use OliverKlee\Oelib\Language\TranslatorRegistry;
 use OliverKlee\Oelib\Mail\MailerFactory;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Session\Session;
+use OliverKlee\Oelib\Templating\TemplateHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -38,7 +39,7 @@ class Tx_Oelib_TestingFrameworkCleanup
         MapperRegistry::purgeInstance();
         PageFinder::purgeInstance();
         Session::purgeInstances();
-        \Tx_Oelib_TemplateHelper::purgeCachedConfigurations();
+        TemplateHelper::purgeCachedConfigurations();
         TranslatorRegistry::purgeInstance();
 
         /** @var MailerFactory $mailerFactory */

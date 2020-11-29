@@ -703,3 +703,14 @@ namespace {
 
     }
 }
+
+// Templating
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_TemplateHelper extends \OliverKlee\Oelib\Templating\TemplateHelper
+    {
+
+    }
+}

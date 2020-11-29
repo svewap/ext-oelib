@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Templating;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationCheck;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
+use OliverKlee\Oelib\Templating\TemplateHelper;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\PluginWithCustomConfigurationCheck;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingConfigurationCheck;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
@@ -68,7 +69,7 @@ class TemplateHelperTest extends UnitTestCase
     {
         GeneralUtility::purgeInstances();
         ConfigurationProxy::purgeInstances();
-        \Tx_Oelib_TemplateHelper::purgeCachedConfigurations();
+        TemplateHelper::purgeCachedConfigurations();
         parent::tearDown();
     }
 
