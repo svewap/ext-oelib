@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Mapper;
 
 use OliverKlee\Oelib\Exception\NotFoundException;
-use OliverKlee\Oelib\Tests\TestingFramework;
+use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**

@@ -6,7 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Testing;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\System\Typo3Version;
-use OliverKlee\Oelib\Tests\TestingFramework;
+use OliverKlee\Oelib\Testing\TestingFramework;
 use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

@@ -7,7 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
-use OliverKlee\Oelib\Tests\TestingFramework;
+use OliverKlee\Oelib\Testing\TestingFramework;
 
 /**
  * Test case.

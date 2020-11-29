@@ -8,7 +8,7 @@ use OliverKlee\Oelib\Database\DatabaseService;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\AbstractModel;
-use OliverKlee\Oelib\Tests\TestingFramework;
+use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;

@@ -8,7 +8,7 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\Configuration;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Configuration\PageFinder;
-use OliverKlee\Oelib\Tests\TestingFramework;
+use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**

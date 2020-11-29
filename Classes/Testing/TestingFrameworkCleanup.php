@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OliverKlee\Oelib\Tests;
+namespace OliverKlee\Oelib\Testing;
 
 use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;

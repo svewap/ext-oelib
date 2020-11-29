@@ -101,8 +101,8 @@ return [
     'Tx_Oelib_TemplateRegistry' => \OliverKlee\Oelib\Templating\TemplateRegistry::class,
 
     // Testing
-    'Tx_Oelib_TestingFramework' => \OliverKlee\Oelib\Tests\TestingFramework::class,
-    'Tx_Oelib_TestingFrameworkCleanup' => \OliverKlee\Oelib\Tests\TestingFrameworkCleanup::class,
+    'Tx_Oelib_TestingFramework' => \OliverKlee\Oelib\Testing\TestingFramework::class,
+    'Tx_Oelib_TestingFrameworkCleanup' => \OliverKlee\Oelib\Testing\TestingFrameworkCleanup::class,
 
     // View Helpers
     'Tx_Oelib_ViewHelpers_GoogleMapsViewHelper' => \OliverKlee\Oelib\ViewHelpers\GoogleMapsViewHelper::class,
