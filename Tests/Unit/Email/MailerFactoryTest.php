@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Email;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use OliverKlee\Oelib\Mail\EmailCollector;
-use OliverKlee\Oelib\Mail\MailerFactory;
+use OliverKlee\Oelib\Email\EmailCollector;
+use OliverKlee\Oelib\Email\MailerFactory;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**

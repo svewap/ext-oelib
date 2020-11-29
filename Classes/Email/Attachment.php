@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OliverKlee\Oelib\Mail;
+namespace OliverKlee\Oelib\Email;
 
 /**
  * This class represents an e-mail attachment.

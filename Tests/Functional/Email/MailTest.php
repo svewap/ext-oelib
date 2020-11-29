@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Email;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use OliverKlee\Oelib\Mail\Mail;
+use OliverKlee\Oelib\Email\Mail;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**

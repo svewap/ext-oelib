@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Email;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use OliverKlee\Oelib\Mail\Attachment;
+use OliverKlee\Oelib\Email\Attachment;
 
 /**
  * Test case.

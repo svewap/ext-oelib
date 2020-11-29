@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Email;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use OliverKlee\Oelib\Mail\Attachment;
-use OliverKlee\Oelib\Mail\EmailCollector;
-use OliverKlee\Oelib\Mail\Mail;
+use OliverKlee\Oelib\Email\Attachment;
+use OliverKlee\Oelib\Email\EmailCollector;
+use OliverKlee\Oelib\Email\Mail;
 use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

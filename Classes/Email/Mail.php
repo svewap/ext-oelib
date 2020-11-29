@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OliverKlee\Oelib\Mail;
+namespace OliverKlee\Oelib\Email;
 
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors;
 use OliverKlee\Oelib\Interfaces\MailRole;

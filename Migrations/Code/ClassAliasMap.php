@@ -22,6 +22,14 @@ return [
     'Tx_Oelib_PublicObject' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors::class,
     'Tx_Oelib_List' => \OliverKlee\Oelib\DataStructures\Collection::class,
 
+    // Email
+    'Tx_Oelib_AbstractMailer' => \OliverKlee\Oelib\Email\AbstractMailer::class,
+    'Tx_Oelib_Attachment' => \OliverKlee\Oelib\Email\Attachment::class,
+    'Tx_Oelib_EmailCollector' => \OliverKlee\Oelib\Email\EmailCollector::class,
+    'Tx_Oelib_Mail' => \OliverKlee\Oelib\Email\Mail::class,
+    'Tx_Oelib_MailerFactory' => \OliverKlee\Oelib\Email\MailerFactory::class,
+    'Tx_Oelib_RealMailer' => \OliverKlee\Oelib\Email\RealMailer::class,
+
     // Exception
     'Tx_Oelib_Exception_AccessDenied' => \OliverKlee\Oelib\Exception\AccessDeniedException::class,
     'Tx_Oelib_Exception_Database' => \OliverKlee\Oelib\Exception\DatabaseException::class,
@@ -58,14 +66,6 @@ return [
     'Tx_Oelib_SalutationSwitcher' => \OliverKlee\Oelib\Language\SalutationSwitcher::class,
     'Tx_Oelib_Translator' => \OliverKlee\Oelib\Language\Translator::class,
     'Tx_Oelib_TranslatorRegistry' => \OliverKlee\Oelib\Language\TranslatorRegistry::class,
-
-    // Mail
-    'Tx_Oelib_AbstractMailer' => \OliverKlee\Oelib\Mail\AbstractMailer::class,
-    'Tx_Oelib_Attachment' => \OliverKlee\Oelib\Mail\Attachment::class,
-    'Tx_Oelib_EmailCollector' => \OliverKlee\Oelib\Mail\EmailCollector::class,
-    'Tx_Oelib_Mail' => \OliverKlee\Oelib\Mail\Mail::class,
-    'Tx_Oelib_MailerFactory' => \OliverKlee\Oelib\Mail\MailerFactory::class,
-    'Tx_Oelib_RealMailer' => \OliverKlee\Oelib\Mail\RealMailer::class,
 
     // Mapper
     'Tx_Oelib_DataMapper' => \OliverKlee\Oelib\Mapper\AbstractDataMapper::class,
