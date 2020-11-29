@@ -88,7 +88,7 @@ class MapperRegistryTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        MapperRegistry::get('Tx_Oelib_InexistentMapper');
+        MapperRegistry::get(InexistentMapper::class);
     }
 
     /**

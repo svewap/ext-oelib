@@ -43,8 +43,7 @@ model in oelib as an example:
 
 ::
 
-   class Tx_Oelib_Model_FrontEndUser extends AbstractModel implements
-         Tx_Oelib_Interface_MailRole, Tx_Oelib_Interface_Address
+   class FrontEndUser extends AbstractModel implements MailRole, Address
    {
          /**
         * Gets this user's user name.
@@ -58,7 +57,7 @@ model in oelib as an example:
          /**
         * Gets this user's user groups.
         *
-        * @return Tx_Oelib_List this user's FE user groups, will not be empty if
+        * @return Collection this user's FE user groups, will not be empty if
         *                       the user data is valid
         */
          public function getUserGroups() {
@@ -94,7 +93,7 @@ for examples:
          /**
         * @var string the model class name for this mapper, must not be empty
         */
-         protected $modelClassName = 'Tx_Oelib_Model_FrontEndUser';
+         protected $modelClassName = FrontEndUser::class;
 
          /**
         * @var array the (possible) relations of the created models in the format

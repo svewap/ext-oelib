@@ -7,17 +7,20 @@ return [
     'Tx_Oelib_BackEndLoginManager' => \OliverKlee\Oelib\Authentication\BackEndLoginManager::class,
     'Tx_Oelib_FrontEndLoginManager' => \OliverKlee\Oelib\Authentication\FrontEndLoginManager::class,
 
-    // Interfaces
-    'Tx_Oelib_Interface_Address' => \OliverKlee\Oelib\Interfaces\Address::class,
-    'Tx_Oelib_Interface_ConfigurationCheckable' => \OliverKlee\Oelib\Interfaces\ConfigurationCheckable::class,
-    'Tx_Oelib_Interface_GeocodingLookup' => \OliverKlee\Oelib\Interfaces\GeocodingLookup::class,
-    'Tx_Oelib_Interface_Geo' => \OliverKlee\Oelib\Interfaces\Geo::class,
-    'Tx_Oelib_Interface_Identity' => \OliverKlee\Oelib\Interfaces\Identity::class,
-    'Tx_Oelib_Interface_LoginManager' => \OliverKlee\Oelib\Interfaces\LoginManager::class,
-    'Tx_Oelib_Interface_MailRole' => \OliverKlee\Oelib\Interfaces\MailRole::class,
-    'Tx_Oelib_Interface_MapPoint' => \OliverKlee\Oelib\Interfaces\MapPoint::class,
-    'Tx_Oelib_Interface_Sortable' => \OliverKlee\Oelib\Interfaces\Sortable::class,
-    'Tx_Oelib_Time' => \OliverKlee\Oelib\Interfaces\Time::class,
+    // Configuration
+    'Tx_Oelib_ConfigCheck' => \OliverKlee\Oelib\Configuration\ConfigurationCheck::class,
+    'Tx_Oelib_Configuration' => \OliverKlee\Oelib\Configuration\Configuration::class,
+    'Tx_Oelib_ConfigurationProxy' => \OliverKlee\Oelib\Configuration\ConfigurationProxy::class,
+    'Tx_Oelib_ConfigurationRegistry' => \OliverKlee\Oelib\Configuration\ConfigurationRegistry::class,
+    'Tx_Oelib_PageFinder' => \OliverKlee\Oelib\Configuration\PageFinder::class,
+
+    // Database
+    'Tx_Oelib_Db' => \OliverKlee\Oelib\Database\DatabaseService::class,
+
+    // DataStructures
+    'Tx_Oelib_Object' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors::class,
+    'Tx_Oelib_PublicObject' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors::class,
+    'Tx_Oelib_List' => \OliverKlee\Oelib\DataStructures\Collection::class,
 
     // Exception
     'Tx_Oelib_Exception_AccessDenied' => \OliverKlee\Oelib\Exception\AccessDeniedException::class,
@@ -32,6 +35,37 @@ return [
     'Tx_Oelib_Geocoding_Calculcator' => \OliverKlee\Oelib\Geocoding\GeoCalculator::class,
     'Tx_Oelib_Geocoding_Dummy' => \OliverKlee\Oelib\Geocoding\DummyGeocodingLookup::class,
     'Tx_Oelib_Geocoding_Google' => \OliverKlee\Oelib\Geocoding\GoogleGeocoding::class,
+
+    // Http
+    'Tx_Oelib_AbstractHeaderProxy' => \OliverKlee\Oelib\Http\Interfaces\HeaderProxy::class,
+    'Tx_Oelib_HeaderCollector' => \OliverKlee\Oelib\Http\HeaderCollector::class,
+    'Tx_Oelib_HeaderProxyFactory' => \OliverKlee\Oelib\Http\HeaderProxyFactory::class,
+    'Tx_Oelib_RealHeaderProxy' => \OliverKlee\Oelib\Http\RealHeaderProxy::class,
+
+    // Interfaces
+    'Tx_Oelib_Interface_Address' => \OliverKlee\Oelib\Interfaces\Address::class,
+    'Tx_Oelib_Interface_ConfigurationCheckable' => \OliverKlee\Oelib\Interfaces\ConfigurationCheckable::class,
+    'Tx_Oelib_Interface_GeocodingLookup' => \OliverKlee\Oelib\Interfaces\GeocodingLookup::class,
+    'Tx_Oelib_Interface_Geo' => \OliverKlee\Oelib\Interfaces\Geo::class,
+    'Tx_Oelib_Interface_Identity' => \OliverKlee\Oelib\Interfaces\Identity::class,
+    'Tx_Oelib_Interface_LoginManager' => \OliverKlee\Oelib\Interfaces\LoginManager::class,
+    'Tx_Oelib_Interface_MailRole' => \OliverKlee\Oelib\Interfaces\MailRole::class,
+    'Tx_Oelib_Interface_MapPoint' => \OliverKlee\Oelib\Interfaces\MapPoint::class,
+    'Tx_Oelib_Interface_Sortable' => \OliverKlee\Oelib\Interfaces\Sortable::class,
+    'Tx_Oelib_Time' => \OliverKlee\Oelib\Interfaces\Time::class,
+
+    // Language
+    'Tx_Oelib_SalutationSwitcher' => \OliverKlee\Oelib\Language\SalutationSwitcher::class,
+    'Tx_Oelib_Translator' => \OliverKlee\Oelib\Language\Translator::class,
+    'Tx_Oelib_TranslatorRegistry' => \OliverKlee\Oelib\Language\TranslatorRegistry::class,
+
+    // Mail
+    'Tx_Oelib_AbstractMailer' => \OliverKlee\Oelib\Mail\AbstractMailer::class,
+    'Tx_Oelib_Attachment' => \OliverKlee\Oelib\Mail\Attachment::class,
+    'Tx_Oelib_EmailCollector' => \OliverKlee\Oelib\Mail\EmailCollector::class,
+    'Tx_Oelib_Mail' => \OliverKlee\Oelib\Mail\Mail::class,
+    'Tx_Oelib_MailerFactory' => \OliverKlee\Oelib\Mail\MailerFactory::class,
+    'Tx_Oelib_RealMailer' => \OliverKlee\Oelib\Mail\RealMailer::class,
 
     // Mapper
     'Tx_Oelib_DataMapper' => \OliverKlee\Oelib\Mapper\AbstractDataMapper::class,
@@ -57,49 +91,6 @@ return [
     'Tx_Oelib_Model_FrontEndUserGroup' => \OliverKlee\Oelib\Model\FrontEndUserGroup::class,
     'Tx_Oelib_Model_Language' => \OliverKlee\Oelib\Model\Language::class,
 
-    // View Helpers
-    'Tx_Oelib_ViewHelpers_GoogleMapsViewHelper' => \OliverKlee\Oelib\ViewHelpers\GoogleMapsViewHelper::class,
-    'Tx_Oelib_ViewHelper_Price' => \OliverKlee\Oelib\ViewHelpers\PriceViewHelper::class,
-    'Tx_Oelib_ViewHelpers_UppercaseViewHelper' => \OliverKlee\Oelib\ViewHelpers\UppercaseViewHelper::class,
-
-    // Visibility
-    'Tx_Oelib_Visibility_Node' => \OliverKlee\Oelib\Visibility\Node::class,
-    'Tx_Oelib_Visibility_Tree' => \OliverKlee\Oelib\Visibility\Tree::class,
-
-    // Configuration
-    'Tx_Oelib_ConfigCheck' => \OliverKlee\Oelib\Configuration\ConfigurationCheck::class,
-    'Tx_Oelib_Configuration' => \OliverKlee\Oelib\Configuration\Configuration::class,
-    'Tx_Oelib_ConfigurationProxy' => \OliverKlee\Oelib\Configuration\ConfigurationProxy::class,
-    'Tx_Oelib_ConfigurationRegistry' => \OliverKlee\Oelib\Configuration\ConfigurationRegistry::class,
-    'Tx_Oelib_PageFinder' => \OliverKlee\Oelib\Configuration\PageFinder::class,
-
-    // DataStructures
-    'Tx_Oelib_Object' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors::class,
-    'Tx_Oelib_PublicObject' => \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors::class,
-    'Tx_Oelib_List' => \OliverKlee\Oelib\DataStructures\Collection::class,
-
-    // DB
-    'Tx_Oelib_Db' => \OliverKlee\Oelib\Database\DatabaseService::class,
-
-    // Http
-    'Tx_Oelib_AbstractHeaderProxy' => \OliverKlee\Oelib\Http\Interfaces\HeaderProxy::class,
-    'Tx_Oelib_HeaderCollector' => \OliverKlee\Oelib\Http\HeaderCollector::class,
-    'Tx_Oelib_HeaderProxyFactory' => \OliverKlee\Oelib\Http\HeaderProxyFactory::class,
-    'Tx_Oelib_RealHeaderProxy' => \OliverKlee\Oelib\Http\RealHeaderProxy::class,
-
-    // Language
-    'Tx_Oelib_SalutationSwitcher' => \OliverKlee\Oelib\Language\SalutationSwitcher::class,
-    'Tx_Oelib_Translator' => \OliverKlee\Oelib\Language\Translator::class,
-    'Tx_Oelib_TranslatorRegistry' => \OliverKlee\Oelib\Language\TranslatorRegistry::class,
-
-    // Mail
-    'Tx_Oelib_AbstractMailer' => \OliverKlee\Oelib\Mail\AbstractMailer::class,
-    'Tx_Oelib_Attachment' => \OliverKlee\Oelib\Mail\Attachment::class,
-    'Tx_Oelib_EmailCollector' => \OliverKlee\Oelib\Mail\EmailCollector::class,
-    'Tx_Oelib_Mail' => \OliverKlee\Oelib\Mail\Mail::class,
-    'Tx_Oelib_MailerFactory' => \OliverKlee\Oelib\Mail\MailerFactory::class,
-    'Tx_Oelib_RealMailer' => \OliverKlee\Oelib\Mail\RealMailer::class,
-
     // Session
     'Tx_Oelib_FakeSession' => \OliverKlee\Oelib\Session\FakeSession::class,
     'Tx_Oelib_Session' => \OliverKlee\Oelib\Session\Session::class,
@@ -112,4 +103,13 @@ return [
     // Testing
     'Tx_Oelib_TestingFramework' => \OliverKlee\Oelib\Tests\TestingFramework::class,
     'Tx_Oelib_TestingFrameworkCleanup' => \OliverKlee\Oelib\Tests\TestingFrameworkCleanup::class,
+
+    // View Helpers
+    'Tx_Oelib_ViewHelpers_GoogleMapsViewHelper' => \OliverKlee\Oelib\ViewHelpers\GoogleMapsViewHelper::class,
+    'Tx_Oelib_ViewHelper_Price' => \OliverKlee\Oelib\ViewHelpers\PriceViewHelper::class,
+    'Tx_Oelib_ViewHelpers_UppercaseViewHelper' => \OliverKlee\Oelib\ViewHelpers\UppercaseViewHelper::class,
+
+    // Visibility
+    'Tx_Oelib_Visibility_Node' => \OliverKlee\Oelib\Visibility\Node::class,
+    'Tx_Oelib_Visibility_Tree' => \OliverKlee\Oelib\Visibility\Tree::class,
 ];

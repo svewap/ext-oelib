@@ -48,7 +48,7 @@ mirrors these requirements:
 ::
 
    $tree = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-    Tx_Oelib_Visibility_Tree::class,
+    Tree::class,
     array(
      ‘ParentSubpart1’ => array(
       ‘ChildSubpart1’ => false,

@@ -89,6 +89,162 @@ namespace {
     }
 }
 
+// DataStructures
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    abstract class Tx_Oelib_Object extends \OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    abstract class Tx_Oelib_PublicObject extends \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_List extends \OliverKlee\Oelib\DataStructures\Collection
+    {
+
+    }
+}
+
+// Exception
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Exception_AccessDenied extends \OliverKlee\Oelib\Exception\AccessDeniedException
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Exception_Database extends \OliverKlee\Oelib\Exception\DatabaseException
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Exception_EmptyQueryResult extends \OliverKlee\Oelib\Exception\EmptyQueryResultException
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Exception_NotFound extends \OliverKlee\Oelib\Exception\NotFoundException
+    {
+
+    }
+}
+
+// Frontend
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_FrontEnd_UserWithoutCookies extends \OliverKlee\Oelib\Frontend\UserWithoutCookies
+    {
+
+    }
+}
+
+// Geocoding
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Geocoding_Calculcator extends \OliverKlee\Oelib\Geocoding\GeoCalculator
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Geocoding_Dummy extends \OliverKlee\Oelib\Geocoding\DummyGeocodingLookup
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Geocoding_Google extends \OliverKlee\Oelib\Geocoding\GoogleGeocoding
+    {
+
+    }
+}
+
+// Http
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    interface Tx_Oelib_AbstractHeaderProxy extends \OliverKlee\Oelib\Http\Interfaces\HeaderProxy
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_HeaderCollector extends \OliverKlee\Oelib\Http\HeaderCollector
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_HeaderProxyFactory extends \OliverKlee\Oelib\Http\HeaderProxyFactory
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_RealHeaderProxy extends \OliverKlee\Oelib\Http\RealHeaderProxy
+    {
+
+    }
+}
+
+// Interfaces
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
@@ -281,158 +437,7 @@ namespace {
     }
 }
 
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    abstract class Tx_Oelib_Object extends \OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    abstract class Tx_Oelib_PublicObject extends \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_List extends \OliverKlee\Oelib\DataStructures\Collection
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_Exception_AccessDenied extends \OliverKlee\Oelib\Exception\AccessDeniedException
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_Exception_Database extends \OliverKlee\Oelib\Exception\DatabaseException
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_Exception_EmptyQueryResult extends \OliverKlee\Oelib\Exception\EmptyQueryResultException
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_Exception_NotFound extends \OliverKlee\Oelib\Exception\NotFoundException
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_FrontEnd_UserWithoutCookies extends \OliverKlee\Oelib\Frontend\UserWithoutCookies
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_Geocoding_Calculcator extends \OliverKlee\Oelib\Geocoding\GeoCalculator
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_Geocoding_Dummy extends \OliverKlee\Oelib\Geocoding\DummyGeocodingLookup
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_Geocoding_Google extends \OliverKlee\Oelib\Geocoding\GoogleGeocoding
-    {
-
-    }
-}
-
-// Http
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    interface Tx_Oelib_AbstractHeaderProxy extends \OliverKlee\Oelib\Http\Interfaces\HeaderProxy
-    {
-
-    }
-}
-
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_HeaderCollector extends \OliverKlee\Oelib\Http\HeaderCollector
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_HeaderProxyFactory extends \OliverKlee\Oelib\Http\HeaderProxyFactory
-    {
-
-    }
-}
-
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_RealHeaderProxy extends \OliverKlee\Oelib\Http\RealHeaderProxy
-    {
-
-    }
-}
-
+// Mapper
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
@@ -543,6 +548,7 @@ namespace {
     }
 }
 
+// Model
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
@@ -706,6 +712,7 @@ namespace {
     }
 }
 
+// ViewHelpers
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
@@ -736,6 +743,7 @@ namespace {
     }
 }
 
+// Visibility
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
