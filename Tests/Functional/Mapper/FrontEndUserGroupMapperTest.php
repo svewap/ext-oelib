@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
+use OliverKlee\Oelib\Tests\TestingFramework;
 
 /**
  * Test case.
@@ -21,7 +22,7 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_TestingFramework for creating dummy records
+     * @var TestingFramework for creating dummy records
      */
     private $testingFramework = null;
 
@@ -33,7 +34,7 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new TestingFramework('tx_oelib');
 
         $this->subject = new FrontEndUserGroupMapper();
     }

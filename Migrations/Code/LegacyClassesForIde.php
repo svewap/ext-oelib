@@ -685,6 +685,27 @@ namespace {
     }
 }
 
+// Tests
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_TestingFramework extends \OliverKlee\Oelib\Tests\TestingFramework
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_TestingFrameworkCleanup extends \OliverKlee\Oelib\Tests\TestingFrameworkCleanup
+    {
+
+    }
+}
+
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0

@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Testing;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\System\Typo3Version;
+use OliverKlee\Oelib\Tests\TestingFramework;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Environment;
@@ -23,7 +24,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class FrameworkTest extends FunctionalTestCase
+class TestingFrameworkTest extends FunctionalTestCase
 {
     /**
      * @var string[]
@@ -35,7 +36,7 @@ class FrameworkTest extends FunctionalTestCase
     ];
 
     /**
-     * @var \Tx_Oelib_TestingFramework
+     * @var TestingFramework
      */
     private $subject = null;
 
@@ -43,7 +44,7 @@ class FrameworkTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->subject = new \Tx_Oelib_TestingFramework('tx_oelib', ['user_oelibtest']);
+        $this->subject = new TestingFramework('tx_oelib', ['user_oelibtest']);
     }
 
     /*
@@ -3357,7 +3358,7 @@ class FrameworkTest extends FunctionalTestCase
      */
     public function getDummyColumnNameForThirdPartyExtensionTableReturnsPrefixedColumnName()
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework(
+        $testingFramework = new TestingFramework(
             'user_oelibtest',
             ['user_oelibtest2']
         );

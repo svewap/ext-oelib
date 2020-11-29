@@ -15,11 +15,6 @@ use OliverKlee\Oelib\Configuration\PageFinder;
 class PageFinderTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_TestingFramework
-     */
-    private $testingFramework;
-
-    /**
      * @var PageFinder
      */
     private $subject;

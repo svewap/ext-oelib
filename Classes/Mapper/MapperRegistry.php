@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Mapper;
 
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Tests\TestingFramework;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -37,7 +38,7 @@ class MapperRegistry
     private $testingMode = false;
 
     /**
-     * @var \Tx_Oelib_TestingFramework the testingFramework to use in testing mode
+     * @var TestingFramework the testingFramework to use in testing mode
      */
     private $testingFramework = null;
 
@@ -155,11 +156,11 @@ class MapperRegistry
     /**
      * Activates the testing mode. This automatically will activate the testing mode for all future mappers.
      *
-     * @param \Tx_Oelib_TestingFramework $testingFramework
+     * @param TestingFramework $testingFramework
      *
      * @return void
      */
-    public function activateTestingMode(\Tx_Oelib_TestingFramework $testingFramework)
+    public function activateTestingMode(TestingFramework $testingFramework)
     {
         $this->testingMode = true;
         $this->testingFramework = $testingFramework;

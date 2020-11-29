@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Configuration;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationCheck;
+use OliverKlee\Oelib\Tests\TestingFramework;
 use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\DummyObjectToCheck;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -22,7 +23,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_TestingFramework
+     * @var TestingFramework
      */
     private $testingFramework = null;
 
@@ -35,7 +36,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new TestingFramework('tx_oelib');
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
 
         $objectToCheck = new DummyObjectToCheck(

@@ -11,6 +11,7 @@ use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
+use OliverKlee\Oelib\Tests\TestingFramework;
 
 /**
  * Test case.
@@ -26,7 +27,7 @@ class BackEndUserMapperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_TestingFramework for creating dummy records
+     * @var TestingFramework for creating dummy records
      */
     private $testingFramework = null;
 
@@ -38,7 +39,7 @@ class BackEndUserMapperTest extends FunctionalTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new TestingFramework('tx_oelib');
 
         $this->subject = new BackEndUserMapper();
     }

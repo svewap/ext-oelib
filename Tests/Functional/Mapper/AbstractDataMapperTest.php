@@ -11,6 +11,7 @@ use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Model\FrontEndUser;
+use OliverKlee\Oelib\Tests\TestingFramework;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
@@ -58,7 +59,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function cleanUpAfterSaveRemovesCreatedRecord()
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $testingFramework = new TestingFramework('tx_oelib');
         $this->subject->setTestingFramework($testingFramework);
 
         $model = new TestingModel();
@@ -77,7 +78,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function cleanUpAfterSaveRemovesAssociationTableEntriesRecord()
     {
-        $testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $testingFramework = new TestingFramework('tx_oelib');
         $this->subject->setTestingFramework($testingFramework);
 
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);

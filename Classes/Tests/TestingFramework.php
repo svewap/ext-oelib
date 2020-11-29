@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Tests;
+
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\DatabaseException;
@@ -29,7 +31,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-final class Tx_Oelib_TestingFramework
+final class TestingFramework
 {
     /**
      * @var int
@@ -195,7 +197,7 @@ final class Tx_Oelib_TestingFramework
      *
      * This testing framework can be instantiated for one extension at a time.
      * Example: In your testcase, you'll have something similar to this line of code:
-     * $this->subject = new \Tx_Oelib_TestingFramework('tx_seminars');
+     * $this->subject = new TestingFramework('tx_seminars');
      * The parameter you provide is the prefix of the table names of that particular
      * extension. Like this, we ensure that the testing framework creates and
      * deletes records only on table with this prefix.

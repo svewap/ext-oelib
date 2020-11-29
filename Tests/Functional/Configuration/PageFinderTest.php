@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Configuration;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\PageFinder;
+use OliverKlee\Oelib\Tests\TestingFramework;
 
 /**
  * Test case.
@@ -20,7 +21,7 @@ class PageFinderTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_TestingFramework
+     * @var TestingFramework
      */
     private $testingFramework = null;
 
@@ -32,7 +33,7 @@ class PageFinderTest extends FunctionalTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new TestingFramework('tx_oelib');
 
         $this->subject = PageFinder::getInstance();
     }

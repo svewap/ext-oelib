@@ -8,6 +8,7 @@ use OliverKlee\Oelib\Database\DatabaseService;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\AbstractModel;
+use OliverKlee\Oelib\Tests\TestingFramework;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -90,7 +91,7 @@ abstract class AbstractDataMapper
     private $denyDatabaseAccess = false;
 
     /**
-     * @var \Tx_Oelib_TestingFramework
+     * @var TestingFramework
      */
     protected $testingFramework = null;
 
@@ -120,11 +121,11 @@ abstract class AbstractDataMapper
      * Sets the testing framework. During functional tests, this makes sure that records created with this mapper
      * will be deleted during cleanUp again.
      *
-     * @param \Tx_Oelib_TestingFramework $testingFramework
+     * @param TestingFramework $testingFramework
      *
      * @return void
      */
-    public function setTestingFramework(\Tx_Oelib_TestingFramework $testingFramework)
+    public function setTestingFramework(TestingFramework $testingFramework)
     {
         $this->testingFramework = $testingFramework;
     }

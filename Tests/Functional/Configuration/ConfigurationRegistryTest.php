@@ -8,6 +8,7 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\Configuration;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Configuration\PageFinder;
+use OliverKlee\Oelib\Tests\TestingFramework;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -23,14 +24,14 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_TestingFramework
+     * @var TestingFramework
      */
     private $testingFramework = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->testingFramework = new \Tx_Oelib_TestingFramework('tx_oelib');
+        $this->testingFramework = new TestingFramework('tx_oelib');
     }
 
     protected function tearDown()
