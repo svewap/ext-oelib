@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Language\Fixtures;
 
+use OliverKlee\Oelib\Language\SalutationSwitcher;
+
 /**
  * This is mere a class used for unit tests. Do not use it for any other purpose.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-final class TestingSalutationSwitcher extends \Tx_Oelib_SalutationSwitcher
+final class TestingSalutationSwitcher extends SalutationSwitcher
 {
     /**
      * @var string

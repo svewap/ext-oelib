@@ -8,6 +8,8 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use OliverKlee\Oelib\Configuration\Configuration;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
+use OliverKlee\Oelib\Language\Translator;
+use OliverKlee\Oelib\Language\TranslatorRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -75,8 +77,8 @@ class TranslatorRegistryTest extends FunctionalTestCase
         $this->setUpFrontEnd();
 
         self::assertInstanceOf(
-            \Tx_Oelib_TranslatorRegistry::class,
-            \Tx_Oelib_TranslatorRegistry::getInstance()
+            TranslatorRegistry::class,
+            TranslatorRegistry::getInstance()
         );
     }
 
@@ -88,8 +90,8 @@ class TranslatorRegistryTest extends FunctionalTestCase
         $this->setUpFrontEnd();
 
         self::assertSame(
-            \Tx_Oelib_TranslatorRegistry::getInstance(),
-            \Tx_Oelib_TranslatorRegistry::getInstance()
+            TranslatorRegistry::getInstance(),
+            TranslatorRegistry::getInstance()
         );
     }
 
@@ -100,12 +102,12 @@ class TranslatorRegistryTest extends FunctionalTestCase
     {
         $this->setUpFrontEnd();
 
-        $firstInstance = \Tx_Oelib_TranslatorRegistry::getInstance();
-        \Tx_Oelib_TranslatorRegistry::purgeInstance();
+        $firstInstance = TranslatorRegistry::getInstance();
+        TranslatorRegistry::purgeInstance();
 
         self::assertNotSame(
             $firstInstance,
-            \Tx_Oelib_TranslatorRegistry::getInstance()
+            TranslatorRegistry::getInstance()
         );
     }
 
@@ -123,7 +125,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The parameter $extensionName must not be empty.');
 
-        \Tx_Oelib_TranslatorRegistry::get('');
+        TranslatorRegistry::get('');
     }
 
     /**
@@ -136,7 +138,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage('The extension with the name "user_oelib_test_does_not_exist" is not loaded.');
 
-        \Tx_Oelib_TranslatorRegistry::get('user_oelib_test_does_not_exist');
+        TranslatorRegistry::get('user_oelib_test_does_not_exist');
     }
 
     /**
@@ -146,7 +148,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
     {
         $this->setUpFrontEnd();
 
-        self::assertInstanceOf(\Tx_Oelib_Translator::class, \Tx_Oelib_TranslatorRegistry::get('oelib'));
+        self::assertInstanceOf(Translator::class, TranslatorRegistry::get('oelib'));
     }
 
     /**
@@ -156,7 +158,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
     {
         $this->setUpFrontEnd();
 
-        self::assertSame(\Tx_Oelib_TranslatorRegistry::get('oelib'), \Tx_Oelib_TranslatorRegistry::get('oelib'));
+        self::assertSame(TranslatorRegistry::get('oelib'), TranslatorRegistry::get('oelib'));
     }
 
     /////////////////////////////////////////
@@ -176,7 +178,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'default',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->getLanguageKey()
+            TranslatorRegistry::get('oelib')->getLanguageKey()
         );
     }
 
@@ -193,7 +195,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'de',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->getLanguageKey()
+            TranslatorRegistry::get('oelib')->getLanguageKey()
         );
     }
 
@@ -206,7 +208,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             '',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
+            TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
         );
     }
 
@@ -241,7 +243,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'default',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->getLanguageKey()
+            TranslatorRegistry::get('oelib')->getLanguageKey()
         );
     }
 
@@ -259,7 +261,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'default',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->getLanguageKey()
+            TranslatorRegistry::get('oelib')->getLanguageKey()
         );
     }
 
@@ -277,7 +279,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'de',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->getLanguageKey()
+            TranslatorRegistry::get('oelib')->getLanguageKey()
         );
     }
 
@@ -295,7 +297,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             '',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
+            TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
         );
     }
 
@@ -313,7 +315,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'default',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
+            TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
         );
     }
 
@@ -331,7 +333,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'de',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
+            TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
         );
     }
 
@@ -346,7 +348,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'fr',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->getLanguageKey()
+            TranslatorRegistry::get('oelib')->getLanguageKey()
         );
     }
 
@@ -361,7 +363,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'ja',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
+            TranslatorRegistry::get('oelib')->getAlternativeLanguageKey()
         );
     }
 
@@ -378,7 +380,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'I am from file.',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->translate('label_test')
+            TranslatorRegistry::get('oelib')->translate('label_test')
         );
     }
 
@@ -397,7 +399,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'I am from TypoScript.',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->translate('label_test')
+            TranslatorRegistry::get('oelib')->translate('label_test')
         );
     }
 
@@ -414,7 +416,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'I am from file.',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->translate('label_test')
+            TranslatorRegistry::get('oelib')->translate('label_test')
         );
     }
 
@@ -432,7 +434,7 @@ class TranslatorRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             'I am from file.',
-            \Tx_Oelib_TranslatorRegistry::get('oelib')->translate('label_test')
+            TranslatorRegistry::get('oelib')->translate('label_test')
         );
     }
 
@@ -446,11 +448,11 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function getLanguageKeyForSetKeyReturnsSetKey()
     {
         $this->setUpFrontEnd();
-        \Tx_Oelib_TranslatorRegistry::getInstance()->setLanguageKey('de');
+        TranslatorRegistry::getInstance()->setLanguageKey('de');
 
         self::assertSame(
             'de',
-            \Tx_Oelib_TranslatorRegistry::getInstance()->getLanguageKey()
+            TranslatorRegistry::getInstance()->getLanguageKey()
         );
     }
 
@@ -463,6 +465,6 @@ class TranslatorRegistryTest extends FunctionalTestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The given language key must not be empty.');
 
-        \Tx_Oelib_TranslatorRegistry::getInstance()->setLanguageKey('');
+        TranslatorRegistry::getInstance()->setLanguageKey('');
     }
 }

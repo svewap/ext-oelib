@@ -87,4 +87,8 @@ return [
     'Tx_Oelib_HeaderProxyFactory' => \OliverKlee\Oelib\Http\HeaderProxyFactory::class,
     'Tx_Oelib_RealHeaderProxy' => \OliverKlee\Oelib\Http\RealHeaderProxy::class,
 
+    // Language
+    'Tx_Oelib_SalutationSwitcher' => \OliverKlee\Oelib\Language\SalutationSwitcher::class,
+    'Tx_Oelib_Translator' => \OliverKlee\Oelib\Language\Translator::class,
+    'Tx_Oelib_TranslatorRegistry' => \OliverKlee\Oelib\Language\TranslatorRegistry::class,
 ];

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Language;
+
 /**
  * This class returns localized labels in the given languages.
  *
@@ -11,7 +13,7 @@ declare(strict_types=1);
  * @author Stefano Kowalke <blueduck@gmx.net>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Translator
+class Translator
 {
     /**
      * @var string the key of the language to load the translations for

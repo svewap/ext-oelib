@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Templating;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Language\Translator;
 
 /**
  * Test case.
@@ -27,7 +28,7 @@ class TemplateTest extends UnitTestCase
         $localizedLabels = [
             'default' => ['label_foo' => [0 => ['source' => 'foo', 'target' => 'foo']]],
         ];
-        $translator = new \Tx_Oelib_Translator('de', '', $localizedLabels);
+        $translator = new Translator('de', '', $localizedLabels);
         $this->subject->injectTranslator($translator);
     }
 

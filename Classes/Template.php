@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Language\Translator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -62,18 +63,18 @@ class Tx_Oelib_Template
     private $subpartsToHide = [];
 
     /**
-     * @var \Tx_Oelib_Translator
+     * @var Translator
      */
     protected $translator = null;
 
     /**
      * Injects the translator.
      *
-     * @param \Tx_Oelib_Translator $translator
+     * @param Translator $translator
      *
      * @return void
      */
-    public function injectTranslator(\Tx_Oelib_Translator $translator)
+    public function injectTranslator(Translator $translator)
     {
         $this->translator = $translator;
     }

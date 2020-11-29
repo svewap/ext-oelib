@@ -6,6 +6,7 @@ use OliverKlee\Oelib\Configuration\ConfigurationCheck;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Exception\NotFoundException;
+use OliverKlee\Oelib\Language\SalutationSwitcher;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
@@ -16,7 +17,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_TemplateHelper extends \Tx_Oelib_SalutationSwitcher
+class Tx_Oelib_TemplateHelper extends SalutationSwitcher
 {
     /**
      * @var string the prefix used for CSS classes

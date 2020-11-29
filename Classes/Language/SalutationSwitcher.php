@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Language;
+
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
@@ -12,7 +14,7 @@ use TYPO3\CMS\Lang\LanguageService;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-abstract class Tx_Oelib_SalutationSwitcher extends AbstractPlugin
+abstract class SalutationSwitcher extends AbstractPlugin
 {
     /**
      * A list of language keys for which the localizations have been loaded

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Language;
+
 use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use OliverKlee\Oelib\Configuration\Configuration;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
@@ -20,17 +22,17 @@ use TYPO3\CMS\Lang\LanguageService;
  * @author Benjamin Schulte <benj@minschulte.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_TranslatorRegistry
+class TranslatorRegistry
 {
     /**
-     * @var \Tx_Oelib_TranslatorRegistry the Singleton instance
+     * @var TranslatorRegistry the Singleton instance
      */
     private static $instance = null;
 
     /**
      * extension name => Translator entries
      *
-     * @var \Tx_Oelib_Translator[]
+     * @var Translator[]
      */
     private $translators = [];
 
@@ -110,12 +112,12 @@ class Tx_Oelib_TranslatorRegistry
     /**
      * Returns the instance of this class.
      *
-     * @return \Tx_Oelib_TranslatorRegistry the current Singleton instance
+     * @return TranslatorRegistry the current Singleton instance
      */
-    public static function getInstance(): \Tx_Oelib_TranslatorRegistry
+    public static function getInstance(): TranslatorRegistry
     {
         if (self::$instance === null) {
-            self::$instance = new \Tx_Oelib_TranslatorRegistry();
+            self::$instance = new TranslatorRegistry();
         }
 
         return self::$instance;
@@ -140,11 +142,11 @@ class Tx_Oelib_TranslatorRegistry
      *        the extension name to get the Translator for, must not be empty, the corresponding extension must be
      *     loaded
      *
-     * @return \Tx_Oelib_Translator the Translator for the specified extension
+     * @return Translator the Translator for the specified extension
      *
      * @see getByExtensionName()
      */
-    public static function get(string $extensionName): \Tx_Oelib_Translator
+    public static function get(string $extensionName): Translator
     {
         return self::getInstance()->getByExtensionName($extensionName);
     }
@@ -156,10 +158,10 @@ class Tx_Oelib_TranslatorRegistry
      *        the extension name to get the Translator for, must not be empty, the corresponding extension must be
      *     loaded
      *
-     * @return \Tx_Oelib_Translator the Translator for the specified extension
+     * @return Translator the Translator for the specified extension
      *                             name
      */
-    private function getByExtensionName(string $extensionName): \Tx_Oelib_Translator
+    private function getByExtensionName(string $extensionName): Translator
     {
         if ($extensionName === '') {
             throw new \InvalidArgumentException('The parameter $extensionName must not be empty.', 1331489578);
@@ -186,9 +188,9 @@ class Tx_Oelib_TranslatorRegistry
                 }
             }
 
-            /** @var \Tx_Oelib_Translator $translator */
+            /** @var Translator $translator */
             $translator = GeneralUtility::makeInstance(
-                \Tx_Oelib_Translator::class,
+                Translator::class,
                 $this->languageKey,
                 $this->alternativeLanguageKey,
                 $localizedLabels

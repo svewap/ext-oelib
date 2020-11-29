@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Language;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Language\Translator;
 
 /**
  * Test case.
@@ -19,7 +20,7 @@ class TranslatorTest extends UnitTestCase
      */
     public function translateForInexistentLabelReturnsLabelKey()
     {
-        $subject = new \Tx_Oelib_Translator('default', '', []);
+        $subject = new Translator('default', '', []);
 
         self::assertSame(
             'label_test',
@@ -36,7 +37,7 @@ class TranslatorTest extends UnitTestCase
             'default' => ['label_test' => [0 => ['source' => 'English', 'target' => 'English']]],
             'de' => ['label_test' => [0 => ['source' => 'English', 'target' => 'Deutsch']]],
         ];
-        $subject = new \Tx_Oelib_Translator('default', '', $localizedLabels);
+        $subject = new Translator('default', '', $localizedLabels);
 
         self::assertSame(
             'English',
@@ -53,7 +54,7 @@ class TranslatorTest extends UnitTestCase
             'default' => ['label_test' => [0 => ['source' => 'English', 'target' => 'English']]],
             'de' => ['label_test' => [0 => ['source' => 'English', 'target' => 'Deutsch']]],
         ];
-        $subject = new \Tx_Oelib_Translator('de', '', $localizedLabels);
+        $subject = new Translator('de', '', $localizedLabels);
 
         self::assertSame(
             'Deutsch',
@@ -69,7 +70,7 @@ class TranslatorTest extends UnitTestCase
         $localizedLabels = [
             'default' => ['label_test' => [0 => ['source' => 'English', 'target' => 'English']]],
         ];
-        $subject = new \Tx_Oelib_Translator('de', '', $localizedLabels);
+        $subject = new Translator('de', '', $localizedLabels);
 
         self::assertSame(
             'English',
@@ -85,7 +86,7 @@ class TranslatorTest extends UnitTestCase
         $localizedLabels = [
             'de' => ['label_test' => [0 => ['source' => 'English', 'target' => 'Deutsch']]],
         ];
-        $subject = new \Tx_Oelib_Translator('default', 'de', $localizedLabels);
+        $subject = new Translator('default', 'de', $localizedLabels);
 
         self::assertSame(
             'Deutsch',

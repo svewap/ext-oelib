@@ -189,6 +189,37 @@ namespace {
     }
 }
 
+// Language
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_SalutationSwitcher extends \OliverKlee\Oelib\Language\SalutationSwitcher
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Translator extends \OliverKlee\Oelib\Language\Translator
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_TranslatorRegistry extends \OliverKlee\Oelib\Language\TranslatorRegistry
+    {
+
+    }
+}
+
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
