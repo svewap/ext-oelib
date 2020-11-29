@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Mail;
+
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors;
 use OliverKlee\Oelib\Interfaces\MailRole;
 use Pelago\Emogrifier\CssInliner;
@@ -14,7 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Mail extends AbstractObjectWithAccessors
+class Mail extends AbstractObjectWithAccessors
 {
     /**
      * @var MailRole the sender of the e-mail
@@ -37,7 +39,7 @@ class Tx_Oelib_Mail extends AbstractObjectWithAccessors
     private $data = [];
 
     /**
-     * @var \Tx_Oelib_Attachment[] attachments of the e-mail
+     * @var Attachment[] attachments of the e-mail
      */
     private $attachments = [];
 
@@ -289,11 +291,11 @@ class Tx_Oelib_Mail extends AbstractObjectWithAccessors
     /**
      * Adds an attachment to the e-mail.
      *
-     * @param \Tx_Oelib_Attachment $attachment the attachment to add
+     * @param Attachment $attachment the attachment to add
      *
      * @return void
      */
-    public function addAttachment(\Tx_Oelib_Attachment $attachment)
+    public function addAttachment(Attachment $attachment)
     {
         $this->attachments[] = $attachment;
     }
@@ -301,7 +303,7 @@ class Tx_Oelib_Mail extends AbstractObjectWithAccessors
     /**
      * Returns the attachments of the e-mail.
      *
-     * @return \Tx_Oelib_Attachment[] the attachments of the e-mail, might be empty
+     * @return Attachment[] the attachments of the e-mail, might be empty
      */
     public function getAttachments(): array
     {

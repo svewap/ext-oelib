@@ -10,6 +10,7 @@ use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
 use OliverKlee\Oelib\Http\HeaderProxyFactory;
 use OliverKlee\Oelib\Language\TranslatorRegistry;
+use OliverKlee\Oelib\Mail\MailerFactory;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -39,8 +40,8 @@ class Tx_Oelib_TestingFrameworkCleanup
         \Tx_Oelib_TemplateHelper::purgeCachedConfigurations();
         TranslatorRegistry::purgeInstance();
 
-        /** @var \Tx_Oelib_MailerFactory $mailerFactory */
-        $mailerFactory = GeneralUtility::makeInstance(\Tx_Oelib_MailerFactory::class);
+        /** @var MailerFactory $mailerFactory */
+        $mailerFactory = GeneralUtility::makeInstance(MailerFactory::class);
         $mailerFactory->cleanUp();
     }
 }

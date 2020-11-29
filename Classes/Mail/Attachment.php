@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Mail;
+
 /**
  * This class represents an e-mail attachment.
  *
@@ -9,7 +11,7 @@ declare(strict_types=1);
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_Attachment
+class Attachment
 {
     /**
      * @var string the file name of the attachment

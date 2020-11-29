@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Email;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Mail\Attachment;
+use OliverKlee\Oelib\Mail\Mail;
 use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
 
 /**
@@ -15,13 +17,13 @@ use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
 class MailTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Mail
+     * @var Mail
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_Mail();
+        $this->subject = new Mail();
     }
 
     /*
@@ -421,7 +423,7 @@ class MailTest extends UnitTestCase
      */
     public function getAttachmentsWithOneAttachmentReturnsOneAttachment()
     {
-        $attachment = new \Tx_Oelib_Attachment();
+        $attachment = new Attachment();
         $attachment->setFileName('test.txt');
         $attachment->setContentType('text/plain');
         $attachment->setContent('Test');
@@ -438,13 +440,13 @@ class MailTest extends UnitTestCase
      */
     public function getAttachmentsWithTwoAttachmentsReturnsTwoAttachments()
     {
-        $attachment = new \Tx_Oelib_Attachment();
+        $attachment = new Attachment();
         $attachment->setFileName('test.txt');
         $attachment->setContentType('text/plain');
         $attachment->setContent('Test');
         $this->subject->addAttachment($attachment);
 
-        $otherAttachment = new \Tx_Oelib_Attachment();
+        $otherAttachment = new Attachment();
         $otherAttachment->setFileName('second_test.txt');
         $otherAttachment->setContentType('text/plain');
         $otherAttachment->setContent('Second Test');

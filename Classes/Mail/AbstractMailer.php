@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Mail;
+
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -13,7 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-abstract class Tx_Oelib_AbstractMailer
+abstract class AbstractMailer
 {
     /**
      * @var bool whether an e-mail should be formatted before it is sent
@@ -30,15 +32,15 @@ abstract class Tx_Oelib_AbstractMailer
     }
 
     /**
-     * Sends an \Tx_Oelib_Mail object (one separate message per recipient).
+     * Sends an Mail object (one separate message per recipient).
      *
-     * @param \Tx_Oelib_Mail $email the \Tx_Oelib_Mail object to send
+     * @param Mail $email the Mail object to send
      *
      * @return void
      *
      * @throws \InvalidArgumentException
      */
-    public function send(\Tx_Oelib_Mail $email)
+    public function send(Mail $email)
     {
         if (!$email->hasSender()) {
             throw new \InvalidArgumentException('$email must have a sender set.', 1331318718);
@@ -82,7 +84,6 @@ abstract class Tx_Oelib_AbstractMailer
             $swiftMail->addPart($email->getHTMLMessage(), 'text/html');
         }
 
-        /** @var \Tx_Oelib_Attachment $attachment */
         foreach ($email->getAttachments() as $attachment) {
             if (($attachment->getFileName() !== '') && ($attachment->getContent() === '')) {
                 $swiftAttachment =

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Email;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Mail\Attachment;
 
 /**
  * Test case.
@@ -14,13 +15,13 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class AttachmentTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_Attachment
+     * @var Attachment
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_Attachment();
+        $this->subject = new Attachment();
     }
 
     ///////////////////////////////////////////////////////

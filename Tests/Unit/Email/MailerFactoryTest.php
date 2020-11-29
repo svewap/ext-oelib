@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Email;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Mail\EmailCollector;
+use OliverKlee\Oelib\Mail\MailerFactory;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
@@ -16,13 +18,13 @@ use TYPO3\CMS\Core\SingletonInterface;
 class MailerFactoryTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_MailerFactory
+     * @var MailerFactory
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_MailerFactory();
+        $this->subject = new MailerFactory();
     }
 
     /*
@@ -46,7 +48,7 @@ class MailerFactoryTest extends UnitTestCase
     public function getMailerInTestModeReturnsEmailCollector()
     {
         $this->subject->enableTestMode();
-        self::assertInstanceOf(\Tx_Oelib_EmailCollector::class, $this->subject->getMailer());
+        self::assertInstanceOf(EmailCollector::class, $this->subject->getMailer());
     }
 
     /**

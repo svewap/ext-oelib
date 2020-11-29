@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Mail;
+
 use TYPO3\CMS\Core\Mail\MailMessage;
 
 /**
@@ -11,7 +13,7 @@ use TYPO3\CMS\Core\Mail\MailMessage;
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class Tx_Oelib_RealMailer extends \Tx_Oelib_AbstractMailer
+class RealMailer extends AbstractMailer
 {
     /**
      * Sends a Swift e-mail.

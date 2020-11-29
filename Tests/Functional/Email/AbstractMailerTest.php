@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Email;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Mail\Attachment;
+use OliverKlee\Oelib\Mail\EmailCollector;
+use OliverKlee\Oelib\Mail\Mail;
 use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -22,7 +25,7 @@ class AbstractMailerTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_EmailCollector
+     * @var EmailCollector
      */
     private $subject = null;
 
@@ -40,7 +43,7 @@ class AbstractMailerTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->subject = new \Tx_Oelib_EmailCollector();
+        $this->subject = new EmailCollector();
 
         $message = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
         GeneralUtility::addInstance(MailMessage::class, $message);
@@ -63,13 +66,13 @@ class AbstractMailerTest extends FunctionalTestCase
      */
     public function sendCanAddOneAttachmentFromFile()
     {
-        $attachment = new \Tx_Oelib_Attachment();
+        $attachment = new Attachment();
         $attachment->setFileName(__DIR__ . '/Fixtures/test.txt');
         $attachment->setContentType('text/plain');
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -98,13 +101,13 @@ class AbstractMailerTest extends FunctionalTestCase
     public function sendCanAddOneAttachmentFromContent()
     {
         $content = '<p>Hello world!</p>';
-        $attachment = new \Tx_Oelib_Attachment();
+        $attachment = new Attachment();
         $attachment->setContent($content);
         $attachment->setContentType('text/html');
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -134,14 +137,14 @@ class AbstractMailerTest extends FunctionalTestCase
     {
         $content = '<p>Hello world!</p>';
         $fileName = 'greetings.html';
-        $attachment = new \Tx_Oelib_Attachment();
+        $attachment = new Attachment();
         $attachment->setContent($content);
         $attachment->setFileName($fileName);
         $attachment->setContentType('text/html');
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -175,17 +178,17 @@ class AbstractMailerTest extends FunctionalTestCase
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
         $eMail->setMessage(self::EMAIL['message']);
 
-        $attachment1 = new \Tx_Oelib_Attachment();
+        $attachment1 = new Attachment();
         $attachment1->setFileName(__DIR__ . '/Fixtures/test.txt');
         $attachment1->setContentType('text/plain');
         $eMail->addAttachment($attachment1);
-        $attachment2 = new \Tx_Oelib_Attachment();
+        $attachment2 = new Attachment();
         $attachment2->setFileName(__DIR__ . '/Fixtures/test_2.css');
         $attachment2->setContentType('text/css');
         $eMail->addAttachment($attachment2);

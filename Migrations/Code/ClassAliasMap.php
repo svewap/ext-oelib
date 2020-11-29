@@ -91,4 +91,12 @@ return [
     'Tx_Oelib_SalutationSwitcher' => \OliverKlee\Oelib\Language\SalutationSwitcher::class,
     'Tx_Oelib_Translator' => \OliverKlee\Oelib\Language\Translator::class,
     'Tx_Oelib_TranslatorRegistry' => \OliverKlee\Oelib\Language\TranslatorRegistry::class,
+
+    // Mail
+    'Tx_Oelib_AbstractMailer' => \OliverKlee\Oelib\Mail\AbstractMailer::class,
+    'Tx_Oelib_Attachment' => \OliverKlee\Oelib\Mail\Attachment::class,
+    'Tx_Oelib_EmailCollector' => \OliverKlee\Oelib\Mail\EmailCollector::class,
+    'Tx_Oelib_Mail' => \OliverKlee\Oelib\Mail\Mail::class,
+    'Tx_Oelib_MailerFactory' => \OliverKlee\Oelib\Mail\MailerFactory::class,
+    'Tx_Oelib_RealMailer' => \OliverKlee\Oelib\Mail\RealMailer::class,
 ];

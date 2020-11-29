@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Email;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Mail\EmailCollector;
+use OliverKlee\Oelib\Mail\Mail;
 use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -17,7 +19,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class AbstractMailerTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_EmailCollector
+     * @var EmailCollector
      */
     private $subject = null;
 
@@ -33,7 +35,7 @@ class AbstractMailerTest extends UnitTestCase
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_EmailCollector();
+        $this->subject = new EmailCollector();
 
         $message = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
         GeneralUtility::addInstance(MailMessage::class, $message);
@@ -91,7 +93,7 @@ class AbstractMailerTest extends UnitTestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$email must have a sender set.');
 
-        $email = new \Tx_Oelib_Mail();
+        $email = new Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
@@ -109,7 +111,7 @@ class AbstractMailerTest extends UnitTestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The e-mail must have at least one recipient.');
 
-        $email = new \Tx_Oelib_Mail();
+        $email = new Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
@@ -127,7 +129,7 @@ class AbstractMailerTest extends UnitTestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The e-mail subject must not be empty.');
 
-        $email = new \Tx_Oelib_Mail();
+        $email = new Mail();
         $email->setMessage('That is the way it is.');
 
         $emailRole = new TestingMailRole('John Doe', 'john@example.com');
@@ -145,7 +147,7 @@ class AbstractMailerTest extends UnitTestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The e-mail message must not be empty.');
 
-        $email = new \Tx_Oelib_Mail();
+        $email = new Mail();
         $email->setSubject('Everybody is happy!');
 
         $emailRole = new TestingMailRole('John Doe', 'john@example.com');
@@ -162,7 +164,7 @@ class AbstractMailerTest extends UnitTestCase
      */
     public function sendWithAllValidEmailAddressesNotThrowsException()
     {
-        $email = new \Tx_Oelib_Mail();
+        $email = new Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
@@ -180,7 +182,7 @@ class AbstractMailerTest extends UnitTestCase
      */
     public function sendWithAllValidLocalhostEmailAddressesNotThrowsException()
     {
-        $email = new \Tx_Oelib_Mail();
+        $email = new Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
@@ -198,7 +200,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $email = new \Tx_Oelib_Mail();
+        $email = new Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
@@ -218,7 +220,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $email = new \Tx_Oelib_Mail();
+        $email = new Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
@@ -239,7 +241,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $email = new \Tx_Oelib_Mail();
+        $email = new Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
@@ -259,7 +261,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $email = new \Tx_Oelib_Mail();
+        $email = new Mail();
         $email->setSubject('Everybody is happy!');
         $email->setMessage('That is the way it is.');
 
@@ -280,7 +282,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -302,7 +304,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -323,7 +325,7 @@ class AbstractMailerTest extends UnitTestCase
     public function sendForTwoRecipientsSendsTwoEmails()
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->setSubject(self::EMAIL['subject']);
         $eMail->setMessage(self::EMAIL['message']);
@@ -347,7 +349,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -369,7 +371,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -390,7 +392,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -412,7 +414,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -433,7 +435,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -461,7 +463,7 @@ class AbstractMailerTest extends UnitTestCase
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -489,7 +491,7 @@ class AbstractMailerTest extends UnitTestCase
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -516,7 +518,7 @@ class AbstractMailerTest extends UnitTestCase
         $htmlMessage = '<h1>Very cool HTML message</h1>' . LF . '<p>Great to have HTML e-mails in oelib.</p>';
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -542,7 +544,7 @@ class AbstractMailerTest extends UnitTestCase
         $htmlMessage = '<h1>Very cool HTML message</h1>' . LF . '<p>Great to have HTML e-mails in oelib.</p>';
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -569,7 +571,7 @@ class AbstractMailerTest extends UnitTestCase
 
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
@@ -592,7 +594,7 @@ class AbstractMailerTest extends UnitTestCase
     {
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('John Doe', self::EMAIL['recipient']);
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($sender);
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);

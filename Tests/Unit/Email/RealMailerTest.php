@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Email;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Mail\Mail;
+use OliverKlee\Oelib\Mail\RealMailer;
 use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Mail\MailMessage;
@@ -18,7 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class RealMailerTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_RealMailer
+     * @var RealMailer
      */
     private $subject = null;
 
@@ -29,7 +31,7 @@ class RealMailerTest extends UnitTestCase
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_RealMailer();
+        $this->subject = new RealMailer();
 
         $this->message = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
         GeneralUtility::addInstance(MailMessage::class, $this->message);
@@ -41,7 +43,7 @@ class RealMailerTest extends UnitTestCase
     public function sendSendsEmail()
     {
         $senderAndRecipient = new TestingMailRole('John Doe', 'john@example.com');
-        $eMail = new \Tx_Oelib_Mail();
+        $eMail = new Mail();
         $eMail->setSender($senderAndRecipient);
         $eMail->addRecipient($senderAndRecipient);
         $eMail->setSubject('Hello world!');

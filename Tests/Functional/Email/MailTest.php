@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Email;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Mail\Mail;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -20,14 +21,14 @@ class MailTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var \Tx_Oelib_Mail
+     * @var Mail
      */
     private $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = new \Tx_Oelib_Mail();
+        $this->subject = new Mail();
     }
 
     /*

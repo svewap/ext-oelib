@@ -220,6 +220,67 @@ namespace {
     }
 }
 
+// Mail
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    abstract class Tx_Oelib_AbstractMailer extends \OliverKlee\Oelib\Mail\AbstractMailer
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Attachment extends \OliverKlee\Oelib\Mail\Attachment
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_EmailCollector extends \OliverKlee\Oelib\Mail\EmailCollector
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Mail extends \OliverKlee\Oelib\Mail\Mail
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_MailerFactory extends \OliverKlee\Oelib\Mail\MailerFactory
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_RealMailer extends \OliverKlee\Oelib\Mail\RealMailer
+    {
+
+    }
+}
+
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
