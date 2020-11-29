@@ -264,7 +264,7 @@ class Mail extends AbstractObjectWithAccessors
     protected function loadCssInliner()
     {
         if (!class_exists(CssInliner::class)) {
-            require_once __DIR__ . '/../Resources/Private/Php/vendor/autoload.php';
+            require_once __DIR__ . '/../../Resources/Private/Php/vendor/autoload.php';
         }
     }
 
