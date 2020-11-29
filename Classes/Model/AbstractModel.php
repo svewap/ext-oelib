@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Model;
 
+use OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Interfaces\Identity;
@@ -16,7 +17,7 @@ use OliverKlee\Oelib\Interfaces\Identity;
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-abstract class AbstractModel extends \Tx_Oelib_Object implements Identity
+abstract class AbstractModel extends AbstractObjectWithAccessors implements Identity
 {
     /**
      * @var int a status indicating that this model has neither data nor UID yet

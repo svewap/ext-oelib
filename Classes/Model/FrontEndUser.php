@@ -465,10 +465,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      *
      * Will return "unknown gender" if there is no FrontEndUser.gender field.
      *
-     * @return int the gender of the user, will be
-     *                 \Tx_Oelib_Model_FrontEndUser::GENDER_FEMALE,
-     *                 \Tx_Oelib_Model_FrontEndUser::GENDER_MALE or
-     *                 \Tx_Oelib_Model_FrontEndUser::GENDER_UNKNOWN
+     * @return int the gender of the user, will be ::GENDER_FEMALE, ::GENDER_MALE or ::GENDER_UNKNOWN
      */
     public function getGender(): int
     {
@@ -680,7 +677,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     }
 
     /**
-     * Returns the country of this user as \Tx_Oelib_Model_Country.
+     * Returns the country of this user.
      *
      * Note: This function uses the "country code" field, not the free-text country field.
      *
