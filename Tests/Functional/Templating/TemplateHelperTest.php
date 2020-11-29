@@ -6,7 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Templating;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
-use OliverKlee\Oelib\Tests\Functional\Templating\Fixtures\TestingTemplateHelper;
+use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;

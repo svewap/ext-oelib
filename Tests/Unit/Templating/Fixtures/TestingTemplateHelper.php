@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OliverKlee\Oelib\Tests\Functional\Templating\Fixtures;
+namespace OliverKlee\Oelib\Tests\Unit\Templating\Fixtures;
 
 /**
  * This is mere a class used for unit tests. Don't use it for any other purpose.
