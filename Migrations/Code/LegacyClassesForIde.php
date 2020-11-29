@@ -654,6 +654,37 @@ namespace {
     }
 }
 
+// Templating
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Template extends \OliverKlee\Oelib\Templating\Template
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_TemplateHelper extends \OliverKlee\Oelib\Templating\TemplateHelper
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_TemplateRegistry extends \OliverKlee\Oelib\Templating\TemplateRegistry
+    {
+
+    }
+}
+
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
@@ -699,17 +730,6 @@ namespace {
      * @deprecated will be removed in oelib 4.0.0
      */
     class Tx_Oelib_Visibility_Tree extends \OliverKlee\Oelib\Visibility\Tree
-    {
-
-    }
-}
-
-// Templating
-namespace {
-    /**
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    class Tx_Oelib_TemplateHelper extends \OliverKlee\Oelib\Templating\TemplateHelper
     {
 
     }

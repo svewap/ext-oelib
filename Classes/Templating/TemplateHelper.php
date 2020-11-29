@@ -53,7 +53,7 @@ class TemplateHelper extends SalutationSwitcher
     private $templateFileName = '';
 
     /**
-     * @var \Tx_Oelib_Template this object's (only) template
+     * @var Template this object's (only) template
      */
     private $template = null;
 
@@ -510,12 +510,12 @@ class TemplateHelper extends SalutationSwitcher
      * Returns the template object from the template registry for the file name
      * in $this->templateFileName.
      *
-     * @return \Tx_Oelib_Template the template object for the template file name in `$this->templateFileName`
+     * @return Template the template object for the template file name in `$this->templateFileName`
      */
-    protected function getTemplate(): \Tx_Oelib_Template
+    protected function getTemplate(): Template
     {
         if ($this->template === null) {
-            $this->template = \Tx_Oelib_TemplateRegistry::get($this->templateFileName);
+            $this->template = TemplateRegistry::get($this->templateFileName);
         }
 
         return $this->template;
@@ -971,7 +971,7 @@ class TemplateHelper extends SalutationSwitcher
 
         $translator = $this;
         return preg_replace_callback(
-            \Tx_Oelib_Template::LABEL_PATTERN,
+            Template::LABEL_PATTERN,
             static function (array $matches) use ($translator) {
                 return $translator->translate(strtolower($matches[1]));
             },

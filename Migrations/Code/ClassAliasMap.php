@@ -105,5 +105,7 @@ return [
     'Tx_Oelib_Session' => \OliverKlee\Oelib\Session\Session::class,
 
     // Templating
+    'Tx_Oelib_Template' => \OliverKlee\Oelib\Templating\Template::class,
     'Tx_Oelib_TemplateHelper' => \OliverKlee\Oelib\Templating\TemplateHelper::class,
+    'Tx_Oelib_TemplateRegistry' => \OliverKlee\Oelib\Templating\TemplateRegistry::class,
 ];

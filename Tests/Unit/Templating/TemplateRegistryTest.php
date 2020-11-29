@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Templating;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Templating\Template;
+use OliverKlee\Oelib\Templating\TemplateRegistry;
 
 /**
  * Test case.
@@ -23,8 +25,8 @@ class TemplateRegistryTest extends UnitTestCase
     public function getInstanceReturnsTemplateRegistryInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_TemplateRegistry::class,
-            \Tx_Oelib_TemplateRegistry::getInstance()
+            TemplateRegistry::class,
+            TemplateRegistry::getInstance()
         );
     }
 
@@ -34,8 +36,8 @@ class TemplateRegistryTest extends UnitTestCase
     public function getInstanceTwoTimesReturnsSameInstance()
     {
         self::assertSame(
-            \Tx_Oelib_TemplateRegistry::getInstance(),
-            \Tx_Oelib_TemplateRegistry::getInstance()
+            TemplateRegistry::getInstance(),
+            TemplateRegistry::getInstance()
         );
     }
 
@@ -44,12 +46,12 @@ class TemplateRegistryTest extends UnitTestCase
      */
     public function getInstanceAfterPurgeInstanceReturnsNewInstance()
     {
-        $firstInstance = \Tx_Oelib_TemplateRegistry::getInstance();
-        \Tx_Oelib_TemplateRegistry::purgeInstance();
+        $firstInstance = TemplateRegistry::getInstance();
+        TemplateRegistry::purgeInstance();
 
         self::assertNotSame(
             $firstInstance,
-            \Tx_Oelib_TemplateRegistry::getInstance()
+            TemplateRegistry::getInstance()
         );
     }
 
@@ -63,8 +65,8 @@ class TemplateRegistryTest extends UnitTestCase
     public function getForEmptyTemplateFileNameReturnsTemplateInstance()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Template::class,
-            \Tx_Oelib_TemplateRegistry::get('')
+            Template::class,
+            TemplateRegistry::get('')
         );
     }
 
@@ -74,8 +76,8 @@ class TemplateRegistryTest extends UnitTestCase
     public function getForEmptyTemplateFileNameCalledTwoTimesReturnsNewInstance()
     {
         self::assertNotSame(
-            \Tx_Oelib_TemplateRegistry::get(''),
-            \Tx_Oelib_TemplateRegistry::get('')
+            TemplateRegistry::get(''),
+            TemplateRegistry::get('')
         );
     }
 
@@ -85,8 +87,8 @@ class TemplateRegistryTest extends UnitTestCase
     public function getForExistingTemplateFileNameReturnsTemplate()
     {
         self::assertInstanceOf(
-            \Tx_Oelib_Template::class,
-            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html')
+            Template::class,
+            TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html')
         );
     }
 
@@ -96,8 +98,8 @@ class TemplateRegistryTest extends UnitTestCase
     public function getForExistingTemplateFileNameCalledTwoTimesReturnsNewInstance()
     {
         self::assertNotSame(
-            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html'),
-            \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html')
+            TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html'),
+            TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html')
         );
     }
 
@@ -106,7 +108,7 @@ class TemplateRegistryTest extends UnitTestCase
      */
     public function getForExistingTemplateFileNameReturnsProcessedTemplate()
     {
-        $template = \Tx_Oelib_TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html');
+        $template = TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html');
 
         self::assertSame(
             'Hello world!' . LF,

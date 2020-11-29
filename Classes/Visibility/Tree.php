@@ -80,7 +80,7 @@ class Tree
      * Creates a numeric array of all subparts that still are hidden.
      *
      * The output of this function can be used for
-     * \Tx_Oelib_Template::hideSubpartsArray.
+     * Template::hideSubpartsArray.
      *
      * @return string[] the key of the subparts which are hidden, will be empty if no elements are hidden
      */

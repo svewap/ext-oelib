@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Templating;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -9,15 +11,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Oelib_TemplateRegistry
+class TemplateRegistry
 {
     /**
-     * @var \Tx_Oelib_TemplateRegistry the Singleton instance
+     * @var TemplateRegistry the Singleton instance
      */
     private static $instance = null;
 
     /**
-     * @var \Tx_Oelib_Template[] already created templates (by file name)
+     * @var Template[] already created templates (by file name)
      */
     private $templates = [];
 
@@ -31,12 +33,12 @@ class Tx_Oelib_TemplateRegistry
     /**
      * Returns an instance of this class.
      *
-     * @return \Tx_Oelib_TemplateRegistry the current Singleton instance
+     * @return TemplateRegistry the current Singleton instance
      */
-    public static function getInstance(): \Tx_Oelib_TemplateRegistry
+    public static function getInstance(): TemplateRegistry
     {
         if (!self::$instance) {
-            self::$instance = new \Tx_Oelib_TemplateRegistry();
+            self::$instance = new TemplateRegistry();
         }
 
         return self::$instance;
@@ -63,11 +65,11 @@ class Tx_Oelib_TemplateRegistry
      *        the file name of the template to retrieve, may not be empty to get a template that is not related to a
      *     template file.
      *
-     * @return \Tx_Oelib_Template the template for the given template file name
+     * @return Template the template for the given template file name
      *
      * @see getByFileName
      */
-    public static function get(string $templateFileName): \Tx_Oelib_Template
+    public static function get(string $templateFileName): Template
     {
         return self::getInstance()->getByFileName($templateFileName);
     }
@@ -83,13 +85,13 @@ class Tx_Oelib_TemplateRegistry
      *        the file name of the template to retrieve, may not be empty to get a template that is not related to a
      *     template file
      *
-     * @return \Tx_Oelib_Template the template for the given template file name
+     * @return Template the template for the given template file name
      */
-    public function getByFileName(string $fileName): \Tx_Oelib_Template
+    public function getByFileName(string $fileName): Template
     {
         if (!isset($this->templates[$fileName])) {
-            /** @var \Tx_Oelib_Template $template */
-            $template = GeneralUtility::makeInstance(\Tx_Oelib_Template::class);
+            /** @var Template $template */
+            $template = GeneralUtility::makeInstance(Template::class);
 
             if ($fileName !== '') {
                 $template->processTemplateFromFile($fileName);
