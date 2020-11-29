@@ -14,7 +14,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class GeoCalculcator implements SingletonInterface
+class GeoCalculator implements SingletonInterface
 {
     /**
      * the earth radius in kilometers

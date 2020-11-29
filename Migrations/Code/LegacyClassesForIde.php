@@ -365,7 +365,7 @@ namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
      */
-    class Tx_Oelib_Geocoding_Calculcator extends \OliverKlee\Oelib\Geocoding\GeoCalculcator
+    class Tx_Oelib_Geocoding_Calculcator extends \OliverKlee\Oelib\Geocoding\GeoCalculator
     {
 
     }

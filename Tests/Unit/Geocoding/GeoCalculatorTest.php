@@ -6,7 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
-use OliverKlee\Oelib\Geocoding\GeoCalculcator;
+use OliverKlee\Oelib\Geocoding\GeoCalculator;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 use TYPO3\CMS\Core\SingletonInterface;
 
@@ -15,10 +15,10 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class GeoCalculcatorTest extends UnitTestCase
+class GeoCalculatorTest extends UnitTestCase
 {
     /**
-     * @var GeoCalculcator
+     * @var GeoCalculator
      */
     protected $subject = null;
 
@@ -29,7 +29,7 @@ class GeoCalculcatorTest extends UnitTestCase
 
     protected function setUp()
     {
-        $this->subject = new GeoCalculcator();
+        $this->subject = new GeoCalculator();
 
         $this->geoObject = new TestingGeo();
         $this->geoObject->setGeoCoordinates(['latitude' => 50.733585499999997, 'longitude' => 7.1012733999999993]);
