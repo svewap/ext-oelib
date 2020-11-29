@@ -68,6 +68,7 @@ class TemplateHelperTest extends UnitTestCase
     {
         GeneralUtility::purgeInstances();
         ConfigurationProxy::purgeInstances();
+        \Tx_Oelib_TemplateHelper::purgeCachedConfigurations();
         parent::tearDown();
     }
 
@@ -205,36 +206,6 @@ class TemplateHelperTest extends UnitTestCase
     ////////////////////////////////////////////////////////
     // Tests for setting and reading configuration values.
     ////////////////////////////////////////////////////////
-
-    /**
-     * @test
-     */
-    public function setCachedConfigurationValueCreatesConfigurationForNewInstance()
-    {
-        \Tx_Oelib_TemplateHelper::setCachedConfigurationValue('foo', 'bar');
-
-        $subject = new \Tx_Oelib_TemplateHelper();
-        $subject->init();
-
-        self::assertSame(
-            'bar',
-            $subject->getConfValueString('foo')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function purgeCachedConfigurationsDropsCachedConfiguration()
-    {
-        \Tx_Oelib_TemplateHelper::setCachedConfigurationValue('foo', 'bar');
-        \Tx_Oelib_TemplateHelper::purgeCachedConfigurations();
-
-        $subject = new \Tx_Oelib_TemplateHelper();
-        $subject->init([]);
-
-        self::assertSame('', $subject->getConfValueString('foo'));
-    }
 
     /**
      * @test

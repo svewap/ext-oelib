@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop `TemplateHelper::setCachedConfigurationValue` (#489)
 
 ### Fixed
 - Fix Composer cache keys in the CI configuration file (#433)
