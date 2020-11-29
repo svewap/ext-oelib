@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Session;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Session\FakeSession;
+use OliverKlee\Oelib\Session\Session;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -39,7 +41,7 @@ class SessionTest extends UnitTestCase
 
         $GLOBALS['TSFE'] = null;
 
-        \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER);
+        Session::getInstance(Session::TYPE_USER);
     }
 
     /**
@@ -56,7 +58,7 @@ class SessionTest extends UnitTestCase
 
         $this->createFakeFrontEnd();
 
-        \Tx_Oelib_Session::getInstance(42);
+        Session::getInstance(42);
     }
 
     /**
@@ -67,8 +69,8 @@ class SessionTest extends UnitTestCase
         $this->createFakeFrontEnd();
 
         self::assertInstanceOf(
-            \Tx_Oelib_Session::class,
-            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER)
+            Session::class,
+            Session::getInstance(Session::TYPE_USER)
         );
     }
 
@@ -80,8 +82,8 @@ class SessionTest extends UnitTestCase
         $this->createFakeFrontEnd();
 
         self::assertInstanceOf(
-            \Tx_Oelib_Session::class,
-            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_TEMPORARY)
+            Session::class,
+            Session::getInstance(Session::TYPE_TEMPORARY)
         );
     }
 
@@ -93,8 +95,8 @@ class SessionTest extends UnitTestCase
         $this->createFakeFrontEnd();
 
         self::assertSame(
-            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER),
-            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER)
+            Session::getInstance(Session::TYPE_USER),
+            Session::getInstance(Session::TYPE_USER)
         );
     }
 
@@ -106,8 +108,8 @@ class SessionTest extends UnitTestCase
         $this->createFakeFrontEnd();
 
         self::assertNotSame(
-            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER),
-            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_TEMPORARY)
+            Session::getInstance(Session::TYPE_USER),
+            Session::getInstance(Session::TYPE_TEMPORARY)
         );
     }
 
@@ -117,12 +119,12 @@ class SessionTest extends UnitTestCase
     public function getInstanceWithSameTypesAfterPurgeInstancesReturnsNewInstance()
     {
         $this->createFakeFrontEnd();
-        $firstInstance = \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER);
-        \Tx_Oelib_Session::purgeInstances();
+        $firstInstance = Session::getInstance(Session::TYPE_USER);
+        Session::purgeInstances();
 
         self::assertNotSame(
             $firstInstance,
-            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER)
+            Session::getInstance(Session::TYPE_USER)
         );
     }
 
@@ -138,7 +140,7 @@ class SessionTest extends UnitTestCase
             'Only the types ::TYPE_USER and ::TYPE_TEMPORARY are allowed.'
         );
 
-        \Tx_Oelib_Session::setInstance(42, new \Tx_Oelib_FakeSession());
+        Session::setInstance(42, new FakeSession());
     }
 
     /**
@@ -146,12 +148,12 @@ class SessionTest extends UnitTestCase
      */
     public function getInstanceWithUserTypeReturnsInstanceFromSetInstance()
     {
-        $instance = new \Tx_Oelib_FakeSession();
-        \Tx_Oelib_Session::setInstance(\Tx_Oelib_Session::TYPE_USER, $instance);
+        $instance = new FakeSession();
+        Session::setInstance(Session::TYPE_USER, $instance);
 
         self::assertSame(
             $instance,
-            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER)
+            Session::getInstance(Session::TYPE_USER)
         );
     }
 
@@ -160,15 +162,15 @@ class SessionTest extends UnitTestCase
      */
     public function getInstanceWithTemporaryTypeReturnsInstanceFromSetInstance()
     {
-        $instance = new \Tx_Oelib_FakeSession();
-        \Tx_Oelib_Session::setInstance(
-            \Tx_Oelib_Session::TYPE_TEMPORARY,
+        $instance = new FakeSession();
+        Session::setInstance(
+            Session::TYPE_TEMPORARY,
             $instance
         );
 
         self::assertSame(
             $instance,
-            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_TEMPORARY)
+            Session::getInstance(Session::TYPE_TEMPORARY)
         );
     }
 
@@ -177,18 +179,18 @@ class SessionTest extends UnitTestCase
      */
     public function getInstanceWithDifferentTypesReturnsDifferentInstancesSetViaSetInstance()
     {
-        \Tx_Oelib_Session::setInstance(
-            \Tx_Oelib_Session::TYPE_USER,
-            new \Tx_Oelib_FakeSession()
+        Session::setInstance(
+            Session::TYPE_USER,
+            new FakeSession()
         );
-        \Tx_Oelib_Session::setInstance(
-            \Tx_Oelib_Session::TYPE_TEMPORARY,
-            new \Tx_Oelib_FakeSession()
+        Session::setInstance(
+            Session::TYPE_TEMPORARY,
+            new FakeSession()
         );
 
         self::assertNotSame(
-            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_USER),
-            \Tx_Oelib_Session::getInstance(\Tx_Oelib_Session::TYPE_TEMPORARY)
+            Session::getInstance(Session::TYPE_USER),
+            Session::getInstance(Session::TYPE_TEMPORARY)
         );
     }
 }

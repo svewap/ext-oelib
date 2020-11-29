@@ -633,6 +633,27 @@ namespace {
     }
 }
 
+// Session
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_FakeSession extends \OliverKlee\Oelib\Session\FakeSession
+    {
+
+    }
+}
+
+namespace {
+    /**
+     * @deprecated will be removed in oelib 4.0.0
+     */
+    class Tx_Oelib_Session extends \OliverKlee\Oelib\Session\Session
+    {
+
+    }
+}
+
 namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Session;
+
 /**
  * This class represents a fake session that doesn't use any real sessions,
  * thus not sending any HTTP headers.
@@ -10,7 +12,7 @@ declare(strict_types=1);
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_FakeSession extends \Tx_Oelib_Session
+class FakeSession extends Session
 {
     /**
      * @var array the data for this session

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Session;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use OliverKlee\Oelib\Session\FakeSession;
 
 /**
  * Test case.
@@ -14,13 +15,13 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class FakeSessionTest extends UnitTestCase
 {
     /**
-     * @var \Tx_Oelib_FakeSession
+     * @var FakeSession
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \Tx_Oelib_FakeSession();
+        $this->subject = new FakeSession();
     }
 
     /*
@@ -34,7 +35,7 @@ class FakeSessionTest extends UnitTestCase
      */
     public function fakeSessionCanBeInstantiatedDirectly()
     {
-        new \Tx_Oelib_FakeSession();
+        new FakeSession();
     }
 
     /*

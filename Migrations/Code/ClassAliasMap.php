@@ -99,4 +99,8 @@ return [
     'Tx_Oelib_Mail' => \OliverKlee\Oelib\Mail\Mail::class,
     'Tx_Oelib_MailerFactory' => \OliverKlee\Oelib\Mail\MailerFactory::class,
     'Tx_Oelib_RealMailer' => \OliverKlee\Oelib\Mail\RealMailer::class,
+
+    // Session
+    'Tx_Oelib_FakeSession' => \OliverKlee\Oelib\Session\FakeSession::class,
+    'Tx_Oelib_Session' => \OliverKlee\Oelib\Session\Session::class,
 ];

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace OliverKlee\Oelib\Session;
+
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -10,7 +12,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Oelib_Session extends AbstractObjectWithPublicAccessors
+class Session extends AbstractObjectWithPublicAccessors
 {
     /**
      * @var int session type for persistent data that is stored for the
@@ -39,7 +41,7 @@ class Tx_Oelib_Session extends AbstractObjectWithPublicAccessors
     private $type = 0;
 
     /**
-     * @var \Tx_Oelib_Session[] the instances, using the type as key
+     * @var Session[] the instances, using the type as key
      */
     private static $instances = [];
 
@@ -70,15 +72,15 @@ class Tx_Oelib_Session extends AbstractObjectWithPublicAccessors
      *        the type of the session to use; either TYPE_USER (persistent)
      *        or TYPE_TEMPORARY (only for the lifetime of the session cookie)
      *
-     * @return \Tx_Oelib_Session the current Singleton instance for the given
+     * @return Session the current Singleton instance for the given
      *                          type
      */
-    public static function getInstance(int $type): \Tx_Oelib_Session
+    public static function getInstance(int $type): Session
     {
         self::checkType($type);
 
         if (!isset(self::$instances[$type])) {
-            self::$instances[$type] = new \Tx_Oelib_Session($type);
+            self::$instances[$type] = new Session($type);
         }
 
         return self::$instances[$type];
@@ -88,11 +90,11 @@ class Tx_Oelib_Session extends AbstractObjectWithPublicAccessors
      * Sets the instance for the given type.
      *
      * @param int $type the type to set, must be either TYPE_USER or TYPE_TEMPORARY
-     * @param \Tx_Oelib_Session $instance the instance to set
+     * @param Session $instance the instance to set
      *
      * @return void
      */
-    public static function setInstance(int $type, \Tx_Oelib_Session $instance)
+    public static function setInstance(int $type, Session $instance)
     {
         self::checkType($type);
 
