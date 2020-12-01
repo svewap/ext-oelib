@@ -10,6 +10,8 @@ use TYPO3\CMS\Core\Utility\MailUtility;
 /**
  * This class builds email subjects with the email data from the install tool.
  *
+ * @deprecated will be removed in oelib 4.0
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class SystemEmailFromBuilder
