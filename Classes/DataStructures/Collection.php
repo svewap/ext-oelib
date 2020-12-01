@@ -16,7 +16,7 @@ use OliverKlee\Oelib\Model\AbstractModel;
 class Collection extends \SplObjectStorage
 {
     /**
-     * @var int[] the UIDs in the list using the UIDs as both the keys and values
+     * @var array<int, int> the UIDs in the list using the UIDs as both the keys and values
      */
     private $uids = [];
 

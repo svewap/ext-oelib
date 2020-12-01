@@ -32,7 +32,7 @@ class TranslatorRegistry
     /**
      * extension name => Translator entries
      *
-     * @var Translator[]
+     * @var array<string, Translator>
      */
     private $translators = [];
 
@@ -158,8 +158,7 @@ class TranslatorRegistry
      *        the extension name to get the Translator for, must not be empty, the corresponding extension must be
      *     loaded
      *
-     * @return Translator the Translator for the specified extension
-     *                             name
+     * @return Translator the Translator for the specified extension name
      */
     private function getByExtensionName(string $extensionName): Translator
     {
@@ -241,7 +240,8 @@ class TranslatorRegistry
      *        the extension name to get the localized labels from TypoScript setup for,
      *        must not be empty, the corresponding extension must be loaded
      *
-     * @return string[] the localized labels from the extension's TypoScript setup, will be empty if there are none
+     * @return array<string, string> the localized labels from the extension's TypoScript setup,
+     *         will be empty if there are none
      */
     private function getLocalizedLabelsFromTypoScript(string $extensionName): array
     {

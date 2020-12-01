@@ -28,7 +28,7 @@ class Session extends AbstractObjectWithPublicAccessors
     const TYPE_TEMPORARY = 2;
 
     /**
-     * @var string[] available type codes for the FE session functions
+     * @var array<int, string> available type codes for the FE session functions
      */
     private static $types = [
         self::TYPE_USER => 'user',
@@ -41,7 +41,7 @@ class Session extends AbstractObjectWithPublicAccessors
     private $type = 0;
 
     /**
-     * @var Session[] the instances, using the type as key
+     * @var array<int, \Session> the instances, using the type as key
      */
     private static $instances = [];
 

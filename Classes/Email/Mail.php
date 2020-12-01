@@ -29,22 +29,22 @@ class Mail extends AbstractObjectWithAccessors
     private $replyTo = null;
 
     /**
-     * @var MailRole[] the recipients of the e-mail
+     * @var array<int, MailRole> the recipients of the e-mail
      */
     private $recipients = [];
 
     /**
-     * @var array the data of this object
+     * @var array<string, mixed> the data of this object
      */
     private $data = [];
 
     /**
-     * @var Attachment[] attachments of the e-mail
+     * @var array<int, Attachment> attachments of the e-mail
      */
     private $attachments = [];
 
     /**
-     * @var string[] the CSS files which already have been read
+     * @var array<string, string> the CSS files which already have been read
      */
     private static $cssFileCache = [];
 
@@ -151,7 +151,7 @@ class Mail extends AbstractObjectWithAccessors
     /**
      * Returns the recipients of the e-mail.
      *
-     * @return MailRole[] the recipients of the e-mail, will be empty if no recipients have been set
+     * @return array<int, MailRole> the recipients of the e-mail, will be empty if no recipients have been set
      */
     public function getRecipients(): array
     {
@@ -303,7 +303,7 @@ class Mail extends AbstractObjectWithAccessors
     /**
      * Returns the attachments of the e-mail.
      *
-     * @return Attachment[] the attachments of the e-mail, might be empty
+     * @return array<int, Attachment> the attachments of the e-mail, might be empty
      */
     public function getAttachments(): array
     {

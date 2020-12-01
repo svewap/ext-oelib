@@ -22,7 +22,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
 trait CachedAssociationCount
 {
     /**
-     * @var int[]
+     * @var array<string, int>
      */
     protected $cachedRelationCountsCount = [];
 

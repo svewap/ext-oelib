@@ -15,12 +15,12 @@ use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 class ConfigurationProxy extends AbstractObjectWithPublicAccessors
 {
     /**
-     * @var ConfigurationProxy[] the singleton configuration proxy objects
+     * @var array<string, ConfigurationProxy> the singleton configuration proxy objects
      */
     private static $instances = [];
 
     /**
-     * @var string[] stored configuration data for each extension which currently uses the configuration proxy
+     * @var array<string, string> configuration data for each extension which currently uses the configuration proxy
      */
     private $configuration = [];
 

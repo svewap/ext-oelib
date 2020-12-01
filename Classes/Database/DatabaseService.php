@@ -34,12 +34,12 @@ class DatabaseService
     /**
      * cached results for the enableFields function
      *
-     * @var array[]
+     * @var array<string, array<string, array<string, string>>>
      */
     private static $enableFieldsCache = [];
 
     /**
-     * @var array[] cache for the results of existsTable with the table names
+     * @var array<string, array> cache for the results of existsTable with the table names
      *            as keys and the table SHOW STATUS information (in an array)
      *            as values
      */
@@ -49,7 +49,7 @@ class DatabaseService
      * cache for the results of hasTableColumn with the column names as keys and
      * the SHOW COLUMNS field information (in an array) as values
      *
-     * @var array[]
+     * @var array<string, array<string>>
      */
     private static $tableColumnCache = [];
 
@@ -332,7 +332,7 @@ class DatabaseService
      * @param string $groupBy GROUP BY field(s), may be empty
      * @param string $orderBy ORDER BY field(s), may be empty
      *
-     * @return string[] the single result row, will not be empty
+     * @return array<string, string> the single result row, will not be empty
      *
      * @throws EmptyQueryResultException if there is no matching record
      */
@@ -361,7 +361,7 @@ class DatabaseService
      * @param string $orderBy ORDER BY field(s), may be empty
      * @param string|int $limit LIMIT value ([begin,]max), may be empty
      *
-     * @return array[] the query result rows, will be empty if there are no matching records
+     * @return array<int, array<string, string>> the query result rows, will be empty if there are no matching records
      *
      * @throws \InvalidArgumentException
      */
@@ -401,7 +401,8 @@ class DatabaseService
      * @param string $groupBy GROUP BY field(s), may be empty
      * @param string $orderBy ORDER BY field(s), may be empty
      *
-     * @return string[] one column from the the query result rows, will be empty if there are no matching records
+     * @return array<string, string> one column from the the query result rows,
+     *         will be empty if there are no matching records
      */
     public static function selectColumnForMultiple(
         string $fieldName,

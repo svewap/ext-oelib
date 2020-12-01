@@ -42,12 +42,12 @@ final class TestingFramework
      * cache for the results of hasTableColumn with the column names as keys and
      * the SHOW COLUMNS field information (in an array) as values
      *
-     * @var array[]
+     * @var <string, array<string, array>>
      */
     private static $tableColumnCache = [];
 
     /**
-     * @var array[] cache for the results of existsTable with the table names
+     * @var array<string, array> cache for the results of existsTable with the table names
      *            as keys and the table SHOW STATUS information (in an array)
      *            as values
      */
@@ -75,8 +75,7 @@ final class TestingFramework
     private $additionalTablePrefixes = [];
 
     /**
-     * all own DB table names to which this instance of the testing framework
-     * has access
+     * all own DB table names to which this instance of the testing framework has access
      *
      * @var string[]
      */
@@ -130,7 +129,7 @@ final class TestingFramework
     /**
      * sorting values of all relation tables
      *
-     * @var array[]
+     * @var array<string, array<int, int>>
      */
     private $relationSorting = [];
 
@@ -149,18 +148,16 @@ final class TestingFramework
     private $resetAutoIncrementThreshold = 0;
 
     /**
-     * the names of the created dummy files relative to the upload folder of the
-     * extension to test
+     * the names of the created dummy files relative to the upload folder of the extension to test
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $dummyFiles = [];
 
     /**
-     * the names of the created dummy folders relative to the upload folder of
-     * the extension to test
+     * the names of the created dummy folders relative to the upload folder of the extension to test
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $dummyFolders = [];
 
@@ -741,7 +738,7 @@ final class TestingFramework
      *
      * @param string $tableName the table name to look up, must not be empty
      *
-     * @return array[] associative array with the TCA description for this table
+     * @return array<array> associative array with the TCA description for this table
      */
     private function getTcaForTable(string $tableName): array
     {

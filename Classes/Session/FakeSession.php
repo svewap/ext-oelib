@@ -15,7 +15,7 @@ namespace OliverKlee\Oelib\Session;
 class FakeSession extends Session
 {
     /**
-     * @var array the data for this session
+     * @var array<string, mixed> the data for this session
      */
     private $sessionData = [];
 

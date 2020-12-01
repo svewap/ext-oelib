@@ -23,7 +23,7 @@ class ConfigurationRegistry
     private static $instance = null;
 
     /**
-     * @var Configuration[] already created configurations (by namespace)
+     * @var array<string, Configuration> already created configurations (by namespace)
      */
     private $configurations = [];
 

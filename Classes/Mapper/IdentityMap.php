@@ -15,7 +15,7 @@ use OliverKlee\Oelib\Model\AbstractModel;
 class IdentityMap
 {
     /**
-     * @var AbstractModel[] the items in this map with their UIDs as keys
+     * @var array<int, AbstractModel> the items in this map with their UIDs as keys
      */
     protected $items = [];
 

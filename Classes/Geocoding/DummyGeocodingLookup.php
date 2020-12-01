@@ -18,7 +18,7 @@ class DummyGeocodingLookup implements GeocodingLookup
     /**
      * faked coordinates with the keys "latitude" and "longitude" or empty if there are none
      *
-     * @var float[]
+     * @var array<string, float>
      */
     private $coordinates = [];
 

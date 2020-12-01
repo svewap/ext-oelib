@@ -15,7 +15,7 @@ interface MapPoint
     /**
      * Returns this object's coordinates.
      *
-     * @return float[]
+     * @return array<string, float>
      *         this object's geo coordinates using the keys "latitude" and
      *         "longitude", will be empty if this object has no coordinates
      */

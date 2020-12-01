@@ -12,7 +12,7 @@ namespace OliverKlee\Oelib\Visibility;
 class Node
 {
     /**
-     * @var Node[] numeric array with all direct children of this node
+     * @var Node[] all direct children of this node
      */
     private $children = [];
 

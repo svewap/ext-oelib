@@ -20,7 +20,7 @@ abstract class SalutationSwitcher extends AbstractPlugin
      * A list of language keys for which the localizations have been loaded
      * (or NULL if the list has not been compiled yet).
      *
-     * @var string[]|null
+     * @var array<int, string>|null
      */
     private $availableLanguages = null;
 
@@ -29,12 +29,12 @@ abstract class SalutationSwitcher extends AbstractPlugin
      * localizations in the preferred order of formality (or NULL if the list
      * has not been compiled yet).
      *
-     * @var string[]|null
+     * @var array<int, string>|null
      */
     private $suffixesToTry = null;
 
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     protected $translationCache = [];
 
@@ -174,7 +174,7 @@ abstract class SalutationSwitcher extends AbstractPlugin
     /**
      * Compiles a list of language keys for which localizations have been loaded.
      *
-     * @return string[] a list of language keys (may be empty)
+     * @return array<int, string> a list of language keys (may be empty)
      */
     private function getAvailableLanguages(): array
     {
@@ -204,7 +204,7 @@ abstract class SalutationSwitcher extends AbstractPlugin
      * Gets an ordered list of language label suffixes that should be tried to
      * get localizations in the preferred order of formality.
      *
-     * @return string[] ordered list of suffixes from "", "_formal" and "_informal", will not be empty
+     * @return array<int, string> ordered list of suffixes from "", "_formal" and "_informal", will not be empty
      */
     private function getSuffixesToTry(): array
     {

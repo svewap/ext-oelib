@@ -36,7 +36,7 @@ class Template
      * associative array of all HTML template subparts, using the uppercase marker names without ### as keys,
      * for example "MY_MARKER"
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $subparts = [];
 
@@ -44,7 +44,7 @@ class Template
      * all lowercased label marker names in the current template without the hashes, for example ("label_foo",
      * "label_bar")
      *
-     * @var string[]
+     * @var array<int, string>
      */
     private $labelMarkerNames = [];
 
@@ -52,7 +52,7 @@ class Template
      * associative array of *populated* markers and their contents
      * (with the keys being the marker names including the wrapping hash signs ###).
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $markers = [];
 
@@ -60,7 +60,7 @@ class Template
      * Subpart names that shouldn't be displayed. Set a subpart key like "FIELD_DATE"
      * (the value does not matter) to remove that subpart.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $subpartsToHide = [];
 
@@ -183,7 +183,7 @@ class Template
      *
      * If there are no matches, an empty array is returned.
      *
-     * @return string[] matching marker names (lowercased), might be empty
+     * @return array<int, string> matching marker names (lowercased), might be empty
      */
     public function getLabelMarkerNames(): array
     {

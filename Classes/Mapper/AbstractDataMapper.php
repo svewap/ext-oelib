@@ -47,13 +47,14 @@ abstract class AbstractDataMapper
     protected $map = null;
 
     /**
-     * @var int[] UIDs of models that are memory-only models that must not be
-     *            saved, using the UIDs as keys and TRUE as value
+     * @var array<int, true> UIDs of models that are memory-only models that must not be saved,
+     *      using the UIDs as keys and TRUE as value
      */
     protected $uidsOfMemoryOnlyDummyModels = [];
 
     /**
-     * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
+     * @var array<string, string> the (possible) relations of the created models in the format
+     *      DB column name => mapper name
      */
     protected $relations = [];
 
@@ -71,7 +72,7 @@ abstract class AbstractDataMapper
     protected $compoundKeyParts = [];
 
     /**
-     * @var array[] two-dimensional cache for the objects by key:
+     * @var array<string, array<string, AbstractModel>> two-dimensional cache for the objects by key:
      *            [key name][key value] => model
      */
     private $cacheByKey = [];
@@ -81,7 +82,7 @@ abstract class AbstractDataMapper
      * [compound key value] => model
      * The column values are concatenated via a dot as compound key value.
      *
-     * @var AbstractModel[]
+     * @var array<string, AbstractModel>
      */
     protected $cacheByCompoundKey = [];
 
@@ -189,7 +190,7 @@ abstract class AbstractDataMapper
      * Returns a list of models for the provided two-dimensional array with
      * model data.
      *
-     * @param array[] $dataOfModels
+     * @param array<array> $dataOfModels
      *        two-dimensional array, each inner array must at least contain the
      *        element "uid", may be empty
      *
@@ -216,7 +217,7 @@ abstract class AbstractDataMapper
      * Retrieves a model based on the WHERE clause given in the parameter
      * $whereClauseParts. Hidden records will be retrieved as well.
      *
-     * @param string[] $whereClauseParts
+     * @param array<string, string> $whereClauseParts
      *        WHERE clause parts for the record to retrieve, each element must
      *        consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
@@ -650,11 +651,11 @@ abstract class AbstractDataMapper
      * Reads a record from the database (from this mapper's table) by the
      * WHERE clause provided. Hidden records will be retrieved as well.
      *
-     * @param string[] $whereClauseParts
+     * @param array<string, string> $whereClauseParts
      *        WHERE clause parts for the record to retrieve, each element must consist of a column name as key and a
-     *     value to search for as value (will automatically get quoted), must not be empty
+     *        value to search for as value (will automatically get quoted), must not be empty
      *
-     * @return string[] the record from the database, will not be empty
+     * @return array<string, string> the record from the database, will not be empty
      *
      * @throws NotFoundException if there is no record in the DB which matches the WHERE clause
      * @throws NotFoundException if database access is disabled
@@ -691,7 +692,7 @@ abstract class AbstractDataMapper
      *
      * @param int $uid the UID of the record to retrieve, must be > 0
      *
-     * @return string[] the record from the database, will not be empty
+     * @return array<string, string> the record from the database, will not be empty
      *
      * @throws NotFoundException if there is no record in the DB with the UID $uid
      */
@@ -757,7 +758,7 @@ abstract class AbstractDataMapper
      * Important: As this model's UID has nothing to do with the real UIDs in
      * the database, this model must not be saved.
      *
-     * @param string[] $data the data as it would come from the database, may be empty
+     * @param array<string, string> $data the data as it would come from the database, may be empty
      *
      * @return AbstractModel a new model loaded with $data
      */
@@ -1096,7 +1097,7 @@ abstract class AbstractDataMapper
      * @param int $uidForeign the UID of the foreign record
      * @param int $sorting the sorting of the intermediate m:n-relation record
      *
-     * @return int[] the record data for an intermediate m:n-relation record
+     * @return array<string, int> the record data for an intermediate m:n-relation record
      */
     protected function getManyToManyRelationIntermediateRecordData(
         string $mnTable,
@@ -1201,7 +1202,7 @@ abstract class AbstractDataMapper
     /**
      * @param string $sorting
      *
-     * @return string[]
+     * @return array<string, string>
      */
     protected function sortingToOrderArray(string $sorting): array
     {
@@ -1435,7 +1436,7 @@ abstract class AbstractDataMapper
      * additional keys).
      *
      * @param AbstractModel $model the model to cache
-     * @param string[] $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string> $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      */
@@ -1463,7 +1464,7 @@ abstract class AbstractDataMapper
      * cacheModelByCompoundKey instead. So this method primarily is here for backwards compatibility.
      *
      * @param AbstractModel $model the model to cache
-     * @param string[] $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string> $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      *
@@ -1481,7 +1482,7 @@ abstract class AbstractDataMapper
      * This method works automatically; it is not necessary to overwrite it.
      *
      * @param AbstractModel $model the model to cache
-     * @param string[] $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string> $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      *
@@ -1540,7 +1541,7 @@ abstract class AbstractDataMapper
      * This function will first check the cache-by-key and, if there is no match,
      * will try to find the model in the database.
      *
-     * @param string[] $compoundKeyValues
+     * @param array<string, string> $compoundKeyValues
      *        existing key value pairs, must not be empty
      *        The array must have all the keys that are set in the additionalCompoundKey array.
      *        The array values contain the model data with which to look up.
@@ -1571,7 +1572,7 @@ abstract class AbstractDataMapper
     /**
      * Extracting the key value from model data.
      *
-     * @param string[] $compoundKeyValues
+     * @param array<string, string> $compoundKeyValues
      *        existing key value pairs, must not be empty
      *        The array must have all the keys that are set in the additionalCompoundKey array.
      *        The array values contain the model data with which to look up.

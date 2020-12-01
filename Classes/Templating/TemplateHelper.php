@@ -60,7 +60,7 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * TS Setup for plugin.tx_extensionkey, using the current page UID as key
      *
-     * @var array[]
+     * @var array<int, array>
      */
     private static $cachedConfigurations = [];
 
@@ -1068,7 +1068,7 @@ class TemplateHelper extends SalutationSwitcher
      * Ensures that all values in the given array are cast to ints and removes empty
      * or invalid values.
      *
-     * @param string[] $keys the keys of the piVars to check, may be empty
+     * @param array<string, string> $keys the keys of the piVars to check, may be empty
      *
      * @return void
      */

@@ -23,7 +23,7 @@ class MapperRegistry
     private static $instance = null;
 
     /**
-     * @var AbstractDataMapper[] already created mappers (by class name)
+     * @var array<string, AbstractDataMapper> already created mappers (by class name)
      */
     private $mappers = [];
 

@@ -19,7 +19,7 @@ class TemplateRegistry
     private static $instance = null;
 
     /**
-     * @var Template[] already created templates (by file name)
+     * @var array<string, Template> already created templates (by file name)
      */
     private $templates = [];
 

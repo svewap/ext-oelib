@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 class EmailCollector extends AbstractMailer
 {
     /**
-     * @var MailMessage[]
+     * @var array<int, MailMessage>
      */
     protected $sentEmails = [];
 
@@ -46,7 +46,7 @@ class EmailCollector extends AbstractMailer
     /**
      * Returns the e-mails that would have been sent via the send method.
      *
-     * @return MailMessage[]
+     * @return array<int, MailMessage>
      */
     public function getSentEmails(): array
     {

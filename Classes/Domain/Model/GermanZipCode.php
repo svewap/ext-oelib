@@ -135,7 +135,7 @@ class GermanZipCode extends AbstractEntity implements Geo
     /**
      * Retrieves this object's coordinates.
      *
-     * @return float[] this object's geo coordinates using the keys "latitude" and "longitude"
+     * @return array<string, float> this object's geo coordinates using the keys "latitude" and "longitude"
      */
     public function getGeoCoordinates()
     {
@@ -148,7 +148,7 @@ class GermanZipCode extends AbstractEntity implements Geo
     /**
      * This method must not be called.
      *
-     * @param float[] $coordinates
+     * @param array<string, float> $coordinates
      *
      * @return void
      *

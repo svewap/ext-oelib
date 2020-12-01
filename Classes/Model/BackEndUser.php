@@ -16,7 +16,7 @@ use OliverKlee\Oelib\Interfaces\MailRole;
 class BackEndUser extends AbstractModel implements MailRole
 {
     /**
-     * @var string[] the user's configuration (unserialized)
+     * @var array<string, string> the user's configuration (unserialized)
      */
     private $configuration = [];
 
@@ -139,7 +139,7 @@ class BackEndUser extends AbstractModel implements MailRole
     /**
      * Retrieves the user's configuration, and unserializes it.
      *
-     * @return string[] the user's configuration, will be empty if the user has no configuration set
+     * @return array<string, string> the user's configuration, will be empty if the user has no configuration set
      */
     private function getConfiguration(): array
     {

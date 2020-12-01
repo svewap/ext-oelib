@@ -20,7 +20,7 @@ class GermanZipCodeRepository extends Repository
     use StoragePageAgnostic;
 
     /**
-     * @var GermanZipCode[]|null[]
+     * @var array<string, GermanZipCode|null>
      */
     protected $cachedResults = [];
 
