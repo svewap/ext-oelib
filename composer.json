@@ -57,9 +57,9 @@
         "sjbr/static-info-tables": "^6.7"
     },
     "autoload": {
-        "classmap": [
-            "Classes"
-        ]
+        "psr-4": {
+            "OliverKlee\\Oelib\\": "Classes/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
