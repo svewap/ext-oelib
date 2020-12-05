@@ -7,7 +7,7 @@ namespace OliverKlee\Oelib\Testing;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\DatabaseException;
-use OliverKlee\Oelib\Frontend\UserWithoutCookies;
+use OliverKlee\Oelib\FrontEnd\UserWithoutCookies;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\System\Typo3Version;

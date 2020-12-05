@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OliverKlee\Oelib\Frontend;
+namespace OliverKlee\Oelib\FrontEnd;
 
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 
