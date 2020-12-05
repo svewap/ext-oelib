@@ -390,7 +390,6 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function getByExtensionNameInFrontEndOverridesLabelsFromFileWithLabelsFromTypoScript()
     {
         $this->setUpFrontEnd();
-        $this->getFrontEndController()->initLLvars();
 
         ConfigurationRegistry::get('config')->set('language', 'default');
         ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
@@ -426,7 +425,6 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function getByExtensionNameDoesNotDeleteLanguageLabelsNotAffectedByTypoScript()
     {
         $this->setUpFrontEnd();
-        $this->getFrontEndController()->initLLvars();
         ConfigurationRegistry::get('config')->set('language', 'default');
         ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
         ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
