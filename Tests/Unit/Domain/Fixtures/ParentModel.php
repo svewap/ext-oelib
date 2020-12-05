@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Domain\Fixtures;
 
 use OliverKlee\Oelib\Domain\Model\Traits\CachedAssociationCount;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -19,6 +20,7 @@ class ParentModel extends AbstractEntity
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\ParentModel>
+     * @Lazy
      * @lazy
      */
     protected $children = null;
