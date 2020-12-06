@@ -53,10 +53,13 @@ class SystemEmailFromBuilder
             );
         }
 
-        return GeneralUtility::makeInstance(
+        /** @var GeneralEmailRole $email */
+        $email = GeneralUtility::makeInstance(
             GeneralEmailRole::class,
             (string)MailUtility::getSystemFromAddress(),
             (string)MailUtility::getSystemFromName()
         );
+
+        return $email;
     }
 }

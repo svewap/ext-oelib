@@ -66,7 +66,10 @@ class FrontEndLoginManager implements LoginManager
 
     private function getContext(): Context
     {
-        return GeneralUtility::makeInstance(Context::class);
+        /** @var Context $context */
+        $context = GeneralUtility::makeInstance(Context::class);
+
+        return $context;
     }
 
     /**

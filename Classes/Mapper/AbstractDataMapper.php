@@ -1735,6 +1735,9 @@ abstract class AbstractDataMapper
      */
     private function getConnectionPool(): ConnectionPool
     {
-        return GeneralUtility::makeInstance(ConnectionPool::class);
+        /** @var ConnectionPool $pool */
+        $pool = GeneralUtility::makeInstance(ConnectionPool::class);
+
+        return $pool;
     }
 }
