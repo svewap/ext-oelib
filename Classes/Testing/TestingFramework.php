@@ -18,6 +18,7 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
@@ -1237,7 +1238,11 @@ class TestingFramework
         $frontEnd->workspacePreview = '';
         $frontEnd->initFEuser();
         $frontEnd->determineId();
-        $frontEnd->initTemplate();
+        if (Typo3Version::isNotHigherThan(8)) {
+            $frontEnd->initTemplate();
+        } else {
+            $frontEnd->tmpl = GeneralUtility::makeInstance(TemplateService::class);
+        }
         $frontEnd->config = [];
 
         if (($pageUid > 0) && in_array('sys_template', $this->dirtySystemTables, true)) {
