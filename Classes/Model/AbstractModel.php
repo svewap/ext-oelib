@@ -52,7 +52,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     private $uid = 0;
 
     /**
-     * @var array the data for this object (without the UID column)
+     * @var array<string, mixed> the data for this object (without the UID column)
      */
     private $data = [];
 

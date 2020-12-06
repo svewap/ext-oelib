@@ -24,7 +24,7 @@ class Configuration extends AbstractObjectWithPublicAccessors
      *
      * This function can be called multiple times.
      *
-     * @param array $data
+     * @param array<string, mixed> $data
      *        the data for this configuration, may be empty
      *
      * @return void

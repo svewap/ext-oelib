@@ -528,7 +528,6 @@ class AbstractMailerTest extends UnitTestCase
         $this->subject->send($eMail);
 
         $children = $this->subject->getFirstSentEmail()->getChildren();
-        /** @var \Swift_Mime_MimeEntity $firstChild */
         $firstChild = $children[0];
         self::assertSame(
             $htmlMessage,
@@ -554,7 +553,6 @@ class AbstractMailerTest extends UnitTestCase
         $this->subject->send($eMail);
 
         $children = $this->subject->getFirstSentEmail()->getChildren();
-        /** @var \Swift_Mime_MimeEntity $firstChild */
         $firstChild = $children[0];
         self::assertSame(
             'text/html',

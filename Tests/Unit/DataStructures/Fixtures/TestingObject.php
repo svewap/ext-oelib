@@ -14,7 +14,7 @@ use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 class TestingObject extends AbstractObjectWithPublicAccessors
 {
     /**
-     * @var array the data for this object
+     * @var array<string, mixed> the data for this object
      */
     private $data = [];
 
@@ -62,12 +62,12 @@ class TestingObject extends AbstractObjectWithPublicAccessors
     /**
      * Checks that $key is not empty.
      *
-     * @throws \InvalidArgumentException if $key is empty
-     *
      * @param string $key
      *        a key to check
      *
      * @return void
+     *
+     * @throws \InvalidArgumentException if $key is empty
      */
     public function checkForNonEmptyKey($key)
     {

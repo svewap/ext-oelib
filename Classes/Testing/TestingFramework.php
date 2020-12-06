@@ -2093,7 +2093,7 @@ class TestingFramework
 
         /** @var NullBackend $backEnd */
         $backEnd = GeneralUtility::makeInstance(NullBackend::class, 'Testing');
-        /** @var VariableFrontend $cache */
+        /** @var VariableFrontend $frontEnd */
         $frontEnd = GeneralUtility::makeInstance(VariableFrontend::class, 'cache_pages', $backEnd);
         $cacheManager->registerCache($frontEnd);
     }

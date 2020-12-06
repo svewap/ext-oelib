@@ -38,8 +38,9 @@ class Translator
      * @param string $languageKey the key of the language to load the translations for, may be empty
      * @param string $alternativeLanguageKey the key of the alternative language to load the translations for, may be
      *     empty
-     * @param array<string, array<string, string>> $localizedLabels the localized labels in a nested associative array:
-     *        'languageKey' => array('labelkey' => 'label'), may be empty
+     * @param array<string, array<string, array<int, array<string, string>>>> $localizedLabels
+     *        the localized labels in a nested associative array:
+     *        'default' => ['label_foo' => [0 => ['source' => 'foo', 'target' => 'foo']]],, may be empty
      */
     public function __construct(string $languageKey, string $alternativeLanguageKey, array $localizedLabels)
     {

@@ -159,13 +159,13 @@ class TestingMapper extends AbstractDataMapper
      * When this function reports "no match", the model could still exist in the
      * database, though.
      *
-     * @throws NotFoundException if there is no match in the cache yet
-     *
      * @param string $key an existing key, must not be empty
      * @param string $value
      *        the value for the key of the model to find, must not be empty
      *
      * @return AbstractModel the cached model
+     *
+     * @throws NotFoundException if there is no match in the cache yet
      */
     public function findOneByKeyFromCache(string $key, $value): AbstractModel
     {
