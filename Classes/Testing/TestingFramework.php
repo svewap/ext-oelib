@@ -224,12 +224,13 @@ class TestingFramework
             $this->uploadFolderPath = Environment::getPublicPath() . '/typo3temp/' . $this->tablePrefix . '/';
         }
 
+        $cacheKey = $this->getCacheKeyPrefix() . 'rootline';
         /** @var array $rootLineCacheConfiguration */
         $rootLineCacheConfiguration =
-            (array)$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_rootline'];
+            (array)$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$cacheKey];
         $rootLineCacheConfiguration['backend'] = NullBackend::class;
         $rootLineCacheConfiguration['options'] = [];
-        $cacheConfigurations = ['cache_rootline' => $rootLineCacheConfiguration];
+        $cacheConfigurations = [$cacheKey => $rootLineCacheConfiguration];
         /** @var CacheManager $cacheManager */
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         $cacheManager->setCacheConfigurations($cacheConfigurations);
@@ -2085,16 +2086,22 @@ class TestingFramework
      */
     private function registerNullPageCache()
     {
+        $cacheKey = $this->getCacheKeyPrefix() . 'pages';
         /** @var CacheManager $cacheManager */
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
-        if ($cacheManager->hasCache('cache_pages')) {
+        if ($cacheManager->hasCache($cacheKey)) {
             return;
         }
 
         /** @var NullBackend $backEnd */
         $backEnd = GeneralUtility::makeInstance(NullBackend::class, 'Testing');
         /** @var VariableFrontend $frontEnd */
-        $frontEnd = GeneralUtility::makeInstance(VariableFrontend::class, 'cache_pages', $backEnd);
+        $frontEnd = GeneralUtility::makeInstance(VariableFrontend::class, $cacheKey, $backEnd);
         $cacheManager->registerCache($frontEnd);
+    }
+
+    private function getCacheKeyPrefix(): string
+    {
+        return Typo3Version::isAtLeast(10) ? '' : '_cache';
     }
 }

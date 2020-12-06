@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop `TemplateHelper::setCachedConfigurationValue` (#489)
 
 ### Fixed
+- Use correct cache keys in TYPO3 10LTS (#504)
 - Add necessary int casts (#502)
 - Fix Composer cache keys in the CI configuration file (#433)
 
