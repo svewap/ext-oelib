@@ -31,7 +31,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-final class TestingFramework
+class TestingFramework
 {
     /**
      * @var int

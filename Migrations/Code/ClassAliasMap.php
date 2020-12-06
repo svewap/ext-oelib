@@ -37,7 +37,7 @@ return [
     'Tx_Oelib_Exception_NotFound' => \OliverKlee\Oelib\Exception\NotFoundException::class,
 
     // Frontend
-    'Tx_Oelib_FrontEnd_UserWithoutCookies' => \OliverKlee\Oelib\Frontend\UserWithoutCookies::class,
+    'Tx_Oelib_FrontEnd_UserWithoutCookies' => \OliverKlee\Oelib\FrontEnd\UserWithoutCookies::class,
 
     // Geocoding
     'Tx_Oelib_Geocoding_Calculcator' => \OliverKlee\Oelib\Geocoding\GeoCalculator::class,
