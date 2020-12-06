@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop `TemplateHelper::setCachedConfigurationValue` (#489)
 
 ### Fixed
+- Add necessary int casts (#502)
 - Fix Composer cache keys in the CI configuration file (#433)
 
 ## 3.1.0

@@ -450,7 +450,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
 
         $isMember = false;
 
-        foreach (GeneralUtility::trimExplode(',', $uidList, true) as $uid) {
+        foreach (GeneralUtility::intExplode(',', $uidList, true) as $uid) {
             if ($this->getUserGroups()->hasUid($uid)) {
                 $isMember = true;
                 break;
