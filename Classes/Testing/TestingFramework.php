@@ -18,6 +18,7 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
@@ -1246,7 +1247,19 @@ class TestingFramework
         $frontEnd->config = [];
 
         if (($pageUid > 0) && in_array('sys_template', $this->dirtySystemTables, true)) {
-            $frontEnd->tmpl->runThroughTemplates($frontEnd->sys_page->getRootLine($pageUid));
+            if (Typo3Version::isNotHigherThan(8)) {
+                $rootLine = $frontEnd->sys_page->getRootLine($pageUid);
+            } else {
+                /** @var RootlineUtility $rootLineUtility */
+                $rootLineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageUid);
+                try {
+                    $rootLine = $rootLineUtility->get();
+                } catch (PageNotFoundException $e) {
+                    $rootLine = [];
+                }
+            }
+
+            $frontEnd->tmpl->runThroughTemplates($rootLine);
             $frontEnd->tmpl->generateConfig();
             $frontEnd->tmpl->loaded = 1;
             $frontEnd->settingLanguage();

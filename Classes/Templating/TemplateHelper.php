@@ -9,8 +9,11 @@ use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Language\SalutationSwitcher;
+use OliverKlee\Oelib\System\Typo3Version;
+use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
@@ -249,7 +252,17 @@ class TemplateHelper extends SalutationSwitcher
 
         // Gets the root line.
         // Finds the selected page in the BE exactly as in BaseScriptClass::init().
-        $rootLine = $page->getRootLine($pageId);
+        if (Typo3Version::isNotHigherThan(8)) {
+            $rootLine = $page->getRootLine($pageId);
+        } else {
+            /** @var RootlineUtility $rootLineUtility */
+            $rootLineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageId);
+            try {
+                $rootLine = $rootLineUtility->get();
+            } catch (PageNotFoundException $e) {
+                $rootLine = [];
+            }
+        }
 
         // Generates the constants/config and hierarchy info for the template.
         $template->runThroughTemplates($rootLine);
