@@ -35,7 +35,7 @@ class BackEndUser extends AbstractModel implements MailRole
      *
      * @return string the user's real name, will not be empty for valid records
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->getAsString('realName');
     }
@@ -45,7 +45,7 @@ class BackEndUser extends AbstractModel implements MailRole
      *
      * @return string the e-mail address, might be empty
      */
-    public function getEmailAddress()
+    public function getEmailAddress(): string
     {
         return $this->getAsString('email');
     }

@@ -167,7 +167,7 @@ class TestingMapper extends AbstractDataMapper
      *
      * @throws NotFoundException if there is no match in the cache yet
      */
-    public function findOneByKeyFromCache(string $key, $value): AbstractModel
+    public function findOneByKeyFromCache(string $key, string $value): AbstractModel
     {
         return parent::findOneByKeyFromCache($key, $value);
     }

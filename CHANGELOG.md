@@ -9,7 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add an `.editorconfig` file (#432)
 
 ### Changed
-- Namespace all classes (#398, #493)
+- Add more parameter and return type declarations (#501)
+- [!!!] Namespace all classes (#398, #493)
 - Move the CI from Travis CI to GitHub Actions (#427, #428)
 - Switch the default git branch from `master` to `main` (#424)
 - Move the testing framework dummy files from `uploads/` folder to `typo3temp/` (#399, #403)
@@ -20,6 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop `TemplateHelper::setCachedConfigurationValue` (#489)
 
 ### Fixed
+- Stop using things that are deprecated in TYPO3 V9 (#484, #491, #506, #507, #508)
 - Use correct cache keys in TYPO3 10LTS (#504)
 - Add necessary int casts (#502)
 - Fix Composer cache keys in the CI configuration file (#433)

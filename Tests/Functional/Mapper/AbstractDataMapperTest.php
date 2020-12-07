@@ -2835,7 +2835,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      *
      * @return array|null
      */
-    private function findRecordByUid(int $uid)
+    private function findRecordByUid(int $uid): array
     {
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tx_oelib_test');

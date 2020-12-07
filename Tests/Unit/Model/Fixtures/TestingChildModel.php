@@ -102,7 +102,7 @@ class TestingChildModel extends AbstractModel implements Sortable
      *
      * @return void
      */
-    public function setSorting($sorting)
+    public function setSorting(int $sorting)
     {
         $this->setAsInteger('sorting', $sorting);
     }

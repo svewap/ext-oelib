@@ -22,7 +22,7 @@ abstract class AbstractObjectWithAccessors
      * @return mixed the data for the key $key, will be an empty string
      *               if the key has not been set yet
      */
-    abstract protected function get($key);
+    abstract protected function get(string $key);
 
     /**
      * Sets the value of the data item for the key $key.
@@ -32,7 +32,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return void
      */
-    abstract protected function set($key, $value);
+    abstract protected function set(string $key, $value);
 
     /**
      * Checks that $key is not empty.
@@ -43,7 +43,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return void
      */
-    protected function checkForNonEmptyKey($key)
+    protected function checkForNonEmptyKey(string $key)
     {
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1331488963);
@@ -57,7 +57,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return string the string value of the given key, may be empty
      */
-    protected function getAsString($key)
+    protected function getAsString(string $key): string
     {
         $this->checkForNonEmptyKey($key);
 
@@ -72,7 +72,7 @@ abstract class AbstractObjectWithAccessors
      * @return bool TRUE if the value for the given key is non-empty,
      *                 FALSE otherwise
      */
-    protected function hasString($key)
+    protected function hasString(string $key): bool
     {
         return $this->getAsString($key) !== '';
     }
@@ -85,7 +85,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return void
      */
-    protected function setAsString($key, $value)
+    protected function setAsString(string $key, $value)
     {
         $this->checkForNonEmptyKey($key);
 
@@ -100,7 +100,7 @@ abstract class AbstractObjectWithAccessors
      * @return int the integer value of the given key, may be positive,
      *                 negative or zero
      */
-    protected function getAsInteger($key)
+    protected function getAsInteger(string $key): int
     {
         $this->checkForNonEmptyKey($key);
 
@@ -115,7 +115,7 @@ abstract class AbstractObjectWithAccessors
      * @return bool TRUE if the value for the given key is non-zero,
      *                 FALSE otherwise
      */
-    protected function hasInteger($key)
+    protected function hasInteger(string $key): bool
     {
         return $this->getAsInteger($key) !== 0;
     }
@@ -128,7 +128,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return void
      */
-    protected function setAsInteger($key, $value)
+    protected function setAsInteger(string $key, $value)
     {
         $this->checkForNonEmptyKey($key);
 
@@ -143,7 +143,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return string[] the array value of the given key, may be empty
      */
-    protected function getAsTrimmedArray($key)
+    protected function getAsTrimmedArray(string $key): array
     {
         return GeneralUtility::trimExplode(',', $this->getAsString($key), true);
     }
@@ -156,7 +156,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return int[] the array value of the given key, may be empty
      */
-    protected function getAsIntegerArray($key)
+    protected function getAsIntegerArray(string $key): array
     {
         $stringValue = $this->getAsString($key);
 
@@ -183,7 +183,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return void
      */
-    protected function setAsArray($key, array $value)
+    protected function setAsArray(string $key, array $value)
     {
         $this->setAsString($key, implode(',', $value));
     }
@@ -195,7 +195,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return bool the boolean value of the given key
      */
-    protected function getAsBoolean($key)
+    protected function getAsBoolean(string $key): bool
     {
         $this->checkForNonEmptyKey($key);
 
@@ -210,7 +210,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return void
      */
-    protected function setAsBoolean($key, $value)
+    protected function setAsBoolean(string $key, $value)
     {
         $this->checkForNonEmptyKey($key);
 
@@ -225,7 +225,7 @@ abstract class AbstractObjectWithAccessors
      * @return float the float value of the given key, may be positive,
      *               negative or zero
      */
-    protected function getAsFloat($key)
+    protected function getAsFloat(string $key): float
     {
         $this->checkForNonEmptyKey($key);
 
@@ -240,7 +240,7 @@ abstract class AbstractObjectWithAccessors
      * @return bool TRUE if the value for the given key is non-zero,
      *                 FALSE otherwise
      */
-    protected function hasFloat($key)
+    protected function hasFloat(string $key): bool
     {
         return $this->getAsFloat($key) !== 0.00;
     }
@@ -253,7 +253,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return void
      */
-    protected function setAsFloat($key, $value)
+    protected function setAsFloat(string $key, $value)
     {
         $this->checkForNonEmptyKey($key);
 

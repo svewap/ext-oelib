@@ -18,7 +18,7 @@ interface Sortable
      *
      * @return int the sorting value of this object, will be >= 0
      */
-    public function getSorting();
+    public function getSorting(): int;
 
     /**
      * Sets the sorting value for this object.
@@ -29,5 +29,5 @@ interface Sortable
      *
      * @return void
      */
-    public function setSorting($sorting);
+    public function setSorting(int $sorting);
 }

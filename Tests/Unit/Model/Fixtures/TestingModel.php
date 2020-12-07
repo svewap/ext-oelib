@@ -233,7 +233,7 @@ class TestingModel extends AbstractModel
      *
      * @return bool
      */
-    public function existsKey($key): bool
+    public function existsKey(string $key): bool
     {
         return parent::existsKey($key);
     }
@@ -245,7 +245,7 @@ class TestingModel extends AbstractModel
      *
      * @throws \UnexpectedValueException
      */
-    public function getAsModel($key)
+    public function getAsModel(string $key)
     {
         return parent::getAsModel($key);
     }
@@ -255,7 +255,7 @@ class TestingModel extends AbstractModel
      *
      * @return bool
      */
-    public function getAsBoolean($key): bool
+    public function getAsBoolean(string $key): bool
     {
         return parent::getAsBoolean($key);
     }
@@ -265,7 +265,7 @@ class TestingModel extends AbstractModel
      *
      * @return int
      */
-    public function getAsInteger($key): int
+    public function getAsInteger(string $key): int
     {
         return parent::getAsInteger($key);
     }

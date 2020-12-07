@@ -164,7 +164,7 @@ class GoogleGeocodingTest extends UnitTestCase
      *
      * @dataProvider noResultsStatusDataProvider
      */
-    public function lookUpWithErrorSetsGeoProblem($status)
+    public function lookUpWithErrorSetsGeoProblem(string $status)
     {
         $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
 
@@ -191,7 +191,7 @@ class GoogleGeocodingTest extends UnitTestCase
      *
      * @dataProvider noResultsStatusDataProvider
      */
-    public function lookUpWithErrorSetsGeoProblemAndLogsError($status)
+    public function lookUpWithErrorSetsGeoProblemAndLogsError(string $status)
     {
         $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
 
@@ -218,7 +218,7 @@ class GoogleGeocodingTest extends UnitTestCase
      *
      * @dataProvider noResultsStatusDataProvider
      */
-    public function lookUpWithErrorLogsErrorDetails($status)
+    public function lookUpWithErrorLogsErrorDetails(string $status)
     {
         $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
 

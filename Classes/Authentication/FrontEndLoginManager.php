@@ -44,7 +44,7 @@ class FrontEndLoginManager implements LoginManager
      *
      * @return static the current Singleton instance
      */
-    public static function getInstance()
+    public static function getInstance(): FrontEndLoginManager
     {
         if (!self::$instance) {
             self::$instance = new self();

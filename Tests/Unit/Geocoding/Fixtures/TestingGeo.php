@@ -62,7 +62,7 @@ class TestingGeo extends AbstractModel implements Geo
      *
      * @return void
      */
-    public function setGeoAddress($address)
+    public function setGeoAddress(string $address)
     {
         $this->address = $address;
     }

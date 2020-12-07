@@ -51,7 +51,7 @@ trait CachedAssociationCount
      *
      * @return void
      */
-    protected function flushRelationCountCache($propertyName)
+    protected function flushRelationCountCache(string $propertyName)
     {
         unset($this->cachedRelationCountsCount[$propertyName]);
     }

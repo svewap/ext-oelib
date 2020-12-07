@@ -39,7 +39,7 @@ class UserWithoutCookies extends FrontendUserAuthentication
      *
      * @return void
      */
-    public function removeCookie($cookieName)
+    public function removeCookie(string $cookieName)
     {
     }
 }

@@ -52,7 +52,7 @@ class BackEndUserMapper extends AbstractDataMapper
      * @throws NotFoundException if there is no back-end user with the
      *                                     provided user name in the be_user table
      */
-    public function findByUserName($userName): BackEndUser
+    public function findByUserName(string $userName): BackEndUser
     {
         /** @var BackEndUser $result */
         $result = $this->findOneByKey('username', $userName);
@@ -70,7 +70,7 @@ class BackEndUserMapper extends AbstractDataMapper
      *
      * @throws NotFoundException if there is no record in the DB with the UID $uid
      */
-    protected function retrieveRecordByUid(int $uid)
+    protected function retrieveRecordByUid(int $uid): array
     {
         $authentication = $this->getBackEndUserAuthentication();
         if ((int)$authentication->user['uid'] === $uid && BackEndLoginManager::getInstance()->isLoggedIn()) {

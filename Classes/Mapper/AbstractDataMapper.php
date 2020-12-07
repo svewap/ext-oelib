@@ -226,7 +226,7 @@ abstract class AbstractDataMapper
      *
      * @throws NotFoundException if there is no record in the DB which matches the WHERE clause
      */
-    protected function findSingleByWhereClause(array $whereClauseParts)
+    protected function findSingleByWhereClause(array $whereClauseParts): AbstractModel
     {
         if (empty($whereClauseParts)) {
             throw new \InvalidArgumentException('The parameter $whereClauseParts must not be empty.', 1331319506);
@@ -696,7 +696,7 @@ abstract class AbstractDataMapper
      *
      * @throws NotFoundException if there is no record in the DB with the UID $uid
      */
-    protected function retrieveRecordByUid(int $uid)
+    protected function retrieveRecordByUid(int $uid): array
     {
         return $this->retrieveRecord(['uid' => $uid]);
     }
@@ -1292,7 +1292,7 @@ abstract class AbstractDataMapper
      *
      * @deprecated will be removed in oelib 4.0.0
      */
-    protected function findByWhereClause(string $whereClause = '', string $sorting = '', $limit = '')
+    protected function findByWhereClause(string $whereClause = '', string $sorting = '', $limit = ''): Collection
     {
         $orderBy = '';
 
@@ -1385,7 +1385,7 @@ abstract class AbstractDataMapper
      * @throws NotFoundException if there is no match in the cache yet
      * @throws \InvalidArgumentException
      */
-    protected function findOneByKeyFromCache(string $key, $value)
+    protected function findOneByKeyFromCache(string $key, string $value): AbstractModel
     {
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1416847364);
@@ -1418,7 +1418,7 @@ abstract class AbstractDataMapper
      * @throws NotFoundException if there is no match in the cache yet
      * @throws \InvalidArgumentException
      */
-    public function findOneByCompoundKeyFromCache($value): AbstractModel
+    public function findOneByCompoundKeyFromCache(string $value): AbstractModel
     {
         if ($value === '') {
             throw new \InvalidArgumentException('$value must not be empty.', 1331319992);
@@ -1524,7 +1524,7 @@ abstract class AbstractDataMapper
      *
      * @throws NotFoundException if there is no match (neither in the cache nor in the database)
      */
-    public function findOneByKey(string $key, $value): AbstractModel
+    public function findOneByKey(string $key, string $value): AbstractModel
     {
         try {
             $model = $this->findOneByKeyFromCache($key, $value);

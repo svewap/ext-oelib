@@ -39,7 +39,7 @@ class BackEndLoginManager implements LoginManager
      *
      * @return static the current Singleton instance
      */
-    public static function getInstance()
+    public static function getInstance(): BackEndLoginManager
     {
         if (!self::$instance) {
             self::$instance = new self();

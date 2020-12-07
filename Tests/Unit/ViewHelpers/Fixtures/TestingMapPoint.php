@@ -48,7 +48,7 @@ class TestingMapPoint implements MapPoint, Identity
      *
      * @return void
      */
-    public function setUid($uid)
+    public function setUid(int $uid)
     {
         $this->uid = $uid;
     }

@@ -130,7 +130,7 @@ class Collection extends \SplObjectStorage
      *
      * @return bool TRUE if a model with the UID $uid exists in this list, FALSE otherwise
      */
-    public function hasUid($uid): bool
+    public function hasUid(int $uid): bool
     {
         $this->checkUidCache();
         return isset($this->uids[$uid]);

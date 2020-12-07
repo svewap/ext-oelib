@@ -40,7 +40,7 @@ class CountryMapper extends AbstractDataMapper
      *
      * @throws NotFoundException if there is no record with the provided ISO 3166-1 alpha-2 code
      */
-    public function findByIsoAlpha2Code($isoAlpha2Code): Country
+    public function findByIsoAlpha2Code(string $isoAlpha2Code): Country
     {
         /** @var Country $result */
         $result = $this->findOneByKey('cn_iso_2', $isoAlpha2Code);

@@ -18,7 +18,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @return string the string value of the given key, may be empty
      */
-    public function getAsString($key)
+    public function getAsString(string $key): string
     {
         return parent::getAsString($key);
     }
@@ -31,7 +31,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      * @return bool TRUE if the value for the given key is non-empty,
      *                 FALSE otherwise
      */
-    public function hasString($key)
+    public function hasString(string $key): bool
     {
         return parent::hasString($key);
     }
@@ -44,7 +44,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @return void
      */
-    public function setAsString($key, $value)
+    public function setAsString(string $key, $value)
     {
         parent::setAsString($key, $value);
     }
@@ -57,7 +57,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      * @return int the integer value of the given key, may be positive,
      *                 negative or zero
      */
-    public function getAsInteger($key)
+    public function getAsInteger(string $key): int
     {
         return parent::getAsInteger($key);
     }
@@ -70,7 +70,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      * @return bool TRUE if the value for the given key is non-zero,
      *                 FALSE otherwise
      */
-    public function hasInteger($key)
+    public function hasInteger(string $key): bool
     {
         return parent::hasInteger($key);
     }
@@ -83,7 +83,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @return void
      */
-    public function setAsInteger($key, $value)
+    public function setAsInteger(string $key, $value)
     {
         parent::setAsInteger($key, $value);
     }
@@ -96,7 +96,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @return string[] the array value of the given key, may be empty
      */
-    public function getAsTrimmedArray($key)
+    public function getAsTrimmedArray(string $key): array
     {
         return parent::getAsTrimmedArray($key);
     }
@@ -109,7 +109,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @return int[] the array value of the given key, may be empty
      */
-    public function getAsIntegerArray($key)
+    public function getAsIntegerArray(string $key): array
     {
         return parent::getAsIntegerArray($key);
     }
@@ -130,7 +130,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @return void
      */
-    public function setAsArray($key, array $value)
+    public function setAsArray(string $key, array $value)
     {
         parent::setAsArray($key, $value);
     }
@@ -142,7 +142,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @return bool the boolean value of the given key
      */
-    public function getAsBoolean($key)
+    public function getAsBoolean(string $key): bool
     {
         return parent::getAsBoolean($key);
     }
@@ -155,7 +155,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @return void
      */
-    public function setAsBoolean($key, $value)
+    public function setAsBoolean(string $key, $value)
     {
         parent::setAsBoolean($key, $value);
     }
@@ -168,7 +168,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      * @return float the float value of the given key, may be positive,
      *               negative or zero
      */
-    public function getAsFloat($key)
+    public function getAsFloat(string $key): float
     {
         return parent::getAsFloat($key);
     }
@@ -181,7 +181,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      * @return bool TRUE if the value for the given key is non-zero,
      *                 FALSE otherwise
      */
-    public function hasFloat($key)
+    public function hasFloat(string $key): bool
     {
         return parent::hasFloat($key);
     }
@@ -194,7 +194,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @return void
      */
-    public function setAsFloat($key, $value)
+    public function setAsFloat(string $key, $value)
     {
         parent::setAsFloat($key, $value);
     }

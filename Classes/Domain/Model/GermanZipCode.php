@@ -80,7 +80,7 @@ class GermanZipCode extends AbstractEntity implements Geo
      * @return string this object's address formatted for a geo lookup,
      *                will be empty if this object has no address
      */
-    public function getGeoAddress()
+    public function getGeoAddress(): string
     {
         return $this->getZipCode() . ' ' . $this->getCityName() . ', DE';
     }
@@ -127,7 +127,7 @@ class GermanZipCode extends AbstractEntity implements Geo
      *
      * @return bool
      */
-    public function hasGeoAddress()
+    public function hasGeoAddress(): bool
     {
         return true;
     }
@@ -137,7 +137,7 @@ class GermanZipCode extends AbstractEntity implements Geo
      *
      * @return array<string, float> this object's geo coordinates using the keys "latitude" and "longitude"
      */
-    public function getGeoCoordinates()
+    public function getGeoCoordinates(): array
     {
         return [
             'latitude' => $this->getLatitude(),
@@ -164,7 +164,7 @@ class GermanZipCode extends AbstractEntity implements Geo
      *
      * @return bool
      */
-    public function hasGeoCoordinates()
+    public function hasGeoCoordinates(): bool
     {
         return true;
     }
@@ -184,7 +184,7 @@ class GermanZipCode extends AbstractEntity implements Geo
      *
      * @return bool
      */
-    public function hasGeoError()
+    public function hasGeoError(): bool
     {
         return false;
     }

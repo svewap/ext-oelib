@@ -138,7 +138,7 @@ class Session extends AbstractObjectWithPublicAccessors
      * @return mixed the data for the key $key, will be an empty string
      *               if the key has not been set yet
      */
-    protected function get($key)
+    protected function get(string $key)
     {
         return $this->getFrontEndController()->fe_user->getKey(self::$types[$this->type], $key);
     }
@@ -151,7 +151,7 @@ class Session extends AbstractObjectWithPublicAccessors
      *
      * @return void
      */
-    protected function set($key, $value)
+    protected function set(string $key, $value)
     {
         $this->getFrontEndController()->fe_user->setKey(self::$types[$this->type], $key, $value);
         $this->getFrontEndController()->fe_user->storeSessionData();

@@ -353,7 +353,7 @@ class GeoCalculatorTest extends UnitTestCase
      *
      * @param int $direction
      */
-    public function moveMovesByGivenDistanceWithPositiveDistance($direction)
+    public function moveMovesByGivenDistanceWithPositiveDistance(int $direction)
     {
         $distance = 100.0;
         $otherGeoObject = clone $this->geoObject;
@@ -373,7 +373,7 @@ class GeoCalculatorTest extends UnitTestCase
      *
      * @param int $direction
      */
-    public function moveMovesByGivenDistanceWithNegativeDistance($direction)
+    public function moveMovesByGivenDistanceWithNegativeDistance(int $direction)
     {
         $distance = -100.0;
         $otherGeoObject = clone $this->geoObject;
@@ -413,7 +413,7 @@ class GeoCalculatorTest extends UnitTestCase
      *
      * @param int $direction
      */
-    public function moveByRandomDistanceChangesCoordinates($direction)
+    public function moveByRandomDistanceChangesCoordinates(int $direction)
     {
         $originalCoordinates = $this->geoObject->getGeoCoordinates();
 
@@ -429,7 +429,7 @@ class GeoCalculatorTest extends UnitTestCase
      *
      * @param int $direction
      */
-    public function moveByRandomDistanceMovesAtMostByGivenDistanceWithPositiveDistance($direction)
+    public function moveByRandomDistanceMovesAtMostByGivenDistanceWithPositiveDistance(int $direction)
     {
         $maximumDistance = 100.0;
         $otherGeoObject = clone $this->geoObject;

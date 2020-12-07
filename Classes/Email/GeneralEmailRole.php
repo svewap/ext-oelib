@@ -29,7 +29,7 @@ class GeneralEmailRole implements MailRole
      * @param string $emailAddress
      * @param string $name
      */
-    public function __construct($emailAddress, $name = '')
+    public function __construct(string $emailAddress, string $name = '')
     {
         $this->emailAddress = $emailAddress;
         $this->name = $name;
@@ -40,7 +40,7 @@ class GeneralEmailRole implements MailRole
      *
      * @return string the e-mail address of the e-mail role, might be empty
      */
-    public function getEmailAddress()
+    public function getEmailAddress(): string
     {
         return $this->emailAddress;
     }
@@ -50,7 +50,7 @@ class GeneralEmailRole implements MailRole
      *
      * @return string the real name of the e-mail role, might be empty
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }

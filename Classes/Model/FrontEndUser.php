@@ -100,7 +100,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      *
      * @return string the user's real name, will not be empty for valid records
      */
-    public function getName()
+    public function getName(): string
     {
         if ($this->hasString('name')) {
             $result = $this->getAsString('name');
@@ -173,7 +173,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      *
      * @return string this user's street, may be multi-line, may be empty
      */
-    public function getStreet()
+    public function getStreet(): string
     {
         return $this->getAsString('address');
     }
@@ -205,7 +205,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      *
      * @return string this user's ZIP code, may be empty
      */
-    public function getZip()
+    public function getZip(): string
     {
         return $this->getAsString('zip');
     }
@@ -237,7 +237,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      *
      * @return string this user's city, may be empty
      */
-    public function getCity()
+    public function getCity(): string
     {
         return $this->getAsString('city');
     }
@@ -284,7 +284,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      *
      * @return string this user's phone number, may be empty
      */
-    public function getPhoneNumber()
+    public function getPhoneNumber(): string
     {
         return $this->getAsString('telephone');
     }
@@ -316,7 +316,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      *
      * @return string this user's e-mail address, may be empty
      */
-    public function getEmailAddress()
+    public function getEmailAddress(): string
     {
         return $this->getAsString('email');
     }
@@ -349,7 +349,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      *
      * @return string this user's homepage URL, may be empty
      */
-    public function getHomepage()
+    public function getHomepage(): string
     {
         return $this->getAsString('www');
     }

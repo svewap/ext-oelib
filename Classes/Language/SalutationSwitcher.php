@@ -43,7 +43,7 @@ abstract class SalutationSwitcher extends AbstractPlugin
      *
      * @return array
      */
-    public function __sleep()
+    public function __sleep(): array
     {
         $fieldsToSave = \get_object_vars($this);
         if (Typo3Version::isNotHigherThan(8)) {

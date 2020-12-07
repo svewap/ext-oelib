@@ -20,7 +20,7 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors
     private static $instances = [];
 
     /**
-     * @var array<string, string> configuration data for each extension which currently uses the configuration proxy
+     * @var array<string, mixed> configuration data for each extension which currently uses the configuration proxy
      */
     private $configuration = [];
 
@@ -42,7 +42,7 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors
      *        configuration and as identifier for an extension's instance of
      *        this class, must not be empty
      */
-    private function __construct($extensionKey)
+    private function __construct(string $extensionKey)
     {
         $this->extensionKey = $extensionKey;
     }
@@ -139,9 +139,9 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors
      * @param string $key
      *        key of the value to get, must not be empty
      *
-     * @return string configuration value string, might be empty
+     * @return mixed configuration value string, might be empty
      */
-    protected function get($key)
+    protected function get(string $key)
     {
         $this->loadConfigurationLazily();
 
@@ -167,7 +167,7 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors
      *
      * @return void
      */
-    protected function set($key, $value)
+    protected function set(string $key, $value)
     {
         $this->loadConfigurationLazily();
 

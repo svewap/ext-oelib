@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Interfaces;
 
+use OliverKlee\Oelib\Model\AbstractModel;
+
 /**
  * This interface represents a manager for logins, providing access to the logged-in user.
  *

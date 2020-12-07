@@ -227,7 +227,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      *
      * @return void
      */
-    public function setUid($uid)
+    public function setUid(int $uid)
     {
         if ($this->hasUid()) {
             throw new \BadMethodCallException('The UID of a model cannot be set a second time.', 1331489260);
@@ -257,7 +257,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      *
      * @return void
      */
-    protected function set($key, $value)
+    protected function set(string $key, $value)
     {
         if ($key === 'deleted') {
             throw new \InvalidArgumentException(
@@ -291,7 +291,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * @return mixed the data for the key $key, will be an empty string
      *               if the key has not been set yet
      */
-    protected function get($key)
+    protected function get(string $key)
     {
         if ($key === 'uid') {
             throw new \InvalidArgumentException(
@@ -324,7 +324,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * @return bool TRUE if a data item with the key $key exists, FALSE
      *                 otherwise
      */
-    protected function existsKey($key)
+    protected function existsKey(string $key): bool
     {
         return array_key_exists($key, $this->data);
     }
@@ -339,7 +339,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * @throws \UnexpectedValueException
      *         if there is a data item stored for the key $key that is not a model instance
      */
-    protected function getAsModel($key)
+    protected function getAsModel(string $key)
     {
         $this->checkForNonEmptyKey($key);
 
@@ -417,7 +417,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      *
      * @return int this model's UID, will be zero if this model does not have a UID yet
      */
-    public function getUid()
+    public function getUid(): int
     {
         return (int)$this->uid;
     }
@@ -427,7 +427,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      *
      * @return bool TRUE if this model has a non-zero UID, FALSE otherwise
      */
-    public function hasUid()
+    public function hasUid(): bool
     {
         return $this->getUid() > 0;
     }

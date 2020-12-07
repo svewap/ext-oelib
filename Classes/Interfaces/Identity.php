@@ -17,14 +17,14 @@ interface Identity
      * @return int
      *         this object's UID, will be zero if this object does not have a UID yet
      */
-    public function getUid();
+    public function getUid(): int;
 
     /**
      * Checks whether this object has a UID.
      *
      * @return bool TRUE if this object has a non-zero UID, FALSE otherwise
      */
-    public function hasUid();
+    public function hasUid(): bool;
 
     /**
      * Sets this object's UID.
@@ -35,5 +35,5 @@ interface Identity
      *
      * @return void
      */
-    public function setUid($uid);
+    public function setUid(int $uid);
 }

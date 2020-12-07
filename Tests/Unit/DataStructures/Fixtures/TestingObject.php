@@ -39,7 +39,7 @@ class TestingObject extends AbstractObjectWithPublicAccessors
      * @return mixed the data for the key $key, will be an empty string
      *               if the key has not been set yet
      */
-    protected function get($key)
+    protected function get(string $key)
     {
         return $this->data[$key] ?? '';
     }
@@ -54,7 +54,7 @@ class TestingObject extends AbstractObjectWithPublicAccessors
      *
      * @return void
      */
-    protected function set($key, $value)
+    protected function set(string $key, $value)
     {
         $this->data[$key] = $value;
     }
@@ -69,7 +69,7 @@ class TestingObject extends AbstractObjectWithPublicAccessors
      *
      * @throws \InvalidArgumentException if $key is empty
      */
-    public function checkForNonEmptyKey($key)
+    public function checkForNonEmptyKey(string $key)
     {
         parent::checkForNonEmptyKey($key);
     }

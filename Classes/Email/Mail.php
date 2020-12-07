@@ -61,7 +61,7 @@ class Mail extends AbstractObjectWithAccessors
      *
      * @return void
      */
-    protected function set($key, $value)
+    protected function set(string $key, $value)
     {
         $this->data[$key] = $value;
     }
@@ -73,7 +73,7 @@ class Mail extends AbstractObjectWithAccessors
      *
      * @return mixed the data for the key $key, will be an empty string if the key has not been set yet
      */
-    protected function get($key)
+    protected function get(string $key)
     {
         return $this->data[$key] ?? '';
     }

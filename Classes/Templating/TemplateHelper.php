@@ -221,7 +221,7 @@ class TemplateHelper extends SalutationSwitcher
      *
      * @return bool TRUE if this object is properly initialized, FALSE otherwise
      */
-    public function isInitialized()
+    public function isInitialized(): bool
     {
         return $this->isInitialized;
     }
@@ -239,7 +239,7 @@ class TemplateHelper extends SalutationSwitcher
      * @return array configuration array of the requested page for the
      *               current extension key
      */
-    protected function retrievePageConfig(int $pageId)
+    protected function retrievePageConfig(int $pageId): array
     {
         /** @var TemplateService $template */
         $template = GeneralUtility::makeInstance(TemplateService::class);
@@ -938,7 +938,7 @@ class TemplateHelper extends SalutationSwitcher
      * @return string the subpart content or an empty string if the
      *                subpart is hidden or the subpart name is missing
      */
-    public function getSubpart(string $key = '')
+    public function getSubpart(string $key = ''): string
     {
         try {
             return $this->getTemplate()->getSubpart($key);
@@ -1211,7 +1211,7 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * @return ConfigurationCheck |null
+     * @return ConfigurationCheck|null
      */
     public function getConfigurationCheck()
     {
@@ -1289,7 +1289,7 @@ class TemplateHelper extends SalutationSwitcher
      *
      * @return int the current back-end page UID (or 0 if there is an error)
      */
-    public function getCurrentBePageId()
+    public function getCurrentBePageId(): int
     {
         return PageFinder::getInstance()->getPageUid();
     }

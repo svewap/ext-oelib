@@ -19,7 +19,7 @@ interface MapPoint
      *         this object's geo coordinates using the keys "latitude" and
      *         "longitude", will be empty if this object has no coordinates
      */
-    public function getGeoCoordinates();
+    public function getGeoCoordinates(): array;
 
     /**
      * Checks whether this object has non-empty coordinates.
@@ -28,14 +28,14 @@ interface MapPoint
      *         TRUE if this object has both a non-empty longitude and a
      *         non-empty latitude, FALSE otherwise
      */
-    public function hasGeoCoordinates();
+    public function hasGeoCoordinates(): bool;
 
     /**
      * Gets the title for the tooltip of this object.
      *
      * @return string the tooltip title (plain text), might be empty
      */
-    public function getTooltipTitle();
+    public function getTooltipTitle(): string;
 
     /**
      * Checks whether this object has a non-empty tooltip title.
@@ -43,14 +43,14 @@ interface MapPoint
      * @return bool
      *         TRUE if this object has a non-empty tooltip title, FALSE otherwise
      */
-    public function hasTooltipTitle();
+    public function hasTooltipTitle(): bool;
 
     /**
      * Gets the info window content of this object.
      *
      * @return string the info window content (HTML), might be empty
      */
-    public function getInfoWindowContent();
+    public function getInfoWindowContent(): string;
 
     /**
      * Checks whether this object has a non-empty info window content.
@@ -58,5 +58,5 @@ interface MapPoint
      * @return bool
      *         TRUE if this object has a non-empty info window content, FALSE otherwise
      */
-    public function hasInfoWindowContent();
+    public function hasInfoWindowContent(): bool;
 }

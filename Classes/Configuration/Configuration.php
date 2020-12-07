@@ -44,7 +44,7 @@ class Configuration extends AbstractObjectWithPublicAccessors
      *
      * @return void
      */
-    public function set($key, $value)
+    public function set(string $key, $value)
     {
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1331318809);
@@ -62,7 +62,7 @@ class Configuration extends AbstractObjectWithPublicAccessors
      * @return mixed the data for the key $key, will be an empty string
      *               if the key has not been set yet
      */
-    protected function get($key)
+    protected function get(string $key)
     {
         if (!$this->existsKey($key)) {
             return '';
