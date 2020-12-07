@@ -1237,7 +1237,17 @@ class TestingFramework
         // simulates a normal FE without any logged-in FE or BE user
         $frontEnd->beUserLogin = false;
         $frontEnd->workspacePreview = '';
-        $frontEnd->initFEuser();
+        if (Typo3Version::isNotHigherThan(8)) {
+            $frontEnd->initFEuser();
+        } else {
+            /** @var FrontendUserAuthentication $frontEndUser */
+            $frontEndUser = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
+            $frontEndUser->start();
+            $frontEndUser->unpack_uc();
+            $frontEndUser->fetchGroupData();
+
+            $frontEnd->fe_user = $frontEndUser;
+        }
         $frontEnd->determineId();
         if (Typo3Version::isNotHigherThan(8)) {
             $frontEnd->initTemplate();
