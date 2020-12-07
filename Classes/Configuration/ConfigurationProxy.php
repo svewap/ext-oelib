@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Configuration;
 
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This singleton class provides access to an extension's global configuration
@@ -107,7 +109,10 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors
      */
     public function retrieveConfiguration()
     {
-        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey])) {
+        if ($this->hasNewConfigurationFormat()) {
+            $this->configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)
+                ->get($this->extensionKey);
+        } elseif ($this->hasOldConfigurationFormat()) {
             $this->configuration = (array)\unserialize(
                 $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey]
             );
@@ -184,5 +189,21 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors
         $this->loadConfigurationLazily();
 
         return $this->configuration;
+    }
+
+    /**
+     * @deprecated This function will be removed in oelib v4.0
+     */
+    private function hasNewConfigurationFormat(): bool
+    {
+        return isset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS'][$this->extensionKey]);
+    }
+
+    /**
+     * @deprecated This function will be removed in oelib v4.0. You are using the old configuration format. Please switch to the new one. See https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82254-DeprecateGLOBALSTYPO3_CONF_VARSEXTextConf.html
+     */
+    private function hasOldConfigurationFormat(): bool
+    {
+        return isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey]);
     }
 }
