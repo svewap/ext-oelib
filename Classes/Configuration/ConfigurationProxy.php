@@ -114,7 +114,8 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors
                 ->get($this->extensionKey);
         } elseif ($this->hasOldConfigurationFormat()) {
             $this->configuration = (array)\unserialize(
-                $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey]
+                (string)$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey],
+                ['allowed_classes' => false]
             );
         } else {
             $this->configuration = [];

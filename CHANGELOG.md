@@ -25,6 +25,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop `TemplateHelper::setCachedConfigurationValue` (#489)
 
 ### Fixed
+- Harden `unserialize` calls of extension configuration (#510)
 - Stop using things that are deprecated in TYPO3 V9 (#484, #491, #506, #507, #508)
 - Use correct cache keys in TYPO3 10LTS (#504)
 - Add necessary int casts (#502)

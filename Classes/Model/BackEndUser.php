@@ -144,7 +144,7 @@ class BackEndUser extends AbstractModel implements MailRole
     private function getConfiguration(): array
     {
         if (empty($this->configuration)) {
-            $this->configuration = (array)\unserialize($this->getAsString('uc'));
+            $this->configuration = (array)\unserialize($this->getAsString('uc'), ['allowed_classes' => false]);
         }
 
         return $this->configuration;
