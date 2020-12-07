@@ -16,7 +16,10 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Move the testing framework dummy files from `uploads/` folder to `typo3temp/` (#399, #403)
 
 ### Deprecated
-- Deprecate the old extension configuration format. The support of the old one will be dropped in version 4.0. Please migrate to the new one. See [here](https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82254-DeprecateGLOBALSTYPO3_CONF_VARSEXTextConf.html) for more information.
+- Deprecate the old extension configuration format. The support of the old one will be dropped in version 4.0.
+  Please migrate to the new one. Please see the
+  [deprecation notice](https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82254-DeprecateGLOBALSTYPO3_CONF_VARSEXTextConf.html)
+  for more information.
 
 ### Removed
 - Drop `TemplateHelper::setCachedConfigurationValue` (#489)
