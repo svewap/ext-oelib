@@ -1234,10 +1234,10 @@ class TestingFramework
             GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
         $GLOBALS['TSFE'] = $frontEnd;
 
-        // simulates a normal FE without any logged-in FE or BE user
-        $frontEnd->beUserLogin = false;
-        $frontEnd->workspacePreview = '';
         if (Typo3Version::isNotHigherThan(8)) {
+            // simulates a normal FE without any logged-in FE or BE user
+            $frontEnd->beUserLogin = false;
+            $frontEnd->workspacePreview = '';
             $frontEnd->initFEuser();
         } else {
             /** @var FrontendUserAuthentication $frontEndUser */
