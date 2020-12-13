@@ -6,10 +6,12 @@ namespace OliverKlee\Oelib\Configuration;
 
 use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 use OliverKlee\Oelib\Interfaces\ConfigurationCheckable;
+use OliverKlee\Oelib\System\Typo3Version;
 use OliverKlee\Oelib\Templating\TemplateHelper;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
 
 /**
  * This class checks the extension configuration (TS setup) and some data for
@@ -331,7 +333,15 @@ class ConfigurationCheck
                 's_template_special',
                 true
             );
-            if (!is_file($this->getFrontEndController()->tmpl->getFileName($rawFileName))) {
+
+            if (Typo3Version::isNotHigherThan(8)) {
+                $file = $this->getFrontEndController()->tmpl->getFileName($rawFileName);
+            } else {
+                /** @var FilePathSanitizer $fileSanitizer */
+                $fileSanitizer = GeneralUtility::makeInstance(FilePathSanitizer::class);
+                $file = $fileSanitizer->sanitize($rawFileName);
+            }
+            if (!is_file($file)) {
                 $message = 'The specified HTML template file <strong>'
                     . htmlspecialchars($rawFileName, ENT_QUOTES | ENT_HTML5)
                     . '</strong> cannot be read. '
@@ -373,7 +383,13 @@ class ConfigurationCheck
         $typoScriptSetupPage = &$frontEndController->tmpl->setup['page.'];
         $fileName = $typoScriptSetupPage['includeCSS.'][$this->objectToCheck->prefixId];
         if (!empty($fileName)) {
-            $fileName = $frontEndController->tmpl->getFileName($fileName);
+            if (Typo3Version::isNotHigherThan(8)) {
+                $fileName = $frontEndController->tmpl->getFileName($fileName);
+            } else {
+                /** @var FilePathSanitizer $fileSanitizer */
+                $fileSanitizer = GeneralUtility::makeInstance(FilePathSanitizer::class);
+                $fileName = $fileSanitizer->sanitize($fileName);
+            }
             if (!is_file($fileName)) {
                 $message .= 'The specified CSS file <strong>'
                     . htmlspecialchars($fileName, ENT_QUOTES | ENT_HTML5)

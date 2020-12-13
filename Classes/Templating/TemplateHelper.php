@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
+use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
 
 /**
  * This utility class provides some commonly-used functions for handling
@@ -515,7 +516,13 @@ class TemplateHelper extends SalutationSwitcher
         );
 
         if (!$ignoreFlexform) {
-            $templateFileName = (string)$this->getFrontEndController()->tmpl->getFileName($templateFileName);
+            if (Typo3Version::isNotHigherThan(8)) {
+                $templateFileName = (string)$this->getFrontEndController()->tmpl->getFileName($templateFileName);
+            } else {
+                /** @var FilePathSanitizer $fileSanitizer */
+                $fileSanitizer = GeneralUtility::makeInstance(FilePathSanitizer::class);
+                $templateFileName = $fileSanitizer->sanitize($templateFileName);
+            }
         }
 
         $this->templateFileName = $templateFileName;
