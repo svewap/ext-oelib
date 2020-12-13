@@ -3103,7 +3103,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+        if (Typo3Version::isNotHigherThan(8)) {
             $isLoggedIn = $this->getFrontEndController()->loginUser;
         } else {
             $isLoggedIn = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
@@ -3195,7 +3195,7 @@ class TestingFrameworkTest extends FunctionalTestCase
 
         $this->subject->logoutFrontEndUser();
 
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
+        if (Typo3Version::isNotHigherThan(8)) {
             $isLoggedIn = $this->getFrontEndController()->loginUser;
         } else {
             $isLoggedIn = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
