@@ -1467,7 +1467,14 @@ class ConfigurationCheck
         string $sheet,
         string $explanation
     ) {
-        GeneralUtility::logDeprecatedFunction();
+        if (Typo3Version::isNotHigherThan(8)) {
+            GeneralUtility::logDeprecatedFunction();
+        } else {
+            trigger_error(
+                'checkIfFePagesOrEmpty() is deprecated and will be removed in oelib 4.0.0; is a no-op in the meantime',
+                E_USER_DEPRECATED
+            );
+        }
     }
 
     /**
@@ -1592,7 +1599,15 @@ class ConfigurationCheck
         string $sheet,
         string $explanation
     ) {
-        GeneralUtility::logDeprecatedFunction();
+        if (Typo3Version::isNotHigherThan(8)) {
+            GeneralUtility::logDeprecatedFunction();
+        } else {
+            trigger_error(
+                'checkIfSysFoldersOrEmpty() is deprecated and will be removed in oelib 4.0.0; ' .
+                'is a no-op in the meantime',
+                E_USER_DEPRECATED
+            );
+        }
     }
 
     /**
@@ -1626,7 +1641,14 @@ class ConfigurationCheck
         string $explanation,
         string $typeCondition
     ) {
-        GeneralUtility::logDeprecatedFunction();
+        if (Typo3Version::isNotHigherThan(8)) {
+            GeneralUtility::logDeprecatedFunction();
+        } else {
+            trigger_error(
+                'checkPageTypeOrEmpty() is deprecated and will be removed in oelib 4.0.0; is a no-op in the meantime',
+                E_USER_DEPRECATED
+            );
+        }
     }
 
     /**
