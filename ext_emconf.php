@@ -31,7 +31,7 @@ $EM_CONF[$_EXTKEY] = [
     ],
     'autoload-dev' => [
         'psr-4' => [
-            'OliverKlee\\Oelib\\Tests\\' => 'Tests/'
+            'OliverKlee\\Oelib\\Tests\\' => 'Tests/',
         ],
     ],
 ];
