@@ -128,6 +128,8 @@ class DatabaseService
      *
      * Note: The returned page list will _not_ be sorted.
      *
+     * @deprecated will be removed in oelib 4.0. Use PageRepository::findWithinParentPages instead.
+     *
      * @param string|int $concatenatedStartPages
      *        comma-separated list of page UIDs to start from, must only contain numbers and commas, may be empty
      * @param int $recursionDepth maximum depth of recursion, must be >= 0

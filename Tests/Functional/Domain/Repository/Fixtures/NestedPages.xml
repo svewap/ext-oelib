@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <pages>
+        <title>no subpages</title>
+        <uid>1</uid>
+        <pid>0</pid>
+    </pages>
+    <pages>
+        <title>no subpages</title>
+        <uid>2</uid>
+        <pid>0</pid>
+    </pages>
+    <pages>
+        <title>deleted, no subpages</title>
+        <uid>3</uid>
+        <pid>0</pid>
+        <deleted>1</deleted>
+    </pages>
+    <pages>
+        <title>with one subpage</title>
+        <uid>4</uid>
+        <pid>0</pid>
+    </pages>
+    <pages>
+        <title>subpage to 4</title>
+        <uid>5</uid>
+        <pid>4</pid>
+    </pages>
+    <pages>
+        <title>with two subpages</title>
+        <uid>6</uid>
+        <pid>0</pid>
+    </pages>
+    <pages>
+        <title>subpage to 6</title>
+        <uid>7</uid>
+        <pid>6</pid>
+    </pages>
+    <pages>
+        <title>subpage to 6</title>
+        <uid>8</uid>
+        <pid>6</pid>
+    </pages>
+    <pages>
+        <title>with one deleted subpage</title>
+        <uid>9</uid>
+        <pid>0</pid>
+    </pages>
+    <pages>
+        <title>deleted subpage to 9</title>
+        <uid>10</uid>
+        <pid>9</pid>
+        <deleted>1</deleted>
+    </pages>
+    <pages>
+        <title>with one two nested subpages</title>
+        <uid>11</uid>
+        <pid>0</pid>
+    </pages>
+    <pages>
+        <title>direct subpage to 11</title>
+        <uid>12</uid>
+        <pid>11</pid>
+    </pages>
+    <pages>
+        <title>indirect subpage to 11</title>
+        <uid>13</uid>
+        <pid>12</pid>
+    </pages>
+</dataset>
