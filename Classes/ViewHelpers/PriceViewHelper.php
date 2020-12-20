@@ -84,7 +84,7 @@ class PriceViewHelper extends AbstractViewHelper
     public function render(): string
     {
         $currency = $this->currency;
-        if ($currency === null) {
+        if (!$currency instanceof Currency) {
             return \number_format($this->value, 2, '.', '');
         }
 

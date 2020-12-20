@@ -11,9 +11,12 @@ use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Language\SalutationSwitcher;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
+use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
 
@@ -89,7 +92,7 @@ class TemplateHelper extends SalutationSwitcher
         if ($this->isInitialized) {
             return;
         }
-        if ($this->templateService === null) {
+        if (!$this->templateService instanceof MarkerBasedTemplateService) {
             // Calls the base class's constructor manually as this isn't done automatically.
             parent::__construct();
         }
@@ -109,12 +112,15 @@ class TemplateHelper extends SalutationSwitcher
      */
     protected function initializeConfiguration()
     {
-        if ($this->conf !== null) {
+        if (\is_array($this->conf)) {
             return;
         }
 
         $frontEndController = $this->getFrontEndController();
-        if ($frontEndController !== null && !isset($frontEndController->config['config'])) {
+        if (
+            $frontEndController instanceof TypoScriptFrontendController
+            && !isset($frontEndController->config['config'])
+        ) {
             $frontEndController->config['config'] = [];
         }
 
@@ -126,7 +132,7 @@ class TemplateHelper extends SalutationSwitcher
         } else {
             // We need to create our own template setup if we are in the
             // BE and we aren't currently creating a DirectMail page.
-            if (TYPO3_MODE === 'BE' && $frontEndController === null) {
+            if (TYPO3_MODE === 'BE' && !$frontEndController instanceof TypoScriptFrontendController) {
                 $this->conf = $this->retrievePageConfig($pageUid);
             } else {
                 // On the front end, we can use the provided template setup.
@@ -143,7 +149,7 @@ class TemplateHelper extends SalutationSwitcher
      */
     protected function initializeConfigurationCheck()
     {
-        if ($this->configurationCheck !== null || !$this->isConfigurationCheckEnabled()) {
+        if ($this->configurationCheck instanceof ConfigurationCheck || !$this->isConfigurationCheckEnabled()) {
             return;
         }
 
@@ -206,13 +212,12 @@ class TemplateHelper extends SalutationSwitcher
      */
     protected function ensureContentObject()
     {
-        if ($this->cObj !== null) {
+        if ($this->cObj instanceof ContentObjectRenderer) {
             return;
         }
 
         $frontEnd = $this->getFrontEndController();
-        // TSFE->cObj will be an empty string if not initialized, not NULL.
-        if (is_object($frontEnd->cObj)) {
+        if ($frontEnd instanceof TypoScriptFrontendController && $frontEnd->cObj instanceof ContentObjectRenderer) {
             $this->cObj = $frontEnd->cObj;
         }
     }
@@ -536,7 +541,7 @@ class TemplateHelper extends SalutationSwitcher
      */
     protected function getTemplate(): Template
     {
-        if ($this->template === null) {
+        if (!$this->template instanceof Template) {
             $this->template = TemplateRegistry::get($this->templateFileName);
         }
 
@@ -1183,7 +1188,7 @@ class TemplateHelper extends SalutationSwitcher
      */
     public function setFlavor(string $flavor)
     {
-        if ($this->getConfigurationCheck() !== null) {
+        if ($this->getConfigurationCheck() instanceof ConfigurationCheck) {
             $this->configurationCheck->setFlavor($flavor);
         }
     }
@@ -1196,7 +1201,7 @@ class TemplateHelper extends SalutationSwitcher
      */
     public function getFlavor(): string
     {
-        if ($this->getConfigurationCheck() === null) {
+        if (!$this->getConfigurationCheck() instanceof ConfigurationCheck) {
             return '';
         }
 
@@ -1214,7 +1219,7 @@ class TemplateHelper extends SalutationSwitcher
      */
     protected function setErrorMessage(string $message)
     {
-        if ($this->getConfigurationCheck() !== null) {
+        if ($this->getConfigurationCheck() instanceof ConfigurationCheck) {
             $this->configurationCheck->setErrorMessage($message);
         }
     }
@@ -1245,7 +1250,7 @@ class TemplateHelper extends SalutationSwitcher
         static $hasDisplayedMessage = false;
 
         $configurationCheck = $this->getConfigurationCheck();
-        if ($configurationCheck === null) {
+        if (!$configurationCheck instanceof ConfigurationCheck) {
             return '';
         }
 
@@ -1281,12 +1286,11 @@ class TemplateHelper extends SalutationSwitcher
      * directly and it doesn't need to get handled to other configcheck
      * objects.
      *
-     * @return string the wrapped error text (or an empty string if there are no
-     *                errors)
+     * @return string the wrapped error text (or an empty string if there are no errors)
      */
     public function getWrappedConfigCheckMessage(): string
     {
-        if ($this->getConfigurationCheck() === null) {
+        if (!$this->getConfigurationCheck() instanceof ConfigurationCheck) {
             return '';
         }
 

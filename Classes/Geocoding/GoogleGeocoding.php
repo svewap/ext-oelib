@@ -72,7 +72,7 @@ class GoogleGeocoding implements GeocodingLookup
      */
     public static function getInstance(): GeocodingLookup
     {
-        if (self::$instance === null) {
+        if (!self::$instance instanceof GeocodingLookup) {
             self::$instance = new GoogleGeocoding();
         }
 

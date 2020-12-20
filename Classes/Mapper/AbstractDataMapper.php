@@ -913,7 +913,7 @@ abstract class AbstractDataMapper
      */
     protected function prepareDataForNewRecord(array &$data)
     {
-        if ($this->testingFramework === null) {
+        if (!$this->testingFramework instanceof TestingFramework) {
             return;
         }
 
@@ -1107,7 +1107,7 @@ abstract class AbstractDataMapper
     ): array {
         $recordData = ['uid_local' => $uidLocal, 'uid_foreign' => $uidForeign, 'sorting' => $sorting];
 
-        if ($this->testingFramework !== null) {
+        if ($this->testingFramework instanceof TestingFramework) {
             $this->testingFramework->markTableAsDirty($mnTable);
             $dummyColumnName = $this->testingFramework->getDummyColumnName($mnTable);
             $recordData[$dummyColumnName] = 1;
@@ -1233,7 +1233,7 @@ abstract class AbstractDataMapper
     protected function getUniversalWhereClause(bool $allowHiddenRecords = false): string
     {
         $tableName = $this->getTableName();
-        if ($this->testingFramework !== null) {
+        if ($this->testingFramework instanceof TestingFramework) {
             $dummyColumnName = $this->testingFramework->getDummyColumnName($tableName);
             $leftPart = DatabaseService ::tableHasColumn($this->getTableName(), $dummyColumnName)
                 ? $dummyColumnName . ' = 1' : '1 = 1';
@@ -1625,7 +1625,7 @@ abstract class AbstractDataMapper
         $query = $this->getQueryBuilder();
         $query->select('*')->from($this->getTableName());
         $query->andWhere($query->expr()->eq($relationKey, $query->createNamedParameter($model->getUid())));
-        if ($ignoreList !== null && $ignoreList->getUids() !== '') {
+        if ($ignoreList instanceof Collection && $ignoreList->getUids() !== '') {
             $query->andWhere($query->expr()->notIn('uid', GeneralUtility::intExplode(',', $ignoreList->getUids())));
         }
 

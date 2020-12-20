@@ -712,7 +712,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      */
     public function setCountry(Country $country = null)
     {
-        $countryCode = ($country !== null) ? $country->getIsoAlpha3Code() : '';
+        $countryCode = $country instanceof Country ? $country->getIsoAlpha3Code() : '';
 
         $this->setAsString('static_info_country', $countryCode);
     }
@@ -724,7 +724,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      */
     public function hasCountry(): bool
     {
-        return $this->getCountry() !== null;
+        return $this->getCountry() instanceof Country;
     }
 
     /**

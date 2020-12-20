@@ -133,7 +133,7 @@ class Mail extends AbstractObjectWithAccessors
      */
     public function hasReplyTo(): bool
     {
-        return $this->replyTo !== null;
+        return $this->replyTo instanceof MailRole;
     }
 
     /**

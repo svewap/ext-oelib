@@ -54,7 +54,7 @@ class Session extends AbstractObjectWithPublicAccessors
      */
     protected function __construct(int $type)
     {
-        if ($this->getFrontEndController() === null) {
+        if (!$this->getFrontEndController() instanceof TypoScriptFrontendController) {
             throw new \BadMethodCallException(
                 'This class must not be instantiated when there is no front end.',
                 1331489053

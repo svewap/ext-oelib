@@ -177,7 +177,9 @@ class PageFinder
      */
     private function hasFrontEnd(): bool
     {
-        return ($this->getFrontEndController() !== null) && ($this->getFrontEndController()->id > 0);
+        $frontEndController = $this->getFrontEndController();
+
+        return $frontEndController instanceof TypoScriptFrontendController && $frontEndController->id > 0;
     }
 
     /**

@@ -34,7 +34,7 @@ class MailerFactory implements SingletonInterface
      */
     public function cleanUp()
     {
-        if ($this->mailer !== null) {
+        if ($this->mailer instanceof AbstractMailer) {
             $this->mailer->cleanUp();
         }
     }

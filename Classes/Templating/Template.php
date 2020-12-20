@@ -700,7 +700,7 @@ class Template
      */
     public function getSubpartWithLabels(string $subpartKey = ''): string
     {
-        if ($this->translator === null) {
+        if (!$this->translator instanceof Translator) {
             throw new \BadMethodCallException('Please inject the translator before calling this method.', 1440106254);
         }
 

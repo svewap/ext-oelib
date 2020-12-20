@@ -27,7 +27,7 @@ class DatabaseService
     /**
      * page object which we will use to call enableFields on
      *
-     * @var PageRepository
+     * @var PageRepository|null
      */
     private static $pageForEnableFields = null;
 
@@ -108,12 +108,15 @@ class DatabaseService
      */
     private static function retrievePageForEnableFields()
     {
-        if (!is_object(self::$pageForEnableFields)) {
-            if ((self::getFrontEndController() !== null) && is_object(self::getFrontEndController()->sys_page)) {
-                self::$pageForEnableFields = self::getFrontEndController()->sys_page;
-            } else {
-                self::$pageForEnableFields = GeneralUtility::makeInstance(PageRepository::class);
-            }
+        if (self::$pageForEnableFields instanceof PageRepository) {
+            return;
+        }
+
+        $controller = self::getFrontEndController();
+        if ($controller instanceof TypoScriptFrontendController && $controller->sys_page instanceof PageRepository) {
+            self::$pageForEnableFields = $controller->sys_page;
+        } else {
+            self::$pageForEnableFields = GeneralUtility::makeInstance(PageRepository::class);
         }
     }
 

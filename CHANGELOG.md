@@ -48,6 +48,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Sort the entries in the `.gitignore` and `.gitattributes` (#368)
 
 ### Fixed
+- Harden null checks (#524)
 - Add `.0` version suffixes to PHP version requirements (#393)
 - Allow non-string marker contents in templates (#390, #391)
 - Fix crash if no HTML template path is provided (#389)

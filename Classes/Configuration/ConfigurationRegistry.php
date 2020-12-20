@@ -237,8 +237,8 @@ class ConfigurationRegistry
     private function existsFrontEnd(): bool
     {
         $frontEndController = $this->getFrontEndController();
-        return ($frontEndController !== null) && is_object($frontEndController->tmpl)
-            && $frontEndController->tmpl->loaded;
+        return $frontEndController instanceof TypoScriptFrontendController
+            && $frontEndController->tmpl instanceof TemplateService && $frontEndController->tmpl->loaded;
     }
 
     /**

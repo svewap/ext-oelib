@@ -325,7 +325,7 @@ class ConfigurationCheck
         );
 
         if (
-            ($this->getFrontEndController() !== null)
+            ($this->getFrontEndController() instanceof TypoScriptFrontendController)
             && $this->objectToCheck->hasConfValueString('templateFile', 's_template_special')
         ) {
             $rawFileName = $this->objectToCheck->getConfValueString(
