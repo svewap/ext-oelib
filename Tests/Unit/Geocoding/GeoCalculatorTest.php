@@ -331,6 +331,36 @@ class GeoCalculatorTest extends UnitTestCase
     }
 
     /**
+     * @test
+     */
+    public function moveNorthByValueOfOneDegreeLatitudeMovesByOneDegree()
+    {
+        $distance = 111.0;
+        $north = 90;
+        $latitudeBefore = $this->geoObject->getGeoCoordinates()['latitude'];
+
+        $this->subject->move($this->geoObject, $north, $distance);
+
+        $latitudeAfter = $this->geoObject->getGeoCoordinates()['latitude'];
+        self::assertEquals(-1.0, $latitudeBefore - $latitudeAfter, 'The distance is not as expected.', 0.00001);
+    }
+
+    /**
+     * @test
+     */
+    public function moveSouthByValueOfOneDegreeLatitudeMovesByOneDegree()
+    {
+        $distance = 111.0;
+        $south = 270;
+        $latitudeBefore = $this->geoObject->getGeoCoordinates()['latitude'];
+
+        $this->subject->move($this->geoObject, $south, $distance);
+
+        $latitudeAfter = $this->geoObject->getGeoCoordinates()['latitude'];
+        self::assertEquals(1.0, $latitudeBefore - $latitudeAfter, 'The distance is not as expected.', 0.00001);
+    }
+
+    /**
      * @return int[][]
      */
     public function directionDataProvider(): array
