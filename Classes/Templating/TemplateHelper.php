@@ -470,6 +470,26 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
+     * Sets a cached configuration value that will be used when a new instance is created.
+     *
+     * This function is intended to be used for testing purposes only.
+     *
+     * @param string $key key of the configuration property to set, must not be empty
+     * @param mixed $value value of the configuration property, may be empty or zero
+     *
+     * @return void
+     */
+    public static function setCachedConfigurationValue(string $key, $value)
+    {
+        $pageUid = PageFinder::getInstance()->getPageUid();
+        if (!isset(self::$cachedConfigurations[$pageUid])) {
+            self::$cachedConfigurations[$pageUid] = [];
+        }
+
+        self::$cachedConfigurations[$pageUid][$key] = $value;
+    }
+
+    /**
      * Purges all cached configuration values.
      *
      * This function is intended to be used for testing purposes only.

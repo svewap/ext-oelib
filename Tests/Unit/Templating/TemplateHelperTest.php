@@ -211,6 +211,36 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
+    public function setCachedConfigurationValueCreatesConfigurationForNewInstance()
+    {
+        TemplateHelper::setCachedConfigurationValue('foo', 'bar');
+
+        $subject = new TemplateHelper();
+        $subject->init();
+
+        self::assertSame(
+            'bar',
+            $subject->getConfValueString('foo')
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function purgeCachedConfigurationsDropsCachedConfiguration()
+    {
+        TemplateHelper::setCachedConfigurationValue('foo', 'bar');
+        TemplateHelper::purgeCachedConfigurations();
+
+        $subject = new TemplateHelper();
+        $subject->init([]);
+
+        self::assertSame('', $subject->getConfValueString('foo'));
+    }
+
+    /**
+     * @test
+     */
     public function configurationInitiallyIsAnEmptyArray()
     {
         self::assertSame(
