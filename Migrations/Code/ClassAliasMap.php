@@ -40,7 +40,7 @@ return [
     'Tx_Oelib_FrontEnd_UserWithoutCookies' => \OliverKlee\Oelib\FrontEnd\UserWithoutCookies::class,
 
     // Geocoding
-    'Tx_Oelib_Geocoding_Calculcator' => \OliverKlee\Oelib\Geocoding\GeoCalculator::class,
+    'Tx_Oelib_Geocoding_Calculator' => \OliverKlee\Oelib\Geocoding\GeoCalculator::class,
     'Tx_Oelib_Geocoding_Dummy' => \OliverKlee\Oelib\Geocoding\DummyGeocodingLookup::class,
     'Tx_Oelib_Geocoding_Google' => \OliverKlee\Oelib\Geocoding\GoogleGeocoding::class,
 

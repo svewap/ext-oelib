@@ -25,8 +25,11 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix a typo in a migration class alias (#532)
 - Remove a breaking parameter type declaration (#531)
 - Restore `TemplateHelper::setCachedConfigurationValue` (#527)
+- Fix the constant for one degree latitude (#525)
+- Harden null checks (#524)
 - Fix the seconds per year constant (#520)
 - Harden `unserialize` calls of extension configuration (#510)
 - Stop using things that are deprecated in TYPO3 V9 (#484, #491, #506, #507, #508)
@@ -49,8 +52,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Sort the entries in the `.gitignore` and `.gitattributes` (#368)
 
 ### Fixed
-- Fix the constant for one degree latitude (#525)
-- Harden null checks (#524)
 - Add `.0` version suffixes to PHP version requirements (#393)
 - Allow non-string marker contents in templates (#390, #391)
 - Fix crash if no HTML template path is provided (#389)
