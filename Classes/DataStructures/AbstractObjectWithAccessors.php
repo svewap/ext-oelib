@@ -32,7 +32,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @return void
      */
-    abstract protected function set(string $key, $value);
+    abstract protected function set($key, $value);
 
     /**
      * Checks that $key is not empty.

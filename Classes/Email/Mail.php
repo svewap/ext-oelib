@@ -61,7 +61,7 @@ class Mail extends AbstractObjectWithAccessors
      *
      * @return void
      */
-    protected function set(string $key, $value)
+    protected function set($key, $value)
     {
         $this->data[$key] = $value;
     }

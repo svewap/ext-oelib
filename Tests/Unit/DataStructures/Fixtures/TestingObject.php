@@ -54,7 +54,7 @@ class TestingObject extends AbstractObjectWithPublicAccessors
      *
      * @return void
      */
-    protected function set(string $key, $value)
+    protected function set($key, $value)
     {
         $this->data[$key] = $value;
     }

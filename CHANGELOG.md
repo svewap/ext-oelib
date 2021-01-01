@@ -25,6 +25,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Remove a breaking parameter type declaration (#531)
 - Restore `TemplateHelper::setCachedConfigurationValue` (#527)
 - Fix the seconds per year constant (#520)
 - Harden `unserialize` calls of extension configuration (#510)

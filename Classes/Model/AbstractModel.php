@@ -257,7 +257,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      *
      * @return void
      */
-    protected function set(string $key, $value)
+    protected function set($key, $value)
     {
         if ($key === 'deleted') {
             throw new \InvalidArgumentException(

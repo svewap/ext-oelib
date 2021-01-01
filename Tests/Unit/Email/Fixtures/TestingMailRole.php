@@ -41,7 +41,7 @@ class TestingMailRole extends AbstractObjectWithAccessors implements MailRole
      *
      * @return void
      */
-    protected function set(string $key, $value)
+    protected function set($key, $value)
     {
         $this->data[$key] = $value;
     }

@@ -52,7 +52,7 @@ class FakeSession extends Session
      *
      * @return void
      */
-    protected function set(string $key, $value)
+    protected function set($key, $value)
     {
         $this->sessionData[$key] = $value;
     }

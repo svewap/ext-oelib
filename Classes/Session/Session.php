@@ -151,7 +151,7 @@ class Session extends AbstractObjectWithPublicAccessors
      *
      * @return void
      */
-    protected function set(string $key, $value)
+    protected function set($key, $value)
     {
         $this->getFrontEndController()->fe_user->setKey(self::$types[$this->type], $key, $value);
         $this->getFrontEndController()->fe_user->storeSessionData();
