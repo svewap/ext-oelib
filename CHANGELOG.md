@@ -6,23 +6,34 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 3.2.0
+
+### Added
 - Add a `PageRepository` (#522)
 - Add an `.editorconfig` file (#432)
 
 ### Changed
 - Add more parameter and return type declarations (#501)
-- [!!!] Namespace all classes (#398, #493)
+- [!!!] Namespace all classes (#398, #412, #413, #415, #423, #425, #426, #428, #436, #438, #440, #440, #448, #453, #454, #455, #458, #463, #493)
 - Move the CI from Travis CI to GitHub Actions (#427, #428)
 - Switch the default git branch from `master` to `main` (#424)
 - Move the testing framework dummy files from `uploads/` folder to `typo3temp/` (#399, #403)
 
 ### Deprecated
+- Deprecate `HeaderProxy` and `SystemEmailFromBuilder` (#483)
 - Deprecate the old extension configuration format. The support of the old one will be dropped in version 4.0.
   Please migrate to the new one. Please see the
   [deprecation notice](https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82254-DeprecateGLOBALSTYPO3_CONF_VARSEXTextConf.html)
   for more information.
-
-### Removed
 
 ### Fixed
 - Fix a typo in a migration class alias (#532)
@@ -32,7 +43,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Harden null checks (#524)
 - Fix the seconds per year constant (#520)
 - Harden `unserialize` calls of extension configuration (#510)
-- Stop using things that are deprecated in TYPO3 V9 (#484, #491, #506, #507, #508)
+- Stop using things that are deprecated in TYPO3 V9 (#484, #491, #504, #506, #507, #508, #509, #512)
 - Use correct cache keys in TYPO3 10LTS (#504)
 - Add necessary int casts (#502)
 - Fix Composer cache keys in the CI configuration file (#433)
