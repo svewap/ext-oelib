@@ -462,13 +462,16 @@ class GeoCalculatorTest extends UnitTestCase
     public function moveByRandomDistanceMovesAtMostByGivenDistanceWithPositiveDistance(int $direction)
     {
         $maximumDistance = 100.0;
-        $otherGeoObject = clone $this->geoObject;
-        $this->subject->moveByRandomDistance($otherGeoObject, $direction, $maximumDistance);
 
-        self::assertLessThanOrEqual(
-            $maximumDistance,
-            $this->subject->calculateDistanceInKilometers($this->geoObject, $otherGeoObject)
-        );
+        for ($i = 0; $i < 1000; $i++) {
+            $otherGeoObject = clone $this->geoObject;
+            $this->subject->moveByRandomDistance($otherGeoObject, $direction, $maximumDistance);
+
+            self::assertLessThanOrEqual(
+                $maximumDistance,
+                $this->subject->calculateDistanceInKilometers($this->geoObject, $otherGeoObject)
+            );
+        }
     }
 
     /**
@@ -582,12 +585,15 @@ class GeoCalculatorTest extends UnitTestCase
     public function moveInRandomDirectionAndDistanceMovesAtMostByGivenDistanceWithPositiveDistance()
     {
         $maximumDistance = 100.0;
-        $otherGeoObject = clone $this->geoObject;
-        $this->subject->moveInRandomDirectionAndDistance($otherGeoObject, $maximumDistance);
 
-        self::assertLessThanOrEqual(
-            $maximumDistance,
-            $this->subject->calculateDistanceInKilometers($this->geoObject, $otherGeoObject)
-        );
+        for ($i = 0; $i < 1000; $i++) {
+            $otherGeoObject = clone $this->geoObject;
+            $this->subject->moveInRandomDirectionAndDistance($otherGeoObject, $maximumDistance);
+
+            self::assertLessThanOrEqual(
+                $maximumDistance,
+                $this->subject->calculateDistanceInKilometers($this->geoObject, $otherGeoObject)
+            );
+        }
     }
 }

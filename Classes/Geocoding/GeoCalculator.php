@@ -175,8 +175,9 @@ class GeoCalculator implements SingletonInterface
             );
         }
 
+        $safeDistance = $maximumDistance * .99;
         $distanceMultiplier = 10000;
-        $randomDistance = \random_int(0, (int)($maximumDistance * ($distanceMultiplier - 1))) / $distanceMultiplier;
+        $randomDistance = \random_int(0, (int)($safeDistance * $distanceMultiplier)) / $distanceMultiplier;
         $this->move($object, $direction, $randomDistance);
     }
 
