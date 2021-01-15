@@ -225,9 +225,9 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Checks that this object is properly initialized.
      *
-     * @return bool TRUE if this object is properly initialized, FALSE otherwise
+     * @return bool
      */
-    public function isInitialized(): bool
+    public function isInitialized()
     {
         return $this->isInitialized;
     }
