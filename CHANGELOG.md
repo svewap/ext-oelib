@@ -14,6 +14,10 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+
+## 3.2.1
+
+### Fixed
 - Drop a return type declaration that breaks seminars (#540)
 - Reduce the margin of `GeoCalculator::moveByRandomDistance` (#535)
 
