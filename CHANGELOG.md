@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add a `DynamicDateViewHelper` (#554)
 - Add `AbstractModel::getAsCollection()` as an alias for `::getAsList` (#552)
 - Document how to run the tests (#544)
 
