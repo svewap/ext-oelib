@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Make `is_object` checks more specific (#546)
 
 ## 3.2.1
 

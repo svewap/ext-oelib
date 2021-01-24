@@ -102,12 +102,10 @@ class Mail extends AbstractObjectWithAccessors
 
     /**
      * Returns whether the e-mail has a sender.
-     *
-     * @return bool TRUE if the e-mail has a sender, FALSE otherwise
      */
     public function hasSender(): bool
     {
-        return is_object($this->sender);
+        return $this->sender instanceof MailRole;
     }
 
     /**

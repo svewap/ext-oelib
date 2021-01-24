@@ -48,7 +48,7 @@ class HeaderProxyFactory
      */
     public static function getInstance(): HeaderProxyFactory
     {
-        if (!is_object(self::$instance)) {
+        if (!self::$instance instanceof HeaderProxyFactory) {
             self::$instance = new HeaderProxyFactory();
         }
 
@@ -63,13 +63,8 @@ class HeaderProxyFactory
      */
     public function getHeaderProxy()
     {
-        if ($this->isTestMode) {
-            $className = HeaderCollector::class;
-        } else {
-            $className = RealHeaderProxy ::class;
-        }
-
-        if (!is_object($this->headerProxy) || (get_class($this->headerProxy) !== $className)) {
+        $className = $this->isTestMode ? HeaderCollector::class : RealHeaderProxy::class;
+        if (!$this->headerProxy instanceof $className) {
             $this->headerProxy = GeneralUtility::makeInstance($className);
         }
 

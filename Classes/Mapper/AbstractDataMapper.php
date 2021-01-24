@@ -892,7 +892,7 @@ abstract class AbstractDataMapper
                 }
             }
 
-            $data[$key] = (isset($data[$key]) && is_object($data[$key])) ? $data[$key]->$functionName() : 0;
+            $data[$key] = (isset($data[$key]) && is_object($data[$key])) ? $data[$key]->{$functionName}() : 0;
         }
 
         foreach ($data as &$dataItem) {
@@ -1166,7 +1166,7 @@ abstract class AbstractDataMapper
         foreach ($this->relations as $key => $mapperName) {
             if ($this->isOneToManyRelationConfigured($key)) {
                 $relatedModels = $data[$key];
-                if (!is_object($relatedModels)) {
+                if (!$relatedModels instanceof Collection) {
                     continue;
                 }
 
