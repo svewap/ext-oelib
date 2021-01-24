@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" baseProfile="tiny" id="Ebene_1" xmlns="http://www.w3.org/2000/svg"
-     x="0px" y="0px" width="16.2940006px" height="16.1522655px" viewBox="0 0 16.2940006 16.1522655" xml:space="preserve">
+     x="0px" y="0px" width="16.2940006px" height="16.1522655px" viewBox="0 0 16.2940006 16.1522655"
+     xml:space="preserve">
     <g>
         <path fill="#777676" d="M12.8287392,6.0905085c0.13873,0,0.251544,0.1128445,0.251544,0.251544v8.5524931
             c0,0.1386986-0.1128139,0.251543-0.251544,0.251543H1.2577195c-0.1387299,0-0.2515439-0.1128445-0.2515439-0.251543V6.3420525
@@ -10,15 +11,15 @@
             c0.6946325,0,1.25772-0.5630884,1.25772-1.25772V6.3420525C14.0864592,5.6474199,13.5233717,5.0843329,12.8287392,5.0843329
             L12.8287392,5.0843329z"/>
         <linearGradient id="SVGID_1_" x1="2.7213883" y1="11.1013718" x2="11.9027414" y2="13.2814188">
-            <stop  offset="0" style="stop-color:#FFCB69"/>
-            <stop  offset="1" style="stop-color:#FF8E06"/>
+            <stop offset="0" style="stop-color:#FFCB69"/>
+            <stop offset="1" style="stop-color:#FF8E06"/>
         </linearGradient>
         <path fill="url(#SVGID_1_)" d="M2.0123513,11.1213865v3.018527h10.0617561v-4.024703H8.452837
             c-0.2583132,0-0.5060463,0.1026144-0.6887012,0.2852697l-0.435637,0.4356365
             c-0.1826549,0.1826553-0.430388,0.2852697-0.6887012,0.2852697H2.0123513z"/>
         <linearGradient id="SVGID_2_" x1="2.0123513" y1="8.6059475" x2="12.0741072" y2="8.6059475">
-            <stop  offset="0" style="stop-color:#FFCB69"/>
-            <stop  offset="1" style="stop-color:#FF8E06"/>
+            <stop offset="0" style="stop-color:#FFCB69"/>
+            <stop offset="1" style="stop-color:#FF8E06"/>
         </linearGradient>
         <path fill="url(#SVGID_2_)" d="M11.4636097,7.096684H6.0370536H2.0123513v3.0185266h1.0061755h2.6151111
             c0.2582994,0,0.5060353-0.1026192,0.6886749-0.2852592l0.4356575-0.4356565

@@ -9,11 +9,11 @@ conf.py:
   version: 3.2
   release: 3.2.1
   latex_documents:
-  - - Index
-    - oelib.tex
-    - One is Enough Library
-    - Oliver Klee
-    - manual
+    - - Index
+      - oelib.tex
+      - One is Enough Library
+      - Oliver Klee
+      - manual
   latex_elements:
     papersize: a4paper
     pointsize: 10pt
@@ -22,9 +22,9 @@ conf.py:
   latex_show_pagerefs: True
   intersphinx_mapping:
     restdoc:
-    - https://docs.typo3.org/typo3cms/extensions/restdoc/
-    - null
+      - https://docs.typo3.org/typo3cms/extensions/restdoc/
+      - null
     t3tsref:
-    - https://docs.typo3.org/typo3cms/TyposcriptReference/
-    - null
+      - https://docs.typo3.org/typo3cms/TyposcriptReference/
+      - null
 ...

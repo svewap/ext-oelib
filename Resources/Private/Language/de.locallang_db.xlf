@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" target-language="de" datatype="plaintext" original="messages">
-        <header/>
-        <body>
-            <trans-unit id="tx_oelib_domain_model_germanzipcode" approved="yes">
-                <source>German ZIP codes</source>
-                <target>Deutsche Postleitzahlen</target>
-            </trans-unit>
-            <trans-unit id="tx_oelib_domain_model_germanzipcode.zip_code" approved="yes">
-                <source>ZIP code</source>
-                <target>Postleitzahl</target>
-            </trans-unit>
-            <trans-unit id="tx_oelib_domain_model_germanzipcode.city_name" approved="yes">
-                <source>City</source>
-                <target>Ort</target>
-            </trans-unit>
-            <trans-unit id="tx_oelib_domain_model_germanzipcode.longitude" approved="yes">
-                <source>Longitude</source>
-                <target>Längengrad</target>
-            </trans-unit>
-            <trans-unit id="tx_oelib_domain_model_germanzipcode.latitude" approved="yes">
-                <source>Latitude</source>
-                <target>Breitengrad</target>
-            </trans-unit>
-        </body>
-    </file>
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages">
+		<header/>
+		<body>
+			<trans-unit id="tx_oelib_domain_model_germanzipcode" approved="yes">
+				<source>German ZIP codes</source>
+				<target>Deutsche Postleitzahlen</target>
+			</trans-unit>
+			<trans-unit id="tx_oelib_domain_model_germanzipcode.zip_code" approved="yes">
+				<source>ZIP code</source>
+				<target>Postleitzahl</target>
+			</trans-unit>
+			<trans-unit id="tx_oelib_domain_model_germanzipcode.city_name" approved="yes">
+				<source>City</source>
+				<target>Ort</target>
+			</trans-unit>
+			<trans-unit id="tx_oelib_domain_model_germanzipcode.longitude" approved="yes">
+				<source>Longitude</source>
+				<target>Längengrad</target>
+			</trans-unit>
+			<trans-unit id="tx_oelib_domain_model_germanzipcode.latitude" approved="yes">
+				<source>Latitude</source>
+				<target>Breitengrad</target>
+			</trans-unit>
+		</body>
+	</file>
 </xliff>
