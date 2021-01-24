@@ -7,8 +7,6 @@ namespace OliverKlee\Oelib\Interfaces;
 /**
  * This interfaces represents an e-mail role, e.g. a sender or a recipient.
  *
- * @deprecated will be removed in oelib 4.0
- *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
 interface MailRole

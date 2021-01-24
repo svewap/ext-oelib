@@ -11,7 +11,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 ### Deprecated
-- Deprecate the UppercaseViewHelper (#548)
+- Don't deprecate `EmailRole`, `GeneralEmailRole`, `SystemEmailFromBuilder` (#551)
+- Deprecate the `UppercaseViewHelper` (#548)
 
 ### Removed
 
