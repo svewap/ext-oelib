@@ -23,6 +23,7 @@ jobs:
       - name: "Run PHP lint"
         run: "composer ci:php:lint"
     strategy:
+      fail-fast: false
       matrix:
         php-version:
           - 7.0
