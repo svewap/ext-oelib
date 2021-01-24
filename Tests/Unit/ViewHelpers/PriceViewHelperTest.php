@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
 use OliverKlee\Oelib\ViewHelpers\PriceViewHelper;
 
 /**
@@ -13,7 +13,7 @@ use OliverKlee\Oelib\ViewHelpers\PriceViewHelper;
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class PriceViewHelperTest extends UnitTestCase
+class PriceViewHelperTest extends ViewHelperBaseTestcase
 {
     /**
      * @var PriceViewHelper
@@ -22,6 +22,8 @@ class PriceViewHelperTest extends UnitTestCase
 
     protected function setUp()
     {
+        parent::setUp();
+
         $this->subject = new PriceViewHelper();
     }
 
