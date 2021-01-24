@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Add a type in TCA for the FE users table dummy column (#549)
 - Make `is_object` checks more specific (#546)
 
 ## 3.2.1
