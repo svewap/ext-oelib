@@ -6,11 +6,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add `AbstractModel::getAsCollection()` as an alias for `::getAsList` (#552)
 - Document how to run the tests (#544)
 
 ### Changed
 
 ### Deprecated
+- Deprecate `AbstractModel::getAsList()` (#552)
 - Don't deprecate `EmailRole`, `GeneralEmailRole`, `SystemEmailFromBuilder` (#551)
 - Deprecate the `UppercaseViewHelper` (#548)
 

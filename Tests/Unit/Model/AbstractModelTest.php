@@ -485,21 +485,65 @@ class AbstractModelTest extends UnitTestCase
         );
     }
 
-    ////////////////////////////////
-    // Tests concerning getAsList
-    ////////////////////////////////
+    /*
+     * Tests concerning getAsCollection and getAsList
+     */
+
+    /**
+     * @test
+     */
+    public function getAsCollectionWithEmptyKeyThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$key must not be empty.');
+
+        $this->subject->getAsCollection('');
+    }
+
+    /**
+     * @test
+     */
+    public function getAsCollectionWithInexistentKeyThrowsException()
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('The data item for the key "foo" is no collection.');
+
+        $this->subject->setData([]);
+
+        $this->subject->getAsCollection('foo');
+    }
+
+    /**
+     * @test
+     */
+    public function getAsCollectionWithKeyForStringDataThrowsException()
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('The data item for the key "foo" is no collection.');
+
+        $this->subject->setData(['foo' => 'bar']);
+
+        $this->subject->getAsCollection('foo');
+    }
+
+    /**
+     * @test
+     */
+    public function getAsCollectionReturnsCollectionSetViaSetData()
+    {
+        $list = new Collection();
+        $this->subject->setData(['foo' => $list]);
+
+        self::assertSame($list, $this->subject->getAsCollection('foo'));
+    }
 
     /**
      * @test
      */
     public function getAsListWithEmptyKeyThrowsException()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$key must not be empty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$key must not be empty.');
 
         $this->subject->getAsList('');
     }
@@ -509,18 +553,12 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getAsListWithInexistentKeyThrowsException()
     {
-        $this->expectException(
-            \UnexpectedValueException::class
-        );
-        $this->expectExceptionMessage(
-            'The data item for the key "foo" is no list instance.'
-        );
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('The data item for the key "foo" is no collection.');
 
         $this->subject->setData([]);
 
-        self::assertNull(
-            $this->subject->getAsList('foo')
-        );
+        $this->subject->getAsList('foo');
     }
 
     /**
@@ -528,12 +566,8 @@ class AbstractModelTest extends UnitTestCase
      */
     public function getAsListWithKeyForStringDataThrowsException()
     {
-        $this->expectException(
-            \UnexpectedValueException::class
-        );
-        $this->expectExceptionMessage(
-            'The data item for the key "foo" is no list instance.'
-        );
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('The data item for the key "foo" is no collection.');
 
         $this->subject->setData(['foo' => 'bar']);
 
@@ -543,17 +577,12 @@ class AbstractModelTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsListReturnsListSetViaSetData()
+    public function getAsListReturnsCollectionSetViaSetData()
     {
         $list = new Collection();
-        $this->subject->setData(
-            ['foo' => $list]
-        );
+        $this->subject->setData(['foo' => $list]);
 
-        self::assertSame(
-            $list,
-            $this->subject->getAsList('foo')
-        );
+        self::assertSame($list, $this->subject->getAsList('foo'));
     }
 
     /////////////////////////////

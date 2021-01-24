@@ -359,29 +359,45 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     }
 
     /**
-     * Gets the value stored in under the key $key as a list of models.
-     *
-     * @throws \UnexpectedValueException
-     *         if there is a data item stored for the key $key that is not a list instance or if that item has not been
-     *     set yet
+     * Gets the value stored in under the key $key as a collection of models.
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
      * @return Collection<AbstractModel> the data item for the given key
+     *
+     * @throws \UnexpectedValueException if there is a data item stored for the key $key that is not a collection
+     *         or if that item has not been set yet
      */
-    public function getAsList(string $key): Collection
+    public function getAsCollection(string $key): Collection
     {
         $this->checkForNonEmptyKey($key);
 
         $result = $this->get($key);
         if (!$result instanceof Collection) {
             throw new \UnexpectedValueException(
-                'The data item for the key "' . $key . '" is no list instance.',
+                'The data item for the key "' . $key . '" is no collection.',
                 1331489379
             );
         }
 
         return $result;
+    }
+
+    /**
+     * Gets the value stored in under the key $key as a collection of models.
+     *
+     * @deprecated will be removed in oelib 5.0 - use `getAsCollection` instead
+     *
+     * @param string $key the key of the element to retrieve, must not be empty
+     *
+     * @return Collection<AbstractModel> the data item for the given key
+     *
+     * @throws \UnexpectedValueException if there is a data item stored for the key $key that is not a collection
+     *         or if that item has not been set yet
+     */
+    public function getAsList(string $key): Collection
+    {
+        return $this->getAsCollection($key);
     }
 
     /**
