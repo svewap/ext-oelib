@@ -6,27 +6,36 @@ namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\Configuration;
+use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class ConfigurationTest extends UnitTestCase
+class TypoScriptConfigurationTest extends UnitTestCase
 {
     /**
-     * @var Configuration
+     * @var TypoScriptConfiguration
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new Configuration();
+        $this->subject = new TypoScriptConfiguration();
     }
 
     //////////////////////////////////////
     // Tests for the basic functionality
     //////////////////////////////////////
+
+    /**
+     * @test
+     */
+    public function hasAlias()
+    {
+        self::assertInstanceOf(Configuration::class, $this->subject);
+    }
 
     /**
      * @test

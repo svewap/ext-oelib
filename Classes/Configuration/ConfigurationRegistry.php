@@ -26,7 +26,7 @@ class ConfigurationRegistry
     private static $instance = null;
 
     /**
-     * @var array<string, Configuration> already created configurations (by namespace)
+     * @var array<string, TypoScriptConfiguration> already created configurations (by namespace)
      */
     private $configurations = [];
 
@@ -78,31 +78,31 @@ class ConfigurationRegistry
     }
 
     /**
-     * Retrieves a Configuration by namespace.
+     * Retrieves a TypoScriptConfiguration by namespace.
      *
      * @param string $namespace
      *        the name of a configuration namespace, e.g., "plugin.tx_oelib",
      *        must not be empty
      *
-     * @return Configuration the configuration for the given namespace
+     * @return TypoScriptConfiguration the configuration for the given namespace
      *
      * @see getByNamespace
      */
-    public static function get(string $namespace): Configuration
+    public static function get(string $namespace): TypoScriptConfiguration
     {
         return self::getInstance()->getByNamespace($namespace);
     }
 
     /**
-     * Retrieves a Configuration by namespace.
+     * Retrieves a TypoScriptConfiguration by namespace.
      *
      * @param string $namespace
      *        the name of a configuration namespace, e.g., "plugin.tx_oelib",
      *        must not be empty
      *
-     * @return Configuration the configuration for the given namespace
+     * @return TypoScriptConfiguration the configuration for the given namespace
      */
-    private function getByNamespace(string $namespace): Configuration
+    private function getByNamespace(string $namespace): TypoScriptConfiguration
     {
         $this->checkForNonEmptyNamespace($namespace);
 
@@ -119,12 +119,12 @@ class ConfigurationRegistry
      *
      * @param string $namespace
      *        the namespace of the configuration to set, must not be empty
-     * @param Configuration $configuration
+     * @param TypoScriptConfiguration $configuration
      *        the configuration to set
      *
      * @return void
      */
-    public function set(string $namespace, Configuration $configuration)
+    public function set(string $namespace, TypoScriptConfiguration $configuration)
     {
         $this->checkForNonEmptyNamespace($namespace);
 
@@ -159,9 +159,9 @@ class ConfigurationRegistry
      * @param string $namespace
      *        the namespace of the configuration to retrieve, must not be empty
      *
-     * @return Configuration the TypoScript configuration for that namespace, might be empty
+     * @return TypoScriptConfiguration the TypoScript configuration for that namespace, might be empty
      */
-    private function retrieveConfigurationFromTypoScriptSetup(string $namespace): Configuration
+    private function retrieveConfigurationFromTypoScriptSetup(string $namespace): TypoScriptConfiguration
     {
         $data = $this->getCompleteTypoScriptSetup();
 
@@ -174,8 +174,8 @@ class ConfigurationRegistry
             $data = $data[$namespacePart . '.'];
         }
 
-        /** @var Configuration $configuration */
-        $configuration = GeneralUtility::makeInstance(Configuration::class);
+        /** @var TypoScriptConfiguration $configuration */
+        $configuration = GeneralUtility::makeInstance(TypoScriptConfiguration::class);
         $configuration->setData($data);
         return $configuration;
     }

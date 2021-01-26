@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Configuration;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use OliverKlee\Oelib\Configuration\Configuration;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Configuration\PageFinder;
+use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -54,7 +54,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
         );
 
         self::assertInstanceOf(
-            Configuration::class,
+            TypoScriptConfiguration::class,
             ConfigurationRegistry::get('plugin.tx_oelib')
         );
     }
@@ -187,7 +187,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
         );
         PageFinder::getInstance()->setPageUid($pageUid);
 
-        $configuration = new Configuration();
+        $configuration = new TypoScriptConfiguration();
         ConfigurationRegistry::getInstance()
             ->set('plugin.tx_oelib', $configuration);
 

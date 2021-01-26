@@ -12,7 +12,7 @@ use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Configuration extends AbstractObjectWithPublicAccessors
+class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors
 {
     /**
      * @var array the data for this configuration

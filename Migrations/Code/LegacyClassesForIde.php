@@ -42,7 +42,7 @@ namespace {
     /**
      * @deprecated will be removed in oelib 4.0.0
      */
-    class Tx_Oelib_Configuration extends \OliverKlee\Oelib\Configuration\Configuration
+    class Tx_Oelib_Configuration extends \OliverKlee\Oelib\Configuration\TypoScriptConfiguration
     {
 
     }
@@ -759,6 +759,16 @@ namespace {
      * @deprecated will be removed in oelib 4.0.0
      */
     class Tx_Oelib_Visibility_Tree extends \OliverKlee\Oelib\Visibility\Tree
+    {
+
+    }
+}
+
+namespace OliverKlee\Oelib\Configuration {
+    /**
+     * @deprecated will be removed in oelib 5.0.0
+     */
+    class Configuration extends \OliverKlee\Oelib\Configuration\TypoScriptConfiguration
     {
 
     }

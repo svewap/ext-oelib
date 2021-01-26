@@ -9,10 +9,11 @@ return [
 
     // Configuration
     'Tx_Oelib_ConfigCheck' => \OliverKlee\Oelib\Configuration\ConfigurationCheck::class,
-    'Tx_Oelib_Configuration' => \OliverKlee\Oelib\Configuration\Configuration::class,
+    'Tx_Oelib_Configuration' => \OliverKlee\Oelib\Configuration\TypoScriptConfiguration::class,
     'Tx_Oelib_ConfigurationProxy' => \OliverKlee\Oelib\Configuration\ConfigurationProxy::class,
     'Tx_Oelib_ConfigurationRegistry' => \OliverKlee\Oelib\Configuration\ConfigurationRegistry::class,
     'Tx_Oelib_PageFinder' => \OliverKlee\Oelib\Configuration\PageFinder::class,
+    \OliverKlee\Oelib\Configuration\Configuration::class => \OliverKlee\Oelib\Configuration\TypoScriptConfiguration::class,
 
     // Database
     'Tx_Oelib_Db' => \OliverKlee\Oelib\Database\DatabaseService::class,

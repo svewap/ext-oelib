@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use OliverKlee\Oelib\Configuration\Configuration;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
+use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 
 /**
  * Test case.
@@ -88,7 +88,7 @@ class ConfigurationRegistryTest extends UnitTestCase
 
         ConfigurationRegistry::getInstance()->set(
             '',
-            new Configuration()
+            new TypoScriptConfiguration()
         );
     }
 
@@ -97,7 +97,7 @@ class ConfigurationRegistryTest extends UnitTestCase
      */
     public function getAfterSetReturnsTheSetInstance()
     {
-        $configuration = new Configuration();
+        $configuration = new TypoScriptConfiguration();
 
         ConfigurationRegistry::getInstance()
             ->set('foo', $configuration);
@@ -117,11 +117,11 @@ class ConfigurationRegistryTest extends UnitTestCase
     {
         ConfigurationRegistry::getInstance()->set(
             'foo',
-            new Configuration()
+            new TypoScriptConfiguration()
         );
         ConfigurationRegistry::getInstance()->set(
             'foo',
-            new Configuration()
+            new TypoScriptConfiguration()
         );
     }
 }

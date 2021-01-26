@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Language;
 
 use OliverKlee\Oelib\Authentication\BackEndLoginManager;
-use OliverKlee\Oelib\Configuration\Configuration;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
+use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -83,11 +83,11 @@ class TranslatorRegistry
      * The language key is read from the "language" key and the alternate language is read
      * from the language_alt key.
      *
-     * @param Configuration $configuration the configuration to read
+     * @param TypoScriptConfiguration $configuration the configuration to read
      *
      * @return void
      */
-    private function setLanguageKeyFromConfiguration(Configuration $configuration)
+    private function setLanguageKeyFromConfiguration(TypoScriptConfiguration $configuration)
     {
         if (!$configuration->hasString('language')) {
             return;

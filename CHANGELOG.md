@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Document how to run the tests (#544)
 
 ### Changed
+- Rename the Configuration class to TypoScriptConfiguration (#557)
 - Adopt the `.editorconfig` settings from the TYPO3 Core (#555)
 
 ### Deprecated

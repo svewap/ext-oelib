@@ -6,8 +6,8 @@ namespace OliverKlee\Oelib\Tests\Functional\Language;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\BackEndLoginManager;
-use OliverKlee\Oelib\Configuration\Configuration;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
+use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 use OliverKlee\Oelib\Language\Translator;
 use OliverKlee\Oelib\Language\TranslatorRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
@@ -33,12 +33,12 @@ class TranslatorRegistryTest extends FunctionalTestCase
         parent::setUp();
 
         $configurationRegistry = ConfigurationRegistry::getInstance();
-        $configurationRegistry->set('config', new Configuration());
-        $configurationRegistry->set('page.config', new Configuration());
-        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG', new Configuration());
-        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.default', new Configuration());
-        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.de', new Configuration());
-        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.fr', new Configuration());
+        $configurationRegistry->set('config', new TypoScriptConfiguration());
+        $configurationRegistry->set('page.config', new TypoScriptConfiguration());
+        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG', new TypoScriptConfiguration());
+        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.default', new TypoScriptConfiguration());
+        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.de', new TypoScriptConfiguration());
+        $configurationRegistry->set('plugin.tx_oelib._LOCAL_LANG.fr', new TypoScriptConfiguration());
     }
 
     private function setUpFrontEnd()
