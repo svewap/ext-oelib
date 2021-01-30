@@ -7,13 +7,14 @@ namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\Configuration;
 use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
+use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TypoScriptConfigurationTest extends UnitTestCase
+final class TypoScriptConfigurationTest extends UnitTestCase
 {
     /**
      * @var TypoScriptConfiguration
@@ -25,9 +26,13 @@ class TypoScriptConfigurationTest extends UnitTestCase
         $this->subject = new TypoScriptConfiguration();
     }
 
-    //////////////////////////////////////
-    // Tests for the basic functionality
-    //////////////////////////////////////
+    /**
+     * @test
+     */
+    public function isObjectWithPublicAccessors()
+    {
+        self::assertInstanceOf(AbstractObjectWithPublicAccessors::class, $this->subject);
+    }
 
     /**
      * @test
@@ -36,6 +41,10 @@ class TypoScriptConfigurationTest extends UnitTestCase
     {
         self::assertInstanceOf(Configuration::class, $this->subject);
     }
+
+    //////////////////////////////////////
+    // Tests for the basic functionality
+    //////////////////////////////////////
 
     /**
      * @test
