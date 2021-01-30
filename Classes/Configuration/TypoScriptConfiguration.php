@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Configuration;
 
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 
 /**
- * This class represents a set of configuration options within a certain
- * namespace.
+ * This class represents a set of configuration values within a certain namespace.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors
+class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implements ConfigurationInterface
 {
     /**
      * @var array the data for this configuration

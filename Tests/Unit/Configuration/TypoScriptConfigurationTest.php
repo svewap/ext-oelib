@@ -8,9 +8,12 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\Configuration;
 use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 
 /**
  * Test case.
+ *
+ * @covers \OliverKlee\Oelib\Configuration\TypoScriptConfiguration
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -24,6 +27,14 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     protected function setUp()
     {
         $this->subject = new TypoScriptConfiguration();
+    }
+
+    /**
+     * @test
+     */
+    public function implementsConfigurationInterface()
+    {
+        self::assertInstanceOf(ConfigurationInterface::class, $this->subject);
     }
 
     /**

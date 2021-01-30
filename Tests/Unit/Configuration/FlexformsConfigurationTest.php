@@ -6,11 +6,13 @@ namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\FlexformsConfiguration;
-use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Test case.
+ *
+ * @covers \OliverKlee\Oelib\Configuration\FlexformsConfiguration
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -41,11 +43,11 @@ final class FlexformsConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function isObjectWithPublicAccessors()
+    public function implementsConfigurationInterface()
     {
         $subject = new FlexformsConfiguration(new ContentObjectRenderer());
 
-        self::assertInstanceOf(AbstractObjectWithPublicAccessors::class, $subject);
+        self::assertInstanceOf(ConfigurationInterface::class, $subject);
     }
 
     /**

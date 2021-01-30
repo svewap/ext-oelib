@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Configuration;
 
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -14,7 +15,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class FlexformsConfiguration extends AbstractObjectWithPublicAccessors
+class FlexformsConfiguration extends AbstractObjectWithPublicAccessors implements ConfigurationInterface
 {
     /**
      * @var \DOMDocument|null
