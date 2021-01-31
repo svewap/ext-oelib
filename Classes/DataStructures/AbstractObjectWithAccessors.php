@@ -19,8 +19,7 @@ abstract class AbstractObjectWithAccessors
      *
      * @param string $key the key of the data item to get, must not be empty
      *
-     * @return mixed the data for the key $key, will be an empty string
-     *               if the key has not been set yet
+     * @return mixed the data for the key $key, will be null or an empty string if the key has not been set yet
      */
     abstract protected function get(string $key);
 
@@ -37,11 +36,11 @@ abstract class AbstractObjectWithAccessors
     /**
      * Checks that $key is not empty.
      *
-     * @throws \InvalidArgumentException if $key is empty
-     *
      * @param string $key the key to check
      *
      * @return void
+     *
+     * @throws \InvalidArgumentException if $key is empty
      */
     protected function checkForNonEmptyKey(string $key)
     {
@@ -178,10 +177,10 @@ abstract class AbstractObjectWithAccessors
      * @param string $key the key of the element to set, must not be empty
      * @param array $value the value to set, may be empty
      *
-     * @see getAsTrimmedArray
-     * @see getAsIntegerArray
-     *
      * @return void
+     *
+     * @see getAsIntegerArray
+     * @see getAsTrimmedArray
      */
     protected function setAsArray(string $key, array $value)
     {

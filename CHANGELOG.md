@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add a `DummyConfiguration` class (#567)
 - Add a `Configuration` interface (#565)
 - Add a `FlexformsConfiguration` class (#564)
 - Add a `DynamicDateViewHelper` (#554)
