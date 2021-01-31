@@ -6,10 +6,14 @@ namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
+use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use OliverKlee\Oelib\Interfaces\Configuration;
 
 /**
  * Test case.
+ *
+ * @covers \OliverKlee\Oelib\Configuration\ConfigurationProxy
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Niels Pardon <mail@niels-pardon.de>
@@ -38,7 +42,7 @@ class ConfigurationProxyTest extends UnitTestCase
     {
         $this->subject = ConfigurationProxy::getInstance('oelib');
         // ensures the same configuration at the beginning of each test
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['oelib'] = serialize($this->testConfiguration);
+        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['oelib'] = \serialize($this->testConfiguration);
         $this->subject->retrieveConfiguration();
     }
 
@@ -51,12 +55,25 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceReturnsObject()
+    public function isPublicObjectWithAccessors()
     {
-        self::assertInternalType(
-            'object',
-            $this->subject
-        );
+        self::assertInstanceOf(AbstractObjectWithPublicAccessors::class, $this->subject);
+    }
+
+    /**
+     * @test
+     */
+    public function implementsConfigurationInterface()
+    {
+        self::assertInstanceOf(Configuration::class, $this->subject);
+    }
+
+    /**
+     * @test
+     */
+    public function getInstanceReturnsProxyInstance()
+    {
+        self::assertInstanceOf(ConfigurationProxy::class, ConfigurationProxy::getInstance('oelib'));
     }
 
     /**
@@ -64,24 +81,19 @@ class ConfigurationProxyTest extends UnitTestCase
      */
     public function getInstanceThrowsExceptionIfNoExtensionKeyGiven()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The extension key was not set.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The extension key was not set.');
+        $this->expectExceptionCode(1331318826);
+
         ConfigurationProxy::getInstance('');
     }
 
     /**
      * @test
      */
-    public function getInstanceReturnsTheSameObjectWhenCalledInTheSameClass()
+    public function getInstanceReturnsTheSameObjectWhenCalledForTheSameClass()
     {
-        self::assertSame(
-            $this->subject,
-            ConfigurationProxy::getInstance('oelib')
-        );
+        self::assertSame(ConfigurationProxy::getInstance('oelib'), ConfigurationProxy::getInstance('oelib'));
     }
 
     /**
@@ -91,21 +103,7 @@ class ConfigurationProxyTest extends UnitTestCase
     {
         $otherConfiguration = ConfigurationProxy::getInstance('other_extension');
 
-        self::assertNotSame(
-            $this->subject,
-            $otherConfiguration
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function extendsPublicObject()
-    {
-        self::assertInstanceOf(
-            AbstractObjectWithPublicAccessors::class,
-            $this->subject
-        );
+        self::assertNotSame($this->subject, $otherConfiguration);
     }
 
     /**
@@ -163,5 +161,56 @@ class ConfigurationProxyTest extends UnitTestCase
             $this->testConfiguration,
             $this->subject->getCompleteConfiguration()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function setInstanceWithEmptyExtensionKeyThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The extension key must not be empty.');
+        $this->expectExceptionCode(1612091700);
+
+        ConfigurationProxy::setInstance('', new DummyConfiguration());
+    }
+
+    /**
+     * @test
+     */
+    public function setInstanceSetsInstanceForTheGivenExtensionKey()
+    {
+        $extensionKey = 'greenery';
+        $instance = new DummyConfiguration();
+
+        ConfigurationProxy::setInstance($extensionKey, $instance);
+
+        self::assertSame($instance, ConfigurationProxy::getInstance($extensionKey));
+    }
+
+    /**
+     * @test
+     */
+    public function setInstanceOverwritesInstanceForTheGivenExtensionKey()
+    {
+        $extensionKey = 'greenery';
+        $instance1 = new DummyConfiguration();
+        ConfigurationProxy::setInstance($extensionKey, $instance1);
+        $instance2 = new DummyConfiguration();
+        ConfigurationProxy::setInstance($extensionKey, $instance2);
+
+        self::assertSame($instance2, ConfigurationProxy::getInstance($extensionKey));
+    }
+
+    /**
+     * @test
+     */
+    public function setInstanceNotSetsInstanceForTheOtherExtensionKey()
+    {
+        $instance = new DummyConfiguration();
+
+        ConfigurationProxy::setInstance('greenery', $instance);
+
+        self::assertNotSame($instance, ConfigurationProxy::getInstance('shrubbery'));
     }
 }

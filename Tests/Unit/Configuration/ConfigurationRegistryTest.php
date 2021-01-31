@@ -6,28 +6,28 @@ namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
+use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 
 /**
  * Test case.
  *
+ * @covers \OliverKlee\Oelib\Configuration\ConfigurationRegistry
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class ConfigurationRegistryTest extends UnitTestCase
 {
-    ////////////////////////////////////////////
-    // Tests concerning the Singleton property
-    ////////////////////////////////////////////
+    /*
+     *Tests concerning the Singleton property
+     */
 
     /**
      * @test
      */
     public function getInstanceReturnsConfigurationRegistryInstance()
     {
-        self::assertInstanceOf(
-            ConfigurationRegistry::class,
-            ConfigurationRegistry::getInstance()
-        );
+        self::assertInstanceOf(ConfigurationRegistry::class, ConfigurationRegistry::getInstance());
     }
 
     /**
@@ -55,9 +55,9 @@ class ConfigurationRegistryTest extends UnitTestCase
         );
     }
 
-    ////////////////////////////////
-    // Test concerning get and set
-    ////////////////////////////////
+    /*
+     *Test concerning get and set
+     */
 
     /**
      * @test
@@ -95,17 +95,25 @@ class ConfigurationRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAfterSetReturnsTheSetInstance()
+    public function getAfterSetWithTypoScriptConfigurationReturnsTheSetInstance()
     {
         $configuration = new TypoScriptConfiguration();
 
-        ConfigurationRegistry::getInstance()
-            ->set('foo', $configuration);
+        ConfigurationRegistry::getInstance()->set('foo', $configuration);
 
-        self::assertSame(
-            $configuration,
-            ConfigurationRegistry::get('foo')
-        );
+        self::assertSame($configuration, ConfigurationRegistry::get('foo'));
+    }
+
+    /**
+     * @test
+     */
+    public function getAfterSetWithDummyConfigurationReturnsTheSetInstance()
+    {
+        $configuration = new DummyConfiguration();
+
+        ConfigurationRegistry::getInstance()->set('foo', $configuration);
+
+        self::assertSame($configuration, ConfigurationRegistry::get('foo'));
     }
 
     /**

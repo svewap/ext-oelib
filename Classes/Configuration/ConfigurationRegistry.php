@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Configuration;
 
+use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -13,8 +14,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
- * This class represents a registration that allows the storage and retrieval
- * of configuration objects.
+ * This class represents a registration that allows the storage and retrieval of configuration objects.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -26,7 +26,7 @@ class ConfigurationRegistry
     private static $instance = null;
 
     /**
-     * @var array<string, TypoScriptConfiguration> already created configurations (by namespace)
+     * @var array<string, ConfigurationInterface> already created configurations (by namespace)
      */
     private $configurations = [];
 
@@ -38,12 +38,10 @@ class ConfigurationRegistry
     }
 
     /**
-     * Destructs a configuration for a given namespace and drops the reference to
-     * it.
+     * Destructs a configuration for a given namespace and drops the reference to it.
      *
      * @param string $namespace
-     *       the namespace of the configuration to drop, must not be empty, must
-     *       have been set in this registry
+     *        the namespace of the configuration to drop, must not be empty, must have been set in this registry
      *
      * @return void
      */
@@ -78,37 +76,34 @@ class ConfigurationRegistry
     }
 
     /**
-     * Retrieves a TypoScriptConfiguration by namespace.
+     * Retrieves a Configuration by namespace.
      *
      * @param string $namespace
      *        the name of a configuration namespace, e.g., "plugin.tx_oelib",
      *        must not be empty
      *
-     * @return TypoScriptConfiguration the configuration for the given namespace
+     * @return ConfigurationInterface the configuration for the given namespace
      *
      * @see getByNamespace
      */
-    public static function get(string $namespace): TypoScriptConfiguration
+    public static function get(string $namespace): ConfigurationInterface
     {
         return self::getInstance()->getByNamespace($namespace);
     }
 
     /**
-     * Retrieves a TypoScriptConfiguration by namespace.
+     * Retrieves a Configuration by namespace.
      *
-     * @param string $namespace
-     *        the name of a configuration namespace, e.g., "plugin.tx_oelib",
-     *        must not be empty
+     * @param string $namespace the name of a configuration namespace, e.g., "plugin.tx_oelib", must not be empty
      *
-     * @return TypoScriptConfiguration the configuration for the given namespace
+     * @return ConfigurationInterface the configuration for the given namespace
      */
-    private function getByNamespace(string $namespace): TypoScriptConfiguration
+    private function getByNamespace(string $namespace): ConfigurationInterface
     {
         $this->checkForNonEmptyNamespace($namespace);
 
         if (!isset($this->configurations[$namespace])) {
-            $this->configurations[$namespace]
-                = $this->retrieveConfigurationFromTypoScriptSetup($namespace);
+            $this->configurations[$namespace] = $this->retrieveConfigurationFromTypoScriptSetup($namespace);
         }
 
         return $this->configurations[$namespace];
@@ -119,12 +114,11 @@ class ConfigurationRegistry
      *
      * @param string $namespace
      *        the namespace of the configuration to set, must not be empty
-     * @param TypoScriptConfiguration $configuration
-     *        the configuration to set
+     * @param ConfigurationInterface $configuration
      *
      * @return void
      */
-    public function set(string $namespace, TypoScriptConfiguration $configuration)
+    public function set(string $namespace, ConfigurationInterface $configuration)
     {
         $this->checkForNonEmptyNamespace($namespace);
 
@@ -138,12 +132,11 @@ class ConfigurationRegistry
     /**
      * Checks that $namespace is non-empty.
      *
-     * @throws \InvalidArgumentException if $namespace is empty
-     *
      * @param string $namespace
-     *        namespace name to check
      *
      * @return void
+     *
+     * @throws \InvalidArgumentException if $namespace is empty
      */
     private function checkForNonEmptyNamespace(string $namespace)
     {
@@ -153,8 +146,7 @@ class ConfigurationRegistry
     }
 
     /**
-     * Retrieves the configuration from TS Setup of the current page for a given
-     * namespace.
+     * Retrieves the configuration from TS Setup of the current page for a given namespace.
      *
      * @param string $namespace
      *        the namespace of the configuration to retrieve, must not be empty
@@ -166,7 +158,7 @@ class ConfigurationRegistry
         $data = $this->getCompleteTypoScriptSetup();
 
         foreach (\explode('.', $namespace) as $namespacePart) {
-            if (!array_key_exists($namespacePart . '.', $data)) {
+            if (!\array_key_exists($namespacePart . '.', $data)) {
                 $data = [];
                 break;
             }
@@ -228,11 +220,7 @@ class ConfigurationRegistry
     /**
      * Checks whether there is an initialized front end with a loaded TS template.
      *
-     * Note: This function can return TRUE even in the BE if there is a front
-     * end.
-     *
-     * @return bool TRUE if there is an initialized front end, FALSE
-     *                 otherwise
+     * Note: This function can return true even in the BE if there is a front end.
      */
     private function existsFrontEnd(): bool
     {
@@ -242,8 +230,6 @@ class ConfigurationRegistry
     }
 
     /**
-     * Returns the current front-end instance.
-     *
      * @return TypoScriptFrontendController|null
      */
     protected function getFrontEndController()

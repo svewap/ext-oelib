@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 - Add a `DummyConfiguration` class (#567)
-- Add a `Configuration` interface (#565)
+- Add a `Configuration` interface (#565, #568)
 - Add a `FlexformsConfiguration` class (#564)
 - Add a `DynamicDateViewHelper` (#554)
 - Add `AbstractModel::getAsCollection()` as an alias for `::getAsList` (#552)

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Configuration;
 
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -14,10 +15,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
-class ConfigurationProxy extends AbstractObjectWithPublicAccessors
+class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements ConfigurationInterface
 {
     /**
-     * @var array<string, ConfigurationProxy> the singleton configuration proxy objects
+     * @var array<string, ConfigurationInterface> the singleton configuration proxy objects
      */
     private static $instances = [];
 
@@ -50,29 +51,46 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors
     }
 
     /**
-     * Retrieves the singleton configuration proxy instance for the extension
-     * named $extensionKey. This function usually should be called statically.
+     * Retrieves the configuration for the given extension key.
      *
      * @param string $extensionKey
      *        extension key without the 'tx' prefix, used to retrieve the EM
      *        configuration and as identifier for an extension's instance of
      *        this class, must not be empty
      *
-     * @return ConfigurationProxy the singleton configuration proxy object
+     * @return ConfigurationInterface the configuration for the given extension key
      *
      * @throws \InvalidArgumentException
      */
-    public static function getInstance(string $extensionKey): ConfigurationProxy
+    public static function getInstance(string $extensionKey): ConfigurationInterface
     {
         if ($extensionKey === '') {
             throw new \InvalidArgumentException('The extension key was not set.', 1331318826);
         }
 
         if (!isset(self::$instances[$extensionKey])) {
-            self::$instances[$extensionKey] = new ConfigurationProxy($extensionKey);
+            self::setInstance($extensionKey, new ConfigurationProxy($extensionKey));
         }
 
         return self::$instances[$extensionKey];
+    }
+
+    /**
+     * Sets/replaces a configuration for the given extension key.
+     *
+     * This method is mainly intended to be used in testing.
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function setInstance(string $extensionKey, ConfigurationInterface $configuration)
+    {
+        if ($extensionKey === '') {
+            throw new \InvalidArgumentException('The extension key must not be empty.', 1612091700);
+        }
+
+        self::$instances[$extensionKey] = $configuration;
     }
 
     /**
@@ -126,11 +144,9 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors
     /**
      * Checks whether a certain key exists in an extension's configuration.
      *
-     * @param string $key
-     *        key to check, must not be empty
+     * @param string $key key to check, must not be empty
      *
-     * @return bool whether $key occurs in the configuration array of
-     *                 the extension named $this->extensionKey
+     * @return bool whether $key occurs in the configuration array of the extension named $this->extensionKey
      */
     private function hasConfigurationValue(string $key): bool
     {
@@ -163,8 +179,7 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors
     /**
      * Sets a new configuration value.
      *
-     * The configuration setters are intended to be used for testing purposes
-     * only.
+     * The configuration setters are intended to be used for testing purposes only.
      *
      * @param string $key
      *        key of the value to set, must not be empty
