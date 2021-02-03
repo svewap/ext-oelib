@@ -24,10 +24,6 @@ class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
         $this->subject = new TestingObjectWithPublicAccessors();
     }
 
-    //////////////////////////////////
-    // Tests for checkForNonEmptyKey
-    //////////////////////////////////
-
     /**
      * @test
      */
@@ -52,10 +48,6 @@ class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->subject->checkForNonEmptyKey('foo');
     }
-
-    //////////////////////////////////////////
-    // Tests for setAsString and getAsString
-    //////////////////////////////////////////
 
     /**
      * @test
@@ -136,10 +128,6 @@ class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
             $this->subject->getAsString('foo')
         );
     }
-
-    ////////////////////////////////////////////
-    // Tests for setAsInteger and getAsInteger
-    ////////////////////////////////////////////
 
     /**
      * @test
@@ -246,10 +234,6 @@ class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
             $this->subject->getAsInteger('foo')
         );
     }
-
-    //////////////////////////////////////////////////////////////////
-    // Tests for setAsArray, getAsTrimmedArray and getAsIntegerArray
-    //////////////////////////////////////////////////////////////////
 
     /**
      * @test
@@ -395,10 +379,6 @@ class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
             $this->subject->getAsIntegerArray('foo')
         );
     }
-
-    ////////////////////////////////////////////
-    // Tests for setAsBoolean and getAsBoolean
-    ////////////////////////////////////////////
 
     /**
      * @test
@@ -550,10 +530,6 @@ class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
         );
     }
 
-    ////////////////////////////////////////
-    // Tests for setAsFloat and getAsFloat
-    ////////////////////////////////////////
-
     /**
      * @test
      */
@@ -685,10 +661,6 @@ class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
             $this->subject->getAsFloat('foo')
         );
     }
-
-    /////////////////////////////////////////////////
-    // Tests for hasString, hasInteger and hasFloat
-    /////////////////////////////////////////////////
 
     /**
      * @test

@@ -33,10 +33,6 @@ class CollectionTest extends UnitTestCase
         $this->subject = new Collection();
     }
 
-    ///////////////////////
-    // Utility functions
-    ///////////////////////
-
     /**
      * @param TestingModel $firstModel
      * @param TestingModel $secondModel
@@ -78,14 +74,6 @@ class CollectionTest extends UnitTestCase
             $this->modelStorage[] = $model;
         }
     }
-
-    ///////////////////////////////////////////
-    // Tests concerning the utility functions
-    ///////////////////////////////////////////
-
-    //////////////////////////////////////////
-    // Tests concerning sortByTitleAscending
-    //////////////////////////////////////////
 
     /**
      * @test
@@ -187,10 +175,6 @@ class CollectionTest extends UnitTestCase
         );
     }
 
-    ////////////////////////////////////////
-    // Tests concerning addModelsToFixture
-    ////////////////////////////////////////
-
     /**
      * @test
      */
@@ -260,10 +244,6 @@ class CollectionTest extends UnitTestCase
         );
     }
 
-    /////////////////////////////
-    // Tests concerning isEmpty
-    /////////////////////////////
-
     /**
      * @test
      */
@@ -285,10 +265,6 @@ class CollectionTest extends UnitTestCase
             $this->subject->isEmpty()
         );
     }
-
-    ///////////////////////////
-    // Tests concerning count
-    ///////////////////////////
 
     /**
      * @test
@@ -357,10 +333,6 @@ class CollectionTest extends UnitTestCase
         );
     }
 
-    /////////////////////////////
-    // Tests concerning current
-    /////////////////////////////
-
     /**
      * @test
      */
@@ -400,10 +372,6 @@ class CollectionTest extends UnitTestCase
             $this->subject->current()
         );
     }
-
-    //////////////////////////////////
-    // Tests concerning key and next
-    //////////////////////////////////
 
     /**
      * @test
@@ -462,10 +430,6 @@ class CollectionTest extends UnitTestCase
         );
     }
 
-    ////////////////////////////
-    // Tests concerning rewind
-    ////////////////////////////
-
     /**
      * @test
      */
@@ -496,10 +460,6 @@ class CollectionTest extends UnitTestCase
             $this->subject->current()
         );
     }
-
-    ///////////////////////////
-    // Tests concerning first
-    ///////////////////////////
 
     /**
      * @test
@@ -559,10 +519,6 @@ class CollectionTest extends UnitTestCase
         );
     }
 
-    ///////////////////////////
-    // Tests concerning valid
-    ///////////////////////////
-
     /**
      * @test
      */
@@ -614,10 +570,6 @@ class CollectionTest extends UnitTestCase
         );
     }
 
-    ///////////////////////////////////////////
-    // Tests concerning the Iterator property
-    ///////////////////////////////////////////
-
     /**
      * @test
      */
@@ -625,10 +577,6 @@ class CollectionTest extends UnitTestCase
     {
         self::assertInstanceOf(\Iterator::class, $this->subject);
     }
-
-    /////////////////////////////
-    // Tests concerning getUids
-    /////////////////////////////
 
     /**
      * @test
@@ -740,10 +688,6 @@ class CollectionTest extends UnitTestCase
         );
     }
 
-    ////////////////////////////
-    // Tests concerning hasUid
-    ////////////////////////////
-
     /**
      * @test
      */
@@ -781,10 +725,6 @@ class CollectionTest extends UnitTestCase
             $this->subject->hasUid(42)
         );
     }
-
-    //////////////////////////
-    // Tests concerning sort
-    //////////////////////////
 
     /**
      * @test
@@ -845,10 +785,6 @@ class CollectionTest extends UnitTestCase
 
         $subject->sort([$this, 'sortByTitleAscending']);
     }
-
-    ////////////////////////////
-    // Tests concerning append
-    ////////////////////////////
 
     /**
      * @test
@@ -956,10 +892,6 @@ class CollectionTest extends UnitTestCase
             $this->subject->first()
         );
     }
-
-    //////////////////////////////////
-    // Tests concerning purgeCurrent
-    //////////////////////////////////
 
     /**
      * @test
@@ -1112,10 +1044,6 @@ class CollectionTest extends UnitTestCase
         );
     }
 
-    ///////////////////////////////////
-    // Tests concerning sortBySorting
-    ///////////////////////////////////
-
     /**
      * @test
      */
@@ -1136,10 +1064,6 @@ class CollectionTest extends UnitTestCase
             $this->subject->first()
         );
     }
-
-    ////////////////////////
-    // Tests concerning at
-    ////////////////////////
 
     /**
      * @test
@@ -1239,10 +1163,6 @@ class CollectionTest extends UnitTestCase
             $this->subject->at(2)
         );
     }
-
-    /////////////////////////////
-    // Tests concerning inRange
-    /////////////////////////////
 
     /**
      * @test
@@ -1366,10 +1286,6 @@ class CollectionTest extends UnitTestCase
         );
     }
 
-    /*
-    /* Tests concerning toArray
-     */
-
     /**
      * @test
      */
@@ -1410,10 +1326,6 @@ class CollectionTest extends UnitTestCase
             $this->subject->toArray()
         );
     }
-
-    /*
-     * Tests concerning the parent model
-     */
 
     /**
      * @test
@@ -1466,7 +1378,7 @@ class CollectionTest extends UnitTestCase
     /**
      * @test
      */
-    public function isRelationiOwnedByParentByDefaultIsFalse()
+    public function isRelationOwnedByParentByDefaultIsFalse()
     {
         self::assertFalse($this->subject->isRelationOwnedByParent());
     }
@@ -1474,7 +1386,7 @@ class CollectionTest extends UnitTestCase
     /**
      * @test
      */
-    public function isRelationiOwnedByParentCanBeSetToTrue()
+    public function isRelationOwnedByParentCanBeSetToTrue()
     {
         $this->subject->markAsOwnedByParent();
 
