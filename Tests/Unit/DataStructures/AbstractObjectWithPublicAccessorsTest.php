@@ -31,6 +31,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->checkForNonEmptyKey('');
     }
@@ -52,6 +53,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->getAsString('');
     }
@@ -63,6 +65,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->setAsString('', 'bar');
     }
@@ -112,6 +115,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->getAsInteger('');
     }
@@ -123,6 +127,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->setAsInteger('', 42);
     }
@@ -192,6 +197,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->getAsTrimmedArray('');
     }
@@ -203,6 +209,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->getAsIntegerArray('');
     }
@@ -214,6 +221,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->setAsArray('', ['bar']);
     }
@@ -301,6 +309,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->getAsBoolean('');
     }
@@ -312,6 +321,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->setAsBoolean('', false);
     }
@@ -421,6 +431,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->getAsFloat('');
     }
@@ -432,6 +443,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
+        $this->expectExceptionCode(1331488963);
 
         $this->subject->setAsFloat('', 42.5);
     }
