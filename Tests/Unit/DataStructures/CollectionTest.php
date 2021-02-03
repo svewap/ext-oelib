@@ -12,11 +12,11 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
- * Test case.
+ * @covers \OliverKlee\Oelib\DataStructures\Collection
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class CollectionTest extends UnitTestCase
+final class CollectionTest extends UnitTestCase
 {
     /**
      * @var Collection

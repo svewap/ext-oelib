@@ -9,7 +9,7 @@ use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 /**
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestingObjectWithPublicAccessors extends AbstractObjectWithPublicAccessors
+final class TestingObjectWithPublicAccessors extends AbstractObjectWithPublicAccessors
 {
     /**
      * @var array<string, mixed> the data for this object

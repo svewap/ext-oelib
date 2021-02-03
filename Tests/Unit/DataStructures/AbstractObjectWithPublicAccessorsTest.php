@@ -12,7 +12,7 @@ use OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures\TestingObjectWithPublicA
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
+final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
 {
     /**
      * @var TestingObjectWithPublicAccessors
