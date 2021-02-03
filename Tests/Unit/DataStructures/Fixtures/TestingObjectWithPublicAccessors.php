@@ -7,11 +7,9 @@ namespace OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures;
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 
 /**
- * This class represents an object for testing purposes.
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestingObject extends AbstractObjectWithPublicAccessors
+class TestingObjectWithPublicAccessors extends AbstractObjectWithPublicAccessors
 {
     /**
      * @var array<string, mixed> the data for this object

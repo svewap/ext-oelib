@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\DataStructures;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures\TestingObject;
+use OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures\TestingObjectWithPublicAccessors;
 
 /**
- * Test case.
+ * @covers \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class AbstractObjectTest extends UnitTestCase
+class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
 {
     /**
-     * @var TestingObject
+     * @var TestingObjectWithPublicAccessors
      */
     private $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new TestingObject();
+        $this->subject = new TestingObjectWithPublicAccessors();
     }
 
     //////////////////////////////////
