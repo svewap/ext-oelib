@@ -31,15 +31,11 @@ final class TestingObjectWithPublicAccessors extends AbstractObjectWithPublicAcc
     /**
      * Gets the value of the data item for the key $key.
      *
-     * @param string $key
-     *        the key of the data item to get, must not be empty
-     *
-     * @return mixed the data for the key $key, will be an empty string
-     *               if the key has not been set yet
+     * @return mixed the data for the key $key, will be null if the key has not been set yet
      */
     protected function get(string $key)
     {
-        return $this->data[$key] ?? '';
+        return $this->data[$key] ?? null;
     }
 
     /**
