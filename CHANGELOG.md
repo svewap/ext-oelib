@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add a base class for objects with read-only data (#578)
 - Add a `DummyConfiguration` class (#567)
 - Add a `Configuration` interface (#565, #568)
-- Add a `FlexformsConfiguration` class (#564)
+- Add a `FlexformsConfiguration` class (#564, #579)
 - Add a `DynamicDateViewHelper` (#554)
 - Add `AbstractModel::getAsCollection()` as an alias for `::getAsList` (#552)
 - Document how to run the tests (#544)

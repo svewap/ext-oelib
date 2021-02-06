@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Configuration;
 
-use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithPublicAccessors;
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -15,13 +15,8 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class FlexformsConfiguration extends AbstractObjectWithPublicAccessors implements ConfigurationInterface
+class FlexformsConfiguration extends AbstractReadOnlyObjectWithPublicAccessors implements ConfigurationInterface
 {
-    /**
-     * @var \DOMDocument|null
-     */
-    private $xmlDocument = null;
-
     /**
      * @var \DOMXPath|null
      */
@@ -46,7 +41,6 @@ class FlexformsConfiguration extends AbstractObjectWithPublicAccessors implement
         $libXmlState = \libxml_use_internal_errors(true);
         $document->loadXML($flexFormsXml);
         if (\libxml_get_errors() === []) {
-            $this->xmlDocument = $document;
             $this->xPath = new \DOMXPath($document);
         }
 
@@ -67,18 +61,5 @@ class FlexformsConfiguration extends AbstractObjectWithPublicAccessors implement
         $firstMatchingNode = $matchingNodes instanceof \DOMNodeList ? $matchingNodes->item(0) : null;
 
         return $firstMatchingNode instanceof \DOMNode ? (string)$firstMatchingNode->textContent : '';
-    }
-
-    /**
-     * Sets nothing as this class is a read-only accessor for Flexforms configuration.
-     *
-     * @param string $key
-     * @param mixed $value
-     *
-     * @throws \BadMethodCallException
-     */
-    protected function set($key, $value)
-    {
-        throw new \BadMethodCallException('This is a read-only configuration. You cannot set any values.', 1612002594);
     }
 }

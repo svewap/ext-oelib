@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\FlexformsConfiguration;
+use OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithPublicAccessors;
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -53,43 +54,11 @@ final class FlexformsConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function setAsStringThrowsException()
+    public function isReadOnlyObjectWithPublicAccessors()
     {
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage('This is a read-only configuration. You cannot set any values.');
-        $this->expectExceptionCode(1612002594);
-
         $subject = new FlexformsConfiguration(new ContentObjectRenderer());
 
-        $subject->setAsString('flavor', 'hello');
-    }
-
-    /**
-     * @test
-     */
-    public function setAsIntegerThrowsException()
-    {
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage('This is a read-only configuration. You cannot set any values.');
-        $this->expectExceptionCode(1612002594);
-
-        $subject = new FlexformsConfiguration(new ContentObjectRenderer());
-
-        $subject->setAsInteger('flavor', 1);
-    }
-
-    /**
-     * @test
-     */
-    public function setAsBooleanThrowsException()
-    {
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage('This is a read-only configuration. You cannot set any values.');
-        $this->expectExceptionCode(1612002594);
-
-        $subject = new FlexformsConfiguration(new ContentObjectRenderer());
-
-        $subject->setAsBoolean('flavor', true);
+        self::assertInstanceOf(AbstractReadOnlyObjectWithPublicAccessors::class, $subject);
     }
 
     /**
