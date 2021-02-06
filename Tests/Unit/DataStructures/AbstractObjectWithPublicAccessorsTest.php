@@ -8,6 +8,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures\TestingObjectWithPublicAccessors;
 
 /**
+ * @covers \OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors
  * @covers \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
@@ -79,15 +80,47 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     }
 
     /**
-     * @test
+     * @return array<string, array<mixed>>
      */
-    public function getAsStringReturnsNonEmptyStringSetViaSetAsString()
+    public function stringDataProvider(): array
+    {
+        return [
+            'empty string' => ['', ''],
+            'non-empty string' => ['bar', 'bar'],
+            'integer' => [1, '1'],
+            'boolean true' => [true, '1'],
+            'boolean false' => [false, ''],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @param mixed $inputValue
+     *
+     * @dataProvider stringDataProvider
+     */
+    public function getAsStringReturnsDataCastToString($inputValue, string $expected)
     {
         $key = 'foo';
-        $value = 'bar';
-        $this->subject->setAsString($key, $value);
+        $this->subject->setData([$key => $inputValue]);
 
-        self::assertSame($value, $this->subject->getAsString($key));
+        self::assertSame($expected, $this->subject->getAsString($key));
+    }
+
+    /**
+     * @test
+     *
+     * @param mixed $inputValue
+     *
+     * @dataProvider stringDataProvider
+     */
+    public function setAsStringSetsDataToString($inputValue, string $expected)
+    {
+        $key = 'foo';
+        $this->subject->setAsString($key, $inputValue);
+
+        self::assertSame($expected, $this->subject->getAsString($key));
     }
 
     /**
@@ -96,20 +129,9 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     public function getAsStringReturnsTrimmedValue()
     {
         $key = 'foo';
-        $this->subject->setAsString($key, ' bar ');
+        $this->subject->setData([$key => ' bar ']);
 
         self::assertSame('bar', $this->subject->getAsString($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsStringReturnsEmptyStringSetViaSetAsString()
-    {
-        $key = 'foo';
-        $this->subject->setAsString($key, '');
-
-        self::assertSame('', $this->subject->getAsString($key));
     }
 
     /**
@@ -145,61 +167,49 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     }
 
     /**
-     * @test
+     * @return array<string, array<mixed>>
      */
-    public function getAsIntegerReturnsPositiveIntegerSetViaSetAsInteger()
+    public function integerDataProvider(): array
     {
-        $key = 'foo';
-        $value = 42;
-        $this->subject->setAsInteger($key, $value);
-
-        self::assertSame($value, $this->subject->getAsInteger($key));
+        return [
+            'zero' => [0, 0],
+            'positive integer' => [2, 2],
+            'negative integer' => [-2, -2],
+            'integer as string' => ['2', 2],
+            'any other string' => ['bar', 0],
+            'boolean true' => [true, 1],
+            'float' => [12.34, 12],
+        ];
     }
 
     /**
      * @test
+     *
+     * @param mixed $inputValue
+     *
+     * @dataProvider integerDataProvider
      */
-    public function getAsIntegerReturnsNegativeIntegerSetViaSetAsInteger()
+    public function getAsIntegerReturnsDataCastToInteger($inputValue, int $expected)
     {
         $key = 'foo';
-        $value = -42;
-        $this->subject->setAsInteger($key, $value);
+        $this->subject->setData([$key => $inputValue]);
 
-        self::assertSame($value, $this->subject->getAsInteger($key));
+        self::assertSame($expected, $this->subject->getAsInteger($key));
     }
 
     /**
      * @test
+     *
+     * @param mixed $inputValue
+     *
+     * @dataProvider integerDataProvider
      */
-    public function getAsIntegerReturnsZeroSetViaSetAsInteger()
+    public function setAsIntegerSetsDataToInteger($inputValue, int $expected)
     {
         $key = 'foo';
-        $value = 0;
-        $this->subject->setAsInteger($key, $value);
+        $this->subject->setAsInteger($key, $inputValue);
 
-        self::assertSame($value, $this->subject->getAsInteger($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsIntegerReturnsZeroForStringSetViaSetAsInteger()
-    {
-        $key = 'foo';
-        $this->subject->setAsInteger($key, 'bar');
-
-        self::assertSame(0, $this->subject->getAsInteger($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsIntegerReturnsRoundedValueForFloatSetViaSetAsInteger()
-    {
-        $key = 'foo';
-        $this->subject->setAsInteger($key, 12.34);
-
-        self::assertSame(12, $this->subject->getAsInteger($key));
+        self::assertSame($expected, $this->subject->getAsInteger($key));
     }
 
     /**
@@ -257,7 +267,81 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayReturnsNonEmptyArraySetViaSetAsArray()
+    public function getAsIntegerArrayWithEmptyDataReturnsEmptyArray()
+    {
+        $key = 'foo';
+        $this->subject->setData([$key => '']);
+
+        self::assertSame([], $this->subject->getAsIntegerArray($key));
+    }
+
+    /**
+     * @test
+     */
+    public function getAsIntegerArraySplitsCommaSeparatedString()
+    {
+        $key = 'foo';
+        $this->subject->setData([$key => '7,4']);
+
+        self::assertSame([7, 4], $this->subject->getAsIntegerArray($key));
+    }
+
+    /**
+     * @test
+     *
+     * @param mixed $inputValue
+     *
+     * @dataProvider integerDataProvider
+     */
+    public function getAsIntegerArrayCastsValuesToInteger($inputValue, int $expected)
+    {
+        $key = 'foo';
+        $this->subject->setData([$key => $inputValue]);
+
+        self::assertSame([$expected], $this->subject->getAsIntegerArray($key));
+    }
+
+    /**
+     * @test
+     *
+     * @param mixed $inputValue
+     *
+     * @dataProvider integerDataProvider
+     */
+    public function getAsIntegerArrayCastsValuesFromSetAsArrayToInteger($inputValue, int $expected)
+    {
+        $key = 'foo';
+        $this->subject->setAsArray($key, [$inputValue]);
+
+        self::assertSame([$expected], $this->subject->getAsIntegerArray($key));
+    }
+
+    /**
+     * @test
+     */
+    public function getAsTrimmedArrayWithEmptyDataReturnsEmptyArray()
+    {
+        $key = 'foo';
+        $this->subject->setData([$key => '']);
+
+        self::assertSame([], $this->subject->getAsTrimmedArray($key));
+    }
+
+    /**
+     * @test
+     */
+    public function getAsTrimmedArraySplitsCommaSeparatedString()
+    {
+        $key = 'foo';
+        $this->subject->setData([$key => 'hey,ho']);
+
+        self::assertSame(['hey', 'ho'], $this->subject->getAsTrimmedArray($key));
+    }
+
+    /**
+     * @test
+     */
+    public function getAsTrimmedArrayReturnsDataSetViaSetAsArray()
     {
         $key = 'foo';
         $value = ['foo', 'bar'];
@@ -269,57 +353,12 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerArrayReturnsNonEmptyArraySetViaSetAsArray()
+    public function getAsTrimmedArrayTrimsValues()
     {
         $key = 'foo';
-        $value = [1, -2];
-        $this->subject->setAsArray($key, $value);
+        $this->subject->setData([$key => ' hey , ho ']);
 
-        self::assertSame($value, $this->subject->getAsIntegerArray($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsTrimmedArrayReturnsEmptyArraySetViaSetAsArray()
-    {
-        $key = 'foo';
-        $this->subject->setAsArray($key, []);
-
-        self::assertSame([], $this->subject->getAsTrimmedArray($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsIntegerArrayReturnsEmptyArraySetViaSetAsArray()
-    {
-        $key = 'foo';
-        $this->subject->setAsArray($key, []);
-
-        self::assertSame([], $this->subject->getAsIntegerArray($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsTrimmedArrayReturnsTrimmedValues()
-    {
-        $key = 'foo';
-        $this->subject->setAsArray($key, [' foo ']);
-
-        self::assertSame(['foo'], $this->subject->getAsTrimmedArray($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsIntegerArrayReturnsIntegerCastValues()
-    {
-        $key = 'foo';
-        $this->subject->setAsArray($key, ['asdf']);
-
-        self::assertSame([0], $this->subject->getAsIntegerArray($key));
+        self::assertSame(['hey', 'ho'], $this->subject->getAsTrimmedArray($key));
     }
 
     /**
@@ -355,102 +394,50 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     }
 
     /**
-     * @test
+     * @return array<string, array>
      */
-    public function getAsBooleanReturnsTrueSetViaSetAsBoolean()
+    public function booleanDataProvider(): array
     {
-        $key = 'foo';
-        $this->subject->setAsBoolean($key, true);
-
-        self::assertTrue($this->subject->getAsBoolean($key));
+        return [
+            'boolean false' => [false, false],
+            'boolean true' => [true, true],
+            'integer 0' => [0, false],
+            'integer 1' => [1, true],
+            'string 0' => ['0', false],
+            'string 1' => ['1', true],
+            'empty string 0' => ['', false],
+            'some other string' => ['hello', true],
+        ];
     }
 
     /**
      * @test
+     *
+     * @param mixed $inputValue
+     *
+     * @dataProvider booleanDataProvider
      */
-    public function getAsBooleanReturnsFalseSetViaSetAsBoolean()
+    public function getAsBooleanCastsDataToBoolean($inputValue, bool $expected)
     {
         $key = 'foo';
-        $this->subject->setAsBoolean($key, false);
+        $this->subject->setData([$key => $inputValue]);
 
-        self::assertFalse($this->subject->getAsBoolean($key));
+        self::assertSame($expected, $this->subject->getAsBoolean($key));
     }
 
     /**
      * @test
+     *
+     * @param mixed $inputValue
+     *
+     * @dataProvider booleanDataProvider
      */
-    public function getAsBooleanReturnsTrueForNonEmptyStringSetViaSetAsBoolean()
+    public function setAsBooleanSetsAndCastsDataToBoolean($inputValue, bool $expected)
     {
         $key = 'foo';
-        $this->subject->setAsBoolean($key, 'bar');
+        $this->subject->setAsBoolean($key, $inputValue);
 
-        self::assertTrue($this->subject->getAsBoolean($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsBooleanReturnsFalseForEmptyStringSetViaSetAsBoolean()
-    {
-        $key = 'foo';
-        $this->subject->setAsBoolean($key, '');
-
-        self::assertFalse($this->subject->getAsBoolean($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsIntegerReturnsOneForTrueSetViaSetAsBoolean()
-    {
-        $key = 'foo';
-        $this->subject->setAsBoolean($key, true);
-
-        self::assertSame(1, $this->subject->getAsInteger($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsIntegerReturnsZeroForFalseSetViaSetAsBoolean()
-    {
-        $key = 'foo';
-        $this->subject->setAsBoolean($key, false);
-
-        self::assertSame(0, $this->subject->getAsInteger($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsBooleanReturnsTrueForPositiveIntegerSetViaSetAsInteger()
-    {
-        $key = 'foo';
-        $this->subject->setAsInteger($key, 42);
-
-        self::assertTrue($this->subject->getAsBoolean($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsBooleanReturnsTrueForNegativeIntegerSetViaSetAsInteger()
-    {
-        $key = 'foo';
-        $this->subject->setAsInteger($key, -42);
-
-        self::assertTrue($this->subject->getAsBoolean($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsBooleanReturnsFalseForZeroSetViaSetAsInteger()
-    {
-        $key = 'foo';
-        $this->subject->setAsInteger($key, 0);
-
-        self::assertFalse($this->subject->getAsBoolean($key));
+        self::assertSame($expected, $this->subject->getAsBoolean($key));
     }
 
     /**
@@ -486,84 +473,57 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     }
 
     /**
-     * @test
+     * @return array<string, array>
      */
-    public function getAsFloatCanReturnPositiveFloatFromFloat()
+    public function floatDataProvider(): array
     {
-        $key = 'foo';
-        $value = 42.5;
-        $this->subject->setData([$key => $value]);
-
-        self::assertSame($value, $this->subject->getAsFloat($key));
+        return [
+            'zero float' => [0.0, 0.0],
+            'positive float' => [12.3, 12.3],
+            'negative float' => [-12.3, -12.3],
+            'zero float as string' => ['0.0', 0.0],
+            'positive float as string' => ['12.3', 12.3],
+            'negative float as string' => ['-12.3', -12.3],
+            'zero integer' => [0, 0.0],
+            'positive integer' => [12, 12.0],
+            'negative integer' => [-12, -12.0],
+            'zero integer as string' => ['0', 0.0],
+            'positive integer as string' => ['12', 12.0],
+            'negative integer as string' => ['-12', -12.0],
+            'some random string' => ['hello', 0.0],
+            'boolean true' => [true, 1.0],
+            'boolean false' => [false, 0.0],
+        ];
     }
 
     /**
      * @test
+     *
+     * @param mixed $inputValue
+     *
+     * @dataProvider floatDataProvider
      */
-    public function getAsFloatReturnsPositiveFloatSetViaSetAsFloat()
+    public function getAsFloatCastsDataToFloat($inputValue, float $expected)
     {
         $key = 'foo';
-        $value = 42.5;
-        $this->subject->setAsFloat($key, $value);
+        $this->subject->setData([$key => $inputValue]);
 
-        self::assertSame($value, $this->subject->getAsFloat($key));
+        self::assertEquals($expected, $this->subject->getAsFloat($key), '', 0.001);
     }
 
     /**
      * @test
+     *
+     * @param mixed $inputValue
+     *
+     * @dataProvider floatDataProvider
      */
-    public function getAsFloatReturnsPositiveFloatSetAsStringViaSetAsFloat()
+    public function setAsFloatSetsAndCastsDataToFloat($inputValue, float $expected)
     {
         $key = 'foo';
-        $this->subject->setAsFloat($key, '42.5');
+        $this->subject->setAsFloat($key, $inputValue);
 
-        self::assertSame(42.5, $this->subject->getAsFloat($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsFloatReturnsNegativeFloatSetViaSetAsFloat()
-    {
-        $key = 'foo';
-        $value = -42.5;
-        $this->subject->setAsFloat($key, $value);
-
-        self::assertSame($value, $this->subject->getAsFloat($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsFloatReturnsZeroSetViaSetAsFloat()
-    {
-        $key = 'foo';
-        $value = 0.0;
-        $this->subject->setAsFloat($key, $value);
-
-        self::assertSame($value, $this->subject->getAsFloat($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsFloatReturnsZeroForStringSetViaSetAsFloat()
-    {
-        $key = 'foo';
-        $this->subject->setAsFloat($key, 'bar');
-
-        self::assertSame(0.0, $this->subject->getAsFloat($key));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsFloatCanReturnPositiveFloatFromString()
-    {
-        $key = 'foo';
-        $this->subject->setData([$key => '42.5']);
-
-        self::assertSame(42.5, $this->subject->getAsFloat($key));
+        self::assertEquals($expected, $this->subject->getAsFloat($key), '', 0.001);
     }
 
     /**
@@ -572,7 +532,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     public function hasStringForNonEmptyStringReturnsTrue()
     {
         $key = 'foo';
-        $this->subject->setAsString($key, 'bar');
+        $this->subject->setData([$key => 'bar']);
 
         self::assertTrue($this->subject->hasString($key));
     }
@@ -583,7 +543,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     public function hasStringForEmptyStringReturnsFalse()
     {
         $key = 'foo';
-        $this->subject->setAsString($key, '');
+        $this->subject->setData([$key => '']);
 
         self::assertFalse($this->subject->hasString($key));
     }
@@ -594,7 +554,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     public function hasIntegerForPositiveIntegerReturnsTrue()
     {
         $key = 'foo';
-        $this->subject->setAsInteger($key, 42);
+        $this->subject->setData([$key => 42]);
 
         self::assertTrue($this->subject->hasInteger($key));
     }
@@ -605,7 +565,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     public function hasIntegerForNegativeIntegerReturnsTrue()
     {
         $key = 'foo';
-        $this->subject->setAsInteger($key, -42);
+        $this->subject->setData([$key => -42]);
 
         self::assertTrue($this->subject->hasInteger($key));
     }
@@ -616,7 +576,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     public function hasIntegerForZeroReturnsFalse()
     {
         $key = 'foo';
-        $this->subject->setAsInteger($key, 0);
+        $this->subject->setData([$key => 0]);
 
         self::assertFalse($this->subject->hasInteger($key));
     }
@@ -627,7 +587,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     public function hasFloatForPositiveFloatReturnsTrue()
     {
         $key = 'foo';
-        $this->subject->setAsFloat($key, 42.0);
+        $this->subject->setData([$key => 42.1]);
 
         self::assertTrue($this->subject->hasFloat($key));
     }
@@ -638,7 +598,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     public function hasFloatForNegativeFloatReturnsTrue()
     {
         $key = 'foo';
-        $this->subject->setAsFloat($key, -42.0);
+        $this->subject->setData([$key => -42.1]);
 
         self::assertTrue($this->subject->hasFloat($key));
     }
@@ -649,7 +609,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     public function hasFloatForZeroReturnsFalse()
     {
         $key = 'foo';
-        $this->subject->setAsFloat($key, 0.0);
+        $this->subject->setData([$key => 0.0]);
 
         self::assertFalse($this->subject->hasFloat($key));
     }
