@@ -17,7 +17,12 @@ final class DummyConfiguration extends AbstractObjectWithPublicAccessors impleme
     /**
      * @var array
      */
-    private $data = [];
+    private $data;
+
+    public function __construct(array $data = [])
+    {
+        $this->data = $data;
+    }
 
     /**
      * Sets all data.

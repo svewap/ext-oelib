@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 - Add a base class for objects with read-only data (#578)
-- Add a `DummyConfiguration` class (#567)
+- Add a `DummyConfiguration` class (#567, #580)
 - Add a `Configuration` interface (#565, #568)
 - Add a `FlexformsConfiguration` class (#564, #579)
 - Add a `DynamicDateViewHelper` (#554)

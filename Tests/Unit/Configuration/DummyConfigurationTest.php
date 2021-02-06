@@ -71,6 +71,18 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
+    public function canProvideDataViaConstructor()
+    {
+        $key = 'name';
+        $value = 'Max';
+        $subject = new DummyConfiguration([$key => $value]);
+
+        self::assertSame($value, $subject->getAsString($key));
+    }
+
+    /**
+     * @test
+     */
     public function canGetString()
     {
         $key = 'name';
