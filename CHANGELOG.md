@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add a base class for abstract objects with read-only data (#578)
 - Add a `DummyConfiguration` class (#567)
 - Add a `Configuration` interface (#565, #568)
 - Add a `FlexformsConfiguration` class (#564)
