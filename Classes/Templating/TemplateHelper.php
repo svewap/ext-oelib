@@ -1204,7 +1204,7 @@ class TemplateHelper extends SalutationSwitcher
      *
      * @return void
      *
-     * @deprecated Will be removed in oelib 4.0. Use custom config check classes instead.
+     * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
      */
     public function setFlavor(string $flavor)
     {
@@ -1216,8 +1216,9 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Returns the current flavor of the object to check.
      *
-     * @return string the current flavor of the object to check (or an empty
-     *                string if no flavor is set)
+     * @return string the current flavor of the object to check (or an empty string if no flavor is set)
+     *
+     * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
      */
     public function getFlavor(): string
     {
@@ -1246,6 +1247,8 @@ class TemplateHelper extends SalutationSwitcher
 
     /**
      * @return ConfigurationCheck|null
+     *
+     * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
      */
     public function getConfigurationCheck()
     {
@@ -1262,8 +1265,9 @@ class TemplateHelper extends SalutationSwitcher
      * @param bool $useRawMessage whether to use the raw message instead of the wrapped message
      * @param string $temporaryFlavor flavor to use temporarily for this call (leave empty to not change the flavor)
      *
-     * @return string a formatted error message (if there are errors) or an
-     *                empty string
+     * @return string a formatted error message (if there are errors) or an empty string
+     *
+     * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
      */
     public function checkConfiguration(bool $useRawMessage = false, string $temporaryFlavor = ''): string
     {
@@ -1307,6 +1311,8 @@ class TemplateHelper extends SalutationSwitcher
      * objects.
      *
      * @return string the wrapped error text (or an empty string if there are no errors)
+     *
+     * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
      */
     public function getWrappedConfigCheckMessage(): string
     {

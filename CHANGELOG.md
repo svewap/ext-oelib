@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add a reworked configuration check (#582)
 - Add a `FallbackConfiguration` (#581)
 - Add a base class for objects with read-only data (#578)
 - Add a `DummyConfiguration` class (#567, #580)
@@ -20,6 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Adopt the `.editorconfig` settings from the TYPO3 Core (#555)
 
 ### Deprecated
+- Deprecate the old configuration check (#582)
 - Deprecate `AbstractModel::getAsList()` (#552)
 - Don't deprecate `EmailRole`, `GeneralEmailRole`, `SystemEmailFromBuilder` (#551)
 - Deprecate the `UppercaseViewHelper` (#548)

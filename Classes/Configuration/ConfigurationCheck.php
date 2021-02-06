@@ -31,6 +31,8 @@ use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
  * The correct functioning of this class does not rely on any HTML templates or
  * language files so it works even under the worst of circumstances.
  *
+ * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class ConfigurationCheck
@@ -335,7 +337,7 @@ class ConfigurationCheck
             );
 
             if (Typo3Version::isNotHigherThan(8)) {
-                $file = $this->getFrontEndController()->tmpl->getFileName($rawFileName);
+                $file = (string)$this->getFrontEndController()->tmpl->getFileName($rawFileName);
             } else {
                 /** @var FilePathSanitizer $fileSanitizer */
                 $fileSanitizer = GeneralUtility::makeInstance(FilePathSanitizer::class);
