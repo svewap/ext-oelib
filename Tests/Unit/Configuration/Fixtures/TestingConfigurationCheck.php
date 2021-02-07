@@ -56,6 +56,9 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkStaticIncluded':
                 $this->checkStaticIncluded();
                 break;
+            case 'checkTemplateFile':
+                $this->checkTemplateFile();
+                break;
             default:
         }
     }
