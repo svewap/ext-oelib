@@ -11,7 +11,6 @@ use OliverKlee\Oelib\Templating\TemplateHelper;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
 
 /**
  * This class checks the extension configuration (TS setup) and some data for
@@ -336,14 +335,8 @@ class ConfigurationCheck
                 true
             );
 
-            if (Typo3Version::isNotHigherThan(8)) {
-                $file = (string)$this->getFrontEndController()->tmpl->getFileName($rawFileName);
-            } else {
-                /** @var FilePathSanitizer $fileSanitizer */
-                $fileSanitizer = GeneralUtility::makeInstance(FilePathSanitizer::class);
-                $file = $fileSanitizer->sanitize($rawFileName);
-            }
-            if (!is_file($file)) {
+            $file = GeneralUtility::getFileAbsFileName($rawFileName);
+            if ($file === '' || !\is_file($file)) {
                 $message = 'The specified HTML template file <strong>'
                     . htmlspecialchars($rawFileName, ENT_QUOTES | ENT_HTML5)
                     . '</strong> cannot be read. '
@@ -383,16 +376,10 @@ class ConfigurationCheck
 
         $frontEndController = $this->getFrontEndController();
         $typoScriptSetupPage = &$frontEndController->tmpl->setup['page.'];
-        $fileName = $typoScriptSetupPage['includeCSS.'][$this->objectToCheck->prefixId];
-        if (!empty($fileName)) {
-            if (Typo3Version::isNotHigherThan(8)) {
-                $fileName = $frontEndController->tmpl->getFileName($fileName);
-            } else {
-                /** @var FilePathSanitizer $fileSanitizer */
-                $fileSanitizer = GeneralUtility::makeInstance(FilePathSanitizer::class);
-                $fileName = $fileSanitizer->sanitize($fileName);
-            }
-            if (!is_file($fileName)) {
+        $fileName = (string)$typoScriptSetupPage['includeCSS.'][$this->objectToCheck->prefixId];
+        if ($fileName !== '') {
+            $file = GeneralUtility::getFileAbsFileName($fileName);
+            if ($file === '' || !\is_file($file)) {
                 $message .= 'The specified CSS file <strong>'
                     . htmlspecialchars($fileName, ENT_QUOTES | ENT_HTML5)
                     . '</strong> cannot be read. '
