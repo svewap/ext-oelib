@@ -69,4 +69,52 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
         self::assertContains('plugin.tx_oelib.templateFile', $warning);
         self::assertContains('cannot be read', $warning);
     }
+
+    /**
+     * @test
+     */
+    public function checkFileExistsForExistingFileGeneratesNoWarnings()
+    {
+        $configuration = new DummyConfiguration(['file' => 'EXT:oelib/Tests/Functional/Fixtures/Template.html']);
+        $subject = new TestingConfigurationCheck($configuration, 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkFileExists');
+
+        $subject->check();
+
+        self::assertSame([], $subject->getWarningsAsHtml());
+    }
+
+    /**
+     * @test
+     */
+    public function checkFileExistsForEmptyFileNameGeneratesWarning()
+    {
+        $configuration = new DummyConfiguration(['file' => '']);
+        $subject = new TestingConfigurationCheck($configuration, 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkFileExists');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.file', $warning);
+        self::assertContains('is empty, but needs to be non-empty', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkFileExistsForInexistentFileNameGeneratesWarning()
+    {
+        $configuration = new DummyConfiguration(['file' => 'nothing to see here']);
+        $subject = new TestingConfigurationCheck($configuration, 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkFileExists');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.file', $warning);
+        self::assertContains('cannot be read', $warning);
+    }
 }

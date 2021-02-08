@@ -146,26 +146,31 @@ abstract class AbstractConfigurationCheck
      */
     protected function checkTemplateFile(): bool
     {
-        if (
-            !$this->checkForNonEmptyString(
-                'templateFile',
-                'This value specifies the HTML template which is essential for creating any output from this extension.'
-            )
-        ) {
+        $description = 'This value specifies the HTML template which is essential for creating ' .
+            'any output from this extension.';
+
+        return $this->checkFileExists('templateFile', $description);
+    }
+
+    /**
+     * Checks that the value is non-empty and that the referenced file exists.
+     */
+    protected function checkFileExists(string $key, string $description): bool
+    {
+        if (!$this->checkForNonEmptyString($key, $description)) {
             return false;
         }
 
-        $rawFileName = $this->configuration->getAsString('templateFile');
+        $rawFileName = $this->configuration->getAsString($key);
         $file = GeneralUtility::getFileAbsFileName($rawFileName);
         $isOkay = $file !== '' && \is_file($file);
+
         if (!$isOkay) {
             $encodedFileName = \htmlspecialchars($rawFileName, ENT_QUOTES | ENT_HTML5);
-            $message = 'The specified HTML template file <strong>' . $encodedFileName .
-                '</strong> cannot be read. ' .
-                'The HTML template file is essential when creating any output from this extension. ' .
-                'Please either create the file <strong>' . $encodedFileName .
+            $message = 'The specified file <strong>' . $encodedFileName . '</strong> cannot be read. ' .
+                $description . ' Please either create the file <strong>' . $encodedFileName .
                 '</strong> or select an existing file using the TypoScript setup variable <strong>' .
-                $this->buildConfigurationPath('templateFile') . '</strong>.';
+                $this->buildConfigurationPath($key) . '</strong>.';
             $this->addWarning($message);
         }
 

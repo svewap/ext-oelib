@@ -59,6 +59,9 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkTemplateFile':
                 $this->checkTemplateFile();
                 break;
+            case 'checkFileExists':
+                $this->checkFileExists('file', 'some description');
+                break;
             default:
         }
     }
