@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures;
 
 use OliverKlee\Oelib\Configuration\AbstractConfigurationCheck;
-use TYPO3\CMS\Core\Exception;
 
 /**
  * @author Oliver Klee <typo3-coding@oliverklee.de>
@@ -18,11 +17,24 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
     private $checkMethod = '';
 
     /**
+     * @var string
+     */
+    private $value = '';
+
+    /**
      * @return void
      */
     public function setCheckMethod(string $method)
     {
         $this->checkMethod = $method;
+    }
+
+    /**
+     * @return void
+     */
+    public function setValue(string $value)
+    {
+        $this->value = $value;
     }
 
     /**
@@ -61,6 +73,12 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
                 break;
             case 'checkFileExists':
                 $this->checkFileExists('file', 'some description');
+                break;
+            case 'checkForNonEmptyString':
+                $this->checkForNonEmptyString('title', 'some explanation');
+                break;
+            case 'checkForNonEmptyStringValue':
+                $this->checkForNonEmptyStringValue($this->value, 'comment', 'some comment');
                 break;
             default:
         }

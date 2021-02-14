@@ -174,4 +174,64 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
 
         self::assertCount(1, $subject->getWarningsAsHtml());
     }
+
+    /**
+     * @test
+     */
+    public function checkForNonEmptyStringForEmptyStringAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['title' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkForNonEmptyString');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.title', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkForNonEmptyStringForNonEmptyStringNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['title' => 'Yo!']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkForNonEmptyString');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkForNonEmptyStringValueForEmptyStringAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
+        $subject->setValue('');
+        $subject->setCheckMethod('checkForNonEmptyStringValue');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.comment', $warning);
+        self::assertContains('some comment', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkForNonEmptyStringValueForNonEmptyStringNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
+        $subject->setValue('Awesome');
+        $subject->setCheckMethod('checkForNonEmptyStringValue');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
 }

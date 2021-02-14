@@ -87,7 +87,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkFileExistsForEmptyFileNameGeneratesWarning()
+    public function checkFileExistsForEmptyFileNameGeneratesWarningWithPathAndEplanationAndDescription()
     {
         $configuration = new DummyConfiguration(['file' => '']);
         $subject = new TestingConfigurationCheck($configuration, 'plugin.tx_oelib');
@@ -98,6 +98,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
         self::assertContains('plugin.tx_oelib.file', $warning);
+        self::assertContains('some description', $warning);
         self::assertContains('is empty, but needs to be non-empty', $warning);
     }
 
