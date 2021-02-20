@@ -591,6 +591,10 @@ class ConfigurationCheck
         }
     }
 
+    /*
+     * The check methods below have not been converted to the new configuration check yet.
+     */
+
     /**
      * Checks whether a configuration value has a boolean value.
      *

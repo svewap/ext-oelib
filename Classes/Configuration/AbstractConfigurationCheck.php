@@ -146,8 +146,8 @@ abstract class AbstractConfigurationCheck
      */
     protected function checkTemplateFile(): bool
     {
-        $description = 'This value specifies the HTML template which is essential for creating ' .
-            'any output from this extension.';
+        $description = 'This value specifies the HTML template which is essential for creating
+            any output from this extension.';
 
         return $this->checkFileExists('templateFile', $description);
     }
@@ -188,10 +188,9 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
-     * Checks whether a provided value is a non-empty string. The
-     * value to check must be provided as a parameter and is not fetched
-     * automatically; the $key parameter is only used to create the
-     * warning message.
+     * Checks whether a provided value is a non-empty string.
+     * The value to check must be provided as a parameter and is not fetched automatically;
+     * the `$key` parameter is only used to create the warning message.
      */
     protected function checkForNonEmptyStringValue(string $value, string $key, string $explanation): bool
     {
@@ -204,5 +203,59 @@ abstract class AbstractConfigurationCheck
         $this->addWarningAndRequestCorrection($key, $message);
 
         return false;
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty and lies within a set of allowed values.
+     *
+     * @param string[] $allowedValues allowed values (must not be empty)
+     */
+    protected function checkIfSingleInSetNotEmpty(string $key, string $explanation, array $allowedValues): bool
+    {
+        return $this->checkForNonEmptyString($key, $explanation)
+            && $this->checkIfSingleInSetOrEmpty($key, $explanation, $allowedValues);
+    }
+
+    /**
+     * Checks whether a configuration value either is empty or lies within a set of allowed values.
+     *
+     * @param string[] $allowedValues allowed values (must not be empty)
+     */
+    protected function checkIfSingleInSetOrEmpty(string $key, string $explanation, array $allowedValues): bool
+    {
+        $value = $this->configuration->getAsString($key);
+
+        return $this->checkIfSingleInSetOrEmptyValue($value, $key, $explanation, $allowedValues);
+    }
+
+    /**
+     * Checks whether a provided value either is empty or lies within a set of allowed values.
+     * The value to check must be provided as a parameter and is not fetched automatically;
+     * the `$key` parameter is only used to create the warning message.
+     *
+     * @param string[] $allowedValues allowed values (must not be empty)
+     */
+    protected function checkIfSingleInSetOrEmptyValue(
+        string $value,
+        string $key,
+        string $explanation,
+        array $allowedValues
+    ): bool {
+        if ($value === '') {
+            return true;
+        }
+
+        $okay = \in_array($value, $allowedValues, true);
+        if (!$okay) {
+            $overviewOfValues = '(' . \implode(', ', $allowedValues) . ')';
+            $encodedValue = \htmlspecialchars($value, ENT_QUOTES | ENT_HTML5);
+            $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) .
+                '</strong> is set to the value <strong>' . $encodedValue .
+                '</strong>, but only the  following values are allowed: <br/><strong>' .
+                $overviewOfValues . '</strong><br />' . $explanation;
+            $this->addWarningAndRequestCorrection($key, $message);
+        }
+
+        return $okay;
     }
 }

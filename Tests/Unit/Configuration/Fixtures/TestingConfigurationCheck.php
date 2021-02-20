@@ -77,8 +77,11 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkForNonEmptyString':
                 $this->checkForNonEmptyString('title', 'some explanation');
                 break;
-            case 'checkForNonEmptyStringValue':
-                $this->checkForNonEmptyStringValue($this->value, 'comment', 'some comment');
+            case 'checkIfSingleInSetOrEmpty':
+                $this->checkIfSingleInSetOrEmpty('size', 'some explanation', ['s', 'm']);
+                break;
+            case 'checkIfSingleInSetNotEmpty':
+                $this->checkIfSingleInSetNotEmpty('size', 'some explanation', ['s', 'm']);
                 break;
             default:
         }

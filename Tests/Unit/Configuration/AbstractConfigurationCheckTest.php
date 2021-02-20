@@ -207,28 +207,84 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkForNonEmptyStringValueForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkIfSingleInSetOrEmptyForEmptyStringNotAddsWarning()
     {
-        $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
-        $subject->setValue('');
-        $subject->setCheckMethod('checkForNonEmptyStringValue');
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInSetOrEmpty');
 
         $subject->check();
 
-        self::assertTrue($subject->hasWarnings());
-        $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.comment', $warning);
-        self::assertContains('some comment', $warning);
+        self::assertFalse($subject->hasWarnings());
     }
 
     /**
      * @test
      */
-    public function checkForNonEmptyStringValueForNonEmptyStringNotAddsWarning()
+    public function checkIfSingleInSetOrEmptyForNonEmptyStringNotInSetAddsWarningWithPathAndExplanation()
     {
-        $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
-        $subject->setValue('Awesome');
-        $subject->setCheckMethod('checkForNonEmptyStringValue');
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => 'great']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInSetOrEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.size', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfSingleInSetOrEmptyForNonEmptyStringInSetNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => 's']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInSetOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfSingleInSetNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInSetNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.size', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfSingleInSetNotEmptyForNonEmptyStringNotInSetAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => 'great']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInSetNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.size', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfSingleInSetNotEmptyForNonEmptyStringInSetNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => 's']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInSetNotEmpty');
 
         $subject->check();
 
