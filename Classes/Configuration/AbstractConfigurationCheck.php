@@ -183,17 +183,6 @@ abstract class AbstractConfigurationCheck
     protected function checkForNonEmptyString(string $key, string $explanation): bool
     {
         $value = $this->configuration->getAsString($key);
-
-        return $this->checkForNonEmptyStringValue($value, $key, $explanation);
-    }
-
-    /**
-     * Checks whether a provided value is a non-empty string.
-     * The value to check must be provided as a parameter and is not fetched automatically;
-     * the `$key` parameter is only used to create the warning message.
-     */
-    protected function checkForNonEmptyStringValue(string $value, string $key, string $explanation): bool
-    {
         if ($value !== '') {
             return true;
         }
@@ -224,23 +213,6 @@ abstract class AbstractConfigurationCheck
     protected function checkIfSingleInSetOrEmpty(string $key, string $explanation, array $allowedValues): bool
     {
         $value = $this->configuration->getAsString($key);
-
-        return $this->checkIfSingleInSetOrEmptyValue($value, $key, $explanation, $allowedValues);
-    }
-
-    /**
-     * Checks whether a provided value either is empty or lies within a set of allowed values.
-     * The value to check must be provided as a parameter and is not fetched automatically;
-     * the `$key` parameter is only used to create the warning message.
-     *
-     * @param string[] $allowedValues allowed values (must not be empty)
-     */
-    protected function checkIfSingleInSetOrEmptyValue(
-        string $value,
-        string $key,
-        string $explanation,
-        array $allowedValues
-    ): bool {
         if ($value === '') {
             return true;
         }
