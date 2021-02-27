@@ -258,4 +258,12 @@ abstract class AbstractConfigurationCheck
 
         return $okay;
     }
+
+    /**
+     * Checks whether a configuration value has a non-empty boolean value.
+     */
+    protected function checkIfBoolean(string $key, string $explanation): bool
+    {
+        return $this->checkIfSingleInSetNotEmpty($key, $explanation, ['0', '1']);
+    }
 }

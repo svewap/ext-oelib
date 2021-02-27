@@ -591,10 +591,6 @@ class ConfigurationCheck
         }
     }
 
-    /*
-     * The check methods below have not been converted to the new configuration check yet.
-     */
-
     /**
      * Checks whether a configuration value has a boolean value.
      *
@@ -622,6 +618,10 @@ class ConfigurationCheck
             ['0', '1']
         );
     }
+
+    /*
+     * The check methods below have not been converted to the new configuration check yet.
+     */
 
     /**
      * Checks whether a configuration value has an integer value (or is empty).

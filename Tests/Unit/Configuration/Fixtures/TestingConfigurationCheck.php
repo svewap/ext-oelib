@@ -83,6 +83,9 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkIfSingleInSetNotEmpty':
                 $this->checkIfSingleInSetNotEmpty('size', 'some explanation', ['s', 'm']);
                 break;
+            case 'checkIfBoolean':
+                $this->checkIfBoolean('switch', 'some explanation');
+                break;
             default:
         }
     }

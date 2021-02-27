@@ -290,4 +290,61 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
 
         self::assertFalse($subject->hasWarnings());
     }
+
+    /**
+     * @return array<string, array<string>>
+     */
+    public function nonBooleanStringDataProvider(): array
+    {
+        return [
+            'empty string' => [''],
+            '2' => ['2'],
+            'false as string' => ['false'],
+            'true as string' => ['true'],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider nonBooleanStringDataProvider
+     */
+    public function checkIfBooleanForNonBooleanStringAddsWarningWithPathAndExplanation(string $value)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['switch' => $value]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfBoolean');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.switch', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @return array<string, array<string>>
+     */
+    public function booleanStringDataProvider(): array
+    {
+        return [
+            'boolean false as string 0' => ['0'],
+            'boolean true as string 1' => ['1'],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider booleanStringDataProvider
+     */
+    public function checkIfBooleanForValidBooleanNotAddsWarning(string $value)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['switch' => $value]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfBoolean');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
 }
