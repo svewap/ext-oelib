@@ -619,10 +619,6 @@ class ConfigurationCheck
         );
     }
 
-    /*
-     * The check methods below have not been converted to the new configuration check yet.
-     */
-
     /**
      * Checks whether a configuration value has an integer value (or is empty).
      *
@@ -658,6 +654,10 @@ class ConfigurationCheck
             );
         }
     }
+
+    /*
+     * The check methods below have not been converted to the new configuration check yet.
+     */
 
     /**
      * Checks whether a configuration value has an integer value in a specified

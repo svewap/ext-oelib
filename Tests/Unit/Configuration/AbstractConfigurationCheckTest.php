@@ -347,4 +347,91 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
 
         self::assertFalse($subject->hasWarnings());
     }
+
+    /**
+     * @return array<string, array<string>>
+     */
+    public function nonIntegerStringDataProvider(): array
+    {
+        return [
+            'non-integer string' => ['The cake is a lie.'],
+            'string starting with an integer' => ['12 monkeys'],
+            'pie' => ['3.14159'],
+            'exponential notation' => ['1e14'],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider nonIntegerStringDataProvider
+     */
+    public function checkIfIntegerForNonIntegerStringAddsWarningWithPathAndExplanation(string $value)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfInteger');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.limit', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfIntegerForNegativeIntegerStringAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => '-1']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfInteger');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.limit', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @return array<string, array<string>>
+     */
+    public function nonNegativeIntegerDataProvider(): array
+    {
+        return [
+            'zero' => ['0'],
+            'positive, one-digit integer' => ['1'],
+            'positive, two-digit integer' => ['12'],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider nonNegativeIntegerDataProvider
+     */
+    public function checkIfIntegerForNonNegativeIntegerNotAddsWarning(string $value)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfInteger');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfIntegerEmptyStringNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfInteger');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
 }

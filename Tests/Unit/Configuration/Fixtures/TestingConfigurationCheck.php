@@ -86,6 +86,9 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkIfBoolean':
                 $this->checkIfBoolean('switch', 'some explanation');
                 break;
+            case 'checkIfInteger':
+                $this->checkIfInteger('limit', 'some explanation');
+                break;
             default:
         }
     }

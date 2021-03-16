@@ -238,4 +238,26 @@ abstract class AbstractConfigurationCheck
     {
         return $this->checkIfSingleInSetNotEmpty($key, $explanation, ['0', '1']);
     }
+
+    /**
+     * Checks whether a configuration value has a non-negative integer value (or is empty).
+     */
+    protected function checkIfInteger(string $key, string $explanation): bool
+    {
+        $value = $this->configuration->getAsString($key);
+        if ($value === '') {
+            return true;
+        }
+
+        $okay = \ctype_digit($value);
+        if (!$okay) {
+            $encodedValue = \htmlspecialchars($value, ENT_QUOTES | ENT_HTML5);
+            $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) .
+                '</strong> is set to the value <strong>' . $encodedValue .
+                '</strong>, but only non-negative integers are allowed. ' . $explanation;
+            $this->addWarningAndRequestCorrection($key, $message);
+        }
+
+        return $okay;
+    }
 }
