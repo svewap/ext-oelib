@@ -464,4 +464,106 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
 
         self::assertFalse($subject->hasWarnings());
     }
+
+    /**
+     * @test
+     */
+    public function checkIfIntegerInRangeForMinimumAndMaximumSameAllowsTheSameValue()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => 2]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfIntegerInRangeSame');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfIntegerInRangeForMinimumGreaterThaneMaximumThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionCode(1616069185);
+        $this->expectExceptionMessage('$minimum must be <= $maximum.');
+
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => 2]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfIntegerInRangeSwitched');
+
+        $subject->check();
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider nonIntegerStringDataProvider
+     */
+    public function checkIfIntegerInRangeForNonIntegerStringAddsWarningWithPathAndExplanation(string $value)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfIntegerInRange');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.limit', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @return array<string, array<string>>
+     */
+    public function integerNotInRangeDataProvider(): array
+    {
+        return [
+            '< minimum' => [1],
+            '> maximum' => [5],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider integerNotInRangeDataProvider
+     */
+    public function checkIfIntegerInRangeForValuesOutsideTheRangeAddsWarningWithPathAndExplanation(string $value)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfIntegerInRange');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.limit', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @return array<string, array<string>>
+     */
+    public function integerInRangeDataProvider(): array
+    {
+        return [
+            'minimum' => [2],
+            'between minimum and maximum' => [3],
+            'maximum' => [4],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider integerInRangeDataProvider
+     */
+    public function checkIfIntegerInRangeForValuesInRangeNotAddsWarning(string $value)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfIntegerInRange');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
 }

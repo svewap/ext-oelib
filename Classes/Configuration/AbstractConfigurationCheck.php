@@ -260,4 +260,32 @@ abstract class AbstractConfigurationCheck
 
         return $okay;
     }
+
+    /**
+     * Checks whether a configuration value has an integer value in the specified, inclusive range.
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function checkIfIntegerInRange(string $key, int $minimum, int $maximum, string $explanation): bool
+    {
+        if ($minimum > $maximum) {
+            throw new \InvalidArgumentException('$minimum must be <= $maximum.', 1616069185);
+        }
+        if (!$this->checkIfInteger($key, $explanation)) {
+            return false;
+        }
+
+        $value = $this->configuration->getAsInteger($key);
+
+        $okay = $value >= $minimum && $value <= $maximum;
+        if ($value < $minimum || $value > $maximum) {
+            $encodedValue = \htmlspecialchars((string)$value, ENT_QUOTES | ENT_HTML5);
+            $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) . $key .
+                '</strong> is set to the value <strong>' . $encodedValue . '</strong>, but only integers from ' .
+                $minimum . ' to ' . $maximum . ' (including these values) are allowed. ' . $explanation;
+            $this->addWarningAndRequestCorrection($key, $message);
+        }
+
+        return $okay;
+    }
 }
