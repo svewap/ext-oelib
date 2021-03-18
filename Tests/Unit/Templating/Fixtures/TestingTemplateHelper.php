@@ -26,8 +26,7 @@ final class TestingTemplateHelper extends TemplateHelper
     /**
      * The constructor.
      *
-     * @param array $configuration
-     *        TS setup configuration, may be empty
+     * @param array $configuration TypoScript setup configuration, may be empty
      */
     public function __construct(array $configuration = [])
     {
@@ -48,18 +47,15 @@ final class TestingTemplateHelper extends TemplateHelper
     }
 
     /**
-     * Retrieves the configuration (TS setup) of the page with the PID provided
-     * as the parameter $pageId.
+     * Retrieves the configuration (TypoScript setup) of the page with the PID provided as the parameter $pageId.
      *
      * Only the configuration for the current extension key will be retrieved.
-     * For example, if the extension key is "foo", the TS setup for plugin.
-     * tx_foo will be retrieved.
+     * For example, if the extension key is "foo", the TypoScript setup for `plugin.tx_foo` will be retrieved.
      *
      * @param int $pageId
      *        page ID of the page for which the configuration should be retrieved, must be > 0
      *
-     * @return array configuration array of the requested page for the current
-     *               extension key
+     * @return array configuration array of the requested page for the current extension key
      */
     public function retrievePageConfig(int $pageId): array
     {

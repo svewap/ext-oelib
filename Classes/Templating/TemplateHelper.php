@@ -64,7 +64,7 @@ class TemplateHelper extends SalutationSwitcher
     private $template = null;
 
     /**
-     * TS Setup for plugin.tx_extensionkey, using the current page UID as key
+     * TypoScript Setup for plugin.tx_extensionkey, using the current page UID as key
      *
      * @var array<int, array>
      */
@@ -232,11 +232,11 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * Retrieves the configuration (TS setup) of the page with the PID provided
+     * Retrieves the configuration (TypoScript setup) of the page with the PID provided
      * as the parameter $pageId.
      *
      * Only the configuration for the current extension key will be retrieved.
-     * For example, if the extension key is "foo", the TS setup for plugin.
+     * For example, if the extension key is "foo", the TypoScript setup for plugin.
      * tx_foo will be retrieved.
      *
      * @param int $pageId UID of the page for which the configuration should be retrieved, must be > 0
@@ -279,9 +279,9 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * Gets a value from flexforms or TS setup.
+     * Gets a value from flexforms or TypoScript setup.
      * The priority lies on flexforms; if nothing is found there, the value
-     * from TS setup is returned. If there is no field with that name in TS setup,
+     * from TypoScript setup is returned. If there is no field with that name in TypoScript setup,
      * an empty string is returned.
      *
      * @param string $fieldName field name to extract
@@ -290,7 +290,7 @@ class TemplateHelper extends SalutationSwitcher
      * @param bool $ignoreFlexform
      *        whether to ignore the flexform values and just get the settings from TypoScript, may be empty
      *
-     * @return string the value of the corresponding flexforms or TS setup
+     * @return string the value of the corresponding flexforms or TypoScript setup
      *                entry (may be empty)
      */
     private function getConfValue(
@@ -345,9 +345,9 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * Gets a trimmed string value from flexforms or TS setup.
+     * Gets a trimmed string value from flexforms or TypoScript setup.
      * The priority lies on flexforms; if nothing is found there, the value
-     * from TS setup is returned. If there is no field with that name in TS
+     * from TypoScript setup is returned. If there is no field with that name in TS
      * setup, an empty string is returned.
      *
      * @param string $fieldName field name to extract
@@ -357,7 +357,7 @@ class TemplateHelper extends SalutationSwitcher
      *        whether to ignore the flexform values and just get the settings from TypoScript, may be empty
      *
      * @return string the trimmed value of the corresponding flexforms or
-     *                TS setup entry (may be empty)
+     *                TypoScript setup entry (may be empty)
      */
     public function getConfValueString(
         string $fieldName,
@@ -376,9 +376,9 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * Checks whether a string value from flexforms or TS setup is set.
+     * Checks whether a string value from flexforms or TypoScript setup is set.
      * The priority lies on flexforms; if nothing is found there, the value
-     * from TS setup is checked. If there is no field with that name in TS
+     * from TypoScript setup is checked. If there is no field with that name in TS
      * setup, FALSE is returned.
      *
      * @param string $fieldName field name to extract
@@ -387,7 +387,7 @@ class TemplateHelper extends SalutationSwitcher
      *        whether to ignore the flexform values and just get the settings from TypoScript, may be empty
      *
      * @return bool whether there is a non-empty value in the
-     *                 corresponding flexforms or TS setup entry
+     *                 corresponding flexforms or TypoScript setup entry
      */
     public function hasConfValueString(
         string $fieldName,
@@ -398,16 +398,16 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * Gets an integer value from flexforms or TS setup.
+     * Gets an integer value from flexforms or TypoScript setup.
      * The priority lies on flexforms; if nothing is found there, the value
-     * from TS setup is returned. If there is no field with that name in TS
+     * from TypoScript setup is returned. If there is no field with that name in TS
      * setup, zero is returned.
      *
      * @param string $fieldName field name to extract
      * @param string $sheet sheet pointer, eg. "sDEF"
      *
      * @return int the int value of the corresponding flexforms or
-     *                 TS setup entry
+     *                 TypoScript setup entry
      */
     public function getConfValueInteger(string $fieldName, string $sheet = 'sDEF'): int
     {
@@ -415,16 +415,16 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * Checks whether an integer value from flexforms or TS setup is set and
+     * Checks whether an integer value from flexforms or TypoScript setup is set and
      * non-zero. The priority lies on flexforms; if nothing is found there, the
-     * value from TS setup is checked. If there is no field with that name in
-     * TS setup, FALSE is returned.
+     * value from TypoScript setup is checked. If there is no field with that name in
+     * TypoScript setup, FALSE is returned.
      *
      * @param string $fieldName field name to extract
      * @param string $sheet sheet pointer, eg. "sDEF"
      *
      * @return bool whether there is a non-zero value in the
-     *                 corresponding flexforms or TS setup entry
+     *                 corresponding flexforms or TypoScript setup entry
      */
     public function hasConfValueInteger(string $fieldName, string $sheet = 'sDEF'): bool
     {
@@ -432,16 +432,16 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * Gets a boolean value from flexforms or TS setup.
+     * Gets a boolean value from flexforms or TypoScript setup.
      * The priority lies on flexforms; if nothing is found there, the value
-     * from TS setup is returned. If there is no field with that name in TS
+     * from TypoScript setup is returned. If there is no field with that name in TS
      * setup, FALSE is returned.
      *
      * @param string $fieldName field name to extract
      * @param string $sheet sheet pointer, eg. "sDEF"
      *
      * @return bool the boolean value of the corresponding flexforms or
-     *                 TS setup entry
+     *                 TypoScript setup entry
      */
     public function getConfValueBoolean(string $fieldName, string $sheet = 'sDEF'): bool
     {
@@ -1138,7 +1138,7 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Extracts a value within listView.
      *
-     * @param string $fieldName TS setup field name to extract (within listView.), must not be empty
+     * @param string $fieldName TypoScript setup field name to extract (within listView.), must not be empty
      *
      * @return string the contents of that field within listView., may be empty
      */
@@ -1154,7 +1154,7 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Returns a string value within listView.
      *
-     * @param string $fieldName TS setup field name to extract (within listView.), must not be empty
+     * @param string $fieldName TypoScript setup field name to extract (within listView.), must not be empty
      *
      * @return string the trimmed contents of that field within listView.
      *                or an empty string if the value was not set
@@ -1167,7 +1167,7 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Returns an integer value within listView.
      *
-     * @param string $fieldName TS setup field name to extract (within listView.), must not be empty
+     * @param string $fieldName TypoScript setup field name to extract (within listView.), must not be empty
      *
      * @return int the integer value of that field within listView. or
      *                 zero if the value was not set
@@ -1180,7 +1180,7 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Returns a boolean value within listView.
      *
-     * @param string $fieldName TS setup field name to extract (within listView.), must not be empty
+     * @param string $fieldName TypoScript setup field name to extract (within listView.), must not be empty
      *
      * @return bool the boolean value of that field within listView.,
      *                 FALSE if no value was set

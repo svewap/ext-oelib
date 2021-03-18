@@ -26,8 +26,7 @@ final class TestingSalutationSwitcher extends SalutationSwitcher
     /**
      * The constructor.
      *
-     * @param array $configuration
-     *        TS setup configuration, may be empty
+     * @param array $configuration TypoScript setup configuration, may be empty
      */
     public function __construct(array $configuration)
     {

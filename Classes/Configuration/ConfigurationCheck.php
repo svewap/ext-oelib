@@ -13,7 +13,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
- * This class checks the extension configuration (TS setup) and some data for
+ * This class checks the extension configuration (TypoScript setup) and some data for
  * basic sanity. This works for FE plug-ins, BE modules and free-floating data
  * structures.
  *
@@ -191,12 +191,12 @@ class ConfigurationCheck
 
     /**
      * Sets the error message, consisting of $explanation and a request to
-     * change the TS setup variable $key (with the current TS setup path
+     * change the TypoScript setup variable $key (with the current TypoScript setup path
      * prepended). If $canUseFlexforms is TRUE, the possibility to change the
      * variable via flexforms is mentioned as well.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -211,8 +211,8 @@ class ConfigurationCheck
         string $explanation
     ) {
         $message = $explanation
-            . ' Please correct the TS setup variable <strong>'
-            . $this->getTSSetupPath() . $key . '</strong> in your TS '
+            . ' Please correct the TypoScript setup variable <strong>'
+            . $this->getTSSetupPath() . $key . '</strong> in your TypoScript '
             . 'template setup';
         if ($canUseFlexforms) {
             $message .= ' or via FlexForms';
@@ -297,7 +297,7 @@ class ConfigurationCheck
                 'The static template is not included. This has the effect ' .
                 'that important default values do not get set. To fix ' .
                 'this, please include this extension\'s template under ' .
-                '<em>Include static (from extensions)</em> in your TS ' .
+                '<em>Include static (from extensions)</em> in your TypoScript ' .
                 'template.'
             );
         }
@@ -343,7 +343,7 @@ class ConfigurationCheck
                     'The HTML template file is essential when creating any ' .
                     'output from this extension. ' .
                     'Please either create the file <strong>' . $rawFileName .
-                    '</strong> or select an existing file using the TS setup ' .
+                    '</strong> or select an existing file using the TypoScript setup ' .
                     'variable <strong>' . $this->getTSSetupPath() .
                     'templateFile</strong>';
                 if ($canUseFlexforms) {
@@ -365,10 +365,10 @@ class ConfigurationCheck
     protected function checkCssFileFromConstants()
     {
         if ($this->objectToCheck->hasConfValueString('cssFile')) {
-            $message = 'The TS setup variable <strong>' . $this->getTSSetupPath() .
+            $message = 'The TypoScript setup variable <strong>' . $this->getTSSetupPath() .
                 'cssFile</strong> is set, but should not be set. You will have to unset ' .
-                'the TS setup variable and set <strong>' . $this->getTSSetupPath() .
-                'cssFile</strong> in your TS constants instead.';
+                'the TypoScript setup variable and set <strong>' . $this->getTSSetupPath() .
+                'cssFile</strong> in your TypoScript constants instead.';
             $this->setErrorMessage($message);
         } else {
             $message = '';
@@ -386,7 +386,7 @@ class ConfigurationCheck
                     'If that constant does not point to an existing file, no ' .
                     'special CSS will be used for styling this extension\'s ' .
                     'HTML. Please either create the file <strong>' . $fileName .
-                    '</strong> or select an existing file using the TS ' .
+                    '</strong> or select an existing file using the TypoScript ' .
                     'constant <strong>' . $this->getTSSetupPath() .
                     'cssFile</strong>' .
                     '. If you do not want to use any special CSS, you ' .
@@ -400,7 +400,7 @@ class ConfigurationCheck
      * Checks whether a configuration value contains a non-empty-string.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -437,7 +437,7 @@ class ConfigurationCheck
      * @param string $value
      *        the value to check
      * @param string $key
-     *        TS setup field name to mention in the warning, must not be empty
+     *        TypoScript setup field name to mention in the warning, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -454,7 +454,7 @@ class ConfigurationCheck
         string $explanation
     ) {
         if ($value === '') {
-            $message = 'The TS setup variable <strong>' .
+            $message = 'The TypoScript setup variable <strong>' .
                 $this->getTSSetupPath() . $key .
                 '</strong> is empty, but needs to be non-empty. ' . $explanation;
             $this->setErrorMessageAndRequestCorrection(
@@ -470,7 +470,7 @@ class ConfigurationCheck
      * of allowed values.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -512,7 +512,7 @@ class ConfigurationCheck
      * set of allowed values.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -555,7 +555,7 @@ class ConfigurationCheck
      * @param string $value
      *        the value to check
      * @param string $key
-     *        TS setup field name to mention in the warning, must not be empty
+     *        TypoScript setup field name to mention in the warning, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -576,7 +576,7 @@ class ConfigurationCheck
     ) {
         if (!empty($value) && !in_array($value, $allowedValues, true)) {
             $overviewOfValues = '(' . implode(', ', $allowedValues) . ')';
-            $message = 'The TS setup variable <strong>' .
+            $message = 'The TypoScript setup variable <strong>' .
                 $this->getTSSetupPath() . $key .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only the ' .
@@ -595,7 +595,7 @@ class ConfigurationCheck
      * Checks whether a configuration value has a boolean value.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -623,7 +623,7 @@ class ConfigurationCheck
      * Checks whether a configuration value has an integer value (or is empty).
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -641,7 +641,7 @@ class ConfigurationCheck
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
 
         if (!preg_match('/^\\d*$/', $value)) {
-            $message = 'The TS setup variable <strong>' .
+            $message = 'The TypoScript setup variable <strong>' .
                 $this->getTSSetupPath() . $key .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers are ' .
@@ -660,7 +660,7 @@ class ConfigurationCheck
      * range (or is empty).
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param int $minValue
      *        the first value of the range which is allowed
      * @param int $maxValue
@@ -696,7 +696,7 @@ class ConfigurationCheck
         $value = $this->objectToCheck->getConfValueInteger($key, $sheet);
 
         if (($value < $minValue) || ($value > $maxValue)) {
-            $message = 'The TS setup variable <strong>' .
+            $message = 'The TypoScript setup variable <strong>' .
                 $this->getTSSetupPath() . $key .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers from ' .
@@ -723,7 +723,7 @@ class ConfigurationCheck
      * @param string $value
      *        the value to check
      * @param string $key
-     *        TS setup field name to mention in the warning, must not be empty
+     *        TypoScript setup field name to mention in the warning, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -746,7 +746,7 @@ class ConfigurationCheck
             $explanation
         );
         if (!preg_match('/^[1-9]\\d*$/', $value)) {
-            $message = 'The TS setup variable <strong>' .
+            $message = 'The TypoScript setup variable <strong>' .
                 $this->getTSSetupPath() . $key .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
@@ -765,7 +765,7 @@ class ConfigurationCheck
      * integer value.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -798,7 +798,7 @@ class ConfigurationCheck
      * integer value or is empty.
      *
      * @param string $key
-     *        TS setup field name to extract, may be empty
+     *        TypoScript setup field name to extract, may be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -819,7 +819,7 @@ class ConfigurationCheck
     ) {
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
         if (!empty($value) && !preg_match('/^[1-9]\\d*$/', $value)) {
-            $message = 'The TS setup variable <strong>' .
+            $message = 'The TypoScript setup variable <strong>' .
                 $this->getTSSetupPath() . $key .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
@@ -838,7 +838,7 @@ class ConfigurationCheck
      * zero.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -867,7 +867,7 @@ class ConfigurationCheck
         );
 
         if (!preg_match('/^\\d+$/', $value)) {
-            $message = 'The TS setup variable <strong>' .
+            $message = 'The TypoScript setup variable <strong>' .
                 $this->getTSSetupPath() . $key .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
@@ -887,7 +887,7 @@ class ConfigurationCheck
      * comma-separated values lie within a set of allowed values.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -929,7 +929,7 @@ class ConfigurationCheck
      * comma-separated values lie within a set of allowed values.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -961,7 +961,7 @@ class ConfigurationCheck
             $overviewOfValues = '(' . implode(', ', $allowedValues) . ')';
             foreach ($allValues as $currentValue) {
                 if (!in_array($currentValue, $allowedValues, true)) {
-                    $message = 'The TS setup variable <strong>' .
+                    $message = 'The TypoScript setup variable <strong>' .
                         $this->getTSSetupPath() . $key .
                         '</strong> contains the value <strong>' .
                         htmlspecialchars($currentValue, ENT_QUOTES | ENT_HTML5) . '</strong>, ' .
@@ -983,7 +983,7 @@ class ConfigurationCheck
      * column names of a given DB table.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1019,7 +1019,7 @@ class ConfigurationCheck
      * column names of a given DB table.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1055,7 +1055,7 @@ class ConfigurationCheck
      * comma-separated values lie within a set of allowed values.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1091,7 +1091,7 @@ class ConfigurationCheck
      * comma-separated values is a column name of a given DB table.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1144,11 +1144,11 @@ class ConfigurationCheck
     }
 
     /**
-     * Gets the path for TS setup where $this->objectToCheck's configuration is
+     * Gets the path for TypoScript setup where $this->objectToCheck's configuration is
      * located. This includes the extension key, (possibly) something like pi1
      * and the trailing dot.
      *
-     * @return string the TS setup configuration path including the
+     * @return string the TypoScript setup configuration path including the
      *                trailing dot, e.g. "plugin.tx_seminars_pi1."
      */
     protected function getTSSetupPath(): string
@@ -1192,7 +1192,7 @@ class ConfigurationCheck
      * Checks whether a configuration value matches a regular expression.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1217,7 +1217,7 @@ class ConfigurationCheck
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
 
         if (!preg_match($regExp, $value)) {
-            $message = 'The TS setup variable <strong>' . $this->getTSSetupPath()
+            $message = 'The TypoScript setup variable <strong>' . $this->getTSSetupPath()
                 . $key . '</strong> contains the value <strong>'
                 . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong> which isn\'t valid. '
                 . $explanation;
@@ -1234,7 +1234,7 @@ class ConfigurationCheck
      * expression.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1276,7 +1276,7 @@ class ConfigurationCheck
      * comma-separated list of integers (in this case, PIDs).
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1309,7 +1309,7 @@ class ConfigurationCheck
      * comma-separated list of integers (in this case, PIDs).
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1347,7 +1347,7 @@ class ConfigurationCheck
      * comma-separated list of front-end PIDs.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1379,7 +1379,7 @@ class ConfigurationCheck
      * single front-end PID.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1411,7 +1411,7 @@ class ConfigurationCheck
      * single front-end PID.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1438,7 +1438,7 @@ class ConfigurationCheck
      * comma-separated list of front-end PIDs.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1474,7 +1474,7 @@ class ConfigurationCheck
      * comma-separated list of system folder PIDs.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1506,7 +1506,7 @@ class ConfigurationCheck
      * single system folder PID.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1538,7 +1538,7 @@ class ConfigurationCheck
      * single system folder PID.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1570,7 +1570,7 @@ class ConfigurationCheck
      * comma-separated list of system folder PIDs.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1607,7 +1607,7 @@ class ConfigurationCheck
      * comma-separated list of PIDs that specify pages or a given type.
      *
      * @param string $key
-     *        TS setup field name to extract, must not be empty
+     *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1690,7 +1690,7 @@ class ConfigurationCheck
             $this->setErrorMessageAndRequestCorrection(
                 $key,
                 false,
-                'The TS setup variable group <strong>' . $this->getTSSetupPath() .
+                'The TypoScript setup variable group <strong>' . $this->getTSSetupPath() .
                 $key . '</strong> is not set. This setting controls ' .
                 'the list view. ' .
                 'If this part of the setup is missing, sorting and the ' .
@@ -1704,7 +1704,7 @@ class ConfigurationCheck
      * within a set of allowed values.
      *
      * @param string $key
-     *        TS setup field name to extract (within listView.), must not be empty
+     *        TypoScript setup field name to extract (within listView.), must not be empty
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
@@ -1741,7 +1741,7 @@ class ConfigurationCheck
      * (thus non-zero) integer value.
      *
      * @param string $key
-     *        TS setup field name to extract (within listView.), must not be empty
+     *        TypoScript setup field name to extract (within listView.), must not be empty
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
@@ -1765,7 +1765,7 @@ class ConfigurationCheck
      * Checks that an e-mail address is valid or empty.
      *
      * @param string $key
-     *        TS setup field name to mention in the warning, must not be empty
+     *        TypoScript setup field name to mention in the warning, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1808,7 +1808,7 @@ class ConfigurationCheck
      * Checks that an e-mail address is valid and non-empty.
      *
      * @param string $key
-     *        TS setup field name to mention in the warning, must not be empty
+     *        TypoScript setup field name to mention in the warning, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
@@ -1852,7 +1852,7 @@ class ConfigurationCheck
      */
     protected function getFrontEndController()
     {
-        return $GLOBALS['TSFE'] ?? null;
+        return $GLOBALS['TypoScriptFE'] ?? null;
     }
 
     /**

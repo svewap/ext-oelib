@@ -167,9 +167,9 @@ class TemplateHelperTest extends FunctionalTestCase
         );
     }
 
-    ///////////////////////////////////
-    // Tests concerning TS templates.
-    ///////////////////////////////////
+    /*
+     * Tests concerning TypoScript templates.
+     */
 
     /**
      * @test

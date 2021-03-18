@@ -146,7 +146,7 @@ class ConfigurationRegistry
     }
 
     /**
-     * Retrieves the configuration from TS Setup of the current page for a given namespace.
+     * Retrieves the configuration from TypoScript setup of the current page for a given namespace.
      *
      * @param string $namespace
      *        the namespace of the configuration to retrieve, must not be empty
@@ -177,7 +177,7 @@ class ConfigurationRegistry
      * array.
      *
      * @return array the TypoScriptSetup for the current page, will be empty if
-     *               no page is selected or if the TS setup of the page is empty
+     *               no page is selected or if the TypoScript setup of the page is empty
      */
     private function getCompleteTypoScriptSetup(): array
     {
@@ -218,7 +218,7 @@ class ConfigurationRegistry
     }
 
     /**
-     * Checks whether there is an initialized front end with a loaded TS template.
+     * Checks whether there is an initialized front end with a loaded TypoScript template.
      *
      * Note: This function can return true even in the BE if there is a front end.
      */
