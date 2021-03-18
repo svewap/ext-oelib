@@ -46,6 +46,10 @@ abstract class AbstractConfigurationCheck
         return $this->namespace . '.';
     }
 
+    /**
+     * Builds a fully-qualified TypoScript namespace from a suffix, e.g.,
+     * `plugin.tx_oelib.foo` from `foo`.
+     */
     protected function buildConfigurationPath(string $localPath): string
     {
         return $this->getSuffixedNamespace() . $localPath;

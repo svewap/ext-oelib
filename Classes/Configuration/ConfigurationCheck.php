@@ -212,7 +212,7 @@ class ConfigurationCheck
     ) {
         $message = $explanation
             . ' Please correct the TypoScript setup variable <strong>'
-            . $this->getTSSetupPath() . $key . '</strong> in your TypoScript '
+            . $this->buildConfigurationPath($key) . '</strong> in your TypoScript '
             . 'template setup';
         if ($canUseFlexforms) {
             $message .= ' or via FlexForms';
@@ -286,6 +286,15 @@ class ConfigurationCheck
     }
 
     /**
+     * Builds a fully-qualified TypoScript namespace from a suffix, e.g.,
+     * `plugin.tx_oelib.foo` from `foo`.
+     */
+    protected function buildConfigurationPath(string $localPath): string
+    {
+        return $this->getTSSetupPath() . $localPath;
+    }
+
+    /**
      * Checks whether the static template has been included.
      *
      * @return void
@@ -343,9 +352,8 @@ class ConfigurationCheck
                     'The HTML template file is essential when creating any ' .
                     'output from this extension. ' .
                     'Please either create the file <strong>' . $rawFileName .
-                    '</strong> or select an existing file using the TypoScript setup ' .
-                    'variable <strong>' . $this->getTSSetupPath() .
-                    'templateFile</strong>';
+                    '</strong> or select an existing file using the TypoScript setup variable <strong>' .
+                    $this->buildConfigurationPath('templateFile') . '</strong>';
                 if ($canUseFlexforms) {
                     $message .= ' or via FlexForms';
                 }
@@ -365,10 +373,10 @@ class ConfigurationCheck
     protected function checkCssFileFromConstants()
     {
         if ($this->objectToCheck->hasConfValueString('cssFile')) {
-            $message = 'The TypoScript setup variable <strong>' . $this->getTSSetupPath() .
-                'cssFile</strong> is set, but should not be set. You will have to unset ' .
-                'the TypoScript setup variable and set <strong>' . $this->getTSSetupPath() .
-                'cssFile</strong> in your TypoScript constants instead.';
+            $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath('cssFile') .
+                '</strong> is set, but should not be set. You will have to unset ' .
+                'the TypoScript setup variable and set <strong>' . $this->buildConfigurationPath('cssFile') .
+                '</strong> in your TypoScript constants instead.';
             $this->setErrorMessage($message);
         } else {
             $message = '';
@@ -387,8 +395,8 @@ class ConfigurationCheck
                     'special CSS will be used for styling this extension\'s ' .
                     'HTML. Please either create the file <strong>' . $fileName .
                     '</strong> or select an existing file using the TypoScript ' .
-                    'constant <strong>' . $this->getTSSetupPath() .
-                    'cssFile</strong>' .
+                    'constant <strong>' . $this->buildConfigurationPath('cssFile') .
+                    '</strong>' .
                     '. If you do not want to use any special CSS, you ' .
                     'can set that variable to an empty string.';
                 $this->setErrorMessage($message);
@@ -455,7 +463,7 @@ class ConfigurationCheck
     ) {
         if ($value === '') {
             $message = 'The TypoScript setup variable <strong>' .
-                $this->getTSSetupPath() . $key .
+                $this->buildConfigurationPath($key) .
                 '</strong> is empty, but needs to be non-empty. ' . $explanation;
             $this->setErrorMessageAndRequestCorrection(
                 $key,
@@ -577,7 +585,7 @@ class ConfigurationCheck
         if (!empty($value) && !in_array($value, $allowedValues, true)) {
             $overviewOfValues = '(' . implode(', ', $allowedValues) . ')';
             $message = 'The TypoScript setup variable <strong>' .
-                $this->getTSSetupPath() . $key .
+                $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only the ' .
                 'following values are allowed: ' .
@@ -642,7 +650,7 @@ class ConfigurationCheck
 
         if (!preg_match('/^\\d*$/', $value)) {
             $message = 'The TypoScript setup variable <strong>' .
-                $this->getTSSetupPath() . $key .
+                $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers are ' .
                 'allowed. ' .
@@ -697,7 +705,7 @@ class ConfigurationCheck
 
         if (($value < $minValue) || ($value > $maxValue)) {
             $message = 'The TypoScript setup variable <strong>' .
-                $this->getTSSetupPath() . $key .
+                $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers from ' .
                 $minValue . ' to ' . $maxValue . ' are allowed. ' .
@@ -747,7 +755,7 @@ class ConfigurationCheck
         );
         if (!preg_match('/^[1-9]\\d*$/', $value)) {
             $message = 'The TypoScript setup variable <strong>' .
-                $this->getTSSetupPath() . $key .
+                $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
                 'integers are allowed. ' .
@@ -820,7 +828,7 @@ class ConfigurationCheck
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
         if (!empty($value) && !preg_match('/^[1-9]\\d*$/', $value)) {
             $message = 'The TypoScript setup variable <strong>' .
-                $this->getTSSetupPath() . $key .
+                $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
                 'integers and empty strings are allowed. ' .
@@ -868,7 +876,7 @@ class ConfigurationCheck
 
         if (!preg_match('/^\\d+$/', $value)) {
             $message = 'The TypoScript setup variable <strong>' .
-                $this->getTSSetupPath() . $key .
+                $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
                 'integers are allowed. ' .
@@ -962,7 +970,7 @@ class ConfigurationCheck
             foreach ($allValues as $currentValue) {
                 if (!in_array($currentValue, $allowedValues, true)) {
                     $message = 'The TypoScript setup variable <strong>' .
-                        $this->getTSSetupPath() . $key .
+                        $this->buildConfigurationPath($key) .
                         '</strong> contains the value <strong>' .
                         htmlspecialchars($currentValue, ENT_QUOTES | ENT_HTML5) . '</strong>, ' .
                         'but only the following values are allowed: ' .
@@ -1148,8 +1156,7 @@ class ConfigurationCheck
      * located. This includes the extension key, (possibly) something like pi1
      * and the trailing dot.
      *
-     * @return string the TypoScript setup configuration path including the
-     *                trailing dot, e.g. "plugin.tx_seminars_pi1."
+     * @return string the TypoScript setup configuration path including the trailing dot, e.g. "plugin.tx_seminars_pi1."
      */
     protected function getTSSetupPath(): string
     {
@@ -1217,10 +1224,10 @@ class ConfigurationCheck
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
 
         if (!preg_match($regExp, $value)) {
-            $message = 'The TypoScript setup variable <strong>' . $this->getTSSetupPath()
-                . $key . '</strong> contains the value <strong>'
-                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong> which isn\'t valid. '
-                . $explanation;
+            $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) .
+                '</strong> contains the value <strong>' .
+                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong> which isn\'t valid. ' .
+                $explanation;
             $this->setErrorMessageAndRequestCorrection(
                 $key,
                 $canUseFlexforms,
@@ -1690,9 +1697,8 @@ class ConfigurationCheck
             $this->setErrorMessageAndRequestCorrection(
                 $key,
                 false,
-                'The TypoScript setup variable group <strong>' . $this->getTSSetupPath() .
-                $key . '</strong> is not set. This setting controls ' .
-                'the list view. ' .
+                'The TypoScript setup variable group <strong>' . $this->buildConfigurationPath($key) .
+                '</strong> is not set. This setting controls the list view. ' .
                 'If this part of the setup is missing, sorting and the ' .
                 'result browser will not work correctly.'
             );
@@ -1792,8 +1798,8 @@ class ConfigurationCheck
         }
 
         if (!GeneralUtility::validEmail($value)) {
-            $message = 'The e-mail address in <strong>' . $this->getTSSetupPath() .
-                $key . '</strong> is set to <strong>' . $value . '</strong> ' .
+            $message = 'The e-mail address in <strong>' . $this->buildConfigurationPath($key) .
+                '</strong> is set to <strong>' . $value . '</strong> ' .
                 'which is not valid. E-mails might not be received as long as ' .
                 'this address is invalid.<br />';
             $this->setErrorMessageAndRequestCorrection(
