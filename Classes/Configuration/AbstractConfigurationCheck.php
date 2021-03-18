@@ -47,12 +47,13 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
-     * Builds a fully-qualified TypoScript namespace from a suffix, e.g.,
-     * `plugin.tx_oelib.foo` from `foo`.
+     * Builds a fully-qualified TypoScript namespace from a suffix, e.g., `plugin.tx_oelib.foo` from `foo`.
+     *
+     * The output is HTML-safe.
      */
-    protected function buildConfigurationPath(string $localPath): string
+    protected function buildEncodedConfigurationPath(string $localPath): string
     {
-        return $this->getSuffixedNamespace() . $localPath;
+        return $this->encode($this->getSuffixedNamespace() . $localPath);
     }
 
     /**
@@ -129,9 +130,30 @@ abstract class AbstractConfigurationCheck
     protected function addWarningAndRequestCorrection(string $key, string $explanation)
     {
         $message = $explanation . ' Please fix the TypoScript setup variable <strong>' .
-            $this->buildConfigurationPath($key) . '</strong> in your TypoScript template setup.';
+            $this->buildEncodedConfigurationPath($key) . '</strong> in your TypoScript template setup.';
 
         $this->addWarning($message);
+    }
+
+    /**
+     * Builds the sentence start "The TypoScript setup variable $variable ", including the trailing space
+     * and some HTML markup.
+     */
+    protected function buildWarningStartWithKey(string $key): string
+    {
+        return 'The TypoScript setup variable <strong>' . $this->buildEncodedConfigurationPath($key) . '</strong> ';
+    }
+
+    /**
+     * Builds the sentence start "The TypoScript setup variable $variable is set to the value $value, but only ",
+     * including the trailing space and some HTML markup.
+     *
+     * @param string|int $value
+     */
+    protected function buildWarningStartWithKeyAndValue(string $key, $value): string
+    {
+        return $this->buildWarningStartWithKey($key) . 'is set to the value &quot;<strong>' .
+            $this->encode((string)$value) . '</strong>&quot;, but only ';
     }
 
     /**
@@ -182,7 +204,7 @@ abstract class AbstractConfigurationCheck
             $message = 'The specified file <strong>' . $encodedFileName . '</strong> cannot be read. ' .
                 $description . ' Please either create the file <strong>' . $encodedFileName .
                 '</strong> or select an existing file using the TypoScript setup variable <strong>' .
-                $this->buildConfigurationPath($key) . '</strong>.';
+                $this->buildEncodedConfigurationPath($key) . '</strong>.';
             $this->addWarning($message);
         }
 
@@ -199,8 +221,7 @@ abstract class AbstractConfigurationCheck
             return true;
         }
 
-        $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) .
-            '</strong> is empty, but needs to be non-empty. ' . $explanation;
+        $message = $this->buildWarningStartWithKey($key) . 'is empty, but needs to be non-empty. ' . $explanation;
         $this->addWarningAndRequestCorrection($key, $message);
 
         return false;
@@ -232,10 +253,9 @@ abstract class AbstractConfigurationCheck
         $okay = \in_array($value, $allowedValues, true);
         if (!$okay) {
             $overviewOfValues = '(' . \implode(', ', $allowedValues) . ')';
-            $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) .
-                '</strong> is set to the value <strong>' . $this->encode($value) .
-                '</strong>, but only the  following values are allowed: <br/><strong>' .
-                $overviewOfValues . '</strong><br />' . $explanation;
+            $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
+                'the following values are allowed: <br/><strong>' . $overviewOfValues . '</strong><br />' .
+                $explanation;
             $this->addWarningAndRequestCorrection($key, $message);
         }
 
@@ -262,9 +282,8 @@ abstract class AbstractConfigurationCheck
 
         $okay = \ctype_digit($value);
         if (!$okay) {
-            $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) .
-                '</strong> is set to the value <strong>' . $this->encode($value) .
-                '</strong>, but only non-negative integers are allowed. ' . $explanation;
+            $message = $this->buildWarningStartWithKeyAndValue($key, $value) . 'non-negative integers are allowed. ' .
+                $explanation;
             $this->addWarningAndRequestCorrection($key, $message);
         }
 
@@ -289,10 +308,9 @@ abstract class AbstractConfigurationCheck
 
         $okay = $value >= $minimum && $value <= $maximum;
         if ($value < $minimum || $value > $maximum) {
-            $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) . $key .
-                '</strong> is set to the value <strong>' . $this->encode((string)$value) .
-                '</strong>, but only integers from ' . $minimum . ' to ' . $maximum .
-                ' (including these values) are allowed. ' . $explanation;
+            $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
+                'integers from ' . $minimum . ' to ' . $maximum . ' (including these values) are allowed. ' .
+                $explanation;
             $this->addWarningAndRequestCorrection($key, $message);
         }
 

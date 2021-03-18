@@ -208,6 +208,23 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
+    public function configurationPathsAreEncoded()
+    {
+        $namespace = 'plugin.tx&oelib';
+        $key = 'a"b';
+        $subject = new TestingConfigurationCheck(new DummyConfiguration([$key => '']), $namespace);
+        $subject->setCheckMethod('checkForNonEmptyStringWithUnsafeVariable');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains(\htmlspecialchars("{$namespace}.{$key}", ENT_QUOTES | ENT_HTML5), $warning);
+    }
+
+    /**
+     * @test
+     */
     public function checkForNonEmptyStringForEmptyStringAddsWarningWithPathAndExplanation()
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['title' => '']), 'plugin.tx_oelib');
