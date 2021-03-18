@@ -43,7 +43,9 @@ class ConfigurationCheck
      */
     protected $objectToCheck = null;
 
-    /** @var string the (cached) class name of $this->objectToCheck */
+    /**
+     * @var string the (cached) class name of $this->objectToCheck
+     */
     private $className = '';
 
     /**
@@ -54,14 +56,11 @@ class ConfigurationCheck
     private $flavor = '';
 
     /**
-     * @var string the error to return (or an empty string if there is no
-     *             error)
+     * @var string the error to return (or an empty string if there is no error)
      */
     private $errorText = '';
 
     /**
-     * The constructor.
-     *
      * @param TemplateHelper $objectToCheck
      *        the object that will be checked for configuration problems
      */
@@ -76,8 +75,7 @@ class ConfigurationCheck
      * differentiate between different kinds of objects of the same class,
      * e.g. the list view and the single view (which both are pi1 objects).
      *
-     * @param string $flavor
-     *        a short string identifying the "flavor" of the object to check (may be empty)
+     * @param string $flavor a short string identifying the "flavor" of the object to check (may be empty)
      *
      * @return void
      */
@@ -89,8 +87,7 @@ class ConfigurationCheck
     /**
      * Returns the current flavor.
      *
-     * @return string the current flavor (or an empty string if no flavor
-     *                is set)
+     * @return string the current flavor (or an empty string if no flavor is set)
      */
     public function getFlavor(): string
     {
@@ -108,8 +105,7 @@ class ConfigurationCheck
      * errors may cause a row of other errors which disappear when the first
      * error has been fixed.
      *
-     * Note: This function expected $this->checkByClassNameAndFlavor() to
-     * be defined!
+     * Note: This function expected $this->checkByClassNameAndFlavor() to be defined!
      *
      * @return string an error message (or an empty string)
      */
@@ -131,8 +127,7 @@ class ConfigurationCheck
      * errors may cause a row of other errors which disappear when the first
      * error has been fixed.
      *
-     * Note: This function expected $this->checkByClassNameAndFlavor() to be
-     * defined!
+     * Note: This function expected $this->checkByClassNameAndFlavor() to be defined!
      *
      * @return string an error message wrapped by wrap() (or an empty string)
      */
@@ -169,8 +164,7 @@ class ConfigurationCheck
     /**
      * Adds a warning.
      *
-     * This a an alias for `setErrorMessage` in order to ease copy'n'pasting for the new
-     * configuration check class.
+     * This a an alias for `setErrorMessage` in order to ease copy'n'pasting for the new configuration check class.
      *
      * @param string $rawWarningText the warning text, may contain HTML, will not be encoded
      *
@@ -250,8 +244,7 @@ class ConfigurationCheck
      * Use this method if you want to process this message furether, e.g.
      * for bubbling it up to other configcheck objects.
      *
-     * @return string $this->errorText (or an empty string if there are no
-     *                errors)
+     * @return string $this->errorText (or an empty string if there are no errors)
      */
     public function getRawMessage(): string
     {
@@ -266,8 +259,7 @@ class ConfigurationCheck
      * directly and it doesn't need to get handled to other configcheck
      * objects.
      *
-     * @return string $this->errorText wrapped by $this->wrap (or an empty
-     *                string if there are no errors)
+     * @return string $this->errorText wrapped by $this->wrap (or an empty string if there are no errors)
      */
     public function getWrappedMessage(): string
     {
@@ -387,14 +379,10 @@ class ConfigurationCheck
         );
 
         if (
-            ($this->getFrontEndController() instanceof TypoScriptFrontendController)
+            $this->getFrontEndController() instanceof TypoScriptFrontendController
             && $this->objectToCheck->hasConfValueString('templateFile', 's_template_special')
         ) {
-            $rawFileName = $this->objectToCheck->getConfValueString(
-                'templateFile',
-                's_template_special',
-                true
-            );
+            $rawFileName = $this->objectToCheck->getConfValueString('templateFile', 's_template_special', true);
 
             $file = GeneralUtility::getFileAbsFileName($rawFileName);
             if ($file === '' || !\is_file($file)) {
@@ -474,19 +462,10 @@ class ConfigurationCheck
      *
      * @return void
      */
-    public function checkForNonEmptyString(
-        string $key,
-        bool $canUseFlexforms,
-        string $sheet,
-        string $explanation
-    ) {
+    public function checkForNonEmptyString(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
+    {
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
-        $this->checkForNonEmptyStringValue(
-            $value,
-            $key,
-            $canUseFlexforms,
-            $explanation
-        );
+        $this->checkForNonEmptyStringValue($value, $key, $canUseFlexforms, $explanation);
     }
 
     /**
@@ -551,19 +530,8 @@ class ConfigurationCheck
         string $explanation,
         array $allowedValues
     ) {
-        $this->checkForNonEmptyString(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
-        $this->checkIfSingleInSetOrEmpty(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation,
-            $allowedValues
-        );
+        $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
+        $this->checkIfSingleInSetOrEmpty($key, $canUseFlexforms, $sheet, $explanation, $allowedValues);
     }
 
     /**
@@ -595,13 +563,7 @@ class ConfigurationCheck
     ) {
         if ($this->objectToCheck->hasConfValueString($key, $sheet)) {
             $value = $this->objectToCheck->getConfValueString($key, $sheet);
-            $this->checkIfSingleInSetOrEmptyValue(
-                $value,
-                $key,
-                $canUseFlexforms,
-                $explanation,
-                $allowedValues
-            );
+            $this->checkIfSingleInSetOrEmptyValue($value, $key, $canUseFlexforms, $explanation, $allowedValues);
         }
     }
 
@@ -665,13 +627,7 @@ class ConfigurationCheck
      */
     protected function checkIfBoolean(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
     {
-        $this->checkIfSingleInSetNotEmpty(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation,
-            ['0', '1']
-        );
+        $this->checkIfSingleInSetNotEmpty($key, $canUseFlexforms, $sheet, $explanation, ['0', '1']);
     }
 
     /**
@@ -697,11 +653,7 @@ class ConfigurationCheck
 
         if (!preg_match('/^\\d*$/', $value)) {
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) . 'integers are allowed. ' . $explanation;
-            $this->addWarningAndRequestCorrection(
-                $key,
-                $canUseFlexforms,
-                $message
-            );
+            $this->addWarningAndRequestCorrection($key, $canUseFlexforms, $message);
         }
     }
 
@@ -749,11 +701,7 @@ class ConfigurationCheck
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
                 'integers from ' . $minValue . ' to ' . $maxValue . ' are allowed. ' .
                 $explanation;
-            $this->addWarningAndRequestCorrection(
-                $key,
-                $canUseFlexforms,
-                $message
-            );
+            $this->addWarningAndRequestCorrection($key, $canUseFlexforms, $message);
         }
     }
 
@@ -786,20 +734,11 @@ class ConfigurationCheck
         bool $canUseFlexforms,
         string $explanation
     ) {
-        $this->checkForNonEmptyStringValue(
-            $value,
-            $key,
-            $canUseFlexforms,
-            $explanation
-        );
+        $this->checkForNonEmptyStringValue($value, $key, $canUseFlexforms, $explanation);
         if (!preg_match('/^[1-9]\\d*$/', $value)) {
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) . 'positive integers are allowed. ' .
                 $explanation;
-            $this->addWarningAndRequestCorrection(
-                $key,
-                $canUseFlexforms,
-                $message
-            );
+            $this->addWarningAndRequestCorrection($key, $canUseFlexforms, $message);
         }
     }
 
@@ -821,19 +760,10 @@ class ConfigurationCheck
      *
      * @return void
      */
-    protected function checkIfPositiveInteger(
-        string $key,
-        bool $canUseFlexforms,
-        string $sheet,
-        string $explanation
-    ) {
+    protected function checkIfPositiveInteger(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
+    {
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
-        $this->checkIfPositiveIntegerValue(
-            $value,
-            $key,
-            $canUseFlexforms,
-            $explanation
-        );
+        $this->checkIfPositiveIntegerValue($value, $key, $canUseFlexforms, $explanation);
     }
 
     /**
@@ -865,11 +795,7 @@ class ConfigurationCheck
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
                 'positive integers and empty strings are allowed. ' .
                 $explanation;
-            $this->addWarningAndRequestCorrection(
-                $key,
-                $canUseFlexforms,
-                $message
-            );
+            $this->addWarningAndRequestCorrection($key, $canUseFlexforms, $message);
         }
     }
 
@@ -899,22 +825,13 @@ class ConfigurationCheck
     ) {
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
 
-        $this->checkForNonEmptyStringValue(
-            $value,
-            $key,
-            $canUseFlexforms,
-            $explanation
-        );
+        $this->checkForNonEmptyStringValue($value, $key, $canUseFlexforms, $explanation);
 
         if (!preg_match('/^\\d+$/', $value)) {
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) . 'positive integers are allowed. ' .
                 $explanation;
 
-            $this->addWarningAndRequestCorrection(
-                $key,
-                $canUseFlexforms,
-                $message
-            );
+            $this->addWarningAndRequestCorrection($key, $canUseFlexforms, $message);
         }
     }
 
@@ -945,19 +862,8 @@ class ConfigurationCheck
         string $explanation,
         array $allowedValues
     ) {
-        $this->checkForNonEmptyString(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
-        $this->checkIfMultiInSetOrEmpty(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation,
-            $allowedValues
-        );
+        $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
+        $this->checkIfMultiInSetOrEmpty($key, $canUseFlexforms, $sheet, $explanation, $allowedValues);
     }
 
     /**
@@ -988,11 +894,7 @@ class ConfigurationCheck
         array $allowedValues
     ) {
         if ($this->objectToCheck->hasConfValueString($key, $sheet)) {
-            $allValues = GeneralUtility::trimExplode(
-                ',',
-                $this->objectToCheck->getConfValueString($key, $sheet),
-                true
-            );
+            $allValues = GeneralUtility::trimExplode(',', $this->objectToCheck->getConfValueString($key, $sheet), true);
 
             $overviewOfValues = '(' . implode(', ', $allowedValues) . ')';
             foreach ($allValues as $currentValue) {
@@ -1002,11 +904,7 @@ class ConfigurationCheck
                         'but only the following values are allowed: ' .
                         '<br /><strong>' . $overviewOfValues . '</strong><br />' .
                         $explanation;
-                    $this->addWarningAndRequestCorrection(
-                        $key,
-                        $canUseFlexforms,
-                        $message
-                    );
+                    $this->addWarningAndRequestCorrection($key, $canUseFlexforms, $message);
                 }
             }
         }
@@ -1253,11 +1151,7 @@ class ConfigurationCheck
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
                 ' values matching the regular expression <code>' . $this->encode($regExp) . '</code> are allowed. ' .
                 $explanation;
-            $this->addWarningAndRequestCorrection(
-                $key,
-                $canUseFlexforms,
-                $message
-            );
+            $this->addWarningAndRequestCorrection($key, $canUseFlexforms, $message);
         }
     }
 
@@ -1288,19 +1182,8 @@ class ConfigurationCheck
         string $explanation,
         string $regExp
     ) {
-        $this->checkForNonEmptyString(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
-        $this->checkRegExp(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation,
-            $regExp
-        );
+        $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
+        $this->checkRegExp($key, $canUseFlexforms, $sheet, $explanation, $regExp);
     }
 
     /**
@@ -1321,19 +1204,9 @@ class ConfigurationCheck
      *
      * @return void
      */
-    protected function checkIfPidListOrEmpty(
-        string $key,
-        bool $canUseFlexforms,
-        string $sheet,
-        string $explanation
-    ) {
-        $this->checkRegExp(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation,
-            '/^([0-9]+(,( *)[0-9]+)*)?$/'
-        );
+    protected function checkIfPidListOrEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
+    {
+        $this->checkRegExp($key, $canUseFlexforms, $sheet, $explanation, '/^([0-9]+(,( *)[0-9]+)*)?$/');
     }
 
     /**
@@ -1354,24 +1227,10 @@ class ConfigurationCheck
      *
      * @return void
      */
-    protected function checkIfPidListNotEmpty(
-        string $key,
-        bool $canUseFlexforms,
-        string $sheet,
-        string $explanation
-    ) {
-        $this->checkForNonEmptyString(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
-        $this->checkIfPidListOrEmpty(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
+    protected function checkIfPidListNotEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
+    {
+        $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
+        $this->checkIfPidListOrEmpty($key, $canUseFlexforms, $sheet, $explanation);
     }
 
     /**
@@ -1392,18 +1251,9 @@ class ConfigurationCheck
      *
      * @return void
      */
-    protected function checkIfFePagesNotEmpty(
-        string $key,
-        bool $canUseFlexforms,
-        string $sheet,
-        string $explanation
-    ) {
-        $this->checkForNonEmptyString(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
+    protected function checkIfFePagesNotEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
+    {
+        $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
     }
 
     /**
@@ -1430,12 +1280,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation
     ) {
-        $this->checkIfPositiveInteger(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
+        $this->checkIfPositiveInteger($key, $canUseFlexforms, $sheet, $explanation);
     }
 
     /**
@@ -1485,12 +1330,8 @@ class ConfigurationCheck
      *
      * @deprecated will be removed in oelib 4.0.0; is a no-op in the meantime
      */
-    protected function checkIfFePagesOrEmpty(
-        string $key,
-        bool $canUseFlexforms,
-        string $sheet,
-        string $explanation
-    ) {
+    protected function checkIfFePagesOrEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
+    {
         if (Typo3Version::isNotHigherThan(8)) {
             GeneralUtility::logDeprecatedFunction();
         } else {
@@ -1519,18 +1360,9 @@ class ConfigurationCheck
      *
      * @return void
      */
-    protected function checkIfSysFoldersNotEmpty(
-        string $key,
-        bool $canUseFlexforms,
-        string $sheet,
-        string $explanation
-    ) {
-        $this->checkForNonEmptyString(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
+    protected function checkIfSysFoldersNotEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
+    {
+        $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
     }
 
     /**
@@ -1557,12 +1389,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation
     ) {
-        $this->checkIfPositiveInteger(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
+        $this->checkIfPositiveInteger($key, $canUseFlexforms, $sheet, $explanation);
     }
 
     /**
@@ -1589,12 +1416,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation
     ) {
-        $this->checkIfInteger(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
+        $this->checkIfInteger($key, $canUseFlexforms, $sheet, $explanation);
     }
 
     /**
@@ -1617,12 +1439,8 @@ class ConfigurationCheck
      *
      * @deprecated will be removed in oelib 4.0.0; is a no-op in the meantime
      */
-    protected function checkIfSysFoldersOrEmpty(
-        string $key,
-        bool $canUseFlexforms,
-        string $sheet,
-        string $explanation
-    ) {
+    protected function checkIfSysFoldersOrEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
+    {
         if (Typo3Version::isNotHigherThan(8)) {
             GeneralUtility::logDeprecatedFunction();
         } else {
@@ -1690,33 +1508,25 @@ class ConfigurationCheck
         if (isset($this->objectToCheck->conf[$key])) {
             $this->checkListViewIfSingleInSetNotEmpty(
                 'orderBy',
-                'This setting controls by which field the list view will be '
-                . 'sorted. '
-                . 'If this value is not set correctly, sorting will not '
-                . 'work correctly.',
+                'This setting controls by which field the list view will be sorted. ' .
+                'If this value is not set correctly, sorting will not work correctly.',
                 $allowedSortFields
             );
             $this->checkListViewIfSingleInSetNotEmpty(
                 'descFlag',
-                'This setting controls the default sort order (ascending or '
-                . 'descending). '
-                . 'If this value is not set correctly, the list view might '
-                . 'be sorted the wrong way round.',
+                'This setting controls the default sort order (ascending or descending). ' .
+                'If this value is not set correctly, the list view might be sorted the wrong way round.',
                 ['0', '1']
             );
             $this->checkListViewIfPositiveInteger(
                 'results_at_a_time',
-                'This setting controls how many events per page will be '
-                . 'displayed in the list view. '
-                . 'If this value is not set correctly, the wrong number of '
-                . 'events will be displayed.'
+                'This setting controls how many events per page will be displayed in the list view. ' .
+                'If this value is not set correctly, the wrong number of events will be displayed.'
             );
             $this->checkListViewIfPositiveInteger(
                 'maxPages',
-                'This setting controls how many result pages will be linked in '
-                . 'the list view. '
-                . 'If this value is not set correctly, the result browser '
-                . 'will not work correctly.'
+                'This setting controls how many result pages will be linked in the list view. ' .
+                'If this value is not set correctly, the result browser will not work correctly.'
             );
         } else {
             $this->addWarningAndRequestCorrection(
@@ -1724,8 +1534,7 @@ class ConfigurationCheck
                 false,
                 $this->buildWarningStartWithKey($key) .
                 'is not set. This setting controls the list view. ' .
-                'If this part of the setup is missing, sorting and the ' .
-                'result browser will not work correctly.'
+                'If this part of the setup is missing, sorting and the result browser will not work correctly.'
             );
         }
     }
@@ -1744,27 +1553,13 @@ class ConfigurationCheck
      *
      * @return void
      */
-    protected function checkListViewIfSingleInSetNotEmpty(
-        string $key,
-        string $explanation,
-        array $allowedValues
-    ) {
+    protected function checkListViewIfSingleInSetNotEmpty(string $key, string $explanation, array $allowedValues)
+    {
         $fieldSubPath = 'listView.' . $key;
         $value = $this->objectToCheck->getListViewConfValueString($key);
 
-        $this->checkForNonEmptyStringValue(
-            $value,
-            $fieldSubPath,
-            false,
-            $explanation
-        );
-        $this->checkIfSingleInSetOrEmptyValue(
-            $value,
-            $fieldSubPath,
-            false,
-            $explanation,
-            $allowedValues
-        );
+        $this->checkForNonEmptyStringValue($value, $fieldSubPath, false, $explanation);
+        $this->checkIfSingleInSetOrEmptyValue($value, $fieldSubPath, false, $explanation, $allowedValues);
     }
 
     /**
@@ -1784,12 +1579,7 @@ class ConfigurationCheck
         $fieldSubPath = 'listView.' . $key;
         $value = $this->objectToCheck->getListViewConfValueString($key);
 
-        $this->checkIfPositiveIntegerValue(
-            $value,
-            $fieldSubPath,
-            false,
-            $explanation
-        );
+        $this->checkIfPositiveIntegerValue($value, $fieldSubPath, false, $explanation);
     }
 
     /**
@@ -1825,13 +1615,8 @@ class ConfigurationCheck
         if (!GeneralUtility::validEmail($value)) {
             $message = 'The e-mail address in <strong>' . $this->buildEncodedConfigurationPath($key) .
                 '</strong> is set to <strong>' . $value . '</strong> ' .
-                'which is not valid. E-mails might not be received as long as ' .
-                'this address is invalid.<br />';
-            $this->addWarningAndRequestCorrection(
-                $key,
-                $canUseFlexforms,
-                $message . $explanation
-            );
+                'which is not valid. E-mails might not be received as long as this address is invalid.<br />';
+            $this->addWarningAndRequestCorrection($key, $canUseFlexforms, $message . $explanation);
         }
     }
 
@@ -1861,24 +1646,11 @@ class ConfigurationCheck
         bool $allowInternalAddresses,
         string $explanation
     ) {
-        $this->checkForNonEmptyString(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $explanation
-        );
-        $this->checkIsValidEmailOrEmpty(
-            $key,
-            $canUseFlexforms,
-            $sheet,
-            $allowInternalAddresses,
-            $explanation
-        );
+        $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
+        $this->checkIsValidEmailOrEmpty($key, $canUseFlexforms, $sheet, $allowInternalAddresses, $explanation);
     }
 
     /**
-     * Returns the current front-end instance.
-     *
      * @return TypoScriptFrontendController|null
      */
     protected function getFrontEndController()
