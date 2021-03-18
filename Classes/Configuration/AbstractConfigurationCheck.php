@@ -56,6 +56,14 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
+     * Syntactic sugar for HTML-encoding a string.
+     */
+    protected function encode(string $rawText): string
+    {
+        return \htmlspecialchars($rawText, ENT_QUOTES | ENT_HTML5);
+    }
+
+    /**
      * Checks the configuration.
      *
      * Any warnings created by the check will be available via `getWarningsAsHtml` and `hasWarnings`.
@@ -170,7 +178,7 @@ abstract class AbstractConfigurationCheck
         $isOkay = $file !== '' && \is_file($file);
 
         if (!$isOkay) {
-            $encodedFileName = \htmlspecialchars($rawFileName, ENT_QUOTES | ENT_HTML5);
+            $encodedFileName = $this->encode($rawFileName);
             $message = 'The specified file <strong>' . $encodedFileName . '</strong> cannot be read. ' .
                 $description . ' Please either create the file <strong>' . $encodedFileName .
                 '</strong> or select an existing file using the TypoScript setup variable <strong>' .
@@ -224,9 +232,8 @@ abstract class AbstractConfigurationCheck
         $okay = \in_array($value, $allowedValues, true);
         if (!$okay) {
             $overviewOfValues = '(' . \implode(', ', $allowedValues) . ')';
-            $encodedValue = \htmlspecialchars($value, ENT_QUOTES | ENT_HTML5);
             $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) .
-                '</strong> is set to the value <strong>' . $encodedValue .
+                '</strong> is set to the value <strong>' . $this->encode($value) .
                 '</strong>, but only the  following values are allowed: <br/><strong>' .
                 $overviewOfValues . '</strong><br />' . $explanation;
             $this->addWarningAndRequestCorrection($key, $message);
@@ -255,9 +262,8 @@ abstract class AbstractConfigurationCheck
 
         $okay = \ctype_digit($value);
         if (!$okay) {
-            $encodedValue = \htmlspecialchars($value, ENT_QUOTES | ENT_HTML5);
             $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) .
-                '</strong> is set to the value <strong>' . $encodedValue .
+                '</strong> is set to the value <strong>' . $this->encode($value) .
                 '</strong>, but only non-negative integers are allowed. ' . $explanation;
             $this->addWarningAndRequestCorrection($key, $message);
         }
@@ -283,10 +289,10 @@ abstract class AbstractConfigurationCheck
 
         $okay = $value >= $minimum && $value <= $maximum;
         if ($value < $minimum || $value > $maximum) {
-            $encodedValue = \htmlspecialchars((string)$value, ENT_QUOTES | ENT_HTML5);
             $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) . $key .
-                '</strong> is set to the value <strong>' . $encodedValue . '</strong>, but only integers from ' .
-                $minimum . ' to ' . $maximum . ' (including these values) are allowed. ' . $explanation;
+                '</strong> is set to the value <strong>' . $this->encode((string)$value) .
+                '</strong>, but only integers from ' . $minimum . ' to ' . $maximum .
+                ' (including these values) are allowed. ' . $explanation;
             $this->addWarningAndRequestCorrection($key, $message);
         }
 

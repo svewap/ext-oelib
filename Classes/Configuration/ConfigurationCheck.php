@@ -317,6 +317,14 @@ class ConfigurationCheck
     }
 
     /**
+     * Syntactic sugar for HTML-encoding a string.
+     */
+    protected function encode(string $rawText): string
+    {
+        return \htmlspecialchars($rawText, ENT_QUOTES | ENT_HTML5);
+    }
+
+    /**
      * Checks whether the static template has been included.
      *
      * @return void
@@ -368,12 +376,12 @@ class ConfigurationCheck
 
             $file = GeneralUtility::getFileAbsFileName($rawFileName);
             if ($file === '' || !\is_file($file)) {
-                $message = 'The specified HTML template file <strong>' .
-                    htmlspecialchars($rawFileName, ENT_QUOTES | ENT_HTML5) .
+                $encodedFileName = $this->encode($rawFileName);
+                $message = 'The specified HTML template file <strong>' . $encodedFileName .
                     '</strong> cannot be read. ' .
                     'The HTML template file is essential when creating any ' .
                     'output from this extension. ' .
-                    'Please either create the file <strong>' . $rawFileName .
+                    'Please either create the file <strong>' . $encodedFileName .
                     '</strong> or select an existing file using the TypoScript setup variable <strong>' .
                     $this->buildConfigurationPath('templateFile') . '</strong>';
                 if ($canUseFlexforms) {
@@ -410,12 +418,12 @@ class ConfigurationCheck
         if ($fileName !== '') {
             $file = GeneralUtility::getFileAbsFileName($fileName);
             if ($file === '' || !\is_file($file)) {
-                $message .= 'The specified CSS file <strong>' .
-                    htmlspecialchars($fileName, ENT_QUOTES | ENT_HTML5) .
+                $encodedFileName = $this->encode($fileName);
+                $message .= 'The specified CSS file <strong>' . $encodedFileName .
                     '</strong> cannot be read. ' .
                     'If that constant does not point to an existing file, no ' .
                     'special CSS will be used for styling this extension\'s ' .
-                    'HTML. Please either create the file <strong>' . $fileName .
+                    'HTML. Please either create the file <strong>' . $encodedFileName .
                     '</strong> or select an existing file using the TypoScript ' .
                     'constant <strong>' . $this->buildConfigurationPath('cssFile') .
                     '</strong>' .
@@ -609,7 +617,7 @@ class ConfigurationCheck
             $message = 'The TypoScript setup variable <strong>' .
                 $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
-                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only the ' .
+                $this->encode($value) . '</strong>, but only the ' .
                 'following values are allowed: ' .
                 '<br /><strong>' . $overviewOfValues . '</strong><br />' .
                 $explanation;
@@ -674,8 +682,7 @@ class ConfigurationCheck
             $message = 'The TypoScript setup variable <strong>' .
                 $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
-                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers are ' .
-                'allowed. ' .
+                $this->encode($value) . '</strong>, but only integers are allowed. ' .
                 $explanation;
             $this->addWarningAndRequestCorrection(
                 $key,
@@ -729,7 +736,7 @@ class ConfigurationCheck
             $message = 'The TypoScript setup variable <strong>' .
                 $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
-                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers from ' .
+                $this->encode((string)$value) . '</strong>, but only integers from ' .
                 $minValue . ' to ' . $maxValue . ' are allowed. ' .
                 $explanation;
             $this->addWarningAndRequestCorrection(
@@ -779,8 +786,7 @@ class ConfigurationCheck
             $message = 'The TypoScript setup variable <strong>' .
                 $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
-                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
-                'integers are allowed. ' .
+                $this->encode($value) . '</strong>, but only positive integers are allowed. ' .
                 $explanation;
             $this->addWarningAndRequestCorrection(
                 $key,
@@ -852,8 +858,7 @@ class ConfigurationCheck
             $message = 'The TypoScript setup variable <strong>' .
                 $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
-                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
-                'integers and empty strings are allowed. ' .
+                $this->encode($value) . '</strong>, but only positive integers and empty strings are allowed. ' .
                 $explanation;
             $this->addWarningAndRequestCorrection(
                 $key,
@@ -900,8 +905,7 @@ class ConfigurationCheck
             $message = 'The TypoScript setup variable <strong>' .
                 $this->buildConfigurationPath($key) .
                 '</strong> is set to the value <strong>' .
-                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
-                'integers are allowed. ' .
+                $this->encode($value) . '</strong>, but only positive integers are allowed. ' .
                 $explanation;
 
             $this->addWarningAndRequestCorrection(
@@ -994,7 +998,7 @@ class ConfigurationCheck
                     $message = 'The TypoScript setup variable <strong>' .
                         $this->buildConfigurationPath($key) .
                         '</strong> contains the value <strong>' .
-                        htmlspecialchars($currentValue, ENT_QUOTES | ENT_HTML5) . '</strong>, ' .
+                        $this->encode($currentValue) . '</strong>, ' .
                         'but only the following values are allowed: ' .
                         '<br /><strong>' . $overviewOfValues . '</strong><br />' .
                         $explanation;
@@ -1248,7 +1252,7 @@ class ConfigurationCheck
         if (!preg_match($regExp, $value)) {
             $message = 'The TypoScript setup variable <strong>' . $this->buildConfigurationPath($key) .
                 '</strong> contains the value <strong>' .
-                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong> which isn\'t valid. ' .
+                $this->encode($value) . '</strong> which isn\'t valid. ' .
                 $explanation;
             $this->addWarningAndRequestCorrection(
                 $key,
