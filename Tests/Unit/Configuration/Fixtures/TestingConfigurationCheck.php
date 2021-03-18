@@ -61,6 +61,8 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
      * This method does not reset any existing configuration check warnings.
      *
      * @return void
+     *
+     * @throws \BadMethodCallException
      */
     protected function checkAllConfigurationValues()
     {
@@ -89,7 +91,13 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkIfInteger':
                 $this->checkIfInteger('limit', 'some explanation');
                 break;
+            case 'checkNothing':
+                break;
             default:
+                throw new \BadMethodCallException(
+                    'Unknown value for the check method: "' . $this->checkMethod . '"',
+                    1616068312
+                );
         }
     }
 }

@@ -122,9 +122,39 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
+    public function checkWithUnknownCheckMethodThrowsException()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionCode(1616068312);
+        $this->expectExceptionMessage('Unknown value for the check method: "unknown"');
+
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
+        $subject->setCheckMethod('unknown');
+
+        $subject->check();
+    }
+
+    /**
+     * @test
+     */
+    public function checkWithoutCheckMethodThrowsException()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionCode(1616068312);
+        $this->expectExceptionMessage('Unknown value for the check method: ""');
+
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
+
+        $subject->check();
+    }
+
+    /**
+     * @test
+     */
     public function checkWithoutCreatingWarningsDoesNotAddAnyWarning()
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkNothing');
 
         $subject->check();
 
