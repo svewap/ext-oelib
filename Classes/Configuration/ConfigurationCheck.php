@@ -191,11 +191,11 @@ class ConfigurationCheck
 
     /**
      * Sets the error message, consisting of $explanation and a request to
-     * change the TS setup variable $fieldName (with the current TS setup path
+     * change the TS setup variable $key (with the current TS setup path
      * prepended). If $canUseFlexforms is TRUE, the possibility to change the
      * variable via flexforms is mentioned as well.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -206,13 +206,13 @@ class ConfigurationCheck
      * @return void
      */
     protected function setErrorMessageAndRequestCorrection(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $explanation
     ) {
         $message = $explanation
             . ' Please correct the TS setup variable <strong>'
-            . $this->getTSSetupPath() . $fieldName . '</strong> in your TS '
+            . $this->getTSSetupPath() . $key . '</strong> in your TS '
             . 'template setup';
         if ($canUseFlexforms) {
             $message .= ' or via FlexForms';
@@ -273,16 +273,16 @@ class ConfigurationCheck
      */
     protected function wrap(string $message): string
     {
-        return '<p lang="en" style="color: #000; background: #fff; '
-            . 'padding: .4em; border: 3px solid #f00; clear: both;">'
-            . '<strong>Configuration check warning:</strong><br />'
-            . $message
-            . '<br />When that is done, please empty the '
-            . '<acronym title="front-end">FE</acronym> cache and reload '
-            . 'this page.'
-            . '<br /><em>The configuration check for this extension can be '
-            . 'disabled in the extension manager.</em>'
-            . '</p>';
+        return '<p lang="en" style="color: #000; background: #fff; ' .
+            'padding: .4em; border: 3px solid #f00; clear: both;">' .
+            '<strong>Configuration check warning:</strong><br />' .
+            $message .
+            '<br />When that is done, please empty the ' .
+            '<acronym title="front-end">FE</acronym> cache and reload ' .
+            'this page.' .
+            '<br /><em>The configuration check for this extension can be ' .
+            'disabled in the extension manager.</em>' .
+            '</p>';
     }
 
     /**
@@ -294,11 +294,11 @@ class ConfigurationCheck
     {
         if (!$this->objectToCheck->getConfValueBoolean('isStaticTemplateLoaded')) {
             $this->setErrorMessage(
-                'The static template is not included. This has the effect '
-                . 'that important default values do not get set. To fix '
-                . 'this, please include this extension\'s template under '
-                . '<em>Include static (from extensions)</em> in your TS '
-                . 'template.'
+                'The static template is not included. This has the effect ' .
+                'that important default values do not get set. To fix ' .
+                'this, please include this extension\'s template under ' .
+                '<em>Include static (from extensions)</em> in your TS ' .
+                'template.'
             );
         }
     }
@@ -337,15 +337,15 @@ class ConfigurationCheck
 
             $file = GeneralUtility::getFileAbsFileName($rawFileName);
             if ($file === '' || !\is_file($file)) {
-                $message = 'The specified HTML template file <strong>'
-                    . htmlspecialchars($rawFileName, ENT_QUOTES | ENT_HTML5)
-                    . '</strong> cannot be read. '
-                    . 'The HTML template file is essential when creating any '
-                    . 'output from this extension. '
-                    . 'Please either create the file <strong>' . $rawFileName
-                    . '</strong> or select an existing file using the TS setup '
-                    . 'variable <strong>' . $this->getTSSetupPath()
-                    . 'templateFile</strong>';
+                $message = 'The specified HTML template file <strong>' .
+                    htmlspecialchars($rawFileName, ENT_QUOTES | ENT_HTML5) .
+                    '</strong> cannot be read. ' .
+                    'The HTML template file is essential when creating any ' .
+                    'output from this extension. ' .
+                    'Please either create the file <strong>' . $rawFileName .
+                    '</strong> or select an existing file using the TS setup ' .
+                    'variable <strong>' . $this->getTSSetupPath() .
+                    'templateFile</strong>';
                 if ($canUseFlexforms) {
                     $message .= ' or via FlexForms';
                 }
@@ -365,10 +365,10 @@ class ConfigurationCheck
     protected function checkCssFileFromConstants()
     {
         if ($this->objectToCheck->hasConfValueString('cssFile')) {
-            $message = 'The TS setup variable <strong>' . $this->getTSSetupPath()
-                . 'cssFile</strong> is set, but should not be set. You will have to unset '
-                . 'the TS setup variable and set <strong>' . $this->getTSSetupPath()
-                . 'cssFile</strong> in your TS constants instead.';
+            $message = 'The TS setup variable <strong>' . $this->getTSSetupPath() .
+                'cssFile</strong> is set, but should not be set. You will have to unset ' .
+                'the TS setup variable and set <strong>' . $this->getTSSetupPath() .
+                'cssFile</strong> in your TS constants instead.';
             $this->setErrorMessage($message);
         } else {
             $message = '';
@@ -380,17 +380,17 @@ class ConfigurationCheck
         if ($fileName !== '') {
             $file = GeneralUtility::getFileAbsFileName($fileName);
             if ($file === '' || !\is_file($file)) {
-                $message .= 'The specified CSS file <strong>'
-                    . htmlspecialchars($fileName, ENT_QUOTES | ENT_HTML5)
-                    . '</strong> cannot be read. '
-                    . 'If that constant does not point to an existing file, no '
-                    . 'special CSS will be used for styling this extension\'s '
-                    . 'HTML. Please either create the file <strong>' . $fileName
-                    . '</strong> or select an existing file using the TS '
-                    . 'constant <strong>' . $this->getTSSetupPath()
-                    . 'cssFile</strong>'
-                    . '. If you do not want to use any special CSS, you '
-                    . 'can set that variable to an empty string.';
+                $message .= 'The specified CSS file <strong>' .
+                    htmlspecialchars($fileName, ENT_QUOTES | ENT_HTML5) .
+                    '</strong> cannot be read. ' .
+                    'If that constant does not point to an existing file, no ' .
+                    'special CSS will be used for styling this extension\'s ' .
+                    'HTML. Please either create the file <strong>' . $fileName .
+                    '</strong> or select an existing file using the TS ' .
+                    'constant <strong>' . $this->getTSSetupPath() .
+                    'cssFile</strong>' .
+                    '. If you do not want to use any special CSS, you ' .
+                    'can set that variable to an empty string.';
                 $this->setErrorMessage($message);
             }
         }
@@ -399,7 +399,7 @@ class ConfigurationCheck
     /**
      * Checks whether a configuration value contains a non-empty-string.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -414,15 +414,15 @@ class ConfigurationCheck
      * @return void
      */
     public function checkForNonEmptyString(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
-        $value = $this->objectToCheck->getConfValueString($fieldName, $sheet);
+        $value = $this->objectToCheck->getConfValueString($key, $sheet);
         $this->checkForNonEmptyStringValue(
             $value,
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $explanation
         );
@@ -431,12 +431,12 @@ class ConfigurationCheck
     /**
      * Checks whether a provided value is a non-empty string. The
      * value to check must be provided as a parameter and is not fetched
-     * automatically; the $fieldName parameter is only used to create the
+     * automatically; the $key parameter is only used to create the
      * warning message.
      *
      * @param string $value
      *        the value to check
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to mention in the warning, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -449,16 +449,16 @@ class ConfigurationCheck
      */
     protected function checkForNonEmptyStringValue(
         string $value,
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $explanation
     ) {
         if ($value === '') {
-            $message = 'The TS setup variable <strong>'
-                . $this->getTSSetupPath() . $fieldName
-                . '</strong> is empty, but needs to be non-empty. ' . $explanation;
+            $message = 'The TS setup variable <strong>' .
+                $this->getTSSetupPath() . $key .
+                '</strong> is empty, but needs to be non-empty. ' . $explanation;
             $this->setErrorMessageAndRequestCorrection(
-                $fieldName,
+                $key,
                 $canUseFlexforms,
                 $message
             );
@@ -469,7 +469,7 @@ class ConfigurationCheck
      * Checks whether a configuration value is non-empty and lies within a set
      * of allowed values.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -486,20 +486,20 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfSingleInSetNotEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation,
         array $allowedValues
     ) {
         $this->checkForNonEmptyString(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation
         );
         $this->checkIfSingleInSetOrEmpty(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation,
@@ -511,7 +511,7 @@ class ConfigurationCheck
      * Checks whether a configuration value either is empty or lies within a
      * set of allowed values.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -528,17 +528,17 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfSingleInSetOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation,
         array $allowedValues
     ) {
-        if ($this->objectToCheck->hasConfValueString($fieldName, $sheet)) {
-            $value = $this->objectToCheck->getConfValueString($fieldName, $sheet);
+        if ($this->objectToCheck->hasConfValueString($key, $sheet)) {
+            $value = $this->objectToCheck->getConfValueString($key, $sheet);
             $this->checkIfSingleInSetOrEmptyValue(
                 $value,
-                $fieldName,
+                $key,
                 $canUseFlexforms,
                 $explanation,
                 $allowedValues
@@ -549,12 +549,12 @@ class ConfigurationCheck
     /**
      * Checks whether a provided value either is empty or lies within a
      * set of allowed values. The value to check must be provided as a parameter
-     * and is not fetched automatically; the $fieldName parameter is only used
+     * and is not fetched automatically; the $key parameter is only used
      * to create the warning message.
      *
      * @param string $value
      *        the value to check
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to mention in the warning, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -569,22 +569,22 @@ class ConfigurationCheck
      */
     protected function checkIfSingleInSetOrEmptyValue(
         string $value,
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $explanation,
         array $allowedValues
     ) {
         if (!empty($value) && !in_array($value, $allowedValues, true)) {
             $overviewOfValues = '(' . implode(', ', $allowedValues) . ')';
-            $message = 'The TS setup variable <strong>'
-                . $this->getTSSetupPath() . $fieldName
-                . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only the '
-                . 'following values are allowed: '
-                . '<br /><strong>' . $overviewOfValues . '</strong><br />'
-                . $explanation;
+            $message = 'The TS setup variable <strong>' .
+                $this->getTSSetupPath() . $key .
+                '</strong> is set to the value <strong>' .
+                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only the ' .
+                'following values are allowed: ' .
+                '<br /><strong>' . $overviewOfValues . '</strong><br />' .
+                $explanation;
             $this->setErrorMessageAndRequestCorrection(
-                $fieldName,
+                $key,
                 $canUseFlexforms,
                 $message
             );
@@ -594,7 +594,7 @@ class ConfigurationCheck
     /**
      * Checks whether a configuration value has a boolean value.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -608,10 +608,10 @@ class ConfigurationCheck
      *
      * @return void
      */
-    protected function checkIfBoolean(string $fieldName, bool $canUseFlexforms, string $sheet, string $explanation)
+    protected function checkIfBoolean(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
     {
         $this->checkIfSingleInSetNotEmpty(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation,
@@ -622,7 +622,7 @@ class ConfigurationCheck
     /**
      * Checks whether a configuration value has an integer value (or is empty).
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -636,19 +636,19 @@ class ConfigurationCheck
      *
      * @return void
      */
-    protected function checkIfInteger(string $fieldName, bool $canUseFlexforms, string $sheet, string $explanation)
+    protected function checkIfInteger(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
     {
-        $value = $this->objectToCheck->getConfValueString($fieldName, $sheet);
+        $value = $this->objectToCheck->getConfValueString($key, $sheet);
 
         if (!preg_match('/^\\d*$/', $value)) {
-            $message = 'The TS setup variable <strong>'
-                . $this->getTSSetupPath() . $fieldName
-                . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers are '
-                . 'allowed. '
-                . $explanation;
+            $message = 'The TS setup variable <strong>' .
+                $this->getTSSetupPath() . $key .
+                '</strong> is set to the value <strong>' .
+                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers are ' .
+                'allowed. ' .
+                $explanation;
             $this->setErrorMessageAndRequestCorrection(
-                $fieldName,
+                $key,
                 $canUseFlexforms,
                 $message
             );
@@ -659,7 +659,7 @@ class ConfigurationCheck
      * Checks whether a configuration value has an integer value in a specified
      * range (or is empty).
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param int $minValue
      *        the first value of the range which is allowed
@@ -678,7 +678,7 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfIntegerInRange(
-        string $fieldName,
+        string $key,
         int $minValue,
         int $maxValue,
         bool $canUseFlexforms,
@@ -693,17 +693,17 @@ class ConfigurationCheck
             $minValue = $temp;
         }
 
-        $value = $this->objectToCheck->getConfValueInteger($fieldName, $sheet);
+        $value = $this->objectToCheck->getConfValueInteger($key, $sheet);
 
         if (($value < $minValue) || ($value > $maxValue)) {
-            $message = 'The TS setup variable <strong>'
-                . $this->getTSSetupPath() . $fieldName
-                . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers from '
-                . $minValue . ' to ' . $maxValue . ' are allowed. '
-                . $explanation;
+            $message = 'The TS setup variable <strong>' .
+                $this->getTSSetupPath() . $key .
+                '</strong> is set to the value <strong>' .
+                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers from ' .
+                $minValue . ' to ' . $maxValue . ' are allowed. ' .
+                $explanation;
             $this->setErrorMessageAndRequestCorrection(
-                $fieldName,
+                $key,
                 $canUseFlexforms,
                 $message
             );
@@ -717,12 +717,12 @@ class ConfigurationCheck
     /**
      * Checks whether a provided value has an integer value (or is empty). The
      * value to check must be provided as a parameter and is not fetched
-     * automatically; the $fieldName parameter is only used to create the
+     * automatically; the $key parameter is only used to create the
      * warning message.
      *
      * @param string $value
      *        the value to check
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to mention in the warning, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -735,25 +735,25 @@ class ConfigurationCheck
      */
     protected function checkIfPositiveIntegerValue(
         string $value,
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $explanation
     ) {
         $this->checkForNonEmptyStringValue(
             $value,
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $explanation
         );
         if (!preg_match('/^[1-9]\\d*$/', $value)) {
-            $message = 'The TS setup variable <strong>'
-                . $this->getTSSetupPath() . $fieldName
-                . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive '
-                . 'integers are allowed. '
-                . $explanation;
+            $message = 'The TS setup variable <strong>' .
+                $this->getTSSetupPath() . $key .
+                '</strong> is set to the value <strong>' .
+                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
+                'integers are allowed. ' .
+                $explanation;
             $this->setErrorMessageAndRequestCorrection(
-                $fieldName,
+                $key,
                 $canUseFlexforms,
                 $message
             );
@@ -764,7 +764,7 @@ class ConfigurationCheck
      * Checks whether a configuration value has a positive (thus non-zero)
      * integer value.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -779,15 +779,15 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfPositiveInteger(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
-        $value = $this->objectToCheck->getConfValueString($fieldName, $sheet);
+        $value = $this->objectToCheck->getConfValueString($key, $sheet);
         $this->checkIfPositiveIntegerValue(
             $value,
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $explanation
         );
@@ -797,7 +797,7 @@ class ConfigurationCheck
      * Checks whether a configuration value has a positive (thus non-zero)
      * integer value or is empty.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, may be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -812,21 +812,21 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfPositiveIntegerOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
-        $value = $this->objectToCheck->getConfValueString($fieldName, $sheet);
+        $value = $this->objectToCheck->getConfValueString($key, $sheet);
         if (!empty($value) && !preg_match('/^[1-9]\\d*$/', $value)) {
-            $message = 'The TS setup variable <strong>'
-                . $this->getTSSetupPath() . $fieldName
-                . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive '
-                . 'integers and empty strings are allowed. '
-                . $explanation;
+            $message = 'The TS setup variable <strong>' .
+                $this->getTSSetupPath() . $key .
+                '</strong> is set to the value <strong>' .
+                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
+                'integers and empty strings are allowed. ' .
+                $explanation;
             $this->setErrorMessageAndRequestCorrection(
-                $fieldName,
+                $key,
                 $canUseFlexforms,
                 $message
             );
@@ -837,7 +837,7 @@ class ConfigurationCheck
      * Checks whether a configuration value has a positive integer value or is
      * zero.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -852,30 +852,30 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfPositiveIntegerOrZero(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
-        $value = $this->objectToCheck->getConfValueString($fieldName, $sheet);
+        $value = $this->objectToCheck->getConfValueString($key, $sheet);
 
         $this->checkForNonEmptyStringValue(
             $value,
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $explanation
         );
 
         if (!preg_match('/^\\d+$/', $value)) {
-            $message = 'The TS setup variable <strong>'
-                . $this->getTSSetupPath() . $fieldName
-                . '</strong> is set to the value <strong>'
-                . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive '
-                . 'integers are allowed. '
-                . $explanation;
+            $message = 'The TS setup variable <strong>' .
+                $this->getTSSetupPath() . $key .
+                '</strong> is set to the value <strong>' .
+                htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
+                'integers are allowed. ' .
+                $explanation;
 
             $this->setErrorMessageAndRequestCorrection(
-                $fieldName,
+                $key,
                 $canUseFlexforms,
                 $message
             );
@@ -886,7 +886,7 @@ class ConfigurationCheck
      * Checks whether a configuration value is non-empty and its
      * comma-separated values lie within a set of allowed values.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -903,20 +903,20 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfMultiInSetNotEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation,
         array $allowedValues
     ) {
         $this->checkForNonEmptyString(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation
         );
         $this->checkIfMultiInSetOrEmpty(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation,
@@ -928,7 +928,7 @@ class ConfigurationCheck
      * Checks whether a configuration value either is empty or its
      * comma-separated values lie within a set of allowed values.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -945,31 +945,31 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfMultiInSetOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation,
         array $allowedValues
     ) {
-        if ($this->objectToCheck->hasConfValueString($fieldName, $sheet)) {
+        if ($this->objectToCheck->hasConfValueString($key, $sheet)) {
             $allValues = GeneralUtility::trimExplode(
                 ',',
-                $this->objectToCheck->getConfValueString($fieldName, $sheet),
+                $this->objectToCheck->getConfValueString($key, $sheet),
                 true
             );
 
             $overviewOfValues = '(' . implode(', ', $allowedValues) . ')';
             foreach ($allValues as $currentValue) {
                 if (!in_array($currentValue, $allowedValues, true)) {
-                    $message = 'The TS setup variable <strong>'
-                        . $this->getTSSetupPath() . $fieldName
-                        . '</strong> contains the value <strong>'
-                        . htmlspecialchars($currentValue, ENT_QUOTES | ENT_HTML5) . '</strong>, '
-                        . 'but only the following values are allowed: '
-                        . '<br /><strong>' . $overviewOfValues . '</strong><br />'
-                        . $explanation;
+                    $message = 'The TS setup variable <strong>' .
+                        $this->getTSSetupPath() . $key .
+                        '</strong> contains the value <strong>' .
+                        htmlspecialchars($currentValue, ENT_QUOTES | ENT_HTML5) . '</strong>, ' .
+                        'but only the following values are allowed: ' .
+                        '<br /><strong>' . $overviewOfValues . '</strong><br />' .
+                        $explanation;
                     $this->setErrorMessageAndRequestCorrection(
-                        $fieldName,
+                        $key,
                         $canUseFlexforms,
                         $message
                     );
@@ -982,7 +982,7 @@ class ConfigurationCheck
      * Checks whether a configuration value is non-empty and is one of the
      * column names of a given DB table.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -999,14 +999,14 @@ class ConfigurationCheck
      * @return void
      */
     public function checkIfSingleInTableNotEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation,
         string $tableName
     ) {
         $this->checkIfSingleInSetNotEmpty(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation,
@@ -1018,7 +1018,7 @@ class ConfigurationCheck
      * Checks whether a configuration value either is empty or is one of the
      * column names of a given DB table.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1035,14 +1035,14 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfSingleInTableOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation,
         string $tableName
     ) {
         $this->checkIfSingleInSetOrEmpty(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation,
@@ -1054,7 +1054,7 @@ class ConfigurationCheck
      * Checks whether a configuration value is non-empty and its
      * comma-separated values lie within a set of allowed values.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1071,14 +1071,14 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfMultiInTableNotEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation,
         string $tableName
     ) {
         $this->checkIfMultiInSetNotEmpty(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation,
@@ -1090,7 +1090,7 @@ class ConfigurationCheck
      * Checks whether a configuration value either is empty or its
      * comma-separated values is a column name of a given DB table.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1107,14 +1107,14 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfMultiInTableOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation,
         string $tableName
     ) {
         $this->checkIfMultiInSetOrEmpty(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation,
@@ -1137,9 +1137,8 @@ class ConfigurationCheck
             'salutation',
             $canUseFlexforms,
             'sDEF',
-            'This variable controls the salutation mode (formal or informal). '
-            . 'If it is not set correctly, some output cannot be created '
-            . 'at all.',
+            'This variable controls the salutation mode (formal or informal). ' .
+            'If it is not set correctly, some output cannot be created at all.',
             ['formal', 'informal']
         );
     }
@@ -1192,7 +1191,7 @@ class ConfigurationCheck
     /**
      * Checks whether a configuration value matches a regular expression.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1209,21 +1208,21 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkRegExp(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation,
         string $regExp
     ) {
-        $value = $this->objectToCheck->getConfValueString($fieldName, $sheet);
+        $value = $this->objectToCheck->getConfValueString($key, $sheet);
 
         if (!preg_match($regExp, $value)) {
             $message = 'The TS setup variable <strong>' . $this->getTSSetupPath()
-                . $fieldName . '</strong> contains the value <strong>'
+                . $key . '</strong> contains the value <strong>'
                 . htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong> which isn\'t valid. '
                 . $explanation;
             $this->setErrorMessageAndRequestCorrection(
-                $fieldName,
+                $key,
                 $canUseFlexforms,
                 $message
             );
@@ -1234,7 +1233,7 @@ class ConfigurationCheck
      * Checks whether a configuration value is non-empty and matches a regular
      * expression.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1251,20 +1250,20 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkRegExpNotEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation,
         string $regExp
     ) {
         $this->checkForNonEmptyString(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation
         );
         $this->checkRegExp(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation,
@@ -1276,7 +1275,7 @@ class ConfigurationCheck
      * Checks whether a configuration value either is empty or contains a
      * comma-separated list of integers (in this case, PIDs).
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1291,13 +1290,13 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfPidListOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
         $this->checkRegExp(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation,
@@ -1309,7 +1308,7 @@ class ConfigurationCheck
      * Checks whether a configuration value is non-empty and contains a
      * comma-separated list of integers (in this case, PIDs).
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1324,19 +1323,19 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfPidListNotEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
         $this->checkForNonEmptyString(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation
         );
         $this->checkIfPidListOrEmpty(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation
@@ -1347,7 +1346,7 @@ class ConfigurationCheck
      * Checks whether a configuration value is non-empty and contains a
      * comma-separated list of front-end PIDs.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1362,13 +1361,13 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfFePagesNotEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
         $this->checkForNonEmptyString(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation
@@ -1379,7 +1378,7 @@ class ConfigurationCheck
      * Checks whether a configuration value is non-empty and contains a
      * single front-end PID.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1394,13 +1393,13 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfSingleFePageNotEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
         $this->checkIfPositiveInteger(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation
@@ -1411,7 +1410,7 @@ class ConfigurationCheck
      * Checks whether a configuration value either is empty or contains a
      * single front-end PID.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1426,19 +1425,19 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfSingleFePageOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
-        $this->checkIfInteger($fieldName, $canUseFlexforms, $sheet, $explanation);
+        $this->checkIfInteger($key, $canUseFlexforms, $sheet, $explanation);
     }
 
     /**
      * Checks whether a configuration value either is empty or contains a
      * comma-separated list of front-end PIDs.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1455,7 +1454,7 @@ class ConfigurationCheck
      * @deprecated will be removed in oelib 4.0.0; is a no-op in the meantime
      */
     protected function checkIfFePagesOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
@@ -1474,7 +1473,7 @@ class ConfigurationCheck
      * Checks whether a configuration value is non-empty and contains a
      * comma-separated list of system folder PIDs.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1489,13 +1488,13 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfSysFoldersNotEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
         $this->checkForNonEmptyString(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation
@@ -1506,7 +1505,7 @@ class ConfigurationCheck
      * Checks whether a configuration value is non-empty and contains a
      * single system folder PID.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1521,13 +1520,13 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfSingleSysFolderNotEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
         $this->checkIfPositiveInteger(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation
@@ -1538,7 +1537,7 @@ class ConfigurationCheck
      * Checks whether a configuration value either is empty or contains a
      * single system folder PID.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1553,13 +1552,13 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkIfSingleSysFolderOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
     ) {
         $this->checkIfInteger(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation
@@ -1570,7 +1569,7 @@ class ConfigurationCheck
      * Checks whether a configuration value either is empty or contains a
      * comma-separated list of system folder PIDs.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1587,7 +1586,7 @@ class ConfigurationCheck
      * @deprecated will be removed in oelib 4.0.0; is a no-op in the meantime
      */
     protected function checkIfSysFoldersOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
@@ -1607,7 +1606,7 @@ class ConfigurationCheck
      * Checks whether a configuration value either is empty or contains a
      * comma-separated list of PIDs that specify pages or a given type.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1628,7 +1627,7 @@ class ConfigurationCheck
      * @deprecated will be removed in oelib 4.0.0; is a no-op in the meantime
      */
     protected function checkPageTypeOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation,
@@ -1654,9 +1653,9 @@ class ConfigurationCheck
      */
     protected function checkListView(array $allowedSortFields)
     {
-        $fieldName = 'listView.';
+        $key = 'listView.';
 
-        if (isset($this->objectToCheck->conf[$fieldName])) {
+        if (isset($this->objectToCheck->conf[$key])) {
             $this->checkListViewIfSingleInSetNotEmpty(
                 'orderBy',
                 'This setting controls by which field the list view will be '
@@ -1689,13 +1688,13 @@ class ConfigurationCheck
             );
         } else {
             $this->setErrorMessageAndRequestCorrection(
-                $fieldName,
+                $key,
                 false,
-                'The TS setup variable group <strong>' . $this->getTSSetupPath()
-                . $fieldName . '</strong> is not set. This setting controls '
-                . 'the list view. '
-                . 'If this part of the setup is missing, sorting and the '
-                . 'result browser will not work correctly.'
+                'The TS setup variable group <strong>' . $this->getTSSetupPath() .
+                $key . '</strong> is not set. This setting controls ' .
+                'the list view. ' .
+                'If this part of the setup is missing, sorting and the ' .
+                'result browser will not work correctly.'
             );
         }
     }
@@ -1704,7 +1703,7 @@ class ConfigurationCheck
      * Checks whether a configuration value in listView. is non-empty and lies
      * within a set of allowed values.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract (within listView.), must not be empty
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
@@ -1715,12 +1714,12 @@ class ConfigurationCheck
      * @return void
      */
     protected function checkListViewIfSingleInSetNotEmpty(
-        string $fieldName,
+        string $key,
         string $explanation,
         array $allowedValues
     ) {
-        $fieldSubPath = 'listView.' . $fieldName;
-        $value = $this->objectToCheck->getListViewConfValueString($fieldName);
+        $fieldSubPath = 'listView.' . $key;
+        $value = $this->objectToCheck->getListViewConfValueString($key);
 
         $this->checkForNonEmptyStringValue(
             $value,
@@ -1741,7 +1740,7 @@ class ConfigurationCheck
      * Checks whether a configuration value within listView. has a positive
      * (thus non-zero) integer value.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to extract (within listView.), must not be empty
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
@@ -1749,10 +1748,10 @@ class ConfigurationCheck
      *
      * @return void
      */
-    protected function checkListViewIfPositiveInteger(string $fieldName, string $explanation)
+    protected function checkListViewIfPositiveInteger(string $key, string $explanation)
     {
-        $fieldSubPath = 'listView.' . $fieldName;
-        $value = $this->objectToCheck->getListViewConfValueString($fieldName);
+        $fieldSubPath = 'listView.' . $key;
+        $value = $this->objectToCheck->getListViewConfValueString($key);
 
         $this->checkIfPositiveIntegerValue(
             $value,
@@ -1765,7 +1764,7 @@ class ConfigurationCheck
     /**
      * Checks that an e-mail address is valid or empty.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to mention in the warning, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1781,24 +1780,24 @@ class ConfigurationCheck
      * @return void
      */
     public function checkIsValidEmailOrEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         bool $unused,
         string $explanation
     ) {
-        $value = $this->objectToCheck->getConfValueString($fieldName, $sheet);
+        $value = $this->objectToCheck->getConfValueString($key, $sheet);
         if ($value === '') {
             return;
         }
 
         if (!GeneralUtility::validEmail($value)) {
-            $message = 'The e-mail address in <strong>' . $this->getTSSetupPath()
-                . $fieldName . '</strong> is set to <strong>' . $value . '</strong> '
-                . 'which is not valid. E-mails might not be received as long as '
-                . 'this address is invalid.<br />';
+            $message = 'The e-mail address in <strong>' . $this->getTSSetupPath() .
+                $key . '</strong> is set to <strong>' . $value . '</strong> ' .
+                'which is not valid. E-mails might not be received as long as ' .
+                'this address is invalid.<br />';
             $this->setErrorMessageAndRequestCorrection(
-                $fieldName,
+                $key,
                 $canUseFlexforms,
                 $message . $explanation
             );
@@ -1808,7 +1807,7 @@ class ConfigurationCheck
     /**
      * Checks that an e-mail address is valid and non-empty.
      *
-     * @param string $fieldName
+     * @param string $key
      *        TS setup field name to mention in the warning, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
@@ -1825,20 +1824,20 @@ class ConfigurationCheck
      * @return void
      */
     public function checkIsValidEmailNotEmpty(
-        string $fieldName,
+        string $key,
         bool $canUseFlexforms,
         string $sheet,
         bool $allowInternalAddresses,
         string $explanation
     ) {
         $this->checkForNonEmptyString(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $explanation
         );
         $this->checkIsValidEmailOrEmpty(
-            $fieldName,
+            $key,
             $canUseFlexforms,
             $sheet,
             $allowInternalAddresses,
