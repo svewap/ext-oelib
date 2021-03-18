@@ -167,6 +167,21 @@ class ConfigurationCheck
     }
 
     /**
+     * Adds a warning.
+     *
+     * This a an alias for `setErrorMessage` in order to ease copy'n'pasting for the new
+     * configuration check class.
+     *
+     * @param string $rawWarningText the warning text, may contain HTML, will not be encoded
+     *
+     * @return void
+     */
+    protected function addWarning(string $rawWarningText)
+    {
+        $this->setErrorMessage($rawWarningText);
+    }
+
+    /**
      * Sets the error message in $this->errorText (unless no other error message
      * has already been set).
      *
@@ -184,9 +199,23 @@ class ConfigurationCheck
      */
     public function setErrorMessage(string $message)
     {
-        if (!empty($message) && empty($this->errorText)) {
+        if ($message !== '' && $this->errorText === '') {
             $this->errorText = $message;
         }
+    }
+
+    /**
+     * Sets the error message, consisting of $explanation and a request to change the TypoScript setup
+     * variable $key (with the current TypoScript setup path prepended).
+     *
+     * This a an alias for `setErrorMessageAndRequestCorrection` in order to ease copy'n'pasting for the new
+     * configuration check class.
+     *
+     * @return void
+     */
+    protected function addWarningAndRequestCorrection(string $key, bool $canUseFlexforms, string $explanation)
+    {
+        $this->setErrorMessageAndRequestCorrection($key, $canUseFlexforms, $explanation);
     }
 
     /**
@@ -195,30 +224,23 @@ class ConfigurationCheck
      * prepended). If $canUseFlexforms is TRUE, the possibility to change the
      * variable via flexforms is mentioned as well.
      *
-     * @param string $key
-     *        TypoScript setup field name to extract, must not be empty
+     * @param string $key TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
-     * @param string $explanation
-     *        error text to set (may be empty)
+     * @param string $explanation error text to set (may be empty)
      *
      * @return void
      */
-    protected function setErrorMessageAndRequestCorrection(
-        string $key,
-        bool $canUseFlexforms,
-        string $explanation
-    ) {
-        $message = $explanation
-            . ' Please correct the TypoScript setup variable <strong>'
-            . $this->buildConfigurationPath($key) . '</strong> in your TypoScript '
-            . 'template setup';
+    protected function setErrorMessageAndRequestCorrection(string $key, bool $canUseFlexforms, string $explanation)
+    {
+        $message = $explanation . ' Please fix the TypoScript setup variable <strong>' .
+            $this->buildConfigurationPath($key) . '</strong> in your TypoScript template setup';
         if ($canUseFlexforms) {
             $message .= ' or via FlexForms';
         }
         $message .= '.';
-        $this->setErrorMessage($message);
+        $this->addWarning($message);
     }
 
     /**
@@ -302,7 +324,7 @@ class ConfigurationCheck
     protected function checkStaticIncluded()
     {
         if (!$this->objectToCheck->getConfValueBoolean('isStaticTemplateLoaded')) {
-            $this->setErrorMessage(
+            $this->addWarning(
                 'The static template is not included. This has the effect ' .
                 'that important default values do not get set. To fix ' .
                 'this, please include this extension\'s template under ' .
@@ -358,7 +380,7 @@ class ConfigurationCheck
                     $message .= ' or via FlexForms';
                 }
                 $message .= '.';
-                $this->setErrorMessage($message);
+                $this->addWarning($message);
             }
         }
     }
@@ -377,7 +399,7 @@ class ConfigurationCheck
                 '</strong> is set, but should not be set. You will have to unset ' .
                 'the TypoScript setup variable and set <strong>' . $this->buildConfigurationPath('cssFile') .
                 '</strong> in your TypoScript constants instead.';
-            $this->setErrorMessage($message);
+            $this->addWarning($message);
         } else {
             $message = '';
         }
@@ -399,7 +421,7 @@ class ConfigurationCheck
                     '</strong>' .
                     '. If you do not want to use any special CSS, you ' .
                     'can set that variable to an empty string.';
-                $this->setErrorMessage($message);
+                $this->addWarning($message);
             }
         }
     }
@@ -465,7 +487,7 @@ class ConfigurationCheck
             $message = 'The TypoScript setup variable <strong>' .
                 $this->buildConfigurationPath($key) .
                 '</strong> is empty, but needs to be non-empty. ' . $explanation;
-            $this->setErrorMessageAndRequestCorrection(
+            $this->addWarningAndRequestCorrection(
                 $key,
                 $canUseFlexforms,
                 $message
@@ -591,7 +613,7 @@ class ConfigurationCheck
                 'following values are allowed: ' .
                 '<br /><strong>' . $overviewOfValues . '</strong><br />' .
                 $explanation;
-            $this->setErrorMessageAndRequestCorrection(
+            $this->addWarningAndRequestCorrection(
                 $key,
                 $canUseFlexforms,
                 $message
@@ -655,7 +677,7 @@ class ConfigurationCheck
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers are ' .
                 'allowed. ' .
                 $explanation;
-            $this->setErrorMessageAndRequestCorrection(
+            $this->addWarningAndRequestCorrection(
                 $key,
                 $canUseFlexforms,
                 $message
@@ -710,7 +732,7 @@ class ConfigurationCheck
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only integers from ' .
                 $minValue . ' to ' . $maxValue . ' are allowed. ' .
                 $explanation;
-            $this->setErrorMessageAndRequestCorrection(
+            $this->addWarningAndRequestCorrection(
                 $key,
                 $canUseFlexforms,
                 $message
@@ -760,7 +782,7 @@ class ConfigurationCheck
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
                 'integers are allowed. ' .
                 $explanation;
-            $this->setErrorMessageAndRequestCorrection(
+            $this->addWarningAndRequestCorrection(
                 $key,
                 $canUseFlexforms,
                 $message
@@ -833,7 +855,7 @@ class ConfigurationCheck
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong>, but only positive ' .
                 'integers and empty strings are allowed. ' .
                 $explanation;
-            $this->setErrorMessageAndRequestCorrection(
+            $this->addWarningAndRequestCorrection(
                 $key,
                 $canUseFlexforms,
                 $message
@@ -882,7 +904,7 @@ class ConfigurationCheck
                 'integers are allowed. ' .
                 $explanation;
 
-            $this->setErrorMessageAndRequestCorrection(
+            $this->addWarningAndRequestCorrection(
                 $key,
                 $canUseFlexforms,
                 $message
@@ -976,7 +998,7 @@ class ConfigurationCheck
                         'but only the following values are allowed: ' .
                         '<br /><strong>' . $overviewOfValues . '</strong><br />' .
                         $explanation;
-                    $this->setErrorMessageAndRequestCorrection(
+                    $this->addWarningAndRequestCorrection(
                         $key,
                         $canUseFlexforms,
                         $message
@@ -1228,7 +1250,7 @@ class ConfigurationCheck
                 '</strong> contains the value <strong>' .
                 htmlspecialchars($value, ENT_QUOTES | ENT_HTML5) . '</strong> which isn\'t valid. ' .
                 $explanation;
-            $this->setErrorMessageAndRequestCorrection(
+            $this->addWarningAndRequestCorrection(
                 $key,
                 $canUseFlexforms,
                 $message
@@ -1694,7 +1716,7 @@ class ConfigurationCheck
                 . 'will not work correctly.'
             );
         } else {
-            $this->setErrorMessageAndRequestCorrection(
+            $this->addWarningAndRequestCorrection(
                 $key,
                 false,
                 'The TypoScript setup variable group <strong>' . $this->buildConfigurationPath($key) .
@@ -1802,7 +1824,7 @@ class ConfigurationCheck
                 '</strong> is set to <strong>' . $value . '</strong> ' .
                 'which is not valid. E-mails might not be received as long as ' .
                 'this address is invalid.<br />';
-            $this->setErrorMessageAndRequestCorrection(
+            $this->addWarningAndRequestCorrection(
                 $key,
                 $canUseFlexforms,
                 $message . $explanation
@@ -1870,7 +1892,7 @@ class ConfigurationCheck
     {
         $emailBuilder = GeneralUtility::makeInstance(SystemEmailFromBuilder::class);
         if (!$emailBuilder->canBuild()) {
-            $this->setErrorMessage(
+            $this->addWarning(
                 'Please set a valid email address in ' .
                 "\$GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']. " .
                 'This makes sure that the emails sent from extensions have a valid From: address and can be ' .
