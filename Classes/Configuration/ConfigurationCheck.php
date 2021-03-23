@@ -633,6 +633,8 @@ class ConfigurationCheck
     /**
      * Checks whether a configuration value has an integer value (or is empty).
      *
+     * In the new configuration check, the corresponding method is named checkIfNonNegativeIntegerOrEmpty.
+     *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
      * @param bool $canUseFlexforms
@@ -658,8 +660,7 @@ class ConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value has an integer value in a specified
-     * range (or is empty).
+     * Checks whether a configuration value has an integer value in a specified range (or is empty).
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -705,10 +706,6 @@ class ConfigurationCheck
         }
     }
 
-    /*
-     * The check methods below have not been converted to the new configuration check yet.
-     */
-
     /**
      * Checks whether a provided value has an integer value (or is empty). The
      * value to check must be provided as a parameter and is not fetched
@@ -743,8 +740,7 @@ class ConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value has a positive (thus non-zero)
-     * integer value.
+     * Checks whether a configuration value has a positive (thus non-zero) integer value.
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -800,8 +796,9 @@ class ConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value has a positive integer value or is
-     * zero.
+     * Checks whether a configuration value has a positive integer value or is zero.
+     *
+     * In the new configuration check, the corresponding method is named checkIfNonNegativeInteger.
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -834,6 +831,10 @@ class ConfigurationCheck
             $this->addWarningAndRequestCorrection($key, $canUseFlexforms, $message);
         }
     }
+
+    /*
+     * The check methods below have not been converted to the new configuration check yet.
+     */
 
     /**
      * Checks whether a configuration value is non-empty and its

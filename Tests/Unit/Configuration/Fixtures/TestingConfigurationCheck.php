@@ -103,6 +103,15 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkIfIntegerInRangeSwitched':
                 $this->checkIfIntegerInRange('limit', 3, 2, 'some explanation');
                 break;
+            case 'checkIfPositiveInteger':
+                $this->checkIfPositiveInteger('limit', 'some explanation');
+                break;
+            case 'checkIfPositiveIntegerOrEmpty':
+                $this->checkIfPositiveIntegerOrEmpty('limit', 'some explanation');
+                break;
+            case 'checkIfNonNegativeInteger':
+                $this->checkIfNonNegativeInteger('limit', 'some explanation');
+                break;
             case 'checkNothing':
                 break;
             default:

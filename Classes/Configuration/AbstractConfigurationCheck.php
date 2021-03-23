@@ -271,6 +271,14 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
+     * @deprecated will be removed in oelib 4.0; use checkIfNonNegativeIntegerOrEmpty instead.
+     */
+    protected function checkIfInteger(string $key, string $explanation): bool
+    {
+        return $this->checkIfNonNegativeIntegerOrEmpty($key, $explanation);
+    }
+
+    /**
      * Checks whether a configuration value has a non-negative integer value (or is empty).
      */
     protected function checkIfNonNegativeIntegerOrEmpty(string $key, string $explanation): bool
@@ -291,7 +299,7 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value has an integer value in the specified, inclusive range.
+     * Checks whether a configuration value has an non-negative integer value in the specified, inclusive range.
      *
      * @throws \InvalidArgumentException
      */
@@ -305,7 +313,6 @@ abstract class AbstractConfigurationCheck
         }
 
         $value = $this->configuration->getAsInteger($key);
-
         $okay = $value >= $minimum && $value <= $maximum;
         if ($value < $minimum || $value > $maximum) {
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
@@ -315,5 +322,68 @@ abstract class AbstractConfigurationCheck
         }
 
         return $okay;
+    }
+
+    /**
+     * Checks whether a configuration value has a non-negative integer.
+     */
+    protected function checkIfPositiveInteger(string $key, string $explanation): bool
+    {
+        return $this->checkForNonEmptyString($key, $explanation)
+            && $this->checkIfPositiveIntegerOrEmpty($key, $explanation);
+    }
+
+    /**
+     * Checks whether a configuration value has a non-negative integer value (or is empty).
+     */
+    protected function checkIfPositiveIntegerOrEmpty(string $key, string $explanation): bool
+    {
+        if (!$this->configuration->hasString($key)) {
+            return true;
+        }
+        if (!$this->checkIfNonNegativeIntegerOrEmpty($key, $explanation)) {
+            return false;
+        }
+
+        $value = $this->configuration->getAsInteger($key);
+        $okay = $value > 0;
+        if (!$okay) {
+            $message = $this->buildWarningStartWithKeyAndValue($key, $value) . 'positive integers are allowed. ' .
+                $explanation;
+            $this->addWarningAndRequestCorrection($key, $message);
+        }
+
+        return $okay;
+    }
+
+    /**
+     * Checks whether a configuration value has a non-negative integer value (or is empty).
+     */
+    protected function checkIfNonNegativeInteger(string $key, string $explanation): bool
+    {
+        if (
+            !$this->checkForNonEmptyString($key, $explanation)
+            || !$this->checkIfNonNegativeIntegerOrEmpty($key, $explanation)
+        ) {
+            return false;
+        }
+
+        $value = $this->configuration->getAsInteger($key);
+        $okay = $value >= 0;
+        if (!$okay) {
+            $message = $this->buildWarningStartWithKeyAndValue($key, $value) . 'non-negative integers are allowed. ' .
+                $explanation;
+            $this->addWarningAndRequestCorrection($key, $message);
+        }
+
+        return $okay;
+    }
+
+    /**
+     * @deprecated will be removed in oelib 4.0; use checkIfNonNegativeInteger instead.
+     */
+    protected function checkIfPositiveIntegerOrZero(string $key, string $explanation): bool
+    {
+        return $this->checkIfNonNegativeInteger($key, $explanation);
     }
 }
