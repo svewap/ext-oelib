@@ -273,7 +273,7 @@ abstract class AbstractConfigurationCheck
     /**
      * Checks whether a configuration value has a non-negative integer value (or is empty).
      */
-    protected function checkIfInteger(string $key, string $explanation): bool
+    protected function checkIfNonNegativeIntegerOrEmpty(string $key, string $explanation): bool
     {
         $value = $this->configuration->getAsString($key);
         if ($value === '') {
@@ -300,7 +300,7 @@ abstract class AbstractConfigurationCheck
         if ($minimum > $maximum) {
             throw new \InvalidArgumentException('$minimum must be <= $maximum.', 1616069185);
         }
-        if (!$this->checkIfInteger($key, $explanation)) {
+        if (!$this->checkIfNonNegativeIntegerOrEmpty($key, $explanation)) {
             return false;
         }
 

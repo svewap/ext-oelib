@@ -413,10 +413,10 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider nonIntegerStringDataProvider
      */
-    public function checkIfIntegerForNonIntegerStringAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfNonNegativeIntegerOrEmptyForNonIntegerStringAddsWarningWithPathAndExplanation(string $value)
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
-        $subject->setCheckMethod('checkIfInteger');
+        $subject->setCheckMethod('checkIfNonNegativeIntegerOrEmpty');
 
         $subject->check();
 
@@ -429,10 +429,10 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfIntegerForNegativeIntegerStringAddsWarningWithPathAndExplanation()
+    public function checkIfNonNegativeIntegerOrEmptyForNegativeIntegerStringAddsWarningWithPathAndExplanation()
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => '-1']), 'plugin.tx_oelib');
-        $subject->setCheckMethod('checkIfInteger');
+        $subject->setCheckMethod('checkIfNonNegativeIntegerOrEmpty');
 
         $subject->check();
 
@@ -459,10 +459,10 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider nonNegativeIntegerDataProvider
      */
-    public function checkIfIntegerForNonNegativeIntegerNotAddsWarning(string $value)
+    public function checkIfNonNegativeIntegerOrEmptyForNonNegativeIntegerNotAddsWarning(string $value)
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
-        $subject->setCheckMethod('checkIfInteger');
+        $subject->setCheckMethod('checkIfNonNegativeIntegerOrEmpty');
 
         $subject->check();
 
@@ -472,10 +472,10 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfIntegerEmptyStringNotAddsWarning()
+    public function checkIfNonNegativeIntegerOrEmptyForEmptyStringNotAddsWarning()
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => '']), 'plugin.tx_oelib');
-        $subject->setCheckMethod('checkIfInteger');
+        $subject->setCheckMethod('checkIfNonNegativeIntegerOrEmpty');
 
         $subject->check();
 
