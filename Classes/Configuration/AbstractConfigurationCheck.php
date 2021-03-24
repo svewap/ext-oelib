@@ -283,11 +283,11 @@ abstract class AbstractConfigurationCheck
      */
     protected function checkIfNonNegativeIntegerOrEmpty(string $key, string $explanation): bool
     {
-        $value = $this->configuration->getAsString($key);
-        if ($value === '') {
+        if (!$this->configuration->hasString($key)) {
             return true;
         }
 
+        $value = $this->configuration->getAsString($key);
         $okay = \ctype_digit($value);
         if (!$okay) {
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) . 'non-negative integers are allowed. ' .
@@ -361,22 +361,8 @@ abstract class AbstractConfigurationCheck
      */
     protected function checkIfNonNegativeInteger(string $key, string $explanation): bool
     {
-        if (
-            !$this->checkForNonEmptyString($key, $explanation)
-            || !$this->checkIfNonNegativeIntegerOrEmpty($key, $explanation)
-        ) {
-            return false;
-        }
-
-        $value = $this->configuration->getAsInteger($key);
-        $okay = $value >= 0;
-        if (!$okay) {
-            $message = $this->buildWarningStartWithKeyAndValue($key, $value) . 'non-negative integers are allowed. ' .
-                $explanation;
-            $this->addWarningAndRequestCorrection($key, $message);
-        }
-
-        return $okay;
+        return $this->checkForNonEmptyString($key, $explanation)
+            && $this->checkIfNonNegativeIntegerOrEmpty($key, $explanation);
     }
 
     /**
