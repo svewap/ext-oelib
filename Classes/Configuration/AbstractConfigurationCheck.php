@@ -65,6 +65,16 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
+     * Builds a HTML-safe, text-only overview of the given values.
+     *
+     * @param string[] $values
+     */
+    protected function buildValueOverview(array $values): string
+    {
+        return $this->encode('("' . \implode('", "', $values) . '")');
+    }
+
+    /**
      * Checks the configuration.
      *
      * Any warnings created by the check will be available via `getWarningsAsHtml` and `hasWarnings`.
@@ -245,21 +255,7 @@ abstract class AbstractConfigurationCheck
      */
     protected function checkIfSingleInSetOrEmpty(string $key, string $explanation, array $allowedValues): bool
     {
-        $value = $this->configuration->getAsString($key);
-        if ($value === '') {
-            return true;
-        }
-
-        $okay = \in_array($value, $allowedValues, true);
-        if (!$okay) {
-            $overviewOfValues = '(' . \implode(', ', $allowedValues) . ')';
-            $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
-                'the following values are allowed: <br/><strong>' . $overviewOfValues . '</strong><br />' .
-                $explanation;
-            $this->addWarningAndRequestCorrection($key, $message);
-        }
-
-        return $okay;
+        return $this->checkIfMultiInSetOrEmpty($key, $explanation, $allowedValues);
     }
 
     /**
@@ -371,5 +367,47 @@ abstract class AbstractConfigurationCheck
     protected function checkIfPositiveIntegerOrZero(string $key, string $explanation): bool
     {
         return $this->checkIfNonNegativeInteger($key, $explanation);
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty
+     * and its comma-separated values lie within a set of allowed values.
+     *
+     * @param string[] $allowedValues allowed values (must not be empty)
+     */
+    protected function checkIfMultiInSetNotEmpty(string $key, string $explanation, array $allowedValues): bool
+    {
+        return $this->checkForNonEmptyString($key, $explanation)
+            && $this->checkIfMultiInSetOrEmpty($key, $explanation, $allowedValues);
+    }
+
+    /**
+     * Checks whether a configuration value either is empty
+     * or its comma-separated values lie within a set of allowed values.
+     *
+     * @param string[] $allowedValues allowed values (must not be empty)
+     */
+    protected function checkIfMultiInSetOrEmpty(string $key, string $explanation, array $allowedValues): bool
+    {
+        if (!$this->configuration->hasString($key)) {
+            return true;
+        }
+
+        $okay = true;
+
+        $values = GeneralUtility::trimExplode(',', $this->configuration->getAsString($key), true);
+
+        foreach ($values as $currentValue) {
+            if (!\in_array($currentValue, $allowedValues, true)) {
+                $message = $this->buildWarningStartWithKey($key) .
+                    'the following values are allowed: <br/><strong>' . $this->buildValueOverview($allowedValues) .
+                    '</strong><br />' .
+                    $explanation;
+                $this->addWarningAndRequestCorrection($key, $message);
+                $okay = false;
+            }
+        }
+
+        return $okay;
     }
 }

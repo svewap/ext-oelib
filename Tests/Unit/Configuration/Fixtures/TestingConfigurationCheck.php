@@ -112,6 +112,12 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkIfNonNegativeInteger':
                 $this->checkIfNonNegativeInteger('limit', 'some explanation');
                 break;
+            case 'checkIfMultiInSetNotEmpty':
+                $this->checkIfMultiInSetNotEmpty('sizes', 'some explanation', ['s', 'm']);
+                break;
+            case 'checkIfMultiInSetOrEmpty':
+                $this->checkIfMultiInSetOrEmpty('sizes', 'some explanation', ['s', 'm']);
+                break;
             case 'checkNothing':
                 break;
             default:

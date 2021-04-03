@@ -283,7 +283,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfSingleInSetOrEmptyForNonEmptyStringInSetNotAddsWarning()
+    public function checkIfSingleInSetOrEmptyForStringInSetNotAddsWarning()
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => 's']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInSetOrEmpty');
@@ -328,7 +328,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfSingleInSetNotEmptyForNonEmptyStringInSetNotAddsWarning()
+    public function checkIfSingleInSetNotEmptyForStringInSetNotAddsWarning()
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => 's']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInSetNotEmpty');
@@ -802,6 +802,168 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfNonNegativeInteger');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInSetOrEmptyForEmptyStringNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInSetOrEmptyForSingleStringNotInSetAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 'great']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.sizes', $warning);
+        self::assertContains('some explanation', $warning);
+        self::assertContains('(&quot;s&quot;, &quot;m&quot;)', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInSetOrEmptyForOneStringInSetAndAnotherInSetAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 'great,s']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.sizes', $warning);
+        self::assertContains('some explanation', $warning);
+        self::assertContains('(&quot;s&quot;, &quot;m&quot;)', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInSetOrEmptyForSingleStringInSetNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInSetOrEmptyForMultipleStringsInSetNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's,m']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInSetOrEmptyForMultipleStringsInSetWithSpaceNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's, m']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInSetNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInSetNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.sizes', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInSetNotEmptyForSingleStringNotInSetAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 'great']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInSetNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.sizes', $warning);
+        self::assertContains('some explanation', $warning);
+        self::assertContains('(&quot;s&quot;, &quot;m&quot;)', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInSetNotEmptyForOneStringInSetAndAnotherInSetAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's,great']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInSetNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.sizes', $warning);
+        self::assertContains('some explanation', $warning);
+        self::assertContains('(&quot;s&quot;, &quot;m&quot;)', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInSetNotEmptyForMultipleStringInSetNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's,m']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInSetNotEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInSetNotEmptyForMultipleStringWithSpaceInSetNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's, m']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInSetNotEmpty');
 
         $subject->check();
 

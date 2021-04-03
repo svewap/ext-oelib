@@ -339,6 +339,16 @@ class ConfigurationCheck
     }
 
     /**
+     * Builds a HTML-safe, text-only overview of the given values.
+     *
+     * @param string[] $values
+     */
+    protected function buildValueOverview(array $values): string
+    {
+        return $this->encode('("' . \implode('", "', $values) . '")');
+    }
+
+    /**
      * Checks whether the static template has been included.
      *
      * @return void
@@ -595,10 +605,10 @@ class ConfigurationCheck
         string $explanation,
         array $allowedValues
     ) {
-        if (!empty($value) && !in_array($value, $allowedValues, true)) {
-            $overviewOfValues = '(' . implode(', ', $allowedValues) . ')';
+        if (!empty($value) && !\in_array($value, $allowedValues, true)) {
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
-                'the following values are allowed: ' . '<br /><strong>' . $overviewOfValues . '</strong><br />' .
+                'the following values are allowed: <br/><strong>' . $this->buildValueOverview($allowedValues) .
+                '</strong><br />' .
                 $explanation;
             $this->addWarningAndRequestCorrection(
                 $key,
@@ -832,10 +842,6 @@ class ConfigurationCheck
         }
     }
 
-    /*
-     * The check methods below have not been converted to the new configuration check yet.
-     */
-
     /**
      * Checks whether a configuration value is non-empty and its
      * comma-separated values lie within a set of allowed values.
@@ -897,19 +903,21 @@ class ConfigurationCheck
         if ($this->objectToCheck->hasConfValueString($key, $sheet)) {
             $allValues = GeneralUtility::trimExplode(',', $this->objectToCheck->getConfValueString($key, $sheet), true);
 
-            $overviewOfValues = '(' . implode(', ', $allowedValues) . ')';
             foreach ($allValues as $currentValue) {
                 if (!in_array($currentValue, $allowedValues, true)) {
-                    $message = $this->buildWarningStartWithKey($key) . 'contains the value <strong>' .
-                        $this->encode($currentValue) . '</strong>, ' .
-                        'but only the following values are allowed: ' .
-                        '<br /><strong>' . $overviewOfValues . '</strong><br />' .
+                    $message = $this->buildWarningStartWithKeyAndValue($key) .
+                        'the following values are allowed: <br/><strong>' . $this->buildValueOverview($allowedValues) .
+                        '</strong><br />' .
                         $explanation;
                     $this->addWarningAndRequestCorrection($key, $canUseFlexforms, $message);
                 }
             }
         }
     }
+
+    /*
+     * The check methods below have not been converted to the new configuration check yet.
+     */
 
     /**
      * Checks whether a configuration value is non-empty and is one of the
