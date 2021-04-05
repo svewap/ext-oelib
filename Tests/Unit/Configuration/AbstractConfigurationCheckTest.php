@@ -841,9 +841,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetOrEmptyForOneStringInSetAndAnotherInSetAddsWarningWithPathAndExplanation()
+    public function checkIfMultiInSetOrEmptyForOneStringInSetAndAnotherMotInSetAddsWarningWithPathAndExplanation()
     {
-        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 'great,s']), 'plugin.tx_oelib');
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's,great']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
 
         $subject->check();
@@ -930,7 +930,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetNotEmptyForOneStringInSetAndAnotherInSetAddsWarningWithPathAndExplanation()
+    public function checkIfMultiInSetNotEmptyForOneStringInSetAndAnotherNotInSetAddsWarningWithPathAndExplanation()
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's,great']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetNotEmpty');

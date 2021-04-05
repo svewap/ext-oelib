@@ -14,6 +14,11 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
     /**
      * @var string
      */
+    const TEST_TABLE_NAME = 'tx_oelib_test';
+
+    /**
+     * @var string
+     */
     private $checkMethod = '';
 
     /**
@@ -117,6 +122,18 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
                 break;
             case 'checkIfMultiInSetOrEmpty':
                 $this->checkIfMultiInSetOrEmpty('sizes', 'some explanation', ['s', 'm']);
+                break;
+            case 'checkIfSingleInTableColumnsOrEmpty':
+                $this->checkIfSingleInTableColumnsOrEmpty('column', 'some explanation', self::TEST_TABLE_NAME);
+                break;
+            case 'checkIfSingleInTableColumnsNotEmpty':
+                $this->checkIfSingleInTableColumnsNotEmpty('column', 'some explanation', self::TEST_TABLE_NAME);
+                break;
+            case 'checkIfMultiInTableColumnsNotEmpty':
+                $this->checkIfMultiInTableColumnsNotEmpty('columns', 'some explanation', self::TEST_TABLE_NAME);
+                break;
+            case 'checkIfMultiInTableColumnsOrEmpty':
+                $this->checkIfMultiInTableColumnsOrEmpty('columns', 'some explanation', self::TEST_TABLE_NAME);
                 break;
             case 'checkNothing':
                 break;

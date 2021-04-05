@@ -915,13 +915,11 @@ class ConfigurationCheck
         }
     }
 
-    /*
-     * The check methods below have not been converted to the new configuration check yet.
-     */
-
     /**
      * Checks whether a configuration value is non-empty and is one of the
      * column names of a given DB table.
+     *
+     * This method is named `checkIfSingleInTableColumnsNotEmpty` in the new configuration check.
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -956,8 +954,10 @@ class ConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value either is empty or is one of the
-     * column names of a given DB table.
+     * Checks whether a configuration value either is empty
+     * or is one of the column names of a given DB table.
+     *
+     * This method is named `checkIfSingleInTableColumnsOrEmpty` in the new configuration check.
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -993,7 +993,9 @@ class ConfigurationCheck
 
     /**
      * Checks whether a configuration value is non-empty and its
-     * comma-separated values lie within a set of allowed values.
+     * and its comma-separated values is a column name of a given DB table.
+     *
+     * This method is named `checkIfMultiInTableColumnsNotEmpty` in the new configuration check.
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -1028,8 +1030,10 @@ class ConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value either is empty or its
-     * comma-separated values is a column name of a given DB table.
+     * Checks whether a configuration value either is empty
+     * or its comma-separated values is a column name of a given DB table.
+     *
+     * This method is named `checkIfMultiInTableColumnsOrEmpty` in the new configuration check.
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -1062,6 +1066,10 @@ class ConfigurationCheck
             $this->getDbColumnNames($tableName)
         );
     }
+
+    /* ####################################################################################
+     * The check methods below have not been converted to the new configuration check yet.
+     */
 
     /**
      * Checks whether the salutation mode is set correctly.

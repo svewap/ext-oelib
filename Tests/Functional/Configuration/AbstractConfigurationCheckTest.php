@@ -118,4 +118,267 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
         self::assertContains('plugin.tx_oelib.file', $warning);
         self::assertContains('cannot be read', $warning);
     }
+
+    /**
+     * @test
+     */
+    public function checkIfSingleInTableColumnsOrEmptyForEmptyStringNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInTableColumnsOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfSingleInTableColumnsOrEmptyForNonEmptyStringNotInTableAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => 'comment']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInTableColumnsOrEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.column', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfSingleInTableColumnsOrEmptyForStringInTableNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => 'title']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInTableColumnsOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfSingleInTableColumnsNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInTableColumnsNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.column', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfSingleInTableColumnsNotEmptyForNonEmptyStringNotInTableAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => 'comment']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInTableColumnsNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.column', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfSingleInTableColumnsNotEmptyForStringInTableNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => 'title']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfSingleInTableColumnsNotEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInTableColumnsOrEmptyForEmptyStringNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['columns' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInTableColumnsOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInTableColumnsOrEmptyForSingleStringNotInTableAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['columns' => 'comment']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInTableColumnsOrEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.columns', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInTableColumnsOrEmptyForOneStringInTableAndAnotherNotInTableAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(
+            new DummyConfiguration(['columns' => 'title,comment']),
+            'plugin.tx_oelib'
+        );
+        $subject->setCheckMethod('checkIfMultiInTableColumnsOrEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.columns', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInTableColumnsOrEmptyForSingleStringInTableNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['columns' => 'title']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInTableColumnsOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInTableColumnsOrEmptyForMultipleStringsInTableNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(
+            new DummyConfiguration(['columns' => 'title,header']),
+            'plugin.tx_oelib'
+        );
+        $subject->setCheckMethod('checkIfMultiInTableColumnsOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInTableColumnsOrEmptyForMultipleStringsInTableWithSpaceNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(
+            new DummyConfiguration(['columns' => 'title, header']),
+            'plugin.tx_oelib'
+        );
+        $subject->setCheckMethod('checkIfMultiInTableColumnsOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInTableColumnsNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['columns' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInTableColumnsNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.columns', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInTableColumnsNotEmptyForSingleStringNotInTableAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['columns' => 'comment']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfMultiInTableColumnsNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.columns', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInTableColumnsNotEmptyForOneStringInTableAndAnotherNotInTableAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(
+            new DummyConfiguration(['columns' => 'title,comment']),
+            'plugin.tx_oelib'
+        );
+        $subject->setCheckMethod('checkIfMultiInTableColumnsNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.columns', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInTableColumnsNotEmptyForMultipleStringInTableNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(
+            new DummyConfiguration(['columns' => 'title,header']),
+            'plugin.tx_oelib'
+        );
+        $subject->setCheckMethod('checkIfMultiInTableColumnsNotEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfMultiInTableColumnsNotEmptyForMultipleStringWithSpaceInTableNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(
+            new DummyConfiguration(['columns' => 'title, header']),
+            'plugin.tx_oelib'
+        );
+        $subject->setCheckMethod('checkIfMultiInTableColumnsNotEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
 }

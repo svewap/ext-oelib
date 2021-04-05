@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Configuration;
 
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -164,6 +165,27 @@ abstract class AbstractConfigurationCheck
     {
         return $this->buildWarningStartWithKey($key) . 'is set to the value &quot;<strong>' .
             $this->encode((string)$value) . '</strong>&quot;, but only ';
+    }
+
+    /**
+     * Retrieves the column names of a given DB table name.
+     *
+     * @param string $tableName the name of a existing DB table (must not be empty, must exist)
+     *
+     * @return string[] column names as values
+     */
+    private function getDbColumnNames(string $tableName): array
+    {
+        /** @var ConnectionPool $connectionPool */
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+        $connection = $connectionPool->getConnectionForTable($tableName);
+        $statement = $connection->query('SHOW FULL COLUMNS FROM `' . $tableName . '`');
+        $columns = [];
+        foreach ($statement->fetchAll() as $row) {
+            $columns[] = $row['Field'];
+        }
+
+        return $columns;
     }
 
     /**
@@ -409,5 +431,85 @@ abstract class AbstractConfigurationCheck
         }
 
         return $okay;
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty
+     * and is one of the column names of a given DB table.
+     */
+    public function checkIfSingleInTableColumnsNotEmpty(string $key, string $explanation, string $tableName): bool
+    {
+        return $this->checkIfSingleInSetNotEmpty($key, $explanation, $this->getDbColumnNames($tableName));
+    }
+
+    /**
+     * Checks whether a configuration value either is empty
+     * or is one of the column names of a given DB table.
+     */
+    protected function checkIfSingleInTableColumnsOrEmpty(string $key, string $explanation, string $tableName): bool
+    {
+        return $this->checkIfSingleInSetOrEmpty($key, $explanation, $this->getDbColumnNames($tableName));
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty
+     * and its comma-separated values is a column name of a given DB table.
+     */
+    protected function checkIfMultiInTableColumnsNotEmpty(string $key, string $explanation, string $tableName): bool
+    {
+        return $this->checkIfMultiInSetNotEmpty($key, $explanation, $this->getDbColumnNames($tableName));
+    }
+
+    /**
+     * Checks whether a configuration value either is empty
+     * or its comma-separated values is a column name of a given DB table.
+     */
+    protected function checkIfMultiInTableColumnsOrEmpty(string $key, string $explanation, string $tableName): bool
+    {
+        return $this->checkIfMultiInSetOrEmpty($key, $explanation, $this->getDbColumnNames($tableName));
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty
+     * and is one of the column names of a given DB table.
+     *
+     * @deprecated Will be removed in oelib 4.0. Use checkIfSingleInTableColumnsNotEmpty instead.
+     */
+    public function checkIfSingleInTableNotEmpty(string $key, string $explanation, string $tableName): bool
+    {
+        return $this->checkIfSingleInTableColumnsNotEmpty($key, $explanation, $tableName);
+    }
+
+    /**
+     * Checks whether a configuration value either is empty
+     * or is one of the column names of a given DB table.
+     *
+     * @deprecated Will be removed in oelib 4.0. Use checkIfSingleInTableColumnsOrEmpty instead.
+     */
+    protected function checkIfSingleInTableOrEmpty(string $key, string $explanation, string $tableName): bool
+    {
+        return $this->checkIfSingleInTableColumnsOrEmpty($key, $explanation, $tableName);
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty
+     * and its comma-separated values is a column name of a given DB table.
+     *
+     * @deprecated Will be removed in oelib 4.0. Use checkIfMultiInTableColumnsNotEmpty instead.
+     */
+    protected function checkIfMultiInTableNotEmpty(string $key, string $explanation, string $tableName): bool
+    {
+        return $this->checkIfMultiInTableColumnsNotEmpty($key, $explanation, $tableName);
+    }
+
+    /**
+     * Checks whether a configuration value either is empty
+     * or its comma-separated values is a column name of a given DB table.
+     *
+     * @deprecated Will be removed in oelib 4.0. Use checkIfMultiInTableColumnsOrEmpty instead.
+     */
+    protected function checkIfMultiInTableOrEmpty(string $key, string $explanation, string $tableName): bool
+    {
+        return $this->checkIfMultiInTableColumnsOrEmpty($key, $explanation, $tableName);
     }
 }
