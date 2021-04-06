@@ -1067,10 +1067,6 @@ class ConfigurationCheck
         );
     }
 
-    /* ####################################################################################
-     * The check methods below have not been converted to the new configuration check yet.
-     */
-
     /**
      * Checks whether the salutation mode is set correctly.
      *
@@ -1091,6 +1087,10 @@ class ConfigurationCheck
             ['formal', 'informal']
         );
     }
+
+    /* ####################################################################################
+     * The check methods below have not been converted to the new configuration check yet.
+     */
 
     /**
      * Gets the path for TypoScript setup where $this->objectToCheck's configuration is

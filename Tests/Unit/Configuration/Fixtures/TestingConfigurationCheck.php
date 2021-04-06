@@ -135,6 +135,9 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkIfMultiInTableColumnsOrEmpty':
                 $this->checkIfMultiInTableColumnsOrEmpty('columns', 'some explanation', self::TEST_TABLE_NAME);
                 break;
+            case 'checkSalutationMode':
+                $this->checkSalutationMode();
+                break;
             case 'checkNothing':
                 break;
             default:

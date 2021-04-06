@@ -512,4 +512,17 @@ abstract class AbstractConfigurationCheck
     {
         return $this->checkIfMultiInTableColumnsOrEmpty($key, $explanation, $tableName);
     }
+
+    /**
+     * Checks whether the salutation mode is set correctly.
+     */
+    protected function checkSalutationMode(): bool
+    {
+        return $this->checkIfSingleInSetNotEmpty(
+            'salutation',
+            'This variable controls the salutation mode (formal or informal).
+            If it is not set correctly, some output cannot be created at all.',
+            ['formal', 'informal']
+        );
+    }
 }

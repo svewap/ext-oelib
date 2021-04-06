@@ -969,4 +969,64 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
 
         self::assertFalse($subject->hasWarnings());
     }
+
+    /**
+     * @test
+     */
+    public function checkSalutationModeForEmptyStringAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['salutation' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkSalutationMode');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.salutation', $warning);
+        self::assertContains('This variable controls the salutation mode (formal or informal)', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkSalutationModeForNonEmptyStringNotInSetAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['salutation' => 'great']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkSalutationMode');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.salutation', $warning);
+        self::assertContains('This variable controls the salutation mode (formal or informal)', $warning);
+    }
+
+    /**
+     * @return array<string, array<string>>
+     */
+    public function validSalutationDataProvider(): array
+    {
+        return [
+            'formal' => ['formal'],
+            'informal' => ['informal'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider validSalutationDataProvider
+     */
+    public function checkSalutationModeForSalutationInSetNotAddsWarning(string $salutation)
+    {
+        $subject = new TestingConfigurationCheck(
+            new DummyConfiguration(['salutation' => $salutation]),
+            'plugin.tx_oelib'
+        );
+        $subject->setCheckMethod('checkSalutationMode');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
 }
