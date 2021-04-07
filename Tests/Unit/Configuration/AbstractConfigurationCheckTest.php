@@ -1029,4 +1029,34 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
 
         self::assertFalse($subject->hasWarnings());
     }
+
+    /**
+     * @test
+     */
+    public function checkRegExpNonMatchingValueAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['title' => 'Heyho!']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkRegExp');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.title', $warning);
+        self::assertContains('some explanation', $warning);
+        self::assertContains('/^[abc]+\\s*[1234]*$/', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkRegExpForMatchingValueNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['title' => 'ab 42']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkRegExp');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
 }

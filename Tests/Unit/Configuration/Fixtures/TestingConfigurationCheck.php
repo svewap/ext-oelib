@@ -138,6 +138,9 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkSalutationMode':
                 $this->checkSalutationMode();
                 break;
+            case 'checkRegExp':
+                $this->checkRegExp('title', 'some explanation', '/^[abc]+\\s*[1234]*$/');
+                break;
             case 'checkNothing':
                 break;
             default:

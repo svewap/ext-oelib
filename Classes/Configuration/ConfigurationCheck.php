@@ -1088,10 +1088,6 @@ class ConfigurationCheck
         );
     }
 
-    /* ####################################################################################
-     * The check methods below have not been converted to the new configuration check yet.
-     */
-
     /**
      * Gets the path for TypoScript setup where $this->objectToCheck's configuration is
      * located. This includes the extension key, (possibly) something like pi1
@@ -1173,8 +1169,7 @@ class ConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value is non-empty and matches a regular
-     * expression.
+     * Checks whether a configuration value is non-empty and matches a regular expression.
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -1191,6 +1186,8 @@ class ConfigurationCheck
      *        a regular expression (including the delimiting slashes)
      *
      * @return void
+     *
+     * @deprecated will be removed without replacement in oelib 4.0
      */
     protected function checkRegExpNotEmpty(
         string $key,
@@ -1202,6 +1199,10 @@ class ConfigurationCheck
         $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
         $this->checkRegExp($key, $canUseFlexforms, $sheet, $explanation, $regExp);
     }
+
+    /* ####################################################################################
+     * The check methods below have not been converted to the new configuration check yet.
+     */
 
     /**
      * Checks whether a configuration value either is empty or contains a
@@ -1267,6 +1268,8 @@ class ConfigurationCheck
      *        must not be empty
      *
      * @return void
+     *
+     * @deprecated will be removed without replacement in oelib 4.0
      */
     protected function checkIfFePagesNotEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
     {
@@ -1426,6 +1429,8 @@ class ConfigurationCheck
      *        must not be empty
      *
      * @return void
+     *
+     * @deprecated will be removed without replacement in oelib 4.0
      */
     protected function checkIfSingleSysFolderOrEmpty(
         string $key,
@@ -1517,6 +1522,8 @@ class ConfigurationCheck
      *        allowed sort keys for the list view, must not be empty
      *
      * @return void
+     *
+     * @deprecated will be removed without replacement in oelib 4.0
      */
     protected function checkListView(array $allowedSortFields)
     {
@@ -1569,6 +1576,8 @@ class ConfigurationCheck
      *        allowed values (must not be empty)
      *
      * @return void
+     *
+     * @deprecated will be removed without replacement in oelib 4.0
      */
     protected function checkListViewIfSingleInSetNotEmpty(string $key, string $explanation, array $allowedValues)
     {
@@ -1590,6 +1599,8 @@ class ConfigurationCheck
      *        must not be empty
      *
      * @return void
+     *
+     * @deprecated will be removed without replacement in oelib 4.0
      */
     protected function checkListViewIfPositiveInteger(string $key, string $explanation)
     {

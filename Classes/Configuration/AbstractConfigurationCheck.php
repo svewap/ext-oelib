@@ -525,4 +525,22 @@ abstract class AbstractConfigurationCheck
             ['formal', 'informal']
         );
     }
+
+    /**
+     * Checks whether a configuration value matches the given regular expression.
+     */
+    protected function checkRegExp(string $key, string $explanation, string $expression): bool
+    {
+        $value = $this->configuration->getAsString($key);
+        if (\preg_match($expression, $value)) {
+            return true;
+        }
+
+        $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
+            ' values matching the regular expression <code>' . $this->encode($expression) . '</code> are allowed. ' .
+            $explanation;
+        $this->addWarningAndRequestCorrection($key, $message);
+
+        return false;
+    }
 }
