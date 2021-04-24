@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 3.3.0
+
+### Added
 - Add a reworked configuration check (#582, #585, #586, #587, #588, #589, #591, #592, #593, #601, #602, #603, #604, #605, #606, #607, #608, #609, #610, #611)
 - Add a `FallbackConfiguration` (#581)
 - Add a base class for objects with read-only data (#578)
@@ -25,8 +37,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Deprecate `AbstractModel::getAsList()` (#552)
 - Don't deprecate `EmailRole`, `GeneralEmailRole`, `SystemEmailFromBuilder` (#551)
 - Deprecate the `UppercaseViewHelper` (#548)
-
-### Removed
 
 ### Fixed
 - Fix code inspections warnings (#612)
