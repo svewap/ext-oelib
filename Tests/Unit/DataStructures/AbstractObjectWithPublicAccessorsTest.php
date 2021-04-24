@@ -80,7 +80,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array<mixed>>
+     * @return array<string, array<int, string|int|bool>>
      */
     public function stringDataProvider(): array
     {
@@ -167,7 +167,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array<mixed>>
+     * @return array<string, array<int, int|string|float|bool>>
      */
     public function integerDataProvider(): array
     {

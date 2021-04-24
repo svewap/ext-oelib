@@ -18,19 +18,19 @@ class Translator
     /**
      * @var string the key of the language to load the translations for
      */
-    private $languageKey = '';
+    private $languageKey;
 
     /**
      * @var string the key of the alternative language to load the translations for
      */
-    private $alternativeLanguageKey = '';
+    private $alternativeLanguageKey;
 
     /**
      * @var array
      *      the localized labels in a nested associative array:
      *      'languageKey' => array('labelkey' => array(0 => array('source' => 'label', 'target' => 'label')
      */
-    private $localizedLabels = [];
+    private $localizedLabels;
 
     /**
      * The constructor.

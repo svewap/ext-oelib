@@ -29,6 +29,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix code inspections warnings (#612)
 - Simplify resolving of `EXT:` paths (#583)
 - Add a type in TCA for the FE users table dummy column (#549)
 - Make `is_object` checks more specific (#546)

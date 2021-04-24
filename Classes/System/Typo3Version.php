@@ -42,7 +42,7 @@ final class Typo3Version
         if (\class_exists(\TYPO3\CMS\Core\Information\Typo3Version::class)) {
             $majorVersion = self::getVersionUtility()->getMajorVersion();
         } else {
-            $explodedVersion = \explode('.', TYPO3_version);
+            $explodedVersion = \explode('.', TYPO3_version, 2);
             $majorVersion = (int)$explodedVersion[0];
         }
 

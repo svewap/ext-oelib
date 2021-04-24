@@ -68,7 +68,7 @@ class AbstractReadOnlyObjectWithAccessorsTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array<mixed>>
+     * @return array<string, array<int, string|int|bool>>
      */
     public function stringDataProvider(): array
     {
@@ -128,7 +128,7 @@ class AbstractReadOnlyObjectWithAccessorsTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array<mixed>>
+     * @return array<string, array<int, int|string|float>>
      */
     public function integerDataProvider(): array
     {

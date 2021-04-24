@@ -91,6 +91,7 @@ class DatabaseService
             $enrichedIgnores = [];
         }
 
+        /** @var string $ignoresKey */
         $ignoresKey = \json_encode($enrichedIgnores);
         if (!isset(self::$enableFieldsCache[$table][$showHiddenKey][$ignoresKey])) {
             self::retrievePageForEnableFields();

@@ -214,7 +214,7 @@ class TestingFramework
      */
     public function __construct(string $tablePrefix, array $additionalTablePrefixes = [])
     {
-        if ((Typo3Version::isNotHigherThan(8)) && !defined('PATH_site')) {
+        if (Typo3Version::isNotHigherThan(8) && !defined('PATH_site')) {
             throw new \UnexpectedValueException('PATH_site is not set.', 1475862825228);
         }
 
@@ -986,7 +986,7 @@ class TestingFramework
     public function deleteDummyFile(string $fileName)
     {
         $absolutePathToFile = $this->getUploadFolderPath() . $fileName;
-        $fileExists = file_exists($absolutePathToFile);
+        $fileExists = is_file($absolutePathToFile);
 
         if (!isset($this->dummyFiles[$fileName])) {
             throw new \InvalidArgumentException(

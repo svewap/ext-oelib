@@ -21,7 +21,7 @@ class Tree
     /**
      * @var Node
      */
-    private $rootNode = null;
+    private $rootNode;
 
     /**
      * Initializes the tree structure.

@@ -22,24 +22,11 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
     private $checkMethod = '';
 
     /**
-     * @var string
-     */
-    private $value = '';
-
-    /**
      * @return void
      */
     public function setCheckMethod(string $method)
     {
         $this->checkMethod = $method;
-    }
-
-    /**
-     * @return void
-     */
-    public function setValue(string $value)
-    {
-        $this->value = $value;
     }
 
     /**

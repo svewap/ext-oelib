@@ -284,6 +284,6 @@ final class FlexformsConfigurationTest extends UnitTestCase
         $key = 'hasCats';
         $subject = new FlexformsConfiguration($this->buildContentObjectWithFlexformsData($key, '1'));
 
-        self::asserttrue($subject->getAsBoolean($key));
+        self::assertTrue($subject->getAsBoolean($key));
     }
 }

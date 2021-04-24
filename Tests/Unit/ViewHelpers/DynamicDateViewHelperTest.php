@@ -19,11 +19,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
 final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
 {
     /**
-     * @var string[]
-     */
-    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
-
-    /**
      * @var DynamicDateViewHelper|MockObject
      */
     private $subject = null;

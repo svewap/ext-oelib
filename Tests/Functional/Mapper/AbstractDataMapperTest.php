@@ -1898,7 +1898,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     }
 
     /**
-     * @return mixed[][]
+     * @return array<string, array<int, string|float|int>>
      */
     public function dataTypeDataProvider(): array
     {
@@ -3088,7 +3088,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         self::assertSame(
             $firstUid . ',' . $secondUid,
-            $this->subject->findByWhereClause('', '', '')->getUids()
+            $this->subject->findByWhereClause()->getUids()
         );
     }
 

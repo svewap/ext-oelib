@@ -279,7 +279,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     {
         self::assertSame(
             '',
-            DatabaseService ::createRecursivePageList('', 0)
+            DatabaseService ::createRecursivePageList('')
         );
     }
 
@@ -371,7 +371,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             (string)$uid,
-            DatabaseService ::createRecursivePageList((string)$uid, 0)
+            DatabaseService ::createRecursivePageList((string)$uid)
         );
     }
 
@@ -388,7 +388,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         self::assertSame(
             $this->sortExplode($uid1 . ',' . $uid2),
             $this->sortExplode(
-                DatabaseService ::createRecursivePageList($uid1 . ',' . $uid2, 0)
+                DatabaseService ::createRecursivePageList($uid1 . ',' . $uid2)
             )
         );
     }
@@ -421,7 +421,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             (string)$uid,
-            DatabaseService ::createRecursivePageList($uid, 0)
+            DatabaseService ::createRecursivePageList($uid)
         );
     }
 
@@ -479,7 +479,7 @@ class DatabaseServiceTest extends FunctionalTestCase
 
         self::assertSame(
             (string)$uid,
-            DatabaseService ::createRecursivePageList($uid, 0)
+            DatabaseService ::createRecursivePageList($uid)
         );
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid),
@@ -503,7 +503,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         );
         self::assertSame(
             (string)$uid,
-            DatabaseService ::createRecursivePageList($uid, 0)
+            DatabaseService ::createRecursivePageList($uid)
         );
     }
 
@@ -1194,7 +1194,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function countCanBeCalledWithEmptyOrMissingWhereClause()
     {
-        DatabaseService ::count('tx_oelib_test', '');
+        DatabaseService ::count('tx_oelib_test');
         DatabaseService ::count('tx_oelib_test');
     }
 
@@ -1268,7 +1268,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function existsRecordWithEmptyOrMissingWhereClauseIsAllowed()
     {
-        DatabaseService ::existsRecord('tx_oelib_test', '');
+        DatabaseService ::existsRecord('tx_oelib_test');
         DatabaseService ::existsRecord('tx_oelib_test');
     }
 

@@ -30,7 +30,7 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
     /**
      * @var string key of the extension for which the EM configuration is stored
      */
-    private $extensionKey = '';
+    private $extensionKey;
 
     /**
      * @var bool whether the configuration is already loaded

@@ -102,13 +102,13 @@ abstract class AbstractDataMapper
     public function __construct()
     {
         if ($this->getTableName() === '') {
-            throw new \InvalidArgumentException(get_class($this) . '::tableName must not be empty.', 1331319361);
+            throw new \InvalidArgumentException(\get_class($this) . '::tableName must not be empty.', 1331319361);
         }
         if ($this->columns === '') {
-            throw new \InvalidArgumentException(get_class($this) . '::columns must not be empty.', 1331319374);
+            throw new \InvalidArgumentException(\get_class($this) . '::columns must not be empty.', 1331319374);
         }
         if ($this->modelClassName === '') {
-            throw new \InvalidArgumentException(get_class($this) . '::modelClassName must not be empty.', 1331319378);
+            throw new \InvalidArgumentException(\get_class($this) . '::modelClassName must not be empty.', 1331319378);
         }
 
         $this->map = new IdentityMap();
@@ -892,7 +892,7 @@ abstract class AbstractDataMapper
                 }
             }
 
-            $data[$key] = (isset($data[$key]) && is_object($data[$key])) ? $data[$key]->{$functionName}() : 0;
+            $data[$key] = (isset($data[$key]) && \is_object($data[$key])) ? $data[$key]->{$functionName}() : 0;
         }
 
         foreach ($data as &$dataItem) {
@@ -1057,14 +1057,14 @@ abstract class AbstractDataMapper
             foreach ($relatedModels->toArray() as $relatedModel) {
                 if (!method_exists($relatedModel, $getter)) {
                     throw new \BadMethodCallException(
-                        'The class ' . get_class($relatedModel) . ' is missing the function ' . $getter .
+                        'The class ' . \get_class($relatedModel) . ' is missing the function ' . $getter .
                         ' which is needed for saving a 1:n relation.',
                         1331319751
                     );
                 }
                 if (!method_exists($relatedModel, $setter)) {
                     throw new \BadMethodCallException(
-                        'The class ' . get_class($relatedModel) . ' is missing the function ' . $setter .
+                        'The class ' . \get_class($relatedModel) . ' is missing the function ' . $setter .
                         ' which is needed for saving a 1:n relation.',
                         1331319803
                     );
@@ -1555,7 +1555,7 @@ abstract class AbstractDataMapper
     {
         if (empty($compoundKeyValues)) {
             throw new \InvalidArgumentException(
-                get_class($this) . '::compoundKeyValues must not be empty.',
+                \get_class($this) . '::compoundKeyValues must not be empty.',
                 1354976660
             );
         }
@@ -1587,7 +1587,7 @@ abstract class AbstractDataMapper
         foreach ($this->compoundKeyParts as $key) {
             if (!isset($compoundKeyValues[$key])) {
                 throw new \InvalidArgumentException(
-                    get_class($this) . '::keyValue does not contain all compound keys.',
+                    \get_class($this) . '::keyValue does not contain all compound keys.',
                     1354976661
                 );
             }

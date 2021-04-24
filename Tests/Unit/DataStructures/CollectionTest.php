@@ -6,7 +6,6 @@ namespace OliverKlee\Oelib\Tests\Unit\DataStructures;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
-use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -22,11 +21,6 @@ final class CollectionTest extends UnitTestCase
      * @var Collection
      */
     private $subject = null;
-
-    /**
-     * @var AbstractModel[] models that need to be cleaned up during tearDown.
-     */
-    private $modelStorage = [];
 
     protected function setUp()
     {
@@ -70,8 +64,6 @@ final class CollectionTest extends UnitTestCase
             $model = new TestingModel();
             $model->setTitle($title);
             $this->subject->add($model);
-
-            $this->modelStorage[] = $model;
         }
     }
 
@@ -1033,7 +1025,6 @@ final class CollectionTest extends UnitTestCase
         $model = new TestingModel();
         $model->setUid(1);
         $this->subject->add($model);
-        $this->modelStorage[] = $model;
 
         $this->subject->rewind();
         $this->subject->purgeCurrent();

@@ -31,7 +31,7 @@ final class Typo3VersionTest extends UnitTestCase
         if ($this->version instanceof \TYPO3\CMS\Core\Information\Typo3Version) {
             $majorVersion = $this->version->getMajorVersion();
         } else {
-            $explodedVersion = \explode('.', TYPO3_version);
+            $explodedVersion = \explode('.', TYPO3_version, 2);
             $majorVersion = (int)$explodedVersion[0];
         }
 

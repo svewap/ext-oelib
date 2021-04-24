@@ -46,7 +46,7 @@ class ConfigurationCheck
     /**
      * @var string the (cached) class name of $this->objectToCheck
      */
-    private $className = '';
+    private $className;
 
     /**
      * @var string the "flavor" of the object in case the class name does

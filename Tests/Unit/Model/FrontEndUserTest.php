@@ -926,7 +926,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function hasHomepageForNonEmptyWwwReturnsTrue()
     {
-        $this->subject->setData(['www' => 'http://www.doe.com']);
+        $this->subject->setData(['www' => 'https://www.example.com']);
 
         self::assertTrue(
             $this->subject->hasHomepage()
@@ -951,10 +951,10 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getHomepageForNonEmptyWwwReturnsWww()
     {
-        $this->subject->setData(['www' => 'http://www.doe.com']);
+        $this->subject->setData(['www' => 'https://www.example.com']);
 
         self::assertSame(
-            'http://www.doe.com',
+            'https://www.example.com',
             $this->subject->getHomepage()
         );
     }

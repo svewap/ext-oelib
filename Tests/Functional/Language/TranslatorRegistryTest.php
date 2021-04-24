@@ -55,16 +55,6 @@ class TranslatorRegistryTest extends FunctionalTestCase
         $this->setUpBackendUserFromFixture(1);
     }
 
-    /**
-     * Returns the current front-end instance.
-     *
-     * @return TypoScriptFrontendController
-     */
-    private function getFrontEndController(): TypoScriptFrontendController
-    {
-        return $GLOBALS['TSFE'];
-    }
-
     ////////////////////////////////////////////
     // Tests regarding the Singleton property.
     ////////////////////////////////////////////

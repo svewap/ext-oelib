@@ -44,12 +44,12 @@ class HeaderProxyFactory
     /**
      * Retrieves the singleton instance of the factory.
      *
-     * @return HeaderProxyFactory the singleton factory
+     * @return self the singleton factory
      */
-    public static function getInstance(): HeaderProxyFactory
+    public static function getInstance(): self
     {
-        if (!self::$instance instanceof HeaderProxyFactory) {
-            self::$instance = new HeaderProxyFactory();
+        if (!self::$instance instanceof self) {
+            self::$instance = new self();
         }
 
         return self::$instance;
