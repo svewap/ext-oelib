@@ -580,4 +580,54 @@ abstract class AbstractConfigurationCheck
     {
         return $this->checkIfIntegerListNotEmpty($key, $explanation);
     }
+
+    /**
+     * Checks whether a configuration value is non-empty and contains a comma-separated list of front-end PIDs.
+     *
+     * @deprecated Will be removed in oelib 4.0. Use checkIfIntegerListNotEmpty instead.
+     */
+    protected function checkIfFePagesNotEmpty(string $key, string $explanation): bool
+    {
+        return $this->checkIfIntegerListNotEmpty($key, $explanation);
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty and contains a single front-end PID.
+     *
+     * @deprecated Will be removed in oelib 4.0. Use checkIfPositiveInteger instead.
+     */
+    protected function checkIfSingleFePageNotEmpty(string $key, string $explanation): bool
+    {
+        return $this->checkIfPositiveInteger($key, $explanation);
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty and contains a single front-end PID.
+     *
+     * @deprecated Will be removed in oelib 4.0. Use checkIfNonNegativeIntegerOrEmpty instead.
+     */
+    protected function checkIfSingleFePageOrEmpty(string $key, string $explanation): bool
+    {
+        return $this->checkIfNonNegativeIntegerOrEmpty($key, $explanation);
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty and contains a comma-separated list of system folder PIDs.
+     *
+     * @deprecated Will be removed in oelib 4.0. Use checkIfIntegerListNotEmpty instead.
+     */
+    protected function checkIfSysFoldersNotEmpty(string $key, string $explanation): bool
+    {
+        return $this->checkIfIntegerListNotEmpty($key, $explanation);
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty and contains a single system folder PID.
+     *
+     * @deprecated Will be removed in oelib 4.0. Use checkIfPositiveInteger instead.
+     */
+    protected function checkIfSingleSysFolderNotEmpty(string $key, string $explanation): bool
+    {
+        return $this->checkIfPositiveInteger($key, $explanation);
+    }
 }

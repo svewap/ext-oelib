@@ -1252,8 +1252,7 @@ class ConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value is non-empty and contains a
-     * comma-separated list of front-end PIDs.
+     * Checks whether a configuration value is non-empty and contains a comma-separated list of front-end PIDs.
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -1269,16 +1268,12 @@ class ConfigurationCheck
      *
      * @return void
      *
-     * @deprecated will be removed without replacement in oelib 4.0
+     * @deprecated Will be removed in oelib 4.0. Use checkIfPidListNotEmpty instead.
      */
     protected function checkIfFePagesNotEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
     {
-        $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
+        $this->checkIfPidListNotEmpty($key, $canUseFlexforms, $sheet, $explanation);
     }
-
-    /* ####################################################################################
-     * The check methods below have not been converted to the new configuration check yet.
-     */
 
     /**
      * Checks whether a configuration value is non-empty and contains a
@@ -1386,12 +1381,11 @@ class ConfigurationCheck
      */
     protected function checkIfSysFoldersNotEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
     {
-        $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
+        $this->checkIfPidListNotEmpty($key, $canUseFlexforms, $sheet, $explanation);
     }
 
     /**
-     * Checks whether a configuration value is non-empty and contains a
-     * single system folder PID.
+     * Checks whether a configuration value is non-empty and contains a single system folder PID.
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -1613,6 +1607,10 @@ class ConfigurationCheck
 
         $this->checkIfPositiveIntegerValue($value, $fieldSubPath, false, $explanation);
     }
+
+    /* ####################################################################################
+     * The check methods below have not been converted to the new configuration check yet.
+     */
 
     /**
      * Checks that an e-mail address is valid or empty.
