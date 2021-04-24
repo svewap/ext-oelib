@@ -141,6 +141,12 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkRegExp':
                 $this->checkRegExp('title', 'some explanation', '/^[abc]+\\s*[1234]*$/');
                 break;
+            case 'checkIfIntegerListOrEmpty':
+                $this->checkIfIntegerListOrEmpty('pages', 'some explanation');
+                break;
+            case 'checkIfIntegerListNotEmpty':
+                $this->checkIfIntegerListNotEmpty('pages', 'some explanation');
+                break;
             case 'checkNothing':
                 break;
             default:

@@ -1200,13 +1200,11 @@ class ConfigurationCheck
         $this->checkRegExp($key, $canUseFlexforms, $sheet, $explanation, $regExp);
     }
 
-    /* ####################################################################################
-     * The check methods below have not been converted to the new configuration check yet.
-     */
-
     /**
      * Checks whether a configuration value either is empty or contains a
      * comma-separated list of integers (in this case, PIDs).
+     *
+     * This method is named `checkIfIntegerListOrEmpty` in the new configuration check.
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -1230,6 +1228,8 @@ class ConfigurationCheck
     /**
      * Checks whether a configuration value is non-empty and contains a
      * comma-separated list of integers (in this case, PIDs).
+     *
+     * This method is named `checkIfIntegerListNotEmpty` in the new configuration check.
      *
      * @param string $key
      *        TypoScript setup field name to extract, must not be empty
@@ -1275,6 +1275,10 @@ class ConfigurationCheck
     {
         $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
     }
+
+    /* ####################################################################################
+     * The check methods below have not been converted to the new configuration check yet.
+     */
 
     /**
      * Checks whether a configuration value is non-empty and contains a

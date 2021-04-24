@@ -1059,4 +1059,134 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
 
         self::assertFalse($subject->hasWarnings());
     }
+
+    /**
+     * @return array<string, array<int, string>>
+     */
+    public function validNonEmptyIntegerListDataProvider(): array
+    {
+        return [
+            'single 0' => ['0'],
+            'single positive, single-digit integer' => ['4'],
+            'single positive, multi-digit integer' => ['42'],
+            'two 0s' => ['0,0'],
+            'two 0s with space after comma' => ['0, 0'],
+            'two 0s with space before comma' => ['0 ,0'],
+            'two single-digit integers' => ['1,2'],
+            'two single-digit integers with space after comma' => ['1, 2'],
+            'two single-digit integers with space before comma' => ['1 ,2'],
+            'two multi-digit integers' => ['12,34'],
+            'integer with leading zero' => ['02'],
+            'two integers with leading zeros' => ['02,03'],
+        ];
+    }
+
+    /**
+     * @return array<string, array<int, string>>
+     */
+    public function invalidIntegerListDataProvider(): array
+    {
+        return [
+            'semicolon instead of comma' => ['2;3'],
+            'letters' => ['a'],
+            'letter and integer' => ['a,1'],
+            'integer and letter' => ['1,a'],
+            'comma only' => [','],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider validNonEmptyIntegerListDataProvider
+     */
+    public function checkIfIntegerListOrEmptyForValidIntegerListNotAddsWarning(string $value)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => $value]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfIntegerListOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider invalidIntegerListDataProvider
+     */
+    public function checkIfIntegerListOrEmptyForInvalidIntegerListAddsWarningWithPathAndExplanation(string $value)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => $value]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfIntegerListOrEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.pages', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfIntegerListOrEmptyForEmptyStringNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfIntegerListOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider validNonEmptyIntegerListDataProvider
+     */
+    public function checkIfIntegerListNotEmptyForValidIntegerListNotAddsWarning(string $value)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => $value]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfIntegerListNotEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider invalidIntegerListDataProvider
+     */
+    public function checkIfIntegerListNotEmptyForInvalidIntegerListAddsWarningWithPathAndExplanation(string $value)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => $value]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfIntegerListNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.pages', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIfIntegerListNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIfIntegerListNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.pages', $warning);
+        self::assertContains('some explanation', $warning);
+    }
 }

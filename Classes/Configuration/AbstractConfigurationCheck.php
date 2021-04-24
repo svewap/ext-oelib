@@ -543,4 +543,41 @@ abstract class AbstractConfigurationCheck
 
         return false;
     }
+
+    /**
+     * Checks whether a configuration value either is empty or contains a comma-separated list of integers.
+     */
+    protected function checkIfIntegerListOrEmpty(string $key, string $explanation): bool
+    {
+        return $this->checkRegExp($key, $explanation, '/^(\\d+( *, *\\d+)*)?$/');
+    }
+
+    /**
+     * Checks whether a configuration value either is empty or contains a comma-separated list of integers.
+     *
+     * @deprecated Will be removed in oelib 4.0. Use checkIfIntegerListOrEmpty instead.
+     */
+    protected function checkIfPidListOrEmpty(string $key, string $explanation): bool
+    {
+        return $this->checkIfIntegerListOrEmpty($key, $explanation);
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty and contains a comma-separated list of integers.
+     */
+    protected function checkIfIntegerListNotEmpty(string $key, string $explanation): bool
+    {
+        return $this->checkForNonEmptyString($key, $explanation)
+            && $this->checkIfIntegerListOrEmpty($key, $explanation);
+    }
+
+    /**
+     * Checks whether a configuration value is non-empty and contains a comma-separated list of integers.
+     *
+     * @deprecated Will be removed in oelib 4.0. Use checkIfIntegerListNotEmpty instead.
+     */
+    protected function checkIfPidListNotEmpty(string $key, string $explanation): bool
+    {
+        return $this->checkIfIntegerListNotEmpty($key, $explanation);
+    }
 }
