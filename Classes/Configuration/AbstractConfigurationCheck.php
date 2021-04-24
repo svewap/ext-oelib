@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Configuration;
 
+use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -658,5 +659,26 @@ abstract class AbstractConfigurationCheck
     {
         return $this->checkForNonEmptyString($key, $explanation)
             && $this->checkIsValidEmailOrEmpty($key, $explanation);
+    }
+
+    /**
+     * Checks that there is a valid email address set in $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'].
+     */
+    public function checkIsValidDefaultFromEmailAddress(): bool
+    {
+        /** @var SystemEmailFromBuilder $emailBuilder */
+        $emailBuilder = GeneralUtility::makeInstance(SystemEmailFromBuilder::class);
+        $okay = $emailBuilder->canBuild();
+
+        if (!$okay) {
+            $this->addWarning(
+                'Please set a valid email address in ' .
+                "<code>\$GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']</code>. " .
+                'This makes sure that the emails sent from extensions have a valid From: address and can be ' .
+                'sent without problems.'
+            );
+        }
+
+        return $okay;
     }
 }

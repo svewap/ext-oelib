@@ -16,6 +16,11 @@ use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\TestingConfigurationCheck
  */
 final class AbstractConfigurationCheckTest extends UnitTestCase
 {
+    protected function tearDown()
+    {
+        unset($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']);
+    }
+
     /**
      * @test
      */
@@ -1305,5 +1310,74 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $warning = $subject->getWarningsAsHtml()[0];
         self::assertContains('plugin.tx_oelib.email', $warning);
         self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider validEmailDataProvider
+     */
+    public function checkIsValidDefaultFromEmailAddressForValidEmailNotAddsWarning(string $email)
+    {
+        $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $email;
+        $subject = new TestingConfigurationCheck(new DummyConfiguration([]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIsValidDefaultFromEmailAddress');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider invalidEmailDataProvider
+     */
+    public function checkIsValidDefaultFromEmailAddressForInvalidEmailAddsWarningWithPathAndExplanation(string $email)
+    {
+        $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $email;
+        $subject = new TestingConfigurationCheck(new DummyConfiguration([]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIsValidDefaultFromEmailAddress');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('defaultMailFromAddress', $warning);
+        self::assertContains('This makes sure that the emails sent from extensions have a valid', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIsValidDefaultFromEmailAddressForEmptyStringAddsWarningWithPathAndExplanation()
+    {
+        $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = '';
+        $subject = new TestingConfigurationCheck(new DummyConfiguration([]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIsValidDefaultFromEmailAddress');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('defaultMailFromAddress', $warning);
+        self::assertContains('This makes sure that the emails sent from extensions have a valid', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIsValidDefaultFromEmailAddressForMissingConfigurationAddsWarningWithPathAndExplanation()
+    {
+        unset($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']);
+        $subject = new TestingConfigurationCheck(new DummyConfiguration([]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIsValidDefaultFromEmailAddress');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('defaultMailFromAddress', $warning);
+        self::assertContains('This makes sure that the emails sent from extensions have a valid', $warning);
     }
 }

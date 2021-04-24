@@ -153,6 +153,9 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkIsValidEmailNotEmpty':
                 $this->checkIsValidEmailNotEmpty('email', 'some explanation');
                 break;
+            case 'checkIsValidDefaultFromEmailAddress':
+                $this->checkIsValidDefaultFromEmailAddress();
+                break;
             case 'checkNothing':
                 break;
             default:

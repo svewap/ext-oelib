@@ -1695,6 +1695,7 @@ class ConfigurationCheck
      */
     public function checkIsValidDefaultFromEmailAddress()
     {
+        /** @var SystemEmailFromBuilder $emailBuilder */
         $emailBuilder = GeneralUtility::makeInstance(SystemEmailFromBuilder::class);
         if (!$emailBuilder->canBuild()) {
             $this->addWarning(
