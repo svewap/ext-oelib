@@ -630,4 +630,33 @@ abstract class AbstractConfigurationCheck
     {
         return $this->checkIfPositiveInteger($key, $explanation);
     }
+
+    /**
+     * Checks that an e-mail address is valid or empty.
+     */
+    public function checkIsValidEmailOrEmpty(string $key, string $explanation): bool
+    {
+        if (!$this->configuration->hasString($key)) {
+            return true;
+        }
+
+        $value = $this->configuration->getAsString($key);
+        $okay = GeneralUtility::validEmail($value);
+        if (!$okay) {
+            $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
+                'valid email addresses are allowed. ' . $explanation;
+            $this->addWarningAndRequestCorrection($key, $message);
+        }
+
+        return $okay;
+    }
+
+    /**
+     * Checks that an e-mail address is valid and non-empty.
+     */
+    public function checkIsValidEmailNotEmpty(string $key, string $explanation): bool
+    {
+        return $this->checkForNonEmptyString($key, $explanation)
+            && $this->checkIsValidEmailOrEmpty($key, $explanation);
+    }
 }

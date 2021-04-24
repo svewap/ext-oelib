@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
-- Add a reworked configuration check (#582, #585, #586, #587, #588, #589, #591, #592, #593, #601, #602, #603, #604, #605, #606, #607, #608, #609)
+- Add a reworked configuration check (#582, #585, #586, #587, #588, #589, #591, #592, #593, #601, #602, #603, #604, #605, #606, #607, #608, #609, #610)
 - Add a `FallbackConfiguration` (#581)
 - Add a base class for objects with read-only data (#578)
 - Add a `DummyConfiguration` class (#567, #580)

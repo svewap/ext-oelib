@@ -1189,4 +1189,121 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         self::assertContains('plugin.tx_oelib.pages', $warning);
         self::assertContains('some explanation', $warning);
     }
+
+    /**
+     * @return array<string, array<int, string>>
+     */
+    public function validEmailDataProvider(): array
+    {
+        return [
+            'email without +' => ['max@example.com'],
+            'email with +' => ['max+business@example.com'],
+        ];
+    }
+
+    /**
+     * @return array<string, array<int, string>>
+     */
+    public function invalidEmailDataProvider(): array
+    {
+        return [
+            'no@' => ['maxexample.com'],
+            'with space' => ['max business@example.com'],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider validEmailDataProvider
+     */
+    public function checkIsValidEmailOrEmptyForValidEmailNotAddsWarning(string $email)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => $email]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIsValidEmailOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider invalidEmailDataProvider
+     */
+    public function checkIsValidEmailOrEmptyForInvalidEmailAddsWarningWithPathAndExplanation(string $email)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => $email]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIsValidEmailOrEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.email', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIsValidEmailOrEmptyForEmptyStringNotAddsWarning()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIsValidEmailOrEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider validEmailDataProvider
+     */
+    public function checkIsValidEmailNotEmptyForValidEmailNotAddsWarning(string $email)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => $email]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIsValidEmailNotEmpty');
+
+        $subject->check();
+
+        self::assertFalse($subject->hasWarnings());
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider invalidEmailDataProvider
+     */
+    public function checkIsValidEmailNotEmptyForInvalidEmailAddsWarningWithPathAndExplanation(string $email)
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => $email]), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIsValidEmailNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.email', $warning);
+        self::assertContains('some explanation', $warning);
+    }
+
+    /**
+     * @test
+     */
+    public function checkIsValidEmailNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    {
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => '']), 'plugin.tx_oelib');
+        $subject->setCheckMethod('checkIsValidEmailNotEmpty');
+
+        $subject->check();
+
+        self::assertTrue($subject->hasWarnings());
+        $warning = $subject->getWarningsAsHtml()[0];
+        self::assertContains('plugin.tx_oelib.email', $warning);
+        self::assertContains('some explanation', $warning);
+    }
 }

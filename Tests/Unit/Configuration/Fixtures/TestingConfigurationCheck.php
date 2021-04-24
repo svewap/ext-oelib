@@ -147,6 +147,12 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
             case 'checkIfIntegerListNotEmpty':
                 $this->checkIfIntegerListNotEmpty('pages', 'some explanation');
                 break;
+            case 'checkIsValidEmailOrEmpty':
+                $this->checkIsValidEmailOrEmpty('email', 'some explanation');
+                break;
+            case 'checkIsValidEmailNotEmpty':
+                $this->checkIsValidEmailNotEmpty('email', 'some explanation');
+                break;
             case 'checkNothing':
                 break;
             default:
