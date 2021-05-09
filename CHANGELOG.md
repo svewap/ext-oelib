@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Update the `.editorconfig` to better match the Core (#614)
 
 ### Deprecated
 
