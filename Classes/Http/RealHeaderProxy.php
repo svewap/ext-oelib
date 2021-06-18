@@ -11,8 +11,6 @@ use OliverKlee\Oelib\Http\Interfaces\HeaderProxy;
  *
  * Regarding the Strategy pattern, addHeader() represents one concrete behavior.
  *
- * @deprecated will be removed in oelib 4.0
- *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class RealHeaderProxy implements HeaderProxy

@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Update the `.editorconfig` to better match the Core (#614)
 
 ### Deprecated
+- De-deprecate the HTTP-related classes (#616)
 
 ### Removed
 

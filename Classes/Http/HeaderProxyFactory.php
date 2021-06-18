@@ -13,8 +13,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * collector stores the headers that were added and does not send them. This
  * mode is for testing purposes.
  *
- * @deprecated will be removed in oelib 4.0
- *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class HeaderProxyFactory
