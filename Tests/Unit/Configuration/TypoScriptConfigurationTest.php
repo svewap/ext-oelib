@@ -11,8 +11,6 @@ use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 
 /**
- * Test case.
- *
  * @covers \OliverKlee\Oelib\Configuration\TypoScriptConfiguration
  */
 final class TypoScriptConfigurationTest extends UnitTestCase

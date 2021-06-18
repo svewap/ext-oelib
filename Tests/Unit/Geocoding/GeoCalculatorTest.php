@@ -10,9 +10,6 @@ use OliverKlee\Oelib\Geocoding\GeoCalculator;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 use TYPO3\CMS\Core\SingletonInterface;
 
-/**
- * Test case.
- */
 class GeoCalculatorTest extends UnitTestCase
 {
     /**

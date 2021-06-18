@@ -20,9 +20,6 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Test case.
- */
 class AbstractDataMapperTest extends FunctionalTestCase
 {
     /**

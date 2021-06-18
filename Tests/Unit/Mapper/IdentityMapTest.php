@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\IdentityMap;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
-/**
- * Test case.
- */
 class IdentityMapTest extends UnitTestCase
 {
     /**

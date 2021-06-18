@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 
 /**
- * Test case.
- *
  * @covers \OliverKlee\Oelib\Configuration\ConfigurationRegistry
  */
 class ConfigurationRegistryTest extends UnitTestCase

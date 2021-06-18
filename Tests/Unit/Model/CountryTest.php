@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Model;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Model\Country;
 
-/**
- * Test case.
- */
 class CountryTest extends UnitTestCase
 {
     /**

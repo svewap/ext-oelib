@@ -11,9 +11,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\Core\ViewHelper\Exception as ViewHelperException;
 use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
 
-/**
- * Test case.
- */
 final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
 {
     /**

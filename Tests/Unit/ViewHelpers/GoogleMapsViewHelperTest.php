@@ -13,9 +13,6 @@ use OliverKlee\Oelib\ViewHelpers\GoogleMapsViewHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-/**
- * Test case.
- */
 class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 {
     /**

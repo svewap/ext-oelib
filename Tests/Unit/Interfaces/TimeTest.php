@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Interfaces;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Interfaces\Time;
 
-/**
- * Test case.
- */
 class TimeTest extends UnitTestCase
 {
     /**

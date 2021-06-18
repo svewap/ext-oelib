@@ -12,9 +12,6 @@ use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 
-/**
- * Test case.
- */
 class DirectPersistTest extends UnitTestCase
 {
     /**

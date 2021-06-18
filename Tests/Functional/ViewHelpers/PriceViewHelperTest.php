@@ -8,9 +8,6 @@ use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\ViewHelpers\PriceViewHelper;
 
-/**
- * Test case.
- */
 class PriceViewHelperTest extends FunctionalTestCase
 {
     /**

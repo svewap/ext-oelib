@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Session;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Session\FakeSession;
 
-/**
- * Test case.
- */
 class FakeSessionTest extends UnitTestCase
 {
     /**

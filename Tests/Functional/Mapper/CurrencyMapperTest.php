@@ -9,9 +9,6 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\CurrencyMapper;
 use OliverKlee\Oelib\Model\Currency;
 
-/**
- * Test case.
- */
 class CurrencyMapperTest extends FunctionalTestCase
 {
     /**

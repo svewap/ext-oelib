@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Model;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Model\Currency;
 
-/**
- * Test case.
- */
 class CurrencyTest extends UnitTestCase
 {
     /**

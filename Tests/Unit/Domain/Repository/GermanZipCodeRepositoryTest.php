@@ -11,9 +11,6 @@ use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-/**
- * Test case.
- */
 class GermanZipCodeRepositoryTest extends UnitTestCase
 {
     /**

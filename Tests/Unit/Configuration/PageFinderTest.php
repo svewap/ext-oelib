@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\PageFinder;
 
-/**
- * Test case.
- */
 class PageFinderTest extends UnitTestCase
 {
     /**

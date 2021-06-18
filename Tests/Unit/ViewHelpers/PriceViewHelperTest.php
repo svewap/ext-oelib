@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
 use OliverKlee\Oelib\ViewHelpers\PriceViewHelper;
 
-/**
- * Test case.
- */
 class PriceViewHelperTest extends ViewHelperBaseTestcase
 {
     /**

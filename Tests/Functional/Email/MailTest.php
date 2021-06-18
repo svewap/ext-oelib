@@ -8,9 +8,6 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Email\Mail;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-/**
- * Test case.
- */
 class MailTest extends FunctionalTestCase
 {
     /**

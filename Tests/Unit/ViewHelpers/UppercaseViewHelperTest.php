@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
 use OliverKlee\Oelib\ViewHelpers\UppercaseViewHelper;
 
-/**
- * Test case.
- */
 class UppercaseViewHelperTest extends ViewHelperBaseTestcase
 {
     /**

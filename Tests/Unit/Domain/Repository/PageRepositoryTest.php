@@ -8,9 +8,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\SingletonInterface;
 
-/**
- * Test case.
- */
 class PageRepositoryTest extends UnitTestCase
 {
     /**

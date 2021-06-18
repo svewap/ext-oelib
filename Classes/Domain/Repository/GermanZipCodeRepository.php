@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Domain\Repository\Traits\ReadOnly;
 use OliverKlee\Oelib\Domain\Repository\Traits\StoragePageAgnostic;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-/**
- * Repository for GermanZipCode models.
- */
 class GermanZipCodeRepository extends Repository
 {
     use ReadOnly;

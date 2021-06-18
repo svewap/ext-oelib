@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\EmptyModel;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\LazyLoadingModel;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
-/**
- * Test case.
- */
 class LazyLoadingPropertiesTest extends UnitTestCase
 {
     /**

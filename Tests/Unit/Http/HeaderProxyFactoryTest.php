@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Http\HeaderCollector;
 use OliverKlee\Oelib\Http\HeaderProxyFactory;
 use OliverKlee\Oelib\Http\RealHeaderProxy;
 
-/**
- * Test case.
- */
 class HeaderProxyFactoryTest extends UnitTestCase
 {
     /**

@@ -12,9 +12,6 @@ use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Test case.
- */
 class AbstractMailerTest extends FunctionalTestCase
 {
     /**

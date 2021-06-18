@@ -12,9 +12,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Test case.
- */
 class RealMailerTest extends UnitTestCase
 {
     /**

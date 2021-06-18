@@ -8,9 +8,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Templating\Template;
 use OliverKlee\Oelib\Templating\TemplateRegistry;
 
-/**
- * Test case.
- */
 class TemplateRegistryTest extends UnitTestCase
 {
     /*

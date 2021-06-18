@@ -8,9 +8,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Model\BackEndUser;
 
-/**
- * Test case.
- */
 class BackEndUserTest extends UnitTestCase
 {
     /**

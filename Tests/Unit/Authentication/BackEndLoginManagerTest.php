@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Authentication;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 
-/**
- * Test case.
- */
 class BackEndLoginManagerTest extends UnitTestCase
 {
     /**

@@ -8,9 +8,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\Model\FrontEndUser;
 
-/**
- * Test case.
- */
 class FrontEndLoginManagerTest extends UnitTestCase
 {
     /**

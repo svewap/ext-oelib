@@ -8,9 +8,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Email\GeneralEmailRole;
 use OliverKlee\Oelib\Interfaces\MailRole;
 
-/**
- * Test case.
- */
 class GeneralEmailRoleTest extends UnitTestCase
 {
     /**

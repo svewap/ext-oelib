@@ -11,9 +11,6 @@ use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
-/**
- * Test case.
- */
 class AbstractModelTest extends FunctionalTestCase
 {
     /**

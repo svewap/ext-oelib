@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Language;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Language\Translator;
 
-/**
- * Test case.
- */
 class TranslatorTest extends UnitTestCase
 {
     /**

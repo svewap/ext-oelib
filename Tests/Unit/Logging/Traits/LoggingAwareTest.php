@@ -12,9 +12,6 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Core\Log\LogManagerInterface;
 
-/**
- * Test case.
- */
 class LoggingAwareTest extends UnitTestCase
 {
     /**

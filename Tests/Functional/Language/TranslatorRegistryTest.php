@@ -15,9 +15,6 @@ use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Lang\LanguageService;
 
-/**
- * Test case.
- */
 class TranslatorRegistryTest extends FunctionalTestCase
 {
     /**

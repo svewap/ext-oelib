@@ -12,9 +12,6 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
-/**
- * Test case.
- */
 class AbstractModelTest extends UnitTestCase
 {
     /**

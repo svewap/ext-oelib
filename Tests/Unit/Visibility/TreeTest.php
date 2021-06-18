@@ -8,9 +8,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Visibility\Node;
 use OliverKlee\Oelib\Visibility\Tree;
 
-/**
- * Test case.
- */
 class TreeTest extends UnitTestCase
 {
     /**

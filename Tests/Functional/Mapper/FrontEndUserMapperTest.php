@@ -12,9 +12,6 @@ use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
 
-/**
- * Test case.
- */
 class FrontEndUserMapperTest extends FunctionalTestCase
 {
     /**

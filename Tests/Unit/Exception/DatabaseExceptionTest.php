@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Exception;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\DatabaseException;
 
-/**
- * Test case.
- */
 class DatabaseExceptionTest extends UnitTestCase
 {
     /**

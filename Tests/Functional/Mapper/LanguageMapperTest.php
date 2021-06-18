@@ -9,9 +9,6 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\LanguageMapper;
 use OliverKlee\Oelib\Model\Language;
 
-/**
- * Test case.
- */
 class LanguageMapperTest extends FunctionalTestCase
 {
     /**

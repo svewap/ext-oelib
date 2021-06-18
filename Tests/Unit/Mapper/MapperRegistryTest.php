@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 
-/**
- * Test case.
- */
 class MapperRegistryTest extends UnitTestCase
 {
     protected function tearDown()

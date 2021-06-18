@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Email\EmailCollector;
 use OliverKlee\Oelib\Email\MailerFactory;
 use TYPO3\CMS\Core\SingletonInterface;
 
-/**
- * Test case.
- */
 class MailerFactoryTest extends UnitTestCase
 {
     /**

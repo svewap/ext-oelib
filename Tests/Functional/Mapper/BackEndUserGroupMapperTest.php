@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
-/**
- * Test case.
- */
 class BackEndUserGroupMapperTest extends FunctionalTestCase
 {
     /**

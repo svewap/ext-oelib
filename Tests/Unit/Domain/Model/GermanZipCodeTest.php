@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Domain\Model\GermanZipCode;
 use OliverKlee\Oelib\Interfaces\Geo;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- * Test case.
- */
 class GermanZipCodeTest extends UnitTestCase
 {
     /**

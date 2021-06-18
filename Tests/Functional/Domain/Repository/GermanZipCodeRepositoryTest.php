@@ -10,9 +10,6 @@ use OliverKlee\Oelib\Domain\Repository\GermanZipCodeRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
-/**
- * Test case.
- */
 class GermanZipCodeRepositoryTest extends FunctionalTestCase
 {
     /**

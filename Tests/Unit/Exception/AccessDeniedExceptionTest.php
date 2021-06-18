@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Exception;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\AccessDeniedException;
 
-/**
- * Test case.
- */
 class AccessDeniedExceptionTest extends UnitTestCase
 {
     /**

@@ -11,8 +11,6 @@ use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 use OliverKlee\Oelib\Interfaces\Configuration;
 
 /**
- * Test case.
- *
  * @covers \OliverKlee\Oelib\Configuration\ConfigurationProxy
  */
 class ConfigurationProxyTest extends UnitTestCase

@@ -9,9 +9,6 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\FederalStateMapper;
 use OliverKlee\Oelib\Model\FederalState;
 
-/**
- * Test case.
- */
 class FederalStateMapperTest extends FunctionalTestCase
 {
     /**

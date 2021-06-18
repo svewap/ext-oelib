@@ -10,9 +10,6 @@ use OliverKlee\Oelib\Exception\EmptyQueryResultException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
-/**
- * Test case.
- */
 class DatabaseServiceTest extends FunctionalTestCase
 {
     /**

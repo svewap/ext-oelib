@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Email\Attachment;
 use OliverKlee\Oelib\Email\Mail;
 use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
 
-/**
- * Test case.
- */
 class MailTest extends UnitTestCase
 {
     /**

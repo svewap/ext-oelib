@@ -12,9 +12,6 @@ use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- * Test case.
- */
 class GoogleGeocodingTest extends UnitTestCase
 {
     /**

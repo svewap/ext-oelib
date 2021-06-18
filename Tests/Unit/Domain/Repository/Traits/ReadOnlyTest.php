@@ -10,9 +10,6 @@ use OliverKlee\Oelib\Tests\Unit\Domain\Repository\Fixtures\ReadOnlyRepository;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
-/**
- * Test case.
- */
 class ReadOnlyTest extends UnitTestCase
 {
     /**

@@ -10,8 +10,6 @@ use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 
 /**
- * Test case.
- *
  * @covers \OliverKlee\Oelib\Configuration\DummyConfiguration
  */
 final class DummyConfigurationTest extends UnitTestCase

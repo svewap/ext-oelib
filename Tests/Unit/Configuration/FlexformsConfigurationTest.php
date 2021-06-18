@@ -11,8 +11,6 @@ use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
- * Test case.
- *
  * @covers \OliverKlee\Oelib\Configuration\FlexformsConfiguration
  */
 final class FlexformsConfigurationTest extends UnitTestCase

@@ -9,9 +9,6 @@ use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Repository for pages.
- */
 class PageRepository implements SingletonInterface
 {
     /**

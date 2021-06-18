@@ -8,9 +8,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Domain\Model\Interfaces\CreationDate;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\CreatedModel;
 
-/**
- * Test case.
- */
 class CreationDateTest extends UnitTestCase
 {
     /**

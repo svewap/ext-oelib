@@ -11,9 +11,6 @@ use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Test case.
- */
 class TestingFrameworkTest extends UnitTestCase
 {
     /**

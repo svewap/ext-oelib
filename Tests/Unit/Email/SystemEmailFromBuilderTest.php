@@ -8,9 +8,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Email\GeneralEmailRole;
 use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 
-/**
- * Test case.
- */
 class SystemEmailFromBuilderTest extends UnitTestCase
 {
     /**

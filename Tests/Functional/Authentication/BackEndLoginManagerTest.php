@@ -14,9 +14,6 @@ use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
-/**
- * Test case.
- */
 class BackEndLoginManagerTest extends FunctionalTestCase
 {
     /**

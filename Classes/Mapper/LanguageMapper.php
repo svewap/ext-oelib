@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Mapper;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\Language;
 
-/**
- * This class represents a mapper for languages.
- */
 class LanguageMapper extends AbstractDataMapper
 {
     /**

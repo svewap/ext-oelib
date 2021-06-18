@@ -11,9 +11,6 @@ use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
-/**
- * Test case.
- */
 class FrontEndUserTest extends UnitTestCase
 {
     /**

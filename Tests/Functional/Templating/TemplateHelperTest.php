@@ -11,9 +11,6 @@ use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-/**
- * Test case.
- */
 class TemplateHelperTest extends FunctionalTestCase
 {
     /**

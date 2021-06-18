@@ -13,9 +13,6 @@ use OliverKlee\Oelib\Model\BackEndUser;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
 use OliverKlee\Oelib\Testing\TestingFramework;
 
-/**
- * Test case.
- */
 class BackEndUserMapperTest extends FunctionalTestCase
 {
     /**

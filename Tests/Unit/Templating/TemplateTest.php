@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Language\Translator;
 use OliverKlee\Oelib\Templating\Template;
 
-/**
- * Test case.
- */
 class TemplateTest extends UnitTestCase
 {
     /**

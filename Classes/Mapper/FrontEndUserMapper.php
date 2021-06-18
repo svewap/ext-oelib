@@ -10,9 +10,6 @@ use OliverKlee\Oelib\Model\FrontEndUser;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * This class represents a mapper for front-end users.
- */
 class FrontEndUserMapper extends AbstractDataMapper
 {
     /**

@@ -19,9 +19,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
-/**
- * Test case.
- */
 class TestingFrameworkTest extends FunctionalTestCase
 {
     /**

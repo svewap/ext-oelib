@@ -11,9 +11,6 @@ use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-/**
- * Test case.
- */
 class SalutationSwitcherTest extends UnitTestCase
 {
     /**

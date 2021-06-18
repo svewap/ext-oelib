@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\System;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\System\Typo3Version;
 
-/**
- * Test case.
- */
 final class Typo3VersionTest extends UnitTestCase
 {
     /**

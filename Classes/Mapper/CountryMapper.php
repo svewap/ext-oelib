@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Mapper;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\Country;
 
-/**
- * This class represents a mapper for countries.
- */
 class CountryMapper extends AbstractDataMapper
 {
     /**

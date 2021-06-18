@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Visibility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Visibility\Node;
 
-/**
- * Test case.
- */
 class NodeTest extends UnitTestCase
 {
     /**

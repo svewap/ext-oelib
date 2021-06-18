@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\ParentModel;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-/**
- * Test case.
- */
 class CachedAssociationCountTest extends UnitTestCase
 {
     /**

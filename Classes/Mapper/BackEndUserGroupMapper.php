@@ -6,9 +6,6 @@ namespace OliverKlee\Oelib\Mapper;
 
 use OliverKlee\Oelib\Model\BackEndUserGroup;
 
-/**
- * This class represents a mapper for back-end user groups.
- */
 class BackEndUserGroupMapper extends AbstractDataMapper
 {
     /**

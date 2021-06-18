@@ -14,9 +14,6 @@ use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-/**
- * Test case.
- */
 class FrontEndLoginManagerTest extends FunctionalTestCase
 {
     /**

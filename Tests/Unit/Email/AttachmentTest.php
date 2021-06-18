@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Email;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Email\Attachment;
 
-/**
- * Test case.
- */
 class AttachmentTest extends UnitTestCase
 {
     /**

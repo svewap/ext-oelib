@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Exception;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
 
-/**
- * Test case.
- */
 class NotFoundExceptionTest extends UnitTestCase
 {
     /**

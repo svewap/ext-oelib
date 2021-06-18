@@ -11,9 +11,6 @@ use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-/**
- * Test case.
- */
 class ConfigurationRegistryTest extends FunctionalTestCase
 {
     /**

@@ -7,9 +7,6 @@ namespace OliverKlee\Oelib\Tests\Functional\Domain\Repository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Domain\Repository\PageRepository;
 
-/**
- * Test case.
- */
 class PageRepositoryTest extends FunctionalTestCase
 {
     /**

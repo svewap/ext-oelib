@@ -9,9 +9,6 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\CountryMapper;
 use OliverKlee\Oelib\Model\Country;
 
-/**
- * Test case.
- */
 class CountryMapperTest extends FunctionalTestCase
 {
     /**

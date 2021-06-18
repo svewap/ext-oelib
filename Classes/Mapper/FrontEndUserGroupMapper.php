@@ -6,9 +6,6 @@ namespace OliverKlee\Oelib\Mapper;
 
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
-/**
- * This class represents a mapper for front-end user groups.
- */
 class FrontEndUserGroupMapper extends AbstractDataMapper
 {
     /**

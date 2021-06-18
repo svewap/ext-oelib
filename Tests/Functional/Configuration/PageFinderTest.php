@@ -8,9 +8,6 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Testing\TestingFramework;
 
-/**
- * Test case.
- */
 class PageFinderTest extends FunctionalTestCase
 {
     /**
