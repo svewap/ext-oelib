@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Http;
 
 use OliverKlee\Oelib\Http\Interfaces\HeaderProxy;
+use TYPO3\CMS\Core\Utility\HttpUtility;
 
 /**
  * This class sends HTTP headers.
  *
- * Regarding the Strategy pattern, addHeader() represents one concrete behavior.
+ * Regarding the Strategy pattern, `addHeader()` represents one concrete behavior.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
@@ -24,6 +25,6 @@ class RealHeaderProxy implements HeaderProxy
      */
     public function addHeader(string $header)
     {
-        header($header);
+        HttpUtility::setResponseCode($header);
     }
 }

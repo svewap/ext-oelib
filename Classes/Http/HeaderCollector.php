@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Http\Interfaces\HeaderProxy;
  * This class stores HTTP header which were meant to be sent instead of really
  * sending them and provides various functions to get them for testing purposes.
  *
- * Regarding the Strategy pattern, addHeader() represents one concrete behavior.
+ * Regarding the Strategy pattern, `addHeader()` represents one concrete behavior.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
@@ -19,7 +19,7 @@ class HeaderCollector implements HeaderProxy
     /**
      * headers which were meant to be sent
      *
-     * @var string[]
+     * @var array<int, string>
      */
     private $headers = [];
 
@@ -42,7 +42,7 @@ class HeaderCollector implements HeaderProxy
      */
     public function getLastAddedHeader(): string
     {
-        if (empty($this->headers)) {
+        if ($this->headers === []) {
             return '';
         }
 
@@ -50,10 +50,9 @@ class HeaderCollector implements HeaderProxy
     }
 
     /**
-     * Returns all headers added with this instance or an empty array if there
-     * is none.
+     * Returns all headers added with this instance or an empty array if there is none.
      *
-     * @return string[] all added headers, will be empty if there is none
+     * @return array<int, string> all added headers, will be empty if there is none
      */
     public function getAllAddedHeaders(): array
     {

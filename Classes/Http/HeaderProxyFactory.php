@@ -9,7 +9,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class returns either an instance of the RealHeaderProxy which
- * adds HTTP headers or an instance of the HeaderCollector. The
+ * adds HTTP headers or an instance of the `HeaderCollector`. The
  * collector stores the headers that were added and does not send them. This
  * mode is for testing purposes.
  *
@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class HeaderProxyFactory
 {
     /**
-     * @var HeaderProxyFactory
+     * @var HeaderProxyFactory|null
      */
     private static $instance = null;
 
@@ -28,7 +28,7 @@ class HeaderProxyFactory
     private $isTestMode = false;
 
     /**
-     * @var HeaderProxy
+     * @var HeaderProxy|null
      */
     private $headerProxy = null;
 

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Http\Interfaces;
 
 /**
- * This interface declares the function addHeader() for concrete classes, so they
+ * This interface declares the function `addHeader()` for concrete classes, so they
  * need to implement the concrete behavior.
  *
- * Regarding the Strategy pattern, addHeader() represents the abstract strategy.
+ * Regarding the Strategy pattern, `addHeader()` represents the abstract strategy.
  *
  * @author Saskia Metzler <saskia@merlin.owl.de>
  */
