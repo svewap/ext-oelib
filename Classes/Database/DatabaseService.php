@@ -18,8 +18,6 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 /**
  * This class provides some static database-related functions.
  *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
- *
  * @deprecated will be removed in oelib 4.0; use the ConnectionPool instead for TYPO3 >= 8.4
  */
 class DatabaseService

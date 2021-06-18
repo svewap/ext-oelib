@@ -27,11 +27,6 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * This class provides various functions to handle dummy records in unit tests.
- *
- * @author Mario Rimann <typo3-coding@rimann.org>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
- * @author Saskia Metzler <saskia@merlin.owl.de>
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class TestingFramework
 {

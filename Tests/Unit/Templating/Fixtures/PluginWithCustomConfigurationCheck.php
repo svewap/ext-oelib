@@ -8,8 +8,6 @@ use OliverKlee\Oelib\Templating\TemplateHelper;
 
 /**
  * Testing subclass of TemplateHelper with a custom configuration check class.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class PluginWithCustomConfigurationCheck extends TemplateHelper
 {

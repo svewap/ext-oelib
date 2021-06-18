@@ -11,8 +11,6 @@ use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * This class provides functions for calculating the distance between geo objects.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class GeoCalculator implements SingletonInterface
 {

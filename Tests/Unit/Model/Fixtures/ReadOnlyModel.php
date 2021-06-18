@@ -8,8 +8,6 @@ use OliverKlee\Oelib\Model\AbstractModel;
 
 /**
  * This class represents a read-only model for testing purposes.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class ReadOnlyModel extends AbstractModel
 {

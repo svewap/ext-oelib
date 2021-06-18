@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Model\Currency;
 
 /**
  * Test case.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class CurrencyTest extends UnitTestCase
 {

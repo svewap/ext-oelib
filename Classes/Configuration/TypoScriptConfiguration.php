@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 
 /**
  * This class represents a set of configuration values within a certain namespace.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implements ConfigurationInterface
 {

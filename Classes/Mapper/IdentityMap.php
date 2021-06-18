@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Model\AbstractModel;
 
 /**
  * This class represents an identity map that stores and retrieves model instances by their UIDs.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class IdentityMap
 {

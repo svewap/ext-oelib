@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Interfaces\Configuration;
 
 /**
  * Dummy configuration for usage in tests (in place of any configuration: TypoScript, flexforms, extension manager).
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class DummyConfiguration extends AbstractObjectWithPublicAccessors implements Configuration
 {

@@ -11,9 +11,6 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
  * This class represents a mapper for back-end users.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class BackEndUserMapper extends AbstractDataMapper
 {

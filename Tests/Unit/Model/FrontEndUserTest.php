@@ -13,8 +13,6 @@ use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FrontEndUserTest extends UnitTestCase
 {

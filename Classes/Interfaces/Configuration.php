@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Interfaces;
 
 /**
  * Interface for all types of configuration.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 interface Configuration
 {

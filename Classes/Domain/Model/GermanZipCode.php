@@ -11,8 +11,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * This class represents a ZIP code within a city in Germany.
  *
  * The data comes from static tables.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de
  */
 class GermanZipCode extends AbstractEntity implements Geo
 {

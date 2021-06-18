@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures\TestingReadOnlyObjectWit
 /**
  * @covers \OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectAccessors
  * @covers \OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithPublicAccessors
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class AbstractReadOnlyObjectWithAccessorsTest extends UnitTestCase
 {

@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
 /**
  * Test case.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
  */
 class FrontEndUserGroupTest extends UnitTestCase
 {

@@ -14,9 +14,6 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class AbstractModelTest extends UnitTestCase
 {

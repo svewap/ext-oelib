@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
  * This class represents a mapper that is broken because it has no columns defined.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class ColumnLessTestingMapper extends AbstractDataMapper
 {

@@ -8,8 +8,6 @@ use OliverKlee\Oelib\Configuration\ConfigurationCheck;
 
 /**
  * Testing configuration check.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TestingConfigurationCheck extends ConfigurationCheck
 {

@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Interfaces;
 
 /**
  * This interface represents an object that can have an automatic configuration check.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 interface ConfigurationCheckable
 {

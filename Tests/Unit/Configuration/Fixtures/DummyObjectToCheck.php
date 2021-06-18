@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Templating\TemplateHelper;
 
 /**
  * This is mere a class to test the configuration check class.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class DummyObjectToCheck extends TemplateHelper implements ConfigurationCheckable
 {

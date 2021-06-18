@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Model;
 
 /**
  * This class represents a country.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class Country extends AbstractModel
 {

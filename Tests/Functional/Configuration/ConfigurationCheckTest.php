@@ -12,8 +12,6 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Test case.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class ConfigurationCheckTest extends FunctionalTestCase
 {

@@ -11,8 +11,6 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Testing model for 1:n associations.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class ParentModel extends AbstractEntity
 {

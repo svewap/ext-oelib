@@ -9,8 +9,6 @@ use OliverKlee\Oelib\System\Typo3Version;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class Typo3VersionTest extends UnitTestCase
 {

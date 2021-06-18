@@ -9,8 +9,6 @@ use TYPO3\CMS\Core\Log\LogManagerInterface;
 
 /**
  * This is the default implementation of the LoggingAware interface.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 trait LoggingAware
 {

@@ -14,8 +14,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a front-end user.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FrontEndUser extends AbstractModel implements MailRole, Address
 {

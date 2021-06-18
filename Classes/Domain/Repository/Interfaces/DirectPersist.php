@@ -9,8 +9,6 @@ namespace OliverKlee\Oelib\Domain\Repository\Interfaces;
  * care about the persistence manager.
  *
  * The corresponding trait is the default implementation.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de
  */
 interface DirectPersist
 {

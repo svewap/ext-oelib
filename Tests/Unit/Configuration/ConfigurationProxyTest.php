@@ -14,9 +14,6 @@ use OliverKlee\Oelib\Interfaces\Configuration;
  * Test case.
  *
  * @covers \OliverKlee\Oelib\Configuration\ConfigurationProxy
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class ConfigurationProxyTest extends UnitTestCase
 {

@@ -8,8 +8,6 @@ namespace OliverKlee\Oelib\Domain\Model\Interfaces;
  * Interface for domain models with a change date.
  *
  * The corresponding trait is the default implementation.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de
  */
 interface ChangeDate
 {

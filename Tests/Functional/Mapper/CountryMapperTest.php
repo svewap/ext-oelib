@@ -11,8 +11,6 @@ use OliverKlee\Oelib\Model\Country;
 
 /**
  * Test case.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class CountryMapperTest extends FunctionalTestCase
 {

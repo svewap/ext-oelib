@@ -12,8 +12,6 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class DatabaseServiceTest extends FunctionalTestCase
 {

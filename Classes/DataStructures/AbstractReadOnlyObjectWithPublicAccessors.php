@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\DataStructures;
 
 /**
  * This class represents an object that allows getting its data via public methods.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 abstract class AbstractReadOnlyObjectWithPublicAccessors extends AbstractReadOnlyObjectWithAccessors
 {

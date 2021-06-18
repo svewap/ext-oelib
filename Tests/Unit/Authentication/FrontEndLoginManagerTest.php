@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Model\FrontEndUser;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FrontEndLoginManagerTest extends UnitTestCase
 {

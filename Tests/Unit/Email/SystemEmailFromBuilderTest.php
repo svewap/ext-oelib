@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class SystemEmailFromBuilderTest extends UnitTestCase
 {

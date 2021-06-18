@@ -12,8 +12,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  * This class provides access to the configuration in the Flexforms of the given content object,
  * but not to TypoScript configuration. It can access data from any Flexforms sheet (without the need to
  * provide the sheet name for the access).
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FlexformsConfiguration extends AbstractReadOnlyObjectWithPublicAccessors implements ConfigurationInterface
 {

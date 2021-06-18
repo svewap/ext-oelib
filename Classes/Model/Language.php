@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Model;
 
 /**
  * This class represents a language.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class Language extends AbstractModel
 {

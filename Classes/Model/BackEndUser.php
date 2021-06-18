@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Interfaces\MailRole;
 
 /**
  * This class represents a back-end user.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class BackEndUser extends AbstractModel implements MailRole
 {

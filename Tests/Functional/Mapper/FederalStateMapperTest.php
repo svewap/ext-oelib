@@ -11,8 +11,6 @@ use OliverKlee\Oelib\Model\FederalState;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FederalStateMapperTest extends FunctionalTestCase
 {

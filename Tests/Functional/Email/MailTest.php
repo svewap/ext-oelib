@@ -10,8 +10,6 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * Test case.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class MailTest extends FunctionalTestCase
 {

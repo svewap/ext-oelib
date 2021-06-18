@@ -13,8 +13,6 @@ use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
  * Test case.
  *
  * @covers \OliverKlee\Oelib\Configuration\ConfigurationRegistry
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class ConfigurationRegistryTest extends UnitTestCase
 {

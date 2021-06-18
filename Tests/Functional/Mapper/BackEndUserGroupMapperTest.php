@@ -11,9 +11,6 @@ use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
 /**
  * Test case.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class BackEndUserGroupMapperTest extends FunctionalTestCase
 {

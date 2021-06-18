@@ -11,9 +11,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This class represents a HTML template with markers (###MARKER###) and
  * subparts (<!-- ###SUBPART### --><!-- ###SUBPART### -->).
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class Template
 {

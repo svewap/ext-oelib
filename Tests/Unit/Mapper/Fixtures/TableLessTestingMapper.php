@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
  * Testing mapper without a table name.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TableLessTestingMapper extends AbstractDataMapper
 {

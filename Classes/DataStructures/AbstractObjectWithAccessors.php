@@ -7,8 +7,6 @@ namespace OliverKlee\Oelib\DataStructures;
 /**
  * This class represents an object that allows getting and setting its data,
  * but only via protected methods so that encapsulation is retained.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 abstract class AbstractObjectWithAccessors extends AbstractReadOnlyObjectWithAccessors
 {

@@ -8,8 +8,6 @@ use OliverKlee\Oelib\Model\FederalState;
 
 /**
  * This class represents a mapper for federal state models.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FederalStateMapper extends AbstractDataMapper
 {

@@ -11,8 +11,6 @@ use OliverKlee\Oelib\Interfaces\Configuration;
 
 /**
  * @covers \OliverKlee\Oelib\Configuration\FallbackConfiguration
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class FallbackConfigurationTest extends UnitTestCase
 {

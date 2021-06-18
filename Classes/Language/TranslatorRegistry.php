@@ -17,10 +17,6 @@ use TYPO3\CMS\Lang\LanguageService;
  * This class provides a registry for translators.
  *
  * @deprecated will be removed in oelib 4.0
- *
- * @author Niels Pardon <mail@niels-pardon.de>
- * @author Benjamin Schulte <benj@minschulte.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TranslatorRegistry
 {

@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\ChangedModel;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class ChangeDateTest extends UnitTestCase
 {

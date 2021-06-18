@@ -15,8 +15,6 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * This class represents a manager for front-end logins, providing access to the logged-in user.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FrontEndLoginManager implements LoginManager
 {

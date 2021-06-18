@@ -11,8 +11,6 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class LazyLoadingPropertiesTest extends UnitTestCase
 {

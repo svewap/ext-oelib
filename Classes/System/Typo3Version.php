@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\System;
 
 /**
  * Utility class for checking the current TYPO3 version.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class Typo3Version
 {

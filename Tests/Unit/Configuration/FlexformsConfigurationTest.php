@@ -14,8 +14,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  * Test case.
  *
  * @covers \OliverKlee\Oelib\Configuration\FlexformsConfiguration
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class FlexformsConfigurationTest extends UnitTestCase
 {

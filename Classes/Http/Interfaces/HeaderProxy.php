@@ -9,8 +9,6 @@ namespace OliverKlee\Oelib\Http\Interfaces;
  * need to implement the concrete behavior.
  *
  * Regarding the Strategy pattern, `addHeader()` represents the abstract strategy.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 interface HeaderProxy
 {

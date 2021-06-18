@@ -13,8 +13,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class GermanZipCodeRepositoryTest extends UnitTestCase
 {

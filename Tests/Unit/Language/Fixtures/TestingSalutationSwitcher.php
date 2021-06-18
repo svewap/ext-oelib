@@ -8,8 +8,6 @@ use OliverKlee\Oelib\Language\SalutationSwitcher;
 
 /**
  * This is mere a class used for unit tests. Do not use it for any other purpose.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class TestingSalutationSwitcher extends SalutationSwitcher
 {

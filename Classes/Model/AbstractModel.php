@@ -13,9 +13,6 @@ use OliverKlee\Oelib\Interfaces\Identity;
  * This class represents a general domain model which is capable of lazy loading (using ghosts).
  *
  * A model can have one of the following states: dead, ghost, loading, loaded, virgin.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 abstract class AbstractModel extends AbstractObjectWithAccessors implements Identity
 {

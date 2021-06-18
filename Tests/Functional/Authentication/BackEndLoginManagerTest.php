@@ -16,8 +16,6 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class BackEndLoginManagerTest extends FunctionalTestCase
 {

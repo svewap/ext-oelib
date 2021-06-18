@@ -11,8 +11,6 @@ use TYPO3\CMS\Core\Mail\MailMessage;
  * provides various functions to get them for testing purposes.
  *
  * @deprecated will be removed in oelib 4.0
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class EmailCollector extends AbstractMailer
 {

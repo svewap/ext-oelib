@@ -11,8 +11,6 @@ use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * This class provides functions for localization.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 abstract class SalutationSwitcher extends AbstractPlugin
 {

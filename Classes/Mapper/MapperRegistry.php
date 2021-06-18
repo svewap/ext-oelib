@@ -12,8 +12,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * This class represents a registry for mappers. The mappers must be located in
  * the directory Mapper/ in each extension. Extension can use mappers from
  * other extensions as well.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class MapperRegistry
 {

@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Model\Language;
 
 /**
  * Test case.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class LanguageTest extends UnitTestCase
 {

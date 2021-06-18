@@ -9,8 +9,6 @@ namespace OliverKlee\Oelib\Session;
  * thus not sending any HTTP headers.
  *
  * It is intended for testing purposes.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FakeSession extends Session
 {

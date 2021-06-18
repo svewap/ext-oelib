@@ -13,8 +13,6 @@ use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
  * Test case.
  *
  * @covers \OliverKlee\Oelib\Configuration\DummyConfiguration
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class DummyConfigurationTest extends UnitTestCase
 {

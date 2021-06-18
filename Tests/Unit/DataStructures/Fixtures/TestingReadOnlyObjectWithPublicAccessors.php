@@ -8,8 +8,6 @@ use OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithPublicAccessors;
 
 /**
  * This class represents an object for testing purposes.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class TestingReadOnlyObjectWithPublicAccessors extends AbstractReadOnlyObjectWithPublicAccessors
 {

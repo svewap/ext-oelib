@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Exception\AccessDeniedException;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class AccessDeniedExceptionTest extends UnitTestCase
 {

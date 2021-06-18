@@ -10,8 +10,6 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 /**
  * Testing model for 1azily-loaded properties.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class LazyLoadingModel extends AbstractEntity
 {

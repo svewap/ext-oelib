@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\TestingConfigurationCheck
 
 /**
  * @covers \OliverKlee\Oelib\Configuration\AbstractConfigurationCheck
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class AbstractConfigurationCheckTest extends FunctionalTestCase
 {

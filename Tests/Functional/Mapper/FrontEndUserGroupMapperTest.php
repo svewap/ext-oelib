@@ -11,8 +11,6 @@ use OliverKlee\Oelib\Testing\TestingFramework;
 
 /**
  * Test case.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
  */
 class FrontEndUserGroupMapperTest extends FunctionalTestCase
 {

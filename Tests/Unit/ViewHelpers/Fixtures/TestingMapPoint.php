@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Interfaces\MapPoint;
 
 /**
  * This is just a dummy class that implements the MapPoint interface and the Identity interface.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TestingMapPoint implements MapPoint, Identity
 {

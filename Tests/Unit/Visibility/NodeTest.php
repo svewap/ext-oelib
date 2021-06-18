@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Visibility\Node;
 
 /**
  * Test case.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
  */
 class NodeTest extends UnitTestCase
 {

@@ -8,8 +8,6 @@ use OliverKlee\Oelib\Model\BackEndUserGroup;
 
 /**
  * This class represents a mapper for back-end user groups.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
  */
 class BackEndUserGroupMapper extends AbstractDataMapper
 {

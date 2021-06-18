@@ -20,8 +20,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class takes care of cleaning up oelib after the testing framework.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TestingFrameworkCleanup
 {

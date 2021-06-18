@@ -8,8 +8,6 @@ namespace OliverKlee\Oelib\Email;
  * This class represents an e-mail attachment.
  *
  * @deprecated will be removed in oelib 4.0
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class Attachment
 {

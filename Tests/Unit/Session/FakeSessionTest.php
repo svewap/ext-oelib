@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Session\FakeSession;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FakeSessionTest extends UnitTestCase
 {

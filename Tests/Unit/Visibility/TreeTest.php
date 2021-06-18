@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Visibility\Tree;
 
 /**
  * Test case.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
  */
 class TreeTest extends UnitTestCase
 {

@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Model\Country;
 
 /**
  * This class represents a mapper for countries.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class CountryMapper extends AbstractDataMapper
 {

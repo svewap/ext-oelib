@@ -13,8 +13,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
 {

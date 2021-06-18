@@ -17,9 +17,6 @@ use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Test case.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
- * @author Benjamin Schulte <benj@minschulte.de>
  */
 class TranslatorRegistryTest extends FunctionalTestCase
 {

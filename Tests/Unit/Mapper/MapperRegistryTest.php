@@ -11,8 +11,6 @@ use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class MapperRegistryTest extends UnitTestCase
 {

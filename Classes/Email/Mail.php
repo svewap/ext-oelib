@@ -13,8 +13,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * This class represents an e-mail.
  *
  * @deprecated will be removed in oelib 4.0
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class Mail extends AbstractObjectWithAccessors
 {

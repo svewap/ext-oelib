@@ -10,9 +10,6 @@ use OliverKlee\Oelib\Model\BackEndUser;
 
 /**
  * Test case.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class BackEndUserTest extends UnitTestCase
 {

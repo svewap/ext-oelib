@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 
 /**
  * This class represents a mapper for a testing child model.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class TestingChildMapper extends AbstractDataMapper
 {

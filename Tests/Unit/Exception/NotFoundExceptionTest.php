@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Exception\NotFoundException;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class NotFoundExceptionTest extends UnitTestCase
 {

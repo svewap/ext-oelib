@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Model;
 
 /**
  * This model represents a federal state, e.g., Nordrhein-Westfalen (in Germany).
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FederalState extends AbstractModel
 {

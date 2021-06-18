@@ -17,9 +17,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * should be set before calling render(). You can use the same instance of this
  * view helper to render different values in the same currency by changing the
  * value via setValue().
- *
- * @author Niels Pardon <mail@niels-pardon.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class PriceViewHelper extends AbstractViewHelper
 {

@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Configuration\PageFinder;
 
 /**
  * Test case.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
  */
 class PageFinderTest extends UnitTestCase
 {

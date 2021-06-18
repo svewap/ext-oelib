@@ -10,8 +10,6 @@ namespace OliverKlee\Oelib\Domain\Model\Traits;
  * This is the default implementation of the corresponding interface.
  *
  * Any models that use this mode will still need to map the "tstamp" column using "mapOnProperty".
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de
  */
 trait ChangeDate
 {

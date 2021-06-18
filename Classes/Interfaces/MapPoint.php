@@ -7,8 +7,6 @@ namespace OliverKlee\Oelib\Interfaces;
 /**
  * This interface represents an object that can be positioned on a map, e.g.,
  * on a Google Map.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 interface MapPoint
 {

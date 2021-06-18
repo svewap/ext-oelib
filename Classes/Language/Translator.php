@@ -8,10 +8,6 @@ namespace OliverKlee\Oelib\Language;
  * This class returns localized labels in the given languages.
  *
  * @deprecated will be removed in oelib 4.0
- *
- * @author Niels Pardon <mail@niels-pardon.de>
- * @author Stefano Kowalke <blueduck@gmx.net>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Translator
 {

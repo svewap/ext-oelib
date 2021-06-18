@@ -11,8 +11,6 @@ use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\DummyObjectToCheck;
 
 /**
  * Test case.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class ConfigurationCheckTest extends UnitTestCase
 {

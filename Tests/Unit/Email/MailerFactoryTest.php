@@ -11,9 +11,6 @@ use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * Test case.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class MailerFactoryTest extends UnitTestCase
 {

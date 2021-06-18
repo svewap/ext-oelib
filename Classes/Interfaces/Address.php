@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Interfaces;
 
 /**
  * This interfaces represents a postal address.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
  */
 interface Address
 {

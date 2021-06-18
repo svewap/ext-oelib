@@ -13,8 +13,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * This class represents a service to look up geo coordinates via Google Maps.
  *
  * @see https://developers.google.com/maps/documentation/javascript/geocoding?#GeocodingStatusCodes
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class GoogleGeocoding implements GeocodingLookup
 {

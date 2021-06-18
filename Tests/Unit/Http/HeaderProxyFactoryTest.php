@@ -11,9 +11,6 @@ use OliverKlee\Oelib\Http\RealHeaderProxy;
 
 /**
  * Test case.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class HeaderProxyFactoryTest extends UnitTestCase
 {

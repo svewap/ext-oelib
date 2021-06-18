@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Interfaces\GeocodingLookup;
 
 /**
  * This class represents a faked service to look up geo coordinates.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class DummyGeocodingLookup implements GeocodingLookup
 {

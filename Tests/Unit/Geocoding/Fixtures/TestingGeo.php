@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Model\AbstractModel;
 
 /**
  * This class represents an testing object that can have an address and geo coordinates.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TestingGeo extends AbstractModel implements Geo
 {

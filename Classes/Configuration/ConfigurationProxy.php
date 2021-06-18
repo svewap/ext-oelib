@@ -12,8 +12,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This singleton class provides access to an extension's global configuration
  * and allows to fake global configuration values for testing purposes.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements ConfigurationInterface
 {

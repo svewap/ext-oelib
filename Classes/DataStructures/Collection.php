@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Model\AbstractModel;
 
 /**
  * This class represents a list of models.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class Collection extends \SplObjectStorage
 {

@@ -8,8 +8,6 @@ use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
 /**
  * This class represents a mapper for front-end user groups.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
  */
 class FrontEndUserGroupMapper extends AbstractDataMapper
 {

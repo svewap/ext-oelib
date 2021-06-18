@@ -31,8 +31,6 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * language files so it works even under the worst of circumstances.
  *
  * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class ConfigurationCheck
 {

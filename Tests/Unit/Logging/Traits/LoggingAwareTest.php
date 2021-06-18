@@ -14,8 +14,6 @@ use TYPO3\CMS\Core\Log\LogManagerInterface;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class LoggingAwareTest extends UnitTestCase
 {

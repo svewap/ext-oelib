@@ -22,8 +22,6 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 /**
  * This utility class provides some commonly-used functions for handling
  * templates (in addition to all functionality provided by the base classes).
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TemplateHelper extends SalutationSwitcher
 {

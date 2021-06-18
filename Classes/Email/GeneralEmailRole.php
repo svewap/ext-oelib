@@ -8,8 +8,6 @@ use OliverKlee\Oelib\Interfaces\MailRole;
 
 /**
  * A general email subject.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class GeneralEmailRole implements MailRole
 {

@@ -8,8 +8,6 @@ use OliverKlee\Oelib\Templating\TemplateHelper;
 
 /**
  * This is mere a class used for unit tests. Don't use it for any other purpose.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class TestingTemplateHelper extends TemplateHelper
 {

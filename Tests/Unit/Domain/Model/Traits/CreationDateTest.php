@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\CreatedModel;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class CreationDateTest extends UnitTestCase
 {

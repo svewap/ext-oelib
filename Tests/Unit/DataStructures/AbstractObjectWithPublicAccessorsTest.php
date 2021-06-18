@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures\TestingObjectWithPublicA
 /**
  * @covers \OliverKlee\Oelib\DataStructures\AbstractObjectWithAccessors
  * @covers \OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
 {

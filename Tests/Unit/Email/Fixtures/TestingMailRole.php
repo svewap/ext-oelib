@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Interfaces\MailRole;
 
 /**
  * This class represents an e-mail role, e.g., a sender or a recipient.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class TestingMailRole extends AbstractObjectWithAccessors implements MailRole
 {

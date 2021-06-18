@@ -14,8 +14,6 @@ use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
  * Test case.
  *
  * @covers \OliverKlee\Oelib\Configuration\TypoScriptConfiguration
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class TypoScriptConfigurationTest extends UnitTestCase
 {

@@ -12,8 +12,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @covers \OliverKlee\Oelib\DataStructures\Collection
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 final class CollectionTest extends UnitTestCase
 {

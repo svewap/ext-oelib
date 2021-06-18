@@ -9,8 +9,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This class represents an object that allows getting its data,
  * but only via protected methods so that encapsulation is retained.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 abstract class AbstractReadOnlyObjectWithAccessors
 {

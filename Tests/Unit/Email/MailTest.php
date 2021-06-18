@@ -11,8 +11,6 @@ use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMailRole;
 
 /**
  * Test case.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class MailTest extends UnitTestCase
 {

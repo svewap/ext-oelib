@@ -21,8 +21,6 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TestingFrameworkTest extends FunctionalTestCase
 {

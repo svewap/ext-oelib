@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Model\Country;
 
 /**
  * Test case.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class CountryTest extends UnitTestCase
 {

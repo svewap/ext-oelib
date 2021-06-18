@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Domain\Repository\PageRepository;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class PageRepositoryTest extends FunctionalTestCase
 {

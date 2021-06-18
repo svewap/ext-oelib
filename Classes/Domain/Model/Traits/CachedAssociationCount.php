@@ -16,8 +16,6 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
  *     return $this->getCachedRelationCount('children');
  * }
  * </code>
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de
  */
 trait CachedAssociationCount
 {

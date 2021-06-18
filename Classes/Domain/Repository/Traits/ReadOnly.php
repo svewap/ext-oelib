@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Domain\Repository\Traits;
 
 /**
  * This trait marks repositories as read-only.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de
  */
 trait ReadOnly
 {

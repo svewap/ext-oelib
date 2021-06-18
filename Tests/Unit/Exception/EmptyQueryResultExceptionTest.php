@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Exception\EmptyQueryResultException;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class EmptyQueryResultExceptionTest extends UnitTestCase
 {

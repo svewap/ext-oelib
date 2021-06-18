@@ -9,8 +9,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * Testing repository for the DirectPersist trait.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class DirectPersistRepository extends Repository implements DirectPersist
 {

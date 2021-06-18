@@ -15,8 +15,6 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * This class represents a registration that allows the storage and retrieval of configuration objects.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class ConfigurationRegistry
 {

@@ -8,8 +8,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a registry for templates.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class TemplateRegistry
 {

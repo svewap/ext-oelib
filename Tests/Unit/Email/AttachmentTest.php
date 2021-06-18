@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Email\Attachment;
 
 /**
  * Test case.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class AttachmentTest extends UnitTestCase
 {

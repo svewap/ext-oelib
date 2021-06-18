@@ -12,8 +12,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * adds HTTP headers or an instance of the `HeaderCollector`. The
  * collector stores the headers that were added and does not send them. This
  * mode is for testing purposes.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class HeaderProxyFactory
 {

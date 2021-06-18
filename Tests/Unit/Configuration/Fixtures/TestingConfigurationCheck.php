@@ -6,9 +6,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures;
 
 use OliverKlee\Oelib\Configuration\AbstractConfigurationCheck;
 
-/**
- * @author Oliver Klee <typo3-coding@oliverklee.de>
- */
 final class TestingConfigurationCheck extends AbstractConfigurationCheck
 {
     /**

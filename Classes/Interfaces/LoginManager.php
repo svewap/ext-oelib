@@ -8,8 +8,6 @@ use OliverKlee\Oelib\Model\AbstractModel;
 
 /**
  * This interface represents a manager for logins, providing access to the logged-in user.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 interface LoginManager
 {

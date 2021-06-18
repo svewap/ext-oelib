@@ -12,8 +12,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a mapper for front-end users.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FrontEndUserMapper extends AbstractDataMapper
 {

@@ -11,9 +11,6 @@ use OliverKlee\Oelib\Templating\Template;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class TemplateTest extends UnitTestCase
 {

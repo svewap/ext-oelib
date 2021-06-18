@@ -12,8 +12,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * e-mails or an instance of the EmailCollector.
  *
  * @deprecated will be removed in oelib 4.0
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class MailerFactory implements SingletonInterface
 {

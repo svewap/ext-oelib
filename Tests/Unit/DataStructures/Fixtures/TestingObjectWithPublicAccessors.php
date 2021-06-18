@@ -6,9 +6,6 @@ namespace OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures;
 
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 
-/**
- * @author Oliver Klee <typo3-coding@oliverklee.de>
- */
 final class TestingObjectWithPublicAccessors extends AbstractObjectWithPublicAccessors
 {
     /**

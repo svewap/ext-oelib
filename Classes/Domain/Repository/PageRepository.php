@@ -11,8 +11,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Repository for pages.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class PageRepository implements SingletonInterface
 {

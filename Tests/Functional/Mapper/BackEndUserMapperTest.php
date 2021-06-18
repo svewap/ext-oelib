@@ -15,9 +15,6 @@ use OliverKlee\Oelib\Testing\TestingFramework;
 
 /**
  * Test case.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class BackEndUserMapperTest extends FunctionalTestCase
 {

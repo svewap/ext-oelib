@@ -11,8 +11,6 @@ use TYPO3\CMS\Core\Utility\HttpUtility;
  * This class sends HTTP headers.
  *
  * Regarding the Strategy pattern, `addHeader()` represents one concrete behavior.
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class RealHeaderProxy implements HeaderProxy
 {

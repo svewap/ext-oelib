@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Model;
 
 /**
  * This class represents a front-end user group.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
  */
 class FrontEndUserGroup extends AbstractModel
 {

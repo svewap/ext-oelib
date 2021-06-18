@@ -7,8 +7,6 @@ namespace OliverKlee\Oelib\Interfaces;
 /**
  * This interface provides functions for looking up the coordinates of an
  * address.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 interface GeocodingLookup
 {

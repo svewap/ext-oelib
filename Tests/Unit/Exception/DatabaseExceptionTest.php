@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Exception\DatabaseException;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class DatabaseExceptionTest extends UnitTestCase
 {

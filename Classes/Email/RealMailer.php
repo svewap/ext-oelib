@@ -10,8 +10,6 @@ use TYPO3\CMS\Core\Mail\MailMessage;
  * This class sends e-mails.
  *
  * @deprecated will be removed in oelib 4.0
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
  */
 class RealMailer extends AbstractMailer
 {

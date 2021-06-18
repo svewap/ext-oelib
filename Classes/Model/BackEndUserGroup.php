@@ -8,9 +8,6 @@ use OliverKlee\Oelib\DataStructures\Collection;
 
 /**
  * This class represents a back-end user group.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class BackEndUserGroup extends AbstractModel
 {

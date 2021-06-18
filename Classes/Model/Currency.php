@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Model;
 
 /**
  * This class represents a currency.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class Currency extends AbstractModel
 {

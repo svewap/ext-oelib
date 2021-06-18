@@ -8,8 +8,6 @@ use OliverKlee\Oelib\Logging\Interfaces\LoggingAware;
 
 /**
  * Testing class for the LoggingAware trait.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TestingLoggingAware implements LoggingAware
 {

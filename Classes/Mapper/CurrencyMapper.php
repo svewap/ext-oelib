@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Model\Currency;
 
 /**
  * This class represents a mapper for currencies.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class CurrencyMapper extends AbstractDataMapper
 {

@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Interfaces\Time;
 
 /**
  * Test case.
- *
- * @author Stefano Kowalke <info@arroba-it.de>
  */
 class TimeTest extends UnitTestCase
 {

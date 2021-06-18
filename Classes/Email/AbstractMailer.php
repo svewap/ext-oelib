@@ -11,9 +11,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Abstract class for sending e-mails (or faking it) using the Strategy pattern.
  *
  * @deprecated will be removed in oelib 4.0
- *
- * @author Saskia Metzler <saskia@merlin.owl.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 abstract class AbstractMailer
 {

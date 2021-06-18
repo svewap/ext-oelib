@@ -10,9 +10,6 @@ use OliverKlee\Oelib\ViewHelpers\PriceViewHelper;
 
 /**
  * Test case.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class PriceViewHelperTest extends FunctionalTestCase
 {

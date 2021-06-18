@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class BackEndLoginManagerTest extends UnitTestCase
 {

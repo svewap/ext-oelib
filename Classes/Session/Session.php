@@ -9,8 +9,6 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * This Singleton class represents a session and its data.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Session extends AbstractObjectWithPublicAccessors
 {

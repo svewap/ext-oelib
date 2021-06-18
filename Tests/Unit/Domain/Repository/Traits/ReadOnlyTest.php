@@ -12,8 +12,6 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class ReadOnlyTest extends UnitTestCase
 {

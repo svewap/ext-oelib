@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Visibility;
 
 /**
  * This class represents a node for a visibility tree.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
  */
 class Node
 {

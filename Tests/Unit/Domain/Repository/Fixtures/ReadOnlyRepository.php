@@ -9,8 +9,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * Testing repository for the ReadOnly trait.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class ReadOnlyRepository extends Repository
 {

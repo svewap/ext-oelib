@@ -11,8 +11,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * Repository for GermanZipCode models.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de
  */
 class GermanZipCodeRepository extends Repository
 {

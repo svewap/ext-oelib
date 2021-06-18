@@ -8,8 +8,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a visibility tree.
- *
- * @author Bernd Schönbach <bernd@oliverklee.de>
  */
 class Tree
 {

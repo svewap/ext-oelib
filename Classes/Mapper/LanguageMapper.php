@@ -9,9 +9,6 @@ use OliverKlee\Oelib\Model\Language;
 
 /**
  * This class represents a mapper for languages.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class LanguageMapper extends AbstractDataMapper
 {

@@ -51,8 +51,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
  * </output>
  *
  * @see https://github.com/rmm5t/jquery-timeago
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class DynamicDateViewHelper extends AbstractViewHelper implements CompilableInterface
 {

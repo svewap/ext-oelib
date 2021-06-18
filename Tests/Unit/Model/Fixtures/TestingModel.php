@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Model\FrontEndUser;
 
 /**
  * Testing model.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TestingModel extends AbstractModel
 {

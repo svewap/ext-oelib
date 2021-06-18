@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Interfaces;
 
 /**
  * This class provides time-related constants.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 interface Time
 {

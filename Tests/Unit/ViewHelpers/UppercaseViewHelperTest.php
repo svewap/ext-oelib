@@ -9,8 +9,6 @@ use OliverKlee\Oelib\ViewHelpers\UppercaseViewHelper;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class UppercaseViewHelperTest extends ViewHelperBaseTestcase
 {

@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Templating\TemplateRegistry;
 
 /**
  * Test case.
- *
- * @author Niels Pardon <mail@niels-pardon.de>
  */
 class TemplateRegistryTest extends UnitTestCase
 {

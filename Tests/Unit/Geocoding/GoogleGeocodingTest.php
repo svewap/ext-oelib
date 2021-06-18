@@ -14,8 +14,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Test case.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class GoogleGeocodingTest extends UnitTestCase
 {

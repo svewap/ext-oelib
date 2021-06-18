@@ -9,8 +9,6 @@ use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 /**
  * This configuration provides fallback functionality to a secondary configuration
  * if the requested data in the primary configuration is empty.
- *
- * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class FallbackConfiguration implements ConfigurationInterface
 {
