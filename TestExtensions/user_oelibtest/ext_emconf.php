@@ -1,6 +1,6 @@
 <?php
 
-$EM_CONF[$_EXTKEY] = [
+$EM_CONF['user_oelibtest'] = [
     'title' => 'Test extension for tx_oelib',
     'description' => 'Test extension for tx_oelib',
     'version' => '3.0.0',
