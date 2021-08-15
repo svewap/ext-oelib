@@ -1035,6 +1035,7 @@ class TestingFrameworkTest extends FunctionalTestCase
     public function cleanUpDeletesCreatedDummyUploadFolder()
     {
         if (Typo3Version::isNotHigherThan(8)) {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         } else {
             $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
@@ -3115,6 +3116,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
+        // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9004000) {
             $groups = GeneralUtility::intExplode(',', $this->getFrontEndController()->gr_list);
         } else {

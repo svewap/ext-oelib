@@ -901,6 +901,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function insertMakesUidAccessibleAsLastInsertUidOnConnection()
     {
+        // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
             self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
         }
@@ -937,6 +938,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectForEmptyTableNameThrowsException()
     {
+        // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
             self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
         }
@@ -951,6 +953,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectForEmptyFieldListThrowsException()
     {
+        // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
             self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
         }
@@ -1318,6 +1321,7 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function getDatabaseConnectionReturnsGlobalsDatabaseConnection()
     {
+        // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
         if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
             self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
         }

@@ -40,6 +40,7 @@ final class Typo3Version
         if (\class_exists(\TYPO3\CMS\Core\Information\Typo3Version::class)) {
             $majorVersion = self::getVersionUtility()->getMajorVersion();
         } else {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $explodedVersion = \explode('.', TYPO3_version, 2);
             $majorVersion = (int)$explodedVersion[0];
         }

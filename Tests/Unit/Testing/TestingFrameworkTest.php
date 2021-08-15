@@ -79,6 +79,7 @@ class TestingFrameworkTest extends UnitTestCase
     public function cleanUpWithoutDatabaseDeletesCreatedDummyUploadFolder()
     {
         if (Typo3Version::isNotHigherThan(8)) {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         } else {
             $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
@@ -212,6 +213,7 @@ class TestingFrameworkTest extends UnitTestCase
     public function createDummyFileForNonExistentUploadFolderSetCreatesUploadFolder()
     {
         if (Typo3Version::isNotHigherThan(8)) {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         } else {
             $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
@@ -227,6 +229,7 @@ class TestingFrameworkTest extends UnitTestCase
     public function createDummyFileForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder()
     {
         if (Typo3Version::isNotHigherThan(8)) {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         } else {
             $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
@@ -321,6 +324,7 @@ class TestingFrameworkTest extends UnitTestCase
     public function createDummyFolderForNonExistentUploadFolderSetCreatesUploadFolder()
     {
         if (Typo3Version::isNotHigherThan(8)) {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         } else {
             $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
@@ -336,6 +340,7 @@ class TestingFrameworkTest extends UnitTestCase
     public function createDummyFolderForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder()
     {
         if (Typo3Version::isNotHigherThan(8)) {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
         } else {
             $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
@@ -406,6 +411,7 @@ class TestingFrameworkTest extends UnitTestCase
         );
 
         if (Typo3Version::isNotHigherThan(8)) {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $this->subject->getPathRelativeToUploadDirectory(PATH_site);
         } else {
             $this->subject->getPathRelativeToUploadDirectory(Environment::getPublicPath() . '/');

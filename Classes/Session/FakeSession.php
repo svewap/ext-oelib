@@ -24,6 +24,8 @@ class FakeSession extends Session
      * for the unit tests, also bypassing the check for a front end.
      *
      * @param int $type
+     *
+     * @phpstan-ignore-next-line The parameter is unused on purpose.
      */
     public function __construct(int $type = 0)
     {

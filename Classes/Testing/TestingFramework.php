@@ -216,6 +216,7 @@ class TestingFramework
         $this->tablePrefix = $tablePrefix;
         $this->additionalTablePrefixes = $additionalTablePrefixes;
         if (Typo3Version::isNotHigherThan(8)) {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $this->uploadFolderPath = PATH_site . 'typo3temp/' . $this->tablePrefix . '/';
         } else {
             $this->uploadFolderPath = Environment::getPublicPath() . '/typo3temp/' . $this->tablePrefix . '/';
