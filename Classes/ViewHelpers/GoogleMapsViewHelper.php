@@ -118,7 +118,7 @@ class GoogleMapsViewHelper extends AbstractViewHelper
         // pageRenderer->addJsLibrary() would not work here if this ViewHelper
         // is used in an uncached plugin on a cached page.
         $this->getFrontEndController()->additionalHeaderData[self::LIBRARY_JAVASCRIPT_HEADER_KEY]
-            = '<script src="' . self::GOOGLE_MAPS_LIBRARY_URL . $apiKey . '" type="text/javascript"></script>';
+            = '<script src="' . self::GOOGLE_MAPS_LIBRARY_URL . $apiKey . '></script>';
 
         $initializeFunctionName = 'initializeGoogleMap_' . $this->mapNumber;
         $this->getFrontEndController()->additionalJavaScript[$mapId]
@@ -128,7 +128,7 @@ class GoogleMapsViewHelper extends AbstractViewHelper
         // for uncached plugins on cached pages.
         return '<div id="' . $mapId . '" style="width: ' .
             $width . '; height: ' . $height . ";\"></div>\n" .
-            '<script type="text/javascript">' . $initializeFunctionName . "();</script>\n";
+            '<script>' . $initializeFunctionName . "();</script>\n";
     }
 
     /**

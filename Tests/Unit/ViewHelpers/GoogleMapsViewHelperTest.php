@@ -241,10 +241,8 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $this->subject->render([$this->mapPointWithCoordinates]);
 
         self::assertContains(
-            '<script src="https://maps.googleapis.com/maps/api/js?key=' . $apiKey
-            . '" type="text/javascript"></script>',
-            $this->mockFrontEnd
-                ->additionalHeaderData[GoogleMapsViewHelper::LIBRARY_JAVASCRIPT_HEADER_KEY]
+            '<script src="https://maps.googleapis.com/maps/api/js?key=' . $apiKey . '></script>',
+            $this->mockFrontEnd->additionalHeaderData[GoogleMapsViewHelper::LIBRARY_JAVASCRIPT_HEADER_KEY]
         );
     }
 

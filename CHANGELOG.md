@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - De-deprecate the HTTP-related classes (#616)
 
 ### Removed
+- Drop `type="text/javascript"` from `script` tags (#634)
 
 ### Fixed
 - Stop using the TYPO3-custom whitespace constant (#631)

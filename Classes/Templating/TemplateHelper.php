@@ -1051,12 +1051,7 @@ class TemplateHelper extends SalutationSwitcher
     {
         if ($this->hasConfValueString('jsFile', 's_template_special')) {
             $this->getFrontEndController()->additionalHeaderData[$this->prefixId . '_js']
-                = '<script type="text/javascript" src="'
-                . $this->getConfValueString(
-                    'jsFile',
-                    's_template_special',
-                    true
-                ) . '"></script>';
+                = '<script src="' . $this->getConfValueString('jsFile', 's_template_special', true) . '"></script>';
         }
     }
 
