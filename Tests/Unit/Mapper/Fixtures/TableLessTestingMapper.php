@@ -9,11 +9,13 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
  * Testing mapper without a table name.
+ *
+ * @extends AbstractDataMapper<TestingModel>
  */
 class TableLessTestingMapper extends AbstractDataMapper
 {
     /**
-     * @var string the model class name for this mapper, must not be empty
+     * @var class-string<TestingModel> the model class name for this mapper, must not be empty
      */
     protected $modelClassName = TestingModel::class;
 }

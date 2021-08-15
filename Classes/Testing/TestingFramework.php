@@ -39,7 +39,7 @@ class TestingFramework
      * cache for the results of hasTableColumn with the column names as keys and
      * the SHOW COLUMNS field information (in an array) as values
      *
-     * @var <string, array<string, array>>
+     * @var array<string, array<string, array>>
      */
     private static $tableColumnCache = [];
 

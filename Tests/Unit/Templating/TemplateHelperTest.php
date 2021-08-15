@@ -27,12 +27,12 @@ class TemplateHelperTest extends UnitTestCase
     private $subject = null;
 
     /**
-     * @var ConfigurationCheck|ObjectProphecy
+     * @var ObjectProphecy
      */
     private $defaultConfigurationCheckProphecy = null;
 
     /**
-     * @var TestingConfigurationCheck|ObjectProphecy
+     * @var ObjectProphecy
      */
     private $customConfigurationCheckProphecy = null;
 
@@ -73,7 +73,9 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function defaultConfigurationCheckCanBeUsed()
     {
-        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        /** @var ConfigurationProxy $configuration */
+        $configuration = ConfigurationProxy::getInstance('oelib');
+        $configuration->setAsBoolean('enableConfigCheck', true);
         $subject = new TestingTemplateHelper([]);
 
         self::assertInstanceOf(ConfigurationCheck::class, $subject->getConfigurationCheck());
@@ -84,9 +86,12 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function checkConfigurationWithEnabledConfigurationAndDefaultConfigurationCheckCheckChecksIt()
     {
-        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        /** @var ConfigurationProxy $configuration */
+        $configuration = ConfigurationProxy::getInstance('oelib');
+        $configuration->setAsBoolean('enableConfigCheck', true);
         $subject = new TestingTemplateHelper([]);
 
+        // @phpstan-ignore-next-line This requires the Prophecy plugin for PHPStan (which requires PHP >= 7.2).
         $this->defaultConfigurationCheckProphecy->checkItAndWrapIt()->shouldBeCalled();
 
         $subject->checkConfiguration();
@@ -97,7 +102,9 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function customConfigurationCheckCanBeSet()
     {
-        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        /** @var ConfigurationProxy $configuration */
+        $configuration = ConfigurationProxy::getInstance('oelib');
+        $configuration->setAsBoolean('enableConfigCheck', true);
         $subject = new PluginWithCustomConfigurationCheck();
         $subject->init([]);
 
@@ -109,10 +116,13 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function checkConfigurationWithEnabledConfigurationAndCustomConfigurationCheckCheckChecksIt()
     {
-        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        /** @var ConfigurationProxy $configuration */
+        $configuration = ConfigurationProxy::getInstance('oelib');
+        $configuration->setAsBoolean('enableConfigCheck', true);
         $subject = new PluginWithCustomConfigurationCheck();
         $subject->init([]);
 
+        // @phpstan-ignore-next-line This requires the Prophecy plugin for PHPStan (which requires PHP >= 7.2).
         $this->customConfigurationCheckProphecy->checkItAndWrapIt()->shouldBeCalled();
 
         $subject->checkConfiguration();
@@ -151,7 +161,9 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function configurationCheckCreationForEnabledConfigurationCheck()
     {
-        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        /** @var ConfigurationProxy $configuration */
+        $configuration = ConfigurationProxy::getInstance('oelib');
+        $configuration->setAsBoolean('enableConfigCheck', true);
         $result = (new TestingTemplateHelper())->getConfigurationCheck();
 
         self::assertNotNull($result);
@@ -162,7 +174,9 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function configurationCheckCreationForDisabledConfigurationCheck()
     {
-        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', false);
+        /** @var ConfigurationProxy $configuration */
+        $configuration = ConfigurationProxy::getInstance('oelib');
+        $configuration->setAsBoolean('enableConfigCheck', false);
 
         $result = (new TestingTemplateHelper())->getConfigurationCheck();
 

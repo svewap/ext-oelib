@@ -17,7 +17,7 @@ class FrontEndUserGroupMapper extends AbstractDataMapper
     protected $tableName = 'fe_groups';
 
     /**
-     * @var string the model class name for this mapper, must not be empty
+     * @var class-string<FrontEndUserGroup> the model class name for this mapper, must not be empty
      */
     protected $modelClassName = FrontEndUserGroup::class;
 }

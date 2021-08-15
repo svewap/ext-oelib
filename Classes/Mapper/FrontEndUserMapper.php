@@ -21,7 +21,7 @@ class FrontEndUserMapper extends AbstractDataMapper
     protected $tableName = 'fe_users';
 
     /**
-     * @var string the model class name for this mapper, must not be empty
+     * @var class-string<FrontEndUser> the model class name for this mapper, must not be empty
      */
     protected $modelClassName = FrontEndUser::class;
 

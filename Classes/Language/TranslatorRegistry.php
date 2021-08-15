@@ -248,6 +248,7 @@ class TranslatorRegistry
         $result = [];
         $namespace = 'plugin.tx_' . $extensionName . '._LOCAL_LANG.' . $this->languageKey;
 
+        /** @var TypoScriptConfiguration $configuration */
         $configuration = ConfigurationRegistry::get($namespace);
         foreach ($configuration->getArrayKeys() as $key) {
             $result[$key] = $configuration->getAsString($key);

@@ -35,10 +35,12 @@ class ConfigurationProxyTest extends UnitTestCase
 
     protected function setUp()
     {
-        $this->subject = ConfigurationProxy::getInstance('oelib');
+        /** @var ConfigurationProxy $subject */
+        $subject = ConfigurationProxy::getInstance('oelib');
         // ensures the same configuration at the beginning of each test
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['oelib'] = \serialize($this->testConfiguration);
-        $this->subject->retrieveConfiguration();
+        $subject->retrieveConfiguration();
+        $this->subject = $subject;
     }
 
     protected function tearDown()
@@ -144,6 +146,7 @@ class ConfigurationProxyTest extends UnitTestCase
      */
     public function instantiateAnotherProxyAndSetValueNotAffectsThisFixture()
     {
+        /** @var ConfigurationProxy $otherConfiguration */
         $otherConfiguration = ConfigurationProxy::getInstance('other_extension');
         $otherConfiguration->setAsString('testValue', 'foo');
 

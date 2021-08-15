@@ -10,10 +10,11 @@ use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\IdentityMap;
 use OliverKlee\Oelib\Model\AbstractModel;
+use OliverKlee\Oelib\Model\Country;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
- * Testing mapper.
+ * @extends AbstractDataMapper<TestingModel>
  */
 class TestingMapper extends AbstractDataMapper
 {
@@ -23,7 +24,7 @@ class TestingMapper extends AbstractDataMapper
     protected $tableName = 'tx_oelib_test';
 
     /**
-     * @var string the model class name for this mapper, must not be empty
+     * @var class-string<TestingModel> the model class name for this mapper, must not be empty
      */
     protected $modelClassName = TestingModel::class;
 

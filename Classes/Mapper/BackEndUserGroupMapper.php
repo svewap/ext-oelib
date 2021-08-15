@@ -17,7 +17,7 @@ class BackEndUserGroupMapper extends AbstractDataMapper
     protected $tableName = 'be_groups';
 
     /**
-     * @var string the model class name for this mapper, must not be empty
+     * @var class-string<BackEndUserGroup> the model class name for this mapper, must not be empty
      */
     protected $modelClassName = BackEndUserGroup::class;
 

@@ -18,7 +18,7 @@ class CurrencyMapper extends AbstractDataMapper
     protected $tableName = 'static_currencies';
 
     /**
-     * @var string the model class name for this mapper, must not be empty
+     * @var class-string<Currency> the model class name for this mapper, must not be empty
      */
     protected $modelClassName = Currency::class;
 

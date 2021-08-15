@@ -129,6 +129,7 @@ class TemplateHelper extends SalutationSwitcher
         } else {
             // We need to create our own template setup if we are in the
             // BE and we aren't currently creating a DirectMail page.
+            // @phpstan-ignore-next-line PHPStan does not know about TYPO3_mode.
             if (TYPO3_MODE === 'BE' && !$frontEndController instanceof TypoScriptFrontendController) {
                 $this->conf = $this->retrievePageConfig($pageUid);
             } else {
@@ -526,6 +527,7 @@ class TemplateHelper extends SalutationSwitcher
         // configuration array is not initialized properly.
         // As flexforms can be used in FE mode only, `$ignoreFlexform` is set true if we are in the BE mode.
         // By this, `$this->cObj->fileResource` can be sheltered from being called.
+        // @phpstan-ignore-next-line PHPStan does not know about TYPO3_mode.
         if (TYPO3_MODE === 'BE') {
             $ignoreFlexform = true;
         }

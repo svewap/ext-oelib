@@ -9,6 +9,8 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 
 /**
  * This class represents a mapper for a testing child model.
+ *
+ * @extends AbstractDataMapper<TestingChildModel>
  */
 class TestingChildMapper extends AbstractDataMapper
 {
@@ -18,7 +20,7 @@ class TestingChildMapper extends AbstractDataMapper
     protected $tableName = 'tx_oelib_testchild';
 
     /**
-     * @var string the model class name for this mapper, must not be empty
+     * @var class-string<TestingChildModel> the model class name for this mapper, must not be empty
      */
     protected $modelClassName = TestingChildModel::class;
 

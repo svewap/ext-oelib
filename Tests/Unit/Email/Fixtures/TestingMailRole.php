@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Interfaces\MailRole;
 class TestingMailRole extends AbstractObjectWithAccessors implements MailRole
 {
     /**
-     * @var string[] the data of this object
+     * @var array<string, string>
      */
     private $data = [];
 
@@ -41,7 +41,7 @@ class TestingMailRole extends AbstractObjectWithAccessors implements MailRole
      */
     protected function set($key, $value)
     {
-        $this->data[$key] = $value;
+        $this->data[$key] = (string)$value;
     }
 
     /**
@@ -50,8 +50,7 @@ class TestingMailRole extends AbstractObjectWithAccessors implements MailRole
      * @param string $key
      *        the key of the data item to get, must not be empty
      *
-     * @return mixed the data for the key $key, will be an empty string
-     *               if the key has not been set yet
+     * @return string the data for the key $key, will be an empty string if the key has not been set yet
      */
     protected function get(string $key): string
     {

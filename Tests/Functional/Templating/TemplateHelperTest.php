@@ -32,7 +32,9 @@ class TemplateHelperTest extends FunctionalTestCase
         $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
         $GLOBALS['TSFE'] = $frontEndController;
 
-        ConfigurationProxy::getInstance('oelib')->setAsBoolean('enableConfigCheck', true);
+        /** @var ConfigurationProxy $configuration */
+        $configuration = ConfigurationProxy::getInstance('oelib');
+        $configuration->setAsBoolean('enableConfigCheck', true);
 
         $this->subject = new TestingTemplateHelper([]);
     }

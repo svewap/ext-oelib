@@ -15,7 +15,10 @@ use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Lang\LanguageService;
 
-class TranslatorRegistryTest extends FunctionalTestCase
+/**
+ * @covers \OliverKlee\Oelib\Language\TranslatorRegistry
+ */
+final class TranslatorRegistryTest extends FunctionalTestCase
 {
     /**
      * @var string[]
@@ -223,7 +226,9 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithoutFrontEndLanguageSetsLanguageDefault(string $namespace)
     {
         $this->setUpBackEnd();
-        ConfigurationRegistry::get($namespace)->setData([]);
+        /** @var TypoScriptConfiguration $configuration */
+        $configuration = ConfigurationRegistry::get($namespace);
+        $configuration->setData([]);
 
         self::assertSame(
             'default',
@@ -241,7 +246,9 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithFrontEndLanguageEnglishSetsLanguageEnglish(string $namespace)
     {
         $this->setUpFrontEnd();
-        ConfigurationRegistry::get($namespace)->setData(['language' => 'default']);
+        /** @var TypoScriptConfiguration $configuration */
+        $configuration = ConfigurationRegistry::get($namespace);
+        $configuration->setData(['language' => 'default']);
 
         self::assertSame(
             'default',
@@ -259,7 +266,9 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithFrontEndLanguageGermanSetsLanguageGerman(string $namespace)
     {
         $this->setUpFrontEnd();
-        ConfigurationRegistry::get($namespace)->setData(['language' => 'de']);
+        /** @var TypoScriptConfiguration $configuration */
+        $configuration = ConfigurationRegistry::get($namespace);
+        $configuration->setData(['language' => 'de']);
 
         self::assertSame(
             'de',
@@ -277,7 +286,9 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithoutAlternativeFrontEndLanguageDoesNotSetAlternative(string $namespace)
     {
         $this->setUpFrontEnd();
-        ConfigurationRegistry::get($namespace)->setData([]);
+        /** @var TypoScriptConfiguration $configuration */
+        $configuration = ConfigurationRegistry::get($namespace);
+        $configuration->setData([]);
 
         self::assertSame(
             '',
@@ -295,7 +306,9 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithAlternativeFrontEndLanguageEnglishSetsAlternativeEnglish(string $namespace)
     {
         $this->setUpFrontEnd();
-        ConfigurationRegistry::get($namespace)->setData(['language' => 'de', 'language_alt' => 'default']);
+        /** @var TypoScriptConfiguration $configuration */
+        $configuration = ConfigurationRegistry::get($namespace);
+        $configuration->setData(['language' => 'de', 'language_alt' => 'default']);
 
         self::assertSame(
             'default',
@@ -313,7 +326,9 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithAlternativeFrontEndLanguageGermanSetsAlternativeGerman(string $namespace)
     {
         $this->setUpFrontEnd();
-        ConfigurationRegistry::get($namespace)->setData(['language' => 'default', 'language_alt' => 'de']);
+        /** @var TypoScriptConfiguration $configuration */
+        $configuration = ConfigurationRegistry::get($namespace);
+        $configuration->setData(['language' => 'default', 'language_alt' => 'de']);
 
         self::assertSame(
             'de',
@@ -327,8 +342,12 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithLanguageSetInConfigAndInPageConfigSetsLanguageFromPageConfig()
     {
         $this->setUpFrontEnd();
-        ConfigurationRegistry::get('config')->setData(['language' => 'de']);
-        ConfigurationRegistry::get('page.config')->setData(['language' => 'fr']);
+        /** @var TypoScriptConfiguration $configuration */
+        $configuration = ConfigurationRegistry::get('config');
+        $configuration->setData(['language' => 'de']);
+        /** @var TypoScriptConfiguration $pageConfiguration */
+        $pageConfiguration = ConfigurationRegistry::get('page.config');
+        $pageConfiguration->setData(['language' => 'fr']);
 
         self::assertSame(
             'fr',
@@ -342,8 +361,12 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function initializeFrontEndWithAlternativeLanguageSetInConfigAndInPageConfigUsesFromPageConfig()
     {
         $this->setUpFrontEnd();
-        ConfigurationRegistry::get('config')->setData(['language' => 'de', 'language_alt' => 'cz']);
-        ConfigurationRegistry::get('page.config')->setData(['language' => 'fr', 'language_alt' => 'ja']);
+        /** @var TypoScriptConfiguration $configuration */
+        $configuration = ConfigurationRegistry::get('config');
+        $configuration->setData(['language' => 'de', 'language_alt' => 'cz']);
+        /** @var TypoScriptConfiguration $pageConfiguration */
+        $pageConfiguration = ConfigurationRegistry::get('page.config');
+        $pageConfiguration->setData(['language' => 'fr', 'language_alt' => 'ja']);
 
         self::assertSame(
             'ja',
@@ -375,10 +398,15 @@ class TranslatorRegistryTest extends FunctionalTestCase
     {
         $this->setUpFrontEnd();
 
-        ConfigurationRegistry::get('config')->set('language', 'default');
-        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
-        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
-            ->set('label_test', 'I am from TypoScript.');
+        /** @var TypoScriptConfiguration $configuration */
+        $configuration = ConfigurationRegistry::get('config');
+        $configuration->set('language', 'default');
+        /** @var TypoScriptConfiguration $languageConfiguration */
+        $languageConfiguration = ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG');
+        $languageConfiguration->setData(['default.' => []]);
+        /** @var TypoScriptConfiguration $defaultLanguageConfiguration */
+        $defaultLanguageConfiguration = ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default');
+        $defaultLanguageConfiguration->set('label_test', 'I am from TypoScript.');
 
         self::assertSame(
             'I am from TypoScript.',
@@ -393,9 +421,12 @@ class TranslatorRegistryTest extends FunctionalTestCase
     {
         $this->setUpBackEnd();
 
-        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
-        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
-            ->set('label_test', 'I am from TypoScript.');
+        /** @var TypoScriptConfiguration $languageConfiguration */
+        $languageConfiguration = ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG');
+        $languageConfiguration->setData(['default.' => []]);
+        /** @var TypoScriptConfiguration $defaultLanguageConfiguration */
+        $defaultLanguageConfiguration = ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default');
+        $defaultLanguageConfiguration->set('label_test', 'I am from TypoScript.');
 
         self::assertSame(
             'I am from file.',
@@ -409,10 +440,15 @@ class TranslatorRegistryTest extends FunctionalTestCase
     public function getByExtensionNameDoesNotDeleteLanguageLabelsNotAffectedByTypoScript()
     {
         $this->setUpFrontEnd();
-        ConfigurationRegistry::get('config')->set('language', 'default');
-        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG')->setData(['default.' => []]);
-        ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default')
-            ->set('label_test_2', 'I am from TypoScript.');
+        /** @var TypoScriptConfiguration $configuration */
+        $configuration = ConfigurationRegistry::get('config');
+        $configuration->set('language', 'default');
+        /** @var TypoScriptConfiguration $languageConfiguration */
+        $languageConfiguration = ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG');
+        $languageConfiguration->setData(['default.' => []]);
+        /** @var TypoScriptConfiguration $defaultLanguageConfiguration */
+        $defaultLanguageConfiguration = ConfigurationRegistry::get('plugin.tx_oelib._LOCAL_LANG.default');
+        $defaultLanguageConfiguration->set('label_test_2', 'I am from TypoScript.');
 
         self::assertSame(
             'I am from file.',

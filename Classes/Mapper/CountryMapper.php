@@ -18,7 +18,7 @@ class CountryMapper extends AbstractDataMapper
     protected $tableName = 'static_countries';
 
     /**
-     * @var string the model class name for this mapper, must not be empty
+     * @var class-string<Country> the model class name for this mapper, must not be empty
      */
     protected $modelClassName = Country::class;
 

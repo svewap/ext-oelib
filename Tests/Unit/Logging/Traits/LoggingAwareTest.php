@@ -6,7 +6,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Logging\Traits;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Logging\Interfaces\LoggingAware;
-use OliverKlee\Oelib\Tests\Unit\Domain\Repository\Fixtures\ReadOnlyRepository;
 use OliverKlee\Oelib\Tests\Unit\Logging\Fixtures\TestingLoggingAware;
 use Prophecy\Prophecy\ObjectProphecy;
 use Prophecy\Prophecy\ProphecySubjectInterface;
@@ -15,7 +14,7 @@ use TYPO3\CMS\Core\Log\LogManagerInterface;
 class LoggingAwareTest extends UnitTestCase
 {
     /**
-     * @var ReadOnlyRepository
+     * @var TestingLoggingAware
      */
     private $subject = null;
 
@@ -37,11 +36,12 @@ class LoggingAwareTest extends UnitTestCase
      */
     public function injectLogManagerGetsLoggerForClass()
     {
-        /** @var LogManagerInterface|ObjectProphecy $logManagerProphecy */
+        /** @var ObjectProphecy $logManagerProphecy */
         $logManagerProphecy = $this->prophesize(LogManagerInterface::class);
+        // @phpstan-ignore-next-line This requires the Prophecy plugin for PHPStan (which requires PHP >= 7.2).
         $logManagerProphecy->getLogger(TestingLoggingAware::class)->shouldBeCalled();
 
-        /** @var LogManagerInterface|ProphecySubjectInterface $logManager */
+        /** @var LogManagerInterface&ProphecySubjectInterface $logManager */
         $logManager = $logManagerProphecy->reveal();
 
         $this->subject->injectLogManager($logManager);

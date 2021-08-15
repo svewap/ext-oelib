@@ -382,7 +382,7 @@ abstract class AbstractDataMapper
      * Processes a model's data and creates any relations that are hidden within
      * it using foreign key mapping.
      *
-     * @param array &$data
+     * @param array $data
      *        the model data to process, might be modified
      * @param M $model
      *        the model to create the relations for
@@ -500,7 +500,7 @@ abstract class AbstractDataMapper
     /**
      * Creates an 1:n relation using foreign field mapping.
      *
-     * @param array &$data
+     * @param array $data
      *        the model data to process, will be modified
      * @param string $key
      *        the key of the data item for which the relation should be created,
@@ -548,7 +548,7 @@ abstract class AbstractDataMapper
     /**
      * Creates an n:1 relation using foreign key mapping.
      *
-     * @param array &$data
+     * @param array $data
      *        the model data to process, will be modified
      * @param string $key
      *        the key of the data item for which the relation should be created, must not be empty
@@ -567,7 +567,7 @@ abstract class AbstractDataMapper
     /**
      * Creates an n:1 relation using a comma-separated list of UIDs.
      *
-     * @param array &$data
+     * @param array $data
      *        the model data to process, will be modified
      * @param string $key
      *        the key of the data item for which the relation should be created, must not be empty
@@ -602,7 +602,7 @@ abstract class AbstractDataMapper
      * Note: This doesn't work for the reverse direction of bidirectional
      * relations yet.
      *
-     * @param array &$data
+     * @param array $data
      *        the model data to process, will be modified
      * @param string $key
      *        the key of the data item for which the relation should be created, must not be empty

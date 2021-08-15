@@ -22,6 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop `type="text/javascript"` from `script` tags (#634)
 
 ### Fixed
+- Fix some PHPDoc type annotations (#641)
 - Stop using the TYPO3-custom whitespace constant (#631)
 - Add missing call parameter in the `ConfigurationCheck` (#628)
 

@@ -31,8 +31,10 @@ class GoogleGeocodingTest extends UnitTestCase
         $this->configuration = new TypoScriptConfiguration();
         $configurationRegistry->set('plugin.tx_oelib', $this->configuration);
 
-        $this->subject = GoogleGeocoding::getInstance();
-        $this->subject->setMaximumDelay(1);
+        /** @var GoogleGeocoding $subject */
+        $subject = GoogleGeocoding::getInstance();
+        $subject->setMaximumDelay(1);
+        $this->subject = $subject;
     }
 
     protected function tearDown()

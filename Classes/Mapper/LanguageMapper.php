@@ -18,7 +18,7 @@ class LanguageMapper extends AbstractDataMapper
     protected $tableName = 'static_languages';
 
     /**
-     * @var string the model class name for this mapper, must not be empty
+     * @var class-string<Language> the model class name for this mapper, must not be empty
      */
     protected $modelClassName = Language::class;
 

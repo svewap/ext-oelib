@@ -9,6 +9,8 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
  * This class represents a mapper that is broken because it has no columns defined.
+ *
+ * @extends AbstractDataMapper<TestingModel>
  */
 class ColumnLessTestingMapper extends AbstractDataMapper
 {
@@ -23,7 +25,7 @@ class ColumnLessTestingMapper extends AbstractDataMapper
     protected $columns = '';
 
     /**
-     * @var string the model class name for this mapper, must not be empty
+     * @var class-string<TestingModel> the model class name for this mapper, must not be empty
      */
     protected $modelClassName = TestingModel::class;
 }

@@ -2806,7 +2806,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     /**
      * @param int $uid
      *
-     * @return array|null
+     * @return array
      */
     private function findRecordByUid(int $uid): array
     {

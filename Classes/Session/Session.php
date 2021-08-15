@@ -39,16 +39,16 @@ class Session extends AbstractObjectWithPublicAccessors
     private $type = 0;
 
     /**
-     * @var array<int, \Session> the instances, using the type as key
+     * @var array<int, Session> the instances, using the type as key
      */
     private static $instances = [];
 
     /**
      * The constructor. Use getInstance() instead.
      *
-     * @throws \BadMethodCallException if there is no front end
-     *
      * @param int $type the type of the session to use; either TYPE_USER or TYPE_TEMPORARY
+     *
+     * @throws \BadMethodCallException if there is no front end
      */
     protected function __construct(int $type)
     {
@@ -102,11 +102,11 @@ class Session extends AbstractObjectWithPublicAccessors
     /**
      * Checks that a type ID is valid.
      *
-     * @throws \InvalidArgumentException if $type is neither ::TYPE_USER nor ::TYPE_TEMPORARY
-     *
      * @param int $type the type ID to check
      *
      * @return void
+     *
+     * @throws \InvalidArgumentException if $type is neither ::TYPE_USER nor ::TYPE_TEMPORARY
      */
     protected static function checkType(int $type)
     {
