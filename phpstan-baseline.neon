@@ -1,12 +1,197 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$loginUser\\.$#"
+			count: 1
+			path: Classes/Authentication/FrontEndLoginManager.php
+
+		-
 			message: "#^Constant TYPO3_MODE not found\\.$#"
 			count: 1
 			path: Classes/Configuration/ConfigurationCheck.php
 
 		-
+			message: "#^Call to method exec_INSERTquery\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Database\\\\DatabaseConnection\\.$#"
+			count: 1
+			path: Classes/Database/DatabaseService.php
+
+		-
+			message: "#^Call to method exec_SELECTquery\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Database\\\\DatabaseConnection\\.$#"
+			count: 1
+			path: Classes/Database/DatabaseService.php
+
+		-
+			message: "#^Call to method sql_insert_id\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Database\\\\DatabaseConnection\\.$#"
+			count: 1
+			path: Classes/Database/DatabaseService.php
+
+		-
+			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\Configuration\\:\\:getArrayKeys\\(\\)\\.$#"
+			count: 1
+			path: Classes/Language/TranslatorRegistry.php
+
+		-
+			message:
+				"""
+					#^PHPDoc tag @param has invalid value \\(array &\\$data
+					       the model data to process, might be modified\\)\\: Unexpected token "&", expected variable at offset 149$#
+				"""
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message:
+				"""
+					#^PHPDoc tag @param has invalid value \\(array &\\$data
+					       the model data to process, will be modified\\)\\: Unexpected token "&", expected variable at offset 100$#
+				"""
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message:
+				"""
+					#^PHPDoc tag @param has invalid value \\(array &\\$data
+					       the model data to process, will be modified\\)\\: Unexpected token "&", expected variable at offset 185$#
+				"""
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message:
+				"""
+					#^PHPDoc tag @param has invalid value \\(array &\\$data
+					       the model data to process, will be modified\\)\\: Unexpected token "&", expected variable at offset 89$#
+				"""
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message:
+				"""
+					#^PHPDoc tag @param has invalid value \\(array &\\$data
+					       the model data to process, will be modified\\)\\: Unexpected token "&", expected variable at offset 91$#
+				"""
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Session\\\\Session\\:\\:\\$instances has unknown class Session as its type\\.$#"
+			count: 1
+			path: Classes/Session/Session.php
+
+		-
 			message: "#^Constant TYPO3_MODE not found\\.$#"
 			count: 1
 			path: Classes/Templating/TemplateHelper.php
+
+		-
+			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$beUserLogin\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$loginUser\\.$#"
+			count: 2
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$workspacePreview\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^PHPDoc tag @var has invalid value \\(\\<string, array\\<string, array\\>\\>\\)\\: Unexpected token \"\\<\", expected type at offset 170$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Access to protected property TYPO3\\\\CMS\\\\Core\\\\TypoScript\\\\TemplateService\\:\\:\\$rootId\\.$#"
+			count: 1
+			path: Tests/Functional/Configuration/ConfigurationRegistryTest.php
+
+		-
+			message: "#^Call to method sql_insert_id\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Database\\\\DatabaseConnection\\.$#"
+			count: 1
+			path: Tests/Functional/Database/DatabaseServiceTest.php
+
+		-
+			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\Configuration\\:\\:set\\(\\)\\.$#"
+			count: 5
+			path: Tests/Functional/Language/TranslatorRegistryTest.php
+
+		-
+			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\Configuration\\:\\:setData\\(\\)\\.$#"
+			count: 13
+			path: Tests/Functional/Language/TranslatorRegistryTest.php
+
+		-
+			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\:\\:addRelatedRecord\\(\\)\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
+
+		-
+			message: "#^PHPDoc tag @return with type array\\|null is not subtype of native type array\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
+
+		-
+			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\Configuration\\:\\:setAsBoolean\\(\\)\\.$#"
+			count: 1
+			path: Tests/Functional/Templating/TemplateHelperTest.php
+
+		-
+			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$gr_list\\.$#"
+			count: 1
+			path: Tests/Functional/Testing/TestingFrameworkTest.php
+
+		-
+			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$loginUser\\.$#"
+			count: 2
+			path: Tests/Functional/Testing/TestingFrameworkTest.php
+
+		-
+			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\Configuration\\:\\:retrieveConfiguration\\(\\)\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/ConfigurationProxyTest.php
+
+		-
+			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\Configuration\\:\\:setAsString\\(\\)\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/ConfigurationProxyTest.php
+
+		-
+			message: "#^PHPDoc tag @return with type mixed is not subtype of native type string\\.$#"
+			count: 1
+			path: Tests/Unit/Email/Fixtures/TestingMailRole.php
+
+		-
+			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\GeocodingLookup\\:\\:setMaximumDelay\\(\\)\\.$#"
+			count: 1
+			path: Tests/Unit/Geocoding/GoogleGeocodingTest.php
+
+		-
+			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Repository\\\\Fixtures\\\\ReadOnlyRepository\\:\\:injectLogManager\\(\\)\\.$#"
+			count: 1
+			path: Tests/Unit/Logging/Traits/LoggingAwareTest.php
+
+		-
+			message: "#^Call to an undefined method Psr\\\\Log\\\\LoggerInterface\\:\\:shouldBeCalled\\(\\)\\.$#"
+			count: 1
+			path: Tests/Unit/Logging/Traits/LoggingAwareTest.php
+
+		-
+			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\Configuration\\:\\:setAsBoolean\\(\\)\\.$#"
+			count: 6
+			path: Tests/Unit/Templating/TemplateHelperTest.php
+
+		-
+			message: "#^Cannot call method shouldBeCalled\\(\\) on string\\.$#"
+			count: 2
+			path: Tests/Unit/Templating/TemplateHelperTest.php
+
+		-
+			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:render\\(\\)\\.$#"
+			count: 3
+			path: Tests/Unit/ViewHelpers/UppercaseViewHelperTest.php
 
