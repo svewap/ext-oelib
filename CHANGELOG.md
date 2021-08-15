@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 3.4.0
+
+### Added
 - Add generics (#636)
 - Add PHPStan to the CI builds (#625)
 - Allow installations up to PHP 8.0 (#620)
