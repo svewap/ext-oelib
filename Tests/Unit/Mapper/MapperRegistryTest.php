@@ -83,6 +83,7 @@ class MapperRegistryTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
+        // @phpstan-ignore-next-line We're testing a contract violation here on purpose.
         MapperRegistry::get(InexistentMapper::class);
     }
 

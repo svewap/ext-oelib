@@ -615,6 +615,8 @@ class DatabaseService
      * @return DatabaseConnection
      *
      * @deprecated will be removed in oelib 4.0
+     *
+     * @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
      */
     public static function getDatabaseConnection(): DatabaseConnection
     {

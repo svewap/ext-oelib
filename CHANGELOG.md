@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Add missing call parameter in the `ConfigurationCheck` (#628)
 
 ## 3.3.0
 

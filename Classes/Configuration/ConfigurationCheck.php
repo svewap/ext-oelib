@@ -903,7 +903,7 @@ class ConfigurationCheck
 
             foreach ($allValues as $currentValue) {
                 if (!in_array($currentValue, $allowedValues, true)) {
-                    $message = $this->buildWarningStartWithKeyAndValue($key) .
+                    $message = $this->buildWarningStartWithKeyAndValue($key, $currentValue) .
                         'the following values are allowed: <br/><strong>' . $this->buildValueOverview($allowedValues) .
                         '</strong><br />' .
                         $explanation;

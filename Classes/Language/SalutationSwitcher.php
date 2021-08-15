@@ -61,6 +61,7 @@ abstract class SalutationSwitcher extends AbstractPlugin
     public function __wakeup()
     {
         if (Typo3Version::isNotHigherThan(8)) {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $this->databaseConnection = $GLOBALS['TYPO3_DB'];
         }
         $this->frontendController = $this->getFrontEndController();
