@@ -11,7 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Allow installations up to PHP 8.0 (#620)
 
 ### Changed
-- Raise PHPStan to level 2 (#629, #633)
+- Raise PHPStan to level 3 (#629, #633, #642)
 - Update the `.editorconfig` to better match the Core (#614)
 
 ### Deprecated

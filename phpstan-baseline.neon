@@ -1,2 +1,242 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\:\\:getInstance\\(\\) should return static\\(OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\) but returns OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\.$#"
+			count: 1
+			path: Classes/Authentication/BackEndLoginManager.php
+
+		-
+			message: "#^Static property OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\:\\:\\$instance \\(OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\) does not accept null\\.$#"
+			count: 1
+			path: Classes/Authentication/BackEndLoginManager.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\:\\:getInstance\\(\\) should return static\\(OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\) but returns OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\.$#"
+			count: 1
+			path: Classes/Authentication/FrontEndLoginManager.php
+
+		-
+			message: "#^Static property OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\:\\:\\$instance \\(OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\) does not accept null\\.$#"
+			count: 1
+			path: Classes/Authentication/FrontEndLoginManager.php
+
+		-
+			message: "#^Property TYPO3\\\\CMS\\\\Core\\\\TypoScript\\\\TemplateService\\:\\:\\$tt_track \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: Classes/Configuration/ConfigurationRegistry.php
+
+		-
+			message: "#^Static property OliverKlee\\\\Oelib\\\\Configuration\\\\ConfigurationRegistry\\:\\:\\$instance \\(OliverKlee\\\\Oelib\\\\Configuration\\\\ConfigurationRegistry\\) does not accept null\\.$#"
+			count: 1
+			path: Classes/Configuration/ConfigurationRegistry.php
+
+		-
+			message: "#^Static property OliverKlee\\\\Oelib\\\\Configuration\\\\PageFinder\\:\\:\\$instance \\(OliverKlee\\\\Oelib\\\\Configuration\\\\PageFinder\\) does not accept null\\.$#"
+			count: 1
+			path: Classes/Configuration/PageFinder.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\:\\:inRange\\(\\) should return iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 1
+			path: Classes/DataStructures/Collection.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Database\\\\DatabaseService\\:\\:selectColumnForMultiple\\(\\) should return array\\<string, string\\> but returns array\\<int, string\\>\\.$#"
+			count: 1
+			path: Classes/Database/DatabaseService.php
+
+		-
+			message: "#^Offset '0'\\|'1'\\|'2' does not exist on array\\<string, array\\<string, string\\>\\>\\.$#"
+			count: 1
+			path: Classes/Database/DatabaseService.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Geocoding\\\\GeoCalculator\\:\\:filterByDistance\\(\\) should return iterable\\<OliverKlee\\\\Oelib\\\\Interfaces\\\\Geo\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 2
+			path: Classes/Geocoding/GeoCalculator.php
+
+		-
+			message: "#^Static property OliverKlee\\\\Oelib\\\\Geocoding\\\\GoogleGeocoding\\:\\:\\$instance \\(OliverKlee\\\\Oelib\\\\Interfaces\\\\GeocodingLookup\\) does not accept null\\.$#"
+			count: 1
+			path: Classes/Geocoding/GoogleGeocoding.php
+
+		-
+			message: "#^Static property OliverKlee\\\\Oelib\\\\Language\\\\TranslatorRegistry\\:\\:\\$instance \\(OliverKlee\\\\Oelib\\\\Language\\\\TranslatorRegistry\\) does not accept null\\.$#"
+			count: 1
+			path: Classes/Language/TranslatorRegistry.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:find\\(\\) should return M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel but returns OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:getListOfModels\\(\\) should return iterable\\<M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:\\$modelClassName \\(class\\-string\\<M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\) does not accept default value of type string\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\CountryMapper\\:\\:\\$additionalKeys \\(array\\<string, string\\>\\) does not accept default value of type array\\<int, string\\>\\.$#"
+			count: 1
+			path: Classes/Mapper/CountryMapper.php
+
+		-
+			message: "#^Static property OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\:\\:\\$instance \\(OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\) does not accept null\\.$#"
+			count: 1
+			path: Classes/Mapper/MapperRegistry.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\:\\:getAsCollection\\(\\) should return iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 1
+			path: Classes/Model/AbstractModel.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Model\\\\BackEndUser\\:\\:getAllGroups\\(\\) should return iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUserGroup\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 1
+			path: Classes/Model/BackEndUser.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Model\\\\BackEndUser\\:\\:getGroups\\(\\) should return iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUserGroup\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 1
+			path: Classes/Model/BackEndUser.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Model\\\\BackEndUserGroup\\:\\:getSubgroups\\(\\) should return iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUserGroup\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 1
+			path: Classes/Model/BackEndUserGroup.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Model\\\\FrontEndUser\\:\\:getUserGroups\\(\\) should return iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUserGroup\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 1
+			path: Classes/Model/FrontEndUser.php
+
+		-
+			message: "#^Array \\(array\\<string, string\\>\\) does not accept true\\.$#"
+			count: 1
+			path: Classes/Templating/Template.php
+
+		-
+			message: "#^Property TYPO3\\\\CMS\\\\Core\\\\TypoScript\\\\TemplateService\\:\\:\\$tt_track \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: Classes/Templating/TemplateHelper.php
+
+		-
+			message: "#^Static property OliverKlee\\\\Oelib\\\\Templating\\\\TemplateRegistry\\:\\:\\$instance \\(OliverKlee\\\\Oelib\\\\Templating\\\\TemplateRegistry\\) does not accept null\\.$#"
+			count: 1
+			path: Classes/Templating/TemplateRegistry.php
+
+		-
+			message: "#^Property TYPO3\\\\CMS\\\\Core\\\\TypoScript\\\\TemplateService\\:\\:\\$loaded \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\ViewHelpers\\\\PriceViewHelper\\:\\:\\$currency \\(OliverKlee\\\\Oelib\\\\Model\\\\Currency\\) does not accept null\\.$#"
+			count: 2
+			path: Classes/ViewHelpers/PriceViewHelper.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\BackEndLoginManagerTest\\:\\:\\$backEndUserMapper \\(OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserMapper\\) does not accept OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\.$#"
+			count: 1
+			path: Tests/Functional/Authentication/BackEndLoginManagerTest.php
+
+		-
+			message: "#^Property TYPO3\\\\CMS\\\\Core\\\\TypoScript\\\\TemplateService\\:\\:\\$loaded \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: Tests/Functional/Configuration/ConfigurationRegistryTest.php
+
+		-
+			message: "#^Property TYPO3\\\\CMS\\\\Core\\\\TypoScript\\\\TemplateService\\:\\:\\$rootLine \\(array\\) does not accept false\\.$#"
+			count: 1
+			path: Tests/Functional/Configuration/ConfigurationRegistryTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Database\\\\DatabaseServiceTest\\:\\:hiddenRecordDataProvider\\(\\) should return array\\<array\\<int\\>\\> but returns array\\<string, array\\<int, array\\<string, int\\>\\>\\>\\.$#"
+			count: 1
+			path: Tests/Functional/Database/DatabaseServiceTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Domain\\\\Repository\\\\PageRepositoryTest\\:\\:recursionDataProvider\\(\\) should return array\\<string, array\\<int\\>\\> but returns array\\<int, array\\<int, int\\>\\>\\.$#"
+			count: 1
+			path: Tests/Functional/Domain/Repository/PageRepositoryTest.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\AbstractDataMapperTest\\:\\:\\$subject \\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\) does not accept OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\AbstractModelTest\\:\\:\\$dataMapper \\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\) does not accept OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\.$#"
+			count: 1
+			path: Tests/Functional/Model/AbstractModelTest.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\AbstractModelTest\\:\\:\\$subject \\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\) does not accept OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\.$#"
+			count: 1
+			path: Tests/Functional/Model/AbstractModelTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\AbstractConfigurationCheckTest\\:\\:integerInRangeDataProvider\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string, array\\<int, int\\>\\>\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/AbstractConfigurationCheckTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\AbstractConfigurationCheckTest\\:\\:integerNotInRangeDataProvider\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string, array\\<int, int\\>\\>\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/AbstractConfigurationCheckTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\AbstractConfigurationCheckTest\\:\\:nonBooleanStringDataProvider\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<int\\|string, array\\<int, string\\>\\>\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/AbstractConfigurationCheckTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessorsTest\\:\\:integerDataProvider\\(\\) should return array\\<string, array\\<int, float\\|int\\|string\\>\\> but returns array\\<string, array\\<int, float\\|int\\|string\\|true\\>\\>\\.$#"
+			count: 1
+			path: Tests/Unit/DataStructures/AbstractReadOnlyObjectWithAccessorsTest.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Fixtures\\\\ParentModel\\:\\:\\$children \\(iterable\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Fixtures\\\\ParentModel\\>&TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\ObjectStorage\\) does not accept TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\ObjectStorage\\.$#"
+			count: 2
+			path: Tests/Unit/Domain/Fixtures/ParentModel.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Http\\\\HeaderProxyFactoryTest\\:\\:\\$subject \\(OliverKlee\\\\Oelib\\\\Http\\\\HeaderCollector\\) does not accept OliverKlee\\\\Oelib\\\\Http\\\\Interfaces\\\\HeaderProxy\\.$#"
+			count: 1
+			path: Tests/Unit/Http/HeaderProxyFactoryTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\:\\:getBidirectional\\(\\) should return iterable\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 1
+			path: Tests/Unit/Model/Fixtures/TestingModel.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\:\\:getChildren\\(\\) should return iterable\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 1
+			path: Tests/Unit/Model/Fixtures/TestingModel.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\:\\:getComposition\\(\\) should return iterable\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingChildModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 1
+			path: Tests/Unit/Model/Fixtures/TestingModel.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\:\\:getRelatedRecords\\(\\) should return iterable\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection but returns iterable\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>&OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
+			count: 1
+			path: Tests/Unit/Model/Fixtures/TestingModel.php
+
+		-
+			message: "#^Property TYPO3\\\\CMS\\\\Frontend\\\\Plugin\\\\AbstractPlugin\\:\\:\\$cObj \\(TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer\\) does not accept null\\.$#"
+			count: 1
+			path: Tests/Unit/Templating/TemplateHelperTest.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\ViewHelpers\\\\GoogleMapsViewHelperTest\\:\\:\\$mockFrontEnd \\(TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\) does not accept PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
+			count: 1
+			path: Tests/Unit/ViewHelpers/GoogleMapsViewHelperTest.php
+
