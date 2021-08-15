@@ -19,9 +19,7 @@ class FakeSessionTest extends UnitTestCase
         $this->subject = new FakeSession();
     }
 
-    /*
-     * Tests for the basic functions
-     */
+    // Tests for the basic functions
 
     /**
      * @test
@@ -33,9 +31,7 @@ class FakeSessionTest extends UnitTestCase
         new FakeSession();
     }
 
-    /*
-     * Tests that the setters/getters work
-     */
+    // Tests that the setters/getters work
 
     /**
      * @test

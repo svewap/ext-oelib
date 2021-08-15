@@ -174,9 +174,7 @@ class DatabaseService
         return $result;
     }
 
-    /*
-     * Wrappers for common queries
-     */
+    // Wrappers for common queries
 
     /**
      * Executes a DELETE query.

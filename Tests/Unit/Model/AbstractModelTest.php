@@ -37,9 +37,7 @@ class AbstractModelTest extends UnitTestCase
     {
     }
 
-    /*
-     * Tests concerning __clone
-     */
+    // Tests concerning __clone
 
     /**
      * @test
@@ -479,9 +477,7 @@ class AbstractModelTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning getAsCollection and getAsList
-     */
+    // Tests concerning getAsCollection and getAsList
 
     /**
      * @test
@@ -1468,9 +1464,7 @@ class AbstractModelTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning __clone
-     */
+    // Tests concerning __clone
 
     /**
      * @test

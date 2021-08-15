@@ -10,9 +10,7 @@ use OliverKlee\Oelib\Templating\TemplateRegistry;
 
 class TemplateRegistryTest extends UnitTestCase
 {
-    /*
-     * Tests concerning the Singleton property
-     */
+    // Tests concerning the Singleton property
 
     /**
      * @test
@@ -50,9 +48,7 @@ class TemplateRegistryTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning get()
-     */
+    // Tests concerning get()
 
     /**
      * @test

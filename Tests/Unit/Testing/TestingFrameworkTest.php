@@ -110,9 +110,7 @@ class TestingFrameworkTest extends UnitTestCase
         $this->subject->cleanUpWithoutDatabase();
     }
 
-    /*
-     * Tests regarding createTemplate()
-     */
+    // Tests regarding createTemplate()
 
     /**
      * @test
@@ -170,9 +168,7 @@ class TestingFrameworkTest extends UnitTestCase
         $this->subject->createTemplate(42, ['uid' => 99999]);
     }
 
-    /*
-     * Tests regarding createDummyFile()
-     */
+    // Tests regarding createDummyFile()
 
     /**
      * @test
@@ -239,9 +235,7 @@ class TestingFrameworkTest extends UnitTestCase
         self::assertFileExists($dummyFile);
     }
 
-    /*
-     * Tests regarding deleteDummyFile()
-     */
+    // Tests regarding deleteDummyFile()
 
     /**
      * @test
@@ -290,9 +284,7 @@ class TestingFrameworkTest extends UnitTestCase
         $this->subject->deleteDummyFile($testFileUrl);
     }
 
-    /*
-     * Tests regarding createDummyFolder()
-     */
+    // Tests regarding createDummyFolder()
 
     /**
      * @test
@@ -350,9 +342,7 @@ class TestingFrameworkTest extends UnitTestCase
         self::assertDirectoryExists($dummyFolder);
     }
 
-    /*
-     * Tests regarding set- and getUploadFolderPath()
-     */
+    // Tests regarding set- and getUploadFolderPath()
 
     /**
      * @test
@@ -394,9 +384,7 @@ class TestingFrameworkTest extends UnitTestCase
         $this->subject->setUploadFolderPath('/foo/bar/');
     }
 
-    /*
-     * Tests regarding getPathRelativeToUploadDirectory()
-     */
+    // Tests regarding getPathRelativeToUploadDirectory()
 
     /**
      * @test
@@ -418,9 +406,7 @@ class TestingFrameworkTest extends UnitTestCase
         }
     }
 
-    /*
-     * Tests regarding createFrontEndUserGroup()
-     */
+    // Tests regarding createFrontEndUserGroup()
 
     /**
      * @test
@@ -452,9 +438,7 @@ class TestingFrameworkTest extends UnitTestCase
         $this->subject->createFrontEndUserGroup(['uid' => 99999]);
     }
 
-    /*
-     * Tests regarding createBackEndUser()
-     */
+    // Tests regarding createBackEndUser()
 
     /**
      * @test
@@ -486,9 +470,7 @@ class TestingFrameworkTest extends UnitTestCase
         $this->subject->createBackEndUser(['uid' => 999999]);
     }
 
-    /*
-     * Tests concerning fakeFrontend
-     */
+    // Tests concerning fakeFrontend
 
     /**
      * @test
@@ -505,9 +487,7 @@ class TestingFrameworkTest extends UnitTestCase
         $this->subject->createFakeFrontEnd(-1);
     }
 
-    /*
-     * Tests regarding user login and logout
-     */
+    // Tests regarding user login and logout
 
     /**
      * @test

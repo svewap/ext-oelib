@@ -12,6 +12,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 class GermanZipCodeRepository extends Repository
 {
     use ReadOnlyRepository;
+
     use StoragePageAgnostic;
 
     /**

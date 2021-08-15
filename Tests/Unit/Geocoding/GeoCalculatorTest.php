@@ -38,9 +38,7 @@ class GeoCalculatorTest extends UnitTestCase
         self::assertInstanceOf(SingletonInterface::class, $this->subject);
     }
 
-    /*
-     * Tests concerning calculateDistanceInKilometers
-     */
+    // Tests concerning calculateDistanceInKilometers
 
     /**
      * @test
@@ -151,9 +149,7 @@ class GeoCalculatorTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning filterByDistance
-     */
+    // Tests concerning filterByDistance
 
     /**
      * @test

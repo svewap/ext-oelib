@@ -21,9 +21,7 @@ class MailerFactoryTest extends UnitTestCase
         $this->subject = new MailerFactory();
     }
 
-    /*
-     * Tests concerning the basic functionality
-     */
+    // Tests concerning the basic functionality
 
     /**
      * @test

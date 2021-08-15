@@ -43,9 +43,7 @@ class SalutationSwitcherTest extends UnitTestCase
         self::assertNotSame('', serialize($this->subject));
     }
 
-    /*
-     * Tests for setting the language.
-     */
+    // Tests for setting the language.
 
     /**
      * @test
@@ -94,9 +92,7 @@ class SalutationSwitcherTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests for setting the salutation modes.
-     */
+    // Tests for setting the salutation modes.
 
     /**
      * @test
@@ -354,9 +350,7 @@ class SalutationSwitcherTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests for translating with salutation modes in the default language.
-     */
+    // Tests for translating with salutation modes in the default language.
 
     /**
      * @test

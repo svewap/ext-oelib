@@ -53,9 +53,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
         parent::tearDown();
     }
 
-    /*
-     * Utility functions
-     */
+    // Utility functions
 
     /**
      * Returns the current front-end instance.
@@ -81,9 +79,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
         $this->getFrontEndController()->config['config']['locale_all'] = $localeKey;
     }
 
-    /*
-     * Tests for the utility functions
-     */
+    // Tests for the utility functions
 
     /**
      * @test
@@ -105,9 +101,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
         self::assertSame('', $this->getFrontEndController()->config['config']['locale_all']);
     }
 
-    /*
-     * Tests concerning values to check
-     */
+    // Tests concerning values to check
 
     /**
      * @test

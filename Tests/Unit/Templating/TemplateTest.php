@@ -27,9 +27,7 @@ class TemplateTest extends UnitTestCase
         $this->subject->injectTranslator($translator);
     }
 
-    /*
-     * Tests for reading the HTML from a file.
-     */
+    // Tests for reading the HTML from a file.
 
     /**
      * @test
@@ -46,9 +44,7 @@ class TemplateTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests for getting subparts.
-     */
+    // Tests for getting subparts.
 
     /**
      * @test
@@ -568,9 +564,7 @@ class TemplateTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning render
-     */
+    // Tests concerning render
 
     /**
      * @test
@@ -3913,9 +3907,7 @@ class TemplateTest extends UnitTestCase
         $this->subject->getSubpart('MY_SUBPART');
     }
 
-    /*
-     * Tests concerning getLabelMarkers
-     */
+    // Tests concerning getLabelMarkers
 
     /**
      * @test

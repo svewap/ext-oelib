@@ -52,9 +52,7 @@ class AbstractMailerTest extends FunctionalTestCase
         parent::tearDown();
     }
 
-    /*
-     * Tests concerning send
-     */
+    // Tests concerning send
 
     /**
      * @test

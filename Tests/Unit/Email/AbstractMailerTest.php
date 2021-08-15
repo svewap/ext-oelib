@@ -44,9 +44,7 @@ class AbstractMailerTest extends UnitTestCase
         parent::tearDown();
     }
 
-    /*
-     * Tests concerning send
-     */
+    // Tests concerning send
 
     /**
      * @test

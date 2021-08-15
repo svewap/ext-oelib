@@ -26,9 +26,7 @@ class MailTest extends FunctionalTestCase
         $this->subject = new Mail();
     }
 
-    /*
-     * Tests regarding setting and getting the CSS file.
-     */
+    // Tests regarding setting and getting the CSS file.
 
     /**
      * @test
@@ -133,9 +131,7 @@ class MailTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning the emogrification of the HTML Messages and the CSS file
-     */
+    // Tests concerning the emogrification of the HTML Messages and the CSS file
 
     /**
      * @test

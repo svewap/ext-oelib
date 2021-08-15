@@ -29,9 +29,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         $GLOBALS['SIM_EXEC_TIME'] = $this->now;
     }
 
-    /*
-     * Utility functions
-     */
+    // Utility functions
 
     /**
      * Explodes a comma-separated list of integer values and sorts them numerically.
@@ -53,9 +51,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         return $numbers;
     }
 
-    /*
-     * Tests for the utility functions
-     */
+    // Tests for the utility functions
 
     /**
      * @test
@@ -101,9 +97,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests for enableFields
-     */
+    // Tests for enableFields
 
     /**
      * @test
@@ -252,9 +246,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         self::assertCount(1, $result);
     }
 
-    /*
-     * Tests concerning createRecursivePageList
-     */
+    // Tests concerning createRecursivePageList
 
     /**
      * @test
@@ -502,9 +494,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning getColumnsInTable
-     */
+    // Tests concerning getColumnsInTable
 
     /**
      * @test
@@ -550,9 +540,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding tableHasColumn()
-     */
+    // Tests regarding tableHasColumn()
 
     /**
      * @test
@@ -606,9 +594,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests for delete
-     */
+    // Tests for delete
 
     /**
      * @test
@@ -692,9 +678,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests for update
-     */
+    // Tests for update
 
     /**
      * @test
@@ -803,9 +787,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests for insert
-     */
+    // Tests for insert
 
     /**
      * @test
@@ -930,9 +912,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning select, selectSingle, selectMultiple
-     */
+    // Tests concerning select, selectSingle, selectMultiple
 
     /**
      * @test
@@ -1148,9 +1128,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning existsTable
-     */
+    // Tests concerning existsTable
 
     /**
      * @test
@@ -1182,9 +1160,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning count
-     */
+    // Tests concerning count
 
     /**
      * @test
@@ -1256,9 +1232,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         DatabaseService ::count('tx_oelib_test JOIN tx_oelib_testchild');
     }
 
-    /*
-     * Tests regarding existsRecord
-     */
+    // Tests regarding existsRecord
 
     /**
      * @test

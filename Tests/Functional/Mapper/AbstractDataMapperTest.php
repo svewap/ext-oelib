@@ -45,9 +45,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         parent::tearDown();
     }
 
-    /*
-     * Tests concerning usage with the testing framework
-     */
+    // Tests concerning usage with the testing framework
 
     /**
      * @test
@@ -94,9 +92,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning load
-     */
+    // Tests concerning load
 
     /**
      * @test
@@ -117,9 +113,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         self::assertSame($title, $model->getTitle());
     }
 
-    /*
-     * Tests concerning find
-     */
+    // Tests concerning find
 
     /**
      * @test
@@ -370,9 +364,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning load and reload
-     */
+    // Tests concerning load and reload
 
     /**
      * @test
@@ -990,9 +982,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning the m:n mapping with a comma-separated list of UIDs
-     */
+    // Tests concerning the m:n mapping with a comma-separated list of UIDs
 
     /**
      * @test
@@ -1549,9 +1539,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning n:1 association mapping
-     */
+    // Tests concerning n:1 association mapping
 
     /**
      * @test
@@ -1569,9 +1557,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         self::assertSame($friendTitle, $model->getFriend()->getTitle());
     }
 
-    /*
-     * Tests concerning the m:n mapping with a comma-separated list of UIDs
-     */
+    // Tests concerning the m:n mapping with a comma-separated list of UIDs
 
     /**
      * @test
@@ -1606,9 +1592,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $model->getTitle();
     }
 
-    /*
-     * Tests concerning the m:n mapping using an m:n table
-     */
+    // Tests concerning the m:n mapping using an m:n table
 
     /**
      * @test
@@ -1647,9 +1631,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $model->getTitle();
     }
 
-    /*
-     * Tests concerning the bidirectional m:n mapping using an m:n table.
-     */
+    // Tests concerning the bidirectional m:n mapping using an m:n table.
 
     /**
      * @test
@@ -1668,9 +1650,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         self::assertSame((string)$uid, $model->getBidirectional()->getUids());
     }
 
-    /*
-     * Tests concerning the 1:n mapping using a foreign field.
-     */
+    // Tests concerning the 1:n mapping using a foreign field.
 
     /**
      * @test
@@ -2666,9 +2646,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning save
-     */
+    // Tests concerning save
 
     /**
      * @test

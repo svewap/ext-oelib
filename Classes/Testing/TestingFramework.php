@@ -924,9 +924,7 @@ class TestingFramework
         }
     }
 
-    /*
-     * File creation and deletion
-     */
+    // File creation and deletion
 
     /**
      * Creates an empty dummy file with a unique file name in the calling
@@ -1193,9 +1191,7 @@ class TestingFramework
         return $newPath;
     }
 
-    /*
-     * Functions concerning a fake front end
-     */
+    // Functions concerning a fake front end
 
     /**
      * Fakes a TYPO3 front end, using $pageUid as front-end page ID if provided.
@@ -1339,9 +1335,7 @@ class TestingFramework
             = ['className' => UserWithoutCookies::class];
     }
 
-    /*
-     * FE user activities
-     */
+    // FE user activities
 
     /**
      * Fakes that a front-end user has logged in.

@@ -135,8 +135,3 @@ parameters:
 			count: 2
 			path: Tests/Unit/Templating/TemplateHelperTest.php
 
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:render\\(\\)\\.$#"
-			count: 3
-			path: Tests/Unit/ViewHelpers/UppercaseViewHelperTest.php
-

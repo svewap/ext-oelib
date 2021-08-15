@@ -42,9 +42,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         $this->subject = new TestingFramework('tx_oelib', ['user_oelibtest']);
     }
 
-    /*
-     * Utility functions.
-     */
+    // Utility functions.
 
     /**
      * Returns the current front-end instance.
@@ -87,9 +85,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         return (int)$row['sorting'];
     }
 
-    /*
-     * Tests regarding markTableAsDirty()
-     */
+    // Tests regarding markTableAsDirty()
 
     /**
      * @test
@@ -204,9 +200,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->markTableAsDirty('');
     }
 
-    /*
-     * Tests regarding createRecord()
-     */
+    // Tests regarding createRecord()
 
     /**
      * @test
@@ -357,9 +351,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame(1, $count);
     }
 
-    /*
-     * Tests regarding changeRecord()
-     */
+    // Tests regarding changeRecord()
 
     /**
      * @test
@@ -593,9 +585,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame(1, $count);
     }
 
-    /*
-     * Tests regarding createRelation()
-     */
+    // Tests regarding createRelation()
 
     /**
      * @test
@@ -776,9 +766,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding createRelationFromTca()
-     */
+    // Tests regarding createRelationFromTca()
 
     /**
      * @test
@@ -944,9 +932,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding cleanUp()
-     */
+    // Tests regarding cleanUp()
 
     /**
      * @test
@@ -1077,9 +1063,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame(0, $count);
     }
 
-    /*
-     * Tests regarding cleanUpWithoutDatabase()
-     */
+    // Tests regarding cleanUpWithoutDatabase()
 
     /**
      * @test
@@ -1111,9 +1095,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding getAutoIncrement()
-     */
+    // Tests regarding getAutoIncrement()
 
     /**
      * @test
@@ -1237,9 +1219,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->getAutoIncrement('tx_oelib_test_article_mm');
     }
 
-    /*
-     * Tests regarding countRecords()
-     */
+    // Tests regarding countRecords()
 
     /**
      * @test
@@ -1420,9 +1400,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame(1, $this->subject->countRecords('tx_oelib_test'));
     }
 
-    /*
-     * Tests regarding count()
-     */
+    // Tests regarding count()
 
     /**
      * @test
@@ -1613,9 +1591,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame(1, $result);
     }
 
-    /*
-     * Tests regarding existsRecord()
-     */
+    // Tests regarding existsRecord()
 
     /**
      * @test
@@ -1723,9 +1699,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding existsRecordWithUid()
-     */
+    // Tests regarding existsRecordWithUid()
 
     /**
      * @test
@@ -1828,9 +1802,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding existsExactlyOneRecord()
-     */
+    // Tests regarding existsExactlyOneRecord()
 
     /**
      * @test
@@ -1944,9 +1916,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding resetAutoIncrement()
-     */
+    // Tests regarding resetAutoIncrement()
 
     /**
      * @test
@@ -2075,9 +2045,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->resetAutoIncrement('tx_oelib_DOESNOTEXIST');
     }
 
-    /*
-     * Tests regarding setResetAutoIncrementThreshold
-     */
+    // Tests regarding setResetAutoIncrementThreshold
 
     /**
      * @test
@@ -2120,9 +2088,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->setResetAutoIncrementThreshold(-1);
     }
 
-    /*
-     * Tests regarding createFrontEndPage()
-     */
+    // Tests regarding createFrontEndPage()
 
     /**
      * @test
@@ -2227,9 +2193,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding createSystemFolder()
-     */
+    // Tests regarding createSystemFolder()
 
     /**
      * @test
@@ -2359,9 +2323,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding createTemplate()
-     */
+    // Tests regarding createTemplate()
 
     /**
      * @test
@@ -2556,9 +2518,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding createFrontEndUserGroup()
-     */
+    // Tests regarding createFrontEndUserGroup()
 
     /**
      * @test
@@ -2636,9 +2596,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding createFrontEndUser()
-     */
+    // Tests regarding createFrontEndUser()
 
     /**
      * @test
@@ -2870,9 +2828,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding createBackEndUser()
-     */
+    // Tests regarding createBackEndUser()
 
     /**
      * @test
@@ -2944,9 +2900,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning fakeFrontend
-     */
+    // Tests concerning fakeFrontend
 
     /**
      * @test
@@ -3155,9 +3109,7 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests regarding user login and logout
-     */
+    // Tests regarding user login and logout
 
     /**
      * @test

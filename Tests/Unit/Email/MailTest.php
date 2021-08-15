@@ -21,9 +21,7 @@ class MailTest extends UnitTestCase
         $this->subject = new Mail();
     }
 
-    /*
-     * Tests regarding setting and getting the sender.
-     */
+    // Tests regarding setting and getting the sender.
 
     /**
      * @test
@@ -126,9 +124,7 @@ class MailTest extends UnitTestCase
         self::assertTrue($this->subject->hasReplyTo());
     }
 
-    /*
-     * Tests regarding adding and getting the recipients.
-     */
+    // Tests regarding adding and getting the recipients.
 
     /**
      * @test
@@ -180,9 +176,7 @@ class MailTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests regarding setting and getting the subject.
-     */
+    // Tests regarding setting and getting the subject.
 
     /**
      * @test
@@ -268,9 +262,7 @@ class MailTest extends UnitTestCase
         $this->subject->setSubject("test \r\n subject");
     }
 
-    /*
-     * Tests regarding setting and getting the message.
-     */
+    // Tests regarding setting and getting the message.
 
     /**
      * @test
@@ -333,9 +325,7 @@ class MailTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests regarding setting and getting the HTML message.
-     */
+    // Tests regarding setting and getting the HTML message.
 
     /**
      * @test
@@ -398,9 +388,7 @@ class MailTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests regarding adding and getting attachments.
-     */
+    // Tests regarding adding and getting attachments.
 
     /**
      * @test
@@ -453,9 +441,7 @@ class MailTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning the return path
-     */
+    // Tests concerning the return path
 
     /**
      * @test

@@ -81,9 +81,7 @@ class AbstractDataMapperTest extends UnitTestCase
         $this->subject->getModel([]);
     }
 
-    /*
-     * Tests concerning load and reload
-     */
+    // Tests concerning load and reload
 
     /**
      * @test
@@ -452,9 +450,7 @@ class AbstractDataMapperTest extends UnitTestCase
         $this->subject->findOneByKey('title', '');
     }
 
-    /*
-     * Tests concerning compound key
-     */
+    // Tests concerning compound key
 
     /**
      * @test

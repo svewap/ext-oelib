@@ -14,9 +14,7 @@ use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
  */
 class ConfigurationRegistryTest extends UnitTestCase
 {
-    /*
-     *Tests concerning the Singleton property
-     */
+    // Tests concerning the Singleton property
 
     /**
      * @test
@@ -51,9 +49,7 @@ class ConfigurationRegistryTest extends UnitTestCase
         );
     }
 
-    /*
-     *Test concerning get and set
-     */
+    // Test concerning get and set
 
     /**
      * @test

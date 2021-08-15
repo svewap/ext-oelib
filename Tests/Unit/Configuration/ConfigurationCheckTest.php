@@ -37,9 +37,7 @@ class ConfigurationCheckTest extends UnitTestCase
         $this->subject = new ConfigurationCheck($this->objectToCheck);
     }
 
-    /*
-     * Tests concerning the basics
-     */
+    // Tests concerning the basics
 
     /**
      * @test
@@ -82,9 +80,7 @@ class ConfigurationCheckTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning values to check
-     */
+    // Tests concerning values to check
 
     /**
      * @test

@@ -54,9 +54,7 @@ class AbstractModelTest extends FunctionalTestCase
         return (int)$this->getDatabaseConnection()->lastInsertId();
     }
 
-    /*
-     * Tests concerning __clone
-     */
+    // Tests concerning __clone
 
     /**
      * @test

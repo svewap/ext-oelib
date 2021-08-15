@@ -20,19 +20,23 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * @var int a status indicating that this model has neither data nor UID yet
      */
     const STATUS_VIRGIN = 0;
+
     /**
      * @var int a status indicating that this model's data has not been
      *              loaded yet (lazily), but that the model already has a UID
      */
     const STATUS_GHOST = 1;
+
     /**
      * @var int a status indicating that this model's data currently is being loaded
      */
     const STATUS_LOADING = 2;
+
     /**
      * @var int a status indicating that this model's data has already been loaded (with or without UID)
      */
     const STATUS_LOADED = 3;
+
     /**
      * @var int a status indicating that this model's data could not be retrieved from the DB
      */

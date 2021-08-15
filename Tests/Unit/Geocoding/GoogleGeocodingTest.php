@@ -41,9 +41,7 @@ class GoogleGeocodingTest extends UnitTestCase
         ConfigurationRegistry::purgeInstance();
     }
 
-    /*
-     * Tests for the basic functionality
-     */
+    // Tests for the basic functionality
 
     /**
      * @test
@@ -66,9 +64,7 @@ class GoogleGeocodingTest extends UnitTestCase
         self::assertSame($instance, GoogleGeocoding::getInstance());
     }
 
-    /*
-     * Tests for lookUp
-     */
+    // Tests for lookUp
 
     /**
      * @test
@@ -78,7 +74,7 @@ class GoogleGeocodingTest extends UnitTestCase
         $geo = $this->createPartialMock(TestingGeo::class, ['setGeoError']);
         $geo->expects(self::once())->method('setGeoError');
 
-        /* @var TestingGeo $geo */
+        // @var TestingGeo $geo
         $this->subject->lookUp($geo);
     }
 

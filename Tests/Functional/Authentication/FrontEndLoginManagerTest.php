@@ -50,9 +50,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         return $GLOBALS['TSFE'];
     }
 
-    /*
-     * Tests concerning isLoggedIn
-     */
+    // Tests concerning isLoggedIn
 
     /**
      * @test
@@ -95,9 +93,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         self::assertTrue($this->subject->isLoggedIn());
     }
 
-    /*
-     * Tests concerning getLoggedInUser
-     */
+    // Tests concerning getLoggedInUser
 
     /**
      * @test
@@ -192,9 +188,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         self::assertSame($oldName, $this->subject->getLoggedInUser()->getName());
     }
 
-    /*
-     * Tests concerning logInUser
-     */
+    // Tests concerning logInUser
 
     /**
      * @test

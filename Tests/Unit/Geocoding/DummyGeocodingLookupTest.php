@@ -35,7 +35,7 @@ class DummyGeocodingLookupTest extends UnitTestCase
         );
         $geo->expects(self::once())->method('setGeoError');
 
-        /* @var \OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo $geo */
+        // @var \OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo $geo
         $this->subject->lookUp($geo);
     }
 

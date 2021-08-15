@@ -59,9 +59,7 @@ class FrontEndUserTest extends UnitTestCase
         $GLOBALS['TCA']['fe_users']['columns']['gender'] = ['config' => ['type' => 'radio']];
     }
 
-    /*
-     * Tests concerning the user name
-     */
+    // Tests concerning the user name
 
     /**
      * @test
@@ -112,9 +110,7 @@ class FrontEndUserTest extends UnitTestCase
         $this->subject->setUserName('');
     }
 
-    /*
-     * Tests concerning the password
-     */
+    // Tests concerning the password
 
     /**
      * @test
@@ -165,9 +161,7 @@ class FrontEndUserTest extends UnitTestCase
         $this->subject->setPassword('');
     }
 
-    /*
-     * Tests concerning the name
-     */
+    // Tests concerning the name
 
     /**
      * @test
@@ -401,9 +395,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning getting the company
-     */
+    // Tests concerning getting the company
 
     /**
      * @test
@@ -468,9 +460,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning getting the street
-     */
+    // Tests concerning getting the street
 
     /**
      * @test
@@ -554,9 +544,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning the ZIP code
-     */
+    // Tests concerning the ZIP code
 
     /**
      * @test
@@ -623,9 +611,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning the city
-     */
+    // Tests concerning the city
 
     /**
      * @test
@@ -764,9 +750,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning the phone number
-     */
+    // Tests concerning the phone number
 
     /**
      * @test
@@ -833,9 +817,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning the e-mail address
-     */
+    // Tests concerning the e-mail address
 
     /**
      * @test
@@ -900,9 +882,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning getting the homepage
-     */
+    // Tests concerning getting the homepage
 
     /**
      * @test
@@ -954,9 +934,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning getting the picture
-     */
+    // Tests concerning getting the picture
 
     /**
      * @test
@@ -1008,9 +986,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning wantsHtmlEmail
-     */
+    // Tests concerning wantsHtmlEmail
 
     /**
      * @test
@@ -1048,9 +1024,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning the user groups
-     */
+    // Tests concerning the user groups
 
     /**
      * @test
@@ -1098,9 +1072,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Test concerning hasGroupMembership
-     */
+    // Test concerning hasGroupMembership
 
     /**
      * @test
@@ -1184,9 +1156,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning the gender
-     */
+    // Tests concerning the gender
 
     /**
      * @test
@@ -1284,9 +1254,7 @@ class FrontEndUserTest extends UnitTestCase
         $this->subject->setGender(4);
     }
 
-    /*
-     * Tests concerning the first name
-     */
+    // Tests concerning the first name
 
     /**
      * @test
@@ -1379,9 +1347,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning the last name
-     */
+    // Tests concerning the last name
 
     /**
      * @test
@@ -1474,9 +1440,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning the date of birth
-     */
+    // Tests concerning the date of birth
 
     /**
      * @test
@@ -1532,9 +1496,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning getAge
-     */
+    // Tests concerning getAge
 
     /**
      * @test
@@ -1618,9 +1580,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning the date of the last login
-     */
+    // Tests concerning the date of the last login
 
     /**
      * @test
@@ -1676,9 +1636,7 @@ class FrontEndUserTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests concerning the job title
-     */
+    // Tests concerning the job title
 
     /**
      * @test

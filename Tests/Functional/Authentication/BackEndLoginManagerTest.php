@@ -60,9 +60,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
         return $GLOBALS['BE_USER'];
     }
 
-    /*
-     * Tests concerning isLoggedIn
-     */
+    // Tests concerning isLoggedIn
 
     /**
      * @test
@@ -94,9 +92,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
         self::assertTrue($this->subject->isLoggedIn());
     }
 
-    /*
-     * Tests concerning getLoggedInUser
-     */
+    // Tests concerning getLoggedInUser
 
     /**
      * @test
@@ -166,9 +162,7 @@ class BackEndLoginManagerTest extends FunctionalTestCase
         self::assertSame($name, $this->subject->getLoggedInUser()->getName());
     }
 
-    /*
-     * Tests concerning setLoggedInUser
-     */
+    // Tests concerning setLoggedInUser
 
     /**
      * @test

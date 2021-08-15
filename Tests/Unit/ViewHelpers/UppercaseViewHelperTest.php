@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
 use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
 use OliverKlee\Oelib\ViewHelpers\UppercaseViewHelper;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class UppercaseViewHelperTest extends ViewHelperBaseTestcase
 {
@@ -14,10 +15,10 @@ class UppercaseViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderConvertsToUppercase()
     {
+        /** @var UppercaseViewHelper&MockObject $subject */
         $subject = $this->createPartialMock(UppercaseViewHelper::class, ['renderChildren']);
         $subject->expects(self::once())->method('renderChildren')->willReturn('foo bar');
 
-        /* @var UppercaseViewHelper $subject */
         self::assertSame(
             'FOO BAR',
             $subject->render()
@@ -29,10 +30,10 @@ class UppercaseViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderCanConvertUmlautsToUppercase()
     {
+        /** @var UppercaseViewHelper&MockObject $subject */
         $subject = $this->createPartialMock(UppercaseViewHelper::class, ['renderChildren']);
         $subject->expects(self::once())->method('renderChildren')->willReturn('äöü');
 
-        /* @var UppercaseViewHelper $subject */
         self::assertSame(
             'ÄÖÜ',
             $subject->render()
@@ -44,10 +45,10 @@ class UppercaseViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderCanConvertAccentedCharactersToUppercase()
     {
+        /** @var UppercaseViewHelper&MockObject $subject */
         $subject = $this->createPartialMock(UppercaseViewHelper::class, ['renderChildren']);
         $subject->expects(self::once())->method('renderChildren')->willReturn('áàéè');
 
-        /* @var UppercaseViewHelper $subject */
         self::assertSame(
             'ÁÀÉÈ',
             $subject->render()

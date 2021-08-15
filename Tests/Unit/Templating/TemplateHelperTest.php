@@ -118,9 +118,7 @@ class TemplateHelperTest extends UnitTestCase
         $subject->checkConfiguration();
     }
 
-    /*
-     * New tests from functional
-     */
+    // New tests from functional
 
     /////////////////////////////////////////////////////////////////
     // Tests concerning the creation of the template helper object.
@@ -4422,9 +4420,7 @@ class TemplateHelperTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests for ensureIntegerPiVars
-     */
+    // Tests for ensureIntegerPiVars
 
     /**
      * @test
@@ -4716,9 +4712,7 @@ class TemplateHelperTest extends UnitTestCase
         );
     }
 
-    /*
-     * Tests for automatically setting labels.
-     */
+    // Tests for automatically setting labels.
 
     /**
      * @test

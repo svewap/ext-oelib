@@ -161,9 +161,7 @@ class TemplateHelperTest extends FunctionalTestCase
         );
     }
 
-    /*
-     * Tests concerning TypoScript templates.
-     */
+    // Tests concerning TypoScript templates.
 
     /**
      * @test
