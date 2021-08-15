@@ -266,10 +266,12 @@ class DatabaseService
             $uid = (int)self::getConnectionForTable($tableName)->lastInsertId($tableName);
         } else {
             $connection = self::getDatabaseConnection();
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $dbResult = $connection->exec_INSERTquery($tableName, $recordData);
             if ($dbResult === false) {
                 throw new DatabaseException('Database error.', 1573836507);
             }
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $uid = $connection->sql_insert_id();
         }
 
@@ -308,6 +310,7 @@ class DatabaseService
             throw new \InvalidArgumentException('$fields must not be empty.', 1331488270);
         }
 
+        // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
         $dbResult = self::getDatabaseConnection()->exec_SELECTquery(
             $fields,
             $tableNames,

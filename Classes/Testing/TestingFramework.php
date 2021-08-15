@@ -1232,7 +1232,9 @@ class TestingFramework
 
         if (Typo3Version::isNotHigherThan(8)) {
             // simulates a normal FE without any logged-in FE or BE user
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $frontEnd->beUserLogin = false;
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $frontEnd->workspacePreview = '';
             $frontEnd->initFEuser();
         } else {
@@ -1394,6 +1396,7 @@ class TestingFramework
         $frontEnd->fe_user->user = $dataToSet;
         $frontEnd->fe_user->fetchGroupData();
         if (Typo3Version::isNotHigherThan(8)) {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $this->getFrontEndController()->loginUser = true;
         }
     }
@@ -1422,6 +1425,7 @@ class TestingFramework
         $this->suppressFrontEndCookies();
         $this->getFrontEndController()->fe_user->logoff();
         if (Typo3Version::isNotHigherThan(8)) {
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $this->getFrontEndController()->loginUser = false;
         }
 

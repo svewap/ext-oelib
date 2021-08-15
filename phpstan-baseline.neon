@@ -1,29 +1,9 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$loginUser\\.$#"
-			count: 1
-			path: Classes/Authentication/FrontEndLoginManager.php
-
-		-
 			message: "#^Constant TYPO3_MODE not found\\.$#"
 			count: 1
 			path: Classes/Configuration/ConfigurationCheck.php
-
-		-
-			message: "#^Call to method exec_INSERTquery\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Database\\\\DatabaseConnection\\.$#"
-			count: 1
-			path: Classes/Database/DatabaseService.php
-
-		-
-			message: "#^Call to method exec_SELECTquery\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Database\\\\DatabaseConnection\\.$#"
-			count: 1
-			path: Classes/Database/DatabaseService.php
-
-		-
-			message: "#^Call to method sql_insert_id\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Database\\\\DatabaseConnection\\.$#"
-			count: 1
-			path: Classes/Database/DatabaseService.php
 
 		-
 			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\Configuration\\:\\:getArrayKeys\\(\\)\\.$#"
@@ -86,34 +66,9 @@ parameters:
 			path: Classes/Templating/TemplateHelper.php
 
 		-
-			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$beUserLogin\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$loginUser\\.$#"
-			count: 2
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$workspacePreview\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
 			message: "#^PHPDoc tag @var has invalid value \\(\\<string, array\\<string, array\\>\\>\\)\\: Unexpected token \"\\<\", expected type at offset 170$#"
 			count: 1
 			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Access to protected property TYPO3\\\\CMS\\\\Core\\\\TypoScript\\\\TemplateService\\:\\:\\$rootId\\.$#"
-			count: 1
-			path: Tests/Functional/Configuration/ConfigurationRegistryTest.php
-
-		-
-			message: "#^Call to method sql_insert_id\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Database\\\\DatabaseConnection\\.$#"
-			count: 1
-			path: Tests/Functional/Database/DatabaseServiceTest.php
 
 		-
 			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\Configuration\\:\\:set\\(\\)\\.$#"
@@ -139,16 +94,6 @@ parameters:
 			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\Configuration\\:\\:setAsBoolean\\(\\)\\.$#"
 			count: 1
 			path: Tests/Functional/Templating/TemplateHelperTest.php
-
-		-
-			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$gr_list\\.$#"
-			count: 1
-			path: Tests/Functional/Testing/TestingFrameworkTest.php
-
-		-
-			message: "#^Access to protected property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$loginUser\\.$#"
-			count: 2
-			path: Tests/Functional/Testing/TestingFrameworkTest.php
 
 		-
 			message: "#^Call to an undefined method OliverKlee\\\\Oelib\\\\Interfaces\\\\Configuration\\:\\:retrieveConfiguration\\(\\)\\.$#"

@@ -80,6 +80,7 @@ class FrontEndLoginManager implements LoginManager
         $isSimulatedLoggedIn = $this->loggedInUser instanceof FrontEndUser;
         if (Typo3Version::isNotHigherThan(8)) {
             $controller = $this->getFrontEndController();
+            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $sessionExists = $controller instanceof TypoScriptFrontendController && $controller->loginUser;
         } else {
             $sessionExists = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');

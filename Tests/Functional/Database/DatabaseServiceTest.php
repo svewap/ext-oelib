@@ -907,6 +907,7 @@ class DatabaseServiceTest extends FunctionalTestCase
         }
 
         DatabaseService ::insert('tx_oelib_test', ['is_dummy_record' => 1]);
+        // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
         $uid = DatabaseService ::getDatabaseConnection()->sql_insert_id();
 
         self::assertSame(
