@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Update the `.editorconfig` to better match the Core (#614)
 
 ### Deprecated
+- Deprecate the `ReadOnly` trait (#635)
 - De-deprecate the HTTP-related classes (#616)
 
 ### Removed

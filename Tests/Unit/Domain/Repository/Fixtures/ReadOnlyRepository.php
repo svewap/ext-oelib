@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Domain\Repository\Fixtures;
 
-use OliverKlee\Oelib\Domain\Repository\Traits\ReadOnly;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -12,5 +11,5 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class ReadOnlyRepository extends Repository
 {
-    use ReadOnly;
+    use \OliverKlee\Oelib\Domain\Repository\Traits\ReadOnlyRepository;
 }

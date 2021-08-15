@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Domain\Repository;
 
 use OliverKlee\Oelib\Domain\Model\GermanZipCode;
-use OliverKlee\Oelib\Domain\Repository\Traits\ReadOnly;
+use OliverKlee\Oelib\Domain\Repository\Traits\ReadOnlyRepository;
 use OliverKlee\Oelib\Domain\Repository\Traits\StoragePageAgnostic;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class GermanZipCodeRepository extends Repository
 {
-    use ReadOnly;
+    use ReadOnlyRepository;
     use StoragePageAgnostic;
 
     /**
