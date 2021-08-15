@@ -10,6 +10,9 @@ use OliverKlee\Oelib\Exception\EmptyQueryResultException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
+/**
+ * @covers \OliverKlee\Oelib\Database\DatabaseService
+ */
 class DatabaseServiceTest extends FunctionalTestCase
 {
     /**
@@ -196,7 +199,7 @@ class DatabaseServiceTest extends FunctionalTestCase
     }
 
     /**
-     * @return int[][]
+     * @return array<string, array<int, array<string, int>>>
      */
     public function hiddenRecordDataProvider(): array
     {

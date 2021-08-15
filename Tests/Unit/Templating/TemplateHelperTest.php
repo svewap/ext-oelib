@@ -42,18 +42,18 @@ class TemplateHelperTest extends UnitTestCase
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         $cacheManager->setCacheConfigurations(['l10n' => ['backend' => NullBackend::class]]);
 
-        /** @var TypoScriptFrontendController|ProphecySubjectInterface $frontEndController */
+        /** @var TypoScriptFrontendController&ProphecySubjectInterface $frontEndController */
         $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
         $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
         $GLOBALS['TSFE'] = $frontEndController;
 
         $this->customConfigurationCheckProphecy = $this->prophesize(TestingConfigurationCheck::class);
-        /** @var TestingConfigurationCheck|ProphecySubjectInterface $customConfigurationCheck */
+        /** @var TestingConfigurationCheck&ProphecySubjectInterface $customConfigurationCheck */
         $customConfigurationCheck = $this->customConfigurationCheckProphecy->reveal();
         GeneralUtility::addInstance(TestingConfigurationCheck::class, $customConfigurationCheck);
 
         $this->defaultConfigurationCheckProphecy = $this->prophesize(ConfigurationCheck::class);
-        /** @var ConfigurationCheck|ProphecySubjectInterface $defaultConfigurationCheck */
+        /** @var ConfigurationCheck&ProphecySubjectInterface $defaultConfigurationCheck */
         $defaultConfigurationCheck = $this->defaultConfigurationCheckProphecy->reveal();
         GeneralUtility::addInstance(ConfigurationCheck::class, $defaultConfigurationCheck);
 
@@ -4539,6 +4539,7 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function ensureContentObjectForMissingContentObjectWithFrontEndUsesContentObjectFromFrontEnd()
     {
+        // @phpstan-ignore-next-line We test what happens for a contract violation here.
         $this->subject->cObj = null;
 
         $this->subject->ensureContentObject();

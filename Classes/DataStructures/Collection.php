@@ -359,6 +359,7 @@ class Collection extends \SplObjectStorage
             throw new \InvalidArgumentException('$length must be >= 0.');
         }
 
+        /** @var Collection<AbstractModel> $result */
         $result = new self();
 
         $lastPosition = $start + $length - 1;

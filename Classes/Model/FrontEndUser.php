@@ -396,18 +396,21 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     /**
      * Gets this user's user groups.
      *
-     * @return Collection<BackEndUserGroup> this user's FE user groups, will not be empty if
+     * @return Collection<FrontEndUserGroup> this user's FE user groups, will not be empty if
      *                       the user data is valid
      */
     public function getUserGroups(): Collection
     {
-        return $this->getAsList('usergroup');
+        /** @var Collection<FrontEndUserGroup> $groups */
+        $groups = $this->getAsList('usergroup');
+
+        return $groups;
     }
 
     /**
      * Sets this user's direct user groups.
      *
-     * @param Collection<BackEndUserGroup> $userGroups the user groups to set, may be empty
+     * @param Collection<FrontEndUserGroup> $userGroups the user groups to set, may be empty
      *
      * @return void
      */

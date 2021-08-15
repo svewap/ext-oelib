@@ -57,7 +57,7 @@ class Template
      * Subpart names that shouldn't be displayed. Set a subpart key like "FIELD_DATE"
      * (the value does not matter) to remove that subpart.
      *
-     * @var array<string, string>
+     * @var array<string, bool>
      */
     private $subpartsToHide = [];
 

@@ -12,6 +12,9 @@ use OliverKlee\Oelib\System\Typo3Version;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
+/**
+ * @covers \OliverKlee\Oelib\Configuration\ConfigurationRegistry
+ */
 class ConfigurationRegistryTest extends FunctionalTestCase
 {
     /**
@@ -163,9 +166,10 @@ class ConfigurationRegistryTest extends FunctionalTestCase
             // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
             $frontEndController->tmpl->rootId = 0;
         }
-        $frontEndController->tmpl->rootLine = false;
+        // @phpstan-ignore-next-line null still is the default value.
+        $frontEndController->tmpl->rootLine = null;
         $frontEndController->tmpl->setup = [];
-        $frontEndController->tmpl->loaded = 0;
+        $frontEndController->tmpl->loaded = false;
 
         self::assertSame(
             42,

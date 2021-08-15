@@ -23,7 +23,7 @@ class CountryMapper extends AbstractDataMapper
     protected $modelClassName = Country::class;
 
     /**
-     * @var array<string, string> the column names of additional string keys
+     * @var array<int, string> the column names of additional string keys
      */
     protected $additionalKeys = ['cn_iso_2', 'cn_iso_3'];
 

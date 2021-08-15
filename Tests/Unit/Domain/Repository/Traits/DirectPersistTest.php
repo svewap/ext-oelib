@@ -26,12 +26,12 @@ class DirectPersistTest extends UnitTestCase
 
     protected function setUp()
     {
-        /** @var ObjectManagerInterface|ProphecySubjectInterface $objectManagerStub */
+        /** @var ObjectManagerInterface&ProphecySubjectInterface $objectManagerStub */
         $objectManagerStub = $this->prophesize(ObjectManagerInterface::class)->reveal();
         $this->subject = new DirectPersistRepository($objectManagerStub);
 
         $this->persistenceManagerProphecy = $this->prophesize(PersistenceManagerInterface::class);
-        /** @var PersistenceManagerInterface|ProphecySubjectInterface $persistenceManager */
+        /** @var PersistenceManagerInterface&ProphecySubjectInterface $persistenceManager */
         $persistenceManager = $this->persistenceManagerProphecy->reveal();
         $this->subject->injectPersistenceManager($persistenceManager);
     }

@@ -27,7 +27,7 @@ class TemplateHelperTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        /** @var TypoScriptFrontendController|ProphecySubjectInterface $frontEndController */
+        /** @var TypoScriptFrontendController&ProphecySubjectInterface $frontEndController */
         $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
         $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
         $GLOBALS['TSFE'] = $frontEndController;

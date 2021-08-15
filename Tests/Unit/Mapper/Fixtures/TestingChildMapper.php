@@ -25,7 +25,8 @@ class TestingChildMapper extends AbstractDataMapper
     protected $modelClassName = TestingChildModel::class;
 
     /**
-     * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
+     * @var array<string, class-string<AbstractDataMapper>>
+     *      the (possible) relations of the created models in the format DB column name => mapper name
      */
     protected $relations = [
         'parent' => TestingMapper::class,

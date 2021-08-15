@@ -14,6 +14,9 @@ use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
+/**
+ * @covers \OliverKlee\Oelib\Authentication\BackEndLoginManager
+ */
 class BackEndLoginManagerTest extends FunctionalTestCase
 {
     /**
@@ -35,7 +38,9 @@ class BackEndLoginManagerTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->backEndUserMapper = MapperRegistry::get(BackEndUserMapper::class);
+        /** @var BackEndUserMapper $backEndUserMapper */
+        $backEndUserMapper = MapperRegistry::get(BackEndUserMapper::class);
+        $this->backEndUserMapper = $backEndUserMapper;
 
         $this->subject = BackEndLoginManager::getInstance();
     }

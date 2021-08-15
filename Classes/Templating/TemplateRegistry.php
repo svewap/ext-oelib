@@ -12,7 +12,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class TemplateRegistry
 {
     /**
-     * @var TemplateRegistry the Singleton instance
+     * @var TemplateRegistry|null the Singleton instance
      */
     private static $instance = null;
 

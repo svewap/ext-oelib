@@ -40,7 +40,7 @@ final class TranslatorRegistryTest extends FunctionalTestCase
 
     private function setUpFrontEnd()
     {
-        /** @var TypoScriptFrontendController|ProphecySubjectInterface $frontEndController */
+        /** @var TypoScriptFrontendController&ProphecySubjectInterface $frontEndController */
         $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
 
         $GLOBALS['TSFE'] = $frontEndController;

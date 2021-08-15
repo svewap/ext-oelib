@@ -126,7 +126,7 @@ class AbstractReadOnlyObjectWithAccessorsTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array<int, int|string|float>>
+     * @return array<string, array<int, int|string|float|bool>>
      */
     public function integerDataProvider(): array
     {

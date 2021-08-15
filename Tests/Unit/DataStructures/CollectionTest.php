@@ -769,7 +769,7 @@ final class CollectionTest extends UnitTestCase
      */
     public function sortMakesListDirty()
     {
-        /** @var Collection|MockObject $subject */
+        /** @var Collection&MockObject $subject */
         $subject = $this->createPartialMock(Collection::class, ['markAsDirty']);
         $subject->expects(self::once())->method('markAsDirty');
 

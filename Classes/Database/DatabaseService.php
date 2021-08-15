@@ -32,7 +32,7 @@ class DatabaseService
     /**
      * cached results for the enableFields function
      *
-     * @var array<string, array<string, array<string, string>>>
+     * @var array<string, array<int, array<string, string>>>
      */
     private static $enableFieldsCache = [];
 
@@ -82,7 +82,7 @@ class DatabaseService
         }
 
         // maps $showHidden (-1..1) to (0..2) which ensures valid array keys
-        $showHiddenKey = (string)($showHidden + 1);
+        $showHiddenKey = $showHidden + 1;
         if ($showHidden > 0) {
             $enrichedIgnores = ['starttime' => true, 'endtime' => true, 'fe_group' => true];
         } else {
@@ -406,7 +406,7 @@ class DatabaseService
      * @param string $groupBy GROUP BY field(s), may be empty
      * @param string $orderBy ORDER BY field(s), may be empty
      *
-     * @return array<string, string> one column from the the query result rows,
+     * @return array<string, string> one column from the query result rows,
      *         will be empty if there are no matching records
      */
     public static function selectColumnForMultiple(
@@ -416,6 +416,7 @@ class DatabaseService
         string $groupBy = '',
         string $orderBy = ''
     ): array {
+        /** @var array<string, string> $result */
         $result = [];
         foreach (self::selectMultiple($fieldName, $tableNames, $whereClause, $groupBy, $orderBy) as $row) {
             $result[] = $row[$fieldName];

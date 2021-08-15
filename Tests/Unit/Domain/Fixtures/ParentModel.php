@@ -25,11 +25,13 @@ class ParentModel extends AbstractEntity
 
     public function __construct()
     {
-        $this->children = new ObjectStorage();
+        /** @var ObjectStorage<ParentModel> $children */
+        $children = new ObjectStorage();
+        $this->children = $children;
     }
 
     /**
-     * @return ObjectStorage
+     * @return ObjectStorage<ParentModel>
      */
     public function getChildren(): ObjectStorage
     {
@@ -37,7 +39,7 @@ class ParentModel extends AbstractEntity
     }
 
     /**
-     * @param ObjectStorage $children
+     * @param ObjectStorage<ParentModel> $children
      *
      * @return void
      */

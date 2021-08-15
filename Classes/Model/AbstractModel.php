@@ -373,6 +373,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     {
         $this->checkForNonEmptyKey($key);
 
+        /** @var Collection<AbstractModel> $result */
         $result = $this->get($key);
         if (!$result instanceof Collection) {
             throw new \UnexpectedValueException(

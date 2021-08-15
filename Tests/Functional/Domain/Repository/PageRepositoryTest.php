@@ -7,6 +7,9 @@ namespace OliverKlee\Oelib\Tests\Functional\Domain\Repository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Domain\Repository\PageRepository;
 
+/**
+ * @covers \OliverKlee\Oelib\Domain\Repository\PageRepository
+ */
 class PageRepositoryTest extends FunctionalTestCase
 {
     /**
@@ -50,14 +53,14 @@ class PageRepositoryTest extends FunctionalTestCase
     }
 
     /**
-     * @return array<string, array<int>>
+     * @return array<int, array<int>>
      */
     public function recursionDataProvider(): array
     {
         return [
-            '0' => [0],
-            '1' => [1],
-            '2' => [2],
+            0 => [0],
+            1 => [1],
+            2 => [2],
         ];
     }
 

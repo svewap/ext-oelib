@@ -11,10 +11,13 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\Core\ViewHelper\Exception as ViewHelperException;
 use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
 
+/**
+ * @covers \OliverKlee\Oelib\ViewHelpers\DynamicDateViewHelper
+ */
 final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
 {
     /**
-     * @var DynamicDateViewHelper|MockObject
+     * @var DynamicDateViewHelper&MockObject
      */
     private $subject = null;
 
@@ -22,8 +25,10 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     {
         parent::setUp();
 
-        $this->subject = $this->createPartialMock(DynamicDateViewHelper::class, ['renderChildren']);
-        $this->injectDependenciesIntoViewHelper($this->subject);
+        /** @var DynamicDateViewHelper&MockObject $subject */
+        $subject = $this->createPartialMock(DynamicDateViewHelper::class, ['renderChildren']);
+        $this->injectDependenciesIntoViewHelper($subject);
+        $this->subject = $subject;
     }
 
     /**

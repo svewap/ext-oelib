@@ -30,6 +30,9 @@ class BackEndUserGroup extends AbstractModel
      */
     public function getSubgroups(): Collection
     {
-        return $this->getAsList('subgroup');
+        /** @var Collection<BackEndUserGroup> $groups */
+        $groups = $this->getAsList('subgroup');
+
+        return $groups;
     }
 }

@@ -342,13 +342,13 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array<string>>
+     * @return array<string, array<int, string>>
      */
     public function nonBooleanStringDataProvider(): array
     {
         return [
             'empty string' => [''],
-            '2' => ['2'],
+            'number 2' => ['2'],
             'false as string' => ['false'],
             'true as string' => ['true'],
         ];
@@ -559,8 +559,8 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     public function integerNotInRangeDataProvider(): array
     {
         return [
-            '< minimum' => [1],
-            '> maximum' => [5],
+            '< minimum' => ['1'],
+            '> maximum' => ['5'],
         ];
     }
 
@@ -588,9 +588,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     public function integerInRangeDataProvider(): array
     {
         return [
-            'minimum' => [2],
-            'between minimum and maximum' => [3],
-            'maximum' => [4],
+            'minimum' => ['2'],
+            'between minimum and maximum' => ['3'],
+            'maximum' => ['4'],
         ];
     }
 

@@ -26,12 +26,12 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     private $configuration = null;
 
     /**
-     * @var MapPoint|MockObject
+     * @var MapPoint&MockObject
      */
     private $mapPointWithCoordinates = null;
 
     /**
-     * @var TypoScriptFrontendController
+     * @var TypoScriptFrontendController&MockObject
      */
     private $mockFrontEnd = null;
 
@@ -44,14 +44,18 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $this->configuration = new TypoScriptConfiguration();
         $configurationRegistry->set('plugin.tx_oelib', $this->configuration);
 
-        $this->mockFrontEnd = $this->createMock(TypoScriptFrontendController::class);
-        $GLOBALS['TSFE'] = $this->mockFrontEnd;
-        $this->mapPointWithCoordinates = $this->createMock(MapPoint::class);
-        $this->mapPointWithCoordinates
+        /** @var TypoScriptFrontendController&MockObject  $mockFrontend */
+        $mockFrontend = $this->createMock(TypoScriptFrontendController::class);
+        $GLOBALS['TSFE'] = $mockFrontend;
+        $this->mockFrontEnd = $mockFrontend;
+        /** @var MapPoint&MockObject $mapPointWithCoordinates */
+        $mapPointWithCoordinates = $this->createMock(MapPoint::class);
+        $mapPointWithCoordinates
             ->method('hasGeoCoordinates')
             ->willReturn(true);
-        $this->mapPointWithCoordinates->method('getGeoCoordinates')
+        $mapPointWithCoordinates->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
+        $this->mapPointWithCoordinates = $mapPointWithCoordinates;
 
         $this->subject = new GoogleMapsViewHelper();
     }

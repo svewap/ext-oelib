@@ -31,7 +31,7 @@ abstract class AbstractDataMapper
     /**
      * @var class-string<M> the model class name for this mapper, must not be empty
      */
-    protected $modelClassName = '';
+    protected $modelClassName;
 
     /**
      * @var string a comma-separated list of DB column names to retrieve
@@ -52,13 +52,13 @@ abstract class AbstractDataMapper
     protected $uidsOfMemoryOnlyDummyModels = [];
 
     /**
-     * @var array<string, string> the (possible) relations of the created models in the format
-     *      DB column name => mapper name
+     * @var array<string, class-string<AbstractDataMapper>>
+     *      the (possible) relations of the created models in the format DB column name => mapper name
      */
     protected $relations = [];
 
     /**
-     * @var string[] the column names of additional string keys
+     * @var array<int, string> the column names of additional string keys
      */
     protected $additionalKeys = [];
 
@@ -106,7 +106,7 @@ abstract class AbstractDataMapper
         if ($this->columns === '') {
             throw new \InvalidArgumentException(\get_class($this) . '::columns must not be empty.', 1331319374);
         }
-        if ($this->modelClassName === '') {
+        if (!is_string($this->modelClassName)) {
             throw new \InvalidArgumentException(\get_class($this) . '::modelClassName must not be empty.', 1331319378);
         }
 
@@ -148,6 +148,7 @@ abstract class AbstractDataMapper
     public function find(int $uid): AbstractModel
     {
         try {
+            /** @var M $model */
             $model = $this->map->get($uid);
         } catch (NotFoundException $exception) {
             $model = $this->createGhost($uid);
@@ -203,6 +204,7 @@ abstract class AbstractDataMapper
      */
     public function getListOfModels(array $dataOfModels): Collection
     {
+        /** @var Collection<M> $list */
         $list = new Collection();
 
         foreach ($dataOfModels as $modelRecord) {

@@ -1265,7 +1265,7 @@ class TestingFramework
 
             $frontEnd->tmpl->runThroughTemplates($rootLine);
             $frontEnd->tmpl->generateConfig();
-            $frontEnd->tmpl->loaded = 1;
+            $frontEnd->tmpl->loaded = true;
             $frontEnd->settingLanguage();
             $frontEnd->settingLocale();
         }

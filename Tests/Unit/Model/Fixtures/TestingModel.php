@@ -118,7 +118,10 @@ class TestingModel extends AbstractModel
      */
     public function getChildren(): Collection
     {
-        return $this->getAsList('children');
+        /** @var Collection<TestingModel> $models */
+        $models = $this->getAsList('children');
+
+        return $models;
     }
 
     /**
@@ -128,7 +131,10 @@ class TestingModel extends AbstractModel
      */
     public function getRelatedRecords(): Collection
     {
-        return $this->getAsList('related_records');
+        /** @var Collection<TestingModel> $models */
+        $models = $this->getAsList('related_records');
+
+        return $models;
     }
 
     /**
@@ -150,7 +156,10 @@ class TestingModel extends AbstractModel
      */
     public function getBidirectional(): Collection
     {
-        return $this->getAsList('bidirectional');
+        /** @var Collection<TestingModel> $models */
+        $models = $this->getAsList('bidirectional');
+
+        return $models;
     }
 
     /**
@@ -160,7 +169,10 @@ class TestingModel extends AbstractModel
      */
     public function getComposition(): Collection
     {
-        return $this->getAsList('composition');
+        /** @var Collection<TestingChildModel> $models */
+        $models = $this->getAsList('composition');
+
+        return $models;
     }
 
     /**

@@ -248,7 +248,7 @@ class TemplateHelper extends SalutationSwitcher
         /** @var TemplateService $template */
         $template = GeneralUtility::makeInstance(TemplateService::class);
         // Disables the logging of time-performance information.
-        $template->tt_track = 0;
+        $template->tt_track = false;
         if (Typo3Version::isNotHigherThan(8)) {
             $template->init();
         }

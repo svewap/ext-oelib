@@ -12,6 +12,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * @covers \OliverKlee\Oelib\Email\RealMailer
+ */
 class RealMailerTest extends UnitTestCase
 {
     /**
@@ -20,7 +23,7 @@ class RealMailerTest extends UnitTestCase
     private $subject = null;
 
     /**
-     * @var MailMessage|MockObject
+     * @var MailMessage&MockObject
      */
     private $message = null;
 
@@ -28,8 +31,10 @@ class RealMailerTest extends UnitTestCase
     {
         $this->subject = new RealMailer();
 
-        $this->message = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
-        GeneralUtility::addInstance(MailMessage::class, $this->message);
+        /** @var MailMessage&MockObject $message */
+        $message = $this->getMockBuilder(MailMessage::class)->setMethods(['send'])->getMock();
+        GeneralUtility::addInstance(MailMessage::class, $message);
+        $this->message = $message;
     }
 
     /**

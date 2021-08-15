@@ -16,7 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class MapperRegistry
 {
     /**
-     * @var MapperRegistry the Singleton instance
+     * @var MapperRegistry|null the Singleton instance
      */
     private static $instance = null;
 
@@ -77,7 +77,7 @@ class MapperRegistry
      *
      * @throws NotFoundException if there is no such mapper
      *
-     * @param string $className the name of an existing mapper class, must not be empty
+     * @param class-string<AbstractDataMapper> $className the name of an existing mapper class, must not be empty
      *
      * @return AbstractDataMapper the mapper with the class $className
      *

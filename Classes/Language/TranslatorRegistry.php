@@ -21,7 +21,7 @@ use TYPO3\CMS\Lang\LanguageService;
 class TranslatorRegistry
 {
     /**
-     * @var TranslatorRegistry the Singleton instance
+     * @var TranslatorRegistry|null the Singleton instance
      */
     private static $instance = null;
 

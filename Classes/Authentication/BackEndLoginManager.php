@@ -12,11 +12,13 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
  * This class represents a manager for back-end logins, providing access to the logged-in user.
+ *
+ * @implements LoginManager<BackEndLoginManager>
  */
 class BackEndLoginManager implements LoginManager
 {
     /**
-     * @var BackEndLoginManager the Singleton instance
+     * @var BackEndLoginManager|null the Singleton instance
      */
     private static $instance = null;
 
@@ -35,7 +37,7 @@ class BackEndLoginManager implements LoginManager
     /**
      * Returns an instance of this class.
      *
-     * @return static the current Singleton instance
+     * @return BackEndLoginManager the current Singleton instance
      */
     public static function getInstance(): BackEndLoginManager
     {
@@ -71,7 +73,7 @@ class BackEndLoginManager implements LoginManager
     /**
      * Gets the currently logged-in back-end user.
      *
-     * @param string $mapperName
+     * @param class-string $mapperName
      *        the name of the mapper to use for getting the back-end user model, must not be empty
      *
      * @return BackEndUser|null the logged-in back-end user, will be null if no user is logged in

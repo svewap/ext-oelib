@@ -3024,10 +3024,7 @@ class TestingFrameworkTest extends FunctionalTestCase
 
         $this->subject->createFakeFrontEnd($pageUid);
 
-        self::assertSame(
-            1,
-            $this->getFrontEndController()->tmpl->loaded
-        );
+        self::assertTrue($this->getFrontEndController()->tmpl->loaded);
     }
 
     /**

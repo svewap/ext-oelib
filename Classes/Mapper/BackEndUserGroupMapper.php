@@ -22,8 +22,8 @@ class BackEndUserGroupMapper extends AbstractDataMapper
     protected $modelClassName = BackEndUserGroup::class;
 
     /**
-     * @var array<string, string> the (possible) relations of the created models in the format DB
-     *      column name => mapper name
+     * @var array<string, class-string<AbstractDataMapper>>
+     *      the (possible) relations of the created models in the format DB column name => mapper name
      */
     protected $relations = [
         'subgroup' => BackEndUserGroupMapper::class,

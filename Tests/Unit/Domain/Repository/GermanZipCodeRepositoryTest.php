@@ -20,7 +20,7 @@ class GermanZipCodeRepositoryTest extends UnitTestCase
 
     protected function setUp()
     {
-        /** @var ObjectManagerInterface|ProphecySubjectInterface $objectManagerStub */
+        /** @var ObjectManagerInterface&ProphecySubjectInterface $objectManagerStub */
         $objectManagerStub = $this->prophesize(ObjectManagerInterface::class)->reveal();
         $this->subject = new GermanZipCodeRepository($objectManagerStub);
     }

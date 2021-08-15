@@ -9,6 +9,9 @@ use OliverKlee\Oelib\Http\HeaderCollector;
 use OliverKlee\Oelib\Http\HeaderProxyFactory;
 use OliverKlee\Oelib\Http\RealHeaderProxy;
 
+/**
+ * @covers \OliverKlee\Oelib\Http\HeaderProxyFactory
+ */
 class HeaderProxyFactoryTest extends UnitTestCase
 {
     /**
@@ -21,7 +24,9 @@ class HeaderProxyFactoryTest extends UnitTestCase
         // Only the instance with an enabled test mode can be tested as in the
         // non-test mode added headers are not accessible.
         HeaderProxyFactory::getInstance()->enableTestMode();
-        $this->subject = HeaderProxyFactory::getInstance()->getHeaderProxy();
+        /** @var HeaderCollector $subject */
+        $subject = HeaderProxyFactory::getInstance()->getHeaderProxy();
+        $this->subject = $subject;
     }
 
     protected function tearDown()

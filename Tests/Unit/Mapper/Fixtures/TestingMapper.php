@@ -10,7 +10,6 @@ use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\IdentityMap;
 use OliverKlee\Oelib\Model\AbstractModel;
-use OliverKlee\Oelib\Model\Country;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
@@ -29,7 +28,8 @@ class TestingMapper extends AbstractDataMapper
     protected $modelClassName = TestingModel::class;
 
     /**
-     * @var string[] the (possible) relations of the created models in the format DB column name => mapper name
+     * @var array<string, class-string<AbstractDataMapper>>
+     *      the (possible) relations of the created models in the format DB column name => mapper name
      */
     protected $relations = [
         'friend' => TestingMapper::class,
@@ -43,7 +43,7 @@ class TestingMapper extends AbstractDataMapper
     ];
 
     /**
-     * @var string[] the column names of additional string keys
+     * @var array<int, string> the column names of additional string keys
      */
     protected $additionalKeys = ['title'];
 
@@ -85,15 +85,15 @@ class TestingMapper extends AbstractDataMapper
      * Retrieves a model based on the WHERE clause given in the parameter
      * $whereClauseParts. Hidden records will be retrieved as well.
      *
-     * @throws NotFoundException if there is no record in the DB
-     *                                     which matches the WHERE clause
-     *
      * @param string[] $whereClauseParts
      *        WHERE clause parts for the record to retrieve, each element must
      *        consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
      *
      * @return AbstractModel
+     *
+     * @throws NotFoundException if there is no record in the DB
+     *                                     which matches the WHERE clause
      */
     public function findSingleByWhereClause(array $whereClauseParts): AbstractModel
     {

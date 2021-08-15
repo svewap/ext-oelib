@@ -95,11 +95,12 @@ class GeoCalculator implements SingletonInterface
         Geo $center,
         float $distance
     ): Collection {
+        /** @var Collection<Geo> $objectsWithinDistance */
+        $objectsWithinDistance = new Collection();
         if (!$center->hasGeoCoordinates()) {
-            return new Collection();
+            return $objectsWithinDistance;
         }
 
-        $objectsWithinDistance = new Collection();
         /** @var Geo|AbstractModel $object */
         foreach ($unfilteredObjects as $object) {
             if ($object->hasGeoCoordinates() && $this->calculateDistanceInKilometers($center, $object) <= $distance) {

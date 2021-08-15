@@ -11,6 +11,9 @@ use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
+/**
+ * @covers \OliverKlee\Oelib\Model\AbstractModel
+ */
 class AbstractModelTest extends FunctionalTestCase
 {
     /**
@@ -37,10 +40,14 @@ class AbstractModelTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->dataMapper = MapperRegistry::get(TestingMapper::class);
+        /** @var TestingMapper $dataMapper */
+        $dataMapper = MapperRegistry::get(TestingMapper::class);
+        $this->dataMapper = $dataMapper;
 
         $uid = $this->createTestRecord();
-        $this->subject = $this->dataMapper->find($uid);
+        /** @var TestingModel $subject */
+        $subject = $this->dataMapper->find($uid);
+        $this->subject = $subject;
     }
 
     /**

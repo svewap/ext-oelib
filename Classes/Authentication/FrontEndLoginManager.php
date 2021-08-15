@@ -15,11 +15,13 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * This class represents a manager for front-end logins, providing access to the logged-in user.
+ *
+ * @implements LoginManager<FrontEndLoginManager>
  */
 class FrontEndLoginManager implements LoginManager
 {
     /**
-     * @var FrontEndLoginManager the Singleton instance
+     * @var FrontEndLoginManager|null the Singleton instance
      */
     private static $instance = null;
 
@@ -40,7 +42,7 @@ class FrontEndLoginManager implements LoginManager
     /**
      * Returns an instance of this class.
      *
-     * @return static the current Singleton instance
+     * @return FrontEndLoginManager the current Singleton instance
      */
     public static function getInstance(): FrontEndLoginManager
     {
@@ -92,7 +94,8 @@ class FrontEndLoginManager implements LoginManager
     /**
      * Gets the currently logged-in front-end user.
      *
-     * @param string $mapperName the name of the mapper to use for getting the front-end user model, must not be empty
+     * @param class-string $mapperName
+     *        the name of the mapper to use for getting the back-end user model, must not be empty
      *
      * @return FrontEndUser|null the logged-in front-end user
      *                                     will be null if no user is logged in or if there is no front end

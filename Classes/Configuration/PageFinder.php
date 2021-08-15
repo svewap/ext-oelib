@@ -38,7 +38,7 @@ class PageFinder
     const NO_SOURCE_FOUND = 4;
 
     /**
-     * @var PageFinder the Singleton instance
+     * @var PageFinder|null the Singleton instance
      */
     private static $instance = null;
 

@@ -23,7 +23,7 @@ class CurrencyMapper extends AbstractDataMapper
     protected $modelClassName = Currency::class;
 
     /**
-     * @var string[] the column names of additional string keys
+     * @var array<int, string> the column names of additional string keys
      */
     protected $additionalKeys = ['cu_iso_3'];
 

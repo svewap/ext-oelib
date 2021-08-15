@@ -36,7 +36,7 @@ class GoogleGeocoding implements GeocodingLookup
     /**
      * the Singleton instance
      *
-     * @var GeocodingLookup
+     * @var GeocodingLookup|null
      */
     private static $instance = null;
 

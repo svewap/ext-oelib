@@ -101,7 +101,10 @@ class BackEndUser extends AbstractModel implements MailRole
      */
     public function getGroups(): Collection
     {
-        return $this->getAsList('usergroup');
+        /** @var Collection<BackEndUserGroup> $groups */
+        $groups = $this->getAsList('usergroup');
+
+        return $groups;
     }
 
     /**
@@ -112,6 +115,7 @@ class BackEndUser extends AbstractModel implements MailRole
      */
     public function getAllGroups(): Collection
     {
+        /** @var Collection<BackEndUserGroup> $result */
         $result = new Collection();
         $groupsToProcess = $this->getGroups();
 

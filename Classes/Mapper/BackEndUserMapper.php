@@ -25,15 +25,15 @@ class BackEndUserMapper extends AbstractDataMapper
     protected $modelClassName = BackEndUser::class;
 
     /**
-     * @var array<string, string> the (possible) relations of the created models in the format
-     *      DB column name => mapper name
+     * @var array<string, class-string<AbstractDataMapper>>
+     *      the (possible) relations of the created models in the format DB column name => mapper name
      */
     protected $relations = [
         'usergroup' => BackEndUserGroupMapper::class,
     ];
 
     /**
-     * @var string[] the column names of additional string keys
+     * @var array<int, string> the column names of additional string keys
      */
     protected $additionalKeys = ['username'];
 

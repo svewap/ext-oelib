@@ -23,7 +23,7 @@ class LanguageMapper extends AbstractDataMapper
     protected $modelClassName = Language::class;
 
     /**
-     * @var string[] the column names of additional string keys
+     * @var array<int, string> the column names of additional string keys
      */
     protected $additionalKeys = ['lg_iso_2'];
 

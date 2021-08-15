@@ -19,7 +19,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 class ConfigurationRegistry
 {
     /**
-     * @var ConfigurationRegistry the Singleton instance
+     * @var ConfigurationRegistry|null the Singleton instance
      */
     private static $instance = null;
 
@@ -190,7 +190,7 @@ class ConfigurationRegistry
 
         /** @var TemplateService $template */
         $template = GeneralUtility::makeInstance(TemplateService::class);
-        $template->tt_track = 0;
+        $template->tt_track = false;
         if (Typo3Version::isNotHigherThan(8)) {
             $template->init();
         }
