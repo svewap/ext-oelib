@@ -435,16 +435,16 @@ class AbstractMailerTest extends UnitTestCase
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
         $eMail->setMessage(
-            'one long line ...........................................' . CRLF .
-            'now a blank line:' . LF . LF .
-            'another long line .........................................' . LF .
+            "one long line ...........................................\r\n" .
+            "now a blank line:\n\n" .
+            "another long line .........................................\n" .
             'and a line with umlauts: Hörbär saß früh.'
         );
 
         $this->subject->send($eMail);
 
         self::assertNotContains(
-            CR,
+            "\r",
             $this->subject->getFirstSentEmail()->getBody()
         );
     }
@@ -463,16 +463,16 @@ class AbstractMailerTest extends UnitTestCase
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
         $eMail->setMessage(
-            'one long line ...........................................' . CRLF .
-            'now a blank line:' . LF . LF .
-            'another long line .........................................' . LF .
+            "one long line ...........................................\r\n" .
+            "now a blank line:\n\\”" .
+            "another long line .........................................\n" .
             'and a line with umlauts: Hörbär saß früh.'
         );
 
         $this->subject->send($eMail);
 
         self::assertNotContains(
-            CR,
+            "\r",
             $this->subject->getFirstSentEmail()->getBody()
         );
     }
@@ -491,16 +491,16 @@ class AbstractMailerTest extends UnitTestCase
         $eMail->addRecipient($recipient);
         $eMail->setSubject(self::EMAIL['subject']);
         $eMail->setMessage(
-            'one long line ...........................................' . CRLF .
-            'now a blank line:' . LF . LF .
-            'another long line .........................................' . LF .
+            "one long line ...........................................\r\n" .
+            "now a blank line:\n\\”" .
+            "another long line .........................................\n" .
             'and a line with umlauts: Hörbär saß früh.'
         );
 
         $this->subject->send($eMail);
 
         self::assertContains(
-            CR,
+            "\r",
             $this->subject->getFirstSentEmail()->getBody()
         );
     }
@@ -510,7 +510,7 @@ class AbstractMailerTest extends UnitTestCase
      */
     public function sendSetsHtmlBody()
     {
-        $htmlMessage = '<h1>Very cool HTML message</h1>' . LF . '<p>Great to have HTML e-mails in oelib.</p>';
+        $htmlMessage = "<h1>Very cool HTML message</h1>\n<p>Great to have HTML e-mails in oelib.</p>";
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('', self::EMAIL['recipient']);
         $eMail = new Mail();
@@ -535,7 +535,7 @@ class AbstractMailerTest extends UnitTestCase
      */
     public function sendSetsHtmlBodyWithTextHtmlContentType()
     {
-        $htmlMessage = '<h1>Very cool HTML message</h1>' . LF . '<p>Great to have HTML e-mails in oelib.</p>';
+        $htmlMessage = "<h1>Very cool HTML message</h1>\n<p>Great to have HTML e-mails in oelib.</p>";
         $sender = new TestingMailRole('', 'any-sender@email-address.org');
         $recipient = new TestingMailRole('', self::EMAIL['recipient']);
         $eMail = new Mail();

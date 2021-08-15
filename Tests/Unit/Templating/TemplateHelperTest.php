@@ -737,12 +737,12 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function getSimpleSubpartWithLinefeed()
     {
-        $subpartContent = LF . 'Subpart content' . LF;
-        $templateCode = 'Text before the subpart' . LF
+        $subpartContent = "\nSubpart content\n";
+        $templateCode = "Text before the subpart\n"
             . '<!-- ###MY_SUBPART### -->'
             . $subpartContent
-            . '<!-- ###MY_SUBPART### -->' . LF
-            . 'Text after the subpart.' . LF;
+            . "<!-- ###MY_SUBPART### -->\n"
+            . "Text after the subpart.\n";
         $this->subject->processTemplate(
             $templateCode
         );

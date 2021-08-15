@@ -41,7 +41,7 @@ class TemplateTest extends UnitTestCase
         );
 
         self::assertSame(
-            'Hello world!' . LF,
+            "Hello world!\n",
             $this->subject->render()
         );
     }
@@ -116,7 +116,7 @@ class TemplateTest extends UnitTestCase
      */
     public function getSubpartWithoutParametersReturnsCompleteTemplateContent()
     {
-        $templateCode = 'This is a test including' . LF . 'a linefeed.' . LF;
+        $templateCode = "This is a test including\na linefeed.\n";
         $this->subject->processTemplate($templateCode);
         self::assertSame(
             $templateCode,
@@ -129,7 +129,7 @@ class TemplateTest extends UnitTestCase
      */
     public function getSubpartWithoutEmptySubpartNameReturnsCompleteTemplateContent()
     {
-        $templateCode = 'This is a test including' . LF . 'a linefeed.' . LF;
+        $templateCode = "This is a test including\na linefeed.\n";
         $this->subject->processTemplate($templateCode);
         self::assertSame(
             $templateCode,
@@ -220,9 +220,9 @@ class TemplateTest extends UnitTestCase
     public function getSubpartFindsSubpartWithTextWithLinefeedsBeforeOpeningAndClosingSubpartEndComment()
     {
         $subpartContent = 'Subpart content';
-        $templateCode = '<!-- ###MY_SUBPART### start ' . LF . ' start -->' .
+        $templateCode = "<!-- ###MY_SUBPART### start \n start -->" .
             $subpartContent .
-            '<!-- ###MY_SUBPART### end ' . LF . ' end -->';
+            "<!-- ###MY_SUBPART### end \n end -->";
         $this->subject->processTemplate(
             $templateCode
         );
@@ -413,12 +413,12 @@ class TemplateTest extends UnitTestCase
      */
     public function getSimpleSubpartWithLinefeed()
     {
-        $subpartContent = LF . 'Subpart content' . LF;
-        $templateCode = 'Text before the subpart' . LF
+        $subpartContent = "\nSubpart content\n";
+        $templateCode = "Text before the subpart\n"
             . '<!-- ###MY_SUBPART### -->'
             . $subpartContent
-            . '<!-- ###MY_SUBPART### -->' . LF
-            . 'Text after the subpart.' . LF;
+            . "<!-- ###MY_SUBPART### -->\n"
+            . "Text after the subpart.\n";
         $this->subject->processTemplate(
             $templateCode
         );
@@ -577,7 +577,7 @@ class TemplateTest extends UnitTestCase
      */
     public function renderReturnsCompleteTemplateContent()
     {
-        $templateCode = 'This is a test including' . LF . 'a linefeed.' . LF;
+        $templateCode = "This is a test including\na linefeed.\n";
         $this->subject->processTemplate($templateCode);
         self::assertSame(
             $templateCode,

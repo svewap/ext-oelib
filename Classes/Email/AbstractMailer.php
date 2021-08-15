@@ -181,8 +181,8 @@ abstract class AbstractMailer
             return $rawEmailBody;
         }
 
-        $body = str_replace([CRLF, CR], LF, $rawEmailBody);
-        $body = preg_replace('/\\n{2,}/', LF . LF, $body);
+        $body = str_replace(["\r\n", "\r"], "\n", $rawEmailBody);
+        $body = preg_replace('/\\n{2,}/', "\n\n", $body);
 
         return trim($body);
     }

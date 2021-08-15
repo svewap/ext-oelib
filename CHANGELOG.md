@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Stop using the TYPO3-custom whitespace constant (#631)
 - Add missing call parameter in the `ConfigurationCheck` (#628)
 
 ## 3.3.0

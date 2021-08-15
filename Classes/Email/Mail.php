@@ -169,7 +169,7 @@ class Mail extends AbstractObjectWithAccessors
             throw new \InvalidArgumentException('$subject must not be empty.', 1331488802);
         }
 
-        if ((strpos($subject, CR) !== false) || (strpos($subject, LF) !== false)) {
+        if ((strpos($subject, "\r") !== false) || (strpos($subject, "\n") !== false)) {
             throw new \InvalidArgumentException(
                 '$subject must not contain any line breaks or carriage returns.',
                 1331488817

@@ -80,7 +80,7 @@ class TemplateHelperTest extends FunctionalTestCase
      */
     public function getCompleteTemplateReturnsCompleteTemplateContent()
     {
-        $templateCode = 'This is a test including' . LF . 'a linefeed.' . LF;
+        $templateCode = "This is a test including\na linefeed.\n";
         $this->subject->processTemplate(
             $templateCode
         );

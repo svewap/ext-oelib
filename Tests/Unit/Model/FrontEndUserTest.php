@@ -529,12 +529,12 @@ class FrontEndUserTest extends UnitTestCase
     {
         $this->subject->setData(
             [
-                'address' => 'Foo street 1' . LF . 'Floor 3',
+                'address' => "Foo street 1\nFloor 3",
             ]
         );
 
         self::assertSame(
-            'Foo street 1' . LF . 'Floor 3',
+            "Foo street 1\nFloor 3",
             $this->subject->getStreet()
         );
     }

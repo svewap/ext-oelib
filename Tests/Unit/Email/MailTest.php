@@ -235,7 +235,7 @@ class MailTest extends UnitTestCase
             '$subject must not contain any line breaks or carriage returns.'
         );
 
-        $this->subject->setSubject('test ' . CR . ' subject');
+        $this->subject->setSubject("test \r subject");
     }
 
     /**
@@ -250,7 +250,7 @@ class MailTest extends UnitTestCase
             '$subject must not contain any line breaks or carriage returns.'
         );
 
-        $this->subject->setSubject('test ' . LF . ' subject');
+        $this->subject->setSubject("test \n subject");
     }
 
     /**
@@ -265,7 +265,7 @@ class MailTest extends UnitTestCase
             '$subject must not contain any line breaks or carriage returns.'
         );
 
-        $this->subject->setSubject('test ' . CRLF . ' subject');
+        $this->subject->setSubject("test \r\n subject");
     }
 
     /*

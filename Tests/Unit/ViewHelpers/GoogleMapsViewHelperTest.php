@@ -561,7 +561,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $mapPoint->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasTooltipTitle')->willReturn(true);
-        $mapPoint->method('getTooltipTitle')->willReturn('Here' . LF . 'There');
+        $mapPoint->method('getTooltipTitle')->willReturn("Here\nThere");
         $this->subject->render([$mapPoint]);
 
         self::assertContains(
@@ -580,7 +580,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $mapPoint->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasTooltipTitle')->willReturn(true);
-        $mapPoint->method('getTooltipTitle')->willReturn('Here' . CR . 'There');
+        $mapPoint->method('getTooltipTitle')->willReturn("Here\rThere");
         $this->subject->render([$mapPoint]);
 
         self::assertContains(
@@ -674,7 +674,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $mapPoint->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasInfoWindowContent')->willReturn(true);
-        $mapPoint->method('getInfoWindowContent')->willReturn('Here' . LF . 'There');
+        $mapPoint->method('getInfoWindowContent')->willReturn("Here\nThere");
         $this->subject->render([$mapPoint]);
 
         self::assertContains(
@@ -693,7 +693,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $mapPoint->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasInfoWindowContent')->willReturn(true);
-        $mapPoint->method('getInfoWindowContent')->willReturn('Here' . CR . 'There');
+        $mapPoint->method('getInfoWindowContent')->willReturn("Here\rThere");
         $this->subject->render([$mapPoint]);
 
         self::assertContains(

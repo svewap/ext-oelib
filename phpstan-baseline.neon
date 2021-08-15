@@ -6,26 +6,6 @@ parameters:
 			path: Classes/Configuration/ConfigurationCheck.php
 
 		-
-			message: "#^Constant CR not found\\.$#"
-			count: 1
-			path: Classes/Email/AbstractMailer.php
-
-		-
-			message: "#^Constant LF not found\\.$#"
-			count: 3
-			path: Classes/Email/AbstractMailer.php
-
-		-
-			message: "#^Constant CR not found\\.$#"
-			count: 1
-			path: Classes/Email/Mail.php
-
-		-
-			message: "#^Constant LF not found\\.$#"
-			count: 1
-			path: Classes/Email/Mail.php
-
-		-
 			message: "#^Constructor of class OliverKlee\\\\Oelib\\\\Session\\\\FakeSession has an unused parameter \\$type\\.$#"
 			count: 1
 			path: Classes/Session/FakeSession.php
@@ -46,29 +26,9 @@ parameters:
 			path: Classes/Testing/TestingFramework.php
 
 		-
-			message: "#^Constant CR not found\\.$#"
-			count: 2
-			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
-
-		-
-			message: "#^Constant LF not found\\.$#"
-			count: 27
-			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
-
-		-
 			message: "#^Constant TYPO3_version not found\\.$#"
 			count: 4
 			path: Tests/Functional/Database/DatabaseServiceTest.php
-
-		-
-			message: "#^Constant LF not found\\.$#"
-			count: 2
-			path: Tests/Functional/Email/MailTest.php
-
-		-
-			message: "#^Constant LF not found\\.$#"
-			count: 2
-			path: Tests/Functional/Templating/TemplateHelperTest.php
 
 		-
 			message: "#^Constant PATH_site not found\\.$#"
@@ -79,31 +39,6 @@ parameters:
 			message: "#^Constant TYPO3_version not found\\.$#"
 			count: 1
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
-
-		-
-			message: "#^Constant CR not found\\.$#"
-			count: 3
-			path: Tests/Unit/Email/AbstractMailerTest.php
-
-		-
-			message: "#^Constant LF not found\\.$#"
-			count: 11
-			path: Tests/Unit/Email/AbstractMailerTest.php
-
-		-
-			message: "#^Constant CR not found\\.$#"
-			count: 1
-			path: Tests/Unit/Email/MailTest.php
-
-		-
-			message: "#^Constant LF not found\\.$#"
-			count: 1
-			path: Tests/Unit/Email/MailTest.php
-
-		-
-			message: "#^Constant LF not found\\.$#"
-			count: 2
-			path: Tests/Unit/Model/FrontEndUserTest.php
 
 		-
 			message: "#^Constant TYPO3_version not found\\.$#"
@@ -111,32 +46,7 @@ parameters:
 			path: Tests/Unit/System/Typo3VersionTest.php
 
 		-
-			message: "#^Constant LF not found\\.$#"
-			count: 5
-			path: Tests/Unit/Templating/TemplateHelperTest.php
-
-		-
-			message: "#^Constant LF not found\\.$#"
-			count: 1
-			path: Tests/Unit/Templating/TemplateRegistryTest.php
-
-		-
-			message: "#^Constant LF not found\\.$#"
-			count: 14
-			path: Tests/Unit/Templating/TemplateTest.php
-
-		-
 			message: "#^Constant PATH_site not found\\.$#"
 			count: 6
 			path: Tests/Unit/Testing/TestingFrameworkTest.php
-
-		-
-			message: "#^Constant CR not found\\.$#"
-			count: 2
-			path: Tests/Unit/ViewHelpers/GoogleMapsViewHelperTest.php
-
-		-
-			message: "#^Constant LF not found\\.$#"
-			count: 2
-			path: Tests/Unit/ViewHelpers/GoogleMapsViewHelperTest.php
 

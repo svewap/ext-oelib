@@ -127,8 +127,8 @@ class GoogleMapsViewHelper extends AbstractViewHelper
         // We use the inline JavaScript because adding body onload handlers does not work
         // for uncached plugins on cached pages.
         return '<div id="' . $mapId . '" style="width: ' .
-            $width . '; height: ' . $height . ';"></div>' . LF .
-            '<script type="text/javascript">' . $initializeFunctionName . '();</script>' . LF;
+            $width . '; height: ' . $height . ";\"></div>\n" .
+            '<script type="text/javascript">' . $initializeFunctionName . "();</script>\n";
     }
 
     /**
@@ -151,19 +151,19 @@ class GoogleMapsViewHelper extends AbstractViewHelper
         // point. In that case, any point will do (e.g., the first point).
         $centerCoordinates = $mapPoints[0]->getGeoCoordinates();
 
-        return 'var mapMarkersByUid = mapMarkersByUid || {};' . LF .
-            'function ' . $initializeFunctionName . '() {' . LF .
+        return "var mapMarkersByUid = mapMarkersByUid || {};\n" .
+            'function ' . $initializeFunctionName . "() {\n" .
             'var center = new google.maps.LatLng(' . \number_format($centerCoordinates['latitude'], 6, '.', '') . ', ' .
-            \number_format($centerCoordinates['longitude'], 6, '.', '') . ');' . LF .
-            'var mapOptions = {' . LF .
-            '  mapTypeId: google.maps.MapTypeId.ROADMAP,' . LF .
-            '  scrollwheel: false, ' . LF .
-            '  zoom: ' . self::DEFAULT_ZOOM_LEVEL . ', ' . LF .
-            '  center: center' . LF .
-            '};' . LF .
-            'mapMarkersByUid.' . $mapId . ' = {};' . LF .
-            'var map = new google.maps.Map(document.getElementById("' . $mapId . '"), mapOptions);' . LF .
-            'var bounds = new google.maps.LatLngBounds();' . LF .
+            \number_format($centerCoordinates['longitude'], 6, '.', '') . ");\n" .
+            "var mapOptions = {\n" .
+            "  mapTypeId: google.maps.MapTypeId.ROADMAP,\n" .
+            "  scrollwheel: false, \n" .
+            '  zoom: ' . self::DEFAULT_ZOOM_LEVEL . ", \n" .
+            "  center: center\n" .
+            "};\n" .
+            'mapMarkersByUid.' . $mapId . " = {};\n" .
+            'var map = new google.maps.Map(document.getElementById("' . $mapId . "\"), mapOptions);\n" .
+            "var bounds = new google.maps.LatLngBounds();\n" .
             $this->createMapMarkers($mapPoints, $mapId) .
             '}';
     }
@@ -218,7 +218,7 @@ class GoogleMapsViewHelper extends AbstractViewHelper
             $positionVariableName = 'markerPosition_' . $index;
             $javaScript .= 'var ' . $positionVariableName . ' = new google.maps.LatLng(' .
                 \number_format($coordinates['latitude'], 6, '.', '') . ', ' .
-                \number_format($coordinates['longitude'], 6, '.', '') . ');' . LF .
+                \number_format($coordinates['longitude'], 6, '.', '') . ");\n" .
                 'bounds.extend(' . $positionVariableName . ');';
 
             $markerParts = [
@@ -226,7 +226,7 @@ class GoogleMapsViewHelper extends AbstractViewHelper
                 'map: map',
             ];
             $escapedTooltipTitle = \str_replace(
-                ['\\', '"', LF, CR],
+                ['\\', '"', "\n", "\r"],
                 ['\\\\', '\\"', '\\n', '\\r'],
                 $mapPoint->getTooltipTitle()
             );
@@ -238,20 +238,20 @@ class GoogleMapsViewHelper extends AbstractViewHelper
             if (($mapPoint instanceof Identity) && $mapPoint->hasUid()) {
                 $markerParts[] = 'uid: ' . $mapPoint->getUid();
                 $mapMarkersByUidEntry = 'mapMarkersByUid.' . $mapId .
-                    '[' . $mapPoint->getUid() . '] = ' . $markerVariableName . ';' . LF;
+                    '[' . $mapPoint->getUid() . '] = ' . $markerVariableName . ";\n";
             } else {
                 $mapMarkersByUidEntry = '';
             }
 
-            $javaScript .= 'var ' . $markerVariableName . ' = new google.maps.Marker({' . LF .
-                '  ' . \implode(',' . LF . '  ', $markerParts) . LF .
-                '});' . LF .
+            $javaScript .= 'var ' . $markerVariableName . " = new google.maps.Marker({\n" .
+                '  ' . \implode(",\n  ", $markerParts) . "\n" .
+                "});\n" .
                 $this->createInfoWindowJavaScript($mapPoint, $markerVariableName, $index) .
                 $mapMarkersByUidEntry;
         }
 
         if (\count($mapPoints) > 1) {
-            $javaScript .= 'map.fitBounds(bounds);' . LF;
+            $javaScript .= "map.fitBounds(bounds);\n";
         }
 
         return $javaScript;
@@ -282,16 +282,16 @@ class GoogleMapsViewHelper extends AbstractViewHelper
 
         $infoWindowVariableName = 'infoWindow_' . $index;
         $escapedInfoWindowContent = str_replace(
-            ['\\', '"', LF, CR],
+            ['\\', '"', "\n", "\r"],
             ['\\\\', '\\"', '\\n', '\\r'],
             $mapPoint->getInfoWindowContent()
         );
 
         return 'var ' . $infoWindowVariableName . ' = new google.maps.InfoWindow({content: "' .
-            $escapedInfoWindowContent . '"});' . LF .
-            'google.maps.event.addListener(' . $markerVariableName . ', "click", function() {' . LF .
-            '  ' . $infoWindowVariableName . '.open(map, ' . $markerVariableName . ');' . LF .
-            '});' . LF;
+            $escapedInfoWindowContent . "\"});\n" .
+            'google.maps.event.addListener(' . $markerVariableName . ", \"click\", function() {\n" .
+            '  ' . $infoWindowVariableName . '.open(map, ' . $markerVariableName . ");\n" .
+            "});\n";
     }
 
     /**

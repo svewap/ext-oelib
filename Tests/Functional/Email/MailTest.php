@@ -162,9 +162,9 @@ class MailTest extends FunctionalTestCase
     {
         $this->subject->setCssFile('EXT:oelib/Tests/Functional/Email/Fixtures/test.css');
         $this->subject->setHTMLMessage(
-            '<!DOCTYPE html>' . LF .
+            '<!DOCTYPE html>' .
             '<html>' .
-            '<head><title>foo</title></head>' . LF .
+            '<head><title>foo</title></head>' .
             '<body><h3>Bar</h3></body>' .
             '</html>'
         );

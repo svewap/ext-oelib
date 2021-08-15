@@ -106,7 +106,7 @@ class TemplateRegistryTest extends UnitTestCase
         $template = TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html');
 
         self::assertSame(
-            'Hello world!' . LF,
+            "Hello world!\n",
             $template->getSubpart()
         );
     }
