@@ -17,6 +17,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a mapper that maps database record to model instances.
+ *
+ * @template M of AbstractModel
  */
 abstract class AbstractDataMapper
 {
@@ -27,7 +29,7 @@ abstract class AbstractDataMapper
     protected $tableName = '';
 
     /**
-     * @var string the model class name for this mapper, must not be empty
+     * @var class-string<M> the model class name for this mapper, must not be empty
      */
     protected $modelClassName = '';
 
@@ -69,7 +71,7 @@ abstract class AbstractDataMapper
     protected $compoundKeyParts = [];
 
     /**
-     * @var array<string, array<string, AbstractModel>> two-dimensional cache for the objects by key:
+     * @var array<string, array<string, M>> two-dimensional cache for the objects by key:
      *            [key name][key value] => model
      */
     private $cacheByKey = [];
@@ -79,7 +81,7 @@ abstract class AbstractDataMapper
      * [compound key value] => model
      * The column values are concatenated via a dot as compound key value.
      *
-     * @var array<string, AbstractModel>
+     * @var array<string, M>
      */
     protected $cacheByCompoundKey = [];
 
@@ -141,7 +143,7 @@ abstract class AbstractDataMapper
      * @param int $uid
      *        the UID of the record to retrieve, must be > 0
      *
-     * @return AbstractModel the model with the UID $uid
+     * @return M the model with the UID $uid
      */
     public function find(int $uid): AbstractModel
     {
@@ -164,7 +166,7 @@ abstract class AbstractDataMapper
      *        data for the model to return, must at least contain an element
      *        with the key "uid"
      *
-     * @return AbstractModel model for the provided UID, filled with the data
+     * @return M model for the provided UID, filled with the data
      *                        provided in case it did not have any data in
      *                        memory before
      */
@@ -191,7 +193,7 @@ abstract class AbstractDataMapper
      *        two-dimensional array, each inner array must at least contain the
      *        element "uid", may be empty
      *
-     * @return Collection<AbstractModel>
+     * @return Collection<M>
      *         Models with the UIDs provided. The models will be filled with the
      *         data provided in case they did not have any data before,
      *         otherwise the already loaded data will be used. If $dataOfModels
@@ -219,7 +221,7 @@ abstract class AbstractDataMapper
      *        consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
      *
-     * @return AbstractModel the model
+     * @return M the model
      *
      * @throws NotFoundException if there is no record in the DB which matches the WHERE clause
      */
@@ -264,7 +266,7 @@ abstract class AbstractDataMapper
      *
      * Note: This method may only be called at most once per model instance.
      *
-     * @param AbstractModel $model
+     * @param M $model
      *        the model to fill, must already have a UID
      *
      * @return void
@@ -306,7 +308,7 @@ abstract class AbstractDataMapper
      *
      * This method may be called more than once per model instance.
      *
-     * @param AbstractModel $model
+     * @param M $model
      *        the model to fill, must already have a UID
      *
      * @return void
@@ -343,7 +345,7 @@ abstract class AbstractDataMapper
      *
      * This method must be called at most once per model instance.
      *
-     * @param AbstractModel $model
+     * @param M $model
      *        the model to fill, needs to have a UID
      * @param array $data the model data to process as it comes from the DB
      *
@@ -363,7 +365,7 @@ abstract class AbstractDataMapper
      *
      * This method may be called more than once per model instance.
      *
-     * @param AbstractModel $model
+     * @param M $model
      *        the model to fill, needs to have a UID
      * @param array $data the model data to process as it comes from the DB
      *
@@ -382,7 +384,7 @@ abstract class AbstractDataMapper
      *
      * @param array &$data
      *        the model data to process, might be modified
-     * @param AbstractModel $model
+     * @param M $model
      *        the model to create the relations for
      *
      * @return void
@@ -503,7 +505,7 @@ abstract class AbstractDataMapper
      * @param string $key
      *        the key of the data item for which the relation should be created,
      *        must not be empty
-     * @param AbstractModel $model
+     * @param M $model
      *        the model to create the relation for
      *
      * @return void
@@ -569,7 +571,7 @@ abstract class AbstractDataMapper
      *        the model data to process, will be modified
      * @param string $key
      *        the key of the data item for which the relation should be created, must not be empty
-     * @param AbstractModel $model the model to create the relation for
+     * @param M $model the model to create the relation for
      *
      * @return void
      */
@@ -604,7 +606,7 @@ abstract class AbstractDataMapper
      *        the model data to process, will be modified
      * @param string $key
      *        the key of the data item for which the relation should be created, must not be empty
-     * @param AbstractModel $model the model to create the relation for
+     * @param M $model the model to create the relation for
      *
      * @return void
      */
@@ -703,11 +705,11 @@ abstract class AbstractDataMapper
      *
      * @param int $uid the UID of the to-create ghost
      *
-     * @return AbstractModel a ghost model with the UID $uid
+     * @return M a ghost model with the UID $uid
      */
     protected function createGhost(int $uid): AbstractModel
     {
-        /** @var AbstractModel $model */
+        /** @var M $model */
         $model = GeneralUtility::makeInstance($this->modelClassName);
         $model->setUid($uid);
         $model->setLoadCallback([$this, 'load']);
@@ -723,7 +725,7 @@ abstract class AbstractDataMapper
      * Important: As this ghost's UID has nothing to do with the real UIDs in
      * the database, this ghost must not be loaded or saved.
      *
-     * @return AbstractModel a new ghost
+     * @return M a new ghost
      */
     public function getNewGhost(): AbstractModel
     {
@@ -757,7 +759,7 @@ abstract class AbstractDataMapper
      *
      * @param array<string, string> $data the data as it would come from the database, may be empty
      *
-     * @return AbstractModel a new model loaded with $data
+     * @return M a new model loaded with $data
      */
     public function getLoadedTestingModel(array $data): AbstractModel
     {
@@ -796,7 +798,7 @@ abstract class AbstractDataMapper
      * denied, if the model is clean, if the model has status dead, virgin or
      * ghost, if the model is read-only or if there is no data to set.
      *
-     * @param AbstractModel $model the model to write to the database
+     * @param M $model the model to write to the database
      *
      * @return void
      */
@@ -849,7 +851,7 @@ abstract class AbstractDataMapper
      * database-applicable format. Sets the timestamp and sets the "crdate" for
      * new models.
      *
-     * @param AbstractModel $model the model to write to the database
+     * @param M $model the model to write to the database
      *
      * @return array the model's data prepared for the database, will not be empty
      */
@@ -922,7 +924,7 @@ abstract class AbstractDataMapper
     /**
      * Saves the related model of an n:1-relation.
      *
-     * @param AbstractModel $model the model to save
+     * @param M $model the model to save
      * @param AbstractDataMapper $mapper the mapper to use for saving
      *
      * @return void
@@ -952,7 +954,7 @@ abstract class AbstractDataMapper
      * Deletes the records in the intermediate table of m:n relations for a
      * given model.
      *
-     * @param AbstractModel $model the model to delete the records in the
+     * @param M $model the model to delete the records in the
      *                              intermediate table of m:n relations for
      *
      * @return void
@@ -974,7 +976,7 @@ abstract class AbstractDataMapper
     /**
      * Creates records in the intermediate table of m:n relations for a given model.
      *
-     * @param AbstractModel $model the model to create the records in the intermediate table of m:n relations for
+     * @param M $model the model to create the records in the intermediate table of m:n relations for
      *
      * @return void
      */
@@ -1012,7 +1014,7 @@ abstract class AbstractDataMapper
     /**
      * Saves records that this model relates to as 1:n.
      *
-     * @param AbstractModel $model the model to save the related records for
+     * @param M $model the model to save the related records for
      *
      * @return void
      */
@@ -1116,7 +1118,7 @@ abstract class AbstractDataMapper
     /**
      * Marks $model as deleted and saves it to the DB (if it has a UID).
      *
-     * @param AbstractModel $model
+     * @param M $model
      *        the model to delete, must not be a memory-only dummy, must not be
      *        read-only
      *
@@ -1151,7 +1153,7 @@ abstract class AbstractDataMapper
     /**
      * Deletes all one-to-many related models of this model.
      *
-     * @param AbstractModel $model
+     * @param M $model
      *        the model for which to delete the related models
      *
      * @return void
@@ -1186,7 +1188,7 @@ abstract class AbstractDataMapper
      *        optionally followed by "ASC" or "DESC" or may
      *        be empty
      *
-     * @return Collection<AbstractModel> all models from the DB, already loaded
+     * @return Collection<M> all models from the DB, already loaded
      */
     public function findAll(string $sorting = ''): Collection
     {
@@ -1243,7 +1245,7 @@ abstract class AbstractDataMapper
     /**
      * Registers a model as a memory-only dummy that must not be saved.
      *
-     * @param AbstractModel $model the model to register
+     * @param M $model the model to register
      *
      * @return void
      */
@@ -1259,7 +1261,7 @@ abstract class AbstractDataMapper
     /**
      * Checks whether $model is a memory-only dummy that must not be saved
      *
-     * @param AbstractModel $model the model to check
+     * @param M $model the model to check
      *
      * @return bool TRUE if $model is a memory-only dummy, FALSE otherwise
      */
@@ -1284,7 +1286,7 @@ abstract class AbstractDataMapper
      *        optionally followed by "ASC" or "DESC", may be empty
      * @param string|int $limit the LIMIT value ([begin,]max), may be empty
      *
-     * @return Collection<AbstractModel> all models found in DB for the given where clause,
+     * @return Collection<M> all models found in DB for the given where clause,
      *                       will be an empty list if no models were found
      *
      * @deprecated will be removed in oelib 4.0.0
@@ -1327,7 +1329,7 @@ abstract class AbstractDataMapper
      *        the sorting for the found records, must be a valid DB field
      *        optionally followed by "ASC" or "DESC", may be empty
      *
-     * @return Collection<AbstractModel> all records with the matching page UIDs, will be
+     * @return Collection<M> all records with the matching page UIDs, will be
      *                       empty if no records have been found
      */
     public function findByPageUid($pageUids, string $sorting = ''): Collection
@@ -1377,7 +1379,7 @@ abstract class AbstractDataMapper
      * @param string $key an existing key, must not be empty
      * @param string $value the value for the key of the model to find, must not be empty
      *
-     * @return AbstractModel the cached model
+     * @return M the cached model
      *
      * @throws NotFoundException if there is no match in the cache yet
      * @throws \InvalidArgumentException
@@ -1410,7 +1412,7 @@ abstract class AbstractDataMapper
      * @param string $value
      *        the value for the compound key of the model to find, must not be empty
      *
-     * @return AbstractModel the cached model
+     * @return M the cached model
      *
      * @throws NotFoundException if there is no match in the cache yet
      * @throws \InvalidArgumentException
@@ -1432,7 +1434,7 @@ abstract class AbstractDataMapper
      * Puts a model in the cache-by-keys (if the model has any non-empty
      * additional keys).
      *
-     * @param AbstractModel $model the model to cache
+     * @param M $model the model to cache
      * @param array<string, string> $data the data of the model as it is in the DB, may be empty
      *
      * @return void
@@ -1460,7 +1462,7 @@ abstract class AbstractDataMapper
      * This method needs to be overwritten in subclasses to work. However, it is recommended to use
      * cacheModelByCompoundKey instead. So this method primarily is here for backwards compatibility.
      *
-     * @param AbstractModel $model the model to cache
+     * @param M $model the model to cache
      * @param array<string, string> $data the data of the model as it is in the DB, may be empty
      *
      * @return void
@@ -1478,7 +1480,7 @@ abstract class AbstractDataMapper
      *
      * This method works automatically; it is not necessary to overwrite it.
      *
-     * @param AbstractModel $model the model to cache
+     * @param M $model the model to cache
      * @param array<string, string> $data the data of the model as it is in the DB, may be empty
      *
      * @return void
@@ -1517,7 +1519,7 @@ abstract class AbstractDataMapper
      * @param string $value
      *        the value for the key of the model to find, must not be empty
      *
-     * @return AbstractModel the cached model
+     * @return M the cached model
      *
      * @throws NotFoundException if there is no match (neither in the cache nor in the database)
      */
@@ -1543,7 +1545,7 @@ abstract class AbstractDataMapper
      *        The array must have all the keys that are set in the additionalCompoundKey array.
      *        The array values contain the model data with which to look up.
      *
-     * @return AbstractModel the cached model
+     * @return M the cached model
      *
      * @throws NotFoundException if there is no match (neither in the cache nor in the database)
      * @throws \InvalidArgumentException if parameter array $keyValue is empty
@@ -1597,7 +1599,7 @@ abstract class AbstractDataMapper
     /**
      * Finds all records that are related to $model via the field $key.
      *
-     * @param AbstractModel $model
+     * @param M $model
      *        the model to which the matches should be related
      * @param string $relationKey
      *        the key of the field in the matches that should contain the UID

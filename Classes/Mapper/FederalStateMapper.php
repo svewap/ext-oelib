@@ -6,6 +6,9 @@ namespace OliverKlee\Oelib\Mapper;
 
 use OliverKlee\Oelib\Model\FederalState;
 
+/**
+ * @extends AbstractDataMapper<FederalState>
+ */
 class FederalStateMapper extends AbstractDataMapper
 {
     /**

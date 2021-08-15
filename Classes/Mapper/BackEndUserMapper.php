@@ -9,6 +9,9 @@ use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\BackEndUser;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
+/**
+ * @extends AbstractDataMapper<BackEndUser>
+ */
 class BackEndUserMapper extends AbstractDataMapper
 {
     /**

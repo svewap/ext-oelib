@@ -7,6 +7,9 @@ namespace OliverKlee\Oelib\Mapper;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\Currency;
 
+/**
+ * @extends AbstractDataMapper<Currency>
+ */
 class CurrencyMapper extends AbstractDataMapper
 {
     /**

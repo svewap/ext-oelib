@@ -7,6 +7,9 @@ namespace OliverKlee\Oelib\Mapper;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\Language;
 
+/**
+ * @extends AbstractDataMapper<Language>
+ */
 class LanguageMapper extends AbstractDataMapper
 {
     /**
