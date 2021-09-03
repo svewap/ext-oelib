@@ -21,6 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Stop using the `TYPO3_version` constant (#657)
 - Stop exporting the included Composer packages for Composer packages (#651)
 - Improve the PHPDoc type annotations (#650, #656)
 - Use `$_EXTKEY` in `ext_emconf.php` again (#649)

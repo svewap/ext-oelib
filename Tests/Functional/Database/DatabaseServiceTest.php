@@ -7,8 +7,8 @@ namespace OliverKlee\Oelib\Tests\Functional\Database;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Database\DatabaseService;
 use OliverKlee\Oelib\Exception\EmptyQueryResultException;
+use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * @covers \OliverKlee\Oelib\Database\DatabaseService
@@ -886,9 +886,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function insertMakesUidAccessibleAsLastInsertUidOnConnection()
     {
-        // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
-            self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
+        if (Typo3Version::isAtLeast(9)) {
+            self::markTestSkipped('These tests cannot be run in TYPO3 version 9 or higher.');
         }
 
         DatabaseService ::insert('tx_oelib_test', ['is_dummy_record' => 1]);
@@ -922,9 +921,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectForEmptyTableNameThrowsException()
     {
-        // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
-            self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
+        if (Typo3Version::isAtLeast(9)) {
+            self::markTestSkipped('These tests cannot be run in TYPO3 version 9 or higher.');
         }
 
         $this->expectException(\InvalidArgumentException::class);
@@ -937,9 +935,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function selectForEmptyFieldListThrowsException()
     {
-        // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
-            self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
+        if (Typo3Version::isAtLeast(9)) {
+            self::markTestSkipped('These tests cannot be run in TYPO3 version 9 or higher.');
         }
 
         $this->expectException(\InvalidArgumentException::class);
@@ -1299,9 +1296,8 @@ class DatabaseServiceTest extends FunctionalTestCase
      */
     public function getDatabaseConnectionReturnsGlobalsDatabaseConnection()
     {
-        // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000) {
-            self::markTestSkipped('These tests cannot be run in TYPO3 version 9.');
+        if (Typo3Version::isAtLeast(9)) {
+            self::markTestSkipped('These tests cannot be run in TYPO3 version 9 or higher.');
         }
 
         self::assertSame($GLOBALS['TYPO3_DB'], DatabaseService ::getDatabaseConnection());
