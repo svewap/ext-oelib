@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implements ConfigurationInterface
 {
     /**
-     * @var array the data for this configuration
+     * @var array<string|int, mixed> the data for this configuration
      */
     private $data = [];
 
@@ -22,7 +22,7 @@ class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implemen
      *
      * This function can be called multiple times.
      *
-     * @param array<string, mixed> $data
+     * @param array<string|int, mixed> $data
      *        the data for this configuration, may be empty
      *
      * @return void
@@ -72,11 +72,9 @@ class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implemen
     /**
      * Checks whether a data item with a certain key exists.
      *
-     * @param string $key
-     *        the key of the data item to check, must not be empty
+     * @param string $key the key of the data item to check, must not be empty
      *
-     * @return bool TRUE if a data item with the key $key exists, FALSE
-     *                 otherwise
+     * @return bool whether a data item with the key $key exists
      */
     protected function existsKey(string $key): bool
     {
@@ -91,7 +89,7 @@ class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implemen
      * @param string $key
      *        the key of the data item to get the array keys for, may be empty
      *
-     * @return string[] the array keys of the data item for the key $key, may be empty
+     * @return array<int, string> the array keys of the data item for the key $key, may be empty
      */
     public function getArrayKeys(string $key = ''): array
     {
@@ -118,8 +116,7 @@ class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implemen
      *        the key of the data item to get as a multidimensional array, must
      *        not be empty
      *
-     * @return array the data for the key $key as a multidimensional array, may
-     *               be empty
+     * @return array the data for the key $key as a multidimensional array, may be empty
      */
     public function getAsMultidimensionalArray(string $key): array
     {

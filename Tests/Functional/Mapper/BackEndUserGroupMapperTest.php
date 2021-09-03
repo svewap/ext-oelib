@@ -7,7 +7,6 @@ namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
-use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
 class BackEndUserGroupMapperTest extends FunctionalTestCase
 {
@@ -43,7 +42,7 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
      */
     public function loadForExistingUserGroupCanLoadUserGroupData()
     {
-        /** @var FrontEndUserGroup $userGroup */
+        /** @var BackEndUserGroup $userGroup */
         $userGroup = $this->subject->find(1);
         $this->subject->load($userGroup);
 

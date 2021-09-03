@@ -1671,9 +1671,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         self::assertSame($relatedTitle, $firstChildModel->getTitle());
     }
 
-    ////////////////////////////////////////////////
     // Tests concerning findSingleByWhereClause().
-    ////////////////////////////////////////////////
 
     /**
      * @test
@@ -2617,6 +2615,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         /** @var TestingModel $parent */
         $parent = $this->subject->find($parentUid);
         $child = $this->subject->getNewGhost();
+        /** @var Collection<TestingModel> $list */
         $list = new Collection();
         $list->add($child);
 
@@ -3522,12 +3521,8 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function deleteForReadOnlyModelThrowsException()
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'This model is read-only and must not be deleted.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('This model is read-only and must not be deleted.');
 
         $model = new ReadOnlyModel();
         $this->subject->delete($model);
@@ -3721,19 +3716,14 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
         $ignoredRelatedModel = $mapper->find($childUid2);
 
+        /** @var Collection<TestingModel> $ignoreList */
         $ignoreList = new Collection();
         $ignoreList->add($ignoredRelatedModel);
 
-        $result = MapperRegistry::get(TestingChildMapper::class)
-            ->findAllByRelation($model, 'parent', $ignoreList);
-        self::assertSame(
-            1,
-            $result->count()
-        );
-        self::assertSame(
-            $relatedModel,
-            $result->first()
-        );
+        $result = MapperRegistry::get(TestingChildMapper::class)->findAllByRelation($model, 'parent', $ignoreList);
+
+        self::assertSame(1, $result->count());
+        self::assertSame($relatedModel, $result->first());
     }
 
     //////////////////////////////////////////

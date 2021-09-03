@@ -25,13 +25,12 @@ class BackEndUserGroup extends AbstractModel
     /**
      * Returns this group's direct subgroups.
      *
-     * @return Collection<BackEndUserGroup> this group's direct subgroups, will be empty if
-     *                       this group has no subgroups
+     * @return Collection<BackEndUserGroup> this group's direct subgroups, will be empty if this group has no subgroups
      */
     public function getSubgroups(): Collection
     {
         /** @var Collection<BackEndUserGroup> $groups */
-        $groups = $this->getAsList('subgroup');
+        $groups = $this->getAsCollection('subgroup');
 
         return $groups;
     }

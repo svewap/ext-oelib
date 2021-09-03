@@ -96,13 +96,12 @@ class BackEndUser extends AbstractModel implements MailRole
     /**
      * Returns the direct user groups of this user.
      *
-     * @return Collection<BackEndUserGroup> the user's direct groups, will be empty if this
-     *                       user has no groups
+     * @return Collection<BackEndUserGroup> the user's direct groups, will be empty if this user has no groups
      */
     public function getGroups(): Collection
     {
         /** @var Collection<BackEndUserGroup> $groups */
-        $groups = $this->getAsList('usergroup');
+        $groups = $this->getAsCollection('usergroup');
 
         return $groups;
     }
@@ -120,6 +119,7 @@ class BackEndUser extends AbstractModel implements MailRole
         $groupsToProcess = $this->getGroups();
 
         do {
+            /** @var Collection<BackEndUserGroup> $groupsForNextStep */
             $groupsForNextStep = new Collection();
             $result->append($groupsToProcess);
             /** @var BackEndUserGroup $group */

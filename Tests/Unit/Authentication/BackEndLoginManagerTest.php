@@ -53,6 +53,7 @@ class BackEndLoginManagerTest extends UnitTestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$mapperName must not be empty.');
 
+        // @phpstan-ignore-next-line We explicitly check for contract violations here.
         $this->subject->getLoggedInUser('');
     }
 }

@@ -93,6 +93,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithoutCoordinatesReturnsEmptyString()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(false);
 
@@ -104,6 +105,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithoutCoordinatesNotSetsAdditionalHeaderData()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(false);
 
@@ -293,6 +295,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 
         $element = new \stdClass();
 
+        // @phpstan-ignore-next-line We explicitly check for contract violations here.
         $this->subject->render([$element]);
     }
 
@@ -428,10 +431,12 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForTwoElementWithCoordinatesUsesFirstMapPointCoordinatesAsCenter()
     {
+        /** @var MapPoint&MockObject $mapPoint1 */
         $mapPoint1 = $this->createMock(MapPoint::class);
         $mapPoint1->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint1->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
+        /** @var MapPoint&MockObject $mapPoint2 */
         $mapPoint2 = $this->createMock(MapPoint::class);
         $mapPoint2->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint2->method('getGeoCoordinates')
@@ -450,10 +455,12 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForTwoElementsWithCoordinatesCreatesTwoMapMarkers()
     {
+        /** @var MapPoint&MockObject $mapPoint1 */
         $mapPoint1 = $this->createMock(MapPoint::class);
         $mapPoint1->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint1->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
+        /** @var MapPoint&MockObject $mapPoint2 */
         $mapPoint2 = $this->createMock(MapPoint::class);
         $mapPoint2->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint2->method('getGeoCoordinates')
@@ -475,10 +482,12 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForTwoElementsWithCoordinatesExtendsBoundsTwoTimes()
     {
+        /** @var MapPoint&MockObject $mapPoint1 */
         $mapPoint1 = $this->createMock(MapPoint::class);
         $mapPoint1->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint1->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
+        /** @var MapPoint&MockObject $mapPoint2 */
         $mapPoint2 = $this->createMock(MapPoint::class);
         $mapPoint2->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint2->method('getGeoCoordinates')
@@ -499,10 +508,12 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForTwoElementsWithCoordinatesFitsMapToBounds()
     {
+        /** @var MapPoint&MockObject $mapPoint1 */
         $mapPoint1 = $this->createMock(MapPoint::class);
         $mapPoint1->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint1->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
+        /** @var MapPoint&MockObject $mapPoint2 */
         $mapPoint2 = $this->createMock(MapPoint::class);
         $mapPoint2->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint2->method('getGeoCoordinates')
@@ -520,6 +531,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithTitleCreatesTitle()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')
@@ -539,6 +551,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithTitleEscapesQuotesInTitle()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')
@@ -556,8 +569,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithTitleEscapesLinefeedsInTitle()
+    public function renderForElementWithTitleEscapesLinefeedInTitle()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')
@@ -577,6 +591,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithTitleEscapesCarriageReturnsInTitle()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')
@@ -596,6 +611,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithTitleEscapesBackslashesInTitle()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')
@@ -615,6 +631,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithoutTitleNotCreatesTitle()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')
@@ -633,6 +650,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithInfoWindowContentCreatesInfoWindow()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')
@@ -652,6 +670,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithInfoWindowContentEscapesQuotesInInfoWindowContent()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')
@@ -669,8 +688,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithInfoWindowContentEscapesLinefeedsInInfoWindowContent()
+    public function renderForElementWithInfoWindowContentEscapesLinefeedInInfoWindowContent()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')
@@ -688,8 +708,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithInfoWindowContentEscapesCarriageReturnsInInfoWindowContent()
+    public function renderForElementWithInfoWindowContentEscapesCarriageReturnInInfoWindowContent()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')
@@ -709,6 +730,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithInfoWindowContentEscapesBackslashesInInfoWindowContent()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')
@@ -728,6 +750,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithoutInfoWindowContentNotCreatesInfoWindow()
     {
+        /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint->method('getGeoCoordinates')

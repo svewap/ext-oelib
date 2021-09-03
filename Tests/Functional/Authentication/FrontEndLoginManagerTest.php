@@ -102,6 +102,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
+        // @phpstan-ignore-next-line We explicitly check for contract violations here.
         $this->subject->getLoggedInUser('');
     }
 

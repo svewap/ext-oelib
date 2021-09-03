@@ -73,6 +73,7 @@ class MapperRegistryTest extends UnitTestCase
             '$className must not be empty.'
         );
 
+        // @phpstan-ignore-next-line We explicitly check for contract violations here.
         MapperRegistry::get('');
     }
 

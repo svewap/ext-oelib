@@ -73,10 +73,10 @@ class GoogleGeocodingTest extends UnitTestCase
      */
     public function lookUpForEmptyAddressSetsCoordinatesError()
     {
+        /** @var TestingGeo&MockObject $geo */
         $geo = $this->createPartialMock(TestingGeo::class, ['setGeoError']);
         $geo->expects(self::once())->method('setGeoError');
 
-        // @var TestingGeo $geo
         $this->subject->lookUp($geo);
     }
 

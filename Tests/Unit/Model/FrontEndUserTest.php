@@ -1046,6 +1046,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function setUserGroupsSetsUserGroups()
     {
+        /** @var Collection<FrontEndUserGroup> $userGroups */
         $userGroups = new Collection();
 
         $this->subject->setUserGroups($userGroups);
@@ -1061,6 +1062,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function addUserGroupAddsUserGroup()
     {
+        /** @var Collection<FrontEndUserGroup> $userGroups */
         $userGroups = new Collection();
         $this->subject->setUserGroups($userGroups);
 

@@ -218,7 +218,7 @@ abstract class AbstractDataMapper
      * Retrieves a model based on the WHERE clause given in the parameter
      * $whereClauseParts. Hidden records will be retrieved as well.
      *
-     * @param array<string, string> $whereClauseParts
+     * @param array<string, string|int> $whereClauseParts
      *        WHERE clause parts for the record to retrieve, each element must
      *        consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
@@ -652,7 +652,7 @@ abstract class AbstractDataMapper
      * Reads a record from the database (from this mapper's table) by the
      * WHERE clause provided. Hidden records will be retrieved as well.
      *
-     * @param array<string, string> $whereClauseParts
+     * @param array<string, string|int> $whereClauseParts
      *        WHERE clause parts for the record to retrieve, each element must consist of a column name as key and a
      *        value to search for as value (will automatically get quoted), must not be empty
      *
@@ -759,7 +759,7 @@ abstract class AbstractDataMapper
      * Important: As this model's UID has nothing to do with the real UIDs in
      * the database, this model must not be saved.
      *
-     * @param array<string, string> $data the data as it would come from the database, may be empty
+     * @param array<string, string|int> $data the data as it would come from the database, may be empty
      *
      * @return M a new model loaded with $data
      */
@@ -873,10 +873,7 @@ abstract class AbstractDataMapper
                 $functionName = 'getUid';
 
                 if ($data[$key] instanceof AbstractModel) {
-                    $this->saveManyToOneRelatedModels(
-                        $data[$key],
-                        MapperRegistry::get($relation)
-                    );
+                    $this->saveManyToOneRelatedModels($data[$key], MapperRegistry::get($relation));
                 }
             } else {
                 if ($this->isManyToManyRelationConfigured($key)) {
@@ -885,11 +882,10 @@ abstract class AbstractDataMapper
                     $functionName = 'getUids';
                 }
 
-                if ($data[$key] instanceof Collection) {
-                    $this->saveManyToManyAndCommaSeparatedRelatedModels(
-                        $data[$key],
-                        MapperRegistry::get($relation)
-                    );
+                $relatedData = $data[$key];
+                if ($relatedData instanceof Collection) {
+                    /** @var Collection<AbstractModel> $relatedData */
+                    $this->saveManyToManyAndCommaSeparatedRelatedModels($relatedData, MapperRegistry::get($relation));
                 }
             }
 
@@ -926,7 +922,7 @@ abstract class AbstractDataMapper
     /**
      * Saves the related model of an n:1-relation.
      *
-     * @param M $model the model to save
+     * @param AbstractModel $model the model to save
      * @param AbstractDataMapper $mapper the mapper to use for saving
      *
      * @return void
@@ -1028,6 +1024,7 @@ abstract class AbstractDataMapper
             if (!$this->isOneToManyRelationConfigured($key)) {
                 continue;
             }
+            /** @var Collection<AbstractModel> $relatedModels */
             $relatedModels = $data[$key];
             if (!($relatedModels instanceof Collection)) {
                 continue;
@@ -1077,11 +1074,7 @@ abstract class AbstractDataMapper
                 }
                 $relatedMapper->save($relatedModel);
 
-                $unconnectedModels = $relatedMapper->findAllByRelation(
-                    $model,
-                    $foreignField,
-                    $relatedModels
-                );
+                $unconnectedModels = $relatedMapper->findAllByRelation($model, $foreignField, $relatedModels);
                 /** @var AbstractModel $unconnectedModel */
                 foreach ($unconnectedModels as $unconnectedModel) {
                     $relatedMapper->delete($unconnectedModel);
@@ -1606,7 +1599,7 @@ abstract class AbstractDataMapper
      * @param string $relationKey
      *        the key of the field in the matches that should contain the UID
      *        of $model
-     * @param Collection<AbstractModel> $ignoreList
+     * @param Collection<AbstractModel>|null $ignoreList
      *        related records that should _not_ be returned
      *
      * @return Collection<AbstractModel> the related models, will be empty if there are no matches

@@ -85,15 +85,14 @@ class TestingMapper extends AbstractDataMapper
      * Retrieves a model based on the WHERE clause given in the parameter
      * $whereClauseParts. Hidden records will be retrieved as well.
      *
-     * @param string[] $whereClauseParts
+     * @param array<string, string|int> $whereClauseParts
      *        WHERE clause parts for the record to retrieve, each element must
      *        consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
      *
      * @return AbstractModel
      *
-     * @throws NotFoundException if there is no record in the DB
-     *                                     which matches the WHERE clause
+     * @throws NotFoundException if there is no record in the DB which matches the WHERE clause
      */
     public function findSingleByWhereClause(array $whereClauseParts): AbstractModel
     {
@@ -119,7 +118,7 @@ class TestingMapper extends AbstractDataMapper
      *
      * @param array $data
      *        the model data to process, might be modified
-     * @param AbstractModel $model
+     * @param TestingModel $model
      *        the model to create the relations for
      *
      * @return void

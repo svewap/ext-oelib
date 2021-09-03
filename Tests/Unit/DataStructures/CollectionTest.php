@@ -781,6 +781,7 @@ final class CollectionTest extends UnitTestCase
      */
     public function appendEmptyListToEmptyListMakesEmptyList()
     {
+        /** @var Collection<TestingModel> $otherList */
         $otherList = new Collection();
         $this->subject->append($otherList);
 
@@ -794,6 +795,7 @@ final class CollectionTest extends UnitTestCase
      */
     public function appendTwoItemListToEmptyListMakesTwoItemList()
     {
+        /** @var Collection<TestingModel> $otherList */
         $otherList = new Collection();
         $model1 = new TestingModel();
         $otherList->add($model1);
@@ -815,6 +817,7 @@ final class CollectionTest extends UnitTestCase
     {
         $this->addModelsToFixture(['First', 'Second']);
 
+        /** @var Collection<TestingModel> $otherList */
         $otherList = new Collection();
         $this->subject->append($otherList);
 
@@ -833,6 +836,7 @@ final class CollectionTest extends UnitTestCase
         $model->setUid(42);
         $this->subject->add($model);
 
+        /** @var Collection<TestingModel> $otherList */
         $otherList = new Collection();
         $otherList->add($model);
 
@@ -849,6 +853,7 @@ final class CollectionTest extends UnitTestCase
      */
     public function appendTwoItemListKeepsOrderOfAppendedItems()
     {
+        /** @var Collection<TestingModel> $otherList */
         $otherList = new Collection();
         $model1 = new TestingModel();
         $otherList->add($model1);
@@ -871,6 +876,7 @@ final class CollectionTest extends UnitTestCase
         $model = new TestingModel();
         $this->subject->add($model);
 
+        /** @var Collection<TestingModel> $otherList */
         $otherList = new Collection();
         $otherModel = new TestingModel();
         $otherList->add($otherModel);

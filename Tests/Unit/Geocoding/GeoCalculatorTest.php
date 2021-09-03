@@ -161,6 +161,7 @@ class GeoCalculatorTest extends UnitTestCase
         $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
+        /** @var Collection<TestingGeo> $list */
         $list = new Collection();
         $list->add($bonn);
 
@@ -184,6 +185,7 @@ class GeoCalculatorTest extends UnitTestCase
         $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
+        /** @var Collection<TestingGeo> $list */
         $list = new Collection();
         $list->add($bonn);
 
@@ -205,6 +207,7 @@ class GeoCalculatorTest extends UnitTestCase
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
         $nowhere = new TestingGeo();
 
+        /** @var Collection<TestingGeo> $list */
         $list = new Collection();
         $list->add($nowhere);
 
@@ -222,6 +225,7 @@ class GeoCalculatorTest extends UnitTestCase
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
         $nowhere = new TestingGeo();
 
+        /** @var Collection<TestingGeo> $list */
         $list = new Collection();
         $list->add($bonn);
 
@@ -240,6 +244,7 @@ class GeoCalculatorTest extends UnitTestCase
         $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
+        /** @var Collection<TestingGeo> $list */
         $list = new Collection();
         $list->add($bonn);
         $list->add($cologne);

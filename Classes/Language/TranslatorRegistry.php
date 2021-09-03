@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Language;
 use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
+use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -79,11 +80,11 @@ class TranslatorRegistry
      * The language key is read from the "language" key and the alternate language is read
      * from the language_alt key.
      *
-     * @param TypoScriptConfiguration $configuration the configuration to read
+     * @param ConfigurationInterface $configuration the configuration to read
      *
      * @return void
      */
-    private function setLanguageKeyFromConfiguration(TypoScriptConfiguration $configuration)
+    private function setLanguageKeyFromConfiguration(ConfigurationInterface $configuration)
     {
         if (!$configuration->hasString('language')) {
             return;
@@ -215,6 +216,7 @@ class TranslatorRegistry
         /** @var LocalizationFactory $languageFactory */
         $languageFactory = GeneralUtility::makeInstance(LocalizationFactory::class);
         $languageFile = 'EXT:' . $extensionKey . '/' . self::LANGUAGE_FILE_PATH;
+        // Note: Starting from TYPO3 11LTS, `getParsedData` will not return bools anymore.
         /** @var array<string, array<string, array<int, array<string, string>>>>|bool $localizedLabels */
         $localizedLabels = $languageFactory->getParsedData($languageFile, $this->languageKey);
         if (!\is_array($localizedLabels)) {

@@ -193,10 +193,10 @@ class Collection extends \SplObjectStorage
     }
 
     /**
-     * Appends the contents of $list to this list.
+     * Appends the contents of `$list` to this list.
      *
-     * Note: Since Collection extends \SplObjectStorage, this method is in most
-     * cases an synonym to appendUnique() as \SplObjectStorage makes sure that
+     * Note: Since Collection extends `\SplObjectStorage`, this method is in most
+     * cases a synonym to `appendUnique()` as `\SplObjectStorage` makes sure that
      * no object is added more than once to it.
      *
      * @param Collection<AbstractModel> $list the list to append, may be empty
