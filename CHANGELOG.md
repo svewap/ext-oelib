@@ -13,6 +13,10 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Truncate changed tables only for functional tests (#648)
 
 ### Deprecated
+- Deprecate `TemplateHelper::initializeConfiguration()`,
+  `::getCurrentBePageId()`, `::retrievePageConfig()`,
+  `::purgeCachedConfigurations()`
+  and `::setCachedConfigurationValue()` (#655)
 
 ### Removed
 

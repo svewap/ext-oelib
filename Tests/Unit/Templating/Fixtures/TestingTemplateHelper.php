@@ -54,6 +54,8 @@ final class TestingTemplateHelper extends TemplateHelper
      *        page ID of the page for which the configuration should be retrieved, must be > 0
      *
      * @return array configuration array of the requested page for the current extension key
+     *
+     * @deprecated will be removed in oelib 4.0
      */
     public function retrievePageConfig(int $pageId): array
     {

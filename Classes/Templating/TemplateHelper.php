@@ -106,6 +106,8 @@ class TemplateHelper extends SalutationSwitcher
 
     /**
      * @return void
+     *
+     * @deprecated will be removed in oelib 4.0
      */
     protected function initializeConfiguration()
     {
@@ -240,8 +242,9 @@ class TemplateHelper extends SalutationSwitcher
      *
      * @param int $pageId UID of the page for which the configuration should be retrieved, must be > 0
      *
-     * @return array configuration array of the requested page for the
-     *               current extension key
+     * @return array configuration array of the requested page for the current extension key
+     *
+     * @deprecated will be removed in oelib 4.0
      */
     protected function retrievePageConfig(int $pageId): array
     {
@@ -476,6 +479,8 @@ class TemplateHelper extends SalutationSwitcher
      * @param mixed $value value of the configuration property, may be empty or zero
      *
      * @return void
+     *
+     * @deprecated will be removed in oelib 4.0
      */
     public static function setCachedConfigurationValue(string $key, $value)
     {
@@ -493,6 +498,8 @@ class TemplateHelper extends SalutationSwitcher
      * This function is intended to be used for testing purposes only.
      *
      * @return void
+     *
+     * @deprecated will be removed in oelib 4.0
      */
     public static function purgeCachedConfigurations()
     {
@@ -1315,6 +1322,8 @@ class TemplateHelper extends SalutationSwitcher
      * Gets the UID of the currently selected back-end page.
      *
      * @return int the current back-end page UID (or 0 if there is an error)
+     *
+     * @deprecated will be removed in oelib 4.0
      */
     public function getCurrentBePageId(): int
     {
