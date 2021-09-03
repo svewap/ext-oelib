@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Stop exporting the included Composer packages for Composer packages (#651)
 - Improve the PHPDoc type annotations (#650)
 - Use `$_EXTKEY` in `ext_emconf.php` again (#649)
 
