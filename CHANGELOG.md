@@ -8,6 +8,16 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 3.4.1
+
+### Changed
 - Raise PHPStan to levels 4 and 5 (#654, #658)
 - Update the development tools and dependencies (#652, #653)
 - Truncate changed tables only for functional tests (#648)
@@ -17,8 +27,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
   `::getCurrentBePageId()`, `::retrievePageConfig()`,
   `::purgeCachedConfigurations()`
   and `::setCachedConfigurationValue()` (#655)
-
-### Removed
 
 ### Fixed
 - Stop using the `TYPO3_version` constant (#657)
