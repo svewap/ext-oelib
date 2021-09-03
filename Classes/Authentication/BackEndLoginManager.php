@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Authentication;
 
 use OliverKlee\Oelib\Interfaces\LoginManager;
+use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
@@ -23,7 +24,7 @@ class BackEndLoginManager implements LoginManager
     private static $instance = null;
 
     /**
-     * @var BackEndUser a logged-in back-end user (real or faked)
+     * @var BackEndUser|null a logged-in back-end user (real or faked)
      */
     private $loggedInUser = null;
 
@@ -73,7 +74,7 @@ class BackEndLoginManager implements LoginManager
     /**
      * Gets the currently logged-in back-end user.
      *
-     * @param class-string $mapperName
+     * @param class-string<AbstractDataMapper> $mapperName
      *        the name of the mapper to use for getting the back-end user model, must not be empty
      *
      * @return BackEndUser|null the logged-in back-end user, will be null if no user is logged in
@@ -82,6 +83,7 @@ class BackEndLoginManager implements LoginManager
      */
     public function getLoggedInUser(string $mapperName = BackEndUserMapper::class)
     {
+        // @phpstan-ignore-next-line We explicitly check for contract violations here.
         if ($mapperName === '') {
             throw new \InvalidArgumentException('$mapperName must not be empty.', 1331318483);
         }

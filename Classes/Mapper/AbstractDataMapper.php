@@ -91,7 +91,7 @@ abstract class AbstractDataMapper
     private $denyDatabaseAccess = false;
 
     /**
-     * @var TestingFramework
+     * @var TestingFramework|null
      */
     protected $testingFramework = null;
 

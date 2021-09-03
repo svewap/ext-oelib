@@ -15,7 +15,7 @@ class Node
     private $children = [];
 
     /**
-     * @var Node the parent node of this node
+     * @var Node|null the parent node of this node
      */
     private $parentNode = null;
 
@@ -84,7 +84,7 @@ class Node
     public function markAsVisible()
     {
         $this->isVisible = true;
-        if ($this->parentNode) {
+        if ($this->parentNode instanceof Node) {
             $this->parentNode->markAsVisible();
         }
     }

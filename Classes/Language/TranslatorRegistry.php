@@ -171,12 +171,12 @@ class TranslatorRegistry
 
         if (!isset($this->translators[$extensionName])) {
             $localizedLabels = $this->getLocalizedLabelsFromFile($extensionName);
-            // Overrides the localized labels with labels from TypoScript only in the front end.
 
+            // Overrides the localized labels with labels from TypoScript only in the front end.
             if (
                 isset($localizedLabels[$this->languageKey])
                 && \is_array($localizedLabels[$this->languageKey])
-                && $this->getFrontEndController() !== null
+                && $this->getFrontEndController() instanceof TypoScriptFrontendController
             ) {
                 foreach ($this->getLocalizedLabelsFromTypoScript($extensionName) as $labelKey => $labelFromTypoScript) {
                     $localizedLabels[$this->languageKey][$labelKey][0]['target'] = $labelFromTypoScript;
@@ -203,7 +203,8 @@ class TranslatorRegistry
      *        key of the extension to get the localized labels from,
      *        must not be empty, and the corresponding extension must be loaded
      *
-     * @return string[] the localized labels from an extension's language file, will be empty if there are none
+     * @return array<string, array<string, array<int, array<string, string>>>>
+     *         the localized labels from an extension's language file, will be empty if there are none
      */
     private function getLocalizedLabelsFromFile(string $extensionKey): array
     {
@@ -214,14 +215,18 @@ class TranslatorRegistry
         /** @var LocalizationFactory $languageFactory */
         $languageFactory = GeneralUtility::makeInstance(LocalizationFactory::class);
         $languageFile = 'EXT:' . $extensionKey . '/' . self::LANGUAGE_FILE_PATH;
+        /** @var array<string, array<string, array<int, array<string, string>>>>|bool $localizedLabels */
         $localizedLabels = $languageFactory->getParsedData($languageFile, $this->languageKey);
+        if (!\is_array($localizedLabels)) {
+            return [];
+        }
 
         if ($this->alternativeLanguageKey !== '') {
+            /** @var array<string, array<string, array<int, array<string, string>>>>|bool $alternativeLabels */
             $alternativeLabels = $languageFactory->getParsedData($languageFile, $this->languageKey);
-            $localizedLabels = array_merge(
-                $alternativeLabels,
-                is_array($localizedLabels) ? $localizedLabels : []
-            );
+            if (\is_array($alternativeLabels)) {
+                $localizedLabels = array_merge($alternativeLabels, $localizedLabels);
+            }
         }
 
         return $localizedLabels;

@@ -4539,7 +4539,6 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function ensureContentObjectForMissingContentObjectWithFrontEndUsesContentObjectFromFrontEnd()
     {
-        // @phpstan-ignore-next-line We test what happens for a contract violation here.
         $this->subject->cObj = null;
 
         $this->subject->ensureContentObject();

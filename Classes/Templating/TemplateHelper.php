@@ -41,13 +41,22 @@ class TemplateHelper extends SalutationSwitcher
     public $extKey = '';
 
     /**
+     * the back reference to the mother cObj object set at call time
+     *
+     * Note: this can also be null. So we overwrite the parent definition to make the type nullable.
+     *
+     * @var ContentObjectRenderer|null
+     */
+    public $cObj;
+
+    /**
      * @var bool whether init() already has been called (in order to
      *              avoid double calls)
      */
     protected $isInitialized = false;
 
     /**
-     * @var ConfigurationCheck
+     * @var ConfigurationCheck|null
      */
     protected $configurationCheck = null;
 
@@ -111,6 +120,8 @@ class TemplateHelper extends SalutationSwitcher
      */
     protected function initializeConfiguration()
     {
+        // Note: Starting from TYPO3 8.7, `$this->conf` always in an array.
+        // So this method now is a no-op.
         if (\is_array($this->conf)) {
             return;
         }
