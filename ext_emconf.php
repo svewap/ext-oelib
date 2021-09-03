@@ -1,6 +1,6 @@
 <?php
 
-$EM_CONF['oelib'] = [
+$EM_CONF[$_EXTKEY] = [
     'title' => 'One is Enough Library',
     'description' => 'Useful stuff for TYPO3 extension development: helper functions for unit testing, templating and automatic configuration checks.',
     'version' => '3.4.0',
