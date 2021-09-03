@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Truncate changed tables only for functional tests (#648)
 
 ### Deprecated
 

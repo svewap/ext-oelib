@@ -37,6 +37,7 @@
 		"typo3/cms-lang": "^8.7 || ^9.5"
 	},
 	"require-dev": {
+		"cweagans/composer-patches": "^1.7",
 		"friendsofphp/php-cs-fixer": "^2.19.1",
 		"mikey179/vfsstream": "^1.6.8",
 		"nimut/testing-framework": "^5.1.0",
@@ -133,6 +134,12 @@
 			"class-alias-maps": [
 				"Migrations/Code/ClassAliasMap.php"
 			]
+		},
+		"composer-exit-on-patch-failure": true,
+		"patches": {
+			"nimut/testing-framework": {
+				"Only truncate changed tables": "Resources/Private/Patches/testing-framework/faster-truncate.diff"
+			}
 		}
 	}
 }
