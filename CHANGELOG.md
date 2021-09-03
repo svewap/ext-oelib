@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
-- Raise PHPStan to level 4 (#654)
+- Raise PHPStan to levels 4 and 5 (#654, #658)
 - Update the development tools and dependencies (#652, #653)
 - Truncate changed tables only for functional tests (#648)
 
