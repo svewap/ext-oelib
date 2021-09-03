@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
-- Update the development tools and dependencies (#652)
+- Update the development tools and dependencies (#652, #653)
 - Truncate changed tables only for functional tests (#648)
 
 ### Deprecated
