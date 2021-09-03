@@ -1,2 +1,67 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Result of \\|\\| is always true\\.$#"
+			count: 1
+			path: Classes/Authentication/BackEndLoginManager.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between class\\-string and '' will always evaluate to false\\.$#"
+			count: 1
+			path: Classes/Authentication/BackEndLoginManager.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: Classes/Authentication/BackEndLoginManager.php
+
+		-
+			message: "#^Left side of \\|\\| is always true\\.$#"
+			count: 1
+			path: Classes/Authentication/FrontEndLoginManager.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between class\\-string and '' will always evaluate to false\\.$#"
+			count: 1
+			path: Classes/Authentication/FrontEndLoginManager.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: Classes/Authentication/FrontEndLoginManager.php
+
+		-
+			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: Classes/Language/TranslatorRegistry.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 2
+			path: Classes/Language/TranslatorRegistry.php
+
+		-
+			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\> and '' will always evaluate to false\\.$#"
+			count: 1
+			path: Classes/Mapper/MapperRegistry.php
+
+		-
+			message: "#^Result of \\|\\| is always true\\.$#"
+			count: 1
+			path: Classes/Templating/TemplateHelper.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 3
+			path: Classes/Templating/TemplateHelper.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: Classes/Visibility/Node.php
+
