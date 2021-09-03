@@ -45,6 +45,7 @@ class MailerFactory implements SingletonInterface
      */
     public function getMailer()
     {
+        /** @var class-string $className */
         $className = $this->isTestMode ? EmailCollector::class : RealMailer::class;
         if (!$this->mailer instanceof $className) {
             $this->mailer = GeneralUtility::makeInstance($className);

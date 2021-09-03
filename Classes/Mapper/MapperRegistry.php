@@ -91,7 +91,7 @@ class MapperRegistry
     /**
      * Retrieves a dataMapper by class name.
      *
-     * @param string $className the name of an existing mapper class, must not be empty
+     * @param class-string<AbstractDataMapper> $className the name of an existing mapper class, must not be empty
      *
      * @return AbstractDataMapper the requested mapper instance
      *
@@ -132,7 +132,7 @@ class MapperRegistry
     /**
      * Unifies a class name to a common format.
      *
-     * @param string $className the class name to unify, must not be empty
+     * @param class-string $className the class name to unify, must not be empty
      *
      * @return string the unified class name
      */
@@ -171,7 +171,7 @@ class MapperRegistry
      *
      * This function is to be used for testing purposes only.
      *
-     * @param string $className the class name of the mapper to set
+     * @param class-string<AbstractDataMapper> $className the class name of the mapper to set
      * @param AbstractDataMapper $mapper
      *        the mapper to set, must be an instance of $className
      *
@@ -189,7 +189,7 @@ class MapperRegistry
      *
      * This function is to be used for testing purposes only.
      *
-     * @param string $className the class name of the mapper to set
+     * @param class-string<AbstractDataMapper> $className the class name of the mapper to set
      * @param AbstractDataMapper $mapper
      *        the mapper to set, must be an instance of $className
      *

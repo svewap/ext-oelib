@@ -172,7 +172,7 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * This class is intended to be overwritten in subclasses.
      *
-     * @return string might be empty
+     * @return class-string|string might be empty
      */
     protected function getConfigurationCheckClassName()
     {
@@ -180,7 +180,7 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * @return string might be empty
+     * @return class-string|string might be empty
      */
     protected function getDefaultConfigurationCheckClassName(): string
     {

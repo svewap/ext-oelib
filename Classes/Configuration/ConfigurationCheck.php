@@ -42,7 +42,7 @@ class ConfigurationCheck
     protected $objectToCheck = null;
 
     /**
-     * @var string the (cached) class name of $this->objectToCheck
+     * @var class-string the (cached) class name of $this->objectToCheck
      */
     private $className;
 
