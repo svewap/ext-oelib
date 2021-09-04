@@ -1594,7 +1594,7 @@ abstract class AbstractDataMapper
     /**
      * Finds all records that are related to $model via the field $key.
      *
-     * @param M $model
+     * @param AbstractModel $model
      *        the model to which the matches should be related
      * @param string $relationKey
      *        the key of the field in the matches that should contain the UID

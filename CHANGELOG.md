@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Annotate `MapperRegistry::get()` as a factory method (#667)
 - Add `ConfigurationInterface::getAsTrimmedArray` (#665)
 
 ### Changed

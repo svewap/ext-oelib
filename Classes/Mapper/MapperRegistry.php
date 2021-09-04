@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Mapper;
 
-use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -75,11 +74,13 @@ class MapperRegistry
     /**
      * Retrieves a dataMapper by class name.
      *
-     * @throws NotFoundException if there is no such mapper
+     * @template M of AbstractDataMapper
      *
-     * @param class-string<AbstractDataMapper> $className the name of an existing mapper class, must not be empty
+     * @param class-string<M> $className the name of an existing mapper class, must not be empty
      *
-     * @return AbstractDataMapper the mapper with the class $className
+     * @return M the mapper instance of the provided class
+     *
+     * @throws \InvalidArgumentException if there is no such mapper
      *
      * @see getByClassName
      */
@@ -91,11 +92,13 @@ class MapperRegistry
     /**
      * Retrieves a dataMapper by class name.
      *
-     * @param class-string<AbstractDataMapper> $className the name of an existing mapper class, must not be empty
+     * @template M of AbstractDataMapper
      *
-     * @return AbstractDataMapper the requested mapper instance
+     * @param class-string<M> $className the name of an existing mapper class, must not be empty
      *
-     * @throws \InvalidArgumentException
+     * @return M the mapper instance of the provided class
+     *
+     * @throws \InvalidArgumentException if there is no such mapper
      */
     private function getByClassName(string $className): AbstractDataMapper
     {
@@ -103,19 +106,19 @@ class MapperRegistry
         if ($className === '') {
             throw new \InvalidArgumentException('$className must not be empty.', 1331488868);
         }
-        $unifiedClassName = self::unifyClassName($className);
 
+        $unifiedClassName = self::unifyClassName($className);
         if (isset($this->mappers[$unifiedClassName])) {
-            /** @var AbstractDataMapper $mapper */
+            /** @var M $mapper */
             $mapper = $this->mappers[$unifiedClassName];
         } else {
-            if (!class_exists($className)) {
+            if (!\class_exists($className)) {
                 throw new \InvalidArgumentException(
                     'No mapper class "' . $className . '" could be found.'
                 );
             }
 
-            /** @var AbstractDataMapper $mapper */
+            /** @var M $mapper */
             $mapper = GeneralUtility::makeInstance($unifiedClassName);
             $this->mappers[$unifiedClassName] = $mapper;
         }
@@ -133,7 +136,7 @@ class MapperRegistry
     /**
      * Unifies a class name to a common format.
      *
-     * @param class-string $className the class name to unify, must not be empty
+     * @param class-string<AbstractDataMapper> $className the class name to unify, must not be empty
      *
      * @return string the unified class name
      */
