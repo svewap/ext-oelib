@@ -295,4 +295,93 @@ final class FallbackConfigurationTest extends UnitTestCase
 
         self::assertTrue($subject->getAsBoolean($key));
     }
+
+    /**
+     * @test
+     */
+    public function getAsTrimmedArrayForBothEmptyArrayReturnsEmptyArray()
+    {
+        $key = 'something';
+        $primary = new DummyConfiguration([$key => '']);
+        $secondary = new DummyConfiguration([$key => '']);
+        $subject = new FallbackConfiguration($primary, $secondary);
+
+        self::assertSame([], $subject->getAsTrimmedArray($key));
+    }
+
+    /**
+     * @test
+     */
+    public function getAsTrimmedArrayForBothNonEmptyReturnsValueFromPrimary()
+    {
+        $key = 'something';
+        $primaryValue = 'primary';
+        $primary = new DummyConfiguration([$key => $primaryValue]);
+        $secondaryValue = 'secondary';
+        $secondary = new DummyConfiguration([$key => $secondaryValue]);
+        $subject = new FallbackConfiguration($primary, $secondary);
+
+        self::assertSame([$primaryValue], $subject->getAsTrimmedArray($key));
+    }
+
+    /**
+     * @test
+     */
+    public function getAsTrimmedArrayForPrimaryNonEmptyAndSecondaryEmptyReturnsValueFromPrimary()
+    {
+        $key = 'something';
+        $primaryValue = 'primary';
+        $primary = new DummyConfiguration([$key => $primaryValue]);
+        $secondaryValue = '';
+        $secondary = new DummyConfiguration([$key => $secondaryValue]);
+        $subject = new FallbackConfiguration($primary, $secondary);
+
+        self::assertSame([$primaryValue], $subject->getAsTrimmedArray($key));
+    }
+
+    /**
+     * @test
+     */
+    public function getAsTrimmedArrayForPrimaryEmptyAndSecondaryNonEmptyReturnsValueFromSecondary()
+    {
+        $key = 'something';
+        $primaryValue = '';
+        $primary = new DummyConfiguration([$key => $primaryValue]);
+        $secondaryValue = 'secondary';
+        $secondary = new DummyConfiguration([$key => $secondaryValue]);
+        $subject = new FallbackConfiguration($primary, $secondary);
+
+        self::assertSame([$secondaryValue], $subject->getAsTrimmedArray($key));
+    }
+
+    /**
+     * @test
+     */
+    public function getAsTrimmedArrayTrimsValues()
+    {
+        $key = 'something';
+        $primaryValue = 'primary';
+        $primary = new DummyConfiguration([$key => " ${primaryValue} "]);
+        $secondaryValue = '';
+        $secondary = new DummyConfiguration([$key => $secondaryValue]);
+        $subject = new FallbackConfiguration($primary, $secondary);
+
+        self::assertSame([$primaryValue], $subject->getAsTrimmedArray($key));
+    }
+
+    /**
+     * @test
+     */
+    public function getAsTrimmedArrayExplodesValues()
+    {
+        $key = 'something';
+        $primaryValue1 = 'primary 1';
+        $primaryValue2 = 'primary 2';
+        $primary = new DummyConfiguration([$key => "${primaryValue1}, ${primaryValue2}"]);
+        $secondaryValue = '';
+        $secondary = new DummyConfiguration([$key => $secondaryValue]);
+        $subject = new FallbackConfiguration($primary, $secondary);
+
+        self::assertSame([$primaryValue1, $primaryValue2], $subject->getAsTrimmedArray($key));
+    }
 }

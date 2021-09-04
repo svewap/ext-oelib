@@ -93,12 +93,11 @@ abstract class AbstractReadOnlyObjectWithAccessors
     }
 
     /**
-     * Gets the value stored in under the key $key, converted to an array of
-     * trimmed strings.
+     * Gets the value stored under the provided key, converted to an array of trimmed strings.
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
-     * @return string[] the array value of the given key, may be empty
+     * @return array<int, string> the array value of the given key, may be empty
      */
     protected function getAsTrimmedArray(string $key): array
     {

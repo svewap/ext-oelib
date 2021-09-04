@@ -18,4 +18,13 @@ interface Configuration
     public function hasInteger(string $key): bool;
 
     public function getAsBoolean(string $key): bool;
+
+    /**
+     * Gets the value stored under the provided key, converted to an array of trimmed strings.
+     *
+     * @param string $key the key of the element to retrieve, must not be empty
+     *
+     * @return array<int, string> the array value of the given key, may be empty
+     */
+    public function getAsTrimmedArray(string $key): array;
 }
