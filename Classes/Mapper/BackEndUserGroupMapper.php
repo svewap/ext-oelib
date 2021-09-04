@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Mapper;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
 
 /**
+ * @template M of BackEndUserGroup
  * @extends AbstractDataMapper<BackEndUserGroup>
  */
 class BackEndUserGroupMapper extends AbstractDataMapper

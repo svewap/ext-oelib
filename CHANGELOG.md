@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add `ConfigurationInterface::getAsTrimmedArray` (#665)
 
 ### Changed
+- Make the user and group mappers as generic (#666)
 
 ### Deprecated
 
