@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Improve the PHPDoc type annotations (#661)
 
 ## 3.4.1
 

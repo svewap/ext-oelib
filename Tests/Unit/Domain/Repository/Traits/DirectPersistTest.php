@@ -20,7 +20,7 @@ class DirectPersistTest extends UnitTestCase
     private $subject = null;
 
     /**
-     * @var PersistenceManagerInterface|ObjectProphecy
+     * @var ObjectProphecy
      */
     private $persistenceManagerProphecy = null;
 
@@ -49,6 +49,7 @@ class DirectPersistTest extends UnitTestCase
      */
     public function persistAllPersistsAll()
     {
+        // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
         $this->persistenceManagerProphecy->persistAll()->shouldBeCalled();
 
         $this->subject->persistAll();
