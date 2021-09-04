@@ -6,15 +6,23 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 3.5.0
+
+### Added
 - Annotate `MapperRegistry::get()` as a factory method (#667)
 - Add `ConfigurationInterface::getAsTrimmedArray` (#665)
 
 ### Changed
 - Make the user and group mappers as generic (#666)
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 - Improve the PHPDoc type annotations (#661)
