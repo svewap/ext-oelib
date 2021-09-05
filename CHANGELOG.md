@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Stop making the mapper generics extendable (#670)
 
 ### Fixed
 

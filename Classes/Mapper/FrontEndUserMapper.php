@@ -11,7 +11,6 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * @template M of FrontEndUser
  * @extends AbstractDataMapper<FrontEndUser>
  */
 class FrontEndUserMapper extends AbstractDataMapper

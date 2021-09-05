@@ -10,7 +10,6 @@ use OliverKlee\Oelib\Model\BackEndUser;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
- * @template M of BackEndUser
  * @extends AbstractDataMapper<BackEndUser>
  */
 class BackEndUserMapper extends AbstractDataMapper
