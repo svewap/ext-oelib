@@ -6,16 +6,22 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
-- Add `HeaderProxyFactory::getHeaderCollector` (#671)
 
 ### Changed
 
 ### Deprecated
 
 ### Removed
-- Stop making the mapper generics extendable (#670)
 
 ### Fixed
+
+## 3.6.0
+
+### Added
+- Add `HeaderProxyFactory::getHeaderCollector` (#671)
+
+### Removed
+- Stop making the mapper generics extendable (#670)
 
 ## 3.5.0
 
