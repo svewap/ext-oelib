@@ -10,6 +10,7 @@ use OliverKlee\Oelib\Http\HeaderProxyFactory;
 use OliverKlee\Oelib\Http\RealHeaderProxy;
 
 /**
+ * @covers \OliverKlee\Oelib\Http\HeaderCollector
  * @covers \OliverKlee\Oelib\Http\HeaderProxyFactory
  */
 class HeaderProxyFactoryTest extends UnitTestCase
@@ -38,26 +39,27 @@ class HeaderProxyFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getHeaderProxyInTestMode()
+    public function getHeaderProxyInTestModeReturnsHeaderCollector()
     {
-        self::assertSame(
-            HeaderCollector::class,
-            \get_class($this->subject)
-        );
+        HeaderProxyFactory::purgeInstance();
+        HeaderProxyFactory::getInstance()->enableTestMode();
+
+        $result = HeaderProxyFactory::getInstance()->getHeaderProxy();
+
+        self::assertInstanceOf(HeaderCollector::class, $result);
     }
 
     /**
      * @test
      */
-    public function getHeaderProxyInNonTestMode()
+    public function getHeaderProxyInNonTestModeReturnsRealHeaderProxy()
     {
         // new instances always have a disabled test mode
         HeaderProxyFactory::purgeInstance();
 
-        self::assertSame(
-            RealHeaderProxy ::class,
-            \get_class(HeaderProxyFactory::getInstance()->getHeaderProxy())
-        );
+        $result = HeaderProxyFactory::getInstance()->getHeaderProxy();
+
+        self::assertInstanceOf(RealHeaderProxy::class, $result);
     }
 
     /**
@@ -139,5 +141,32 @@ class HeaderProxyFactoryTest extends UnitTestCase
             ['123: foo.', '123: bar.'],
             $this->subject->getAllAddedHeaders()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function getHeaderCollectorInNonTestModeThrowsException()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionCode(1630827563);
+        $this->expectExceptionMessage('getHeaderCollector() may only be called in test mode.');
+
+        // new instances always have a disabled test mode
+        HeaderProxyFactory::purgeInstance();
+
+        HeaderProxyFactory::getInstance()->getHeaderCollector();
+    }
+
+    /**
+     * @test
+     */
+    public function getHeaderCollectorInTestModeReturnsHeaderCollector()
+    {
+        HeaderProxyFactory::getInstance()->enableTestMode();
+
+        $result = HeaderProxyFactory::getInstance()->getHeaderCollector();
+
+        self::assertInstanceOf(HeaderCollector::class, $result);
     }
 }

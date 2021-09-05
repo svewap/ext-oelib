@@ -55,9 +55,9 @@ class HeaderProxyFactory
      * Retrieves the singleton header proxy instance. Depending on the mode,
      * this instance is either a header collector or a real header proxy.
      *
-     * @return HeaderProxy|HeaderCollector|RealHeaderProxy the singleton header proxy
+     * @return HeaderProxy the singleton header proxy
      */
-    public function getHeaderProxy()
+    public function getHeaderProxy(): HeaderProxy
     {
         /** @var class-string $className */
         $className = $this->isTestMode ? HeaderCollector::class : RealHeaderProxy::class;
@@ -66,6 +66,23 @@ class HeaderProxyFactory
         }
 
         return $this->headerProxy;
+    }
+
+    /**
+     * Returns the header collector (i.e., like `getHeaderProxy`, but for test mode only).
+     *
+     * This is syntactic sugar to help type checkers (and human readers).
+     *
+     * @throws \BadMethodCallException if this method is called outside the test mode
+     */
+    public function getHeaderCollector(): HeaderCollector
+    {
+        $headerCollector = $this->getHeaderProxy();
+        if (!$this->isTestMode || !$headerCollector instanceof HeaderCollector) {
+            throw new \BadMethodCallException('getHeaderCollector() may only be called in test mode.', 1630827563);
+        }
+
+        return $headerCollector;
     }
 
     /**
