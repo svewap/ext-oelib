@@ -1118,10 +1118,9 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * Ensures that all values in the given array are cast to ints and removes empty
-     * or invalid values.
+     * Ensures that all values in the given array are cast to integers and removes empty or invalid values.
      *
-     * @param array<string, string> $keys the keys of the piVars to check, may be empty
+     * @param array<array-key, string> $keys the keys of the piVars to check, may be empty
      *
      * @return void
      */
