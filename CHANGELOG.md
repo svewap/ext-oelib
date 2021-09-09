@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Stop relying on a BE user session in the `BackEndUserMapper` (#682)
 - Fix the parameter type declaration for `TemplateHelper::ensureIntegerArrayValues` (#678)
 
 ## 3.6.0

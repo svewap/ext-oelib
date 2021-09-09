@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 /**
  * @covers \OliverKlee\Oelib\Authentication\BackEndLoginManager
  */
-class BackEndLoginManagerTest extends FunctionalTestCase
+final class BackEndLoginManagerTest extends FunctionalTestCase
 {
     /**
      * @var string[]
@@ -152,19 +152,6 @@ class BackEndLoginManagerTest extends FunctionalTestCase
         $user = $this->backEndUserMapper->find($this->getBackEndUserAuthentication()->user['uid']);
 
         self::assertSame($user, $this->subject->getLoggedInUser());
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserUsesMappedUserDataFromMemory()
-    {
-        $this->logInBackEndUser();
-
-        $name = 'John Doe';
-        $this->getBackEndUserAuthentication()->user['realName'] = $name;
-
-        self::assertSame($name, $this->subject->getLoggedInUser()->getName());
     }
 
     // Tests concerning setLoggedInUser
