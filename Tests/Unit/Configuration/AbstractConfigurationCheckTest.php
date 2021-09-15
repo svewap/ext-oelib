@@ -838,7 +838,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $warning = $subject->getWarningsAsHtml()[0];
         self::assertContains('plugin.tx_oelib.sizes', $warning);
         self::assertContains('some explanation', $warning);
-        self::assertContains('(&quot;s&quot;, &quot;m&quot;)', $warning);
+        self::assertContains('(s, m)', $warning);
     }
 
     /**
@@ -855,7 +855,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $warning = $subject->getWarningsAsHtml()[0];
         self::assertContains('plugin.tx_oelib.sizes', $warning);
         self::assertContains('some explanation', $warning);
-        self::assertContains('(&quot;s&quot;, &quot;m&quot;)', $warning);
+        self::assertContains('(s, m)', $warning);
     }
 
     /**
@@ -927,7 +927,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $warning = $subject->getWarningsAsHtml()[0];
         self::assertContains('plugin.tx_oelib.sizes', $warning);
         self::assertContains('some explanation', $warning);
-        self::assertContains('(&quot;s&quot;, &quot;m&quot;)', $warning);
+        self::assertContains('(s, m)', $warning);
     }
 
     /**
@@ -944,7 +944,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $warning = $subject->getWarningsAsHtml()[0];
         self::assertContains('plugin.tx_oelib.sizes', $warning);
         self::assertContains('some explanation', $warning);
-        self::assertContains('(&quot;s&quot;, &quot;m&quot;)', $warning);
+        self::assertContains('(s, m)', $warning);
     }
 
     /**

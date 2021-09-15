@@ -18,14 +18,14 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * structures.
  *
  * Functions for checking a class (optionally with a flavor) must follow the
- * naming schema "check_classname" or "check_classname_flavor"
+ * naming schema `check_classname` or `check_classname_flavor`
  * (if a flavor is used).
  *
- * Example: The check method for objects of the class "tx_seminars_seminarbag"
- * (without any special flavor) must be named "check_tx_seminars_seminarbag".
- * The check method for objects of the class "tx_seminars_pi1" with the flavor
- * "seminar_registration" needs to be named
- * "check_tx_seminars_pi1_seminar_registration".
+ * Example: The check method for objects of the class `tx_seminars_seminarbag`
+ * (without any special flavor) must be named `check_tx_seminars_seminarbag`.
+ * The check method for objects of the class `tx_seminars_pi1` with the flavor
+ * `seminar_registration` needs to be named
+ * `check_tx_seminars_pi1_seminar_registration`.
  *
  * The correct functioning of this class does not rely on any HTML templates or
  * language files so it works even under the worst of circumstances.
@@ -272,7 +272,7 @@ class ConfigurationCheck
 
     /**
      * Wraps $message in (in this case) <p></p>, styled nicely alarming,
-     * with the lang attribute set to "en".
+     * with the lang attribute set to `en`.
      * In addition, the message is prepended by "Configuration check warning: "
      * and followed by "When that is done, please empty the FE cache and
      * reload this page."
@@ -281,7 +281,7 @@ class ConfigurationCheck
      *
      * @param string $message text to be wrapped (may be empty)
      *
-     * @return string $message wrapped in <p></p>
+     * @return string $message wrapped in `<p></p>`
      */
     protected function wrap(string $message): string
     {
@@ -337,13 +337,13 @@ class ConfigurationCheck
     }
 
     /**
-     * Builds a HTML-safe, text-only overview of the given values.
+     * Builds an HTML-safe, text-only overview of the given values.
      *
      * @param string[] $values
      */
     protected function buildValueOverview(array $values): string
     {
-        return $this->encode('("' . \implode('", "', $values) . '")');
+        return $this->encode('(' . \implode(', ', $values) . ')');
     }
 
     /**

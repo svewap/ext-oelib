@@ -33,7 +33,7 @@ abstract class AbstractConfigurationCheck
 
     /**
      * @param ConfigurationInterface $configurationToCheck the configuration to check
-     * @param string $typoScriptNamespace the TypoScript namespace of the configuration, e.g., `plugin.tx_oelib"
+     * @param string $typoScriptNamespace the TypoScript namespace of the configuration, e.g., `plugin.tx_oelib`
      */
     public function __construct(ConfigurationInterface $configurationToCheck, string $typoScriptNamespace)
     {
@@ -65,13 +65,13 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
-     * Builds a HTML-safe, text-only overview of the given values.
+     * Builds an HTML-safe, text-only overview of the given values.
      *
      * @param string[] $values
      */
     protected function buildValueOverview(array $values): string
     {
-        return $this->encode('("' . \implode('", "', $values) . '")');
+        return $this->encode('(' . \implode(', ', $values) . ')');
     }
 
     /**

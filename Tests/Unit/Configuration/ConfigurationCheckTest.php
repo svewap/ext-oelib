@@ -9,6 +9,9 @@ use OliverKlee\Oelib\Configuration\ConfigurationCheck;
 use OliverKlee\Oelib\Interfaces\ConfigurationCheckable;
 use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\DummyObjectToCheck;
 
+/**
+ * @covers \OliverKlee\Oelib\Configuration\ConfigurationCheck
+ */
 class ConfigurationCheckTest extends UnitTestCase
 {
     /**
