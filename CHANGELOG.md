@@ -8,11 +8,17 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
-- Display the allowed configuration values without enclosing quotes (#686)
 
 ### Deprecated
 
 ### Removed
+
+### Fixed
+
+## 3.6.1
+
+### Changed
+- Display the allowed configuration values without enclosing quotes (#686)
 
 ### Fixed
 - Fix issues with PHP 8.0 (#688)
