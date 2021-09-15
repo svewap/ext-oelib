@@ -18,7 +18,10 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
-class TestingFrameworkTest extends FunctionalTestCase
+/**
+ * @covers \OliverKlee\Oelib\Testing\TestingFramework
+ */
+final class TestingFrameworkTest extends FunctionalTestCase
 {
     /**
      * @var string[]
@@ -743,28 +746,6 @@ class TestingFrameworkTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function createRelationWithManualSorting()
-    {
-        $uidLocal = $this->subject->createRecord('tx_oelib_test');
-        $uidForeign = $this->subject->createRecord('tx_oelib_test');
-        $sorting = 99999;
-
-        $this->subject->createRelation(
-            'tx_oelib_test_article_mm',
-            $uidLocal,
-            $uidForeign,
-            $sorting
-        );
-
-        self::assertSame(
-            $sorting,
-            $this->getSortingOfRelation($uidLocal, $uidForeign)
-        );
-    }
-
     // Tests regarding createRelationFromTca()
 
     /**
@@ -1218,187 +1199,6 @@ class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->getAutoIncrement('tx_oelib_test_article_mm');
     }
 
-    // Tests regarding countRecords()
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsWithEmptyOrMissingWhereClauseIsAllowed()
-    {
-        $this->subject->countRecords('tx_oelib_test', '');
-        $this->subject->countRecords('tx_oelib_test');
-    }
-
-    /**
-     * @test
-     */
-    public function countRecordsWithEmptyTableNameThrowsException()
-    {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
-
-        $this->subject->countRecords('');
-    }
-
-    /**
-     * @test
-     */
-    public function countRecordsWithInvalidTableNameThrowsException()
-    {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
-
-        $table = 'foo_bar';
-        $this->subject->countRecords($table);
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function countRecordsWithAllowedTableIsAllowed()
-    {
-        $this->subject->countRecords('fe_groups');
-        $this->subject->countRecords('fe_users');
-        $this->subject->countRecords('pages');
-        $this->subject->countRecords('tt_content');
-        $this->subject->countRecords('sys_file');
-        $this->subject->countRecords('sys_file_collection');
-        $this->subject->countRecords('sys_file_reference');
-        $this->subject->countRecords('sys_category');
-        $this->subject->countRecords('sys_category_record_mm');
-    }
-
-    /**
-     * @test
-     */
-    public function countRecordsWithOtherTableThrowsException()
-    {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
-
-        $this->subject->countRecords('sys_domain');
-    }
-
-    /**
-     * @test
-     */
-    public function countRecordsReturnsZeroForNoMatches()
-    {
-        self::assertSame(
-            0,
-            $this->subject->countRecords('tx_oelib_test', 'title = "foo"')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function countRecordsReturnsOneForOneDummyRecordMatch()
-    {
-        $this->subject->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-
-        self::assertSame(
-            1,
-            $this->subject->countRecords('tx_oelib_test', 'title = "foo"')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function countRecordsWithMissingWhereClauseReturnsOneForOneDummyRecordMatch()
-    {
-        $this->subject->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-
-        self::assertSame(
-            1,
-            $this->subject->countRecords('tx_oelib_test')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function countRecordsReturnsTwoForTwoMatches()
-    {
-        $this->subject->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $this->subject->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-
-        self::assertSame(
-            2,
-            $this->subject->countRecords('tx_oelib_test', 'title = "foo"')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function countRecordsIgnoresNonDummyRecords()
-    {
-        $this->getDatabaseConnection()->insertArray(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-
-        $testResult = $this->subject->countRecords(
-            'tx_oelib_test',
-            'title = "foo"'
-        );
-
-        self::assertSame(
-            0,
-            $testResult
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function countRecordsCanFindHiddenRecord()
-    {
-        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 1, 'is_dummy_record' => 1]);
-
-        self::assertSame(1, $this->subject->countRecords('tx_oelib_test'));
-    }
-
-    /**
-     * @test
-     */
-    public function countRecordsCanFindDeletedRecord()
-    {
-        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['deleted' => 1, 'is_dummy_record' => 1]);
-
-        self::assertSame(1, $this->subject->countRecords('tx_oelib_test'));
-    }
-
     // Tests regarding count()
 
     /**
@@ -1590,114 +1390,6 @@ class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame(1, $result);
     }
 
-    // Tests regarding existsRecord()
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function existsRecordWithEmptyOrMissingWhereClauseIsAllowed()
-    {
-        $this->subject->existsRecord('tx_oelib_test', '');
-        $this->subject->existsRecord('tx_oelib_test');
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordWithEmptyTableNameThrowsException()
-    {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
-
-        $this->subject->existsRecord('');
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordWithInvalidTableNameThrowsException()
-    {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
-
-        $table = 'foo_bar';
-        $this->subject->existsRecord($table);
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordForNoMatchesReturnsFalse()
-    {
-        self::assertFalse(
-            $this->subject->existsRecord('tx_oelib_test', 'title = "foo"')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordForOneMatchReturnsTrue()
-    {
-        $this->subject->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-
-        self::assertTrue(
-            $this->subject->existsRecord('tx_oelib_test', 'title = "foo"')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordForTwoMatchesReturnsTrue()
-    {
-        $this->subject->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $this->subject->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-
-        self::assertTrue(
-            $this->subject->existsRecord('tx_oelib_test', 'title = "foo"')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function existsRecordIgnoresNonDummyRecords()
-    {
-        $this->getDatabaseConnection()->insertArray(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-
-        $testResult = $this->subject->existsRecord(
-            'tx_oelib_test',
-            'title = "foo"'
-        );
-
-        self::assertFalse(
-            $testResult
-        );
-    }
-
     // Tests regarding existsRecordWithUid()
 
     /**
@@ -1794,120 +1486,6 @@ class TestingFrameworkTest extends FunctionalTestCase
         $testResult = $this->subject->existsRecordWithUid(
             'tx_oelib_test',
             $uid
-        );
-
-        self::assertFalse(
-            $testResult
-        );
-    }
-
-    // Tests regarding existsExactlyOneRecord()
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function existsExactlyOneRecordWithEmptyOrMissingWhereClauseIsAllowed()
-    {
-        $this->subject->existsExactlyOneRecord('tx_oelib_test', '');
-        $this->subject->existsExactlyOneRecord('tx_oelib_test');
-    }
-
-    /**
-     * @test
-     */
-    public function existsExactlyOneRecordWithEmptyTableNameThrowsException()
-    {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
-
-        $this->subject->existsExactlyOneRecord('');
-    }
-
-    /**
-     * @test
-     */
-    public function existsExactlyOneRecordWithInvalidTableNameThrowsException()
-    {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
-
-        $table = 'foo_bar';
-        $this->subject->existsExactlyOneRecord($table);
-    }
-
-    /**
-     * @test
-     */
-    public function existsExactlyOneRecordForNoMatchesReturnsFalse()
-    {
-        self::assertFalse(
-            $this->subject->existsExactlyOneRecord(
-                'tx_oelib_test',
-                'title = "foo"'
-            )
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function existsExactlyOneRecordForOneMatchReturnsTrue()
-    {
-        $this->subject->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-
-        self::assertTrue(
-            $this->subject->existsExactlyOneRecord(
-                'tx_oelib_test',
-                'title = "foo"'
-            )
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function existsExactlyOneRecordForTwoMatchesReturnsFalse()
-    {
-        $this->subject->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $this->subject->createRecord(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-
-        self::assertFalse(
-            $this->subject->existsExactlyOneRecord('tx_oelib_test', 'title = "foo"')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function existsExactlyOneRecordIgnoresNonDummyRecords()
-    {
-        $this->getDatabaseConnection()->insertArray(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-
-        $testResult = $this->subject->existsExactlyOneRecord(
-            'tx_oelib_test',
-            'title = "foo"'
         );
 
         self::assertFalse(
@@ -2782,9 +2360,8 @@ class TestingFrameworkTest extends FunctionalTestCase
     {
         $this->subject->createFrontEndUser('');
 
-        self::assertTrue(
-            $this->subject->existsExactlyOneRecord('fe_groups')
-        );
+        $count = $this->getDatabaseConnection()->selectCount('*', 'fe_users');
+        self::assertSame(1, $count);
     }
 
     /**

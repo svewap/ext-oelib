@@ -6,7 +6,6 @@ namespace OliverKlee\Oelib\Testing;
 
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\DataStructures\Collection;
-use OliverKlee\Oelib\Exception\DatabaseException;
 use OliverKlee\Oelib\FrontEnd\UserWithoutCookies;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
@@ -631,9 +630,6 @@ class TestingFramework
      * @param string $table name of the m:n table to which the record should be added, must not be empty
      * @param int $uidLocal UID of the local table, must be > 0
      * @param int $uidForeign UID of the foreign table, must be > 0
-     * @param int $sorting @deprecated will be removed in oelib 4.0.0
-     *        sorting value of the relation, the default value is 0, which enables automatic sorting,
-     *        a value >= 0 overwrites the automatic sorting
      *
      * @return void
      *
@@ -658,7 +654,7 @@ class TestingFramework
         $recordData = [
             'uid_local' => $uidLocal,
             'uid_foreign' => $uidForeign,
-            'sorting' => $sorting > 0 ? $sorting : $this->getRelationSorting($table, $uidLocal),
+            'sorting' => $this->getRelationSorting($table, $uidLocal),
             $this->getDummyColumnName($table) => 1,
         ];
 
@@ -1646,42 +1642,6 @@ class TestingFramework
      * that match a given WHERE clause.
      *
      * @param string $table the name of the table to query, must not be empty
-     * @param string $whereClause the WHERE part of the query, may be empty (all records will be counted in that case)
-     *
-     * @return int the number of records that have been found, will be >= 0
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @deprecated will be removed in oelib 4.0.0, please use count() instead
-     */
-    public function countRecords(string $table, string $whereClause = ''): int
-    {
-        $this->initializeDatabase();
-
-        if (!$this->isTableNameAllowed($table)) {
-            throw new \InvalidArgumentException(
-                'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
-                1331490862
-            );
-        }
-
-        $whereForDummyColumn = $this->getDummyColumnName($table) . ' = 1';
-        $compoundWhereClause = ($whereClause !== '')
-            ? '(' . $whereClause . ') AND ' . $whereForDummyColumn
-            : $whereForDummyColumn;
-
-        $queryResult = $this->getConnectionForTable($table)
-            ->query('SELECT COUNT(*) as oelib_counter FROM `' . $table . '` WHERE ' . $compoundWhereClause)
-            ->fetch();
-
-        return (int)$queryResult['oelib_counter'];
-    }
-
-    /**
-     * Counts the dummy records in the table given by the first parameter $table
-     * that match a given WHERE clause.
-     *
-     * @param string $table the name of the table to query, must not be empty
      * @param array $criteria key-value pairs to match
      *
      * @return int the number of records that have been found, will be >= 0
@@ -1708,22 +1668,6 @@ class TestingFramework
         }
 
         return (int)$query->execute()->fetchColumn();
-    }
-
-    /**
-     * Checks whether there are any dummy records in the table given by the
-     * first parameter $table that match a given WHERE clause.
-     *
-     * @param string $table the name of the table to query, must not be empty
-     * @param string $whereClause the WHERE part of the query, may be empty (all records will be counted in that case)
-     *
-     * @return bool
-     *
-     * @deprecated will be removed in oelib 4.0.0, please use count() instead
-     */
-    public function existsRecord(string $table, string $whereClause = ''): bool
-    {
-        return $this->countRecords($table, $whereClause) > 0;
     }
 
     /**
@@ -1760,23 +1704,6 @@ class TestingFramework
     }
 
     /**
-     * Checks whether there is exactly one dummy record in the table given by
-     * the first parameter $table that matches a given WHERE clause.
-     *
-     * @param string $table the name of the table to query, must not be empty
-     * @param string $whereClause the WHERE part of the query, may be empty (all records will be counted in that case)
-     *
-     * @return bool TRUE if there is exactly one matching record,
-     *                 FALSE otherwise
-     *
-     * @deprecated will be removed in oelib 4.0.0, please use count() instead
-     */
-    public function existsExactlyOneRecord(string $table, string $whereClause = ''): bool
-    {
-        return $this->countRecords($table, $whereClause) === 1;
-    }
-
-    /**
      * Eagerly resets the auto increment value for a given table to the highest
      * existing UID + 1.
      *
@@ -1785,7 +1712,6 @@ class TestingFramework
      *
      * @return void
      *
-     * @throws DatabaseException
      * @throws \InvalidArgumentException
      *
      * @see resetAutoIncrementLazily
@@ -1909,7 +1835,6 @@ class TestingFramework
      *
      * @return int the current auto_increment value of table $table, will be > 0
      *
-     * @throws DatabaseException
      * @throws \InvalidArgumentException
      */
     public function getAutoIncrement(string $table): int
@@ -2007,7 +1932,6 @@ class TestingFramework
      *
      * @return void
      *
-     * @throws DatabaseException
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
      */
@@ -2037,25 +1961,6 @@ class TestingFramework
         }
 
         $this->markTableAsDirty($tableName);
-    }
-
-    /**
-     * Checks whether the ZIPArchive class is provided by the PHP installation.
-     *
-     * Note: This function can be used to mark tests as skipped if this class is
-     *       not available but required for a test to pass successfully.
-     *
-     * @return void
-     *
-     * @throws \RuntimeException if the PHP installation does not provide ZIPArchive
-     *
-     * @deprecated will be removed in oelib 4.0.0; please use a requirement in the composer.json instead
-     */
-    public function checkForZipArchive()
-    {
-        if (!in_array('zip', get_loaded_extensions(), true)) {
-            throw new \RuntimeException('This PHP installation does not provide the ZIPArchive class.', 1331491040);
-        }
     }
 
     /**

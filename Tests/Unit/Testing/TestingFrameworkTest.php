@@ -11,7 +11,10 @@ use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class TestingFrameworkTest extends UnitTestCase
+/**
+ * @covers \OliverKlee\Oelib\Testing\TestingFramework
+ */
+final class TestingFrameworkTest extends UnitTestCase
 {
     /**
      * @var TestingFramework
