@@ -104,8 +104,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - typo3-version: ^8.7
-            php-version: 7.2
           - typo3-version: ^9.5
             php-version: 7.2
           - typo3-version: ^9.5
@@ -157,8 +155,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - typo3-version: ^8.7
-            php-version: 7.2
           - typo3-version: ^9.5
             php-version: 7.2
           - typo3-version: ^9.5
