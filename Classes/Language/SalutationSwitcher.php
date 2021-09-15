@@ -39,18 +39,28 @@ abstract class SalutationSwitcher extends AbstractPlugin
     /**
      * Makes this object serializable.
      *
-     * @return array
+     * @return array<int, string>
      */
     public function __sleep(): array
     {
-        $fieldsToSave = \get_object_vars($this);
-        if (Typo3Version::isNotHigherThan(8)) {
-            unset($fieldsToSave['frontendController'], $fieldsToSave['databaseConnection']);
-        } else {
-            unset($fieldsToSave['frontendController']);
+        $reflectionClass = new \ReflectionClass($this);
+        $properties = $reflectionClass->getProperties();
+
+        $propertyNames = [];
+        foreach ($properties as $property) {
+            $propertyName = $property->getName();
+            if ($propertyName === 'frontendController') {
+                continue;
+            }
+            if (Typo3Version::isNotHigherThan(8)) {
+                if ($propertyName === 'databaseConnection') {
+                    continue;
+                }
+            }
+            $propertyNames[] = $property->isPrivate() ? (get_class($this) . ':' . $propertyName) : $propertyName;
         }
 
-        return \array_keys($fieldsToSave);
+        return $propertyNames;
     }
 
     /**
@@ -62,7 +72,7 @@ abstract class SalutationSwitcher extends AbstractPlugin
     {
         if (Typo3Version::isNotHigherThan(8)) {
             // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+            $this->databaseConnection = ($GLOBALS['TYPO3_DB'] ?? null);
         }
         $this->frontendController = $this->getFrontEndController();
     }

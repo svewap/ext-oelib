@@ -33,7 +33,7 @@ class FrontEndUserTest extends UnitTestCase
         $this->subject = new FrontEndUser();
 
         $this->globalExecTimeBackup = $GLOBALS['EXEC_TIME'];
-        $this->tcaBackup = $GLOBALS['TCA']['fe_users'];
+        $this->tcaBackup = $GLOBALS['TCA']['fe_users'] ?? [];
     }
 
     protected function tearDown()

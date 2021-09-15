@@ -20,7 +20,7 @@ class SystemEmailFromBuilder
     public function canBuild(): bool
     {
         $configuration = $this->getEmailConfiguration();
-        $emailAddress = (string)$configuration['defaultMailFromAddress'];
+        $emailAddress = (string)($configuration['defaultMailFromAddress'] ?? '');
 
         return \filter_var($emailAddress, FILTER_VALIDATE_EMAIL) !== false;
     }

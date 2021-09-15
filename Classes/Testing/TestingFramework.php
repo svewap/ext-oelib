@@ -223,9 +223,8 @@ class TestingFramework
         }
 
         $cacheKey = $this->getCacheKeyPrefix() . 'rootline';
-        /** @var array $rootLineCacheConfiguration */
         $rootLineCacheConfiguration =
-            (array)$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$cacheKey];
+            (array)($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$cacheKey] ?? []);
         $rootLineCacheConfiguration['backend'] = NullBackend::class;
         $rootLineCacheConfiguration['options'] = [];
         $cacheConfigurations = [$cacheKey => $rootLineCacheConfiguration];

@@ -4441,7 +4441,7 @@ class TemplateHelperTest extends UnitTestCase
      */
     public function ensureIntegerPiVarsDefinesAPiVarsArrayWithShowUidPointerAndModeIfPiVarsWasUndefined()
     {
-        unset($this->subject->piVars);
+        $this->subject->piVars = [];
         $this->subject->ensureIntegerPiVars();
 
         self::assertSame(

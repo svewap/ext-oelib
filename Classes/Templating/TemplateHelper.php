@@ -314,9 +314,11 @@ class TemplateHelper extends SalutationSwitcher
     ): string {
         $this->initializeConfiguration();
 
-        $flexFormsValue = '';
-        if (!$ignoreFlexform) {
+        $flexFormsData = $this->cObj->data['pi_flexform'] ?? null;
+        if (!$ignoreFlexform && \is_array($flexFormsData)) {
             $flexFormsValue = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $fieldName, $sheet);
+        } else {
+            $flexFormsValue = null;
         }
 
         if ($isFileName && $flexFormsValue !== null && $flexFormsValue !== '') {
