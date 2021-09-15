@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop the legacy non-namespaced class aliases (#692)
 - Drop support for TYPO3 8LTS (#691)
 - Drop support for PHP 7.0 and 7.1 (#690)
 
