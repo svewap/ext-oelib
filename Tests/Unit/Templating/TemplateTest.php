@@ -6,7 +6,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Templating;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
-use OliverKlee\Oelib\Language\Translator;
 use OliverKlee\Oelib\Templating\Template;
 
 class TemplateTest extends UnitTestCase
@@ -19,12 +18,6 @@ class TemplateTest extends UnitTestCase
     protected function setUp()
     {
         $this->subject = new Template();
-
-        $localizedLabels = [
-            'default' => ['label_foo' => [0 => ['source' => 'foo', 'target' => 'foo']]],
-        ];
-        $translator = new Translator('de', '', $localizedLabels);
-        $this->subject->injectTranslator($translator);
     }
 
     // Tests for reading the HTML from a file.
@@ -524,43 +517,6 @@ class TemplateTest extends UnitTestCase
         self::assertSame(
             '',
             $this->subject->getSubpart('MY_SUBPART')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getSubpartWithLabelsReturnsVerbatimSubpartWithoutLabels()
-    {
-        $subpartContent = 'Subpart content';
-        $templateCode = 'Text before the subpart'
-            . '<!-- ###MY_SUBPART### -->'
-            . $subpartContent
-            . '<!-- ###MY_SUBPART### -->'
-            . 'Text after the subpart.';
-
-        $this->subject->processTemplate($templateCode);
-
-        self::assertSame(
-            $subpartContent,
-            $this->subject->getSubpartWithLabels('MY_SUBPART')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getSubpartWithLabelsReplacesLabelMarkersWithLabels()
-    {
-        $templateCode = 'Text before the subpart'
-            . '<!-- ###MY_SUBPART### -->before ###LABEL_FOO### after<!-- ###MY_SUBPART### -->'
-            . 'Text after the subpart.';
-
-        $this->subject->processTemplate($templateCode);
-
-        self::assertSame(
-            'before foo after',
-            $this->subject->getSubpartWithLabels('MY_SUBPART')
         );
     }
 

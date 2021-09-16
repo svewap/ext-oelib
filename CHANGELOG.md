@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop the `Translator` and `TranslatorRegistry` classes (#704)
 - Remove the `DatabaseService` (#700)
 - Remove the `ReadOnly` trait (#699)
 - Remove the `UppercaseViewHelper` (#698)

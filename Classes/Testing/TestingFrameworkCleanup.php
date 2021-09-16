@@ -12,7 +12,6 @@ use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Email\MailerFactory;
 use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
 use OliverKlee\Oelib\Http\HeaderProxyFactory;
-use OliverKlee\Oelib\Language\TranslatorRegistry;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Session\Session;
 use OliverKlee\Oelib\Templating\TemplateHelper;
@@ -40,7 +39,6 @@ class TestingFrameworkCleanup
         PageFinder::purgeInstance();
         Session::purgeInstances();
         TemplateHelper::purgeCachedConfigurations();
-        TranslatorRegistry::purgeInstance();
 
         /** @var MailerFactory $mailerFactory */
         $mailerFactory = GeneralUtility::makeInstance(MailerFactory::class);

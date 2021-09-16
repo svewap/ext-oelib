@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Templating;
 
 use OliverKlee\Oelib\Exception\NotFoundException;
-use OliverKlee\Oelib\Language\Translator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -60,23 +59,6 @@ class Template
      * @var array<string, bool>
      */
     private $subpartsToHide = [];
-
-    /**
-     * @var Translator
-     */
-    protected $translator = null;
-
-    /**
-     * Injects the translator.
-     *
-     * @param Translator $translator
-     *
-     * @return void
-     */
-    public function injectTranslator(Translator $translator)
-    {
-        $this->translator = $translator;
-    }
 
     /**
      * Gets the HTML template in the file specified in the parameter $filename,
@@ -674,43 +656,6 @@ class Template
         }
 
         return $this->replaceMarkersAndSubparts($this->subparts[$subpartKey]);
-    }
-
-    /**
-     * Retrieves a named subpart, recursively filling in its inner subparts
-     * and markers. Inner subparts that are marked to be hidden will be
-     * substituted with empty strings.
-     *
-     * This function either works on the subpart with the name $key or the
-     * complete HTML template if $key is an empty string.
-     *
-     * All label markers in the rendered subpart are automatically replaced with their corresponding localized labels,
-     * removing the need use the very expensive setLabels method.
-     *
-     * @param string $subpartKey
-     *        key of an existing subpart, for example 'LIST_ITEM' (without the ###),
-     *        or an empty string to use the complete HTML template
-     *
-     * @return string the subpart content or an empty string if the subpart is hidden or the subpart name is missing
-     *
-     * @throws \BadMethodCallException
-     */
-    public function getSubpartWithLabels(string $subpartKey = ''): string
-    {
-        if (!$this->translator instanceof Translator) {
-            throw new \BadMethodCallException('Please inject the translator before calling this method.', 1440106254);
-        }
-
-        $renderedSubpart = $this->getSubpart($subpartKey);
-
-        $translator = $this->translator;
-        return preg_replace_callback(
-            self::LABEL_PATTERN,
-            static function (array $matches) use ($translator) {
-                return $translator->translate(strtolower($matches[1]));
-            },
-            $renderedSubpart
-        );
     }
 
     /**
