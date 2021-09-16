@@ -16,26 +16,6 @@ parameters:
 			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\('bar', 'foo'\\) and array\\<string, string\\> will always evaluate to false\\.$#"
-			count: 1
-			path: Tests/Functional/Database/DatabaseServiceTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\('foo'\\) and array\\<string, string\\> will always evaluate to false\\.$#"
-			count: 1
-			path: Tests/Functional/Database/DatabaseServiceTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\('uid' \\=\\> int\\) and array\\<string, string\\> will always evaluate to false\\.$#"
-			count: 2
-			path: Tests/Functional/Database/DatabaseServiceTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\(array\\('uid' \\=\\> int\\)\\) and array\\<int, array\\<string, string\\>\\> will always evaluate to false\\.$#"
-			count: 1
-			path: Tests/Functional/Database/DatabaseServiceTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with int and string will always evaluate to false\\.$#"
 			count: 1
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
