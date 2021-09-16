@@ -2612,10 +2612,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        self::assertInternalType(
-            'array',
-            $this->getFrontEndController()->config
-        );
+        self::assertIsArray($this->getFrontEndController()->config);
     }
 
     /**

@@ -116,7 +116,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
             'tx_oelib_test'
         );
 
-        self::assertContains('inexistentColumn', $this->subject->getRawMessage());
+        self::assertStringContainsString('inexistentColumn', $this->subject->getRawMessage());
     }
 
     /**

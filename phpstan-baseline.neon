@@ -36,21 +36,6 @@ parameters:
 			path: Tests/Functional/Database/DatabaseServiceTest.php
 
 		-
-			message: "#^You should use assertCount\\(\\$expectedCount, \\$variable\\) instead of assertSame\\(\\$expectedCount, \\$variable\\-\\>count\\(\\)\\)\\.$#"
-			count: 9
-			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
-
-		-
-			message: "#^You should use assertCount\\(\\$expectedCount, \\$variable\\) instead of assertSame\\(\\$expectedCount, \\$variable\\-\\>count\\(\\)\\)\\.$#"
-			count: 8
-			path: Tests/Functional/Mapper/FrontEndUserMapperTest.php
-
-		-
-			message: "#^You should use assertCount\\(\\$expectedCount, \\$variable\\) instead of assertSame\\(\\$expectedCount, \\$variable\\-\\>count\\(\\)\\)\\.$#"
-			count: 2
-			path: Tests/Functional/Model/BackEndUserTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with int and string will always evaluate to false\\.$#"
 			count: 1
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
@@ -61,29 +46,14 @@ parameters:
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
 
 		-
-			message: "#^You should use assertTrue\\(\\) instead of assertSame\\(\\) when expecting \"true\"$#"
-			count: 2
-			path: Tests/Unit/Configuration/DummyConfigurationTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\) with object will always evaluate to false\\.$#"
 			count: 2
-			path: Tests/Unit/DataStructures/CollectionTest.php
-
-		-
-			message: "#^You should use assertCount\\(\\$expectedCount, \\$variable\\) instead of assertSame\\(\\$expectedCount, \\$variable\\-\\>count\\(\\)\\)\\.$#"
-			count: 17
 			path: Tests/Unit/DataStructures/CollectionTest.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: Tests/Unit/Email/AbstractMailerTest.php
-
-		-
-			message: "#^You should use assertCount\\(\\$expectedCount, \\$variable\\) instead of assertSame\\(\\$expectedCount, \\$variable\\-\\>count\\(\\)\\)\\.$#"
-			count: 2
-			path: Tests/Unit/Geocoding/GeoCalculatorTest.php
 
 		-
 			message: "#^Trying to mock an undefined method cleanUp\\(\\) on class stdClass\\.$#"

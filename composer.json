@@ -46,7 +46,7 @@
 		"phpstan/extension-installer": "^1.1",
 		"phpstan/phpstan": "^0.12.99",
 		"phpstan/phpstan-phpunit": "^0.12.22",
-		"phpunit/phpunit": "^6.5.14 || ^7.5.20",
+		"phpunit/phpunit": "^7.5.20",
 		"saschaegerer/phpstan-typo3": "^0.13.3",
 		"sjbr/static-info-tables": "^6.8.0",
 		"squizlabs/php_codesniffer": "^3.6.0",

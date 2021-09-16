@@ -374,7 +374,7 @@ class AbstractReadOnlyObjectWithAccessorsTest extends UnitTestCase
         $key = 'foo';
         $this->subject->setData([$key => $inputValue]);
 
-        self::assertEquals($expected, $this->subject->getAsFloat($key), '', 0.001);
+        self::assertEqualsWithDelta($expected, $this->subject->getAsFloat($key), 0.001, '');
     }
 
     /**

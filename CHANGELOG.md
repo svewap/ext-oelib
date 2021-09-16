@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Upgrade to PHPUnit 7 (#696)
 - Move PHPStan from PHIVE to Composer (#695)
 
 ### Deprecated

@@ -154,10 +154,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $feUserGroupUid = (int)$this->getDatabaseConnection()->lastInsertId();
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $feUserGroupUid]);
 
-        self::assertSame(
-            1,
-            $this->subject->getGroupMembers($feUserGroupUid)->count()
-        );
+        self::assertCount(1, $this->subject->getGroupMembers($feUserGroupUid));
     }
 
     /**
@@ -200,10 +197,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $userGroups = $feUserGroupUid1 . ',' . $feUserGroupUid2;
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $userGroups]);
 
-        self::assertSame(
-            1,
-            $this->subject->getGroupMembers($feUserGroupUid1)->count()
-        );
+        self::assertCount(1, $this->subject->getGroupMembers($feUserGroupUid1));
     }
 
     /**
@@ -218,10 +212,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $userGroups = $feUserGroupUid1 . ',' . $feUserGroupUid2;
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $userGroups]);
 
-        self::assertSame(
-            1,
-            $this->subject->getGroupMembers($feUserGroupUid1)->count()
-        );
+        self::assertCount(1, $this->subject->getGroupMembers($feUserGroupUid1));
     }
 
     /**
@@ -236,10 +227,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $userGroups = $feUserGroupUid1 . ',' . $feUserGroupUid2;
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $userGroups]);
 
-        self::assertSame(
-            1,
-            $this->subject->getGroupMembers($feUserGroupUid1)->count()
-        );
+        self::assertCount(1, $this->subject->getGroupMembers($feUserGroupUid1));
     }
 
     /**
@@ -267,10 +255,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $feUserGroupUid]);
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $feUserGroupUid]);
 
-        self::assertSame(
-            2,
-            $this->subject->getGroupMembers($feUserGroupUid)->count()
-        );
+        self::assertCount(2, $this->subject->getGroupMembers($feUserGroupUid));
     }
 
     /**
@@ -305,12 +290,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $firstGroupUid]);
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $secondGroupUid]);
 
-        self::assertSame(
-            2,
-            $this->subject->getGroupMembers(
-                $firstGroupUid . ',' . $secondGroupUid
-            )->count()
-        );
+        self::assertCount(2, $this->subject->getGroupMembers($firstGroupUid . ',' . $secondGroupUid));
     }
 
     /**
@@ -325,10 +305,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $userGroups = $feUserGroupUid1 . ',' . $feUserGroupUid2;
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $userGroups]);
 
-        self::assertSame(
-            1,
-            $this->subject->getGroupMembers($userGroups)->count()
-        );
+        self::assertCount(1, $this->subject->getGroupMembers($userGroups));
     }
 
     /**
@@ -345,15 +322,10 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $secondGroupUid]);
         $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $userGroups]);
 
-        self::assertSame(
-            3,
-            $this->subject->getGroupMembers($userGroups)->count()
-        );
+        self::assertCount(3, $this->subject->getGroupMembers($userGroups));
     }
 
-    ////////////////////////////////////
     // Tests concerning findByUserName
-    ////////////////////////////////////
 
     /**
      * @test

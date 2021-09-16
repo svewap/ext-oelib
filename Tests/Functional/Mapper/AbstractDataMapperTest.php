@@ -326,10 +326,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function getListOfModelsForOneRecordsProvidedReturnsListWithOneElement()
     {
-        self::assertSame(
-            1,
-            $this->subject->getListOfModels([['uid' => 1]])->count()
-        );
+        self::assertCount(1, $this->subject->getListOfModels([['uid' => 1]]));
     }
 
     /**
@@ -337,10 +334,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function getListOfModelsForTwoRecordsProvidedReturnsListWithTwoElements()
     {
-        self::assertSame(
-            2,
-            $this->subject->getListOfModels([['uid' => 1], ['uid' => 2]])->count()
-        );
+        self::assertCount(2, $this->subject->getListOfModels([['uid' => 1], ['uid' => 2]]));
     }
 
     /**
@@ -2839,10 +2833,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
-        self::assertSame(
-            1,
-            $this->subject->findAll()->count()
-        );
+        self::assertCount(1, $this->subject->findAll());
     }
 
     /**
@@ -2853,10 +2844,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
-        self::assertSame(
-            2,
-            $this->subject->findAll()->count()
-        );
+        self::assertCount(2, $this->subject->findAll());
     }
 
     /**
@@ -2949,15 +2937,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
-        self::assertSame(
-            2,
-            $this->subject->findAll('title ASC')->count()
-        );
+        self::assertCount(2, $this->subject->findAll('title ASC'));
     }
 
-    ///////////////////////////////////////
     // Tests concerning findByWhereClause
-    ///////////////////////////////////////
 
     /**
      * @test
@@ -2967,10 +2950,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
-        self::assertSame(
-            2,
-            $this->subject->findByWhereClause()->count()
-        );
+        self::assertCount(2, $this->subject->findByWhereClause());
     }
 
     /**
@@ -3671,10 +3651,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $relatedModel = $mapper->find($relatedUid);
 
         $result = $mapper->findAllByRelation($model, 'parent');
-        self::assertSame(
-            1,
-            $result->count()
-        );
+        self::assertCount(1, $result);
         self::assertSame(
             $relatedModel,
             $result->first()
@@ -3694,10 +3671,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $result = MapperRegistry::get(TestingChildMapper::class)
             ->findAllByRelation($model, 'parent');
-        self::assertSame(
-            2,
-            $result->count()
-        );
+        self::assertCount(2, $result);
     }
 
     /**
@@ -3722,13 +3696,11 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $result = MapperRegistry::get(TestingChildMapper::class)->findAllByRelation($model, 'parent', $ignoreList);
 
-        self::assertSame(1, $result->count());
+        self::assertCount(1, $result);
         self::assertSame($relatedModel, $result->first());
     }
 
-    //////////////////////////////////////////
     // Tests concerning countByWhereClause()
-    //////////////////////////////////////////
 
     /**
      * @test

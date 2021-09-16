@@ -119,7 +119,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderReturnsDivWithIdWithGeneralMapId()
     {
-        self::assertContains(
+        self::assertStringContainsString(
             '<div id="' . GoogleMapsViewHelper::MAP_HTML_ID_PREFIX,
             $this->subject->render([$this->mapPointWithCoordinates])
         );
@@ -132,7 +132,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     {
         $result = $this->subject->render([$this->mapPointWithCoordinates]);
 
-        self::assertContains('<div id="' . $this->subject->getMapId(), $result);
+        self::assertStringContainsString('<div id="' . $this->subject->getMapId(), $result);
     }
 
     /**
@@ -140,7 +140,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderWithoutWidthAndWithoutHeightReturnsStyleWithDefaultWidth()
     {
-        self::assertContains(
+        self::assertStringContainsString(
             'width: 600px;',
             $this->subject->render([$this->mapPointWithCoordinates])
         );
@@ -151,7 +151,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderWithoutWidthAndWithoutHeightReturnsStyleWithDefaultHeight()
     {
-        self::assertContains('height: 400px;', $this->subject->render([$this->mapPointWithCoordinates]));
+        self::assertStringContainsString('height: 400px;', $this->subject->render([$this->mapPointWithCoordinates]));
     }
 
     /**
@@ -219,7 +219,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderReturnsStyleWithGivenWidth()
     {
-        self::assertContains(
+        self::assertStringContainsString(
             'width: 142px;',
             $this->subject->render([$this->mapPointWithCoordinates], '142px')
         );
@@ -230,7 +230,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderReturnsStyleWithGivenHeight()
     {
-        self::assertContains(
+        self::assertStringContainsString(
             'height: 99px;',
             $this->subject->render([$this->mapPointWithCoordinates], '142px', '99px')
         );

@@ -201,7 +201,7 @@ class GoogleGeocodingTest extends UnitTestCase
 
         $subject->lookUp($geo);
 
-        self::assertContains($status, $geo->getGeoErrorReason());
+        self::assertStringContainsString($status, $geo->getGeoErrorReason());
     }
 
     /**
@@ -229,7 +229,7 @@ class GoogleGeocodingTest extends UnitTestCase
 
         $subject->lookUp($geo);
 
-        self::assertContains($errorMessage, $geo->getGeoErrorReason());
+        self::assertStringContainsString($errorMessage, $geo->getGeoErrorReason());
     }
 
     /**
@@ -251,7 +251,7 @@ class GoogleGeocodingTest extends UnitTestCase
         $subject->lookUp($geo);
 
         self::assertTrue($geo->hasGeoError());
-        self::assertContains('network problem', $geo->getGeoErrorReason());
+        self::assertStringContainsString('network problem', $geo->getGeoErrorReason());
     }
 
     /**

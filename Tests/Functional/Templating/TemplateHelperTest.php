@@ -67,11 +67,11 @@ class TemplateHelperTest extends FunctionalTestCase
             '',
             $this->subject->getSubpart('FOOBAR')
         );
-        self::assertContains(
+        self::assertStringContainsString(
             'The subpart',
             $this->subject->getWrappedConfigCheckMessage()
         );
-        self::assertContains(
+        self::assertStringContainsString(
             'is missing',
             $this->subject->getWrappedConfigCheckMessage()
         );

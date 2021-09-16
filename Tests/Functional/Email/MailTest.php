@@ -84,7 +84,7 @@ class MailTest extends FunctionalTestCase
     {
         $this->subject->setCssFile('EXT:oelib/Tests/Functional/Email/Fixtures/test.css');
 
-        self::assertContains(
+        self::assertStringContainsString(
             'h3',
             $this->subject->getCssFile()
         );
@@ -111,7 +111,7 @@ class MailTest extends FunctionalTestCase
         $this->subject->setCssFile('EXT:oelib/Tests/Functional/Email/Fixtures/test.css');
         $this->subject->setCssFile('EXT:oelib/Tests/Functional/Email/Fixtures/test_2.css');
 
-        self::assertNotContains(
+        self::assertStringNotContainsString(
             'h3',
             $this->subject->getCssFile()
         );
@@ -125,7 +125,7 @@ class MailTest extends FunctionalTestCase
         $this->subject->setCssFile('EXT:oelib/Tests/Functional/Email/Fixtures/test.css');
         $this->subject->setCssFile('EXT:oelib/Tests/Functional/Email/Fixtures/test_2.css');
 
-        self::assertContains(
+        self::assertStringContainsString(
             'h4',
             $this->subject->getCssFile()
         );
@@ -165,7 +165,7 @@ class MailTest extends FunctionalTestCase
             '</html>'
         );
 
-        self::assertContains(
+        self::assertStringContainsString(
             '<h3 style="font-weight: bold;">Bar</h3>',
             $this->subject->getHTMLMessage()
         );

@@ -441,7 +441,7 @@ class AbstractMailerTest extends UnitTestCase
 
         $this->subject->send($eMail);
 
-        self::assertNotContains(
+        self::assertStringNotContainsString(
             "\r",
             $this->subject->getFirstSentEmail()->getBody()
         );
@@ -469,7 +469,7 @@ class AbstractMailerTest extends UnitTestCase
 
         $this->subject->send($eMail);
 
-        self::assertNotContains(
+        self::assertStringNotContainsString(
             "\r",
             $this->subject->getFirstSentEmail()->getBody()
         );
@@ -497,7 +497,7 @@ class AbstractMailerTest extends UnitTestCase
 
         $this->subject->send($eMail);
 
-        self::assertContains(
+        self::assertStringContainsString(
             "\r",
             $this->subject->getFirstSentEmail()->getBody()
         );

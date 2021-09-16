@@ -206,7 +206,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
 
         $result = DynamicDateViewHelper::renderStatic([], $renderChildrenClosure, $this->renderingContext);
 
-        self::assertContains('07.12.1980 14:37', $result);
+        self::assertStringContainsString('07.12.1980 14:37', $result);
     }
 
     /**
@@ -224,6 +224,6 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
             $this->renderingContext
         );
 
-        self::assertContains('1980-12-07 2:37pm', $result);
+        self::assertStringContainsString('1980-12-07 2:37pm', $result);
     }
 }

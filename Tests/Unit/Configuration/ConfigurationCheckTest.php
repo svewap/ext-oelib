@@ -60,7 +60,7 @@ class ConfigurationCheckTest extends UnitTestCase
     {
         $this->subject->checkForNonEmptyString('', false, '', '');
 
-        self::assertContains(
+        self::assertStringContainsString(
             'plugin.tx_oelib_test.',
             $this->subject->getRawMessage()
         );
@@ -105,7 +105,7 @@ class ConfigurationCheckTest extends UnitTestCase
     {
         $this->subject->checkForNonEmptyString('emptyString', false, '', '');
 
-        self::assertContains(
+        self::assertStringContainsString(
             'emptyString',
             $this->subject->getRawMessage()
         );
@@ -148,7 +148,7 @@ class ConfigurationCheckTest extends UnitTestCase
     {
         $this->subject->checkIsValidEmailOrEmpty('nonEmptyString', false, '', false, '');
 
-        self::assertContains(
+        self::assertStringContainsString(
             'nonEmptyString',
             $this->subject->getRawMessage()
         );
@@ -161,7 +161,7 @@ class ConfigurationCheckTest extends UnitTestCase
     {
         $this->subject->checkIsValidEmailNotEmpty('emptyString', false, '', false, '');
 
-        self::assertContains(
+        self::assertStringContainsString(
             'emptyString',
             $this->subject->getRawMessage()
         );

@@ -172,10 +172,7 @@ final class CollectionTest extends UnitTestCase
     {
         $this->addModelsToFixture(['foo']);
 
-        self::assertSame(
-            1,
-            $this->subject->count()
-        );
+        self::assertCount(1, $this->subject);
     }
 
     /**
@@ -200,10 +197,7 @@ final class CollectionTest extends UnitTestCase
     {
         $this->addModelsToFixture(['foo', 'bar']);
 
-        self::assertSame(
-            2,
-            $this->subject->count()
-        );
+        self::assertCount(2, $this->subject);
     }
 
     /**
@@ -228,10 +222,7 @@ final class CollectionTest extends UnitTestCase
     {
         $this->addModelsToFixture(['foo', 'bar', 'fooBar']);
 
-        self::assertSame(
-            3,
-            $this->subject->count()
-        );
+        self::assertCount(3, $this->subject);
     }
 
     /**
@@ -261,10 +252,7 @@ final class CollectionTest extends UnitTestCase
      */
     public function countForEmptyListReturnsZero()
     {
-        self::assertSame(
-            0,
-            $this->subject->count()
-        );
+        self::assertCount(0, $this->subject);
     }
 
     /**
@@ -274,10 +262,7 @@ final class CollectionTest extends UnitTestCase
     {
         $this->addModelsToFixture();
 
-        self::assertSame(
-            1,
-            $this->subject->count()
-        );
+        self::assertCount(1, $this->subject);
     }
 
     /**
@@ -289,10 +274,7 @@ final class CollectionTest extends UnitTestCase
         $model->setUid(1);
         $this->subject->add($model);
 
-        self::assertSame(
-            1,
-            $this->subject->count()
-        );
+        self::assertCount(1, $this->subject);
     }
 
     /**
@@ -302,10 +284,7 @@ final class CollectionTest extends UnitTestCase
     {
         $this->addModelsToFixture(['', '']);
 
-        self::assertSame(
-            2,
-            $this->subject->count()
-        );
+        self::assertCount(2, $this->subject);
     }
 
     /**
@@ -317,10 +296,7 @@ final class CollectionTest extends UnitTestCase
         $this->subject->add($model);
         $this->subject->add($model);
 
-        self::assertSame(
-            1,
-            $this->subject->count()
-        );
+        self::assertCount(1, $this->subject);
     }
 
     /**
@@ -804,10 +780,7 @@ final class CollectionTest extends UnitTestCase
 
         $this->subject->append($otherList);
 
-        self::assertSame(
-            2,
-            $this->subject->count()
-        );
+        self::assertCount(2, $this->subject);
     }
 
     /**
@@ -821,10 +794,7 @@ final class CollectionTest extends UnitTestCase
         $otherList = new Collection();
         $this->subject->append($otherList);
 
-        self::assertSame(
-            2,
-            $this->subject->count()
-        );
+        self::assertCount(2, $this->subject);
     }
 
     /**
@@ -842,10 +812,7 @@ final class CollectionTest extends UnitTestCase
 
         $this->subject->append($otherList);
 
-        self::assertSame(
-            1,
-            $this->subject->count()
-        );
+        self::assertCount(1, $this->subject);
     }
 
     /**
@@ -955,10 +922,7 @@ final class CollectionTest extends UnitTestCase
         $this->subject->rewind();
         $this->subject->purgeCurrent();
 
-        self::assertSame(
-            1,
-            $this->subject->count()
-        );
+        self::assertCount(1, $this->subject);
     }
 
     /**
@@ -972,10 +936,7 @@ final class CollectionTest extends UnitTestCase
         $this->subject->next();
         $this->subject->purgeCurrent();
 
-        self::assertSame(
-            1,
-            $this->subject->count()
-        );
+        self::assertCount(1, $this->subject);
     }
 
     /**
@@ -1202,10 +1163,7 @@ final class CollectionTest extends UnitTestCase
         $this->subject->add(new TestingModel());
 
         $result = $this->subject->inRange(0, 1);
-        self::assertSame(
-            1,
-            $result->count()
-        );
+        self::assertCount(1, $result);
         self::assertSame(
             $model,
             $result->first()
@@ -1222,10 +1180,7 @@ final class CollectionTest extends UnitTestCase
         $this->subject->add($model);
 
         $result = $this->subject->inRange(1, 1);
-        self::assertSame(
-            1,
-            $result->count()
-        );
+        self::assertCount(1, $result);
         self::assertSame(
             $model,
             $result->first()
@@ -1242,10 +1197,7 @@ final class CollectionTest extends UnitTestCase
         $model2 = new TestingModel();
         $this->subject->add($model2);
 
-        self::assertSame(
-            2,
-            $this->subject->inRange(0, 2)->count()
-        );
+        self::assertCount(2, $this->subject->inRange(0, 2));
     }
 
     /**
@@ -1271,10 +1223,7 @@ final class CollectionTest extends UnitTestCase
 
         $result = $this->subject->inRange(1, 2);
 
-        self::assertSame(
-            1,
-            $result->count()
-        );
+        self::assertCount(1, $result);
         self::assertSame(
             $model,
             $result->first()

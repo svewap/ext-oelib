@@ -147,10 +147,7 @@ class BackEndUserTest extends FunctionalTestCase
         $groups->add($group);
         $this->subject->setData(['usergroup' => $groups]);
 
-        self::assertSame(
-            1,
-            $this->subject->getAllGroups()->count()
-        );
+        self::assertCount(1, $this->subject->getAllGroups());
     }
 
     /**
@@ -173,9 +170,6 @@ class BackEndUserTest extends FunctionalTestCase
         $groups->add($group1);
         $this->subject->setData(['usergroup' => $groups]);
 
-        self::assertSame(
-            2,
-            $this->subject->getAllGroups()->count()
-        );
+        self::assertCount(2, $this->subject->getAllGroups());
     }
 }

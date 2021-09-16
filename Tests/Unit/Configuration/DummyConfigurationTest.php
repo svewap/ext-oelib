@@ -106,10 +106,9 @@ final class DummyConfigurationTest extends UnitTestCase
     public function canGetBoolean()
     {
         $key = 'isActive';
-        $value = true;
-        $this->subject->setAllData([$key => $value]);
+        $this->subject->setAllData([$key => true]);
 
-        self::assertSame($value, $this->subject->getAsBoolean($key));
+        self::assertTrue($this->subject->getAsBoolean($key));
     }
 
     /**
@@ -144,10 +143,8 @@ final class DummyConfigurationTest extends UnitTestCase
     public function canSetBoolean()
     {
         $key = 'isActive';
-        $value = true;
+        $this->subject->setAsBoolean($key, true);
 
-        $this->subject->setAsBoolean($key, $value);
-
-        self::assertSame($value, $this->subject->getAsBoolean($key));
+        self::assertTrue($this->subject->getAsBoolean($key));
     }
 }

@@ -47,8 +47,8 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.templateFile', $warning);
-        self::assertContains('is empty, but needs to be non-empty', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.templateFile', $warning);
+        self::assertStringContainsString('is empty, but needs to be non-empty', $warning);
     }
 
     /**
@@ -64,8 +64,8 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.templateFile', $warning);
-        self::assertContains('cannot be read', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.templateFile', $warning);
+        self::assertStringContainsString('cannot be read', $warning);
     }
 
     /**
@@ -95,9 +95,9 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.file', $warning);
-        self::assertContains('some description', $warning);
-        self::assertContains('is empty, but needs to be non-empty', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.file', $warning);
+        self::assertStringContainsString('some description', $warning);
+        self::assertStringContainsString('is empty, but needs to be non-empty', $warning);
     }
 
     /**
@@ -113,8 +113,8 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.file', $warning);
-        self::assertContains('cannot be read', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.file', $warning);
+        self::assertStringContainsString('cannot be read', $warning);
     }
 
     /**
@@ -142,8 +142,8 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.column', $warning);
-        self::assertContains('some explanation', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.column', $warning);
+        self::assertStringContainsString('some explanation', $warning);
     }
 
     /**
@@ -171,8 +171,8 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.column', $warning);
-        self::assertContains('some explanation', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.column', $warning);
+        self::assertStringContainsString('some explanation', $warning);
     }
 
     /**
@@ -187,8 +187,8 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.column', $warning);
-        self::assertContains('some explanation', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.column', $warning);
+        self::assertStringContainsString('some explanation', $warning);
     }
 
     /**
@@ -229,8 +229,8 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.columns', $warning);
-        self::assertContains('some explanation', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.columns', $warning);
+        self::assertStringContainsString('some explanation', $warning);
     }
 
     /**
@@ -248,8 +248,8 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.columns', $warning);
-        self::assertContains('some explanation', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.columns', $warning);
+        self::assertStringContainsString('some explanation', $warning);
     }
 
     /**
@@ -309,8 +309,8 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.columns', $warning);
-        self::assertContains('some explanation', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.columns', $warning);
+        self::assertStringContainsString('some explanation', $warning);
     }
 
     /**
@@ -325,8 +325,8 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.columns', $warning);
-        self::assertContains('some explanation', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.columns', $warning);
+        self::assertStringContainsString('some explanation', $warning);
     }
 
     /**
@@ -344,8 +344,8 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertContains('plugin.tx_oelib.columns', $warning);
-        self::assertContains('some explanation', $warning);
+        self::assertStringContainsString('plugin.tx_oelib.columns', $warning);
+        self::assertStringContainsString('some explanation', $warning);
     }
 
     /**
