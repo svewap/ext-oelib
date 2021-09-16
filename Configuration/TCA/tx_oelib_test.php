@@ -14,6 +14,7 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'sortby' => 'sorting',
         'hideTable' => true,
         'adminOnly' => true,
     ],

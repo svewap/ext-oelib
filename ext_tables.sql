@@ -1,34 +1,16 @@
 CREATE TABLE tx_oelib_domain_model_germanzipcode (
-    uid int(11) unsigned NOT NULL auto_increment,
-    pid int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
-
     zip_code varchar(5) DEFAULT '' NOT NULL,
     city_name varchar(255) DEFAULT '' NOT NULL,
     longitude decimal(9,6) DEFAULT '0.000000' NOT NULL,
     latitude decimal(9,6) DEFAULT '0.000000' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY zip_code (zip_code)
 );
 
 #
 # Table structure for table 'tx_oelib_test'
 #
 CREATE TABLE tx_oelib_test (
-    uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
-    pid int(11) unsigned DEFAULT '0' NOT NULL,
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    sorting int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
     is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
     object_type int(11) unsigned DEFAULT '0' NOT NULL,
-    hidden tinyint(1) unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
     title varchar(255) DEFAULT '' NOT NULL,
     friend int(11) unsigned DEFAULT '0' NOT NULL,
     owner int(11) unsigned DEFAULT '0' NOT NULL,
@@ -46,8 +28,6 @@ CREATE TABLE tx_oelib_test (
     bool_data2 tinyint(1) unsigned DEFAULT '0' NOT NULL,
     int_data tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
-    PRIMARY KEY (uid),
-    KEY parent (pid),
     KEY dummy (is_dummy_record),
     KEY object_type (object_type)
 );
@@ -57,21 +37,12 @@ CREATE TABLE tx_oelib_test (
 # Table structure for table 'tx_oelib_testchild'
 #
 CREATE TABLE tx_oelib_testchild (
-    uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
-    pid int(11) unsigned DEFAULT '0' NOT NULL,
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    sorting int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
     is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
     title varchar(255) DEFAULT '' NOT NULL,
     parent int(11) unsigned DEFAULT '0' NOT NULL,
     tx_oelib_parent2 int(11) unsigned DEFAULT '0' NOT NULL,
     tx_oelib_parent3 int(11) unsigned DEFAULT '0' NOT NULL,
 
-    PRIMARY KEY (uid),
-    KEY parent (pid),
     KEY dummy (is_dummy_record)
 );
 
