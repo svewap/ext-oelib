@@ -129,29 +129,6 @@ class TestingMapper extends AbstractDataMapper
     }
 
     /**
-     * Retrieves all non-deleted, non-hidden models from the DB which match the
-     * given where clause.
-     *
-     * @param string $whereClause
-     *        WHERE clause for the record to retrieve, each element must  consist of a column name as key and a value
-     *     to search for as value
-     *        (will automatically get quoted), may be empty
-     * @param string $sorting
-     *        the sorting for the found records, must be a valid DB field
-     *        optionally followed by "ASC" or "DESC", may be empty
-     * @param string|int $limit the LIMIT value ([begin,]max), may be empty
-     *
-     * @return Collection<AbstractModel> all models found in DB for the given where clause,
-     *                       will be an empty list if no models were found
-     *
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    public function findByWhereClause(string $whereClause = '', string $sorting = '', $limit = ''): Collection
-    {
-        return parent::findByWhereClause($whereClause, $sorting, $limit);
-    }
-
-    /**
      * Looks up a model in the cache by key.
      *
      * When this function reports "no match", the model could still exist in the

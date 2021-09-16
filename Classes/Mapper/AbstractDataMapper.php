@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Mapper;
 
-use OliverKlee\Oelib\Database\DatabaseService;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\AbstractModel;
@@ -1216,28 +1215,6 @@ abstract class AbstractDataMapper
     }
 
     /**
-     * Returns the WHERE clause that selects all visible records from the DB.
-     *
-     * @param bool $allowHiddenRecords whether hidden records should be found
-     *
-     * @return string the WHERE clause that selects all visible records in the DB, will not be empty
-     *
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    protected function getUniversalWhereClause(bool $allowHiddenRecords = false): string
-    {
-        $tableName = $this->getTableName();
-        if ($this->testingFramework instanceof TestingFramework) {
-            $dummyColumnName = $this->testingFramework->getDummyColumnName($tableName);
-            $leftPart = DatabaseService ::tableHasColumn($this->getTableName(), $dummyColumnName)
-                ? $dummyColumnName . ' = 1' : '1 = 1';
-        } else {
-            $leftPart = '1 = 1';
-        }
-        return $leftPart . DatabaseService ::enableFields($tableName, ($allowHiddenRecords ? 1 : -1));
-    }
-
-    /**
      * Registers a model as a memory-only dummy that must not be saved.
      *
      * @param M $model the model to register
@@ -1267,51 +1244,6 @@ abstract class AbstractDataMapper
         }
 
         return isset($this->uidsOfMemoryOnlyDummyModels[$model->getUid()]);
-    }
-
-    /**
-     * Retrieves all non-deleted, non-hidden models from the DB which match the
-     * given where clause.
-     *
-     * @param string $whereClause
-     *        WHERE clause for the record to retrieve must be quoted and SQL
-     *        safe, may be empty
-     * @param string $sorting
-     *        the sorting for the found records, must be a valid DB field
-     *        optionally followed by "ASC" or "DESC", may be empty
-     * @param string|int $limit the LIMIT value ([begin,]max), may be empty
-     *
-     * @return Collection<M> all models found in DB for the given where clause,
-     *                       will be an empty list if no models were found
-     *
-     * @deprecated will be removed in oelib 4.0.0
-     */
-    protected function findByWhereClause(string $whereClause = '', string $sorting = '', $limit = ''): Collection
-    {
-        $orderBy = '';
-
-        $tca = $this->getTcaForTable($this->getTableName());
-        if ($sorting !== '') {
-            $orderBy = $sorting;
-        } elseif (isset($tca['ctrl']['default_sortby'])) {
-            $matches = [];
-            if (\preg_match('/^ORDER BY (.+)$/', $tca['ctrl']['default_sortby'], $matches)) {
-                $orderBy = $matches[1];
-            }
-        }
-
-        $completeWhereClause = ($whereClause === '') ? '' : $whereClause . ' AND ';
-
-        $rows = DatabaseService ::selectMultiple(
-            '*',
-            $this->getTableName(),
-            $completeWhereClause . $this->getUniversalWhereClause(),
-            '',
-            $orderBy,
-            $limit
-        );
-
-        return $this->getListOfModels($rows);
     }
 
     /**
@@ -1624,26 +1556,6 @@ abstract class AbstractDataMapper
         }
 
         return $this->getListOfModels($query->execute()->fetchAll());
-    }
-
-    /**
-     * Returns the number of records matching the given WHERE clause.
-     *
-     * @param string $whereClause
-     *        WHERE clause for the number of records to retrieve, must be quoted
-     *        and SQL safe, may be empty
-     *
-     * @return int the number of records matching the given WHERE clause
-     *
-     * @deprecated will be removed in oelib 4.0
-     */
-    public function countByWhereClause(string $whereClause = ''): int
-    {
-        $completeWhereClause = ($whereClause === '')
-            ? ''
-            : $whereClause . ' AND ';
-
-        return DatabaseService ::count($this->getTableName(), $completeWhereClause . $this->getUniversalWhereClause());
     }
 
     /**
