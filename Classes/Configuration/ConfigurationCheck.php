@@ -6,7 +6,6 @@ namespace OliverKlee\Oelib\Configuration;
 
 use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 use OliverKlee\Oelib\Interfaces\ConfigurationCheckable;
-use OliverKlee\Oelib\System\Typo3Version;
 use OliverKlee\Oelib\Templating\TemplateHelper;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -1350,14 +1349,10 @@ class ConfigurationCheck
      */
     protected function checkIfFePagesOrEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
     {
-        if (Typo3Version::isNotHigherThan(8)) {
-            GeneralUtility::logDeprecatedFunction();
-        } else {
-            trigger_error(
-                'checkIfFePagesOrEmpty() is deprecated and will be removed in oelib 4.0.0; is a no-op in the meantime',
-                E_USER_DEPRECATED
-            );
-        }
+        trigger_error(
+            'checkIfFePagesOrEmpty() is deprecated and will be removed in oelib 4.0.0; is a no-op in the meantime',
+            E_USER_DEPRECATED
+        );
     }
 
     /**
@@ -1460,15 +1455,11 @@ class ConfigurationCheck
      */
     protected function checkIfSysFoldersOrEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
     {
-        if (Typo3Version::isNotHigherThan(8)) {
-            GeneralUtility::logDeprecatedFunction();
-        } else {
-            trigger_error(
-                'checkIfSysFoldersOrEmpty() is deprecated and will be removed in oelib 4.0.0; ' .
-                'is a no-op in the meantime',
-                E_USER_DEPRECATED
-            );
-        }
+        trigger_error(
+            'checkIfSysFoldersOrEmpty() is deprecated and will be removed in oelib 4.0.0; ' .
+            'is a no-op in the meantime',
+            E_USER_DEPRECATED
+        );
     }
 
     /**
@@ -1502,14 +1493,10 @@ class ConfigurationCheck
         string $explanation,
         string $typeCondition
     ) {
-        if (Typo3Version::isNotHigherThan(8)) {
-            GeneralUtility::logDeprecatedFunction();
-        } else {
-            trigger_error(
-                'checkPageTypeOrEmpty() is deprecated and will be removed in oelib 4.0.0; is a no-op in the meantime',
-                E_USER_DEPRECATED
-            );
-        }
+        trigger_error(
+            'checkPageTypeOrEmpty() is deprecated and will be removed in oelib 4.0.0; is a no-op in the meantime',
+            E_USER_DEPRECATED
+        );
     }
 
     /**

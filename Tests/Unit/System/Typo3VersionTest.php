@@ -10,28 +10,18 @@ use OliverKlee\Oelib\System\Typo3Version;
 final class Typo3VersionTest extends UnitTestCase
 {
     /**
-     * @var \TYPO3\CMS\Core\Information\Typo3Version|null
+     * @var \TYPO3\CMS\Core\Information\Typo3Version
      */
     private $version = null;
 
     protected function setUp()
     {
-        if (\class_exists(\TYPO3\CMS\Core\Information\Typo3Version::class)) {
-            $this->version = new \TYPO3\CMS\Core\Information\Typo3Version();
-        }
+        $this->version = new \TYPO3\CMS\Core\Information\Typo3Version();
     }
 
     private function getMajorVersion(): int
     {
-        if ($this->version instanceof \TYPO3\CMS\Core\Information\Typo3Version) {
-            $majorVersion = $this->version->getMajorVersion();
-        } else {
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $explodedVersion = \explode('.', TYPO3_version, 2);
-            $majorVersion = (int)$explodedVersion[0];
-        }
-
-        return $majorVersion;
+        return $this->version->getMajorVersion();
     }
 
     /**

@@ -8,7 +8,6 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
-use OliverKlee\Oelib\System\Typo3Version;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -162,10 +161,6 @@ class ConfigurationRegistryTest extends FunctionalTestCase
         );
         /** @var TypoScriptFrontendController $frontEndController */
         $frontEndController = $GLOBALS['TSFE'];
-        if (Typo3Version::isNotHigherThan(8)) {
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $frontEndController->tmpl->rootId = 0;
-        }
         // @phpstan-ignore-next-line null still is the default value.
         $frontEndController->tmpl->rootLine = null;
         $frontEndController->tmpl->setup = [];

@@ -20,7 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop deprecated methods from `AbstractDataMapper` (#697)
 - Drop deprecated methods from the testing framework (#693)
 - Drop the legacy non-namespaced class aliases (#692)
-- Drop support for TYPO3 8LTS (#691)
+- Drop support for TYPO3 8LTS (#691, #701)
 - Drop support for PHP 7.0 and 7.1 (#690)
 
 ### Fixed

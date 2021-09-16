@@ -9,7 +9,6 @@ use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Language\SalutationSwitcher;
-use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -17,7 +16,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * This utility class provides some commonly-used functions for handling
@@ -263,25 +261,15 @@ class TemplateHelper extends SalutationSwitcher
         $template = GeneralUtility::makeInstance(TemplateService::class);
         // Disables the logging of time-performance information.
         $template->tt_track = false;
-        if (Typo3Version::isNotHigherThan(8)) {
-            $template->init();
-        }
-
-        /** @var PageRepository $page */
-        $page = GeneralUtility::makeInstance(PageRepository::class);
 
         // Gets the root line.
         // Finds the selected page in the BE exactly as in BaseScriptClass::init().
-        if (Typo3Version::isNotHigherThan(8)) {
-            $rootLine = $page->getRootLine($pageId);
-        } else {
-            /** @var RootlineUtility $rootLineUtility */
-            $rootLineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageId);
-            try {
-                $rootLine = $rootLineUtility->get();
-            } catch (PageNotFoundException $e) {
-                $rootLine = [];
-            }
+        /** @var RootlineUtility $rootLineUtility */
+        $rootLineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageId);
+        try {
+            $rootLine = $rootLineUtility->get();
+        } catch (PageNotFoundException $e) {
+            $rootLine = [];
         }
 
         // Generates the constants/config and hierarchy info for the template.

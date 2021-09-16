@@ -16,18 +16,9 @@ final class Typo3Version
 
     /**
      * @return \TYPO3\CMS\Core\Information\Typo3Version
-     *
-     * @throws \BadMethodCallException
      */
     private static function getVersionUtility(): \TYPO3\CMS\Core\Information\Typo3Version
     {
-        if (!\class_exists(\TYPO3\CMS\Core\Information\Typo3Version::class)) {
-            throw new \BadMethodCallException(
-                'The class ' . \TYPO3\CMS\Core\Information\Typo3Version::class . ' does not exist.',
-                1585310637
-            );
-        }
-
         if (!self::$version instanceof \TYPO3\CMS\Core\Information\Typo3Version) {
             self::$version = new \TYPO3\CMS\Core\Information\Typo3Version();
         }
@@ -37,15 +28,7 @@ final class Typo3Version
 
     private static function getMajorVersion(): int
     {
-        if (\class_exists(\TYPO3\CMS\Core\Information\Typo3Version::class)) {
-            $majorVersion = self::getVersionUtility()->getMajorVersion();
-        } else {
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $explodedVersion = \explode('.', TYPO3_version, 2);
-            $majorVersion = (int)$explodedVersion[0];
-        }
-
-        return $majorVersion;
+        return self::getVersionUtility()->getMajorVersion();
     }
 
     /**

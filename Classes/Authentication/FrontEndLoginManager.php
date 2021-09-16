@@ -9,7 +9,6 @@ use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
-use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -81,13 +80,7 @@ class FrontEndLoginManager implements LoginManager
     public function isLoggedIn(): bool
     {
         $isSimulatedLoggedIn = $this->loggedInUser instanceof FrontEndUser;
-        if (Typo3Version::isNotHigherThan(8)) {
-            $controller = $this->getFrontEndController();
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $sessionExists = $controller instanceof TypoScriptFrontendController && $controller->loginUser;
-        } else {
-            $sessionExists = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
-        }
+        $sessionExists = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
 
         return $isSimulatedLoggedIn || $sessionExists;
     }
@@ -116,11 +109,7 @@ class FrontEndLoginManager implements LoginManager
             return null;
         }
 
-        if (Typo3Version::isNotHigherThan(8)) {
-            $uid = (int)$this->getFrontEndController()->fe_user->user['uid'];
-        } else {
-            $uid = (int)$this->getContext()->getPropertyFromAspect('frontend.user', 'id');
-        }
+        $uid = (int)$this->getContext()->getPropertyFromAspect('frontend.user', 'id');
         /** @var FrontEndUserMapper $mapper */
         $mapper = MapperRegistry::get($mapperName);
         $this->loggedInUser = $mapper->find($uid);

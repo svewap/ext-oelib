@@ -6,7 +6,6 @@ namespace OliverKlee\Oelib\Tests\Functional\Testing;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
-use OliverKlee\Oelib\System\Typo3Version;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
 use TYPO3\CMS\Core\Context\Context;
@@ -1000,12 +999,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function cleanUpDeletesCreatedDummyUploadFolder()
     {
-        if (Typo3Version::isNotHigherThan(8)) {
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_oelib_test/');
-        } else {
-            $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
-        }
+        $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
         $this->subject->createDummyFile();
 
         self::assertDirectoryExists($this->subject->getUploadFolderPath());
@@ -2623,12 +2617,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        if (Typo3Version::isNotHigherThan(8)) {
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $isLoggedIn = $this->getFrontEndController()->loginUser;
-        } else {
-            $isLoggedIn = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
-        }
+        $isLoggedIn = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
 
         self::assertFalse($isLoggedIn);
     }
@@ -2641,12 +2630,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        if (Typo3Version::isNotHigherThan(9)) {
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $groups = GeneralUtility::intExplode(',', $this->getFrontEndController()->gr_list);
-        } else {
-            $groups = (array)$this->getContext()->getPropertyFromAspect('frontend.user', 'groupIds');
-        }
+        $groups = (array)$this->getContext()->getPropertyFromAspect('frontend.user', 'groupIds');
 
         self::assertSame([0, -1], $groups);
     }
@@ -2715,12 +2699,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
         $this->subject->logoutFrontEndUser();
 
-        if (Typo3Version::isNotHigherThan(8)) {
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $isLoggedIn = $this->getFrontEndController()->loginUser;
-        } else {
-            $isLoggedIn = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
-        }
+        $isLoggedIn = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
 
         self::assertFalse($isLoggedIn);
     }

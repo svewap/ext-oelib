@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Configuration;
 
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
-use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * This class represents a registration that allows the storage and retrieval of configuration objects.
@@ -191,22 +189,13 @@ class ConfigurationRegistry
         /** @var TemplateService $template */
         $template = GeneralUtility::makeInstance(TemplateService::class);
         $template->tt_track = false;
-        if (Typo3Version::isNotHigherThan(8)) {
-            $template->init();
-        }
 
-        /** @var PageRepository $page */
-        $page = GeneralUtility::makeInstance(PageRepository::class);
-        if (Typo3Version::isNotHigherThan(8)) {
-            $rootLine = $page->getRootLine($pageUid);
-        } else {
-            /** @var RootlineUtility $rootLineUtility */
-            $rootLineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageUid);
-            try {
-                $rootLine = $rootLineUtility->get();
-            } catch (PageNotFoundException $e) {
-                $rootLine = [];
-            }
+        /** @var RootlineUtility $rootLineUtility */
+        $rootLineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageUid);
+        try {
+            $rootLine = $rootLineUtility->get();
+        } catch (PageNotFoundException $e) {
+            $rootLine = [];
         }
 
         $template->runThroughTemplates($rootLine);

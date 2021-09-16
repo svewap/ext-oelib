@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Language;
 
-use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 use TYPO3\CMS\Lang\LanguageService;
@@ -52,11 +51,6 @@ abstract class SalutationSwitcher extends AbstractPlugin
             if ($propertyName === 'frontendController') {
                 continue;
             }
-            if (Typo3Version::isNotHigherThan(8)) {
-                if ($propertyName === 'databaseConnection') {
-                    continue;
-                }
-            }
             $propertyNames[] = $property->isPrivate() ? (get_class($this) . ':' . $propertyName) : $propertyName;
         }
 
@@ -70,10 +64,6 @@ abstract class SalutationSwitcher extends AbstractPlugin
      */
     public function __wakeup()
     {
-        if (Typo3Version::isNotHigherThan(8)) {
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $this->databaseConnection = ($GLOBALS['TYPO3_DB'] ?? null);
-        }
         $this->frontendController = $this->getFrontEndController();
     }
 

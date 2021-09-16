@@ -203,23 +203,12 @@ class TestingFramework
      * @param string[] $additionalTablePrefixes
      *        the additional table name prefixes of the extensions for which this instance of the testing framework
      *     should be used, may be empty
-     *
-     * @throws \UnexpectedValueException if PATH_site is not defined
      */
     public function __construct(string $tablePrefix, array $additionalTablePrefixes = [])
     {
-        if (Typo3Version::isNotHigherThan(8) && !defined('PATH_site')) {
-            throw new \UnexpectedValueException('PATH_site is not set.', 1475862825228);
-        }
-
         $this->tablePrefix = $tablePrefix;
         $this->additionalTablePrefixes = $additionalTablePrefixes;
-        if (Typo3Version::isNotHigherThan(8)) {
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $this->uploadFolderPath = PATH_site . 'typo3temp/' . $this->tablePrefix . '/';
-        } else {
-            $this->uploadFolderPath = Environment::getPublicPath() . '/typo3temp/' . $this->tablePrefix . '/';
-        }
+        $this->uploadFolderPath = Environment::getPublicPath() . '/typo3temp/' . $this->tablePrefix . '/';
 
         $cacheKey = $this->getCacheKeyPrefix() . 'rootline';
         $rootLineCacheConfiguration =
@@ -1221,41 +1210,24 @@ class TestingFramework
             GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
         $GLOBALS['TSFE'] = $frontEnd;
 
-        if (Typo3Version::isNotHigherThan(8)) {
-            // simulates a normal FE without any logged-in FE or BE user
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $frontEnd->beUserLogin = false;
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $frontEnd->workspacePreview = '';
-            $frontEnd->initFEuser();
-        } else {
-            /** @var FrontendUserAuthentication $frontEndUser */
-            $frontEndUser = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
-            $frontEndUser->start();
-            $frontEndUser->unpack_uc();
-            $frontEndUser->fetchGroupData();
+        /** @var FrontendUserAuthentication $frontEndUser */
+        $frontEndUser = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
+        $frontEndUser->start();
+        $frontEndUser->unpack_uc();
+        $frontEndUser->fetchGroupData();
 
-            $frontEnd->fe_user = $frontEndUser;
-        }
+        $frontEnd->fe_user = $frontEndUser;
         $frontEnd->determineId();
-        if (Typo3Version::isNotHigherThan(8)) {
-            $frontEnd->initTemplate();
-        } else {
-            $frontEnd->tmpl = GeneralUtility::makeInstance(TemplateService::class);
-        }
+        $frontEnd->tmpl = GeneralUtility::makeInstance(TemplateService::class);
         $frontEnd->config = [];
 
         if (($pageUid > 0) && in_array('sys_template', $this->dirtySystemTables, true)) {
-            if (Typo3Version::isNotHigherThan(8)) {
-                $rootLine = $frontEnd->sys_page->getRootLine($pageUid);
-            } else {
-                /** @var RootlineUtility $rootLineUtility */
-                $rootLineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageUid);
-                try {
-                    $rootLine = $rootLineUtility->get();
-                } catch (PageNotFoundException $e) {
-                    $rootLine = [];
-                }
+            /** @var RootlineUtility $rootLineUtility */
+            $rootLineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageUid);
+            try {
+                $rootLine = $rootLineUtility->get();
+            } catch (PageNotFoundException $e) {
+                $rootLine = [];
             }
 
             $frontEnd->tmpl->runThroughTemplates($rootLine);
@@ -1384,10 +1356,6 @@ class TestingFramework
         $frontEnd->fe_user->createUserSession(['uid' => $userId, 'disableIPlock' => true]);
         $frontEnd->fe_user->user = $dataToSet;
         $frontEnd->fe_user->fetchGroupData();
-        if (Typo3Version::isNotHigherThan(8)) {
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $this->getFrontEndController()->loginUser = true;
-        }
     }
 
     /**
@@ -1413,10 +1381,6 @@ class TestingFramework
 
         $this->suppressFrontEndCookies();
         $this->getFrontEndController()->fe_user->logoff();
-        if (Typo3Version::isNotHigherThan(8)) {
-            // @phpstan-ignore-next-line We run the PHPStan checks with TYPO3 9LTS, and this code is for 8 only.
-            $this->getFrontEndController()->loginUser = false;
-        }
 
         FrontEndLoginManager::getInstance()->logInUser();
     }
