@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures;
 
-use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;

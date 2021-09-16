@@ -38,7 +38,7 @@
 	},
 	"require-dev": {
 		"cweagans/composer-patches": "^1.7.1",
-		"friendsofphp/php-cs-fixer": "^2.19.2",
+		"friendsofphp/php-cs-fixer": "^3.1.0",
 		"mikey179/vfsstream": "^1.6.9",
 		"nimut/testing-framework": "^5.2.1",
 		"oliverklee/user-oelibtest": "@dev",
@@ -89,7 +89,7 @@
 	},
 	"scripts": {
 		"php:fix": ".Build/vendor/bin/php-cs-fixer --config=Configuration/php-cs-fixer.php fix Classes Tests && .Build/vendor/bin/phpcbf Classes Configuration Tests TestExtensions",
-		"ci:php:fixer": ".Build/vendor/bin/php-cs-fixer --config=Configuration/php-cs-fixer.php fix --dry-run -v --show-progress=dots --diff-format=udiff Classes Tests",
+		"ci:php:fixer": ".Build/vendor/bin/php-cs-fixer --config=Configuration/php-cs-fixer.php fix --dry-run -v --show-progress=dots Classes Tests",
 		"ci:php:lint": "find *.php Classes Configuration Migrations TestExtensions Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
 		"ci:php:sniff": ".Build/vendor/bin/phpcs Classes Configuration Tests TestExtensions",
 		"ci:php:stan": ".Build/vendor/bin/phpstan --no-progress",
