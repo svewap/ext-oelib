@@ -42,9 +42,10 @@
 		"oliverklee/user-oelibtest": "@dev",
 		"oliverklee/user-oelibtest2": "@dev",
 		"phpstan/extension-installer": "^1.1",
-		"phpstan/phpstan": "^0.12.99",
+		"phpstan/phpstan": "^0.12.98",
 		"phpstan/phpstan-phpunit": "^0.12.22",
 		"phpunit/phpunit": "^7.5.20",
+		"rector/rector": "^0.11.53",
 		"saschaegerer/phpstan-typo3": "^0.13.3",
 		"sjbr/static-info-tables": "^6.8.0",
 		"squizlabs/php_codesniffer": "^3.6.0",
@@ -90,9 +91,17 @@
 		"vendor-dir": ".Build/vendor"
 	},
 	"scripts": {
-		"php:fix": ".Build/vendor/bin/php-cs-fixer --config=Configuration/php-cs-fixer.php fix Classes Tests && .Build/vendor/bin/phpcbf Classes Configuration Tests TestExtensions",
+		"php:fix": [
+			"@php:rector",
+			"@php:fixer",
+			"@php:cbf"
+		],
+		"php:cbf": ".Build/vendor/bin/phpcbf Classes Configuration Tests TestExtensions",
+		"php:fixer": ".Build/vendor/bin/php-cs-fixer --config=Configuration/php-cs-fixer.php fix Classes Tests",
+		"php:rector": ".Build/vendor/bin/rector",
 		"ci:php:fixer": ".Build/vendor/bin/php-cs-fixer --config=Configuration/php-cs-fixer.php fix --dry-run -v --show-progress=dots Classes Tests",
 		"ci:php:lint": "find *.php Classes Configuration Migrations TestExtensions Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+		"ci:php:rector": ".Build/vendor/bin/rector --dry-run",
 		"ci:php:sniff": ".Build/vendor/bin/phpcs Classes Configuration Tests TestExtensions",
 		"ci:php:stan": ".Build/vendor/bin/phpstan --no-progress",
 		"ci:tests:unit": ".Build/vendor/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/",
@@ -107,7 +116,9 @@
 		"ci:static": [
 			"@ci:php:lint",
 			"@ci:php:sniff",
-			"@ci:php:fixer"
+			"@ci:php:fixer",
+			"@ci:php:stan",
+			"@ci:php:rector"
 		],
 		"ci": [
 			"@ci:static",
@@ -124,7 +135,12 @@
 	},
 	"scripts-descriptions": {
 		"ci": "Runs all dynamic and static code checks.",
+		"php:cbf": "Updates the code with PHPCBF.",
+		"php:fix": "Updates the code with Rector, PHP-CS-Fixer and PHPCBF.",
+		"php:fixer": "Updates the code with PHP-CS-Fixer.",
+		"php:rector": "Updates the code with Rector.",
 		"ci:php:stan": "Checks the types with PHPStan.",
+		"ci:php:rector": "Checks for code for changes by Rector.",
 		"ci:static": "Runs all static code analysis checks for the code.",
 		"phpstan:baseline": "Updates the PHPStan baseline file to match the code."
 	},

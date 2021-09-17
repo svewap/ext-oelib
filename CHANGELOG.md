@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add Rector to the toolchain (#720)
 
 ### Changed
 - Upgrade to PHP-CS-Fixer V3 (#639)

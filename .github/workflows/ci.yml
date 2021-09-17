@@ -64,6 +64,7 @@ jobs:
           - "php:fixer"
           - "php:sniff"
           - "php:stan"
+          - "php:rector"
         php-version:
           - 7.4
   unit-tests:
