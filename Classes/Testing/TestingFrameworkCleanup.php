@@ -9,13 +9,11 @@ use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Configuration\PageFinder;
-use OliverKlee\Oelib\Email\MailerFactory;
 use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
 use OliverKlee\Oelib\Http\HeaderProxyFactory;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Session\Session;
 use OliverKlee\Oelib\Templating\TemplateHelper;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class takes care of cleaning up oelib after the testing framework.
@@ -39,9 +37,5 @@ class TestingFrameworkCleanup
         PageFinder::purgeInstance();
         Session::purgeInstances();
         TemplateHelper::purgeCachedConfigurations();
-
-        /** @var MailerFactory $mailerFactory */
-        $mailerFactory = GeneralUtility::makeInstance(MailerFactory::class);
-        $mailerFactory->cleanUp();
     }
 }

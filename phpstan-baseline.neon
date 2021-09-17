@@ -31,11 +31,6 @@ parameters:
 			path: Tests/Unit/DataStructures/CollectionTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: Tests/Unit/Email/AbstractMailerTest.php
-
-		-
 			message: "#^Trying to mock an undefined method cleanUp\\(\\) on class stdClass\\.$#"
 			count: 1
 			path: Tests/Unit/Testing/TestingFrameworkTest.php
