@@ -22,7 +22,7 @@ class GeoCalculatorTest extends UnitTestCase
      */
     protected $geoObject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new GeoCalculator();
 
@@ -33,7 +33,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function classIsSingleton()
+    public function classIsSingleton(): void
     {
         self::assertInstanceOf(SingletonInterface::class, $this->subject);
     }
@@ -43,7 +43,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function calculateDistanceInKilometersForFirstObjectWithoutCoordinatesThrowsException()
+    public function calculateDistanceInKilometersForFirstObjectWithoutCoordinatesThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -58,7 +58,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function calculateDistanceInKilometersForSecondObjectWithoutCoordinatesThrowsException()
+    public function calculateDistanceInKilometersForSecondObjectWithoutCoordinatesThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -73,7 +73,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function calculateDistanceInKilometersForFirstObjectWithGeoErrorThrowsException()
+    public function calculateDistanceInKilometersForFirstObjectWithGeoErrorThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -89,7 +89,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function calculateDistanceInKilometersForSecondObjectWithGeoErrorThrowsException()
+    public function calculateDistanceInKilometersForSecondObjectWithGeoErrorThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -105,7 +105,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function calculateDistanceInKilometersForSameObjectsReturnsZero()
+    public function calculateDistanceInKilometersForSameObjectsReturnsZero(): void
     {
         $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
@@ -116,7 +116,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function calculateDistanceInKilometersForBonnAndCologneReturnsActualDistance()
+    public function calculateDistanceInKilometersForBonnAndCologneReturnsActualDistance(): void
     {
         $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(
@@ -136,7 +136,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function calculateDistanceInKilometersReturnsSameDistanceForSwappedArguments()
+    public function calculateDistanceInKilometersReturnsSameDistanceForSwappedArguments(): void
     {
         $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
@@ -154,7 +154,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function filterByDistanceKeepsElementWithinDistance()
+    public function filterByDistanceKeepsElementWithinDistance(): void
     {
         $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
@@ -178,7 +178,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function filterByDistanceDropsElementOutOfDistance()
+    public function filterByDistanceDropsElementOutOfDistance(): void
     {
         $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
@@ -201,7 +201,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function filterByDistanceDropsElementWithoutCoordinates()
+    public function filterByDistanceDropsElementWithoutCoordinates(): void
     {
         $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
@@ -219,7 +219,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function filterByDistanceForElementWithoutCoordinatesReturnsEmptyList()
+    public function filterByDistanceForElementWithoutCoordinatesReturnsEmptyList(): void
     {
         $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
@@ -237,7 +237,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function filterByDistanceCanReturnTwoElements()
+    public function filterByDistanceCanReturnTwoElements(): void
     {
         $bonn = new TestingGeo();
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
@@ -257,7 +257,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveWithoutCoordinatesNotSetsAnyCoordinates()
+    public function moveWithoutCoordinatesNotSetsAnyCoordinates(): void
     {
         $geoObject = new TestingGeo();
 
@@ -269,7 +269,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveWithEastDirectionNotChangesLatitude()
+    public function moveWithEastDirectionNotChangesLatitude(): void
     {
         $otherGeoObject = clone $this->geoObject;
         $distance = 100;
@@ -284,7 +284,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveWithWestDirectionNotChangesLatitude()
+    public function moveWithWestDirectionNotChangesLatitude(): void
     {
         $otherGeoObject = clone $this->geoObject;
         $distance = 100;
@@ -299,7 +299,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveWithSouthDirectionNotChangesLongitude()
+    public function moveWithSouthDirectionNotChangesLongitude(): void
     {
         $otherGeoObject = clone $this->geoObject;
         $distance = 100;
@@ -314,7 +314,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveWithNorthDirectionNotChangesLongitude()
+    public function moveWithNorthDirectionNotChangesLongitude(): void
     {
         $otherGeoObject = clone $this->geoObject;
         $distance = 100;
@@ -329,7 +329,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveNorthByValueOfOneDegreeLatitudeMovesByOneDegree()
+    public function moveNorthByValueOfOneDegreeLatitudeMovesByOneDegree(): void
     {
         $distance = 111.0;
         $north = 90;
@@ -344,7 +344,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveSouthByValueOfOneDegreeLatitudeMovesByOneDegree()
+    public function moveSouthByValueOfOneDegreeLatitudeMovesByOneDegree(): void
     {
         $distance = 111.0;
         $south = 270;
@@ -379,7 +379,7 @@ class GeoCalculatorTest extends UnitTestCase
      *
      * @param int $direction
      */
-    public function moveMovesByGivenDistanceWithPositiveDistance(int $direction)
+    public function moveMovesByGivenDistanceWithPositiveDistance(int $direction): void
     {
         $distance = 100.0;
         $otherGeoObject = clone $this->geoObject;
@@ -399,7 +399,7 @@ class GeoCalculatorTest extends UnitTestCase
      *
      * @param int $direction
      */
-    public function moveMovesByGivenDistanceWithNegativeDistance(int $direction)
+    public function moveMovesByGivenDistanceWithNegativeDistance(int $direction): void
     {
         $distance = -100.0;
         $otherGeoObject = clone $this->geoObject;
@@ -416,7 +416,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveByRandomDistanceWithNegativeNumberThrowsException()
+    public function moveByRandomDistanceWithNegativeNumberThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -428,7 +428,7 @@ class GeoCalculatorTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function moveByRandomDistanceWithZeroNotThrowsException()
+    public function moveByRandomDistanceWithZeroNotThrowsException(): void
     {
         $this->subject->moveByRandomDistance($this->geoObject, 0, 0);
     }
@@ -439,7 +439,7 @@ class GeoCalculatorTest extends UnitTestCase
      *
      * @param int $direction
      */
-    public function moveByRandomDistanceChangesCoordinates(int $direction)
+    public function moveByRandomDistanceChangesCoordinates(int $direction): void
     {
         $originalCoordinates = $this->geoObject->getGeoCoordinates();
 
@@ -455,7 +455,7 @@ class GeoCalculatorTest extends UnitTestCase
      *
      * @param int $direction
      */
-    public function moveByRandomDistanceMovesAtMostByGivenDistanceWithPositiveDistance(int $direction)
+    public function moveByRandomDistanceMovesAtMostByGivenDistanceWithPositiveDistance(int $direction): void
     {
         $maximumDistance = 100.0;
 
@@ -473,7 +473,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveByRandomDistanceCalledTwiceCreatesDifferentCoordinates()
+    public function moveByRandomDistanceCalledTwiceCreatesDifferentCoordinates(): void
     {
         $maximumDistance = 100.0;
         $this->subject->moveByRandomDistance($this->geoObject, 0, $maximumDistance);
@@ -487,7 +487,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveInRandomDirectionChangesCoordinates()
+    public function moveInRandomDirectionChangesCoordinates(): void
     {
         $originalCoordinates = $this->geoObject->getGeoCoordinates();
 
@@ -500,7 +500,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveInRandomDirectionCalledTwiceCreatesDifferentCoordinates()
+    public function moveInRandomDirectionCalledTwiceCreatesDifferentCoordinates(): void
     {
         $distance = 100.0;
         $this->subject->moveInRandomDirection($this->geoObject, $distance);
@@ -514,7 +514,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveInRandomDirectionMovesByGivenDistanceWithPositiveDistance()
+    public function moveInRandomDirectionMovesByGivenDistanceWithPositiveDistance(): void
     {
         $distance = 100.0;
         $otherGeoObject = clone $this->geoObject;
@@ -531,7 +531,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveInRandomDirectionAndDistanceWithNegativeNumberThrowsException()
+    public function moveInRandomDirectionAndDistanceWithNegativeNumberThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -543,7 +543,7 @@ class GeoCalculatorTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function moveInRandomDirectionAndDistanceWithZeroNotThrowsException()
+    public function moveInRandomDirectionAndDistanceWithZeroNotThrowsException(): void
     {
         $this->subject->moveInRandomDirectionAndDistance($this->geoObject, 0);
     }
@@ -551,7 +551,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveInRandomDirectionAndDistanceChangesCoordinates()
+    public function moveInRandomDirectionAndDistanceChangesCoordinates(): void
     {
         $originalCoordinates = $this->geoObject->getGeoCoordinates();
 
@@ -564,7 +564,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveInRandomDirectionAndDistanceCalledTwiceCreatesDifferentCoordinates()
+    public function moveInRandomDirectionAndDistanceCalledTwiceCreatesDifferentCoordinates(): void
     {
         $maximumDistance = 100.0;
         $this->subject->moveInRandomDirectionAndDistance($this->geoObject, $maximumDistance);
@@ -578,7 +578,7 @@ class GeoCalculatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function moveInRandomDirectionAndDistanceMovesAtMostByGivenDistanceWithPositiveDistance()
+    public function moveInRandomDirectionAndDistanceMovesAtMostByGivenDistanceWithPositiveDistance(): void
     {
         $maximumDistance = 100.0;
 

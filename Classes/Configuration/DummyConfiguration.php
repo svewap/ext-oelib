@@ -13,10 +13,13 @@ use OliverKlee\Oelib\Interfaces\Configuration;
 final class DummyConfiguration extends AbstractObjectWithPublicAccessors implements Configuration
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $data;
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function __construct(array $data = [])
     {
         $this->data = $data;
@@ -25,9 +28,9 @@ final class DummyConfiguration extends AbstractObjectWithPublicAccessors impleme
     /**
      * Sets all data.
      *
-     * @return void
+     * @param array<string, mixed> $data
      */
-    public function setAllData(array $data)
+    public function setAllData(array $data): void
     {
         $this->data = $data;
     }
@@ -51,10 +54,8 @@ final class DummyConfiguration extends AbstractObjectWithPublicAccessors impleme
      *
      * @param string $key the key of the data item to get, must not be empty
      * @param mixed $value the data for the key $key
-     *
-     * @return void
      */
-    protected function set($key, $value)
+    protected function set(string $key, $value): void
     {
         $this->data[$key] = $value;
     }

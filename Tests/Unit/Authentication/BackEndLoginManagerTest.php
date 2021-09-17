@@ -14,7 +14,7 @@ class BackEndLoginManagerTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = BackEndLoginManager::getInstance();
     }
@@ -22,7 +22,7 @@ class BackEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceReturnsBackEndLoginManagerInstance()
+    public function getInstanceReturnsBackEndLoginManagerInstance(): void
     {
         self::assertInstanceOf(BackEndLoginManager::class, $this->subject);
     }
@@ -30,7 +30,7 @@ class BackEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceTwoTimesReturnsSameInstance()
+    public function getInstanceTwoTimesReturnsSameInstance(): void
     {
         self::assertSame($this->subject, BackEndLoginManager::getInstance());
     }
@@ -38,7 +38,7 @@ class BackEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceAfterPurgeInstanceReturnsNewInstance()
+    public function getInstanceAfterPurgeInstanceReturnsNewInstance(): void
     {
         BackEndLoginManager::purgeInstance();
 
@@ -48,7 +48,7 @@ class BackEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithEmptyMapperNameThrowsException()
+    public function getLoggedInUserWithEmptyMapperNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$mapperName must not be empty.');

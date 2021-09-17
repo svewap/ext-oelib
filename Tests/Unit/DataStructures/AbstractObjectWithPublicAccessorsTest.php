@@ -18,7 +18,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new TestingObjectWithPublicAccessors();
     }
@@ -26,7 +26,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkForNonEmptyKeyWithEmptyKeyThrowsException()
+    public function checkForNonEmptyKeyWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -40,7 +40,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function checkForNonEmptyKeyWithNonEmptyKeyIsAllowed()
+    public function checkForNonEmptyKeyWithNonEmptyKeyIsAllowed(): void
     {
         $this->subject->checkForNonEmptyKey('foo');
     }
@@ -48,7 +48,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringWithEmptyKeyThrowsException()
+    public function getAsStringWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -60,7 +60,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function setAsStringWithEmptyKeyThrowsException()
+    public function setAsStringWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -72,7 +72,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringWithInexistentKeyReturnsEmptyString()
+    public function getAsStringWithInexistentKeyReturnsEmptyString(): void
     {
         self::assertSame('', $this->subject->getAsString('foo'));
     }
@@ -98,7 +98,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      *
      * @dataProvider stringDataProvider
      */
-    public function getAsStringReturnsDataCastToString($inputValue, string $expected)
+    public function getAsStringReturnsDataCastToString($inputValue, string $expected): void
     {
         $key = 'foo';
         $this->subject->setData([$key => $inputValue]);
@@ -113,7 +113,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      *
      * @dataProvider stringDataProvider
      */
-    public function setAsStringSetsDataToString($inputValue, string $expected)
+    public function setAsStringSetsDataToString($inputValue, string $expected): void
     {
         $key = 'foo';
         $this->subject->setAsString($key, $inputValue);
@@ -124,7 +124,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringReturnsTrimmedValue()
+    public function getAsStringReturnsTrimmedValue(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => ' bar ']);
@@ -135,7 +135,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerWithEmptyKeyThrowsException()
+    public function getAsIntegerWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -147,7 +147,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function setAsIntegerWithEmptyKeyThrowsException()
+    public function setAsIntegerWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -159,7 +159,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerWithInexistentKeyReturnsZero()
+    public function getAsIntegerWithInexistentKeyReturnsZero(): void
     {
         self::assertSame(0, $this->subject->getAsInteger('foo'));
     }
@@ -187,7 +187,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      *
      * @dataProvider integerDataProvider
      */
-    public function getAsIntegerReturnsDataCastToInteger($inputValue, int $expected)
+    public function getAsIntegerReturnsDataCastToInteger($inputValue, int $expected): void
     {
         $key = 'foo';
         $this->subject->setData([$key => $inputValue]);
@@ -202,7 +202,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      *
      * @dataProvider integerDataProvider
      */
-    public function setAsIntegerSetsDataToInteger($inputValue, int $expected)
+    public function setAsIntegerSetsDataToInteger($inputValue, int $expected): void
     {
         $key = 'foo';
         $this->subject->setAsInteger($key, $inputValue);
@@ -213,7 +213,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayWithEmptyKeyThrowsException()
+    public function getAsTrimmedArrayWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -225,7 +225,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerArrayWithEmptyKeyThrowsException()
+    public function getAsIntegerArrayWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -237,7 +237,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function setAsArrayWithEmptyKeyThrowsException()
+    public function setAsArrayWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -249,7 +249,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayWithInexistentKeyReturnsEmptyArray()
+    public function getAsTrimmedArrayWithInexistentKeyReturnsEmptyArray(): void
     {
         self::assertSame([], $this->subject->getAsTrimmedArray('foo'));
     }
@@ -257,7 +257,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerArrayWithInexistentKeyReturnsEmptyArray()
+    public function getAsIntegerArrayWithInexistentKeyReturnsEmptyArray(): void
     {
         self::assertSame([], $this->subject->getAsIntegerArray('foo'));
     }
@@ -265,7 +265,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerArrayWithEmptyDataReturnsEmptyArray()
+    public function getAsIntegerArrayWithEmptyDataReturnsEmptyArray(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => '']);
@@ -276,7 +276,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerArraySplitsCommaSeparatedString()
+    public function getAsIntegerArraySplitsCommaSeparatedString(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => '7,4']);
@@ -291,7 +291,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      *
      * @dataProvider integerDataProvider
      */
-    public function getAsIntegerArrayCastsValuesToInteger($inputValue, int $expected)
+    public function getAsIntegerArrayCastsValuesToInteger($inputValue, int $expected): void
     {
         $key = 'foo';
         $this->subject->setData([$key => $inputValue]);
@@ -306,7 +306,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      *
      * @dataProvider integerDataProvider
      */
-    public function getAsIntegerArrayCastsValuesFromSetAsArrayToInteger($inputValue, int $expected)
+    public function getAsIntegerArrayCastsValuesFromSetAsArrayToInteger($inputValue, int $expected): void
     {
         $key = 'foo';
         $this->subject->setAsArray($key, [$inputValue]);
@@ -317,7 +317,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayWithEmptyDataReturnsEmptyArray()
+    public function getAsTrimmedArrayWithEmptyDataReturnsEmptyArray(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => '']);
@@ -328,7 +328,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArraySplitsCommaSeparatedString()
+    public function getAsTrimmedArraySplitsCommaSeparatedString(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => 'hey,ho']);
@@ -339,7 +339,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayReturnsDataSetViaSetAsArray()
+    public function getAsTrimmedArrayReturnsDataSetViaSetAsArray(): void
     {
         $key = 'foo';
         $value = ['foo', 'bar'];
@@ -351,7 +351,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayTrimsValues()
+    public function getAsTrimmedArrayTrimsValues(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => ' hey , ho ']);
@@ -362,7 +362,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsBooleanWithEmptyKeyThrowsException()
+    public function getAsBooleanWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -374,7 +374,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function setAsBooleanWithEmptyKeyThrowsException()
+    public function setAsBooleanWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -386,7 +386,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsBooleanWithInexistentKeyReturnsFalse()
+    public function getAsBooleanWithInexistentKeyReturnsFalse(): void
     {
         self::assertFalse($this->subject->getAsBoolean('foo'));
     }
@@ -415,7 +415,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      *
      * @dataProvider booleanDataProvider
      */
-    public function getAsBooleanCastsDataToBoolean($inputValue, bool $expected)
+    public function getAsBooleanCastsDataToBoolean($inputValue, bool $expected): void
     {
         $key = 'foo';
         $this->subject->setData([$key => $inputValue]);
@@ -430,7 +430,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      *
      * @dataProvider booleanDataProvider
      */
-    public function setAsBooleanSetsAndCastsDataToBoolean($inputValue, bool $expected)
+    public function setAsBooleanSetsAndCastsDataToBoolean($inputValue, bool $expected): void
     {
         $key = 'foo';
         $this->subject->setAsBoolean($key, $inputValue);
@@ -441,7 +441,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsFloatWithEmptyKeyThrowsException()
+    public function getAsFloatWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -453,7 +453,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function setAsFloatWithEmptyKeyThrowsException()
+    public function setAsFloatWithEmptyKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$key must not be empty.');
@@ -465,7 +465,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsFloatWithInexistentKeyReturnsZero()
+    public function getAsFloatWithInexistentKeyReturnsZero(): void
     {
         self::assertSame(0.0, $this->subject->getAsFloat('foo'));
     }
@@ -501,7 +501,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      *
      * @dataProvider floatDataProvider
      */
-    public function getAsFloatCastsDataToFloat($inputValue, float $expected)
+    public function getAsFloatCastsDataToFloat($inputValue, float $expected): void
     {
         $key = 'foo';
         $this->subject->setData([$key => $inputValue]);
@@ -516,7 +516,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
      *
      * @dataProvider floatDataProvider
      */
-    public function setAsFloatSetsAndCastsDataToFloat($inputValue, float $expected)
+    public function setAsFloatSetsAndCastsDataToFloat($inputValue, float $expected): void
     {
         $key = 'foo';
         $this->subject->setAsFloat($key, $inputValue);
@@ -527,7 +527,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasStringForNonEmptyStringReturnsTrue()
+    public function hasStringForNonEmptyStringReturnsTrue(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => 'bar']);
@@ -538,7 +538,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasStringForEmptyStringReturnsFalse()
+    public function hasStringForEmptyStringReturnsFalse(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => '']);
@@ -549,7 +549,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasIntegerForPositiveIntegerReturnsTrue()
+    public function hasIntegerForPositiveIntegerReturnsTrue(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => 42]);
@@ -560,7 +560,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasIntegerForNegativeIntegerReturnsTrue()
+    public function hasIntegerForNegativeIntegerReturnsTrue(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => -42]);
@@ -571,7 +571,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasIntegerForZeroReturnsFalse()
+    public function hasIntegerForZeroReturnsFalse(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => 0]);
@@ -582,7 +582,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasFloatForPositiveFloatReturnsTrue()
+    public function hasFloatForPositiveFloatReturnsTrue(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => 42.1]);
@@ -593,7 +593,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasFloatForNegativeFloatReturnsTrue()
+    public function hasFloatForNegativeFloatReturnsTrue(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => -42.1]);
@@ -604,7 +604,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasFloatForZeroReturnsFalse()
+    public function hasFloatForZeroReturnsFalse(): void
     {
         $key = 'foo';
         $this->subject->setData([$key => 0.0]);

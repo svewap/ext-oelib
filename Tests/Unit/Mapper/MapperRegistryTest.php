@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 
 class MapperRegistryTest extends UnitTestCase
 {
-    protected function tearDown()
+    protected function tearDown(): void
     {
         MapperRegistry::purgeInstance();
         parent::tearDown();
@@ -24,7 +24,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceReturnsMapperRegistryInstance()
+    public function getInstanceReturnsMapperRegistryInstance(): void
     {
         self::assertInstanceOf(
             MapperRegistry::class,
@@ -35,7 +35,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceTwoTimesReturnsSameInstance()
+    public function getInstanceTwoTimesReturnsSameInstance(): void
     {
         self::assertSame(
             MapperRegistry::getInstance(),
@@ -46,7 +46,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceAfterPurgeInstanceReturnsNewInstance()
+    public function getInstanceAfterPurgeInstanceReturnsNewInstance(): void
     {
         $firstInstance = MapperRegistry::getInstance();
         MapperRegistry::purgeInstance();
@@ -64,7 +64,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForEmptyKeyThrowsException()
+    public function getForEmptyKeyThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -80,7 +80,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForInexistentClassThrowsException()
+    public function getForInexistentClassThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -91,7 +91,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForExistingClassReturnsObjectOfRequestedClass()
+    public function getForExistingClassReturnsObjectOfRequestedClass(): void
     {
         self::assertInstanceOf(TestingMapper::class, MapperRegistry::get(TestingMapper::class));
     }
@@ -99,7 +99,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForExistingClassCalledTwoTimesReturnsTheSameInstance()
+    public function getForExistingClassCalledTwoTimesReturnsTheSameInstance(): void
     {
         self::assertSame(
             MapperRegistry::get(TestingMapper::class),
@@ -114,7 +114,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAfterDenyDatabaseAccessReturnsNewMapperInstanceWithDatabaseAccessDisabled()
+    public function getAfterDenyDatabaseAccessReturnsNewMapperInstanceWithDatabaseAccessDisabled(): void
     {
         MapperRegistry::denyDatabaseAccess();
 
@@ -126,7 +126,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAfterDenyDatabaseAccessReturnsExistingMapperInstanceWithDatabaseAccessDisabled()
+    public function getAfterDenyDatabaseAccessReturnsExistingMapperInstanceWithDatabaseAccessDisabled(): void
     {
         MapperRegistry::get(TestingMapper::class);
         MapperRegistry::denyDatabaseAccess();
@@ -139,7 +139,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAfterInstanceWithDeniedDatabaseAccessWasPurgedReturnsMapperWithDatabaseAccessGranted()
+    public function getAfterInstanceWithDeniedDatabaseAccessWasPurgedReturnsMapperWithDatabaseAccessGranted(): void
     {
         MapperRegistry::getInstance();
         MapperRegistry::denyDatabaseAccess();
@@ -157,7 +157,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getReturnsMapperSetViaSet()
+    public function getReturnsMapperSetViaSet(): void
     {
         $mapper = new TestingMapper();
         MapperRegistry::set(
@@ -174,7 +174,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function setThrowsExceptionForMismatchingWrapperClass()
+    public function setThrowsExceptionForMismatchingWrapperClass(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -185,7 +185,7 @@ class MapperRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function setThrowsExceptionIfTheMapperTypeAlreadyIsRegistered()
+    public function setThrowsExceptionIfTheMapperTypeAlreadyIsRegistered(): void
     {
         $this->expectException(\BadMethodCallException::class);
 

@@ -20,15 +20,9 @@ class DummyGeocodingLookup implements GeocodingLookup
     private $coordinates = [];
 
     /**
-     * Looks up the geo coordinates of the address of an object and sets its
-     * geo coordinates.
-     *
-     * @param Geo $geoObject
-     *        the object for which the geo coordinates will be looked up and set
-     *
-     * @return void
+     * Looks up the geo coordinates of the address of an object and sets its geo coordinates.
      */
-    public function lookUp(Geo $geoObject)
+    public function lookUp(Geo $geoObject): void
     {
         if ($geoObject->hasGeoError() || $geoObject->hasGeoCoordinates()) {
             return;
@@ -50,10 +44,8 @@ class DummyGeocodingLookup implements GeocodingLookup
      *
      * @param float $latitude latitude coordinate
      * @param float $longitude longitude coordinate
-     *
-     * @return void
      */
-    public function setCoordinates(float $latitude, float $longitude)
+    public function setCoordinates(float $latitude, float $longitude): void
     {
         $this->coordinates = [
             'latitude' => $latitude,
@@ -63,10 +55,8 @@ class DummyGeocodingLookup implements GeocodingLookup
 
     /**
      * Resets the fake coordinates.
-     *
-     * @return void
      */
-    public function clearCoordinates()
+    public function clearCoordinates(): void
     {
         $this->coordinates = [];
     }

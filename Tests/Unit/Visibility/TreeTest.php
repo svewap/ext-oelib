@@ -22,7 +22,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructWithEmptyArrayCreatesRootNodeWithoutChildren()
+    public function constructWithEmptyArrayCreatesRootNodeWithoutChildren(): void
     {
         $this->subject = new Tree([]);
 
@@ -35,7 +35,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructWithOneElementInArrayAddsOneChildToRootNode()
+    public function constructWithOneElementInArrayAddsOneChildToRootNode(): void
     {
         $this->subject = new Tree(['testNode' => false]);
 
@@ -47,7 +47,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructWithTwoElementsInFirstArrayLevelAddsTwoChildrenToRootNode()
+    public function constructWithTwoElementsInFirstArrayLevelAddsTwoChildrenToRootNode(): void
     {
         $this->subject = new Tree(['testNode' => false, 'testNode2' => false]);
 
@@ -60,7 +60,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructWithTwoElementsInArrayOneFirstOneSecondLevelAddsGrandChildToRootNode()
+    public function constructWithTwoElementsInArrayOneFirstOneSecondLevelAddsGrandChildToRootNode(): void
     {
         $this->subject = new Tree(['child' => ['grandChild' => false]]);
 
@@ -74,7 +74,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructForOneVisibleElementStoresVisibilityStatus()
+    public function constructForOneVisibleElementStoresVisibilityStatus(): void
     {
         $this->subject = new Tree(['visibleNode' => true]);
 
@@ -88,7 +88,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructForOneInvisibleElementStoresVisibilityStatus()
+    public function constructForOneInvisibleElementStoresVisibilityStatus(): void
     {
         $this->subject = new Tree(['hiddenNode' => false]);
 
@@ -102,7 +102,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function rootNodeWithoutChildIsInvisible()
+    public function rootNodeWithoutChildIsInvisible(): void
     {
         $this->subject = new Tree([]);
 
@@ -114,7 +114,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function rootNodeWithOneInvisibleChildIsInvisible()
+    public function rootNodeWithOneInvisibleChildIsInvisible(): void
     {
         $this->subject = new Tree(['testNode' => false]);
 
@@ -126,7 +126,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function rootNodeWithOneVisibleChildIsVisible()
+    public function rootNodeWithOneVisibleChildIsVisible(): void
     {
         $this->subject = new Tree(['testNode' => true]);
 
@@ -138,7 +138,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function rootNodeWithOneVisibleGrandChildIsVisible()
+    public function rootNodeWithOneVisibleGrandChildIsVisible(): void
     {
         $this->subject = new Tree(['child' => ['grandChild' => true]]);
 
@@ -150,7 +150,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function childOfRootNodeWithOneVisibleChildIsVisible()
+    public function childOfRootNodeWithOneVisibleChildIsVisible(): void
     {
         $this->subject = new Tree(['child' => ['grandChild' => true]]);
 
@@ -168,7 +168,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function makeNodesVisibleForEmptyArrayGivenDoesNotMakeRootVisible()
+    public function makeNodesVisibleForEmptyArrayGivenDoesNotMakeRootVisible(): void
     {
         $this->subject = new Tree([]);
         $this->subject->makeNodesVisible([]);
@@ -181,7 +181,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function makeNodesVisibleForGivenNodeMakesThisNodeVisible()
+    public function makeNodesVisibleForGivenNodeMakesThisNodeVisible(): void
     {
         $this->subject = new Tree(['testNode' => false]);
         $this->subject->makeNodesVisible(['testNode']);
@@ -199,7 +199,7 @@ class TreeTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function makeNodesVisibleForInexistentNodeGivenDoesNotCrash()
+    public function makeNodesVisibleForInexistentNodeGivenDoesNotCrash(): void
     {
         $this->subject = new Tree(['testNode' => false]);
         $this->subject->makeNodesVisible(['foo']);
@@ -208,7 +208,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function makeNodesVisibleForInexistentNodeGivenDoesNotMakeExistingNodeVisible()
+    public function makeNodesVisibleForInexistentNodeGivenDoesNotMakeExistingNodeVisible(): void
     {
         $this->subject = new Tree(['testNode' => false]);
         $this->subject->makeNodesVisible(['foo']);
@@ -228,7 +228,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getKeysOfHiddenSubpartsForTreeWithoutNodesReturnsEmptyArray()
+    public function getKeysOfHiddenSubpartsForTreeWithoutNodesReturnsEmptyArray(): void
     {
         $this->subject = new Tree([]);
 
@@ -241,7 +241,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getKeysOfHiddenSubpartsForTreeWithOneHiddenNodeReturnsArrayWithNodeName()
+    public function getKeysOfHiddenSubpartsForTreeWithOneHiddenNodeReturnsArrayWithNodeName(): void
     {
         $this->subject = new Tree(['testNode' => false]);
 
@@ -254,7 +254,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getKeysOfHiddenSubpartsForTreeWithHiddenParentNodeAndHiddenChildNodeReturnsArrayWithBothNodeNames()
+    public function getKeysOfHiddenSubpartsForTreeWithHiddenParentAndHiddenChildReturnsArrayWithBothNodeNames(): void
     {
         $this->subject = new Tree(['child' => ['parent' => false]]);
 
@@ -267,7 +267,7 @@ class TreeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getKeysOfHiddenSubpartsForTreeWithVisibleParentNodeAndHiddenChildNodeReturnsArrayWithChildNodeName()
+    public function getKeysOfHiddenSubpartsForTreeWithVisibleParentAndHiddenNodeReturnsArrayWithChildNodeName(): void
     {
         $this->subject = new Tree(['parent' => ['hidden' => false, 'visible' => true]]);
 

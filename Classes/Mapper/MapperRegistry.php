@@ -63,10 +63,8 @@ class MapperRegistry
     /**
      * Purges the current instance so that getInstance will create a new
      * instance.
-     *
-     * @return void
      */
-    public static function purgeInstance()
+    public static function purgeInstance(): void
     {
         self::$instance = null;
     }
@@ -147,22 +145,16 @@ class MapperRegistry
 
     /**
      * Disables database access for all mappers received with get().
-     *
-     * @return void
      */
-    public static function denyDatabaseAccess()
+    public static function denyDatabaseAccess(): void
     {
         self::getInstance()->denyDatabaseAccess = true;
     }
 
     /**
      * Activates the testing mode. This automatically will activate the testing mode for all future mappers.
-     *
-     * @param TestingFramework $testingFramework
-     *
-     * @return void
      */
-    public function activateTestingMode(TestingFramework $testingFramework)
+    public function activateTestingMode(TestingFramework $testingFramework): void
     {
         $this->testingMode = true;
         $this->testingFramework = $testingFramework;
@@ -175,15 +167,14 @@ class MapperRegistry
      *
      * This function is to be used for testing purposes only.
      *
-     * @param class-string<AbstractDataMapper> $className the class name of the mapper to set
-     * @param AbstractDataMapper $mapper
-     *        the mapper to set, must be an instance of $className
+     * @template M of AbstractDataMapper
+     *
+     * @param class-string<M> $className the class name of the mapper to set
+     * @param M $mapper the mapper to set, must be an instance of `$className`
      *
      * @see setByClassName
-     *
-     * @return void
      */
-    public static function set(string $className, AbstractDataMapper $mapper)
+    public static function set(string $className, AbstractDataMapper $mapper): void
     {
         self::getInstance()->setByClassName(self::unifyClassName($className), $mapper);
     }
@@ -193,13 +184,12 @@ class MapperRegistry
      *
      * This function is to be used for testing purposes only.
      *
-     * @param class-string<AbstractDataMapper> $className the class name of the mapper to set
-     * @param AbstractDataMapper $mapper
-     *        the mapper to set, must be an instance of $className
+     * @template M of AbstractDataMapper
      *
-     * @return void
+     * @param class-string<M> $className the class name of the mapper to set
+     * @param M $mapper the mapper to set, must be an instance of `$className`
      */
-    private function setByClassName(string $className, AbstractDataMapper $mapper)
+    private function setByClassName(string $className, AbstractDataMapper $mapper): void
     {
         if (!($mapper instanceof $className)) {
             throw new \InvalidArgumentException(

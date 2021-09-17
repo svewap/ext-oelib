@@ -16,7 +16,7 @@ class CachedAssociationCountTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new ParentModel();
     }
@@ -24,7 +24,7 @@ class CachedAssociationCountTest extends UnitTestCase
     /**
      * @test
      */
-    public function getChildrenByDefaultReturnsEmptyStorage()
+    public function getChildrenByDefaultReturnsEmptyStorage(): void
     {
         $newObjectStorage = new ObjectStorage();
         self::assertEquals($newObjectStorage, $this->subject->getChildren());
@@ -33,7 +33,7 @@ class CachedAssociationCountTest extends UnitTestCase
     /**
      * @test
      */
-    public function setChildrenSetsChildren()
+    public function setChildrenSetsChildren(): void
     {
         /** @var ObjectStorage<ParentModel> $children */
         $children = new ObjectStorage();
@@ -45,7 +45,7 @@ class CachedAssociationCountTest extends UnitTestCase
     /**
      * @test
      */
-    public function getChildrenCountForLazyChildrenStorageReturnsRawValueFromLazyStorage()
+    public function getChildrenCountForLazyChildrenStorageReturnsRawValueFromLazyStorage(): void
     {
         $childrenCount = 7;
         /** @var LazyObjectStorage<ParentModel> $lazyChildrenStorage */
@@ -58,7 +58,7 @@ class CachedAssociationCountTest extends UnitTestCase
     /**
      * @test
      */
-    public function getChildrenCountForNoChildrenReturnsZero()
+    public function getChildrenCountForNoChildrenReturnsZero(): void
     {
         self::assertSame(0, $this->subject->getChildrenCount());
     }
@@ -66,7 +66,7 @@ class CachedAssociationCountTest extends UnitTestCase
     /**
      * @test
      */
-    public function getChildrenCountForOneMembershipReturnsOne()
+    public function getChildrenCountForOneMembershipReturnsOne(): void
     {
         /** @var ObjectStorage<ParentModel> $children */
         $children = new ObjectStorage();
@@ -79,7 +79,7 @@ class CachedAssociationCountTest extends UnitTestCase
     /**
      * @test
      */
-    public function getChildrenCountForTwoChildrenReturnsTwo()
+    public function getChildrenCountForTwoChildrenReturnsTwo(): void
     {
         /** @var ObjectStorage<ParentModel> $children */
         $children = new ObjectStorage();

@@ -11,15 +11,7 @@ namespace OliverKlee\Oelib\Domain\Model\Interfaces;
  */
 interface ChangeDate
 {
-    /**
-     * @return \DateTime|null
-     */
-    public function getChangeDate();
+    public function getChangeDate(): ?\DateTime;
 
-    /**
-     * @param \DateTime $creationDate
-     *
-     * @return void
-     */
-    public function setChangeDate(\DateTime $creationDate);
+    public function setChangeDate(\DateTime $creationDate): void;
 }

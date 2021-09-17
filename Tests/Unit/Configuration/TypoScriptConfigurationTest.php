@@ -20,7 +20,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new TypoScriptConfiguration();
     }
@@ -28,7 +28,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function implementsConfigurationInterface()
+    public function implementsConfigurationInterface(): void
     {
         self::assertInstanceOf(ConfigurationInterface::class, $this->subject);
     }
@@ -36,7 +36,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function isObjectWithPublicAccessors()
+    public function isObjectWithPublicAccessors(): void
     {
         self::assertInstanceOf(AbstractObjectWithPublicAccessors::class, $this->subject);
     }
@@ -44,7 +44,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasAlias()
+    public function hasAlias(): void
     {
         self::assertInstanceOf(Configuration::class, $this->subject);
     }
@@ -56,7 +56,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function setWithEmptyKeyThrowsException()
+    public function setWithEmptyKeyThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -73,7 +73,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function setDataWithEmptyArrayIsAllowed()
+    public function setDataWithEmptyArrayIsAllowed(): void
     {
         $this->subject->setData([]);
     }
@@ -81,7 +81,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAfterSetReturnsTheSetValue()
+    public function getAfterSetReturnsTheSetValue(): void
     {
         $this->subject->set('foo', 'bar');
 
@@ -94,7 +94,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAfterSetDataReturnsTheSetValue()
+    public function getAfterSetDataReturnsTheSetValue(): void
     {
         $this->subject->setData(
             ['foo' => 'bar']
@@ -111,7 +111,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function setDataCalledTwoTimesDoesNotFail()
+    public function setDataCalledTwoTimesDoesNotFail(): void
     {
         $this->subject->setData(
             ['title' => 'bar']
@@ -128,7 +128,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getArrayKeysWithEmptyKeyReturnsKeysOfDataArray()
+    public function getArrayKeysWithEmptyKeyReturnsKeysOfDataArray(): void
     {
         $this->subject->setData(['first' => 'test', 'second' => 'test']);
 
@@ -141,7 +141,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getArrayKeysForInexistentKeyReturnEmptyArray()
+    public function getArrayKeysForInexistentKeyReturnEmptyArray(): void
     {
         self::assertSame(
             [],
@@ -152,7 +152,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getArrayKeysForKeyOfStringDataItemReturnsEmptyArray()
+    public function getArrayKeysForKeyOfStringDataItemReturnsEmptyArray(): void
     {
         $this->subject->setData(['key' => 'blub']);
 
@@ -165,7 +165,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getArrayKeysForKeyOfDataItemWithOneArrayElementReturnsKeyOfArrayElement()
+    public function getArrayKeysForKeyOfDataItemWithOneArrayElementReturnsKeyOfArrayElement(): void
     {
         $this->subject->setData(['key' => ['test' => 'child']]);
 
@@ -178,7 +178,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getArrayKeysForKeyOfDataItemWithTwoArrayElementsReturnsKeysOfArrayElements()
+    public function getArrayKeysForKeyOfDataItemWithTwoArrayElementsReturnsKeysOfArrayElements(): void
     {
         $this->subject->setData(
             ['key' => ['first' => 'child', 'second' => 'child']]
@@ -193,7 +193,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsMultidimensionalArrayReturnsMultidimensionalArray()
+    public function getAsMultidimensionalArrayReturnsMultidimensionalArray(): void
     {
         $this->subject->setData(
             ['1' => ['1.1' => ['1.1.1' => 'child']]]
@@ -208,7 +208,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsMultidimensionalArrayForInexistentKeyReturnsEmptyArray()
+    public function getAsMultidimensionalArrayForInexistentKeyReturnsEmptyArray(): void
     {
         $this->subject->setData([]);
 
@@ -221,7 +221,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsMultidimensionalArrayForStringReturnsEmptyArray()
+    public function getAsMultidimensionalArrayForStringReturnsEmptyArray(): void
     {
         $this->subject->setData(
             ['1' => 'child']
@@ -236,7 +236,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsMultidimensionalArrayForIntegerReturnsEmptyArray()
+    public function getAsMultidimensionalArrayForIntegerReturnsEmptyArray(): void
     {
         $this->subject->setData(
             ['1' => 42]
@@ -251,7 +251,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsMultidimensionalArrayForFloatReturnsEmptyArray()
+    public function getAsMultidimensionalArrayForFloatReturnsEmptyArray(): void
     {
         $this->subject->setData(
             ['1' => 42.42]

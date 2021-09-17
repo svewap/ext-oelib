@@ -14,7 +14,7 @@ class PriceViewHelperTest extends ViewHelperBaseTestcase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -24,7 +24,7 @@ class PriceViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderWithoutSettingValueOrCurrencyFirstRendersZeroWithTwoDigits()
+    public function renderWithoutSettingValueOrCurrencyFirstRendersZeroWithTwoDigits(): void
     {
         self::assertSame(
             '0.00',
@@ -35,7 +35,7 @@ class PriceViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderWithValueWithoutSettingCurrencyUsesDecimalPointAndTwoDecimalDigits()
+    public function renderWithValueWithoutSettingCurrencyUsesDecimalPointAndTwoDecimalDigits(): void
     {
         $this->subject->setValue(12345.678);
 

@@ -27,7 +27,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -46,7 +46,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
         $this->subject = new ConfigurationCheck($objectToCheck);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->testingFramework->cleanUpWithoutDatabase();
 
@@ -68,13 +68,9 @@ class ConfigurationCheckTest extends FunctionalTestCase
     /**
      * Sets the configuration value for the locale to $localeKey.
      *
-     * @param string $localeKey
-     *        key for the locale, to receive a non-configured locale, provide
-     *        an empty string
-     *
-     * @return void
+     * @param string $localeKey key for the locale; to receive a non-configured locale, provide an empty string
      */
-    private function setConfigurationForLocale(string $localeKey)
+    private function setConfigurationForLocale(string $localeKey): void
     {
         $this->getFrontEndController()->config['config']['locale_all'] = $localeKey;
     }
@@ -84,7 +80,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function setConfigurationForLocaleToANonEmptyValue()
+    public function setConfigurationForLocaleToANonEmptyValue(): void
     {
         $this->setConfigurationForLocale('foo');
 
@@ -94,7 +90,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function setConfigurationForLocaleToAnEmptyString()
+    public function setConfigurationForLocaleToAnEmptyString(): void
     {
         $this->setConfigurationForLocale('');
 
@@ -106,7 +102,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfSingleInTableNotEmptyForValueNotInTableComplains()
+    public function checkIfSingleInTableNotEmptyForValueNotInTableComplains(): void
     {
         $this->subject->checkIfSingleInTableNotEmpty(
             'inexistentColumn',
@@ -122,7 +118,7 @@ class ConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfSingleInTableNotEmptyForValueNotInTableNotComplains()
+    public function checkIfSingleInTableNotEmptyForValueNotInTableNotComplains(): void
     {
         $this->subject->checkIfSingleInTableNotEmpty(
             'existingColumn',

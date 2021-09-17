@@ -20,20 +20,12 @@ class TestingChildModel extends AbstractModel implements Sortable
         return $this->getAsString('title');
     }
 
-    /**
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setTitle(string $value)
+    public function setTitle(string $value): void
     {
         $this->setAsString('title', $value);
     }
 
-    /**
-     * @return TestingModel|null
-     */
-    public function getParent()
+    public function getParent(): ?TestingModel
     {
         /** @var TestingModel|null $model */
         $model = $this->getAsModel('parent');
@@ -41,22 +33,15 @@ class TestingChildModel extends AbstractModel implements Sortable
         return $model;
     }
 
-    /**
-     * @param TestingModel $parent
-     *
-     * @return void
-     */
-    public function setParent(TestingModel $parent)
+    public function setParent(TestingModel $parent): void
     {
         $this->set('parent', $parent);
     }
 
     /**
      * Gets the "tx_oelib_parent2" data item.
-     *
-     * @return TestingModel|null
      */
-    public function getParent2()
+    public function getParent2(): ?TestingModel
     {
         /** @var TestingModel|null $model */
         $model = $this->getAsModel('tx_oelib_parent2');
@@ -66,22 +51,16 @@ class TestingChildModel extends AbstractModel implements Sortable
 
     /**
      * Sets the "tx_oelib_parent2" data item.
-     *
-     * @param TestingModel $parent
-     *
-     * @return void
      */
-    public function setParent2(TestingModel $parent)
+    public function setParent2(TestingModel $parent): void
     {
         $this->set('tx_oelib_parent2', $parent);
     }
 
     /**
      * Sets the dummy column to true.
-     *
-     * @return void
      */
-    public function markAsDummyModel()
+    public function markAsDummyModel(): void
     {
         $this->set('is_dummy_record', true);
     }
@@ -94,12 +73,7 @@ class TestingChildModel extends AbstractModel implements Sortable
         return $this->getAsInteger('sorting');
     }
 
-    /**
-     * @param int $sorting
-     *
-     * @return void
-     */
-    public function setSorting(int $sorting)
+    public function setSorting(int $sorting): void
     {
         $this->setAsInteger('sorting', $sorting);
     }

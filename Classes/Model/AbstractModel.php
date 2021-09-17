@@ -133,10 +133,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * 3. before a new model should be saved to the database
      *
      * @param array $data the data for this model, may be empty
-     *
-     * @return void
      */
-    public function setData(array $data)
+    public function setData(array $data): void
     {
         if ($this->isLoaded()) {
             throw new \BadMethodCallException('setData must only be called once per model instance.', 1331489244);
@@ -151,10 +149,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * This function may be called more than once.
      *
      * @param array $data the data for this model, may be empty
-     *
-     * @return void
      */
-    public function resetData(array $data)
+    public function resetData(array $data): void
     {
         $this->data = $data;
         if ($this->existsKey('uid')) {
@@ -186,21 +182,17 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     }
 
     /**
-     * Marks this model as "loaded", ie. that it has some real data.
-     *
-     * @return void
+     * Marks this model as "loaded", i.e., that it has some real data.
      */
-    protected function markAsLoaded()
+    protected function markAsLoaded(): void
     {
         $this->setLoadStatus(self::STATUS_LOADED);
     }
 
     /**
-     * Marks this model as "dead", ie. that retrieving its data from the DB has failed.
-     *
-     * @return void
+     * Marks this model as "dead", i.e., that retrieving its data from the DB has failed.
      */
-    public function markAsDead()
+    public function markAsDead(): void
     {
         $this->setLoadStatus(self::STATUS_DEAD);
         $this->markAsClean();
@@ -208,10 +200,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
 
     /**
      * Marks this model as loading.
-     *
-     * @return void
      */
-    private function markAsLoading()
+    private function markAsLoading(): void
     {
         $this->setLoadStatus(self::STATUS_LOADING);
     }
@@ -225,10 +215,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * to ghost.
      *
      * @param int $uid the UID to set, must be > 0
-     *
-     * @return void
      */
-    public function setUid(int $uid)
+    public function setUid(int $uid): void
     {
         if ($this->hasUid()) {
             throw new \BadMethodCallException('The UID of a model cannot be set a second time.', 1331489260);
@@ -242,10 +230,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
 
     /**
      * Resets the UID to 0, i.e., this model has no UID anymore.
-     *
-     * @return void
      */
-    private function resetUid()
+    private function resetUid(): void
     {
         $this->uid = 0;
     }
@@ -255,10 +241,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      *
      * @param string $key the key of the data item to get, must not be empty
      * @param mixed $value the data for the key $key
-     *
-     * @return void
      */
-    protected function set($key, $value)
+    protected function set(string $key, $value): void
     {
         if ($key === 'deleted') {
             throw new \InvalidArgumentException(
@@ -404,10 +388,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
 
     /**
      * Makes sure this model has some data by loading the data for ghost models.
-     *
-     * @return void
      */
-    private function load()
+    private function load(): void
     {
         if ($this->isVirgin()) {
             throw new \BadMethodCallException(
@@ -462,12 +444,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
 
     /**
      * Sets this model's load status.
-     *
-     * @param int $status
-     *
-     * @return void
      */
-    protected function setLoadStatus(int $status)
+    protected function setLoadStatus(int $status): void
     {
         $this->loadStatus = $status;
     }
@@ -536,20 +514,16 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
 
     /**
      * Marks this model as hidden.
-     *
-     * @return void
      */
-    public function markAsHidden()
+    public function markAsHidden(): void
     {
         $this->setAsBoolean('hidden', true);
     }
 
     /**
      * Marks this model as visible (= not hidden).
-     *
-     * @return void
      */
-    public function markAsVisible()
+    public function markAsVisible(): void
     {
         $this->setAsBoolean('hidden', false);
     }
@@ -558,10 +532,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * Sets the callback function for loading this model with data.
      *
      * @param array $callback the callback function for loading this model with data
-     *
-     * @return void
      */
-    public function setLoadCallback(array $callback)
+    public function setLoadCallback(array $callback): void
     {
         $this->loadCallback = $callback;
     }
@@ -579,20 +551,16 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
 
     /**
      * Marks this model's data as clean.
-     *
-     * @return void
      */
-    public function markAsClean()
+    public function markAsClean(): void
     {
         $this->isDirty = false;
     }
 
     /**
      * Marks this model's data as dirty.
-     *
-     * @return void
      */
-    public function markAsDirty()
+    public function markAsDirty(): void
     {
         $this->isDirty = true;
     }
@@ -612,10 +580,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * Sets the "deleted" property for the current model.
      *
      * Note: This function is intended to be called only by a data mapper.
-     *
-     * @return void
      */
-    public function setToDeleted()
+    public function setToDeleted(): void
     {
         if ($this->isLoaded()) {
             $this->data['deleted'] = true;
@@ -654,11 +620,9 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     }
 
     /**
-     * Sets the the modification date and time.
-     *
-     * @return void
+     * Sets the modification date and time.
      */
-    public function setTimestamp()
+    public function setTimestamp(): void
     {
         $this->setAsInteger('tstamp', $GLOBALS['SIM_EXEC_TIME']);
     }
@@ -672,11 +636,9 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     }
 
     /**
-     * Sets the the creation date and time.
-     *
-     * @return void
+     * Sets the creation date and time.
      */
-    public function setCreationDate()
+    public function setCreationDate(): void
     {
         if ($this->hasUid()) {
             throw new \BadMethodCallException('Only new objects (without UID) may receive "crdate".', 1331489449);
@@ -698,12 +660,9 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     /**
      * Sets this model's page UID.
      *
-     * @param int $pageUid
-     *        the page to set, must be >= 0
-     *
-     * @return void
+     * @param int $pageUid the page to set, must be >= 0
      */
-    public function setPageUid(int $pageUid)
+    public function setPageUid(int $pageUid): void
     {
         if ($pageUid < 0) {
             throw new \InvalidArgumentException('$pageUid must be >= 0.');

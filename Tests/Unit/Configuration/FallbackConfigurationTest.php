@@ -17,7 +17,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function implementsConfiguration()
+    public function implementsConfiguration(): void
     {
         $subject = new FallbackConfiguration(new DummyConfiguration(), new DummyConfiguration());
 
@@ -27,7 +27,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringForBothEmptyStringReturnsEmptyString()
+    public function getAsStringForBothEmptyStringReturnsEmptyString(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => '']);
@@ -40,7 +40,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringForBothNonEmptyReturnsValueFromPrimary()
+    public function getAsStringForBothNonEmptyReturnsValueFromPrimary(): void
     {
         $key = 'something';
         $primaryValue = 'primary';
@@ -55,7 +55,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringForPrimaryNonEmptyAndSecondaryEmptyReturnsValueFromPrimary()
+    public function getAsStringForPrimaryNonEmptyAndSecondaryEmptyReturnsValueFromPrimary(): void
     {
         $key = 'something';
         $primaryValue = 'primary';
@@ -70,7 +70,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringForPrimaryEmptyAndSecondaryNonEmptyReturnsValueFromSecondary()
+    public function getAsStringForPrimaryEmptyAndSecondaryNonEmptyReturnsValueFromSecondary(): void
     {
         $key = 'something';
         $primaryValue = '';
@@ -85,7 +85,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasStringForBothEmptyStringReturnsFalse()
+    public function hasStringForBothEmptyStringReturnsFalse(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => '']);
@@ -98,7 +98,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasStringForBothNonEmptyReturnsTrue()
+    public function hasStringForBothNonEmptyReturnsTrue(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => 'primary']);
@@ -111,7 +111,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasStringForPrimaryNonEmptyAndSecondaryEmptyReturnsTrue()
+    public function hasStringForPrimaryNonEmptyAndSecondaryEmptyReturnsTrue(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => 'primary']);
@@ -124,7 +124,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasStringForPrimaryEmptyAndSecondaryNonEmptyReturnsTrue()
+    public function hasStringForPrimaryEmptyAndSecondaryNonEmptyReturnsTrue(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => '']);
@@ -137,7 +137,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerForBothZeroReturnsZero()
+    public function getAsIntegerForBothZeroReturnsZero(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => 0]);
@@ -150,7 +150,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerForBothNonZeroReturnsValueFromPrimary()
+    public function getAsIntegerForBothNonZeroReturnsValueFromPrimary(): void
     {
         $key = 'something';
         $primaryValue = 1;
@@ -165,7 +165,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerForPrimaryNonZeroAndSecondaryZeroReturnsValueFromPrimary()
+    public function getAsIntegerForPrimaryNonZeroAndSecondaryZeroReturnsValueFromPrimary(): void
     {
         $key = 'something';
         $primaryValue = 1;
@@ -180,7 +180,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerForPrimaryZeroAndSecondaryNonZeroReturnsValueFromSecondary()
+    public function getAsIntegerForPrimaryZeroAndSecondaryNonZeroReturnsValueFromSecondary(): void
     {
         $key = 'something';
         $primaryValue = 0;
@@ -195,7 +195,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasIntegerForBothZeroReturnsFalse()
+    public function hasIntegerForBothZeroReturnsFalse(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => 0]);
@@ -208,7 +208,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasIntegerForBothNonZeroReturnsTrue()
+    public function hasIntegerForBothNonZeroReturnsTrue(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => 1]);
@@ -221,7 +221,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasIntegerForPrimaryNonZeroAndSecondaryZeroReturnsTrue()
+    public function hasIntegerForPrimaryNonZeroAndSecondaryZeroReturnsTrue(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => 1]);
@@ -234,7 +234,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasIntegerForPrimaryZeroAndSecondaryNonZeroReturnsTrue()
+    public function hasIntegerForPrimaryZeroAndSecondaryNonZeroReturnsTrue(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => 0]);
@@ -247,7 +247,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsBooleanForBothFalseReturnsFalse()
+    public function getAsBooleanForBothFalseReturnsFalse(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => false]);
@@ -260,7 +260,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsBooleanForBothTrueReturnsTrue()
+    public function getAsBooleanForBothTrueReturnsTrue(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => true]);
@@ -273,7 +273,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsBooleanForPrimaryTrueAndSecondaryFalseReturnsTrue()
+    public function getAsBooleanForPrimaryTrueAndSecondaryFalseReturnsTrue(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => true]);
@@ -286,7 +286,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsBooleanForPrimaryFalseAndSecondaryTrueReturnsTrue()
+    public function getAsBooleanForPrimaryFalseAndSecondaryTrueReturnsTrue(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => false]);
@@ -299,7 +299,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayForBothEmptyArrayReturnsEmptyArray()
+    public function getAsTrimmedArrayForBothEmptyArrayReturnsEmptyArray(): void
     {
         $key = 'something';
         $primary = new DummyConfiguration([$key => '']);
@@ -312,7 +312,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayForBothNonEmptyReturnsValueFromPrimary()
+    public function getAsTrimmedArrayForBothNonEmptyReturnsValueFromPrimary(): void
     {
         $key = 'something';
         $primaryValue = 'primary';
@@ -327,7 +327,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayForPrimaryNonEmptyAndSecondaryEmptyReturnsValueFromPrimary()
+    public function getAsTrimmedArrayForPrimaryNonEmptyAndSecondaryEmptyReturnsValueFromPrimary(): void
     {
         $key = 'something';
         $primaryValue = 'primary';
@@ -342,7 +342,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayForPrimaryEmptyAndSecondaryNonEmptyReturnsValueFromSecondary()
+    public function getAsTrimmedArrayForPrimaryEmptyAndSecondaryNonEmptyReturnsValueFromSecondary(): void
     {
         $key = 'something';
         $primaryValue = '';
@@ -357,7 +357,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayTrimsValues()
+    public function getAsTrimmedArrayTrimsValues(): void
     {
         $key = 'something';
         $primaryValue = 'primary';
@@ -372,7 +372,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsTrimmedArrayExplodesValues()
+    public function getAsTrimmedArrayExplodesValues(): void
     {
         $key = 'something';
         $primaryValue1 = 'primary 1';

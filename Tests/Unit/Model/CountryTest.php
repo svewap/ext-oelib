@@ -14,7 +14,7 @@ class CountryTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new Country();
     }
@@ -22,7 +22,7 @@ class CountryTest extends UnitTestCase
     /**
      * @test
      */
-    public function isReadOnlyIsTrue()
+    public function isReadOnlyIsTrue(): void
     {
         self::assertTrue($this->subject->isReadOnly());
     }
@@ -30,7 +30,7 @@ class CountryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLocalShortNameReturnsLocalShortName()
+    public function getLocalShortNameReturnsLocalShortName(): void
     {
         $name = 'Deutschland';
         $this->subject->setData(['cn_short_local' => $name]);
@@ -41,7 +41,7 @@ class CountryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsoAlpha2CodeReturnsIsoAlpha2Code()
+    public function getIsoAlpha2CodeReturnsIsoAlpha2Code(): void
     {
         $code = 'DE';
         $this->subject->setData(['cn_iso_2' => $code]);
@@ -52,7 +52,7 @@ class CountryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsoAlpha3CodeReturnsIsoAlpha3Code()
+    public function getIsoAlpha3CodeReturnsIsoAlpha3Code(): void
     {
         $code = 'DEU';
         $this->subject->setData(['cn_iso_3' => $code]);

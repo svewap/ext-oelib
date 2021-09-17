@@ -17,10 +17,8 @@ final class TestingObjectWithPublicAccessors extends AbstractObjectWithPublicAcc
      * Sets the data of this object.
      *
      * @param array $data the data to set, may be empty
-     *
-     * @return void
      */
-    public function setData(array $data)
+    public function setData(array $data): void
     {
         $this->data = $data;
     }
@@ -38,29 +36,22 @@ final class TestingObjectWithPublicAccessors extends AbstractObjectWithPublicAcc
     /**
      * Sets the value of the data item for the key $key.
      *
-     * @param string $key
-     *        the key of the data item to get, must not be empty
-     * @param mixed $value
-     *        the data for the key $key
-     *
-     * @return void
+     * @param string $key the key of the data item to get, must not be empty
+     * @param mixed $value the data for the key $key
      */
-    protected function set($key, $value)
+    protected function set(string $key, $value): void
     {
         $this->data[$key] = $value;
     }
 
     /**
-     * Checks that $key is not empty.
+     * Checks that `$key` is not empty.
      *
-     * @param string $key
-     *        a key to check
-     *
-     * @return void
+     * @param string $key a key to check
      *
      * @throws \InvalidArgumentException if $key is empty
      */
-    public function checkForNonEmptyKey(string $key)
+    public function checkForNonEmptyKey(string $key): void
     {
         parent::checkForNonEmptyKey($key);
     }

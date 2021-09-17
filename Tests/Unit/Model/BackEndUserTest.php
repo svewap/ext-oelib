@@ -15,7 +15,7 @@ class BackEndUserTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new BackEndUser();
     }
@@ -27,7 +27,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getUserNameForEmptyUserNameReturnsEmptyString()
+    public function getUserNameForEmptyUserNameReturnsEmptyString(): void
     {
         $this->subject->setData(['username' => '']);
 
@@ -40,7 +40,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getUserNameForNonEmptyUserNameReturnsUserName()
+    public function getUserNameForNonEmptyUserNameReturnsUserName(): void
     {
         $this->subject->setData(['username' => 'johndoe']);
 
@@ -57,7 +57,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNameForNonEmptyNameReturnsName()
+    public function getNameForNonEmptyNameReturnsName(): void
     {
         $this->subject->setData(['realName' => 'John Doe']);
 
@@ -70,7 +70,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNameForEmptyNameReturnsEmptyString()
+    public function getNameForEmptyNameReturnsEmptyString(): void
     {
         $this->subject->setData(['realName' => '']);
 
@@ -87,7 +87,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLanguageForNonEmptyLanguageReturnsLanguageKey()
+    public function getLanguageForNonEmptyLanguageReturnsLanguageKey(): void
     {
         $this->subject->setData(['lang' => 'de']);
 
@@ -100,7 +100,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLanguageForEmptyLanguageKeyReturnsDefault()
+    public function getLanguageForEmptyLanguageKeyReturnsDefault(): void
     {
         $this->subject->setData(['lang' => '']);
 
@@ -113,7 +113,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLanguageForLanguageSetInUserConfigurationReturnsThisLanguage()
+    public function getLanguageForLanguageSetInUserConfigurationReturnsThisLanguage(): void
     {
         $this->subject->setData(['uc' => serialize(['lang' => 'de'])]);
 
@@ -126,7 +126,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLanguageForSetDefaultLanguageAndLanguageSetInUserConfigurationReturnsLanguageFromConfiguration()
+    public function getLanguageForSetDefaultAndLanguageInUserConfigurationReturnsLanguageFromConfiguration(): void
     {
         $this->subject->setData(['uc' => serialize(['lang' => 'fr'])]);
         $this->subject->setDefaultLanguage('de');
@@ -140,7 +140,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLanguageForSetDefaultLanguageAndEmptyLanguageSetInUserConfigurationReturnsDefaultLanguage()
+    public function getLanguageForSetDefaultLanguageAndEmptyLanguageSetInUserConfigurationReturnsDefaultLanguage(): void
     {
         $this->subject->setData(['uc' => serialize(['lang' => ''])]);
         $this->subject->setDefaultLanguage('fr');
@@ -154,7 +154,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDefaultLanguageSetsLanguage()
+    public function getDefaultLanguageSetsLanguage(): void
     {
         $this->subject->setDefaultLanguage('de');
 
@@ -167,7 +167,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setDefaultLanguageWithDefaultSetsLanguage()
+    public function setDefaultLanguageWithDefaultSetsLanguage(): void
     {
         $this->subject->setDefaultLanguage('default');
 
@@ -180,7 +180,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setDefaultLanguageWithEmptyKeyThrowsException()
+    public function setDefaultLanguageWithEmptyKeyThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -195,7 +195,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasLanguageWithoutLanguageReturnsFalse()
+    public function hasLanguageWithoutLanguageReturnsFalse(): void
     {
         $this->subject->setData([]);
 
@@ -207,7 +207,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasLanguageWithDefaultLanguageSetReturnsFalse()
+    public function hasLanguageWithDefaultLanguageSetReturnsFalse(): void
     {
         $this->subject->setData([]);
         $this->subject->setDefaultLanguage('default');
@@ -220,7 +220,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasLanguageWithNonEmptyLanguageReturnsTrue()
+    public function hasLanguageWithNonEmptyLanguageReturnsTrue(): void
     {
         $this->subject->setData(['lang' => 'de']);
 
@@ -236,7 +236,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getEmailAddressForEmptyEmailReturnsEmptyString()
+    public function getEmailAddressForEmptyEmailReturnsEmptyString(): void
     {
         $this->subject->setData(['email' => '']);
 
@@ -249,7 +249,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getEmailAddressForNonEmptyEmailReturnsEmail()
+    public function getEmailAddressForNonEmptyEmailReturnsEmail(): void
     {
         $this->subject->setData(['email' => 'john@doe.com']);
 
@@ -266,7 +266,7 @@ class BackEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGroupsReturnsListFromUserGroupField()
+    public function getGroupsReturnsListFromUserGroupField(): void
     {
         $groups = new Collection();
 

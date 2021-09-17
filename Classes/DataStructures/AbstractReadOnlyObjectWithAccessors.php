@@ -22,15 +22,13 @@ abstract class AbstractReadOnlyObjectWithAccessors
     abstract protected function get(string $key);
 
     /**
-     * Checks that $key is not empty.
+     * Checks that `$key` is not empty.
      *
      * @param string $key the key to check
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException if $key is empty
      */
-    protected function checkForNonEmptyKey(string $key)
+    protected function checkForNonEmptyKey(string $key): void
     {
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1331488963);

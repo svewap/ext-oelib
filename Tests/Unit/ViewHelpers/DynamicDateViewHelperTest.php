@@ -21,7 +21,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -34,7 +34,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function classIsViewHelper()
+    public function classIsViewHelper(): void
     {
         self::assertInstanceOf(AbstractViewHelper::class, $this->subject);
     }
@@ -42,7 +42,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function classIsCompilable()
+    public function classIsCompilable(): void
     {
         self::assertInstanceOf(CompilableInterface::class, $this->subject);
     }
@@ -50,7 +50,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForNullChildrenThrowsException()
+    public function renderForNullChildrenThrowsException(): void
     {
         $this->expectException(ViewHelperException::class);
         $this->subject->expects(self::once())->method('renderChildren')->willReturn(null);
@@ -61,7 +61,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForEmptyStringChildrenThrowsException()
+    public function renderForEmptyStringChildrenThrowsException(): void
     {
         $this->expectException(ViewHelperException::class);
         $this->subject->expects(self::once())->method('renderChildren')->willReturn('');
@@ -72,7 +72,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForDateStringChildrenThrowsException()
+    public function renderForDateStringChildrenThrowsException(): void
     {
         $this->expectException(ViewHelperException::class);
         $this->subject->expects(self::once())->method('renderChildren')->willReturn('1975-04-02');
@@ -83,7 +83,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForIntegerTimestampChildrenThrowsException()
+    public function renderForIntegerTimestampChildrenThrowsException(): void
     {
         $this->expectException(ViewHelperException::class);
         $this->subject->expects(self::once())->method('renderChildren')->willReturn(1459513954);
@@ -94,7 +94,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderByDefaultUsesGermanDateAndTimeFormat()
+    public function renderByDefaultUsesGermanDateAndTimeFormat(): void
     {
         $date = new \DateTime('1980-12-07 14:37');
         $this->subject->expects(self::once())->method('renderChildren')->willReturn($date);
@@ -107,7 +107,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderUsesProvidedDateAndTimeFormatForVisibleDate()
+    public function renderUsesProvidedDateAndTimeFormatForVisibleDate(): void
     {
         $date = new \DateTime('1980-12-07 14:37');
         $this->subject->expects(self::once())->method('renderChildren')->willReturn($date);
@@ -120,7 +120,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderAddsTimeAgoCssClass()
+    public function renderAddsTimeAgoCssClass(): void
     {
         $date = new \DateTime('1980-12-07 14:37');
         $this->subject->expects(self::once())->method('renderChildren')->willReturn($date);
@@ -133,7 +133,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderUsesProvidedDateAndTimeFormatForTimeElementDate()
+    public function renderUsesProvidedDateAndTimeFormatForTimeElementDate(): void
     {
         $date = new \DateTime('1980-12-07 14:37');
         $this->subject->expects(self::once())->method('renderChildren')->willReturn($date);
@@ -162,7 +162,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     public function renderStaticForEmptyStringChildrenThrowsException()
     {
         $this->expectException(ViewHelperException::class);
-        $renderChildrenClosure = static function () {
+        $renderChildrenClosure = static function (): string {
             return '';
         };
 
@@ -175,7 +175,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     public function renderStaticForDateStringChildrenThrowsException()
     {
         $this->expectException(ViewHelperException::class);
-        $renderChildrenClosure = static function () {
+        $renderChildrenClosure = static function (): string {
             return '1975-04-02';
         };
 
@@ -188,7 +188,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     public function renderStaticForIntegerTimestampChildrenThrowsException()
     {
         $this->expectException(ViewHelperException::class);
-        $renderChildrenClosure = static function () {
+        $renderChildrenClosure = static function (): int {
             return 1459513954;
         };
 
@@ -200,7 +200,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderStaticByDefaultUsesGermanDateAndTimeFormat()
     {
-        $renderChildrenClosure = static function () {
+        $renderChildrenClosure = static function (): \DateTime {
             return new \DateTime('1980-12-07 14:37');
         };
 
@@ -214,7 +214,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderStaticUsesProvidedDateAndTimeFormat()
     {
-        $renderChildrenClosure = static function () {
+        $renderChildrenClosure = static function (): \DateTime {
             return new \DateTime('1980-12-07 14:37');
         };
 

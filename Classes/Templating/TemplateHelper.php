@@ -88,10 +88,8 @@ class TemplateHelper extends SalutationSwitcher
      *
      * @param array|null $configuration TypoScript configuration for the plugin, set to null to load the configuration
      *     from a BE page
-     *
-     * @return void
      */
-    public function init($configuration = null)
+    public function init($configuration = null): void
     {
         if ($this->isInitialized) {
             return;
@@ -112,11 +110,9 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * @return void
-     *
      * @deprecated will be removed in oelib 4.0
      */
-    protected function initializeConfiguration()
+    protected function initializeConfiguration(): void
     {
         // Note: Starting from TYPO3 8.7, `$this->conf` always in an array.
         // So this method now is a no-op.
@@ -153,10 +149,7 @@ class TemplateHelper extends SalutationSwitcher
         }
     }
 
-    /**
-     * @return void
-     */
-    protected function initializeConfigurationCheck()
+    protected function initializeConfigurationCheck(): void
     {
         if ($this->configurationCheck instanceof ConfigurationCheck || !$this->isConfigurationCheckEnabled()) {
             return;
@@ -185,7 +178,7 @@ class TemplateHelper extends SalutationSwitcher
      *
      * @return class-string|string might be empty
      */
-    protected function getConfigurationCheckClassName()
+    protected function getConfigurationCheckClassName(): string
     {
         return $this->getDefaultConfigurationCheckClassName();
     }
@@ -216,10 +209,8 @@ class TemplateHelper extends SalutationSwitcher
      * If there is a front end and this object does not have a cObj yet, the cObj from the front end is used.
      *
      * If this object has no cObj and there is no front end, this function will do nothing.
-     *
-     * @return void
      */
-    protected function ensureContentObject()
+    protected function ensureContentObject(): void
     {
         if ($this->cObj instanceof ContentObjectRenderer) {
             return;
@@ -233,10 +224,8 @@ class TemplateHelper extends SalutationSwitcher
 
     /**
      * Checks that this object is properly initialized.
-     *
-     * @return bool
      */
-    public function isInitialized()
+    public function isInitialized(): bool
     {
         return $this->isInitialized;
     }
@@ -458,10 +447,8 @@ class TemplateHelper extends SalutationSwitcher
      *
      * @param string $key key of the configuration property to set, must not be empty
      * @param mixed $value value of the configuration property, may be empty or zero
-     *
-     * @return void
      */
-    public function setConfigurationValue(string $key, $value)
+    public function setConfigurationValue(string $key, $value): void
     {
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty', 1331489491);
@@ -479,11 +466,9 @@ class TemplateHelper extends SalutationSwitcher
      * @param string $key key of the configuration property to set, must not be empty
      * @param mixed $value value of the configuration property, may be empty or zero
      *
-     * @return void
-     *
      * @deprecated will be removed in oelib 4.0
      */
-    public static function setCachedConfigurationValue(string $key, $value)
+    public static function setCachedConfigurationValue(string $key, $value): void
     {
         $pageUid = PageFinder::getInstance()->getPageUid();
         if (!isset(self::$cachedConfigurations[$pageUid])) {
@@ -498,11 +483,9 @@ class TemplateHelper extends SalutationSwitcher
      *
      * This function is intended to be used for testing purposes only.
      *
-     * @return void
-     *
      * @deprecated will be removed in oelib 4.0
      */
-    public static function purgeCachedConfigurations()
+    public static function purgeCachedConfigurations(): void
     {
         self::$cachedConfigurations = [];
     }
@@ -525,10 +508,8 @@ class TemplateHelper extends SalutationSwitcher
      * The subparts will be written to $this->templateCache.
      *
      * @param bool $ignoreFlexform whether the settings in the Flexform should be ignored
-     *
-     * @return void
      */
-    public function getTemplateCode(bool $ignoreFlexform = false)
+    public function getTemplateCode(bool $ignoreFlexform = false): void
     {
         // Trying to fetch the template code via `$this->cObj` in BE mode leads to
         // a non-catchable error in the `ContentObjectRenderer` class because the `cObj`
@@ -581,10 +562,8 @@ class TemplateHelper extends SalutationSwitcher
      * 'MY_SUBPART'.
      *
      * @param string $templateCode the content of the HTML template
-     *
-     * @return void
      */
-    public function processTemplate(string $templateCode)
+    public function processTemplate(string $templateCode): void
     {
         $this->getTemplate()->processTemplate($templateCode);
     }
@@ -602,10 +581,8 @@ class TemplateHelper extends SalutationSwitcher
      *     not be empty
      * @param mixed $content the marker's content, may be empty
      * @param string $prefix prefix to the marker name (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
      */
-    public function setMarker(string $markerName, $content, string $prefix = '')
+    public function setMarker(string $markerName, $content, string $prefix = ''): void
     {
         $this->getTemplate()->setMarker($markerName, $content, $prefix);
     }
@@ -633,14 +610,11 @@ class TemplateHelper extends SalutationSwitcher
      * If the prefix is empty and the subpart name is "one", the subpart
      * "###ONE###" will be written.
      *
-     * @param string $subpartName
-     *        the subpart's name without the ### signs, case-insensitive, will get uppercased, must not be empty
+     * @param string $subpartName name without the ### signs, case-insensitive, will get uppercased, must not be empty
      * @param mixed $content the subpart's content, may be empty
      * @param string $prefix prefix to the subpart name (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
      */
-    public function setSubpart(string $subpartName, $content, string $prefix = '')
+    public function setSubpart(string $subpartName, $content, string $prefix = ''): void
     {
         try {
             $this->getTemplate()->setSubpart($subpartName, $content, $prefix);
@@ -738,10 +712,8 @@ class TemplateHelper extends SalutationSwitcher
      * @param string $subparts comma-separated list of at least 1 subpart name to hide (case-insensitive, will get
      *     uppercased)
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
      */
-    public function hideSubparts(string $subparts, string $prefix = '')
+    public function hideSubparts(string $subparts, string $prefix = ''): void
     {
         $this->getTemplate()->hideSubparts($subparts, $prefix);
     }
@@ -759,10 +731,8 @@ class TemplateHelper extends SalutationSwitcher
      *
      * @param string[] $subparts subpart names to hide (may be empty, case-insensitive, will get uppercased)
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
      */
-    public function hideSubpartsArray(array $subparts, string $prefix = '')
+    public function hideSubpartsArray(array $subparts, string $prefix = ''): void
     {
         $this->getTemplate()->hideSubpartsArray($subparts, $prefix);
     }
@@ -783,21 +753,16 @@ class TemplateHelper extends SalutationSwitcher
      * If the prefix is empty and the list is "one,two", the subparts
      * "###ONE###" and "###TWO###" will be unhidden.
      *
-     * @param string $subparts
-     *        comma-separated list of at least 1 subpart name to unhide (case-insensitive, will get uppercased), must
-     *     not be empty
-     * @param string $permanentlyHiddenSubparts
-     *        comma-separated list of subpart names that shouldn't get unhidden
-     * @param string $prefix
-     *        prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
+     * @param string $subparts comma-separated list of subpart names to unhide (case-insensitive, will get uppercased),
+     *        must not be empty
+     * @param string $permanentlyHiddenSubparts comma-separated list of subpart names that shouldn't get unhidden
+     * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
      */
     public function unhideSubparts(
         string $subparts,
         string $permanentlyHiddenSubparts = '',
         string $prefix = ''
-    ) {
+    ): void {
         $this->getTemplate()->unhideSubparts(
             $subparts,
             $permanentlyHiddenSubparts,
@@ -825,14 +790,12 @@ class TemplateHelper extends SalutationSwitcher
      * @param string[] $subparts subpart names to unhide (may be empty, case-insensitive, will get uppercased)
      * @param string[] $permanentlyHiddenSubparts subpart names that shouldn't get unhidden
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
      */
     public function unhideSubpartsArray(
         array $subparts,
         array $permanentlyHiddenSubparts = [],
         string $prefix = ''
-    ) {
+    ): void {
         $this->getTemplate()->unhideSubpartsArray(
             $subparts,
             $permanentlyHiddenSubparts,
@@ -1020,7 +983,7 @@ class TemplateHelper extends SalutationSwitcher
         $translator = $this;
         return preg_replace_callback(
             Template::LABEL_PATTERN,
-            static function (array $matches) use ($translator) {
+            static function (array $matches) use ($translator): string {
                 return $translator->translate(strtolower($matches[1]));
             },
             $renderedSubpart
@@ -1034,10 +997,8 @@ class TemplateHelper extends SalutationSwitcher
      * "LABEL_" (e.g., "###LABEL_FOO###"), and the corresponding localization
      * entry must have the same key, but lowercased and without the ###
      * (e.g., "label_foo").
-     *
-     * @return void
      */
-    public function setLabels()
+    public function setLabels(): void
     {
         $template = $this->getTemplate();
         foreach ($template->getLabelMarkerNames() as $label) {
@@ -1053,11 +1014,9 @@ class TemplateHelper extends SalutationSwitcher
      *
      * This function may only be called if $this->$prefixId has been set.
      *
-     * @return void
-     *
      * @deprecated will be removed in oelib 4.0
      */
-    public function addJavaScriptToPageHeader()
+    public function addJavaScriptToPageHeader(): void
     {
         if ($this->hasConfValueString('jsFile', 's_template_special')) {
             $this->getFrontEndController()->additionalHeaderData[$this->prefixId . '_js']
@@ -1067,10 +1026,8 @@ class TemplateHelper extends SalutationSwitcher
 
     /**
      * Resets the list of subparts to hide.
-     *
-     * @return void
      */
-    public function resetSubpartsHiding()
+    public function resetSubpartsHiding(): void
     {
         $this->getTemplate()->resetSubpartsHiding();
     }
@@ -1084,10 +1041,8 @@ class TemplateHelper extends SalutationSwitcher
      *
      * @param string[] $additionalPiVars
      *        keys for $this->piVars that will be ensured to exist as ints in $this->piVars as well, may be empty
-     *
-     * @return void
      */
-    protected function ensureIntegerPiVars(array $additionalPiVars = [])
+    protected function ensureIntegerPiVars(array $additionalPiVars = []): void
     {
         if (!is_array($this->piVars)) {
             $this->piVars = [];
@@ -1111,10 +1066,8 @@ class TemplateHelper extends SalutationSwitcher
      * Ensures that all values in the given array are cast to integers and removes empty or invalid values.
      *
      * @param array<array-key, string> $keys the keys of the piVars to check, may be empty
-     *
-     * @return void
      */
-    protected function ensureIntegerArrayValues(array $keys)
+    protected function ensureIntegerArrayValues(array $keys): void
     {
         if (empty($keys)) {
             return;
@@ -1197,11 +1150,9 @@ class TemplateHelper extends SalutationSwitcher
      *
      * @param string $flavor a short string identifying the "flavor" of the object to check (may be empty)
      *
-     * @return void
-     *
      * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
      */
-    public function setFlavor(string $flavor)
+    public function setFlavor(string $flavor): void
     {
         if ($this->getConfigurationCheck() instanceof ConfigurationCheck) {
             $this->configurationCheck->setFlavor($flavor);
@@ -1230,10 +1181,8 @@ class TemplateHelper extends SalutationSwitcher
      * If this->configurationCheck is NULL, this function is a no-op.
      *
      * @param string $message error text to set (may be empty)
-     *
-     * @return void
      */
-    protected function setErrorMessage(string $message)
+    protected function setErrorMessage(string $message): void
     {
         if ($this->getConfigurationCheck() instanceof ConfigurationCheck) {
             $this->configurationCheck->setErrorMessage($message);
@@ -1241,11 +1190,9 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * @return ConfigurationCheck|null
-     *
      * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
      */
-    public function getConfigurationCheck()
+    public function getConfigurationCheck(): ?ConfigurationCheck
     {
         $this->initializeConfigurationCheck();
 

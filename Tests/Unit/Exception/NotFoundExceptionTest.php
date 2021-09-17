@@ -12,7 +12,7 @@ class NotFoundExceptionTest extends UnitTestCase
     /**
      * @test
      */
-    public function isException()
+    public function isException(): void
     {
         self::assertInstanceOf(\RuntimeException::class, new NotFoundException());
     }

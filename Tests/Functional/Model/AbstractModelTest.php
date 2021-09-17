@@ -36,7 +36,7 @@ class AbstractModelTest extends FunctionalTestCase
      */
     protected $dataMapper = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -66,7 +66,7 @@ class AbstractModelTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cloneReturnsDirtyModel()
+    public function cloneReturnsDirtyModel(): void
     {
         $this->subject->setLoadStatus(AbstractModel::STATUS_GHOST);
 
@@ -79,7 +79,7 @@ class AbstractModelTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cloningVirginModelReturnsVirginModel()
+    public function cloningVirginModelReturnsVirginModel(): void
     {
         $subject = new TestingModel();
         self::assertTrue($subject->isVirgin());
@@ -92,7 +92,7 @@ class AbstractModelTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cloningGhostLoadsModel()
+    public function cloningGhostLoadsModel(): void
     {
         self::assertTrue($this->subject->isGhost());
 
@@ -104,7 +104,7 @@ class AbstractModelTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cloningLoadedModelReturnsLoadedModel()
+    public function cloningLoadedModelReturnsLoadedModel(): void
     {
         self::assertSame(self::TEST_RECORD_TITLE, $this->subject->getTitle());
         self::assertTrue($this->subject->isLoaded());
@@ -117,7 +117,7 @@ class AbstractModelTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function clonedModelHasMtoNRelationWithCloneAsParentModel()
+    public function clonedModelHasMtoNRelationWithCloneAsParentModel(): void
     {
         $relatedRecord = new TestingModel();
         $relatedRecord->setData([]);
@@ -133,7 +133,7 @@ class AbstractModelTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function clonedModelHasClonesOfModelsFrom1toNRelationFromOriginal()
+    public function clonedModelHasClonesOfModelsFrom1toNRelationFromOriginal(): void
     {
         $childRecord = new TestingChildModel();
         $childRecordTitle = 'bubble bobble';
@@ -150,7 +150,7 @@ class AbstractModelTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function clonedModelHas1toNRelationWithCloneAsParentModel()
+    public function clonedModelHas1toNRelationWithCloneAsParentModel(): void
     {
         $childRecord = new TestingChildModel();
         $childRecord->setData([]);

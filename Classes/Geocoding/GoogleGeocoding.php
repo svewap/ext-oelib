@@ -83,32 +83,24 @@ class GoogleGeocoding implements GeocodingLookup
      * Note: This function is to be used for testing only.
      *
      * @param GeocodingLookup $instance the instance which getInstance() should return
-     *
-     * @return void
      */
-    public static function setInstance(GeocodingLookup $instance)
+    public static function setInstance(GeocodingLookup $instance): void
     {
         self::$instance = $instance;
     }
 
     /**
      * Purges the current GoogleMaps look-up instance.
-     *
-     * @return void
      */
-    public static function purgeInstance()
+    public static function purgeInstance(): void
     {
         self::$instance = null;
     }
 
     /**
      * Sets the maximum delay.
-     *
-     * @param int $delay
-     *
-     * @return void
      */
-    public function setMaximumDelay(int $delay)
+    public function setMaximumDelay(int $delay): void
     {
         $this->maximumDelayInMicroseconds = $delay;
     }
@@ -116,13 +108,9 @@ class GoogleGeocoding implements GeocodingLookup
     /**
      * Looks up the geo coordinates of the address of an object and sets its geo coordinates.
      *
-     * @param Geo $geoObject
-     *
-     * @return void
-     *
      * @throws \UnexpectedValueException if the API key is empty or not set
      */
-    public function lookUp(Geo $geoObject)
+    public function lookUp(Geo $geoObject): void
     {
         if ($geoObject->hasGeoError() || $geoObject->hasGeoCoordinates()) {
             return;

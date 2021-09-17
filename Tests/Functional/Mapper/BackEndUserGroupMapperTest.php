@@ -20,7 +20,7 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -32,7 +32,7 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findReturnsBackEndUserGroupInstance()
+    public function findReturnsBackEndUserGroupInstance(): void
     {
         self::assertInstanceOf(BackEndUserGroup::class, $this->subject->find(1));
     }
@@ -40,7 +40,7 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function loadForExistingUserGroupCanLoadUserGroupData()
+    public function loadForExistingUserGroupCanLoadUserGroupData(): void
     {
         /** @var BackEndUserGroup $userGroup */
         $userGroup = $this->subject->find(1);
@@ -52,7 +52,7 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function subgroupRelationIsUserGroupList()
+    public function subgroupRelationIsUserGroupList(): void
     {
         /** @var BackEndUserGroup $group */
         $group = $this->subject->find(1);

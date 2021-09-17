@@ -70,12 +70,8 @@ class TestingMapper extends AbstractDataMapper
 
     /**
      * Sets the map for this mapper.
-     *
-     * @param IdentityMap $map
-     *
-     * @return void
      */
-    public function setMap(IdentityMap $map)
+    public function setMap(IdentityMap $map): void
     {
         $this->map = $map;
     }
@@ -101,12 +97,9 @@ class TestingMapper extends AbstractDataMapper
     /**
      * Sets the model class name.
      *
-     * @param string $className
-     *        model class name, must not be empty
-     *
-     * @return void
+     * @param class-string<TestingModel> $className model class name, must not be empty
      */
-    public function setModelClassName(string $className)
+    public function setModelClassName(string $className): void
     {
         $this->modelClassName = $className;
     }
@@ -115,14 +108,12 @@ class TestingMapper extends AbstractDataMapper
      * Processes a model's data and creates any relations that are hidden within
      * it using foreign key mapping.
      *
-     * @param array $data
      *        the model data to process, might be modified
+     *
      * @param TestingModel $model
      *        the model to create the relations for
-     *
-     * @return void
      */
-    public function createRelations(array &$data, AbstractModel $model)
+    public function createRelations(array &$data, AbstractModel $model): void
     {
         parent::createRelations($data, $model);
     }
@@ -155,11 +146,9 @@ class TestingMapper extends AbstractDataMapper
      * @param AbstractModel $model the model to cache
      * @param string[] $data the data of the model as it is in the DB, may be empty
      *
-     * @return void
-     *
      * @see cacheModelByCompoundKey
      */
-    protected function cacheModelByCombinedKeys(AbstractModel $model, array $data)
+    protected function cacheModelByCombinedKeys(AbstractModel $model, array $data): void
     {
         $this->cachedModels[] = $model;
     }

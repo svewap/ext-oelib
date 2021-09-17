@@ -21,7 +21,7 @@ class FederalStateMapperTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->importStaticData();
@@ -32,11 +32,9 @@ class FederalStateMapperTest extends FunctionalTestCase
     /**
      * Imports static records - but only if they aren't already available as static data.
      *
-     * @return void
-     *
      * @throws NimutException
      */
-    private function importStaticData()
+    private function importStaticData(): void
     {
         if ($this->getDatabaseConnection()->selectCount('*', 'static_country_zones') === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/CountryZones.xml');
@@ -46,7 +44,7 @@ class FederalStateMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsFederalStateInstance()
+    public function findWithUidOfExistingRecordReturnsFederalStateInstance(): void
     {
         self::assertInstanceOf(
             FederalState::class,
@@ -57,7 +55,7 @@ class FederalStateMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsRecordAsModel()
+    public function findWithUidOfExistingRecordReturnsRecordAsModel(): void
     {
         /** @var FederalState $model */
         $model = $this->subject->find(88);
@@ -70,7 +68,7 @@ class FederalStateMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithDataOfExistingRecordReturnsFederalStateInstance()
+    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithDataOfExistingReturnsFederalStateInstance(): void
     {
         self::assertInstanceOf(
             FederalState::class,
@@ -81,7 +79,7 @@ class FederalStateMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithDataOfExistingRecordReturnsRecordAsModel()
+    public function findByIsoAlpha2CountryCodeAndIsoAlpha2ZoneCodeWithDataOfExistingRecordReturnsRecordAsModel(): void
     {
         self::assertSame(
             'NW',

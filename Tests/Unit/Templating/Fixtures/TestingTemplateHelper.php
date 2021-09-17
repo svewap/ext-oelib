@@ -34,12 +34,9 @@ final class TestingTemplateHelper extends TemplateHelper
     /**
      * Sets the salutation mode.
      *
-     * @param string $salutation
-     *        the salutation mode to use ("formal" or "informal")
-     *
-     * @return void
+     * @param string $salutation the salutation mode to use ("formal" or "informal")
      */
-    public function setSalutationMode(string $salutation)
+    public function setSalutationMode(string $salutation): void
     {
         $this->setConfigurationValue('salutation', $salutation);
     }
@@ -72,10 +69,8 @@ final class TestingTemplateHelper extends TemplateHelper
      * @param string[] $additionalPiVars
      *        keys for $this->piVars that will be ensured to exist as ints in
      *        $this->piVars as well
-     *
-     * @return void
      */
-    public function ensureIntegerPiVars(array $additionalPiVars = [])
+    public function ensureIntegerPiVars(array $additionalPiVars = []): void
     {
         parent::ensureIntegerPiVars($additionalPiVars);
     }
@@ -85,10 +80,8 @@ final class TestingTemplateHelper extends TemplateHelper
      * or invalid values.
      *
      * @param string[] $keys the keys of the piVars to check, may be empty
-     *
-     * @return void
      */
-    public function ensureIntegerArrayValues(array $keys)
+    public function ensureIntegerArrayValues(array $keys): void
     {
         parent::ensureIntegerArrayValues($keys);
     }
@@ -103,10 +96,8 @@ final class TestingTemplateHelper extends TemplateHelper
      *
      * If this object has no cObj and there is no front end, this function will
      * do nothing.
-     *
-     * @return void
      */
-    public function ensureContentObject()
+    public function ensureContentObject(): void
     {
         parent::ensureContentObject();
     }

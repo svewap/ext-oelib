@@ -18,7 +18,7 @@ class LoggingAwareTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new TestingLoggingAware();
     }
@@ -26,7 +26,7 @@ class LoggingAwareTest extends UnitTestCase
     /**
      * @test
      */
-    public function implementsLoggingAwareInterface()
+    public function implementsLoggingAwareInterface(): void
     {
         self::assertInstanceOf(LoggingAware::class, $this->subject);
     }
@@ -34,7 +34,7 @@ class LoggingAwareTest extends UnitTestCase
     /**
      * @test
      */
-    public function injectLogManagerGetsLoggerForClass()
+    public function injectLogManagerGetsLoggerForClass(): void
     {
         /** @var ObjectProphecy $logManagerProphecy */
         $logManagerProphecy = $this->prophesize(LogManagerInterface::class);

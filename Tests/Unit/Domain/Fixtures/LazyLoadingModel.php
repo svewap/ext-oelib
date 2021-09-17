@@ -32,10 +32,8 @@ class LazyLoadingModel extends AbstractEntity
 
     /**
      * @param EmptyModel|LazyLoadingProxy $property
-     *
-     * @return void
      */
-    public function setLazyProperty($property)
+    public function setLazyProperty($property): void
     {
         $this->lazyProperty = $property;
     }

@@ -66,10 +66,8 @@ class Template
      *
      * @param string $fileName the file name of the HTML template to process, must be an existing file, must not be
      *     empty
-     *
-     * @return void
      */
-    public function processTemplateFromFile(string $fileName)
+    public function processTemplateFromFile(string $fileName): void
     {
         $this->processTemplate(
             file_get_contents(GeneralUtility::getFileAbsFileName($fileName))
@@ -88,10 +86,8 @@ class Template
      * 'MY_SUBPART'.
      *
      * @param string $templateCode the content of the HTML template
-     *
-     * @return void
      */
-    public function processTemplate(string $templateCode)
+    public function processTemplate(string $templateCode): void
     {
         $this->templateCode = $templateCode;
         $this->extractSubparts($templateCode);
@@ -103,10 +99,8 @@ class Template
      * $this->subparts.
      *
      * @param string $templateCode the template code to process, may be empty
-     *
-     * @return void
      */
-    private function extractSubparts(string $templateCode)
+    private function extractSubparts(string $templateCode): void
     {
         // If there are no HTML comments in  the template code, there cannot be
         // any subparts. So there's no need to use an expensive regular
@@ -137,10 +131,8 @@ class Template
      * to $this->markerNames.
      *
      * In addition, it stores the lowercased label marker names in $this->labelMarkerNames.
-     *
-     * @return void
      */
-    private function findMarkers()
+    private function findMarkers(): void
     {
         $matches = [];
 
@@ -182,10 +174,8 @@ class Template
      *     not be empty
      * @param mixed $content the marker's content, may be empty
      * @param string $prefix prefix to the marker name (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
      */
-    public function setMarker(string $markerName, $content, string $prefix = '')
+    public function setMarker(string $markerName, $content, string $prefix = ''): void
     {
         $unifiedMarkerName = $this->createMarkerName($markerName, $prefix);
 
@@ -218,14 +208,11 @@ class Template
      * If the prefix is empty and the subpart name is "one", the subpart
      * "###ONE###" will be written.
      *
-     * @param string $subpartName
-     *        the subpart's name without the ### signs, case-insensitive, will get uppercased, must not be empty
+     * @param string $subpartName name without the ### signs, case-insensitive, will get uppercased, must not be empty
      * @param mixed $content the subpart's content, may be empty
      * @param string $prefix prefix to the subpart name (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
      */
-    public function setSubpart(string $subpartName, $content, string $prefix = '')
+    public function setSubpart(string $subpartName, $content, string $prefix = ''): void
     {
         $subpartName = $this->createMarkerNameWithoutHashes(
             $subpartName,
@@ -322,10 +309,8 @@ class Template
      * @param string $subparts comma-separated list of at least 1 subpart name to hide (case-insensitive, will get
      *     uppercased)
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
      */
-    public function hideSubparts(string $subparts, string $prefix = '')
+    public function hideSubparts(string $subparts, string $prefix = ''): void
     {
         $subpartNames = GeneralUtility::trimExplode(',', $subparts, true);
 
@@ -345,10 +330,8 @@ class Template
      *
      * @param string[] $subparts subpart names to hide (may be empty, case-insensitive, will get uppercased)
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
      */
-    public function hideSubpartsArray(array $subparts, string $prefix = '')
+    public function hideSubpartsArray(array $subparts, string $prefix = ''): void
     {
         foreach ($subparts as $currentSubpartName) {
             $fullSubpartName = $this->createMarkerNameWithoutHashes(
@@ -376,21 +359,16 @@ class Template
      * If the prefix is empty and the list is "one,two", the subparts
      * "###ONE###" and "###TWO###" will be unhidden.
      *
-     * @param string $subparts
-     *        comma-separated list of at least 1 subpart name to unhide (case-insensitive, will get uppercased), must
-     *     not be empty
-     * @param string $permanentlyHiddenSubparts
-     *        comma-separated list of subpart names that shouldn't get unhidden
-     * @param string $prefix
-     *        prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
+     * @param string $subparts comma-separated list of subpart names to unhide (case-insensitive, will get uppercased),
+     *        must not be empty
+     * @param string $permanentlyHiddenSubparts comma-separated list of subpart names that shouldn't get unhidden
+     * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
      */
     public function unhideSubparts(
         string $subparts,
         string $permanentlyHiddenSubparts = '',
         string $prefix = ''
-    ) {
+    ): void {
         $subpartNames = GeneralUtility::trimExplode(',', $subparts, true);
 
         $hiddenSubpartNames = GeneralUtility::trimExplode(
@@ -422,14 +400,12 @@ class Template
      * @param string[] $subparts subpart names to unhide (may be empty, case-insensitive, will get uppercased)
      * @param string[] $permanentlyHiddenSubparts subpart names that shouldn't get unhidden
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
-     *
-     * @return void
      */
     public function unhideSubpartsArray(
         array $subparts,
         array $permanentlyHiddenSubparts = [],
         string $prefix = ''
-    ) {
+    ): void {
         foreach ($subparts as $currentSubpartName) {
             // Only unhide the current subpart if it is not on the list of
             // permanently hidden subparts (e.g. by configuration).
@@ -682,7 +658,7 @@ class Template
         $template = $this;
         return preg_replace_callback(
             self::SUBPART_PATTERN,
-            static function (array $matches) use ($template) {
+            static function (array $matches) use ($template): string {
                 return $template->getSubpart($matches[1]);
             },
             $templateCode
@@ -741,10 +717,8 @@ class Template
 
     /**
      * Resets the list of subparts to hide.
-     *
-     * @return void
      */
-    public function resetSubpartsHiding()
+    public function resetSubpartsHiding(): void
     {
         $this->subpartsToHide = [];
     }

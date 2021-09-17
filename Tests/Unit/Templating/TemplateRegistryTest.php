@@ -15,7 +15,7 @@ class TemplateRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceReturnsTemplateRegistryInstance()
+    public function getInstanceReturnsTemplateRegistryInstance(): void
     {
         self::assertInstanceOf(
             TemplateRegistry::class,
@@ -26,7 +26,7 @@ class TemplateRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceTwoTimesReturnsSameInstance()
+    public function getInstanceTwoTimesReturnsSameInstance(): void
     {
         self::assertSame(
             TemplateRegistry::getInstance(),
@@ -37,7 +37,7 @@ class TemplateRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceAfterPurgeInstanceReturnsNewInstance()
+    public function getInstanceAfterPurgeInstanceReturnsNewInstance(): void
     {
         $firstInstance = TemplateRegistry::getInstance();
         TemplateRegistry::purgeInstance();
@@ -53,7 +53,7 @@ class TemplateRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForEmptyTemplateFileNameReturnsTemplateInstance()
+    public function getForEmptyTemplateFileNameReturnsTemplateInstance(): void
     {
         self::assertInstanceOf(
             Template::class,
@@ -64,7 +64,7 @@ class TemplateRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForEmptyTemplateFileNameCalledTwoTimesReturnsNewInstance()
+    public function getForEmptyTemplateFileNameCalledTwoTimesReturnsNewInstance(): void
     {
         self::assertNotSame(
             TemplateRegistry::get(''),
@@ -75,7 +75,7 @@ class TemplateRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForExistingTemplateFileNameReturnsTemplate()
+    public function getForExistingTemplateFileNameReturnsTemplate(): void
     {
         self::assertInstanceOf(
             Template::class,
@@ -86,7 +86,7 @@ class TemplateRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForExistingTemplateFileNameCalledTwoTimesReturnsNewInstance()
+    public function getForExistingTemplateFileNameCalledTwoTimesReturnsNewInstance(): void
     {
         self::assertNotSame(
             TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html'),
@@ -97,7 +97,7 @@ class TemplateRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForExistingTemplateFileNameReturnsProcessedTemplate()
+    public function getForExistingTemplateFileNameReturnsProcessedTemplate(): void
     {
         $template = TemplateRegistry::get('EXT:oelib/Tests/Functional/Fixtures/Template.html');
 

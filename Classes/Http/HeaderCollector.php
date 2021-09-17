@@ -25,10 +25,8 @@ class HeaderCollector implements HeaderProxy
      * Stores a HTTP header which was meant to be sent.
      *
      * @param string $header HTTP header to send, must not be empty
-     *
-     * @return void
      */
-    public function addHeader(string $header)
+    public function addHeader(string $header): void
     {
         $this->headers[] = $header;
     }

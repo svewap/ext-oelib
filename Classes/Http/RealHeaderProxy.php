@@ -18,10 +18,8 @@ class RealHeaderProxy implements HeaderProxy
      * Adds a header.
      *
      * @param string $header HTTP header to send, must not be empty
-     *
-     * @return void
      */
-    public function addHeader(string $header)
+    public function addHeader(string $header): void
     {
         HttpUtility::setResponseCode($header);
     }

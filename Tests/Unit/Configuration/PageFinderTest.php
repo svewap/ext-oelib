@@ -14,7 +14,7 @@ class PageFinderTest extends UnitTestCase
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = PageFinder::getInstance();
     }
@@ -26,7 +26,7 @@ class PageFinderTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceReturnsPageFinderInstance()
+    public function getInstanceReturnsPageFinderInstance(): void
     {
         self::assertInstanceOf(
             PageFinder::class,
@@ -37,7 +37,7 @@ class PageFinderTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceTwoTimesReturnsSameInstance()
+    public function getInstanceTwoTimesReturnsSameInstance(): void
     {
         self::assertSame(
             PageFinder::getInstance(),
@@ -48,7 +48,7 @@ class PageFinderTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceAfterPurgeInstanceReturnsNewInstance()
+    public function getInstanceAfterPurgeInstanceReturnsNewInstance(): void
     {
         $firstInstance = PageFinder::getInstance();
         PageFinder::purgeInstance();
@@ -66,7 +66,7 @@ class PageFinderTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPageUidWithSetPageUidViaSetPageUidReturnsSetPageUid()
+    public function getPageUidWithSetPageUidViaSetPageUidReturnsSetPageUid(): void
     {
         $this->subject->setPageUid(42);
 
@@ -79,7 +79,7 @@ class PageFinderTest extends UnitTestCase
     /**
      * @test
      */
-    public function setPageUidWithZeroGivenThrowsException()
+    public function setPageUidWithZeroGivenThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -94,7 +94,7 @@ class PageFinderTest extends UnitTestCase
     /**
      * @test
      */
-    public function setPageUidWithNegativeNumberGivenThrowsException()
+    public function setPageUidWithNegativeNumberGivenThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class

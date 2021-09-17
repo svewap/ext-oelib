@@ -36,7 +36,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -91,7 +91,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function markTableAsDirtyWillCleanUpNonSystemTable()
+    public function markTableAsDirtyWillCleanUpNonSystemTable(): void
     {
         $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
@@ -110,7 +110,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function markTableAsDirtyWillCleanUpSystemTable()
+    public function markTableAsDirtyWillCleanUpSystemTable(): void
     {
         $this->getDatabaseConnection()->insertArray(
             'pages',
@@ -129,7 +129,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function markTableAsDirtyWillCleanUpAdditionalAllowedTable()
+    public function markTableAsDirtyWillCleanUpAdditionalAllowedTable(): void
     {
         $this->getDatabaseConnection()->insertArray(
             'user_oelibtest_test',
@@ -148,7 +148,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function markTableAsDirtyFailsOnInexistentTable()
+    public function markTableAsDirtyFailsOnInexistentTable(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -162,7 +162,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function markTableAsDirtyFailsOnNotAllowedSystemTable()
+    public function markTableAsDirtyFailsOnNotAllowedSystemTable(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -176,7 +176,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function markTableAsDirtyFailsOnForeignTable()
+    public function markTableAsDirtyFailsOnForeignTable(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -190,7 +190,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function markTableAsDirtyFailsWithEmptyTableName()
+    public function markTableAsDirtyFailsWithEmptyTableName(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -206,7 +206,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecordOnValidTableWithNoData()
+    public function createRecordOnValidTableWithNoData(): void
     {
         self::assertNotSame(
             0,
@@ -217,7 +217,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecordWithValidData()
+    public function createRecordWithValidData(): void
     {
         $title = 'TEST record';
         $uid = $this->subject->createRecord(
@@ -246,7 +246,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecordOnInvalidTable()
+    public function createRecordOnInvalidTable(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -260,7 +260,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecordWithEmptyTableName()
+    public function createRecordWithEmptyTableName(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -274,7 +274,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecordWithUidFails()
+    public function createRecordWithUidFails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -293,7 +293,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function createRecordOnValidAdditionalAllowedTableWithValidDataSucceeds()
+    public function createRecordOnValidAdditionalAllowedTableWithValidDataSucceeds(): void
     {
         $title = 'TEST record';
         $this->subject->createRecord(
@@ -307,7 +307,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecordCanCreateHiddenRecord()
+    public function createRecordCanCreateHiddenRecord(): void
     {
         $uid = $this->subject->createRecord('tx_oelib_test', ['hidden' => 1]);
 
@@ -318,7 +318,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRecordCanCreateDeletedRecord()
+    public function createRecordCanCreateDeletedRecord(): void
     {
         $uid = $this->subject->createRecord('tx_oelib_test', ['deleted' => 1]);
 
@@ -344,7 +344,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @dataProvider booleanDataProvider
      */
-    public function createRecordPersistsBooleansAsIntegers(bool $value)
+    public function createRecordPersistsBooleansAsIntegers(bool $value): void
     {
         $this->subject->createRecord('tx_oelib_test', ['bool_data1' => $value]);
 
@@ -357,7 +357,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function changeRecordWithExistingRecord()
+    public function changeRecordWithExistingRecord(): void
     {
         $uid = $this->subject->createRecord(
             'tx_oelib_test',
@@ -385,7 +385,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function changeRecordFailsOnForeignTable()
+    public function changeRecordFailsOnForeignTable(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -403,7 +403,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function changeRecordFailsOnInexistentTable()
+    public function changeRecordFailsOnInexistentTable(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -421,7 +421,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function changeRecordOnAllowedSystemTableForPages()
+    public function changeRecordOnAllowedSystemTableForPages(): void
     {
         $pid = $this->subject->createFrontEndPage();
 
@@ -440,7 +440,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function changeRecordFailsOnOtherSystemTable()
+    public function changeRecordFailsOnOtherSystemTable(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -460,7 +460,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function changeRecordOnAdditionalAllowedTableSucceeds()
+    public function changeRecordOnAdditionalAllowedTableSucceeds(): void
     {
         $uid = $this->subject->createRecord(
             'user_oelibtest_test',
@@ -477,7 +477,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function changeRecordFailsWithUidZero()
+    public function changeRecordFailsWithUidZero(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -491,7 +491,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function changeRecordFailsWithEmptyData()
+    public function changeRecordFailsWithEmptyData(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -511,7 +511,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function changeRecordFailsWithUidFieldInRecordData()
+    public function changeRecordFailsWithUidFieldInRecordData(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -531,7 +531,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function changeRecordFailsWithDummyRecordFieldInRecordData()
+    public function changeRecordFailsWithDummyRecordFieldInRecordData(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -552,7 +552,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function changeRecordFailsOnInexistentRecord()
+    public function changeRecordFailsOnInexistentRecord(): void
     {
         $uid = $this->subject->createRecord('tx_oelib_test', []);
         $this->expectException(
@@ -576,7 +576,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @dataProvider booleanDataProvider
      */
-    public function changeRecordPersistsBooleansAsIntegers(bool $value)
+    public function changeRecordPersistsBooleansAsIntegers(bool $value): void
     {
         $uid = $this->subject->createRecord('tx_oelib_test');
 
@@ -591,7 +591,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationWithValidData()
+    public function createRelationWithValidData(): void
     {
         $uidLocal = $this->subject->createRecord('tx_oelib_test');
         $uidForeign = $this->subject->createRecord('tx_oelib_test');
@@ -618,7 +618,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function createRelationWithValidDataOnAdditionalAllowedTableSucceeds()
+    public function createRelationWithValidDataOnAdditionalAllowedTableSucceeds(): void
     {
         $uidLocal = $this->subject->createRecord('user_oelibtest_test');
         $uidForeign = $this->subject->createRecord('user_oelibtest_test');
@@ -633,7 +633,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationWithInvalidTable()
+    public function createRelationWithInvalidTable(): void
     {
         $table = 'tx_oelib_test_DOESNOTEXIST_mm';
         $uidLocal = 99999;
@@ -651,7 +651,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationWithEmptyTableName()
+    public function createRelationWithEmptyTableName(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -665,7 +665,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationWithZeroFirstUid()
+    public function createRelationWithZeroFirstUid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$uidLocal must be > 0, but is: 0');
@@ -678,7 +678,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationWithZeroSecondUid()
+    public function createRelationWithZeroSecondUid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$uidForeign must be > 0, but is: 0');
@@ -691,7 +691,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationWithNegativeFirstUid()
+    public function createRelationWithNegativeFirstUid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$uidLocal must be > 0, but is: -1');
@@ -704,7 +704,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationWithNegativeSecondUid()
+    public function createRelationWithNegativeSecondUid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$uidForeign must be > 0, but is: -1');
@@ -717,7 +717,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationWithAutomaticSorting()
+    public function createRelationWithAutomaticSorting(): void
     {
         $uidLocal = $this->subject->createRecord('tx_oelib_test');
         $uidForeign = $this->subject->createRecord('tx_oelib_test');
@@ -750,7 +750,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationAndUpdateCounterIncreasesZeroValueCounterByOne()
+    public function createRelationAndUpdateCounterIncreasesZeroValueCounterByOne(): void
     {
         $firstRecordUid = $this->subject->createRecord('tx_oelib_test');
         $secondRecordUid = $this->subject->createRecord('tx_oelib_test');
@@ -777,7 +777,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationAndUpdateCounterIncreasesNonZeroValueCounterToOne()
+    public function createRelationAndUpdateCounterIncreasesNonZeroValueCounterToOne(): void
     {
         $firstRecordUid = $this->subject->createRecord(
             'tx_oelib_test',
@@ -807,7 +807,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationAndUpdateCounterCreatesRecordInRelationTable()
+    public function createRelationAndUpdateCounterCreatesRecordInRelationTable(): void
     {
         $firstRecordUid = $this->subject->createRecord('tx_oelib_test');
         $secondRecordUid = $this->subject->createRecord('tx_oelib_test');
@@ -833,7 +833,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationAndUpdateCounterWithBidirectionalRelationIncreasesCounter()
+    public function createRelationAndUpdateCounterWithBidirectionalRelationIncreasesCounter(): void
     {
         $firstRecordUid = $this->subject->createRecord('tx_oelib_test');
         $secondRecordUid = $this->subject->createRecord('tx_oelib_test');
@@ -860,7 +860,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationAndUpdateCounterWithBidirectionalRelationIncreasesOppositeFieldCounterInForeignTable()
+    public function createRelationAndUpdateCounterWithBidirectionalIncreasesOppositeFieldCounterInForeignTable(): void
     {
         $firstRecordUid = $this->subject->createRecord('tx_oelib_test');
         $secondRecordUid = $this->subject->createRecord('tx_oelib_test');
@@ -887,7 +887,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createRelationAndUpdateCounterWithBidirectionalRelationCreatesRecordInRelationTable()
+    public function createRelationAndUpdateCounterWithBidirectionalRelationCreatesRecordInRelationTable(): void
     {
         $firstRecordUid = $this->subject->createRecord('tx_oelib_test');
         $secondRecordUid = $this->subject->createRecord('tx_oelib_test');
@@ -916,7 +916,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cleanUpWithRegularCleanUpDeletesTestsRecords()
+    public function cleanUpWithRegularCleanUpDeletesTestsRecords(): void
     {
         // Creates a dummy record (and marks that table as dirty).
         $this->subject->createRecord('tx_oelib_test');
@@ -955,7 +955,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cleanUpDeletesCreatedDummyFile()
+    public function cleanUpDeletesCreatedDummyFile(): void
     {
         $fileName = $this->subject->createDummyFile();
 
@@ -967,7 +967,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cleanUpDeletesCreatedDummyFolder()
+    public function cleanUpDeletesCreatedDummyFolder(): void
     {
         $folderName = $this->subject->createDummyFolder('test_folder');
 
@@ -979,7 +979,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cleanUpDeletesCreatedNestedDummyFolders()
+    public function cleanUpDeletesCreatedNestedDummyFolders(): void
     {
         $outerDummyFolder = $this->subject->createDummyFolder('test_folder');
         $innerDummyFolder = $this->subject->createDummyFolder(
@@ -997,7 +997,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cleanUpDeletesCreatedDummyUploadFolder()
+    public function cleanUpDeletesCreatedDummyUploadFolder(): void
     {
         $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
         $this->subject->createDummyFile();
@@ -1012,7 +1012,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cleanUpWillCleanUpHiddenRecords()
+    public function cleanUpWillCleanUpHiddenRecords(): void
     {
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 1, 'is_dummy_record' => 1]);
         $this->subject->markTableAsDirty('tx_oelib_test');
@@ -1026,7 +1026,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cleanUpWillCleanUpDeletedRecords()
+    public function cleanUpWillCleanUpDeletedRecords(): void
     {
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['deleted' => 1, 'is_dummy_record' => 1]);
         $this->subject->markTableAsDirty('tx_oelib_test');
@@ -1042,7 +1042,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cleanUpWithoutDatabaseWithRegularCleanUpNotDeletesTestsRecords()
+    public function cleanUpWithoutDatabaseWithRegularCleanUpNotDeletesTestsRecords(): void
     {
         // Creates a dummy record (and marks that table as dirty).
         $this->subject->createRecord('tx_oelib_test');
@@ -1074,7 +1074,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAutoIncrementReturnsOneForTruncatedTable()
+    public function getAutoIncrementReturnsOneForTruncatedTable(): void
     {
         self::assertSame(
             1,
@@ -1085,7 +1085,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAutoIncrementGetsCurrentAutoIncrement()
+    public function getAutoIncrementGetsCurrentAutoIncrement(): void
     {
         $uid = $this->subject->createRecord('tx_oelib_test');
 
@@ -1102,7 +1102,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function getAutoIncrementForAllowedTableIsAllowed()
+    public function getAutoIncrementForAllowedTableIsAllowed(): void
     {
         $this->subject->getAutoIncrement('fe_users');
         $this->subject->getAutoIncrement('pages');
@@ -1116,7 +1116,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAutoIncrementWithOtherSystemTableFails()
+    public function getAutoIncrementWithOtherSystemTableFails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1130,7 +1130,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAutoIncrementForSysCategoryRecordMmFails()
+    public function getAutoIncrementForSysCategoryRecordMmFails(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -1140,7 +1140,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAutoIncrementWithEmptyTableNameFails()
+    public function getAutoIncrementWithEmptyTableNameFails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1154,7 +1154,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAutoIncrementWithForeignTableFails()
+    public function getAutoIncrementWithForeignTableFails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1168,7 +1168,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAutoIncrementWithInexistentTableFails()
+    public function getAutoIncrementWithInexistentTableFails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1182,7 +1182,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAutoIncrementWithTableWithoutUidFails()
+    public function getAutoIncrementWithTableWithoutUidFails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1200,7 +1200,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function countWithEmptyOrMissingWhereClauseIsAllowed()
+    public function countWithEmptyOrMissingWhereClauseIsAllowed(): void
     {
         $this->subject->count('tx_oelib_test', []);
         $this->subject->count('tx_oelib_test');
@@ -1209,7 +1209,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function countWithEmptyTableNameThrowsException()
+    public function countWithEmptyTableNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -1222,7 +1222,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function countWithInvalidTableNameThrowsException()
+    public function countWithInvalidTableNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -1238,7 +1238,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function countWithAllowedTableIsAllowed()
+    public function countWithAllowedTableIsAllowed(): void
     {
         $this->subject->count('fe_groups');
         $this->subject->count('fe_users');
@@ -1254,7 +1254,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function countWithOtherTableThrowsException()
+    public function countWithOtherTableThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -1267,7 +1267,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function countReturnsZeroForNoMatches()
+    public function countReturnsZeroForNoMatches(): void
     {
         self::assertSame(
             0,
@@ -1278,7 +1278,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function countReturnsOneForOneDummyRecordMatch()
+    public function countReturnsOneForOneDummyRecordMatch(): void
     {
         $this->subject->createRecord(
             'tx_oelib_test',
@@ -1294,7 +1294,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function countWithMissingWhereClauseReturnsOneForOneDummyRecordMatch()
+    public function countWithMissingWhereClauseReturnsOneForOneDummyRecordMatch(): void
     {
         $this->subject->createRecord(
             'tx_oelib_test',
@@ -1310,7 +1310,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function countReturnsTwoForTwoMatches()
+    public function countReturnsTwoForTwoMatches(): void
     {
         $this->subject->createRecord(
             'tx_oelib_test',
@@ -1330,7 +1330,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function countIgnoresNonDummyRecords()
+    public function countIgnoresNonDummyRecords(): void
     {
         $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
@@ -1348,7 +1348,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function countCanFindHiddenRecord()
+    public function countCanFindHiddenRecord(): void
     {
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 1, 'is_dummy_record' => 1]);
 
@@ -1358,7 +1358,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function countCanFindDeletedRecord()
+    public function countCanFindDeletedRecord(): void
     {
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['deleted' => 1, 'is_dummy_record' => 1]);
 
@@ -1372,7 +1372,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @dataProvider booleanDataProvider
      */
-    public function countCanFindWithBooleanValues(bool $value)
+    public function countCanFindWithBooleanValues(bool $value): void
     {
         $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
@@ -1389,7 +1389,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function existsRecordWithUidWithZeroUidThrowsException()
+    public function existsRecordWithUidWithZeroUidThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1404,7 +1404,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function existsRecordWithUidWithNegativeUidThrowsException()
+    public function existsRecordWithUidWithNegativeUidThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1419,7 +1419,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function existsRecordWithUidWithEmptyTableNameThrowsException()
+    public function existsRecordWithUidWithEmptyTableNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -1429,7 +1429,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function existsRecordWithUidWithInvalidTableNameThrowsException()
+    public function existsRecordWithUidWithInvalidTableNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The given table name is not in the list of allowed tables.');
@@ -1441,7 +1441,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function existsRecordWithUidForNoMatchReturnsFalse()
+    public function existsRecordWithUidForNoMatchReturnsFalse(): void
     {
         $uid = $this->subject->createRecord('tx_oelib_test');
         $this->getDatabaseConnection()->delete('tx_oelib_test', ['uid' => $uid]);
@@ -1457,7 +1457,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function existsRecordWithUidForMatchReturnsTrue()
+    public function existsRecordWithUidForMatchReturnsTrue(): void
     {
         $uid = $this->subject->createRecord('tx_oelib_test');
 
@@ -1469,7 +1469,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function existsRecordWithUidIgnoresNonDummyRecords()
+    public function existsRecordWithUidIgnoresNonDummyRecords(): void
     {
         $this->getDatabaseConnection()->insertArray(
             'tx_oelib_test',
@@ -1492,7 +1492,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function resetAutoIncrementForTestTableSucceeds()
+    public function resetAutoIncrementForTestTableSucceeds(): void
     {
         $this->subject->resetAutoIncrement('tx_oelib_test');
 
@@ -1511,7 +1511,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function resetAutoIncrementForUnchangedTestTableCanBeRun()
+    public function resetAutoIncrementForUnchangedTestTableCanBeRun(): void
     {
         $this->subject->resetAutoIncrement('tx_oelib_test');
     }
@@ -1521,7 +1521,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function resetAutoIncrementForAdditionalAllowedTableSucceeds()
+    public function resetAutoIncrementForAdditionalAllowedTableSucceeds(): void
     {
         // Creates and deletes a record and then resets the auto increment.
         $latestUid = $this->subject->createRecord('user_oelibtest_test');
@@ -1534,7 +1534,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function resetAutoIncrementForTableWithoutUidIsAllowed()
+    public function resetAutoIncrementForTableWithoutUidIsAllowed(): void
     {
         $this->subject->resetAutoIncrement('tx_oelib_test_article_mm');
     }
@@ -1544,7 +1544,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function resetAutoIncrementForAllowedTableIsAllowed()
+    public function resetAutoIncrementForAllowedTableIsAllowed(): void
     {
         $this->subject->resetAutoIncrement('fe_users');
         $this->subject->resetAutoIncrement('pages');
@@ -1559,7 +1559,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function resetAutoIncrementWithOtherSystemTableFails()
+    public function resetAutoIncrementWithOtherSystemTableFails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1574,7 +1574,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function resetAutoIncrementWithEmptyTableNameFails()
+    public function resetAutoIncrementWithEmptyTableNameFails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1589,7 +1589,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function resetAutoIncrementWithForeignTableFails()
+    public function resetAutoIncrementWithForeignTableFails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1604,7 +1604,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function resetAutoIncrementWithInexistentTableFails()
+    public function resetAutoIncrementWithInexistentTableFails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1623,7 +1623,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function setResetAutoIncrementThresholdForOneAndOndHundredIsAllowed()
+    public function setResetAutoIncrementThresholdForOneAndOndHundredIsAllowed(): void
     {
         $this->subject->setResetAutoIncrementThreshold(1);
         $this->subject->setResetAutoIncrementThreshold(100);
@@ -1632,7 +1632,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function setResetAutoIncrementThresholdForZeroFails()
+    public function setResetAutoIncrementThresholdForZeroFails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1647,7 +1647,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function setResetAutoIncrementThresholdForMinus1Fails()
+    public function setResetAutoIncrementThresholdForMinus1Fails(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1664,7 +1664,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndPageCanBeCreated()
+    public function frontEndPageCanBeCreated(): void
     {
         $uid = $this->subject->createFrontEndPage();
 
@@ -1682,7 +1682,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFrontEndPageSetsCorrectDocumentType()
+    public function createFrontEndPageSetsCorrectDocumentType(): void
     {
         $uid = $this->subject->createFrontEndPage();
 
@@ -1706,7 +1706,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndPageWillBeCreatedOnRootPage()
+    public function frontEndPageWillBeCreatedOnRootPage(): void
     {
         $uid = $this->subject->createFrontEndPage();
 
@@ -1730,7 +1730,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndPageWillBeCleanedUp()
+    public function frontEndPageWillBeCleanedUp(): void
     {
         $uid = $this->subject->createFrontEndPage();
         self::assertNotSame(
@@ -1748,7 +1748,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndPageHasNoTitleByDefault()
+    public function frontEndPageHasNoTitleByDefault(): void
     {
         $uid = $this->subject->createFrontEndPage();
 
@@ -1769,7 +1769,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function systemFolderCanBeCreated()
+    public function systemFolderCanBeCreated(): void
     {
         $uid = $this->subject->createSystemFolder();
 
@@ -1787,7 +1787,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createSystemFolderSetsCorrectDocumentType()
+    public function createSystemFolderSetsCorrectDocumentType(): void
     {
         $uid = $this->subject->createSystemFolder();
 
@@ -1811,7 +1811,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function systemFolderWillBeCreatedOnRootPage()
+    public function systemFolderWillBeCreatedOnRootPage(): void
     {
         $uid = $this->subject->createSystemFolder();
 
@@ -1835,7 +1835,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function systemFolderCanBeCreatedOnOtherPage()
+    public function systemFolderCanBeCreatedOnOtherPage(): void
     {
         $parent = $this->subject->createSystemFolder();
         $uid = $this->subject->createSystemFolder($parent);
@@ -1860,7 +1860,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function systemFolderWillBeCleanedUp()
+    public function systemFolderWillBeCleanedUp(): void
     {
         $uid = $this->subject->createSystemFolder();
         self::assertNotSame(
@@ -1878,7 +1878,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function systemFolderHasNoTitleByDefault()
+    public function systemFolderHasNoTitleByDefault(): void
     {
         $uid = $this->subject->createSystemFolder();
 
@@ -1899,7 +1899,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function templateCanBeCreatedOnNonRootPage()
+    public function templateCanBeCreatedOnNonRootPage(): void
     {
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate($pageId);
@@ -1918,7 +1918,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function templateCannotBeCreatedOnRootPage()
+    public function templateCannotBeCreatedOnRootPage(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1933,7 +1933,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function templateCannotBeCreatedWithNegativePageNumber()
+    public function templateCannotBeCreatedWithNegativePageNumber(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -1948,7 +1948,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function templateWillBeCleanedUp()
+    public function templateWillBeCleanedUp(): void
     {
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate($pageId);
@@ -1967,7 +1967,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function templateInitiallyHasNoConfig()
+    public function templateInitiallyHasNoConfig(): void
     {
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate($pageId);
@@ -1985,7 +1985,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function templateCanHaveConfig()
+    public function templateCanHaveConfig(): void
     {
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate(
@@ -2007,7 +2007,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function templateConfigIsReadableAsTsTemplate()
+    public function templateConfigIsReadableAsTsTemplate(): void
     {
         $pageId = $this->subject->createFrontEndPage();
         $this->subject->createTemplate(
@@ -2028,7 +2028,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function templateInitiallyHasNoConstants()
+    public function templateInitiallyHasNoConstants(): void
     {
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate($pageId);
@@ -2046,7 +2046,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function templateCanHaveConstants()
+    public function templateCanHaveConstants(): void
     {
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate(
@@ -2068,7 +2068,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function templateConstantsAreUsedInTsSetup()
+    public function templateConstantsAreUsedInTsSetup(): void
     {
         $pageId = $this->subject->createFrontEndPage();
         $this->subject->createTemplate(
@@ -2094,7 +2094,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserGroupCanBeCreated()
+    public function frontEndUserGroupCanBeCreated(): void
     {
         $uid = $this->subject->createFrontEndUserGroup();
 
@@ -2112,7 +2112,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserGroupTableWillBeCleanedUp()
+    public function frontEndUserGroupTableWillBeCleanedUp(): void
     {
         $uid = $this->subject->createFrontEndUserGroup();
         self::assertNotSame(
@@ -2130,7 +2130,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserGroupHasNoTitleByDefault()
+    public function frontEndUserGroupHasNoTitleByDefault(): void
     {
         $uid = $this->subject->createFrontEndUserGroup();
 
@@ -2149,7 +2149,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserGroupCanHaveTitle()
+    public function frontEndUserGroupCanHaveTitle(): void
     {
         $uid = $this->subject->createFrontEndUserGroup(
             ['title' => 'Test title']
@@ -2172,7 +2172,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserCanBeCreated()
+    public function frontEndUserCanBeCreated(): void
     {
         $uid = $this->subject->createFrontEndUser();
 
@@ -2190,7 +2190,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserTableWillBeCleanedUp()
+    public function frontEndUserTableWillBeCleanedUp(): void
     {
         $uid = $this->subject->createFrontEndUser();
         self::assertNotSame(
@@ -2208,7 +2208,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserHasNoUserNameByDefault()
+    public function frontEndUserHasNoUserNameByDefault(): void
     {
         $uid = $this->subject->createFrontEndUser();
 
@@ -2227,7 +2227,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserCanHaveUserName()
+    public function frontEndUserCanHaveUserName(): void
     {
         $uid = $this->subject->createFrontEndUser(
             '',
@@ -2249,7 +2249,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserCanHaveSeveralUserGroups()
+    public function frontEndUserCanHaveSeveralUserGroups(): void
     {
         $feUserGroupUidOne = $this->subject->createFrontEndUserGroup();
         $feUserGroupUidTwo = $this->subject->createFrontEndUserGroup();
@@ -2272,7 +2272,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserMustHaveNoZeroUid()
+    public function frontEndUserMustHaveNoZeroUid(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -2287,7 +2287,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserMustHaveNoNonZeroUid()
+    public function frontEndUserMustHaveNoNonZeroUid(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -2302,7 +2302,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserMustHaveNoZeroUserGroupInTheDataArray()
+    public function frontEndUserMustHaveNoZeroUserGroupInTheDataArray(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -2317,7 +2317,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserMustHaveNoNonZeroUserGroupInTheDataArray()
+    public function frontEndUserMustHaveNoNonZeroUserGroupInTheDataArray(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -2332,7 +2332,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserMustHaveNoUserGroupListInTheDataArray()
+    public function frontEndUserMustHaveNoUserGroupListInTheDataArray(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -2350,7 +2350,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFrontEndUserWithEmptyGroupCreatesGroup()
+    public function createFrontEndUserWithEmptyGroupCreatesGroup(): void
     {
         $this->subject->createFrontEndUser('');
 
@@ -2361,7 +2361,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserMustHaveNoZeroUserGroupEvenIfSeveralGroupsAreProvided()
+    public function frontEndUserMustHaveNoZeroUserGroupEvenIfSeveralGroupsAreProvided(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -2382,7 +2382,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndUserMustHaveNoAlphabeticalCharactersInTheUserGroupList()
+    public function frontEndUserMustHaveNoAlphabeticalCharactersInTheUserGroupList(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -2403,7 +2403,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createBackEndUserReturnsUidGreaterZero()
+    public function createBackEndUserReturnsUidGreaterZero(): void
     {
         self::assertNotSame(
             0,
@@ -2414,7 +2414,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createBackEndUserCreatesBackEndUserRecordInTheDatabase()
+    public function createBackEndUserCreatesBackEndUserRecordInTheDatabase(): void
     {
         self::assertSame(
             1,
@@ -2429,7 +2429,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function cleanUpCleansUpDirtyBackEndUserTable()
+    public function cleanUpCleansUpDirtyBackEndUserTable(): void
     {
         $uid = $this->subject->createBackEndUser();
 
@@ -2443,7 +2443,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createBackEndUserCreatesRecordWithoutUserNameByDefault()
+    public function createBackEndUserCreatesRecordWithoutUserNameByDefault(): void
     {
         $uid = $this->subject->createBackEndUser();
 
@@ -2458,7 +2458,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createBackEndUserForUserNameProvidedCreatesRecordWithUserName()
+    public function createBackEndUserForUserNameProvidedCreatesRecordWithUserName(): void
     {
         $uid = $this->subject->createBackEndUser(['username' => 'Test name']);
 
@@ -2475,7 +2475,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndCreatesGlobalFrontEnd()
+    public function createFakeFrontEndCreatesGlobalFrontEnd(): void
     {
         $GLOBALS['TSFE'] = null;
         $this->subject->createFrontEndPage();
@@ -2487,7 +2487,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndReturnsPositivePageUidIfCalledWithoutParameters()
+    public function createFakeFrontEndReturnsPositivePageUidIfCalledWithoutParameters(): void
     {
         $this->subject->createFrontEndPage();
         self::assertGreaterThan(
@@ -2499,7 +2499,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndReturnsCurrentFrontEndPageUid()
+    public function createFakeFrontEndReturnsCurrentFrontEndPageUid(): void
     {
         $GLOBALS['TSFE'] = null;
         $this->subject->createFrontEndPage();
@@ -2514,7 +2514,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndCreatesSysPage()
+    public function createFakeFrontEndCreatesSysPage(): void
     {
         $GLOBALS['TSFE'] = null;
         $this->subject->createFrontEndPage();
@@ -2526,7 +2526,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndCreatesFrontEndUser()
+    public function createFakeFrontEndCreatesFrontEndUser(): void
     {
         $GLOBALS['TSFE'] = null;
         $this->subject->createFrontEndPage();
@@ -2541,7 +2541,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndCreatesContentObjectRenderer()
+    public function createFakeFrontEndCreatesContentObjectRenderer(): void
     {
         $GLOBALS['TSFE'] = null;
         $this->subject->createFrontEndPage();
@@ -2553,7 +2553,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndCreatesTemplate()
+    public function createFakeFrontEndCreatesTemplate(): void
     {
         $GLOBALS['TSFE'] = null;
         $this->subject->createFrontEndPage();
@@ -2565,7 +2565,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndReadsTypoScriptSetupFromPage()
+    public function createFakeFrontEndReadsTypoScriptSetupFromPage(): void
     {
         $pageUid = $this->subject->createFrontEndPage();
         $this->subject->createTemplate(
@@ -2584,7 +2584,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndWithTemplateRecordMarksTemplateAsLoaded()
+    public function createFakeFrontEndWithTemplateRecordMarksTemplateAsLoaded(): void
     {
         $pageUid = $this->subject->createFrontEndPage();
         $this->subject->createTemplate(
@@ -2600,7 +2600,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndCreatesConfiguration()
+    public function createFakeFrontEndCreatesConfiguration(): void
     {
         $GLOBALS['TSFE'] = null;
         $this->subject->createFrontEndPage();
@@ -2612,7 +2612,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function loginUserIsFalseAfterCreateFakeFrontEnd()
+    public function loginUserIsFalseAfterCreateFakeFrontEnd(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2625,7 +2625,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndSetsDefaultGroupList()
+    public function createFakeFrontEndSetsDefaultGroupList(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2638,7 +2638,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndReturnsProvidedPageUid()
+    public function createFakeFrontEndReturnsProvidedPageUid(): void
     {
         $pageUid = $this->subject->createFrontEndPage();
 
@@ -2651,7 +2651,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndUsesProvidedPageUidAsFrontEndId()
+    public function createFakeFrontEndUsesProvidedPageUidAsFrontEndId(): void
     {
         $pageUid = $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd($pageUid);
@@ -2667,7 +2667,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function isLoggedInInitiallyIsFalse()
+    public function isLoggedInInitiallyIsFalse(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2678,7 +2678,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function logoutFrontEndUserAfterLoginSwitchesLoginManagerToNotLoggedIn()
+    public function logoutFrontEndUserAfterLoginSwitchesLoginManagerToNotLoggedIn(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2692,7 +2692,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function logoutFrontEndUserSetsLoginUserToFalse()
+    public function logoutFrontEndUserSetsLoginUserToFalse(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2709,7 +2709,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function logoutFrontEndUserCanBeCalledTwoTimes()
+    public function logoutFrontEndUserCanBeCalledTwoTimes(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2721,7 +2721,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createAndLoginFrontEndUserCreatesFrontEndUser()
+    public function createAndLoginFrontEndUserCreatesFrontEndUser(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2736,7 +2736,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createAndLoginFrontEndUserWithRecordDataCreatesFrontEndUserWithThatData()
+    public function createAndLoginFrontEndUserWithRecordDataCreatesFrontEndUserWithThatData(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2754,7 +2754,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createAndLoginFrontEndUserLogsInFrontEndUser()
+    public function createAndLoginFrontEndUserLogsInFrontEndUser(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2766,7 +2766,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createAndLoginFrontEndUserWithFrontEndUserGroupCreatesFrontEndUser()
+    public function createAndLoginFrontEndUserWithFrontEndUserGroupCreatesFrontEndUser(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2782,7 +2782,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createAndLoginFrontEndUserWithFrontEndUserGroupCreatesFrontEndUserWithGivenGroup()
+    public function createAndLoginFrontEndUserWithFrontEndUserGroupCreatesFrontEndUserWithGivenGroup(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2806,7 +2806,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createAndLoginFrontEndUserWithFrontEndUserGroupDoesNotCreateFrontEndUserGroup()
+    public function createAndLoginFrontEndUserWithFrontEndUserGroupDoesNotCreateFrontEndUserGroup(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2824,7 +2824,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createAndLoginFrontEndUserWithFrontEndUserGroupLogsInFrontEndUser()
+    public function createAndLoginFrontEndUserWithFrontEndUserGroupLogsInFrontEndUser(): void
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
@@ -2837,7 +2837,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getDummyColumnNameForExtensionTableReturnsDummyColumnName()
+    public function getDummyColumnNameForExtensionTableReturnsDummyColumnName(): void
     {
         self::assertSame(
             'is_dummy_record',
@@ -2848,7 +2848,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getDummyColumnNameForSystemTableReturnsOelibPrefixedColumnName()
+    public function getDummyColumnNameForSystemTableReturnsOelibPrefixedColumnName(): void
     {
         self::assertSame(
             'tx_oelib_is_dummy_record',
@@ -2859,7 +2859,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getDummyColumnNameForThirdPartyExtensionTableReturnsPrefixedColumnName()
+    public function getDummyColumnNameForThirdPartyExtensionTableReturnsPrefixedColumnName(): void
     {
         $testingFramework = new TestingFramework(
             'user_oelibtest',

@@ -14,7 +14,7 @@ class LanguageTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new Language();
     }
@@ -26,7 +26,7 @@ class LanguageTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLocalNameReturnsLocalNameOfGerman()
+    public function getLocalNameReturnsLocalNameOfGerman(): void
     {
         $this->subject->setData(['lg_name_local' => 'Deutsch']);
 
@@ -39,7 +39,7 @@ class LanguageTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLocalNameReturnsLocalNameOfEnglish()
+    public function getLocalNameReturnsLocalNameOfEnglish(): void
     {
         $this->subject->setData(['lg_name_local' => 'English']);
 
@@ -56,7 +56,7 @@ class LanguageTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfGerman()
+    public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfGerman(): void
     {
         $this->subject->setData(['lg_iso_2' => 'DE']);
 
@@ -69,7 +69,7 @@ class LanguageTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfEnglish()
+    public function getIsoAlpha2CodeReturnsIsoAlpha2CodeOfEnglish(): void
     {
         $this->subject->setData(['lg_iso_2' => 'EN']);
 
@@ -86,7 +86,7 @@ class LanguageTest extends UnitTestCase
     /**
      * @test
      */
-    public function isReadOnlyIsTrue()
+    public function isReadOnlyIsTrue(): void
     {
         self::assertTrue(
             $this->subject->isReadOnly()

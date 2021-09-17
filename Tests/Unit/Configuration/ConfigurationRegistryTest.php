@@ -19,7 +19,7 @@ class ConfigurationRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceReturnsConfigurationRegistryInstance()
+    public function getInstanceReturnsConfigurationRegistryInstance(): void
     {
         self::assertInstanceOf(ConfigurationRegistry::class, ConfigurationRegistry::getInstance());
     }
@@ -27,7 +27,7 @@ class ConfigurationRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceTwoTimesReturnsSameInstance()
+    public function getInstanceTwoTimesReturnsSameInstance(): void
     {
         self::assertSame(
             ConfigurationRegistry::getInstance(),
@@ -38,7 +38,7 @@ class ConfigurationRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceAfterPurgeInstanceReturnsNewInstance()
+    public function getInstanceAfterPurgeInstanceReturnsNewInstance(): void
     {
         $firstInstance = ConfigurationRegistry::getInstance();
         ConfigurationRegistry::purgeInstance();
@@ -54,7 +54,7 @@ class ConfigurationRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForEmptyNamespaceThrowsException()
+    public function getForEmptyNamespaceThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -69,7 +69,7 @@ class ConfigurationRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function setWithEmptyNamespaceThrowsException()
+    public function setWithEmptyNamespaceThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -87,7 +87,7 @@ class ConfigurationRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAfterSetWithTypoScriptConfigurationReturnsTheSetInstance()
+    public function getAfterSetWithTypoScriptConfigurationReturnsTheSetInstance(): void
     {
         $configuration = new TypoScriptConfiguration();
 
@@ -99,7 +99,7 @@ class ConfigurationRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAfterSetWithDummyConfigurationReturnsTheSetInstance()
+    public function getAfterSetWithDummyConfigurationReturnsTheSetInstance(): void
     {
         $configuration = new DummyConfiguration();
 
@@ -113,7 +113,7 @@ class ConfigurationRegistryTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function setTwoTimesForTheSameNamespaceDoesNotFail()
+    public function setTwoTimesForTheSameNamespaceDoesNotFail(): void
     {
         ConfigurationRegistry::getInstance()->set(
             'foo',

@@ -56,10 +56,8 @@ class FrontEndLoginManager implements LoginManager
     /**
      * Purges the current instance so that getInstance will create a new
      * instance.
-     *
-     * @return void
      */
-    public static function purgeInstance()
+    public static function purgeInstance(): void
     {
         self::$instance = null;
     }
@@ -96,7 +94,7 @@ class FrontEndLoginManager implements LoginManager
      *
      * @throws \InvalidArgumentException
      */
-    public function getLoggedInUser(string $mapperName = FrontEndUserMapper::class)
+    public function getLoggedInUser(string $mapperName = FrontEndUserMapper::class): ?FrontEndUser
     {
         // @phpstan-ignore-next-line We explicitly check for contract violations here.
         if ($mapperName === '') {
@@ -123,20 +121,16 @@ class FrontEndLoginManager implements LoginManager
      * This function is intended to be used for unit test only. Don't use it in the production code.
      *
      * @param FrontEndUser|null $user the user to log in, set to NULL for no logged-in user
-     *
-     * @return void
      */
-    public function logInUser(FrontEndUser $user = null)
+    public function logInUser(FrontEndUser $user = null): void
     {
         $this->loggedInUser = $user;
     }
 
     /**
      * Returns the current front-end instance.
-     *
-     * @return TypoScriptFrontendController|null
      */
-    protected function getFrontEndController()
+    protected function getFrontEndController(): ?TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'] ?? null;
     }

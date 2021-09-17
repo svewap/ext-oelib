@@ -6,16 +6,6 @@ parameters:
 			path: Classes/Templating/TemplateHelper.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Model\\\\\\\\Fixtures\\\\\\\\TestingModel' and OliverKlee\\\\Oelib\\\\Model\\\\BackEndUser\\|null will always evaluate to false\\.$#"
-			count: 1
-			path: Tests/Functional/Authentication/BackEndLoginManagerTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Model\\\\\\\\Fixtures\\\\\\\\TestingModel' and OliverKlee\\\\Oelib\\\\Model\\\\FrontEndUser\\|null will always evaluate to false\\.$#"
-			count: 1
-			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with int and string will always evaluate to false\\.$#"
 			count: 1
 			path: Tests/Functional/Testing/TestingFrameworkTest.php

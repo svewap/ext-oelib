@@ -18,7 +18,7 @@ class GermanZipCodeRepositoryTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var ObjectManagerInterface&ProphecySubjectInterface $objectManagerStub */
         $objectManagerStub = $this->prophesize(ObjectManagerInterface::class)->reveal();
@@ -28,7 +28,7 @@ class GermanZipCodeRepositoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function isRepository()
+    public function isRepository(): void
     {
         self::assertInstanceOf(Repository::class, $this->subject);
     }
@@ -36,7 +36,7 @@ class GermanZipCodeRepositoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function addThrowsException()
+    public function addThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
 
@@ -46,7 +46,7 @@ class GermanZipCodeRepositoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function removeThrowsException()
+    public function removeThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
 
@@ -56,7 +56,7 @@ class GermanZipCodeRepositoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function updateThrowsException()
+    public function updateThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
 
@@ -66,7 +66,7 @@ class GermanZipCodeRepositoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function removeAllThrowsException()
+    public function removeAllThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
 

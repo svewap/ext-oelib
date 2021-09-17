@@ -40,10 +40,8 @@ class ParentModel extends AbstractEntity
 
     /**
      * @param ObjectStorage<ParentModel> $children
-     *
-     * @return void
      */
-    public function setChildren(ObjectStorage $children)
+    public function setChildren(ObjectStorage $children): void
     {
         $this->children = $children;
     }

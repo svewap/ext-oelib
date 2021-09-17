@@ -64,13 +64,10 @@ class BackEndUser extends AbstractModel implements MailRole
     /**
      * Sets this user's default language.
      *
-     * @param string $language
-     *        this user's language key, must be a two-letter "lg_typo3" key of
+     * @param string $language this user's language key, must be a two-letter "lg_typo3" key of
      *        the "static_languages" table or "default" for the default language
-     *
-     * @return void
      */
-    public function setDefaultLanguage(string $language)
+    public function setDefaultLanguage(string $language): void
     {
         if ($language === '') {
             throw new \InvalidArgumentException('$language must not be empty.', 1331488621);

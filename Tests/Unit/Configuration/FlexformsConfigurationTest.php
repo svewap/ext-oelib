@@ -40,7 +40,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function implementsConfigurationInterface()
+    public function implementsConfigurationInterface(): void
     {
         $subject = new FlexformsConfiguration(new ContentObjectRenderer());
 
@@ -50,7 +50,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function isReadOnlyObjectWithPublicAccessors()
+    public function isReadOnlyObjectWithPublicAccessors(): void
     {
         $subject = new FlexformsConfiguration(new ContentObjectRenderer());
 
@@ -76,8 +76,10 @@ final class FlexformsConfigurationTest extends UnitTestCase
     /**
      * @test
      * @dataProvider noFlexformsDataDataProvider
+     *
+     * @param array<array<string, string|null>> $contentObjectData
      */
-    public function getAsStringForNoFlexformsDataReturnsEmptyString(array $contentObjectData)
+    public function getAsStringForNoFlexformsDataReturnsEmptyString(array $contentObjectData): void
     {
         $contentObject = new ContentObjectRenderer();
         $contentObject->data = $contentObjectData;
@@ -89,8 +91,10 @@ final class FlexformsConfigurationTest extends UnitTestCase
     /**
      * @test
      * @dataProvider noFlexformsDataDataProvider
+     *
+     * @param array<array<string, string|null>> $contentObjectData
      */
-    public function getAsIntegerForNoFlexformsDataReturnsZero(array $contentObjectData)
+    public function getAsIntegerForNoFlexformsDataReturnsZero(array $contentObjectData): void
     {
         $contentObject = new ContentObjectRenderer();
         $contentObject->data = $contentObjectData;
@@ -102,8 +106,10 @@ final class FlexformsConfigurationTest extends UnitTestCase
     /**
      * @test
      * @dataProvider noFlexformsDataDataProvider
+     *
+     * @param array<array<string, string|null>> $contentObjectData
      */
-    public function getAsBooleanForNoFlexformsDataReturnsFalse(array $contentObjectData)
+    public function getAsBooleanForNoFlexformsDataReturnsFalse(array $contentObjectData): void
     {
         $contentObject = new ContentObjectRenderer();
         $contentObject->data = $contentObjectData;
@@ -139,7 +145,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
      * @param array<string, string> $contentObjectData
      * @dataProvider noFieldsDataDataProvider
      */
-    public function getAsStringForMissingFieldReturnsEmptyString(array $contentObjectData)
+    public function getAsStringForMissingFieldReturnsEmptyString(array $contentObjectData): void
     {
         $contentObject = new ContentObjectRenderer();
         $contentObject->data = $contentObjectData;
@@ -154,7 +160,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
      * @param array<string, string> $contentObjectData
      * @dataProvider noFieldsDataDataProvider
      */
-    public function getAsIntegerForMissingFieldReturnsZero(array $contentObjectData)
+    public function getAsIntegerForMissingFieldReturnsZero(array $contentObjectData): void
     {
         $contentObject = new ContentObjectRenderer();
         $contentObject->data = $contentObjectData;
@@ -169,7 +175,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
      * @param array<string, string> $contentObjectData
      * @dataProvider noFieldsDataDataProvider
      */
-    public function getAsBooleanForMissingFieldReturnsFalse(array $contentObjectData)
+    public function getAsBooleanForMissingFieldReturnsFalse(array $contentObjectData): void
     {
         $contentObject = new ContentObjectRenderer();
         $contentObject->data = $contentObjectData;
@@ -209,7 +215,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
      * @param array<string, string> $contentObjectData
      * @dataProvider emptyFieldDataDataProvider
      */
-    public function getAsStringForEmptyFieldReturnsEmptyString(array $contentObjectData)
+    public function getAsStringForEmptyFieldReturnsEmptyString(array $contentObjectData): void
     {
         $contentObject = new ContentObjectRenderer();
         $contentObject->data = $contentObjectData;
@@ -224,7 +230,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
      * @param array<string, string> $contentObjectData
      * @dataProvider emptyFieldDataDataProvider
      */
-    public function getAsIntegerForEmptyFieldReturnsZero(array $contentObjectData)
+    public function getAsIntegerForEmptyFieldReturnsZero(array $contentObjectData): void
     {
         $contentObject = new ContentObjectRenderer();
         $contentObject->data = $contentObjectData;
@@ -239,7 +245,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
      * @param array<string, string> $contentObjectData
      * @dataProvider emptyFieldDataDataProvider
      */
-    public function getAsBooleanForEmptyFieldReturnsFalse(array $contentObjectData)
+    public function getAsBooleanForEmptyFieldReturnsFalse(array $contentObjectData): void
     {
         $contentObject = new ContentObjectRenderer();
         $contentObject->data = $contentObjectData;
@@ -251,7 +257,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringForExistingNonEmptyFieldReturnsValueFromField()
+    public function getAsStringForExistingNonEmptyFieldReturnsValueFromField(): void
     {
         $key = 'flavor';
         $value = 'hazelnut';
@@ -263,7 +269,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsIntegerForExistingNonEmptyFieldReturnsValueFromField()
+    public function getAsIntegerForExistingNonEmptyFieldReturnsValueFromField(): void
     {
         $key = 'size';
         $value = 4;
@@ -275,7 +281,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsBooleanForExistingNonEmptyFieldReturnsValueFromField()
+    public function getAsBooleanForExistingNonEmptyFieldReturnsValueFromField(): void
     {
         $key = 'hasCats';
         $subject = new FlexformsConfiguration($this->buildContentObjectWithFlexformsData($key, '1'));

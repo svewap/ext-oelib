@@ -22,7 +22,7 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -35,7 +35,7 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function mapsAllModelFields()
+    public function mapsAllModelFields(): void
     {
         /** @var GermanZipCode $result */
         $result = $this->subject->findByUid(9000);
@@ -50,7 +50,7 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findOneByZipCodeWithMatchReturnsMatch()
+    public function findOneByZipCodeWithMatchReturnsMatch(): void
     {
         $zipCode = '01067';
         /** @var GermanZipCode $result */
@@ -64,7 +64,7 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findOneByZipCodeWithMatchCalledTwoTimesReturnsTheSameModel()
+    public function findOneByZipCodeWithMatchCalledTwoTimesReturnsTheSameModel(): void
     {
         $zipCode = '01067';
         $firstResult = $this->subject->findOneByZipCode($zipCode);
@@ -94,7 +94,7 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
      *
      * @dataProvider nonMatchedZipCodesDataProvider
      */
-    public function findOneByZipCodeWithoutMatchReturnsNull(string $zipCode)
+    public function findOneByZipCodeWithoutMatchReturnsNull(string $zipCode): void
     {
         $result = $this->subject->findOneByZipCode($zipCode);
 

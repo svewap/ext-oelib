@@ -78,11 +78,9 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
      *
      * This method is mainly intended to be used in testing.
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
      */
-    public static function setInstance(string $extensionKey, ConfigurationInterface $configuration)
+    public static function setInstance(string $extensionKey, ConfigurationInterface $configuration): void
     {
         if ($extensionKey === '') {
             throw new \InvalidArgumentException('The extension key must not be empty.', 1612091700);
@@ -93,10 +91,8 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
 
     /**
      * Purges the current instances so that getInstance will create new instances.
-     *
-     * @return void
      */
-    public static function purgeInstances()
+    public static function purgeInstances(): void
     {
         self::$instances = [];
     }
@@ -104,10 +100,8 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
     /**
      * Loads the EM configuration for the extension key passed via
      * getInstance() if the configuration is not yet loaded.
-     *
-     * @return void
      */
-    private function loadConfigurationLazily()
+    private function loadConfigurationLazily(): void
     {
         if (!$this->isConfigurationLoaded) {
             $this->retrieveConfiguration();
@@ -120,10 +114,8 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
      *
      * This function is accessible for testing purposes. As lazy implementation
      * is used, this function might be useful to ensure static test conditions.
-     *
-     * @return void
      */
-    public function retrieveConfiguration()
+    public function retrieveConfiguration(): void
     {
         if ($this->hasNewConfigurationFormat()) {
             $this->configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)
@@ -156,8 +148,7 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
     /**
      * Returns a string configuration value.
      *
-     * @param string $key
-     *        key of the value to get, must not be empty
+     * @param string $key key of the value to get, must not be empty
      *
      * @return mixed configuration value string, might be empty
      */
@@ -179,14 +170,12 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
      *
      * The configuration setters are intended to be used for testing purposes only.
      *
-     * @param string $key
      *        key of the value to set, must not be empty
+     *
      * @param mixed $value
      *        the value to set
-     *
-     * @return void
      */
-    protected function set($key, $value)
+    protected function set(string $key, $value): void
     {
         $this->loadConfigurationLazily();
 

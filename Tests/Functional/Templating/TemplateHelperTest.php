@@ -23,7 +23,7 @@ class TemplateHelperTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -46,7 +46,7 @@ class TemplateHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function noSubpartsAndEmptySubpartName()
+    public function noSubpartsAndEmptySubpartName(): void
     {
         self::assertSame(
             '',
@@ -61,7 +61,7 @@ class TemplateHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function notExistingSubpartName()
+    public function notExistingSubpartName(): void
     {
         self::assertSame(
             '',
@@ -80,7 +80,7 @@ class TemplateHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getCompleteTemplateReturnsCompleteTemplateContent()
+    public function getCompleteTemplateReturnsCompleteTemplateContent(): void
     {
         $templateCode = "This is a test including\na linefeed.\n";
         $this->subject->processTemplate(
@@ -103,7 +103,7 @@ class TemplateHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function setNewSubpartNotEmptyGetSubpart()
+    public function setNewSubpartNotEmptyGetSubpart(): void
     {
         $this->subject->processTemplate(
             'Some text.'
@@ -126,7 +126,7 @@ class TemplateHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function subpartWithLowercaseNameIsIgnoredWithUsingLowercase()
+    public function subpartWithLowercaseNameIsIgnoredWithUsingLowercase(): void
     {
         $this->subject->processTemplate(
             '<!-- ###my_subpart### -->'
@@ -146,7 +146,7 @@ class TemplateHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function subpartWithLowercaseNameIsIgnoredWithUsingUppercase()
+    public function subpartWithLowercaseNameIsIgnoredWithUsingUppercase(): void
     {
         $this->subject->processTemplate(
             '<!-- ###my_subpart### -->'
@@ -168,7 +168,7 @@ class TemplateHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function pageSetupInitiallyIsEmpty()
+    public function pageSetupInitiallyIsEmpty(): void
     {
         self::assertSame(
             [],

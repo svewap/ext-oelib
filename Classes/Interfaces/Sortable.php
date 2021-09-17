@@ -24,8 +24,6 @@ interface Sortable
      * This is the sorting as used in the back end.
      *
      * @param int $sorting the sorting value of this object, must be >= 0
-     *
-     * @return void
      */
-    public function setSorting(int $sorting);
+    public function setSorting(int $sorting): void;
 }

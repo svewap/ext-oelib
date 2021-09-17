@@ -17,16 +17,15 @@ interface Geo
      * @return string this object's address formatted for a geo lookup,
      *                will be empty if this object has no address
      */
-    public function getGeoAddress();
+    public function getGeoAddress(): string;
 
     /**
      * Checks whether this object has a non-empty address suitable for a geo
      * lookup.
      *
-     * @return bool TRUE if this object has a non-empty address, FALSE
-     *                 otherwise
+     * @return bool TRUE if this object has a non-empty address, FALSE otherwise
      */
-    public function hasGeoAddress();
+    public function hasGeoAddress(): bool;
 
     /**
      * Retrieves this object's coordinates.
@@ -35,7 +34,7 @@ interface Geo
      *         this object's geo coordinates using the keys "latitude" and
      *         "longitude", will be empty if this object has no coordinates
      */
-    public function getGeoCoordinates();
+    public function getGeoCoordinates(): array;
 
     /**
      * Sets this object's coordinates.
@@ -43,10 +42,8 @@ interface Geo
      * @param array<string, float> $coordinates
      *        the coordinates, using the keys "latitude" and "longitude",
      *        the array values must not be empty
-     *
-     * @return void
      */
-    public function setGeoCoordinates(array $coordinates);
+    public function setGeoCoordinates(array $coordinates): void;
 
     /**
      * Checks whether this object has non-empty coordinates.
@@ -54,17 +51,15 @@ interface Geo
      * @return bool TRUE if this object has both a non-empty longitude and
      *                 a non-empty latitude, FALSE otherwise
      */
-    public function hasGeoCoordinates();
+    public function hasGeoCoordinates(): bool;
 
     /**
      * Purges this object's geo coordinates.
      *
      * Note: Calling this function has no influence on this object's geo error
      * status.
-     *
-     * @return void
      */
-    public function clearGeoCoordinates();
+    public function clearGeoCoordinates(): void;
 
     /**
      * Checks whether there has been a problem with this object's geo
@@ -75,21 +70,15 @@ interface Geo
      *
      * @return bool TRUE if there has been an error, FALSE otherwise
      */
-    public function hasGeoError();
+    public function hasGeoError(): bool;
 
     /**
      * Marks this object as having an error with the geo coordinates.
-     *
-     * @param string $reason
-     *
-     * @return void
      */
-    public function setGeoError($reason = '');
+    public function setGeoError(string $reason = ''): void;
 
     /**
      * Marks this object as not having an error with the geo coordinates.
-     *
-     * @return void
      */
-    public function clearGeoError();
+    public function clearGeoError(): void;
 }

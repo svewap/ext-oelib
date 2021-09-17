@@ -23,7 +23,7 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new TestingMapper();
     }
@@ -35,7 +35,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function instantiationOfSubclassWithEmptyTableNameThrowsException()
+    public function instantiationOfSubclassWithEmptyTableNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -45,7 +45,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function instantiationOfSubclassWithEmptyColumnListThrowsException()
+    public function instantiationOfSubclassWithEmptyColumnListThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -55,7 +55,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function instantiationOfSubclassWithEmptyModelNameThrowsException()
+    public function instantiationOfSubclassWithEmptyModelNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -69,7 +69,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getModelWithArrayWithoutUidElementProvidedThrowsException()
+    public function getModelWithArrayWithoutUidElementProvidedThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -86,7 +86,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function loadWithModelWithoutUidThrowsException()
+    public function loadWithModelWithoutUidThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -102,7 +102,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function reloadForTestingOnlyGhostThrowsException()
+    public function reloadForTestingOnlyGhostThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -113,7 +113,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function reloadForModelWithoutUidThrowsException()
+    public function reloadForModelWithoutUidThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -128,7 +128,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findInitiallyReturnsGhostModel()
+    public function findInitiallyReturnsGhostModel(): void
     {
         $uid = 42;
 
@@ -144,7 +144,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findWithZeroUidThrowsException()
+    public function findWithZeroUidThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -159,7 +159,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findWithNegativeUidThrowsException()
+    public function findWithNegativeUidThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -174,7 +174,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findWithUidOfCachedModelReturnsThatModel()
+    public function findWithUidOfCachedModelReturnsThatModel(): void
     {
         $model = new TestingModel();
         $model->setUid(1);
@@ -192,7 +192,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findWithUidReturnsModelWithThatUid()
+    public function findWithUidReturnsModelWithThatUid(): void
     {
         $uid = 42;
 
@@ -205,7 +205,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findWithUidCalledTwoTimesReturnsSameModel()
+    public function findWithUidCalledTwoTimesReturnsSameModel(): void
     {
         $uid = 42;
 
@@ -222,7 +222,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNewGhostReturnsModel()
+    public function getNewGhostReturnsModel(): void
     {
         self::assertInstanceOf(AbstractModel::class, $this->subject->getNewGhost());
     }
@@ -230,7 +230,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNewGhostReturnsModelSpecificToTheMapper()
+    public function getNewGhostReturnsModelSpecificToTheMapper(): void
     {
         $result = $this->subject->getNewGhost();
 
@@ -240,7 +240,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNewGhostReturnsGhost()
+    public function getNewGhostReturnsGhost(): void
     {
         self::assertTrue(
             $this->subject->getNewGhost()->isGhost()
@@ -250,7 +250,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNewGhostReturnsModelWithUid()
+    public function getNewGhostReturnsModelWithUid(): void
     {
         self::assertTrue(
             $this->subject->getNewGhost()->hasUid()
@@ -260,7 +260,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNewGhostCreatesRegisteredModel()
+    public function getNewGhostCreatesRegisteredModel(): void
     {
         $ghost = $this->subject->getNewGhost();
 
@@ -273,7 +273,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function loadingAGhostCreatedWithGetNewGhostThrowsException()
+    public function loadingAGhostCreatedWithGetNewGhostThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -293,7 +293,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasDatabaseAccessInitiallyReturnsTrue()
+    public function hasDatabaseAccessInitiallyReturnsTrue(): void
     {
         self::assertTrue(
             $this->subject->hasDatabaseAccess()
@@ -303,7 +303,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasDatabaseAccessAfterDisableDatabaseAccessReturnsFalse()
+    public function hasDatabaseAccessAfterDisableDatabaseAccessReturnsFalse(): void
     {
         $this->subject->disableDatabaseAccess();
 
@@ -315,7 +315,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findSingleByWhereClauseAndDatabaseAccessDisabledThrowsException()
+    public function findSingleByWhereClauseAndDatabaseAccessDisabledThrowsException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(
@@ -334,7 +334,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findSingleByWhereClauseWithEmptyWhereClausePartsThrowsException()
+    public function findSingleByWhereClauseWithEmptyWhereClausePartsThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -353,7 +353,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findOneByKeyFromCacheForEmptyKeyThrowsException()
+    public function findOneByKeyFromCacheForEmptyKeyThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -368,7 +368,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findOneByKeyFromCacheForInexistentKeyThrowsException()
+    public function findOneByKeyFromCacheForInexistentKeyThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -383,7 +383,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findOneByKeyFromCacheForEmptyValueThrowsException()
+    public function findOneByKeyFromCacheForEmptyValueThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -398,7 +398,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findOneByKeyFromCacheForModelNotInCacheThrowsException()
+    public function findOneByKeyFromCacheForModelNotInCacheThrowsException(): void
     {
         $this->expectException(NotFoundException::class);
 
@@ -408,7 +408,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findOneByKeyForEmptyKeyThrowsException()
+    public function findOneByKeyForEmptyKeyThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -423,7 +423,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findOneByKeyForInexistentKeyThrowsException()
+    public function findOneByKeyForInexistentKeyThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -438,7 +438,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findOneByKeyForEmptyValueThrowsException()
+    public function findOneByKeyForEmptyValueThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -455,7 +455,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findOneByCompoundKeyFromCacheForEmptyCompoundKeyThrowsException()
+    public function findOneByCompoundKeyFromCacheForEmptyCompoundKeyThrowsException(): void
     {
         $this->expectException(NotFoundException::class);
 
@@ -465,7 +465,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findOneByCompoundKeyFromCacheForEmptyValueThrowsException()
+    public function findOneByCompoundKeyFromCacheForEmptyValueThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -475,7 +475,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findOneByCompoundKeyFromCacheForModelNotInCacheThrowsException()
+    public function findOneByCompoundKeyFromCacheForModelNotInCacheThrowsException(): void
     {
         $this->expectException(NotFoundException::class);
 
@@ -485,7 +485,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findOneByCompoundKeyForEmptyCompoundKeyThrowsException()
+    public function findOneByCompoundKeyForEmptyCompoundKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -499,7 +499,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findAllByRelationWithModelWithoutUidThrowsException()
+    public function findAllByRelationWithModelWithoutUidThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -516,7 +516,7 @@ class AbstractDataMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTableNameReturnsTableName()
+    public function getTableNameReturnsTableName(): void
     {
         self::assertSame(
             'tx_oelib_test',

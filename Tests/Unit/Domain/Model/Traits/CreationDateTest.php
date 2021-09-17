@@ -15,7 +15,7 @@ class CreationDateTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new CreatedModel();
     }
@@ -23,7 +23,7 @@ class CreationDateTest extends UnitTestCase
     /**
      * @test
      */
-    public function implementsCreationDate()
+    public function implementsCreationDate(): void
     {
         self::assertInstanceOf(CreationDate::class, $this->subject);
     }
@@ -31,7 +31,7 @@ class CreationDateTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCreationDateInitiallyReturnsNull()
+    public function getCreationDateInitiallyReturnsNull(): void
     {
         self::assertNull($this->subject->getCreationDate());
     }
@@ -39,7 +39,7 @@ class CreationDateTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCreationDateSetsCreationDate()
+    public function setCreationDateSetsCreationDate(): void
     {
         $date = new \DateTime();
         $this->subject->setCreationDate($date);

@@ -20,12 +20,7 @@ class GermanZipCodeRepository extends Repository
      */
     protected $cachedResults = [];
 
-    /**
-     * @param string $zipCode
-     *
-     * @return GermanZipCode|null
-     */
-    public function findOneByZipCode(string $zipCode)
+    public function findOneByZipCode(string $zipCode): ?GermanZipCode
     {
         if (!\preg_match('/^\\d{5}$/', $zipCode)) {
             return null;

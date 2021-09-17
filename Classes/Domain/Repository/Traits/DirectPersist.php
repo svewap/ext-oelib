@@ -14,10 +14,8 @@ trait DirectPersist
 {
     /**
      * Persists all added or updated models.
-     *
-     * @return void
      */
-    public function persistAll()
+    public function persistAll(): void
     {
         $this->persistenceManager->persistAll();
     }

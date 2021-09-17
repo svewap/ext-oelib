@@ -46,10 +46,8 @@ trait CachedAssociationCount
      * Flushes the internal relation count cache for the given property.
      *
      * @param string $propertyName the name of the relation (plural, lower camelCase)
-     *
-     * @return void
      */
-    protected function flushRelationCountCache(string $propertyName)
+    protected function flushRelationCountCache(string $propertyName): void
     {
         unset($this->cachedRelationCountsCount[$propertyName]);
     }

@@ -30,10 +30,7 @@ class FlexformsConfiguration extends AbstractReadOnlyObjectWithPublicAccessors i
         $this->parseXmlIntoDocument($flexFormsXml);
     }
 
-    /**
-     * @return void
-     */
-    private function parseXmlIntoDocument(string $flexFormsXml)
+    private function parseXmlIntoDocument(string $flexFormsXml): void
     {
         $document = new \DOMDocument();
         $libXmlState = \libxml_use_internal_errors(true);

@@ -15,7 +15,7 @@ class PageRepositoryTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new PageRepository();
     }
@@ -23,7 +23,7 @@ class PageRepositoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function isSingleton()
+    public function isSingleton(): void
     {
         self::assertInstanceOf(SingletonInterface::class, $this->subject);
     }

@@ -42,12 +42,7 @@ class GermanZipCode extends AbstractEntity implements Geo
         return $this->zipCode;
     }
 
-    /**
-     * @param string $zipCode
-     *
-     * @return void
-     */
-    public function setZipCode(string $zipCode)
+    public function setZipCode(string $zipCode): void
     {
         $this->zipCode = $zipCode;
     }
@@ -60,12 +55,7 @@ class GermanZipCode extends AbstractEntity implements Geo
         return $this->cityName;
     }
 
-    /**
-     * @param string $cityName
-     *
-     * @return void
-     */
-    public function setCityName(string $cityName)
+    public function setCityName(string $cityName): void
     {
         $this->cityName = $cityName;
     }
@@ -91,12 +81,7 @@ class GermanZipCode extends AbstractEntity implements Geo
         return $this->longitude;
     }
 
-    /**
-     * @param float $longitude
-     *
-     * @return void
-     */
-    public function setLongitude(float $longitude)
+    public function setLongitude(float $longitude): void
     {
         $this->longitude = $longitude;
     }
@@ -109,12 +94,7 @@ class GermanZipCode extends AbstractEntity implements Geo
         return $this->latitude;
     }
 
-    /**
-     * @param float $latitude
-     *
-     * @return void
-     */
-    public function setLatitude(float $latitude)
+    public function setLatitude(float $latitude): void
     {
         $this->latitude = $latitude;
     }
@@ -148,11 +128,9 @@ class GermanZipCode extends AbstractEntity implements Geo
      *
      * @param array<string, float> $coordinates
      *
-     * @return void
-     *
      * @throws \BadMethodCallException
      */
-    public function setGeoCoordinates(array $coordinates)
+    public function setGeoCoordinates(array $coordinates): void
     {
         throw new \BadMethodCallException('This method must not be called.', 1542211338);
     }
@@ -169,10 +147,8 @@ class GermanZipCode extends AbstractEntity implements Geo
 
     /**
      * This method must not be called.
-     *
-     * @return void
      */
-    public function clearGeoCoordinates()
+    public function clearGeoCoordinates(): void
     {
         throw new \BadMethodCallException('This method must not be called.', 1542211386);
     }
@@ -191,20 +167,16 @@ class GermanZipCode extends AbstractEntity implements Geo
      * This method must not be called.
      *
      * @param string $reason
-     *
-     * @return void
      */
-    public function setGeoError($reason = '')
+    public function setGeoError($reason = ''): void
     {
         throw new \BadMethodCallException('This method must not be called.', 1542211438);
     }
 
     /**
      * This method must not be called.
-     *
-     * @return void
      */
-    public function clearGeoError()
+    public function clearGeoError(): void
     {
         throw new \BadMethodCallException('This method must not be called.', 1542211447);
     }

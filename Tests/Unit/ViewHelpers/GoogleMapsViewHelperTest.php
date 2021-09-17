@@ -35,7 +35,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     private $mockFrontEnd = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -60,7 +60,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $this->subject = new GoogleMapsViewHelper();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         ConfigurationRegistry::purgeInstance();
         parent::tearDown();
@@ -70,7 +70,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function twoMapsAfterRenderingHaveDifferentMapIds()
+    public function twoMapsAfterRenderingHaveDifferentMapIds(): void
     {
         $map1 = new GoogleMapsViewHelper();
         $map1->render([$this->mapPointWithCoordinates]);
@@ -83,7 +83,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForEmptyMapPointsReturnsEmptyString()
+    public function renderForEmptyMapPointsReturnsEmptyString(): void
     {
         self::assertSame('', $this->subject->render([]));
     }
@@ -91,7 +91,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithoutCoordinatesReturnsEmptyString()
+    public function renderForElementWithoutCoordinatesReturnsEmptyString(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -103,7 +103,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithoutCoordinatesNotSetsAdditionalHeaderData()
+    public function renderForElementWithoutCoordinatesNotSetsAdditionalHeaderData(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -117,7 +117,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderReturnsDivWithIdWithGeneralMapId()
+    public function renderReturnsDivWithIdWithGeneralMapId(): void
     {
         self::assertStringContainsString(
             '<div id="' . GoogleMapsViewHelper::MAP_HTML_ID_PREFIX,
@@ -128,7 +128,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderReturnsDivWithIdWithSpecificMapId()
+    public function renderReturnsDivWithIdWithSpecificMapId(): void
     {
         $result = $this->subject->render([$this->mapPointWithCoordinates]);
 
@@ -138,7 +138,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderWithoutWidthAndWithoutHeightReturnsStyleWithDefaultWidth()
+    public function renderWithoutWidthAndWithoutHeightReturnsStyleWithDefaultWidth(): void
     {
         self::assertStringContainsString(
             'width: 600px;',
@@ -149,7 +149,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderWithoutWidthAndWithoutHeightReturnsStyleWithDefaultHeight()
+    public function renderWithoutWidthAndWithoutHeightReturnsStyleWithDefaultHeight(): void
     {
         self::assertStringContainsString('height: 400px;', $this->subject->render([$this->mapPointWithCoordinates]));
     }
@@ -157,7 +157,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderWithEmptyWidthThrowsException()
+    public function renderWithEmptyWidthThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -167,7 +167,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderWithInvalidWidthThrowsException()
+    public function renderWithInvalidWidthThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -177,7 +177,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderWithEmptyHeightThrowsException()
+    public function renderWithEmptyHeightThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -187,7 +187,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderWithInvalidHeightThrowsException()
+    public function renderWithInvalidHeightThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -199,7 +199,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      *
      * @doesNotPerformAssertions
      */
-    public function renderWithWithAndHeightInPixelsNotThrowsException()
+    public function renderWithWithAndHeightInPixelsNotThrowsException(): void
     {
         $this->subject->render([$this->mapPointWithCoordinates], '42px', '91px');
     }
@@ -209,7 +209,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      *
      * @doesNotPerformAssertions
      */
-    public function renderWithWithAndHeightInPercentNotThrowsException()
+    public function renderWithWithAndHeightInPercentNotThrowsException(): void
     {
         $this->subject->render([$this->mapPointWithCoordinates], '42%', '91%');
     }
@@ -217,7 +217,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderReturnsStyleWithGivenWidth()
+    public function renderReturnsStyleWithGivenWidth(): void
     {
         self::assertStringContainsString(
             'width: 142px;',
@@ -228,7 +228,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderReturnsStyleWithGivenHeight()
+    public function renderReturnsStyleWithGivenHeight(): void
     {
         self::assertStringContainsString(
             'height: 99px;',
@@ -239,7 +239,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderIncludesGoogleMapsLibraryInHeader()
+    public function renderIncludesGoogleMapsLibraryInHeader(): void
     {
         $apiKey = 'iugo7t4adasfdsq3ewrdsxc';
         $this->configuration->setAsString('googleMapsApiKey', $apiKey);
@@ -255,7 +255,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderIncludesJavaScriptInHeader()
+    public function renderIncludesJavaScriptInHeader(): void
     {
         $this->subject->render([$this->mapPointWithCoordinates]);
 
@@ -265,7 +265,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderIncludesJavaScriptWithGoogleMapInitializationInHeader()
+    public function renderIncludesJavaScriptWithGoogleMapInitializationInHeader(): void
     {
         $this->subject->render([$this->mapPointWithCoordinates]);
 
@@ -278,7 +278,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderReturnsInitializationCallWithMapNumber()
+    public function renderReturnsInitializationCallWithMapNumber(): void
     {
         self::assertRegExp(
             '/initializeGoogleMap_\\d+/',
@@ -289,7 +289,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForMapPointsOfNonMapPointClassThrowsException()
+    public function renderForMapPointsOfNonMapPointClassThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -302,7 +302,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithCoordinatesCreatesMapMarker()
+    public function renderForElementWithCoordinatesCreatesMapMarker(): void
     {
         $this->subject->render([$this->mapPointWithCoordinates]);
 
@@ -315,7 +315,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithCoordinatesCreatesMapPointCoordinates()
+    public function renderForElementWithCoordinatesCreatesMapPointCoordinates(): void
     {
         $this->subject->render([$this->mapPointWithCoordinates]);
 
@@ -328,7 +328,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithCoordinatesWithoutIdentityNotCreatesUidProperty()
+    public function renderForElementWithCoordinatesWithoutIdentityNotCreatesUidProperty(): void
     {
         $this->subject->render([$this->mapPointWithCoordinates]);
 
@@ -341,7 +341,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithCoordinatesWithIdentityWithoutUidNotCreatesUidProperty()
+    public function renderForElementWithCoordinatesWithIdentityWithoutUidNotCreatesUidProperty(): void
     {
         $mapPoint = new TestingMapPoint();
         $mapPoint->setUid(0);
@@ -356,7 +356,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithCoordinatesWithIdentityWithUidCreatesUidPropertyWithUid()
+    public function renderForElementWithCoordinatesWithIdentityWithUidCreatesUidPropertyWithUid(): void
     {
         $uid = 42;
         $mapPoint = new TestingMapPoint();
@@ -372,7 +372,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithCoordinatesWithoutIdentityNotCreatesEntryInMapMarkersByUid()
+    public function renderForElementWithCoordinatesWithoutIdentityNotCreatesEntryInMapMarkersByUid(): void
     {
         $this->subject->render([$this->mapPointWithCoordinates]);
 
@@ -385,7 +385,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithCoordinatesWithIdentityWithoutUidNotCreatesEntryInMapMarkersByUid()
+    public function renderForElementWithCoordinatesWithIdentityWithoutUidNotCreatesEntryInMapMarkersByUid(): void
     {
         $mapPoint = new TestingMapPoint();
         $mapPoint->setUid(0);
@@ -400,7 +400,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithCoordinatesWithIdentityWithUidCreatesEntryInMapMarkersByUid()
+    public function renderForElementWithCoordinatesWithIdentityWithUidCreatesEntryInMapMarkersByUid(): void
     {
         $uid = 42;
         $mapPoint = new TestingMapPoint();
@@ -416,7 +416,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForOneElementWithCoordinatesUsesMapPointCoordinatesAsCenter()
+    public function renderForOneElementWithCoordinatesUsesMapPointCoordinatesAsCenter(): void
     {
         $this->subject->render([$this->mapPointWithCoordinates]);
 
@@ -429,7 +429,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForTwoElementWithCoordinatesUsesFirstMapPointCoordinatesAsCenter()
+    public function renderForTwoElementWithCoordinatesUsesFirstMapPointCoordinatesAsCenter(): void
     {
         /** @var MapPoint&MockObject $mapPoint1 */
         $mapPoint1 = $this->createMock(MapPoint::class);
@@ -453,7 +453,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForTwoElementsWithCoordinatesCreatesTwoMapMarkers()
+    public function renderForTwoElementsWithCoordinatesCreatesTwoMapMarkers(): void
     {
         /** @var MapPoint&MockObject $mapPoint1 */
         $mapPoint1 = $this->createMock(MapPoint::class);
@@ -480,7 +480,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForTwoElementsWithCoordinatesExtendsBoundsTwoTimes()
+    public function renderForTwoElementsWithCoordinatesExtendsBoundsTwoTimes(): void
     {
         /** @var MapPoint&MockObject $mapPoint1 */
         $mapPoint1 = $this->createMock(MapPoint::class);
@@ -506,7 +506,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForTwoElementsWithCoordinatesFitsMapToBounds()
+    public function renderForTwoElementsWithCoordinatesFitsMapToBounds(): void
     {
         /** @var MapPoint&MockObject $mapPoint1 */
         $mapPoint1 = $this->createMock(MapPoint::class);
@@ -529,7 +529,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithTitleCreatesTitle()
+    public function renderForElementWithTitleCreatesTitle(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -549,7 +549,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithTitleEscapesQuotesInTitle()
+    public function renderForElementWithTitleEscapesQuotesInTitle(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -569,7 +569,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithTitleEscapesLinefeedInTitle()
+    public function renderForElementWithTitleEscapesLinefeedInTitle(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -589,7 +589,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithTitleEscapesCarriageReturnsInTitle()
+    public function renderForElementWithTitleEscapesCarriageReturnsInTitle(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -609,7 +609,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithTitleEscapesBackslashesInTitle()
+    public function renderForElementWithTitleEscapesBackslashesInTitle(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -629,7 +629,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithoutTitleNotCreatesTitle()
+    public function renderForElementWithoutTitleNotCreatesTitle(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -648,7 +648,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithInfoWindowContentCreatesInfoWindow()
+    public function renderForElementWithInfoWindowContentCreatesInfoWindow(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -668,7 +668,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithInfoWindowContentEscapesQuotesInInfoWindowContent()
+    public function renderForElementWithInfoWindowContentEscapesQuotesInInfoWindowContent(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -688,7 +688,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithInfoWindowContentEscapesLinefeedInInfoWindowContent()
+    public function renderForElementWithInfoWindowContentEscapesLinefeedInInfoWindowContent(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -708,7 +708,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithInfoWindowContentEscapesCarriageReturnInInfoWindowContent()
+    public function renderForElementWithInfoWindowContentEscapesCarriageReturnInInfoWindowContent(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -728,7 +728,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithInfoWindowContentEscapesBackslashesInInfoWindowContent()
+    public function renderForElementWithInfoWindowContentEscapesBackslashesInInfoWindowContent(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
@@ -748,7 +748,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForElementWithoutInfoWindowContentNotCreatesInfoWindow()
+    public function renderForElementWithoutInfoWindowContentNotCreatesInfoWindow(): void
     {
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);

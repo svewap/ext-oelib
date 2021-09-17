@@ -14,7 +14,7 @@ class FakeSessionTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new FakeSession();
     }
@@ -26,7 +26,7 @@ class FakeSessionTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function fakeSessionCanBeInstantiatedDirectly()
+    public function fakeSessionCanBeInstantiatedDirectly(): void
     {
         new FakeSession();
     }
@@ -36,7 +36,7 @@ class FakeSessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringWithInexistentKeyReturnsEmptyString()
+    public function getAsStringWithInexistentKeyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
@@ -47,7 +47,7 @@ class FakeSessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringReturnsNonEmptyStringSetViaSetAsString()
+    public function getAsStringReturnsNonEmptyStringSetViaSetAsString(): void
     {
         $this->subject->setAsString('foo', 'bar');
 
@@ -60,7 +60,7 @@ class FakeSessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringReturnsEmptyStringSetViaSetAsString()
+    public function getAsStringReturnsEmptyStringSetViaSetAsString(): void
     {
         $this->subject->setAsString('foo', '');
 

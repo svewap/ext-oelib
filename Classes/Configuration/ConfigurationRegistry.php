@@ -36,12 +36,10 @@ class ConfigurationRegistry
     /**
      * Destructs a configuration for a given namespace and drops the reference to it.
      *
-     * @param string $namespace
-     *        the namespace of the configuration to drop, must not be empty, must have been set in this registry
-     *
-     * @return void
+     * @param string $namespace the namespace of the configuration to drop, must not be empty,
+     *        must have been set in this registry
      */
-    private function dropConfiguration(string $namespace)
+    private function dropConfiguration(string $namespace): void
     {
         unset($this->configurations[$namespace]);
     }
@@ -63,10 +61,8 @@ class ConfigurationRegistry
     /**
      * Purges the current instance so that getInstance will create a new
      * instance.
-     *
-     * @return void
      */
-    public static function purgeInstance()
+    public static function purgeInstance(): void
     {
         self::$instance = null;
     }
@@ -108,13 +104,9 @@ class ConfigurationRegistry
     /**
      * Sets a configuration for a certain namespace.
      *
-     * @param string $namespace
-     *        the namespace of the configuration to set, must not be empty
-     * @param ConfigurationInterface $configuration
-     *
-     * @return void
+     * @param string $namespace the namespace of the configuration to set, must not be empty
      */
-    public function set(string $namespace, ConfigurationInterface $configuration)
+    public function set(string $namespace, ConfigurationInterface $configuration): void
     {
         $this->checkForNonEmptyNamespace($namespace);
 
@@ -128,13 +120,9 @@ class ConfigurationRegistry
     /**
      * Checks that $namespace is non-empty.
      *
-     * @param string $namespace
-     *
-     * @return void
-     *
      * @throws \InvalidArgumentException if $namespace is empty
      */
-    private function checkForNonEmptyNamespace(string $namespace)
+    private function checkForNonEmptyNamespace(string $namespace): void
     {
         if ($namespace === '') {
             throw new \InvalidArgumentException('$namespace must not be empty.', 1331318549);
@@ -216,10 +204,7 @@ class ConfigurationRegistry
             && $frontEndController->tmpl instanceof TemplateService && $frontEndController->tmpl->loaded;
     }
 
-    /**
-     * @return TypoScriptFrontendController|null
-     */
-    protected function getFrontEndController()
+    protected function getFrontEndController(): ?TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'] ?? null;
     }

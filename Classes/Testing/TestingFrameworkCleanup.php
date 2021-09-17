@@ -22,10 +22,8 @@ class TestingFrameworkCleanup
 {
     /**
      * Cleans up oelib after running a test.
-     *
-     * @return void
      */
-    public function cleanUp()
+    public function cleanUp(): void
     {
         BackEndLoginManager::purgeInstance();
         ConfigurationProxy::purgeInstances();

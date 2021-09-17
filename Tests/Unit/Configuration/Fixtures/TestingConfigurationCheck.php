@@ -18,28 +18,19 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
      */
     private $checkMethod = '';
 
-    /**
-     * @return void
-     */
-    public function setCheckMethod(string $method)
+    public function setCheckMethod(string $method): void
     {
         $this->checkMethod = $method;
     }
 
-    /**
-     * @return void
-     */
-    public function generateDummyWarnings(int $numberOfWarnings)
+    public function generateDummyWarnings(int $numberOfWarnings): void
     {
         for ($i = 1; $i <= $numberOfWarnings; $i++) {
             $this->addWarning("This is warning #{$i}");
         }
     }
 
-    /**
-     * @return void
-     */
-    public function generateWarningWithText(string $warningText)
+    public function generateWarningWithText(string $warningText): void
     {
         $this->addWarning($warningText);
     }
@@ -49,11 +40,9 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
      *
      * This method does not reset any existing configuration check warnings.
      *
-     * @return void
-     *
      * @throws \BadMethodCallException
      */
-    protected function checkAllConfigurationValues()
+    protected function checkAllConfigurationValues(): void
     {
         switch ($this->checkMethod) {
             case 'checkStaticIncluded':

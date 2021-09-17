@@ -26,13 +26,13 @@ class ConfigurationRegistryTest extends FunctionalTestCase
      */
     private $testingFramework = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->testingFramework = new TestingFramework('tx_oelib');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->testingFramework->cleanUpWithoutDatabase();
         parent::tearDown();
@@ -45,7 +45,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getForNonEmptyNamespaceReturnsConfigurationInstance()
+    public function getForNonEmptyNamespaceReturnsConfigurationInstance(): void
     {
         PageFinder::getInstance()->setPageUid(
             $this->testingFramework->createFrontEndPage()
@@ -60,7 +60,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getForTheSameNamespaceCalledTwoTimesReturnsTheSameInstance()
+    public function getForTheSameNamespaceCalledTwoTimesReturnsTheSameInstance(): void
     {
         PageFinder::getInstance()->setPageUid(
             $this->testingFramework->createFrontEndPage()
@@ -79,7 +79,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getReturnsDataFromTypoScriptSetupFromManuallySetPage()
+    public function getReturnsDataFromTypoScriptSetupFromManuallySetPage(): void
     {
         $pageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createTemplate(
@@ -99,7 +99,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getReturnsDataFromTypoScriptSetupFromBackEndPage()
+    public function getReturnsDataFromTypoScriptSetupFromBackEndPage(): void
     {
         $pageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createTemplate(
@@ -124,7 +124,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getReturnsDataFromTypoScriptSetupFromFrontEndPage()
+    public function getReturnsDataFromTypoScriptSetupFromFrontEndPage(): void
     {
         $pageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createTemplate(
@@ -147,7 +147,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function readsDataFromTypoScriptSetupEvenForFrontEndWithoutLoadedTemplate()
+    public function readsDataFromTypoScriptSetupEvenForFrontEndWithoutLoadedTemplate(): void
     {
         $pageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createTemplate(
@@ -176,7 +176,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAfterSetReturnsManuallySetConfigurationEvenIfThereIsAPage()
+    public function getAfterSetReturnsManuallySetConfigurationEvenIfThereIsAPage(): void
     {
         $pageUid = $this->testingFramework->createFrontEndPage();
         $this->testingFramework->createTemplate(

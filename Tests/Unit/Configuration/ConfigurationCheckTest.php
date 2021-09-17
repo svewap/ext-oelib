@@ -24,7 +24,7 @@ class ConfigurationCheckTest extends UnitTestCase
      */
     private $objectToCheck = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -45,7 +45,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function objectToCheckIsCheckable()
+    public function objectToCheckIsCheckable(): void
     {
         self::assertInstanceOf(
             ConfigurationCheckable::class,
@@ -56,7 +56,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkContainsNamespaceInErrorMessage()
+    public function checkContainsNamespaceInErrorMessage(): void
     {
         $this->subject->checkForNonEmptyString('', false, '', '');
 
@@ -73,7 +73,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function setFlavorReturnsFlavor()
+    public function setFlavorReturnsFlavor(): void
     {
         $this->subject->setFlavor('foo');
 
@@ -88,7 +88,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkForNonEmptyStringWithNonEmptyString()
+    public function checkForNonEmptyStringWithNonEmptyString(): void
     {
         $this->subject->checkForNonEmptyString('nonEmptyString', false, '', '');
 
@@ -101,7 +101,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkForNonEmptyStringWithEmptyString()
+    public function checkForNonEmptyStringWithEmptyString(): void
     {
         $this->subject->checkForNonEmptyString('emptyString', false, '', '');
 
@@ -118,7 +118,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIsValidEmailOrEmptyWithEmptyString()
+    public function checkIsValidEmailOrEmptyWithEmptyString(): void
     {
         $this->subject->checkIsValidEmailOrEmpty('emptyString', false, '', false, '');
 
@@ -131,7 +131,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIsValidEmailOrEmptyWithValidEmail()
+    public function checkIsValidEmailOrEmptyWithValidEmail(): void
     {
         $this->subject->checkIsValidEmailOrEmpty('validEmail', false, '', false, '');
 
@@ -144,7 +144,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIsValidEmailOrEmptyWithInvalidEmail()
+    public function checkIsValidEmailOrEmptyWithInvalidEmail(): void
     {
         $this->subject->checkIsValidEmailOrEmpty('nonEmptyString', false, '', false, '');
 
@@ -157,7 +157,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIsValidEmailNotEmptyWithEmptyString()
+    public function checkIsValidEmailNotEmptyWithEmptyString(): void
     {
         $this->subject->checkIsValidEmailNotEmpty('emptyString', false, '', false, '');
 
@@ -170,7 +170,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIsValidEmailNotEmptyWithValidEmail()
+    public function checkIsValidEmailNotEmptyWithValidEmail(): void
     {
         $this->subject->checkIsValidEmailNotEmpty('validEmail', false, '', false, '');
 
@@ -183,7 +183,7 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIsValidDefaultFromEmailAddressForValidAddressMarksItAsValid()
+    public function checkIsValidDefaultFromEmailAddressForValidAddressMarksItAsValid(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = 'oliver@example.com';
         $this->subject->checkIsValidDefaultFromEmailAddress();
@@ -206,11 +206,9 @@ class ConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      *
-     * @param mixed $emailAddress
-     *
      * @dataProvider invalidEmailDataProvider
      */
-    public function checkIsValidDefaultFromEmailAddressForInvalidAddressMarksItAsInvalid($emailAddress)
+    public function checkIsValidDefaultFromEmailAddressForInvalidAddressMarksItAsInvalid(?string $emailAddress): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $emailAddress;
 

@@ -80,19 +80,14 @@ abstract class AbstractConfigurationCheck
      * Any warnings created by the check will be available via `getWarningsAsHtml` and `hasWarnings`.
      *
      * Running this method twice resets the warnings from the first run so that warnings will not be added twice.
-     *
-     * @return void
      */
-    public function check()
+    public function check(): void
     {
         $this->resetWarnings();
         $this->checkAllConfigurationValues();
     }
 
-    /**
-     * @return void
-     */
-    private function resetWarnings()
+    private function resetWarnings(): void
     {
         $this->warnings = [];
     }
@@ -101,10 +96,8 @@ abstract class AbstractConfigurationCheck
      * Checks all configuration values.
      *
      * This method does not reset any existing configuration check warnings.
-     *
-     * @return void
      */
-    abstract protected function checkAllConfigurationValues();
+    abstract protected function checkAllConfigurationValues(): void;
 
     public function hasWarnings(): bool
     {
@@ -123,10 +116,8 @@ abstract class AbstractConfigurationCheck
      * Adds a warning and renders it as a Twitter Bootstrap warning.
      *
      * @param string $rawWarningText the warning text, may contain HTML, will not be encoded
-     *
-     * @return void
      */
-    protected function addWarning(string $rawWarningText)
+    protected function addWarning(string $rawWarningText): void
     {
         $this->warnings[] = '<div lang="en" class="alert alert-dark" role="alert">' . $rawWarningText . '</div>';
     }
@@ -134,10 +125,8 @@ abstract class AbstractConfigurationCheck
     /**
      * Sets the error message, consisting of $explanation and a request to change the TypoScript setup
      * variable $key (with the current TypoScript setup path prepended).
-     *
-     * @return void
      */
-    protected function addWarningAndRequestCorrection(string $key, string $explanation)
+    protected function addWarningAndRequestCorrection(string $key, string $explanation): void
     {
         $message = $explanation . ' Please fix the TypoScript setup variable <strong>' .
             $this->buildEncodedConfigurationPath($key) . '</strong> in your TypoScript template setup.';

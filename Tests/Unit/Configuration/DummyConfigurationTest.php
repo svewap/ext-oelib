@@ -19,7 +19,7 @@ final class DummyConfigurationTest extends UnitTestCase
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new DummyConfiguration();
     }
@@ -27,7 +27,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function implementsConfigurationInterface()
+    public function implementsConfigurationInterface(): void
     {
         self::assertInstanceOf(ConfigurationInterface::class, $this->subject);
     }
@@ -35,7 +35,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function isObjectWithPublicAccessors()
+    public function isObjectWithPublicAccessors(): void
     {
         self::assertInstanceOf(AbstractObjectWithPublicAccessors::class, $this->subject);
     }
@@ -43,7 +43,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasEmptyStringAsDefaultValueForInexistentString()
+    public function hasEmptyStringAsDefaultValueForInexistentString(): void
     {
         self::assertSame('', $this->subject->getAsString('nothing'));
     }
@@ -51,7 +51,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasZeroAsDefaultValueForInexistentInteger()
+    public function hasZeroAsDefaultValueForInexistentInteger(): void
     {
         self::assertSame(0, $this->subject->getAsInteger('nothing'));
     }
@@ -59,7 +59,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasFalseAsDefaultValueForInexistentBoolean()
+    public function hasFalseAsDefaultValueForInexistentBoolean(): void
     {
         self::assertFalse($this->subject->getAsBoolean('nothing'));
     }
@@ -67,7 +67,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function canProvideDataViaConstructor()
+    public function canProvideDataViaConstructor(): void
     {
         $key = 'name';
         $value = 'Max';
@@ -79,7 +79,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function canGetString()
+    public function canGetString(): void
     {
         $key = 'name';
         $value = 'Max';
@@ -91,7 +91,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function canGetInteger()
+    public function canGetInteger(): void
     {
         $key = 'size';
         $value = 12;
@@ -103,7 +103,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function canGetBoolean()
+    public function canGetBoolean(): void
     {
         $key = 'isActive';
         $this->subject->setAllData([$key => true]);
@@ -114,7 +114,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function canSetString()
+    public function canSetString(): void
     {
         $key = 'name';
         $value = 'Max';
@@ -127,7 +127,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function canSetInteger()
+    public function canSetInteger(): void
     {
         $key = 'size';
         $value = 12;
@@ -140,7 +140,7 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function canSetBoolean()
+    public function canSetBoolean(): void
     {
         $key = 'isActive';
         $this->subject->setAsBoolean($key, true);

@@ -15,7 +15,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = FrontEndLoginManager::getInstance();
     }
@@ -27,7 +27,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceReturnsFrontEndLoginManagerInstance()
+    public function getInstanceReturnsFrontEndLoginManagerInstance(): void
     {
         self::assertInstanceOf(
             FrontEndLoginManager::class,
@@ -38,7 +38,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceTwoTimesReturnsSameInstance()
+    public function getInstanceTwoTimesReturnsSameInstance(): void
     {
         self::assertSame(
             $this->subject,
@@ -49,7 +49,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceAfterPurgeInstanceReturnsNewInstance()
+    public function getInstanceAfterPurgeInstanceReturnsNewInstance(): void
     {
         FrontEndLoginManager::purgeInstance();
 
@@ -66,7 +66,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function logInUserChangesToLoggedInStatus()
+    public function logInUserChangesToLoggedInStatus(): void
     {
         $user = new FrontEndUser();
         $this->subject->logInUser($user);
@@ -79,7 +79,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function logInUserSetsLoggedInUser()
+    public function logInUserSetsLoggedInUser(): void
     {
         $user = new FrontEndUser();
         $this->subject->logInUser($user);
@@ -93,7 +93,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function logInUserOverwritesFormerSimulatedLoggedInUser()
+    public function logInUserOverwritesFormerSimulatedLoggedInUser(): void
     {
         $oldUser = new FrontEndUser();
         $this->subject->logInUser($oldUser);
@@ -109,7 +109,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function logInUserWithNullSetsUserToNull()
+    public function logInUserWithNullSetsUserToNull(): void
     {
         $user = new FrontEndUser();
         $this->subject->logInUser($user);
@@ -124,7 +124,7 @@ class FrontEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function logInUserWithNullSetsStatusToNotLoggedIn()
+    public function logInUserWithNullSetsStatusToNotLoggedIn(): void
     {
         $user = new FrontEndUser();
         $this->subject->logInUser($user);

@@ -20,12 +20,12 @@ final class TestingFrameworkTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new TestingFramework('tx_oelib');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->subject->cleanUpWithoutDatabase();
         $this->subject->purgeHooks();
@@ -36,7 +36,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function cleanUpWithoutDatabaseDeletesCreatedDummyFile()
+    public function cleanUpWithoutDatabaseDeletesCreatedDummyFile(): void
     {
         $fileName = $this->subject->createDummyFile();
 
@@ -48,7 +48,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function cleanUpWithoutDatabaseDeletesCreatedDummyFolder()
+    public function cleanUpWithoutDatabaseDeletesCreatedDummyFolder(): void
     {
         $folderName = $this->subject->createDummyFolder('test_folder');
 
@@ -60,7 +60,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function cleanUpWithoutDatabaseDeletesCreatedNestedDummyFolders()
+    public function cleanUpWithoutDatabaseDeletesCreatedNestedDummyFolders(): void
     {
         $outerDummyFolder = $this->subject->createDummyFolder('test_folder');
         $innerDummyFolder = $this->subject->createDummyFolder(
@@ -78,7 +78,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function cleanUpWithoutDatabaseDeletesCreatedDummyUploadFolder()
+    public function cleanUpWithoutDatabaseDeletesCreatedDummyUploadFolder(): void
     {
         $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
         $this->subject->createDummyFile();
@@ -93,7 +93,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function cleanUpWithoutDatabaseExecutesCleanUpHook()
+    public function cleanUpWithoutDatabaseExecutesCleanUpHook(): void
     {
         $this->subject->purgeHooks();
 
@@ -112,7 +112,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function templateMustNotHaveZeroPid()
+    public function templateMustNotHaveZeroPid(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -126,7 +126,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function templateMustNotHaveNonZeroPid()
+    public function templateMustNotHaveNonZeroPid(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -140,7 +140,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function templateMustHaveNoZeroUid()
+    public function templateMustHaveNoZeroUid(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -154,7 +154,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function templateMustNotHaveNonZeroUid()
+    public function templateMustNotHaveNonZeroUid(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -170,7 +170,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createDummyFileCreatesFile()
+    public function createDummyFileCreatesFile(): void
     {
         $dummyFile = $this->subject->createDummyFile();
 
@@ -180,7 +180,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createDummyFileCreatesFileInSubFolder()
+    public function createDummyFileCreatesFileInSubFolder(): void
     {
         $dummyFolder = $this->subject->createDummyFolder('test_folder');
         $dummyFile = $this->subject->createDummyFile(
@@ -193,7 +193,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createDummyFileCreatesFileWithTheProvidedContent()
+    public function createDummyFileCreatesFileWithTheProvidedContent(): void
     {
         $dummyFile = $this->subject->createDummyFile('test.txt', 'Hello world!');
 
@@ -203,7 +203,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createDummyFileForNonExistentUploadFolderSetCreatesUploadFolder()
+    public function createDummyFileForNonExistentUploadFolderSetCreatesUploadFolder(): void
     {
         $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
         $this->subject->createDummyFile();
@@ -214,7 +214,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createDummyFileForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder()
+    public function createDummyFileForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder(): void
     {
         $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
         $dummyFile = $this->subject->createDummyFile();
@@ -227,7 +227,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function deleteDummyFileDeletesCreatedDummyFile()
+    public function deleteDummyFileDeletesCreatedDummyFile(): void
     {
         $dummyFile = $this->subject->createDummyFile();
         $this->subject->deleteDummyFile(basename($dummyFile));
@@ -240,7 +240,7 @@ final class TestingFrameworkTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function deleteDummyFileWithAlreadyDeletedFileThrowsNoException()
+    public function deleteDummyFileWithAlreadyDeletedFileThrowsNoException(): void
     {
         $dummyFile = $this->subject->createDummyFile();
         unlink($dummyFile);
@@ -251,7 +251,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function deleteDummyFileWithInexistentFileThrowsException()
+    public function deleteDummyFileWithInexistentFileThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -261,7 +261,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function deleteDummyFileWithForeignFileThrowsException()
+    public function deleteDummyFileWithForeignFileThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -276,7 +276,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createDummyFolderCreatesFolder()
+    public function createDummyFolderCreatesFolder(): void
     {
         $dummyFolder = $this->subject->createDummyFolder('test_folder');
 
@@ -286,7 +286,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createDummyFolderCanCreateFolderInDummyFolder()
+    public function createDummyFolderCanCreateFolderInDummyFolder(): void
     {
         $outerDummyFolder = $this->subject->createDummyFolder('test_folder');
         $innerDummyFolder = $this->subject->createDummyFolder(
@@ -300,7 +300,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createDummyFolderForNonExistentUploadFolderSetCreatesUploadFolder()
+    public function createDummyFolderForNonExistentUploadFolderSetCreatesUploadFolder(): void
     {
         $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
         $this->subject->createDummyFolder('test_folder');
@@ -311,7 +311,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createDummyFolderForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder()
+    public function createDummyFolderForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder(): void
     {
         $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
         $dummyFolder = $this->subject->createDummyFolder('test_folder');
@@ -324,7 +324,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function getUploadFolderPathReturnsUploadFolderPathIncludingTablePrefix()
+    public function getUploadFolderPathReturnsUploadFolderPathIncludingTablePrefix(): void
     {
         self::assertRegExp(
             '/\\/typo3temp\\/tx_oelib\\/$/',
@@ -335,7 +335,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function getUploadFolderPathAfterSetReturnsSetUploadFolderPath()
+    public function getUploadFolderPathAfterSetReturnsSetUploadFolderPath(): void
     {
         $this->subject->setUploadFolderPath('/foo/bar/');
 
@@ -348,7 +348,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function setUploadFolderPathAfterCreatingDummyFileThrowsException()
+    public function setUploadFolderPathAfterCreatingDummyFileThrowsException(): void
     {
         $this->expectException(
             \BadMethodCallException::class
@@ -366,7 +366,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPathRelativeToUploadDirectoryWithPathOutsideUploadDirectoryThrowsException()
+    public function getPathRelativeToUploadDirectoryWithPathOutsideUploadDirectoryThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -383,7 +383,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function frontEndUserGroupMustHaveNoZeroUid()
+    public function frontEndUserGroupMustHaveNoZeroUid(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -398,7 +398,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function frontEndUserGroupMustHaveNoNonZeroUid()
+    public function frontEndUserGroupMustHaveNoNonZeroUid(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -415,7 +415,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createBackEndUserWithZeroUidProvidedInRecordDataThrowsException()
+    public function createBackEndUserWithZeroUidProvidedInRecordDataThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -430,7 +430,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createBackEndUserWithNonZeroUidProvidedInRecordDataThrowsException()
+    public function createBackEndUserWithNonZeroUidProvidedInRecordDataThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -447,7 +447,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function createFakeFrontThrowsExceptionForNegativePageUid()
+    public function createFakeFrontThrowsExceptionForNegativePageUid(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -464,7 +464,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function isLoggedThrowsExceptionWithoutFrontEnd()
+    public function isLoggedThrowsExceptionWithoutFrontEnd(): void
     {
         $this->expectException(
             \BadMethodCallException::class
@@ -479,7 +479,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @test
      */
-    public function logoutFrontEndUserWithoutFrontEndThrowsException()
+    public function logoutFrontEndUserWithoutFrontEndThrowsException(): void
     {
         $this->expectException(
             \BadMethodCallException::class

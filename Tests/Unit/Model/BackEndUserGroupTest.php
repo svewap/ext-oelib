@@ -15,7 +15,7 @@ class BackEndUserGroupTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new BackEndUserGroup();
     }
@@ -27,7 +27,7 @@ class BackEndUserGroupTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleForNonEmptyGroupTitleReturnsGroupTitle()
+    public function getTitleForNonEmptyGroupTitleReturnsGroupTitle(): void
     {
         $this->subject->setData(['title' => 'foo']);
 
@@ -40,7 +40,7 @@ class BackEndUserGroupTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleForEmptyGroupTitleReturnsEmptyString()
+    public function getTitleForEmptyGroupTitleReturnsEmptyString(): void
     {
         $this->subject->setData(['title' => '']);
 
@@ -57,7 +57,7 @@ class BackEndUserGroupTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubgroupsReturnsListFromSubgroupField()
+    public function getSubgroupsReturnsListFromSubgroupField(): void
     {
         $groups = new Collection();
 

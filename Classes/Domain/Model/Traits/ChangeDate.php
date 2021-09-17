@@ -18,20 +18,12 @@ trait ChangeDate
      */
     protected $creationDate = null;
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getChangeDate()
+    public function getChangeDate(): ?\DateTime
     {
         return $this->creationDate;
     }
 
-    /**
-     * @param \DateTime $creationDate
-     *
-     * @return void
-     */
-    public function setChangeDate(\DateTime $creationDate)
+    public function setChangeDate(\DateTime $creationDate): void
     {
         $this->creationDate = $creationDate;
     }

@@ -116,13 +116,10 @@ class GeoCalculator implements SingletonInterface
      *
      * Note: This move is not very accurate.
      *
-     * @param Geo $object
      * @param float $direction direction of the movement in degrees (0.0 is east)
      * @param float $distance distance to move in kilometers, may be positive, zero or negative
-     *
-     * @return void
      */
-    public function move(Geo $object, float $direction, float $distance)
+    public function move(Geo $object, float $direction, float $distance): void
     {
         if (!$object->hasGeoCoordinates()) {
             return;
@@ -157,15 +154,12 @@ class GeoCalculator implements SingletonInterface
      *
      * Note: This move is not very accurate.
      *
-     * @param Geo $object
      * @param float $direction direction of the movement in degrees (0.0 is east)
      * @param float $maximumDistance maximum distance to move in kilometers, may be positive, zero or negative
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
      */
-    public function moveByRandomDistance(Geo $object, float $direction, float $maximumDistance)
+    public function moveByRandomDistance(Geo $object, float $direction, float $maximumDistance): void
     {
         if ($maximumDistance < 0) {
             throw new \InvalidArgumentException(
@@ -185,12 +179,9 @@ class GeoCalculator implements SingletonInterface
      *
      * Note: This move is not very accurate.
      *
-     * @param Geo $object
      * @param float $distance distance to move in kilometers, may be positive, zero or negative
-     *
-     * @return void
      */
-    public function moveInRandomDirection(Geo $object, float $distance)
+    public function moveInRandomDirection(Geo $object, float $distance): void
     {
         $direction = \random_int(0, 360);
         $this->move($object, $direction, $distance);
@@ -201,12 +192,9 @@ class GeoCalculator implements SingletonInterface
      *
      * Note: This move is not very accurate.
      *
-     * @param Geo $object
      * @param float $maximumDistance maximum distance to move in kilometers, must not be negative
-     *
-     * @return void
      */
-    public function moveInRandomDirectionAndDistance(Geo $object, float $maximumDistance)
+    public function moveInRandomDirectionAndDistance(Geo $object, float $maximumDistance): void
     {
         $direction = \random_int(0, 360);
         $this->moveByRandomDistance($object, $direction, $maximumDistance);

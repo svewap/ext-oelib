@@ -87,20 +87,16 @@ class HeaderProxyFactory
 
     /**
      * Purges the current instance so that getInstance will create a new instance.
-     *
-     * @return void
      */
-    public static function purgeInstance()
+    public static function purgeInstance(): void
     {
         self::$instance = null;
     }
 
     /**
      * Enables the test mode.
-     *
-     * @return void
      */
-    public function enableTestMode()
+    public function enableTestMode(): void
     {
         $this->isTestMode = true;
     }

@@ -89,10 +89,8 @@ class Session extends AbstractObjectWithPublicAccessors
      *
      * @param int $type the type to set, must be either TYPE_USER or TYPE_TEMPORARY
      * @param Session $instance the instance to set
-     *
-     * @return void
      */
-    public static function setInstance(int $type, Session $instance)
+    public static function setInstance(int $type, Session $instance): void
     {
         self::checkType($type);
 
@@ -104,11 +102,9 @@ class Session extends AbstractObjectWithPublicAccessors
      *
      * @param int $type the type ID to check
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException if $type is neither ::TYPE_USER nor ::TYPE_TEMPORARY
      */
-    protected static function checkType(int $type)
+    protected static function checkType(int $type): void
     {
         if (($type !== self::TYPE_USER) && ($type !== self::TYPE_TEMPORARY)) {
             throw new \InvalidArgumentException(
@@ -120,10 +116,8 @@ class Session extends AbstractObjectWithPublicAccessors
 
     /**
      * Purges the instances of all types so that getInstance will create new instances.
-     *
-     * @return void
      */
-    public static function purgeInstances()
+    public static function purgeInstances(): void
     {
         self::$instances = [];
     }
@@ -146,10 +140,8 @@ class Session extends AbstractObjectWithPublicAccessors
      *
      * @param string $key the key of the data item to get, must not be empty
      * @param mixed $value the data for the key $key
-     *
-     * @return void
      */
-    protected function set($key, $value)
+    protected function set(string $key, $value): void
     {
         $this->getFrontEndController()->fe_user->setKey(self::$types[$this->type], $key, $value);
         $this->getFrontEndController()->fe_user->storeSessionData();

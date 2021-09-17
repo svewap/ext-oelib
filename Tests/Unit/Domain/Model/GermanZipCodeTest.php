@@ -16,7 +16,7 @@ class GermanZipCodeTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new GermanZipCode();
     }
@@ -24,7 +24,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function isAbstractEntity()
+    public function isAbstractEntity(): void
     {
         self::assertInstanceOf(AbstractEntity::class, $this->subject);
     }
@@ -32,7 +32,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function isGeo()
+    public function isGeo(): void
     {
         self::assertInstanceOf(Geo::class, $this->subject);
     }
@@ -40,7 +40,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getZipCodeInitiallyReturnsEmptyString()
+    public function getZipCodeInitiallyReturnsEmptyString(): void
     {
         self::assertSame('', $this->subject->getZipCode());
     }
@@ -48,7 +48,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function setZipCodeSetsZipCode()
+    public function setZipCodeSetsZipCode(): void
     {
         $value = '01234';
         $this->subject->setZipCode($value);
@@ -59,7 +59,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCityNameInitiallyReturnsEmptyString()
+    public function getCityNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame('', $this->subject->getCityName());
     }
@@ -67,7 +67,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCityNameSetsCityName()
+    public function setCityNameSetsCityName(): void
     {
         $value = 'Köln';
         $this->subject->setCityName($value);
@@ -78,7 +78,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGeoAddressReturnsZipCodeAndCityAndGermany()
+    public function getGeoAddressReturnsZipCodeAndCityAndGermany(): void
     {
         $this->subject->setZipCode('53173');
         $this->subject->setCityName('Bonn');
@@ -89,7 +89,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGeoAddressWithEmptyDataReturnsTrue()
+    public function hasGeoAddressWithEmptyDataReturnsTrue(): void
     {
         self::assertTrue($this->subject->hasGeoAddress());
     }
@@ -97,7 +97,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGeoAddressWithZipCodeReturnsTrue()
+    public function hasGeoAddressWithZipCodeReturnsTrue(): void
     {
         $this->subject->setZipCode('53173');
 
@@ -107,7 +107,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGeoAddressWithCityNameReturnsTrue()
+    public function hasGeoAddressWithCityNameReturnsTrue(): void
     {
         $this->subject->setCityName('Bonn');
 
@@ -117,7 +117,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLongitudeInitiallyReturnsZero()
+    public function getLongitudeInitiallyReturnsZero(): void
     {
         self::assertSame(0.0, $this->subject->getLongitude());
     }
@@ -125,7 +125,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLongitudeSetsLongitude()
+    public function setLongitudeSetsLongitude(): void
     {
         $value = 1234.56;
         $this->subject->setLongitude($value);
@@ -136,7 +136,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLatitudeInitiallyReturnsZero()
+    public function getLatitudeInitiallyReturnsZero(): void
     {
         self::assertSame(0.0, $this->subject->getLatitude());
     }
@@ -144,7 +144,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLatitudeSetsLatitude()
+    public function setLatitudeSetsLatitude(): void
     {
         $value = 1234.56;
         $this->subject->setLatitude($value);
@@ -155,7 +155,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGeoCoordinatesReturnsCoordinates()
+    public function getGeoCoordinatesReturnsCoordinates(): void
     {
         $latitude = 12.234;
         $this->subject->setLatitude($latitude);
@@ -168,7 +168,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function setGeoCoordinatesAlwaysThrowsException()
+    public function setGeoCoordinatesAlwaysThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
 
@@ -178,7 +178,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGeoCoordinatesAlwaysReturnsTrue()
+    public function hasGeoCoordinatesAlwaysReturnsTrue(): void
     {
         self::assertTrue($this->subject->hasGeoCoordinates());
     }
@@ -186,7 +186,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function clearGeoCoordinatesAlwaysThrowsException()
+    public function clearGeoCoordinatesAlwaysThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
 
@@ -196,7 +196,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGeoErrorAlwaysReturnsFalse()
+    public function hasGeoErrorAlwaysReturnsFalse(): void
     {
         self::assertFalse($this->subject->hasGeoError());
     }
@@ -204,7 +204,7 @@ class GermanZipCodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function clearGeoErrorAlwaysThrowsException()
+    public function clearGeoErrorAlwaysThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
 

@@ -26,7 +26,7 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->testingFramework = new TestingFramework('tx_oelib');
@@ -34,7 +34,7 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
         $this->subject = new FrontEndUserGroupMapper();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->testingFramework->cleanUp();
         parent::tearDown();
@@ -47,7 +47,7 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsFrontEndUserGroupInstance()
+    public function findWithUidOfExistingRecordReturnsFrontEndUserGroupInstance(): void
     {
         $uid = $this->testingFramework->createFrontEndUserGroup();
 
@@ -60,7 +60,7 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function loadForExistingUserGroupCanLoadUserGroupData()
+    public function loadForExistingUserGroupCanLoadUserGroupData(): void
     {
         /** @var FrontEndUserGroup $userGroup */
         $userGroup = $this->subject->find(

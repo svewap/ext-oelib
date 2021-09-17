@@ -52,10 +52,8 @@ class BackEndLoginManager implements LoginManager
     /**
      * Purges the current instance so that getInstance will create a new
      * instance.
-     *
-     * @return void
      */
-    public static function purgeInstance()
+    public static function purgeInstance(): void
     {
         self::$instance = null;
     }
@@ -81,7 +79,7 @@ class BackEndLoginManager implements LoginManager
      *
      * @throws \InvalidArgumentException
      */
-    public function getLoggedInUser(string $mapperName = BackEndUserMapper::class)
+    public function getLoggedInUser(string $mapperName = BackEndUserMapper::class): ?BackEndUser
     {
         // @phpstan-ignore-next-line We explicitly check for contract violations here.
         if ($mapperName === '') {
@@ -107,20 +105,16 @@ class BackEndLoginManager implements LoginManager
      * This function is for testing purposes only!
      *
      * @param BackEndUser $loggedInUser the fake logged-in back-end user
-     *
-     * @return void
      */
-    public function setLoggedInUser(BackEndUser $loggedInUser)
+    public function setLoggedInUser(BackEndUser $loggedInUser): void
     {
         $this->loggedInUser = $loggedInUser;
     }
 
     /**
      * Returns $GLOBALS['BE_USER'].
-     *
-     * @return BackendUserAuthentication|null
      */
-    protected function getBackEndUserAuthentication()
+    protected function getBackEndUserAuthentication(): ?BackendUserAuthentication
     {
         return $GLOBALS['BE_USER'] ?? null;
     }

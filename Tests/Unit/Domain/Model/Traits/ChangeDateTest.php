@@ -15,7 +15,7 @@ class ChangeDateTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new ChangedModel();
     }
@@ -23,7 +23,7 @@ class ChangeDateTest extends UnitTestCase
     /**
      * @test
      */
-    public function implementsChangeDate()
+    public function implementsChangeDate(): void
     {
         self::assertInstanceOf(ChangeDate::class, $this->subject);
     }
@@ -31,7 +31,7 @@ class ChangeDateTest extends UnitTestCase
     /**
      * @test
      */
-    public function getChangeDateInitiallyReturnsNull()
+    public function getChangeDateInitiallyReturnsNull(): void
     {
         self::assertNull($this->subject->getChangeDate());
     }
@@ -39,7 +39,7 @@ class ChangeDateTest extends UnitTestCase
     /**
      * @test
      */
-    public function setChangeDateSetsChangeDate()
+    public function setChangeDateSetsChangeDate(): void
     {
         $date = new \DateTime();
         $this->subject->setChangeDate($date);

@@ -14,7 +14,7 @@ class CurrencyTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new Currency();
     }
@@ -22,7 +22,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function isReadOnlyIsTrue()
+    public function isReadOnlyIsTrue(): void
     {
         self::assertTrue($this->subject->isReadOnly());
     }
@@ -30,7 +30,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsoAlpha3CodeReturnsIsoAlpha3Code()
+    public function getIsoAlpha3CodeReturnsIsoAlpha3Code(): void
     {
         $code = 'EUR';
         $this->subject->setData(['cu_iso_3' => $code]);
@@ -41,7 +41,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasLeftSymbolForCurrencyWithLeftSymbolReturnsTrue()
+    public function hasLeftSymbolForCurrencyWithLeftSymbolReturnsTrue(): void
     {
         $this->subject->setData(['cu_symbol_left' => '€']);
 
@@ -51,7 +51,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasLeftSymbolForCurrencyWithoutLeftSymbolReturnsFalse()
+    public function hasLeftSymbolForCurrencyWithoutLeftSymbolReturnsFalse(): void
     {
         $this->subject->setData(['cu_symbol_left' => '']);
 
@@ -61,7 +61,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLeftSymbolByDefaultReturnsEmptyString()
+    public function getLeftSymbolByDefaultReturnsEmptyString(): void
     {
         $this->subject->setData([]);
 
@@ -71,7 +71,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLeftSymbolByDefaultReturnsLeftSymbol()
+    public function getLeftSymbolByDefaultReturnsLeftSymbol(): void
     {
         $symbol = '€';
         $this->subject->setData(['cu_symbol_left' => $symbol]);
@@ -82,7 +82,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasRightSymbolForCurrencyWithRightSymbolReturnsTrue()
+    public function hasRightSymbolForCurrencyWithRightSymbolReturnsTrue(): void
     {
         $this->subject->setData(['cu_symbol_right' => '€']);
 
@@ -92,7 +92,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasRightSymbolForCurrencyWithoutRightSymbolReturnsFalse()
+    public function hasRightSymbolForCurrencyWithoutRightSymbolReturnsFalse(): void
     {
         $this->subject->setData(['cu_symbol_right' => '']);
 
@@ -102,7 +102,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getRightSymbolByDefaultReturnsEmptyString()
+    public function getRightSymbolByDefaultReturnsEmptyString(): void
     {
         $this->subject->setData([]);
 
@@ -112,7 +112,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getRightSymbolByDefaultReturnsRightSymbol()
+    public function getRightSymbolByDefaultReturnsRightSymbol(): void
     {
         $symbol = '€';
         $this->subject->setData(['cu_symbol_right' => $symbol]);
@@ -123,7 +123,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getThousandsSeparatorReturnsThousandsSeparator()
+    public function getThousandsSeparatorReturnsThousandsSeparator(): void
     {
         $separator = '.';
         $this->subject->setData(['cu_thousands_point' => $separator]);
@@ -134,7 +134,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDecimalSeparatorReturnsDecimalSeparator()
+    public function getDecimalSeparatorReturnsDecimalSeparator(): void
     {
         $separator = ',';
         $this->subject->setData(['cu_decimal_point' => $separator]);
@@ -145,7 +145,7 @@ class CurrencyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDecimalDigitsReturnsDecimalDigits()
+    public function getDecimalDigitsReturnsDecimalDigits(): void
     {
         $digits = 2;
         $this->subject->setData(['cu_decimal_digits' => (string)$digits]);

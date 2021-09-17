@@ -21,7 +21,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkTemplateFileForExistingTemplateFileGeneratesNoWarnings()
+    public function checkTemplateFileForExistingTemplateFileGeneratesNoWarnings(): void
     {
         $configuration = new DummyConfiguration(
             ['templateFile' => 'EXT:oelib/Tests/Functional/Fixtures/Template.html']
@@ -37,7 +37,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkTemplateFileForEmptyFileNameGeneratesWarning()
+    public function checkTemplateFileForEmptyFileNameGeneratesWarning(): void
     {
         $configuration = new DummyConfiguration(['templateFile' => '']);
         $subject = new TestingConfigurationCheck($configuration, 'plugin.tx_oelib');
@@ -54,7 +54,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkTemplateFileForInexistentFileNameGeneratesWarning()
+    public function checkTemplateFileForInexistentFileNameGeneratesWarning(): void
     {
         $configuration = new DummyConfiguration(['templateFile' => 'nothing to see here']);
         $subject = new TestingConfigurationCheck($configuration, 'plugin.tx_oelib');
@@ -71,7 +71,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkFileExistsForExistingFileGeneratesNoWarnings()
+    public function checkFileExistsForExistingFileGeneratesNoWarnings(): void
     {
         $configuration = new DummyConfiguration(['file' => 'EXT:oelib/Tests/Functional/Fixtures/Template.html']);
         $subject = new TestingConfigurationCheck($configuration, 'plugin.tx_oelib');
@@ -85,7 +85,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkFileExistsForEmptyFileNameGeneratesWarningWithPathAndEplanationAndDescription()
+    public function checkFileExistsForEmptyFileNameGeneratesWarningWithPathAndEplanationAndDescription(): void
     {
         $configuration = new DummyConfiguration(['file' => '']);
         $subject = new TestingConfigurationCheck($configuration, 'plugin.tx_oelib');
@@ -103,7 +103,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkFileExistsForInexistentFileNameGeneratesWarning()
+    public function checkFileExistsForInexistentFileNameGeneratesWarning(): void
     {
         $configuration = new DummyConfiguration(['file' => 'nothing to see here']);
         $subject = new TestingConfigurationCheck($configuration, 'plugin.tx_oelib');
@@ -120,7 +120,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfSingleInTableColumnsOrEmptyForEmptyStringNotAddsWarning()
+    public function checkIfSingleInTableColumnsOrEmptyForEmptyStringNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInTableColumnsOrEmpty');
@@ -133,7 +133,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfSingleInTableColumnsOrEmptyForNonEmptyStringNotInTableAddsWarningWithPathAndExplanation()
+    public function checkIfSingleInTableColumnsOrEmptyForNonEmptyNotInTableAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => 'comment']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInTableColumnsOrEmpty');
@@ -149,7 +149,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfSingleInTableColumnsOrEmptyForStringInTableNotAddsWarning()
+    public function checkIfSingleInTableColumnsOrEmptyForStringInTableNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => 'title']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInTableColumnsOrEmpty');
@@ -162,7 +162,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfSingleInTableColumnsNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkIfSingleInTableColumnsNotEmptyForEmptyStringAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInTableColumnsNotEmpty');
@@ -178,7 +178,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfSingleInTableColumnsNotEmptyForNonEmptyStringNotInTableAddsWarningWithPathAndExplanation()
+    public function checkIfSingleInTableColumnsNotEmptyForNonEmptyNotInTableAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => 'comment']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInTableColumnsNotEmpty');
@@ -194,7 +194,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfSingleInTableColumnsNotEmptyForStringInTableNotAddsWarning()
+    public function checkIfSingleInTableColumnsNotEmptyForStringInTableNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['column' => 'title']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInTableColumnsNotEmpty');
@@ -207,7 +207,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfMultiInTableColumnsOrEmptyForEmptyStringNotAddsWarning()
+    public function checkIfMultiInTableColumnsOrEmptyForEmptyStringNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['columns' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInTableColumnsOrEmpty');
@@ -220,7 +220,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfMultiInTableColumnsOrEmptyForSingleStringNotInTableAddsWarningWithPathAndExplanation()
+    public function checkIfMultiInTableColumnsOrEmptyForSingleStringNotInTableAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['columns' => 'comment']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInTableColumnsOrEmpty');
@@ -236,7 +236,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfMultiInTableColumnsOrEmptyForOneStringInTableAndAnotherNotInTableAddsWarning()
+    public function checkIfMultiInTableColumnsOrEmptyForOneStringInTableAndAnotherNotInTableAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(
             new DummyConfiguration(['columns' => 'title,comment']),
@@ -255,7 +255,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfMultiInTableColumnsOrEmptyForSingleStringInTableNotAddsWarning()
+    public function checkIfMultiInTableColumnsOrEmptyForSingleStringInTableNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['columns' => 'title']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInTableColumnsOrEmpty');
@@ -268,7 +268,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfMultiInTableColumnsOrEmptyForMultipleStringsInTableNotAddsWarning()
+    public function checkIfMultiInTableColumnsOrEmptyForMultipleStringsInTableNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(
             new DummyConfiguration(['columns' => 'title,header']),
@@ -284,7 +284,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfMultiInTableColumnsOrEmptyForMultipleStringsInTableWithSpaceNotAddsWarning()
+    public function checkIfMultiInTableColumnsOrEmptyForMultipleStringsInTableWithSpaceNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(
             new DummyConfiguration(['columns' => 'title, header']),
@@ -300,7 +300,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfMultiInTableColumnsNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkIfMultiInTableColumnsNotEmptyForEmptyStringAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['columns' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInTableColumnsNotEmpty');
@@ -316,7 +316,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfMultiInTableColumnsNotEmptyForSingleStringNotInTableAddsWarningWithPathAndExplanation()
+    public function checkIfMultiInTableColumnsNotEmptyForSingleStringNotInTableAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['columns' => 'comment']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInTableColumnsNotEmpty');
@@ -332,7 +332,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfMultiInTableColumnsNotEmptyForOneStringInTableAndAnotherNotInTableAddsWarning()
+    public function checkIfMultiInTableColumnsNotEmptyForOneStringInTableAndAnotherNotInTableAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(
             new DummyConfiguration(['columns' => 'title,comment']),
@@ -351,7 +351,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfMultiInTableColumnsNotEmptyForMultipleStringInTableNotAddsWarning()
+    public function checkIfMultiInTableColumnsNotEmptyForMultipleStringInTableNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(
             new DummyConfiguration(['columns' => 'title,header']),
@@ -367,7 +367,7 @@ final class AbstractConfigurationCheckTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkIfMultiInTableColumnsNotEmptyForMultipleStringWithSpaceInTableNotAddsWarning()
+    public function checkIfMultiInTableColumnsNotEmptyForMultipleStringWithSpaceInTableNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(
             new DummyConfiguration(['columns' => 'title, header']),

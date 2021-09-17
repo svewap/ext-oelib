@@ -12,7 +12,7 @@ class TimeTest extends UnitTestCase
     /**
      * @test
      */
-    public function aMinuteHasSixtySeconds()
+    public function aMinuteHasSixtySeconds(): void
     {
         self::assertSame(
             60,
@@ -23,7 +23,7 @@ class TimeTest extends UnitTestCase
     /**
      * @test
      */
-    public function anHourHasSixtyMinutes()
+    public function anHourHasSixtyMinutes(): void
     {
         self::assertSame(
             Time::SECONDS_PER_MINUTE * 60,
@@ -34,7 +34,7 @@ class TimeTest extends UnitTestCase
     /**
      * @test
      */
-    public function aDayHasTwentyFourHours()
+    public function aDayHasTwentyFourHours(): void
     {
         self::assertSame(
             Time::SECONDS_PER_HOUR * 24,
@@ -45,7 +45,7 @@ class TimeTest extends UnitTestCase
     /**
      * @test
      */
-    public function aWeekHasSevenDays()
+    public function aWeekHasSevenDays(): void
     {
         self::assertSame(
             Time::SECONDS_PER_DAY * 7,
@@ -56,7 +56,7 @@ class TimeTest extends UnitTestCase
     /**
      * @test
      */
-    public function aYearHasThreeHundredSixtyFiveDays()
+    public function aYearHasThreeHundredSixtyFiveDays(): void
     {
         self::assertSame(
             Time::SECONDS_PER_DAY * 365,

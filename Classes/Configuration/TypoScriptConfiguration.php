@@ -22,12 +22,9 @@ class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implemen
      *
      * This function can be called multiple times.
      *
-     * @param array<string|int, mixed> $data
-     *        the data for this configuration, may be empty
-     *
-     * @return void
+     * @param array<string|int, mixed> $data the data for this configuration, may be empty
      */
-    public function setData(array $data)
+    public function setData(array $data): void
     {
         $this->data = $data;
     }
@@ -35,14 +32,10 @@ class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implemen
     /**
      * Sets the value of the data item for the key $key.
      *
-     * @param string $key
-     *        the key of the data item to get, must not be empty
-     * @param mixed $value
-     *        the data for the key $key
-     *
-     * @return void
+     * @param string $key the key of the data item to get, must not be empty
+     * @param mixed $value the data for the key $key
      */
-    public function set($key, $value)
+    public function set(string $key, $value): void
     {
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1331318809);
@@ -54,11 +47,9 @@ class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implemen
     /**
      * Gets the value of the data item for the key $key.
      *
-     * @param string $key
-     *        the key of the data item to get, must not be empty
+     * @param string $key  the key of the data item to get, must not be empty
      *
-     * @return mixed the data for the key $key, will be an empty string
-     *               if the key has not been set yet
+     * @return string|mixed the data for the key $key, will be an empty string if the key has not been set yet
      */
     protected function get(string $key)
     {
@@ -86,8 +77,7 @@ class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implemen
      *
      * If $key is an empty string the array keys of $this->data are returned.
      *
-     * @param string $key
-     *        the key of the data item to get the array keys for, may be empty
+     * @param string $key the key of the data item to get the array keys for, may be empty
      *
      * @return array<int, string> the array keys of the data item for the key $key, may be empty
      */

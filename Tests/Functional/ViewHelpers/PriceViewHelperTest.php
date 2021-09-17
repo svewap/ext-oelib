@@ -20,7 +20,7 @@ class PriceViewHelperTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -32,11 +32,9 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * Imports static records - but only if they aren't already available as static data.
      *
-     * @return void
-     *
      * @throws NimutException
      */
-    private function importStaticData()
+    private function importStaticData(): void
     {
         $count = $this->getDatabaseConnection()->selectCount('*', 'static_currencies');
         if ($count === 0) {
@@ -47,7 +45,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function renderAfterSettingAnInvalidCurrencyUsesDecimalPointAndTwoDecimalDigits()
+    public function renderAfterSettingAnInvalidCurrencyUsesDecimalPointAndTwoDecimalDigits(): void
     {
         $this->subject->setValue(12345.678);
         $this->subject->setCurrencyFromIsoAlpha3Code('FOO');
@@ -61,7 +59,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function renderForCurrencyWithLeftSymbolRendersCurrencySymbolLeftOfPrice()
+    public function renderForCurrencyWithLeftSymbolRendersCurrencySymbolLeftOfPrice(): void
     {
         $this->subject->setValue(123.45);
         $this->subject->setCurrencyFromIsoAlpha3Code('EUR');
@@ -75,7 +73,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function renderForCurrencyWithRightSymbolRendersCurrencySymbolRightOfPrice()
+    public function renderForCurrencyWithRightSymbolRendersCurrencySymbolRightOfPrice(): void
     {
         $this->subject->setValue(123.45);
         $this->subject->setCurrencyFromIsoAlpha3Code('CZK');
@@ -89,7 +87,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function renderForCurrencyWithoutDecimalDigitsReturnsPriceWithoutDecimalDigits()
+    public function renderForCurrencyWithoutDecimalDigitsReturnsPriceWithoutDecimalDigits(): void
     {
         $this->subject->setValue(123.45);
         $this->subject->setCurrencyFromIsoAlpha3Code('CLP');
@@ -103,7 +101,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function renderForCurrencyWithOneDecimalDigitReturnsPriceWithOneDecimalDigit()
+    public function renderForCurrencyWithOneDecimalDigitReturnsPriceWithOneDecimalDigit(): void
     {
         $this->subject->setValue(123.45);
         $this->subject->setCurrencyFromIsoAlpha3Code('MGA');
@@ -117,7 +115,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function renderForCurrencyWithTwoDecimalDigitsReturnsPriceWithTwoDecimalDigits()
+    public function renderForCurrencyWithTwoDecimalDigitsReturnsPriceWithTwoDecimalDigits(): void
     {
         $this->subject->setValue(123.45);
         $this->subject->setCurrencyFromIsoAlpha3Code('EUR');
@@ -131,7 +129,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function renderForCurrencyWithCommaAsDecimalSeparatorReturnsPriceWithCommaAsDecimalSeparator()
+    public function renderForCurrencyWithCommaAsDecimalSeparatorReturnsPriceWithCommaAsDecimalSeparator(): void
     {
         $this->subject->setValue(123.45);
         $this->subject->setCurrencyFromIsoAlpha3Code('EUR');
@@ -145,7 +143,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function renderForCurrencyWithPointAsDecimalSeparatorReturnsPriceWithPointAsDecimalSeparator()
+    public function renderForCurrencyWithPointAsDecimalSeparatorReturnsPriceWithPointAsDecimalSeparator(): void
     {
         $this->subject->setValue(123.45);
         $this->subject->setCurrencyFromIsoAlpha3Code('USD');
@@ -159,7 +157,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function renderForCurrencyWithPointAsThousandsSeparatorReturnsPriceWithPointAsThousandsSeparator()
+    public function renderForCurrencyWithPointAsThousandsSeparatorReturnsPriceWithPointAsThousandsSeparator(): void
     {
         $this->subject->setValue(1234.56);
         $this->subject->setCurrencyFromIsoAlpha3Code('EUR');
@@ -173,7 +171,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function renderForCurrencyWithCommaAsThousandsSeparatorReturnsPriceWithCommaAsThousandsSeparator()
+    public function renderForCurrencyWithCommaAsThousandsSeparatorReturnsPriceWithCommaAsThousandsSeparator(): void
     {
         $this->subject->setValue(1234.56);
         $this->subject->setCurrencyFromIsoAlpha3Code('USD');

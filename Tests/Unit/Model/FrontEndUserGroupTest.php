@@ -14,7 +14,7 @@ class FrontEndUserGroupTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new FrontEndUserGroup();
     }
@@ -26,7 +26,7 @@ class FrontEndUserGroupTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleForNonEmptyGroupTitleReturnsGroupTitle()
+    public function getTitleForNonEmptyGroupTitleReturnsGroupTitle(): void
     {
         $this->subject->setData(['title' => 'foo']);
 
@@ -39,7 +39,7 @@ class FrontEndUserGroupTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleForEmptyGroupTitleReturnsEmptyString()
+    public function getTitleForEmptyGroupTitleReturnsEmptyString(): void
     {
         $this->subject->setData(['title' => '']);
 
@@ -56,7 +56,7 @@ class FrontEndUserGroupTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDescriptionForNonEmptyGroupDescriptionReturnsGroupDescription()
+    public function getDescriptionForNonEmptyGroupDescriptionReturnsGroupDescription(): void
     {
         $this->subject->setData(['description' => 'foo']);
 
@@ -69,7 +69,7 @@ class FrontEndUserGroupTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDescriptionForEmptyGroupDescriptionReturnsEmptyString()
+    public function getDescriptionForEmptyGroupDescriptionReturnsEmptyString(): void
     {
         $this->subject->setData(['description' => '']);
 

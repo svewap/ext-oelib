@@ -18,7 +18,7 @@ class SalutationSwitcherTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var CacheManager $cacheManager */
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
@@ -29,7 +29,7 @@ class SalutationSwitcherTest extends UnitTestCase
         $this->subject = new TestingSalutationSwitcher([]);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
         parent::tearDown();
@@ -38,7 +38,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function canBeSerialized()
+    public function canBeSerialized(): void
     {
         self::assertNotSame('', serialize($this->subject));
     }
@@ -48,7 +48,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function initialLanguage()
+    public function initialLanguage(): void
     {
         self::assertSame(
             'default',
@@ -59,7 +59,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLanguageDefault()
+    public function setLanguageDefault(): void
     {
         $this->subject->setLanguage('default');
         self::assertSame(
@@ -71,7 +71,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLanguageDe()
+    public function setLanguageDe(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -83,7 +83,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLanguageDefaultEmpty()
+    public function setLanguageDefaultEmpty(): void
     {
         $this->subject->setLanguage('');
         self::assertSame(
@@ -97,7 +97,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSalutationFormal()
+    public function setSalutationFormal(): void
     {
         $this->subject->setSalutationMode('formal');
         self::assertSame(
@@ -109,7 +109,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSalutationInformal()
+    public function setSalutationInformal(): void
     {
         $this->subject->setSalutationMode('informal');
         self::assertSame(
@@ -125,7 +125,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyKeyDefault()
+    public function emptyKeyDefault(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -141,7 +141,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyKeyDe()
+    public function emptyKeyDe(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -157,7 +157,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function noLanguageAtAllWithKnownKey()
+    public function noLanguageAtAllWithKnownKey(): void
     {
         $this->subject->setLanguage('');
 
@@ -170,7 +170,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function noLanguageAtAllWithUnknownKey()
+    public function noLanguageAtAllWithUnknownKey(): void
     {
         $this->subject->setLanguage('');
 
@@ -183,7 +183,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function translateForMissingLabelStillUsesDefaultAsLanguageKey()
+    public function translateForMissingLabelStillUsesDefaultAsLanguageKey(): void
     {
         $this->subject->setLanguage('de');
 
@@ -200,7 +200,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function translateWithoutLanguageOnlyInDefault()
+    public function translateWithoutLanguageOnlyInDefault(): void
     {
         self::assertSame(
             'only in default',
@@ -211,7 +211,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function translateWithoutLanguageInBoth()
+    public function translateWithoutLanguageInBoth(): void
     {
         self::assertSame(
             'in both languages',
@@ -222,7 +222,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function missingKeyDefault()
+    public function missingKeyDefault(): void
     {
         $this->subject->setLanguage('default');
         self::assertSame(
@@ -234,7 +234,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function missingKeyDe()
+    public function missingKeyDe(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -246,7 +246,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function onlyInDefaultUsingDefault()
+    public function onlyInDefaultUsingDefault(): void
     {
         $this->subject->setLanguage('default');
         self::assertSame(
@@ -258,7 +258,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function onlyInDefaultUsingNothing()
+    public function onlyInDefaultUsingNothing(): void
     {
         self::assertSame(
             'only in default',
@@ -269,7 +269,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function onlyInDefaultUsingDe()
+    public function onlyInDefaultUsingDe(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -281,7 +281,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function inBothUsingDefault()
+    public function inBothUsingDefault(): void
     {
         $this->subject->setLanguage('default');
         self::assertSame(
@@ -293,7 +293,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function inBothUsingDe()
+    public function inBothUsingDe(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -305,7 +305,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyStringDefault()
+    public function emptyStringDefault(): void
     {
         $this->subject->setLanguage('default');
         self::assertSame(
@@ -317,7 +317,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyStringDe()
+    public function emptyStringDe(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -329,7 +329,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function fallbackForInexistentLanguageIsLanguageKey()
+    public function fallbackForInexistentLanguageIsLanguageKey(): void
     {
         $key = 'default_not_fallback';
         $inexistentLanguage = 'xy';
@@ -341,7 +341,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function fallbackToDefaultFromDe()
+    public function fallbackToDefaultFromDe(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -355,7 +355,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalOnly()
+    public function formalOnly(): void
     {
         $this->subject->setSalutationMode('formal');
         self::assertSame(
@@ -367,7 +367,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalOnly()
+    public function informalOnly(): void
     {
         $this->subject->setSalutationMode('informal');
         self::assertSame(
@@ -379,7 +379,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalWithNormal()
+    public function formalWithNormal(): void
     {
         $this->subject->setSalutationMode('formal');
         self::assertSame(
@@ -391,7 +391,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalWithNormalTryingInformal()
+    public function formalWithNormalTryingInformal(): void
     {
         $this->subject->setSalutationMode('informal');
         self::assertSame(
@@ -403,7 +403,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalWithNormalTryingNothing()
+    public function formalWithNormalTryingNothing(): void
     {
         self::assertSame(
             'formal with normal, normal',
@@ -414,7 +414,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalWithNormalTryingInvalid()
+    public function formalWithNormalTryingInvalid(): void
     {
         $this->subject->setSalutationMode('foobar');
         self::assertSame(
@@ -426,7 +426,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalWithNormal()
+    public function informalWithNormal(): void
     {
         $this->subject->setSalutationMode('informal');
         self::assertSame(
@@ -438,7 +438,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalWithNormalTryingFormal()
+    public function informalWithNormalTryingFormal(): void
     {
         $this->subject->setSalutationMode('formal');
         self::assertSame(
@@ -450,7 +450,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalWithNormalTryingNothing()
+    public function informalWithNormalTryingNothing(): void
     {
         self::assertSame(
             'informal with normal, normal',
@@ -461,7 +461,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalWithNormalTryingInvalid()
+    public function informalWithNormalTryingInvalid(): void
     {
         $this->subject->setSalutationMode('foobar');
         self::assertSame(
@@ -473,7 +473,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function bothWithoutNormalTryingFormal()
+    public function bothWithoutNormalTryingFormal(): void
     {
         $this->subject->setSalutationMode('formal');
         self::assertSame(
@@ -485,7 +485,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function bothWithoutNormalTryingInformal()
+    public function bothWithoutNormalTryingInformal(): void
     {
         $this->subject->setSalutationMode('informal');
         self::assertSame(
@@ -497,7 +497,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function bothWithoutNormalTryingNothing()
+    public function bothWithoutNormalTryingNothing(): void
     {
         self::assertSame(
             'both without normal',
@@ -508,7 +508,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function bothWithoutNormalTryingInvalid()
+    public function bothWithoutNormalTryingInvalid(): void
     {
         $this->subject->setSalutationMode('foobar');
         self::assertSame(
@@ -526,7 +526,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalOnlyNoGermanLabel()
+    public function formalOnlyNoGermanLabel(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('formal');
@@ -539,7 +539,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalOnlyNoGermanLabels()
+    public function informalOnlyNoGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('informal');
@@ -552,7 +552,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalWithNormalNoGermanLabels()
+    public function formalWithNormalNoGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('formal');
@@ -565,7 +565,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalWithNormalTryingInformalNoGermanLabels()
+    public function formalWithNormalTryingInformalNoGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('informal');
@@ -578,7 +578,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalWithNormalTryingNothingNoGermanLabels()
+    public function formalWithNormalTryingNothingNoGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -590,7 +590,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalWithNormalNoGermanLabels()
+    public function informalWithNormalNoGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('informal');
@@ -603,7 +603,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalWithNormalTryingFormalNoGermanLabels()
+    public function informalWithNormalTryingFormalNoGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('formal');
@@ -616,7 +616,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalWithNormalTryingNothingNoGermanLabels()
+    public function informalWithNormalTryingNothingNoGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -628,7 +628,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function bothWithoutNormalTryingFormalNoGermanLabels()
+    public function bothWithoutNormalTryingFormalNoGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('formal');
@@ -641,7 +641,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function bothWithoutNormalTryingInformalNoGermanLabels()
+    public function bothWithoutNormalTryingInformalNoGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('informal');
@@ -654,7 +654,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function bothWithoutNormalTryingNothingNoGermanLabels()
+    public function bothWithoutNormalTryingNothingNoGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -671,7 +671,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalOnlyWithGermanLabels()
+    public function formalOnlyWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('formal');
@@ -684,7 +684,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalOnlyWithGermanLabels()
+    public function informalOnlyWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('informal');
@@ -697,7 +697,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalWithNormalWithGermanLabels()
+    public function formalWithNormalWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('formal');
@@ -710,7 +710,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalWithNormalTryingInformalWithGermanLabels()
+    public function formalWithNormalTryingInformalWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('informal');
@@ -723,7 +723,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalWithNormalTryingNothingWithGermanLabels()
+    public function formalWithNormalTryingNothingWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -735,7 +735,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function formalWithNormalTryingInvalidWithGermanLabels()
+    public function formalWithNormalTryingInvalidWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('foobar');
@@ -748,7 +748,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalWithNormalWithGermanLabels()
+    public function informalWithNormalWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('informal');
@@ -761,7 +761,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalWithNormalTryingFormalWithGermanLabels()
+    public function informalWithNormalTryingFormalWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('formal');
@@ -774,7 +774,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalWithNormalTryingNothingWithGermanLabels()
+    public function informalWithNormalTryingNothingWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -786,7 +786,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function informalWithNormalTryingInvalidWithGermanLabels()
+    public function informalWithNormalTryingInvalidWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('foobar');
@@ -799,7 +799,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function bothWithoutNormalTryingFormalWithGermanLabels()
+    public function bothWithoutNormalTryingFormalWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('formal');
@@ -812,7 +812,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function bothWithoutNormalTryingInformalWithGermanLabels()
+    public function bothWithoutNormalTryingInformalWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('informal');
@@ -825,7 +825,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function bothWithoutNormalTryingNothingWithGermanLabels()
+    public function bothWithoutNormalTryingNothingWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         self::assertSame(
@@ -837,7 +837,7 @@ class SalutationSwitcherTest extends UnitTestCase
     /**
      * @test
      */
-    public function bothWithoutNormalTryingInvalidWithGermanLabels()
+    public function bothWithoutNormalTryingInvalidWithGermanLabels(): void
     {
         $this->subject->setLanguage('de');
         $this->subject->setSalutationMode('foobar');

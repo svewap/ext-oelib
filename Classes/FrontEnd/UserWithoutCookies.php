@@ -23,21 +23,17 @@ class UserWithoutCookies extends FrontendUserAuthentication
 
     /**
      * Sets no session cookie at all.
-     *
-     * @return void
      */
-    protected function setSessionCookie()
+    protected function setSessionCookie(): void
     {
     }
 
     /**
      * Unsets no cookie at all.
      *
-     * @param string $cookieName
-     *
-     * @return void
+     * @param mixed $cookieName
      */
-    public function removeCookie($cookieName)
+    public function removeCookie($cookieName): void
     {
     }
 }

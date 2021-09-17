@@ -23,7 +23,7 @@ class Collection extends \SplObjectStorage
      * This is used for modeling relations and will remain NULL in any other
      * context.
      *
-     * @var AbstractModel
+     * @var AbstractModel|null
      */
     private $parentModel = null;
 
@@ -49,11 +49,9 @@ class Collection extends \SplObjectStorage
      *
      * @param AbstractModel $model the model to add, need not have a UID
      *
-     * @return void
-     *
      * @throws \UnexpectedValueException
      */
-    public function add(AbstractModel $model)
+    public function add(AbstractModel $model): void
     {
         $this->attach($model);
 
@@ -95,10 +93,8 @@ class Collection extends \SplObjectStorage
      * Returns the first item.
      *
      * Note: This method rewinds the iterator.
-     *
-     * @return AbstractModel|null
      */
-    public function first()
+    public function first(): ?AbstractModel
     {
         $this->rewind();
         /** @var AbstractModel|null $current */
@@ -136,10 +132,8 @@ class Collection extends \SplObjectStorage
     /**
      * Checks whether the UID list cache needs to be rebuild and does so if
      * necessary.
-     *
-     * @return void
      */
-    private function checkUidCache()
+    private function checkUidCache(): void
     {
         if ($this->hasItemWithoutUid) {
             $this->rebuildUidCache();
@@ -148,10 +142,8 @@ class Collection extends \SplObjectStorage
 
     /**
      * Rebuilds the UID cache.
-     *
-     * @return void
      */
-    private function rebuildUidCache()
+    private function rebuildUidCache(): void
     {
         $this->hasItemWithoutUid = false;
 
@@ -175,10 +167,8 @@ class Collection extends \SplObjectStorage
      * one and 0 means the parameters stay in order.
      *
      * @param mixed $callbackFunction a callback function to use with the models stored in the list, must not be empty
-     *
-     * @return void
      */
-    public function sort($callbackFunction)
+    public function sort($callbackFunction): void
     {
         $items = iterator_to_array($this, false);
         usort($items, $callbackFunction);
@@ -200,10 +190,8 @@ class Collection extends \SplObjectStorage
      * no object is added more than once to it.
      *
      * @param Collection<AbstractModel> $list the list to append, may be empty
-     *
-     * @return void
      */
-    public function append(Collection $list)
+    public function append(Collection $list): void
     {
         /** @var AbstractModel $item */
         foreach ($list as $item) {
@@ -217,10 +205,8 @@ class Collection extends \SplObjectStorage
      *
      * If the pointer does not point to a valid element, this function is a
      * no-op.
-     *
-     * @return void
      */
-    public function purgeCurrent()
+    public function purgeCurrent(): void
     {
         if (!$this->valid()) {
             return;
@@ -242,10 +228,8 @@ class Collection extends \SplObjectStorage
      * Returns the model this list belongs to.
      *
      * @internal
-     *
-     * @return AbstractModel|null
      */
-    public function getParentModel()
+    public function getParentModel(): ?AbstractModel
     {
         return $this->parentModel;
     }
@@ -256,10 +240,8 @@ class Collection extends \SplObjectStorage
      * @internal
      *
      * @param AbstractModel $model the model this list belongs to
-     *
-     * @return void
      */
-    public function setParentModel(AbstractModel $model)
+    public function setParentModel(AbstractModel $model): void
     {
         $this->parentModel = $model;
     }
@@ -280,10 +262,8 @@ class Collection extends \SplObjectStorage
      * Marks this relation as owned by the parent model.
      *
      * @internal
-     *
-     * @return void
      */
-    public function markAsOwnedByParent()
+    public function markAsOwnedByParent(): void
     {
         $this->parentIsOwner = true;
     }
@@ -292,10 +272,8 @@ class Collection extends \SplObjectStorage
      * Marks the parent model as dirty.
      *
      * @internal
-     *
-     * @return void
      */
-    protected function markAsDirty()
+    protected function markAsDirty(): void
     {
         if ($this->parentModel instanceof AbstractModel) {
             $this->parentModel->markAsDirty();
@@ -309,10 +287,8 @@ class Collection extends \SplObjectStorage
      * SortableInterface interface.
      *
      * @internal
-     *
-     * @return void
      */
-    public function sortBySorting()
+    public function sortBySorting(): void
     {
         $this->sort([$this, 'compareSortings']);
     }
@@ -381,12 +357,9 @@ class Collection extends \SplObjectStorage
     /**
      * Returns the model at position $position.
      *
-     * @param int $position
-     *        the zero-based position of the model to retrieve, must be >= 0
-     *
-     * @return AbstractModel|null
+     * @param int $position the zero-based position of the model to retrieve, must be >= 0
      */
-    public function at(int $position)
+    public function at(int $position): ?AbstractModel
     {
         return $this->inRange($position, 1)->first();
     }

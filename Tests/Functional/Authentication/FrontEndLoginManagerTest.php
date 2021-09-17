@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Testing\TestingFramework;
-use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
-use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class FrontEndLoginManagerTest extends FunctionalTestCase
@@ -31,7 +29,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
      */
     private $testingFramework = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->testingFramework = new TestingFramework('tx_oelib');
@@ -39,7 +37,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $this->subject = FrontEndLoginManager::getInstance();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->testingFramework->cleanUpWithoutDatabase();
         parent::tearDown();
@@ -55,7 +53,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function isLoggedInForNoFrontEndReturnsFalse()
+    public function isLoggedInForNoFrontEndReturnsFalse(): void
     {
         self::assertFalse($this->subject->isLoggedIn());
     }
@@ -63,7 +61,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function isLoggedInForFrontEndWithoutLoggedInUserReturnsFalse()
+    public function isLoggedInForFrontEndWithoutLoggedInUserReturnsFalse(): void
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
 
@@ -73,7 +71,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function isLoggedInForAnonymousFrontEndSessionReturnsFalse()
+    public function isLoggedInForAnonymousFrontEndSessionReturnsFalse(): void
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
 
@@ -85,7 +83,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function isLoggedInWithLoggedInFrontEndUserReturnsTrue()
+    public function isLoggedInWithLoggedInFrontEndUserReturnsTrue(): void
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->createAndLoginFrontEndUser();
@@ -98,7 +96,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithEmptyMapperNameThrowsException()
+    public function getLoggedInUserWithEmptyMapperNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -109,7 +107,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithoutFrontEndReturnsNull()
+    public function getLoggedInUserWithoutFrontEndReturnsNull(): void
     {
         self::assertNull($this->subject->getLoggedInUser());
     }
@@ -117,7 +115,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithoutLoggedInUserReturnsNull()
+    public function getLoggedInUserWithoutLoggedInUserReturnsNull(): void
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->logoutFrontEndUser();
@@ -128,7 +126,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithLoggedInUserReturnsFrontEndUserInstance()
+    public function getLoggedInUserWithLoggedInUserReturnsFrontEndUserInstance(): void
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->createAndLoginFrontEndUser();
@@ -139,18 +137,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithOtherMapperNameAndLoggedInUserReturnsCorrespondingModel()
-    {
-        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
-        $this->testingFramework->createAndLoginFrontEndUser();
-
-        self::assertInstanceOf(TestingModel::class, $this->subject->getLoggedInUser(TestingMapper::class));
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithLoggedInUserReturnsFrontEndUserWithUidOfLoggedInUser()
+    public function getLoggedInUserWithLoggedInUserReturnsFrontEndUserWithUidOfLoggedInUser(): void
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $uid = $this->testingFramework->createAndLoginFrontEndUser();
@@ -161,7 +148,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithAlreadyCreatedUserModelReturnsThatInstance()
+    public function getLoggedInUserWithAlreadyCreatedUserModelReturnsThatInstance(): void
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $uid = $this->testingFramework->createAndLoginFrontEndUser();
@@ -177,7 +164,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserUsesMappedUserDataFromMemory()
+    public function getLoggedInUserUsesMappedUserDataFromMemory(): void
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $oldName = 'John Doe';
@@ -194,7 +181,7 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function logInUserOverwritesFormerRealLoggedInUser()
+    public function logInUserOverwritesFormerRealLoggedInUser(): void
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $this->testingFramework->createAndLoginFrontEndUser();

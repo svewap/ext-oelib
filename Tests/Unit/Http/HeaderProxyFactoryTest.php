@@ -20,7 +20,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         // Only the instance with an enabled test mode can be tested as in the
         // non-test mode added headers are not accessible.
@@ -30,7 +30,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
         $this->subject = $subject;
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         HeaderProxyFactory::purgeInstance();
         parent::tearDown();
@@ -39,7 +39,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getHeaderProxyInTestModeReturnsHeaderCollector()
+    public function getHeaderProxyInTestModeReturnsHeaderCollector(): void
     {
         HeaderProxyFactory::purgeInstance();
         HeaderProxyFactory::getInstance()->enableTestMode();
@@ -52,7 +52,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getHeaderProxyInNonTestModeReturnsRealHeaderProxy()
+    public function getHeaderProxyInNonTestModeReturnsRealHeaderProxy(): void
     {
         // new instances always have a disabled test mode
         HeaderProxyFactory::purgeInstance();
@@ -65,7 +65,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getHeaderProxyInSameModeAfterPurgeInstanceReturnsNewInstance()
+    public function getHeaderProxyInSameModeAfterPurgeInstanceReturnsNewInstance(): void
     {
         HeaderProxyFactory::purgeInstance();
         $instance = HeaderProxyFactory::getInstance()->getHeaderProxy();
@@ -80,7 +80,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getHeaderProxyReturnsTheSameObjectWhenCalledInTheSameClassInTheSameMode()
+    public function getHeaderProxyReturnsTheSameObjectWhenCalledInTheSameClassInTheSameMode(): void
     {
         self::assertSame(
             $this->subject,
@@ -91,7 +91,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getHeaderProxyNotReturnsTheSameObjectWhenCalledInTheSameClassInAnotherMode()
+    public function getHeaderProxyNotReturnsTheSameObjectWhenCalledInTheSameClassInAnotherMode(): void
     {
         // new instances always have a disabled test mode
         HeaderProxyFactory::purgeInstance();
@@ -105,7 +105,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function addHeaderAndGetIt()
+    public function addHeaderAndGetIt(): void
     {
         $this->subject->addHeader('123: foo.');
 
@@ -118,7 +118,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function addTwoHeadersAndGetTheLast()
+    public function addTwoHeadersAndGetTheLast(): void
     {
         $this->subject->addHeader('123: foo.');
         $this->subject->addHeader('123: bar.');
@@ -132,7 +132,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function addTwoHeadersAndGetBoth()
+    public function addTwoHeadersAndGetBoth(): void
     {
         $this->subject->addHeader('123: foo.');
         $this->subject->addHeader('123: bar.');
@@ -146,7 +146,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getHeaderCollectorInNonTestModeThrowsException()
+    public function getHeaderCollectorInNonTestModeThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionCode(1630827563);
@@ -161,7 +161,7 @@ class HeaderProxyFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function getHeaderCollectorInTestModeReturnsHeaderCollector()
+    public function getHeaderCollectorInTestModeReturnsHeaderCollector(): void
     {
         HeaderProxyFactory::getInstance()->enableTestMode();
 

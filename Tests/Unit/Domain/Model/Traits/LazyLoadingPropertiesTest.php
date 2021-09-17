@@ -16,7 +16,7 @@ class LazyLoadingPropertiesTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new LazyLoadingModel();
     }
@@ -24,7 +24,7 @@ class LazyLoadingPropertiesTest extends UnitTestCase
     /**
      * @test
      */
-    public function loadLazyPropertyLoadsRealInstance()
+    public function loadLazyPropertyLoadsRealInstance(): void
     {
         $realInstance = new EmptyModel();
         $parentObject = new LazyLoadingModel();

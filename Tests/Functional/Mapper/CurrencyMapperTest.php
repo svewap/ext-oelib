@@ -21,7 +21,7 @@ class CurrencyMapperTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -33,11 +33,9 @@ class CurrencyMapperTest extends FunctionalTestCase
     /**
      * Imports static records - but only if they aren't already available as static data.
      *
-     * @return void
-     *
      * @throws NimutException
      */
-    private function importStaticData()
+    private function importStaticData(): void
     {
         if ($this->getDatabaseConnection()->selectCount('*', 'static_currencies') === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Currencies.xml');
@@ -51,7 +49,7 @@ class CurrencyMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsCurrencyInstance()
+    public function findWithUidOfExistingRecordReturnsCurrencyInstance(): void
     {
         self::assertInstanceOf(
             Currency::class,
@@ -66,7 +64,7 @@ class CurrencyMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsCurrencyInstance()
+    public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsCurrencyInstance(): void
     {
         self::assertInstanceOf(
             Currency::class,
@@ -77,7 +75,7 @@ class CurrencyMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsRecordAsModel()
+    public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsRecordAsModel(): void
     {
         self::assertSame(
             49,

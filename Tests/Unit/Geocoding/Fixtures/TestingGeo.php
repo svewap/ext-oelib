@@ -54,13 +54,10 @@ class TestingGeo extends AbstractModel implements Geo
     /**
      * Sets this object's geo address.
      *
-     * @param string $address
-     *        the address to set, for example
+     * @param string $address the address to set, for example
      *        "Pariser Str. 50, 53117 Auerberg, Bonn, DE", may be empty
-     *
-     * @return void
      */
-    public function setGeoAddress(string $address)
+    public function setGeoAddress(string $address): void
     {
         $this->address = $address;
     }
@@ -95,10 +92,8 @@ class TestingGeo extends AbstractModel implements Geo
      * @param float[] $coordinates
      *        the coordinates, using the keys "latitude" and "longitude",
      *        the array values must not be empty
-     *
-     * @return void
      */
-    public function setGeoCoordinates(array $coordinates)
+    public function setGeoCoordinates(array $coordinates): void
     {
         $this->coordinates = $coordinates;
     }
@@ -119,10 +114,8 @@ class TestingGeo extends AbstractModel implements Geo
      *
      * Note: Calling this function has no influence on this object's geo error
      * status.
-     *
-     * @return void
      */
-    public function clearGeoCoordinates()
+    public function clearGeoCoordinates(): void
     {
         $this->coordinates = [];
     }
@@ -145,10 +138,8 @@ class TestingGeo extends AbstractModel implements Geo
      * Marks this object as having an error with the geo coordinates.
      *
      * @param string $reason
-     *
-     * @return void
      */
-    public function setGeoError($reason = '')
+    public function setGeoError($reason = ''): void
     {
         $this->hasGeoError = true;
         $this->geoErrorReason = $reason;
@@ -164,10 +155,8 @@ class TestingGeo extends AbstractModel implements Geo
 
     /**
      * Marks this object as not having an error with the geo coordinates.
-     *
-     * @return void
      */
-    public function clearGeoError()
+    public function clearGeoError(): void
     {
         $this->hasGeoError = false;
         $this->geoErrorReason = '';

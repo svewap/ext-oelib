@@ -45,14 +45,11 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     /**
      * Sets this user's user name (login name).
      *
-     * @param string $userName
-     *        the user name to set, must not be empty
-     *
-     * @return void
+     * @param string $userName the user name to set, must not be empty
      *
      * @throws \InvalidArgumentException
      */
-    public function setUserName(string $userName)
+    public function setUserName(string $userName): void
     {
         if ($userName === '') {
             throw new \InvalidArgumentException('$userName must not be empty.');
@@ -76,11 +73,9 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      *
      * @param string $password the password to set, must not be empty
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
      */
-    public function setPassword(string $password)
+    public function setPassword(string $password): void
     {
         if ($password === '') {
             throw new \InvalidArgumentException('$password must not be empty.');
@@ -126,10 +121,8 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Sets the full name.
      *
      * @param string $name the name to set, may be empty
-     *
-     * @return void
      */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->setAsString('name', $name);
     }
@@ -158,10 +151,8 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Sets the company.
      *
      * @param string $company the company set, may be empty
-     *
-     * @return void
      */
-    public function setCompany(string $company)
+    public function setCompany(string $company): void
     {
         $this->setAsString('company', $company);
     }
@@ -190,10 +181,8 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Sets the street address.
      *
      * @param string $street the street address, may be empty
-     *
-     * @return void
      */
-    public function setStreet(string $street)
+    public function setStreet(string $street): void
     {
         $this->setAsString('address', $street);
     }
@@ -222,10 +211,8 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Sets the ZIP code.
      *
      * @param string $zipCode the ZIP code, may be empty
-     *
-     * @return void
      */
-    public function setZip(string $zipCode)
+    public function setZip(string $zipCode): void
     {
         $this->setAsString('zip', $zipCode);
     }
@@ -254,10 +241,8 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Sets the city.
      *
      * @param string $city the city name, may be empty
-     *
-     * @return void
      */
-    public function setCity(string $city)
+    public function setCity(string $city): void
     {
         $this->setAsString('city', $city);
     }
@@ -301,10 +286,8 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Sets the phone number.
      *
      * @param string $phoneNumber the phone number, may be empty
-     *
-     * @return void
      */
-    public function setPhoneNumber(string $phoneNumber)
+    public function setPhoneNumber(string $phoneNumber): void
     {
         $this->setAsString('telephone', $phoneNumber);
     }
@@ -334,10 +317,8 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Sets the e-mail address.
      *
      * @param string $eMailAddress the e-mail address to set, may be empty
-     *
-     * @return void
      */
-    public function setEmailAddress(string $eMailAddress)
+    public function setEmailAddress(string $eMailAddress): void
     {
         $this->setAsString('email', $eMailAddress);
     }
@@ -410,22 +391,16 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Sets this user's direct user groups.
      *
      * @param Collection<FrontEndUserGroup> $userGroups the user groups to set, may be empty
-     *
-     * @return void
      */
-    public function setUserGroups(Collection $userGroups)
+    public function setUserGroups(Collection $userGroups): void
     {
         $this->set('usergroup', $userGroups);
     }
 
     /**
      * Adds $group to this user's direct groups.
-     *
-     * @param FrontEndUserGroup $group
-     *
-     * @return void
      */
-    public function addUserGroup(FrontEndUserGroup $group)
+    public function addUserGroup(FrontEndUserGroup $group): void
     {
         $this->getUserGroups()->add($group);
     }
@@ -491,11 +466,9 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      *
      * @param int $genderKey one of the predefined gender constants
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
      */
-    public function setGender(int $genderKey)
+    public function setGender(int $genderKey): void
     {
         $validGenderKeys = [self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_UNKNOWN];
         if (!in_array($genderKey, $validGenderKeys, true)) {
@@ -533,10 +506,8 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Sets the first name.
      *
      * @param string $firstName the first name to set, may be empty
-     *
-     * @return void
      */
-    public function setFirstName(string $firstName)
+    public function setFirstName(string $firstName): void
     {
         $this->setAsString('first_name', $firstName);
     }
@@ -566,10 +537,8 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Sets the last name.
      *
      * @param string $lastName the last name to set, may be empty
-     *
-     * @return void
      */
-    public function setLastName(string $lastName)
+    public function setLastName(string $lastName): void
     {
         $this->setAsString('last_name', $lastName);
     }
@@ -680,10 +649,8 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Returns the country of this user.
      *
      * Note: This function uses the "country code" field, not the free-text country field.
-     *
-     * @return Country|null
      */
-    public function getCountry()
+    public function getCountry(): ?Country
     {
         $countryCode = $this->getAsString('static_info_country');
         if ($countryCode === '') {
@@ -705,12 +672,9 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     /**
      * Sets the country of this user.
      *
-     * @param Country $country
-     *        the country to set for this place, can be NULL for "no country"
-     *
-     * @return void
+     * @param ?Country $country the country to set for this place, can be NULL for "no country"
      */
-    public function setCountry(Country $country = null)
+    public function setCountry(?Country $country = null): void
     {
         $countryCode = $country instanceof Country ? $country->getIsoAlpha3Code() : '';
 
@@ -751,10 +715,8 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Sets this user's job title.
      *
      * @param string $jobTitle the job title to set, may be empty
-     *
-     * @return void
      */
-    public function setJobTitle(string $jobTitle)
+    public function setJobTitle(string $jobTitle): void
     {
         $this->setAsString('title', $jobTitle);
     }

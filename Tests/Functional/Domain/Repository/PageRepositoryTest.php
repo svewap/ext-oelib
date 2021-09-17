@@ -22,7 +22,7 @@ class PageRepositoryTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -33,7 +33,7 @@ class PageRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithinParentPagesForNegativeRecursionThrowsException()
+    public function findWithinParentPagesForNegativeRecursionThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$recursion must be >= 0, but actually is: -1');
@@ -45,7 +45,7 @@ class PageRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithinParentPagesForEmptyArrayAndNoRecursionReturnsEmptyArray()
+    public function findWithinParentPagesForEmptyArrayAndNoRecursionReturnsEmptyArray(): void
     {
         $result = $this->subject->findWithinParentPages([]);
 
@@ -69,7 +69,7 @@ class PageRepositoryTest extends FunctionalTestCase
      *
      * @dataProvider recursionDataProvider
      */
-    public function findWithinParentPagesForEmptyArrayAndAnyRecursionReturnsEmptyArray(int $recursion)
+    public function findWithinParentPagesForEmptyArrayAndAnyRecursionReturnsEmptyArray(int $recursion): void
     {
         $result = $this->subject->findWithinParentPages([], $recursion);
 
@@ -112,7 +112,7 @@ class PageRepositoryTest extends FunctionalTestCase
      * @dataProvider pagesWithoutSubpagesDataProvider
      * @dataProvider pagesWithDirectSubpagesDataProvider
      */
-    public function findWithinParentPagesWithMissingRecursionReturnsOnlyTheProvidedPages(array $pageUids)
+    public function findWithinParentPagesWithMissingRecursionReturnsOnlyTheProvidedPages(array $pageUids): void
     {
         $result = $this->subject->findWithinParentPages($pageUids);
 
@@ -127,7 +127,7 @@ class PageRepositoryTest extends FunctionalTestCase
      * @dataProvider pagesWithoutSubpagesDataProvider
      * @dataProvider pagesWithDirectSubpagesDataProvider
      */
-    public function findWithinParentPagesWithZeroRecursionReturnsOnlyTheProvidedPages(array $pageUids)
+    public function findWithinParentPagesWithZeroRecursionReturnsOnlyTheProvidedPages(array $pageUids): void
     {
         $result = $this->subject->findWithinParentPages($pageUids, 0);
 
@@ -142,7 +142,7 @@ class PageRepositoryTest extends FunctionalTestCase
      *
      * @dataProvider pagesWithDirectSubpagesDataProvider
      */
-    public function findWithinParentPagesWithRecursionFindsFindsDirectSubpage(array $parentUids, array $childUids)
+    public function findWithinParentPagesWithRecursionFindsFindsDirectSubpage(array $parentUids, array $childUids): void
     {
         $result = $this->subject->findWithinParentPages($parentUids, 1);
 
@@ -152,7 +152,7 @@ class PageRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithinParentPagesCanDoMultipleLevelsOfRecursion()
+    public function findWithinParentPagesCanDoMultipleLevelsOfRecursion(): void
     {
         $result = $this->subject->findWithinParentPages([11], 2);
 
@@ -162,7 +162,7 @@ class PageRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithinParentPagesIgnoresDeeperRecursionThanSpecified()
+    public function findWithinParentPagesIgnoresDeeperRecursionThanSpecified(): void
     {
         $result = $this->subject->findWithinParentPages([11], 1);
 
@@ -172,7 +172,7 @@ class PageRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithinParentPagesWithoutRecursionAndWithoutSubpagesSortsResult()
+    public function findWithinParentPagesWithoutRecursionAndWithoutSubpagesSortsResult(): void
     {
         $result = $this->subject->findWithinParentPages([3, 2, 1]);
 
@@ -182,7 +182,7 @@ class PageRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithinParentPagesWithSubpagesSortsResult()
+    public function findWithinParentPagesWithSubpagesSortsResult(): void
     {
         $result = $this->subject->findWithinParentPages([11, 4], 2);
 

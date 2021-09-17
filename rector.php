@@ -36,7 +36,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::PHP_70);
     $containerConfigurator->import(SetList::PHP_71);
     $containerConfigurator->import(SetList::PHP_72);
-//    $containerConfigurator->import(SetList::TYPE_DECLARATION);
+    $containerConfigurator->import(SetList::TYPE_DECLARATION);
 //    $containerConfigurator->import(SetList::TYPE_DECLARATION_STRICT);
 
 //    $containerConfigurator->import(Typo3SetList::TYPO3_76);
@@ -75,6 +75,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'ext_emconf.php',
             'ext_localconf.php',
             'ext_tables.php',
+            'Classes/Configuration/ConfigurationCheck.php',
+            'Classes/Domain/Repository/Traits/ReadOnlyRepository.php',
+            'Classes/FrontEnd/UserWithoutCookies.php',
             __DIR__ . '/**/Configuration/AjaxRoutes.php',
             __DIR__ . '/**/Configuration/Backend/AjaxRoutes.php',
             __DIR__ . '/**/Configuration/Commands.php',

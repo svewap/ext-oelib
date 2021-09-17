@@ -10,7 +10,7 @@ namespace OliverKlee\Oelib\Visibility;
 class Node
 {
     /**
-     * @var Node[] all direct children of this node
+     * @var array<int, Node> all direct children of this node
      */
     private $children = [];
 
@@ -38,10 +38,8 @@ class Node
      * Adds a child to this node.
      *
      * @param Node $child the child to add to this node
-     *
-     * @return void
      */
-    public function addChild(Node $child)
+    public function addChild(Node $child): void
     {
         $this->children[] = $child;
         $child->setParent($this);
@@ -53,10 +51,8 @@ class Node
      * The parent can only be set once.
      *
      * @param Node $parentNode the parent node to add
-     *
-     * @return void
      */
-    public function setParent(Node $parentNode)
+    public function setParent(Node $parentNode): void
     {
         if ($this->parentNode !== null) {
             throw new \InvalidArgumentException('This node already has a parent node.', 1331488668);
@@ -78,10 +74,8 @@ class Node
     /**
      * Marks this node as visible and propagates the visibility recursively to
      * the parent up to the root.
-     *
-     * @return void
      */
-    public function markAsVisible()
+    public function markAsVisible(): void
     {
         $this->isVisible = true;
         if ($this->parentNode instanceof Node) {
@@ -92,7 +86,7 @@ class Node
     /**
      * Returns the children set for the current node.
      *
-     * @return Node[] this node's children, will be empty if no children are set
+     * @return array<int, Node> this node's children, will be empty if no children are set
      */
     public function getChildren(): array
     {
@@ -101,10 +95,8 @@ class Node
 
     /**
      * Returns the parent node set for this node.
-     *
-     * @return Node|null
      */
-    public function getParent()
+    public function getParent(): ?Node
     {
         return $this->parentNode;
     }

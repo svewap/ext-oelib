@@ -12,7 +12,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class Tree
 {
     /**
-     * @var Node[] all nodes within the tree referenced by their keys
+     * @var array<string, Node> all nodes within the tree referenced by their keys
      */
     private $nodes = [];
 
@@ -48,17 +48,13 @@ class Tree
     /**
      * Builds the node tree from the given structure.
      *
-     * @param array $treeStructure
-     *        the tree structure as array, may be empty
-     * @param Node $parentNode
-     *        the parent node for the current key
-     *
-     * @return void
+     * @param array $treeStructure the tree structure as array, may be empty
+     * @param Node $parentNode the parent node for the current key
      */
     private function buildTreeFromArray(
         array $treeStructure,
         Node $parentNode
-    ) {
+    ): void {
         foreach ($treeStructure as $nodeKey => $nodeContents) {
             /** @var Node $childNode */
             $childNode = GeneralUtility::makeInstance(Node::class);
@@ -78,9 +74,9 @@ class Tree
      * Creates a numeric array of all subparts that still are hidden.
      *
      * The output of this function can be used for
-     * Template::hideSubpartsArray.
+     * `Template::hideSubpartsArray`.
      *
-     * @return string[] the key of the subparts which are hidden, will be empty if no elements are hidden
+     * @return array<int, string> the keys of the subparts which are hidden, will be empty if no elements are hidden
      */
     public function getKeysOfHiddenSubparts(): array
     {
@@ -110,10 +106,8 @@ class Tree
      *
      * @param string[] $nodeKeys
      *        the keys of the visible nodes, may be empty
-     *
-     * @return void
      */
-    public function makeNodesVisible(array $nodeKeys)
+    public function makeNodesVisible(array $nodeKeys): void
     {
         foreach ($nodeKeys as $nodeKey) {
             if (isset($this->nodes[$nodeKey])) {

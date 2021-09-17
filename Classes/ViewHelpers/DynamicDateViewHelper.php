@@ -68,7 +68,7 @@ class DynamicDateViewHelper extends AbstractViewHelper implements CompilableInte
      *
      * @throws FluidException
      */
-    public function render($displayFormat = self::DEFAULT_DATE_FORMAT): string
+    public function render(string $displayFormat = self::DEFAULT_DATE_FORMAT): string
     {
         return static::renderStatic(
             ['format' => $displayFormat],
@@ -80,7 +80,7 @@ class DynamicDateViewHelper extends AbstractViewHelper implements CompilableInte
     /**
      * Renders the DateTime object (which is the child) as a formatted date.
      *
-     * @param mixed[] $arguments can include the "format" key (which will default to a German date/time format)
+     * @param array<string, mixed> $arguments can include the "format" key (will default to a German date/time format)
      * @param \Closure $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
      *

@@ -11,13 +11,13 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class SessionTest extends UnitTestCase
 {
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $GLOBALS['TSFE'] = null;
         parent::tearDown();
     }
 
-    private function createFakeFrontEnd()
+    private function createFakeFrontEnd(): void
     {
         $GLOBALS['TSFE'] = $this->prophesize(TypoScriptFrontendController::class)->reveal();
     }
@@ -25,7 +25,7 @@ class SessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceThrowsExceptionWithoutFrontEnd()
+    public function getInstanceThrowsExceptionWithoutFrontEnd(): void
     {
         $this->expectException(
             \BadMethodCallException::class
@@ -42,7 +42,7 @@ class SessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceWithInvalidTypeThrowsException()
+    public function getInstanceWithInvalidTypeThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -59,7 +59,7 @@ class SessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceWithUserTypeReturnsSessionInstance()
+    public function getInstanceWithUserTypeReturnsSessionInstance(): void
     {
         $this->createFakeFrontEnd();
 
@@ -72,7 +72,7 @@ class SessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceWithTemporaryTypeReturnsSessionInstance()
+    public function getInstanceWithTemporaryTypeReturnsSessionInstance(): void
     {
         $this->createFakeFrontEnd();
 
@@ -85,7 +85,7 @@ class SessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceWithSameTypeReturnsSameInstance()
+    public function getInstanceWithSameTypeReturnsSameInstance(): void
     {
         $this->createFakeFrontEnd();
 
@@ -98,7 +98,7 @@ class SessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceWithDifferentTypesReturnsDifferentInstance()
+    public function getInstanceWithDifferentTypesReturnsDifferentInstance(): void
     {
         $this->createFakeFrontEnd();
 
@@ -111,7 +111,7 @@ class SessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceWithSameTypesAfterPurgeInstancesReturnsNewInstance()
+    public function getInstanceWithSameTypesAfterPurgeInstancesReturnsNewInstance(): void
     {
         $this->createFakeFrontEnd();
         $firstInstance = Session::getInstance(Session::TYPE_USER);
@@ -126,7 +126,7 @@ class SessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function setInstanceWithInvalidTypeThrowsException()
+    public function setInstanceWithInvalidTypeThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -141,7 +141,7 @@ class SessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceWithUserTypeReturnsInstanceFromSetInstance()
+    public function getInstanceWithUserTypeReturnsInstanceFromSetInstance(): void
     {
         $instance = new FakeSession();
         Session::setInstance(Session::TYPE_USER, $instance);
@@ -155,7 +155,7 @@ class SessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceWithTemporaryTypeReturnsInstanceFromSetInstance()
+    public function getInstanceWithTemporaryTypeReturnsInstanceFromSetInstance(): void
     {
         $instance = new FakeSession();
         Session::setInstance(
@@ -172,7 +172,7 @@ class SessionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceWithDifferentTypesReturnsDifferentInstancesSetViaSetInstance()
+    public function getInstanceWithDifferentTypesReturnsDifferentInstancesSetViaSetInstance(): void
     {
         Session::setInstance(
             Session::TYPE_USER,

@@ -21,7 +21,7 @@ class LanguageMapperTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->importStaticData();
@@ -31,11 +31,9 @@ class LanguageMapperTest extends FunctionalTestCase
     /**
      * Imports static records - but only if they aren't already available as static data.
      *
-     * @return void
-     *
      * @throws NimutException
      */
-    private function importStaticData()
+    private function importStaticData(): void
     {
         if ($this->getDatabaseConnection()->selectCount('*', 'static_languages') === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Languages.xml');
@@ -49,7 +47,7 @@ class LanguageMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsLanguageInstance()
+    public function findWithUidOfExistingRecordReturnsLanguageInstance(): void
     {
         self::assertInstanceOf(
             Language::class,
@@ -60,7 +58,7 @@ class LanguageMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsRecordAsModel()
+    public function findWithUidOfExistingRecordReturnsRecordAsModel(): void
     {
         /** @var Language $model */
         $model = $this->subject->find(43);
@@ -77,7 +75,7 @@ class LanguageMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsLanguageInstance()
+    public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsLanguageInstance(): void
     {
         self::assertInstanceOf(
             Language::class,
@@ -88,7 +86,7 @@ class LanguageMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsRecordAsModel()
+    public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsRecordAsModel(): void
     {
         self::assertSame(
             'DE',

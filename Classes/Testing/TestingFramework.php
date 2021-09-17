@@ -221,10 +221,7 @@ final class TestingFramework
         $cacheManager->setCacheConfigurations($cacheConfigurations);
     }
 
-    /**
-     * @return void
-     */
-    private function initializeDatabase()
+    private function initializeDatabase(): void
     {
         if ($this->databaseInitialized) {
             return;
@@ -239,10 +236,8 @@ final class TestingFramework
 
     /**
      * Determines a good value for the auto increment threshold and sets it.
-     *
-     * @return void
      */
-    private function determineAndSetAutoIncrementThreshold()
+    private function determineAndSetAutoIncrementThreshold(): void
     {
         $this->setResetAutoIncrementThreshold(self::AUTO_INCREMENT_THRESHOLD_WITHOUT_ROOTLINE_CACHE);
     }
@@ -562,16 +557,13 @@ final class TestingFramework
      *
      * @param string $table the name of the table, must not be empty
      * @param int $uid the UID of the record to change, must not be empty
-     * @param array $rawData
-     *        associative array containing key => value pairs for those fields of the record that need to be changed,
-     *        must not be empty
-     *
-     * @return void
+     * @param array $rawData associative array containing key => value pairs for those fields of the record that
+     *        need to be changed, must not be empty
      *
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
      */
-    public function changeRecord(string $table, int $uid, array $rawData)
+    public function changeRecord(string $table, int $uid, array $rawData): void
     {
         $this->initializeDatabase();
         $dummyColumnName = $this->getDummyColumnName($table);
@@ -620,11 +612,9 @@ final class TestingFramework
      * @param int $uidLocal UID of the local table, must be > 0
      * @param int $uidForeign UID of the foreign table, must be > 0
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
      */
-    public function createRelation(string $table, int $uidLocal, int $uidForeign)
+    public function createRelation(string $table, int $uidLocal, int $uidForeign): void
     {
         $this->initializeDatabase();
         if (!$this->isNoneSystemTableNameAllowed($table)) {
@@ -659,8 +649,6 @@ final class TestingFramework
      * @param int $uidForeign UID of the record in the foreign table, must be > 0
      * @param string $columnName name of the column in which the relation counter should be updated, must not be empty
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
      */
@@ -669,7 +657,7 @@ final class TestingFramework
         int $uidLocal,
         int $uidForeign,
         string $columnName
-    ) {
+    ): void {
         $this->initializeDatabase();
         if (!$this->isTableNameAllowed($tableName)) {
             throw new \InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1331490419);
@@ -747,21 +735,14 @@ final class TestingFramework
      * issue.
      *
      * @param bool $performDeepCleanUp whether a deep clean up should be performed, may be empty
-     *
-     * @return void
      */
-    public function cleanUp(bool $performDeepCleanUp = false)
+    public function cleanUp(bool $performDeepCleanUp = false): void
     {
         $this->cleanUpDatabase($performDeepCleanUp);
         $this->cleanUpWithoutDatabase();
     }
 
-    /**
-     * @param bool $performDeepCleanUp
-     *
-     * @return void
-     */
-    private function cleanUpDatabase(bool $performDeepCleanUp = false)
+    private function cleanUpDatabase(bool $performDeepCleanUp = false): void
     {
         $this->initializeDatabase();
         $this->cleanUpTableSet(false, $performDeepCleanUp);
@@ -771,10 +752,8 @@ final class TestingFramework
     /**
      * Cleanup without deleting dummy records. Use this method instead of cleanUp() for better performance when
      * another testing framework (e.g., nimut/testing-framework) already takes care of cleaning up old database records.
-     *
-     * @return void
      */
-    public function cleanUpWithoutDatabase()
+    public function cleanUpWithoutDatabase(): void
     {
         $this->deleteAllDummyFoldersAndFiles();
         $this->discardFakeFrontEnd();
@@ -802,10 +781,8 @@ final class TestingFramework
      *
      * @param bool $useSystemTables whether to clean up the system tables (TRUE) or the non-system test tables (FALSE)
      * @param bool $performDeepCleanUp whether a deep clean up should be performed, may be empty
-     *
-     * @return void
      */
-    private function cleanUpTableSet(bool $useSystemTables, bool $performDeepCleanUp)
+    private function cleanUpTableSet(bool $useSystemTables, bool $performDeepCleanUp): void
     {
         if ($useSystemTables) {
             $tablesToCleanUp = $performDeepCleanUp ? self::ALLOWED_SYSTEM_TABLES : $this->dirtySystemTables;
@@ -865,12 +842,9 @@ final class TestingFramework
      * If the column data for that table already is cached, this function does
      * nothing.
      *
-     * @param string $table
-     *        the name of the table for which the column names should be retrieved, must not be empty
-     *
-     * @return void
+     * @param string $table the name of the table for which the column names should be retrieved, must not be empty
      */
-    private function retrieveColumnsForTable(string $table)
+    private function retrieveColumnsForTable(string $table): void
     {
         if (isset(self::$tableColumnCache[$table])) {
             return;
@@ -887,10 +861,8 @@ final class TestingFramework
 
     /**
      * Deletes all dummy files and folders.
-     *
-     * @return void
      */
-    private function deleteAllDummyFoldersAndFiles()
+    private function deleteAllDummyFoldersAndFiles(): void
     {
         // If the upload folder was created by the testing framework, it can be
         // removed at once.
@@ -941,10 +913,8 @@ final class TestingFramework
      * Adds a file name to $this->dummyFiles.
      *
      * @param string $uniqueFileName file name to add, must be the unique name of a dummy file, must not be empty
-     *
-     * @return void
      */
-    private function addToDummyFileList(string $uniqueFileName)
+    private function addToDummyFileList(string $uniqueFileName): void
     {
         $relativeFileName = $this->getPathRelativeToUploadDirectory(
             $uniqueFileName
@@ -961,7 +931,7 @@ final class TestingFramework
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function deleteDummyFile(string $fileName)
+    public function deleteDummyFile(string $fileName): void
     {
         $absolutePathToFile = $this->getUploadFolderPath() . $fileName;
         $fileExists = is_file($absolutePathToFile);
@@ -1023,7 +993,7 @@ final class TestingFramework
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    private function deleteDummyFolder(string $folderName)
+    private function deleteDummyFolder(string $folderName): void
     {
         $absolutePathToFolder = $this->getUploadFolderPath() . $folderName;
 
@@ -1052,11 +1022,9 @@ final class TestingFramework
     /**
      * Creates the upload folder if it does not exist yet.
      *
-     * @return void
-     *
      * @throws \RuntimeException
      */
-    private function createDummyUploadFolder()
+    private function createDummyUploadFolder(): void
     {
         $uploadFolderPath = $this->getUploadFolderPath();
         if (is_dir($uploadFolderPath)) {
@@ -1077,18 +1045,15 @@ final class TestingFramework
     /**
      * Sets the upload folder path.
      *
-     * @param string $absolutePath
-     *        absolute path to the folder where to work on during the tests,can be either an existing folder which will
-     *     be cleaned up after the tests or a path of a folder to be created as soon as it is needed and deleted during
-     *     cleanUp, must end with a trailing slash
-     *
-     * @return void
+     * @param string $absolutePath absolute path to the folder where to work on during the tests,can be either an
+     *        existing folder which will be cleaned up after the tests or a path of a folder to be created as soon as
+     *        it is needed and deleted during cleanUp, must end with a trailing slash
      *
      * @throws \BadMethodCallException
      *         if there are dummy files within the current upload folder as these files could not be deleted if the
      *         upload folder path has changed
      */
-    public function setUploadFolderPath(string $absolutePath)
+    public function setUploadFolderPath(string $absolutePath): void
     {
         if (!empty($this->dummyFiles) || !empty($this->dummyFolders)) {
             throw new \BadMethodCallException(
@@ -1254,10 +1219,8 @@ final class TestingFramework
      * function, though.
      *
      * If no fake front end has been created, this function does nothing.
-     *
-     * @return void
      */
-    private function discardFakeFrontEnd()
+    private function discardFakeFrontEnd(): void
     {
         if (!$this->hasFakeFrontEnd()) {
             return;
@@ -1287,10 +1250,8 @@ final class TestingFramework
 
     /**
      * Makes sure that no FE login cookies will be sent.
-     *
-     * @return void
      */
-    private function suppressFrontEndCookies()
+    private function suppressFrontEndCookies(): void
     {
         // avoid cookies from the phpMyAdmin extension
         $GLOBALS['PHP_UNIT_TEST_RUNNING'] = true;
@@ -1315,12 +1276,10 @@ final class TestingFramework
      *
      * @param int $userId UID of the FE user, must not necessarily exist in the database, must be > 0
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException if no front end has been created
      */
-    private function loginFrontEndUser(int $userId)
+    private function loginFrontEndUser(int $userId): void
     {
         if ($userId <= 0) {
             throw new \InvalidArgumentException('The user ID must be > 0.', 1331490798);
@@ -1363,11 +1322,9 @@ final class TestingFramework
      *
      * If no front-end user is logged in, this function does nothing.
      *
-     * @return void
-     *
      * @throws \BadMethodCallException if no front end has been created
      */
-    public function logoutFrontEndUser()
+    public function logoutFrontEndUser(): void
     {
         if (!$this->hasFakeFrontEnd()) {
             throw new \BadMethodCallException(
@@ -1422,10 +1379,8 @@ final class TestingFramework
      * Retrieves the table names of the current DB and stores them in self::$tableNameCache.
      *
      * This function does nothing if the table names already have been retrieved.
-     *
-     * @return void
      */
-    private function retrieveTableNames()
+    private function retrieveTableNames(): void
     {
         if (!empty(self::$tableNameCache)) {
             return;
@@ -1451,10 +1406,8 @@ final class TestingFramework
      *
      * The array with the allowed table names is written directly to
      * $this->ownAllowedTables.
-     *
-     * @return void
      */
-    private function createListOfOwnAllowedTables()
+    private function createListOfOwnAllowedTables(): void
     {
         $this->ownAllowedTables = [];
         $allTables = $this->getAllTableNames();
@@ -1477,10 +1430,8 @@ final class TestingFramework
      *
      * The array with the allowed table names is written directly to
      * $this->additionalAllowedTables.
-     *
-     * @return void
      */
-    private function createListOfAdditionalAllowedTables()
+    private function createListOfAdditionalAllowedTables(): void
     {
         $allTables = \implode(',', $this->getAllTableNames());
         $additionalTablePrefixes = \implode('|', $this->additionalTablePrefixes);
@@ -1674,13 +1625,11 @@ final class TestingFramework
      * @param string $table the name of the table on which we're going to reset the auto increment entry, must not be
      *     empty
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
      *
      * @see resetAutoIncrementLazily
      */
-    public function resetAutoIncrement(string $table)
+    public function resetAutoIncrement(string $table): void
     {
         $this->initializeDatabase();
 
@@ -1718,11 +1667,9 @@ final class TestingFramework
      * @param string $table the name of the table on which we're going to reset the auto increment entry, must not be
      *     empty
      *
-     * @return void
-     *
      * @see resetAutoIncrement
      */
-    private function resetAutoIncrementLazily(string $table)
+    private function resetAutoIncrementLazily(string $table): void
     {
         $this->initializeDatabase();
 
@@ -1754,13 +1701,11 @@ final class TestingFramework
      *
      * @param int $threshold threshold, must be > 0
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
      *
      * @see resetAutoIncrementLazily
      */
-    public function setResetAutoIncrementThreshold(int $threshold)
+    public function setResetAutoIncrementThreshold(int $threshold): void
     {
         if ($threshold <= 0) {
             throw new \InvalidArgumentException('$threshold must be > 0.', 1331490913);
@@ -1831,15 +1776,12 @@ final class TestingFramework
      * represents a list of tables that were used for testing and contain dummy
      * records and thus are called "dirty" until the next clean up).
      *
-     * @param string $tableNames
-     *        the table name or a comma-separated list of table names to put on the list of dirty tables, must not be
-     *     empty
-     *
-     * @return void
+     * @param string $tableNames the table name or a comma-separated list of table names to put on the list of dirty
+     *        tables, must not be empty
      *
      * @throws \InvalidArgumentException
      */
-    public function markTableAsDirty(string $tableNames)
+    public function markTableAsDirty(string $tableNames): void
     {
         $this->initializeDatabase();
 
@@ -1894,12 +1836,10 @@ final class TestingFramework
      * @param int $uid the UID of the record to modify, must be > 0
      * @param string $fieldName the field name of the field to modify, must not be empty
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
      */
-    private function increaseRelationCounter(string $tableName, int $uid, string $fieldName)
+    private function increaseRelationCounter(string $tableName, int $uid, string $fieldName): void
     {
         if (!$this->isTableNameAllowed($tableName)) {
             throw new \InvalidArgumentException(
@@ -1950,10 +1890,8 @@ final class TestingFramework
 
     /**
      * Purges the cached hooks.
-     *
-     * @return void
      */
-    public function purgeHooks()
+    public function purgeHooks(): void
     {
         self::$hooks = [];
         self::$hooksHaveBeenRetrieved = false;
@@ -1971,10 +1909,7 @@ final class TestingFramework
         return $GLOBALS['TSFE'];
     }
 
-    /**
-     * @return void
-     */
-    private function registerNullPageCache()
+    private function registerNullPageCache(): void
     {
         $cacheKey = $this->getCacheKeyPrefix() . 'pages';
         /** @var CacheManager $cacheManager */

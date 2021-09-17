@@ -36,8 +36,8 @@ class FakeSession extends Session
      *
      * @param string $key the key of the data item to get, must not be empty
      *
-     * @return mixed the data for the key $key, will be an empty string
-     *               if the key has not been set yet
+     * @return string|mixed the data for the key $key, will be an empty string
+             if the key has not been set yet
      */
     protected function get(string $key)
     {
@@ -49,10 +49,8 @@ class FakeSession extends Session
      *
      * @param string $key the key of the data item to get, must not be empty
      * @param mixed $value the data for the key $key
-     *
-     * @return void
      */
-    protected function set($key, $value)
+    protected function set(string $key, $value): void
     {
         $this->sessionData[$key] = $value;
     }

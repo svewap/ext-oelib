@@ -39,13 +39,9 @@ final class TestingSalutationSwitcher extends SalutationSwitcher
     /**
      * Sets the current language for this plugin and loads the language files.
      *
-     * @param string $language
-     *        two-letter lowercase language like "en" or "de" or "default"
-     *        (which is an alias for "en")
-     *
-     * @return void
+     * @param string $language two-letter lowercase language like "en" or "de" or "default" (which is an alias for "en")
      */
-    public function setLanguage(string $language)
+    public function setLanguage(string $language): void
     {
         if ($this->getLanguage() !== $language) {
             // Make sure the language file are reloaded.
@@ -72,10 +68,8 @@ final class TestingSalutationSwitcher extends SalutationSwitcher
      * Sets the salutation mode.
      *
      * @param string $salutation the salutation mode to use ("formal" or "informal")
-     *
-     * @return void
      */
-    public function setSalutationMode(string $salutation)
+    public function setSalutationMode(string $salutation): void
     {
         $this->conf['salutation'] = $salutation;
     }

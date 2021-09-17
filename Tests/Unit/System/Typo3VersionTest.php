@@ -14,7 +14,7 @@ final class Typo3VersionTest extends UnitTestCase
      */
     private $version = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->version = new \TYPO3\CMS\Core\Information\Typo3Version();
     }
@@ -27,7 +27,7 @@ final class Typo3VersionTest extends UnitTestCase
     /**
      * @test
      */
-    public function isAtLeastForLowerVersionThanCurrentVersionReturnsTrue()
+    public function isAtLeastForLowerVersionThanCurrentVersionReturnsTrue(): void
     {
         $result = Typo3Version::isAtLeast($this->getMajorVersion() - 1);
 
@@ -37,7 +37,7 @@ final class Typo3VersionTest extends UnitTestCase
     /**
      * @test
      */
-    public function isAtLeastForCurrentVersionReturnsTrue()
+    public function isAtLeastForCurrentVersionReturnsTrue(): void
     {
         $result = Typo3Version::isAtLeast($this->getMajorVersion());
 
@@ -47,7 +47,7 @@ final class Typo3VersionTest extends UnitTestCase
     /**
      * @test
      */
-    public function isAtLeastForHigherVersionThanCurrentVersionReturnsFalse()
+    public function isAtLeastForHigherVersionThanCurrentVersionReturnsFalse(): void
     {
         $result = Typo3Version::isAtLeast($this->getMajorVersion() + 1);
 
@@ -57,7 +57,7 @@ final class Typo3VersionTest extends UnitTestCase
     /**
      * @test
      */
-    public function isNotHigherThanForLowerVersionThanCurrentVersionReturnsFalse()
+    public function isNotHigherThanForLowerVersionThanCurrentVersionReturnsFalse(): void
     {
         $result = Typo3Version::isNotHigherThan($this->getMajorVersion() - 1);
 
@@ -67,7 +67,7 @@ final class Typo3VersionTest extends UnitTestCase
     /**
      * @test
      */
-    public function isNotHigherThanForCurrentVersionReturnsTrue()
+    public function isNotHigherThanForCurrentVersionReturnsTrue(): void
     {
         $result = Typo3Version::isNotHigherThan($this->getMajorVersion());
 
@@ -77,7 +77,7 @@ final class Typo3VersionTest extends UnitTestCase
     /**
      * @test
      */
-    public function isNotHigherThanForHigherVersionThanCurrentVersionReturnsTrue()
+    public function isNotHigherThanForHigherVersionThanCurrentVersionReturnsTrue(): void
     {
         $result = Typo3Version::isNotHigherThan($this->getMajorVersion() + 1);
 

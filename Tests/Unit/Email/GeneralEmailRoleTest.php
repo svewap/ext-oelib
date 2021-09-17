@@ -13,7 +13,7 @@ class GeneralEmailRoleTest extends UnitTestCase
     /**
      * @test
      */
-    public function implementsEmailRole()
+    public function implementsEmailRole(): void
     {
         $subject = new GeneralEmailRole('jade@example.com');
 
@@ -23,7 +23,7 @@ class GeneralEmailRoleTest extends UnitTestCase
     /**
      * @test
      */
-    public function usesEmailAddressFromConstructor()
+    public function usesEmailAddressFromConstructor(): void
     {
         $emailAddress = 'jade@example.com';
         $subject = new GeneralEmailRole($emailAddress);
@@ -34,7 +34,7 @@ class GeneralEmailRoleTest extends UnitTestCase
     /**
      * @test
      */
-    public function usesNameFromConstructor()
+    public function usesNameFromConstructor(): void
     {
         $name = 'Jade Jennings';
         $subject = new GeneralEmailRole('jade@example.com', $name);
@@ -45,7 +45,7 @@ class GeneralEmailRoleTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasEmptyNameByDefault()
+    public function hasEmptyNameByDefault(): void
     {
         $subject = new GeneralEmailRole('jade@example.com');
 

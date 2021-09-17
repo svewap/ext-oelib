@@ -19,7 +19,7 @@ final class BackEndUserMapperTest extends UnitTestCase
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new BackEndUserMapper();
     }
@@ -27,7 +27,7 @@ final class BackEndUserMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function isMapper()
+    public function isMapper(): void
     {
         self::assertInstanceOf(AbstractDataMapper::class, $this->subject);
     }
@@ -35,7 +35,7 @@ final class BackEndUserMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function createsBackEndUserModel()
+    public function createsBackEndUserModel(): void
     {
         $model = $this->subject->getNewGhost();
 
@@ -47,7 +47,7 @@ final class BackEndUserMapperTest extends UnitTestCase
     /**
      * @test
      */
-    public function findByUserNameForEmptyUserNameThrowsException()
+    public function findByUserNameForEmptyUserNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$value must not be empty.');

@@ -10,8 +10,6 @@ use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
-use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
-use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
@@ -34,7 +32,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
      */
     private $backEndUserMapper = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -46,11 +44,9 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     }
 
     /**
-     * @return void
-     *
      * @throws NimutException
      */
-    private function logInBackEndUser()
+    private function logInBackEndUser(): void
     {
         $this->setUpBackendUserFromFixture(1);
     }
@@ -70,7 +66,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function isLoggedInWithoutLoggedInBackEndUserReturnsFalse()
+    public function isLoggedInWithoutLoggedInBackEndUserReturnsFalse(): void
     {
         self::assertFalse($this->subject->isLoggedIn());
     }
@@ -78,7 +74,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function isLoggedInWithLoggedInBackEndUserReturnsTrue()
+    public function isLoggedInWithLoggedInBackEndUserReturnsTrue(): void
     {
         $this->logInBackEndUser();
 
@@ -88,7 +84,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function isLoggedInForFakedUserReturnsTrue()
+    public function isLoggedInForFakedUserReturnsTrue(): void
     {
         /** @var BackEndUser $ghostUser */
         $ghostUser = $this->backEndUserMapper->getNewGhost();
@@ -102,7 +98,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithoutLoggedInUserReturnsNull()
+    public function getLoggedInUserWithoutLoggedInUserReturnsNull(): void
     {
         self::assertNull($this->subject->getLoggedInUser());
     }
@@ -110,7 +106,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithLoggedInUserReturnsBackEndUserInstance()
+    public function getLoggedInUserWithLoggedInUserReturnsBackEndUserInstance(): void
     {
         $this->logInBackEndUser();
 
@@ -120,19 +116,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithOtherMapperNameAndLoggedInUserReturnsCorrespondingModel()
-    {
-        $this->logInBackEndUser();
-
-        $result = $this->subject->getLoggedInUser(TestingMapper::class);
-
-        self::assertInstanceOf(TestingModel::class, $result);
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithLoggedInUserReturnsBackEndUserWithUidOfLoggedInUser()
+    public function getLoggedInUserWithLoggedInUserReturnsBackEndUserWithUidOfLoggedInUser(): void
     {
         $this->logInBackEndUser();
 
@@ -144,7 +128,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithAlreadyCreatedUserModelReturnsThatInstance()
+    public function getLoggedInUserWithAlreadyCreatedUserModelReturnsThatInstance(): void
     {
         $this->logInBackEndUser();
 
@@ -159,7 +143,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function setLoggedInUserForUserGivenSetsTheLoggedInUser()
+    public function setLoggedInUserForUserGivenSetsTheLoggedInUser(): void
     {
         /** @var BackEndUser $backEndUser */
         $backEndUser = $this->backEndUserMapper->getNewGhost();
@@ -171,7 +155,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function setLoggedInUserForUserGivenAndAlreadyStoredLoggedInUserOverridesTheOldUserWithTheNewOne()
+    public function setLoggedInUserForUserGivenAndAlreadyStoredLoggedInUserOverridesTheOldUserWithTheNewOne(): void
     {
         /** @var BackEndUser $oldBackEndUser */
         $oldBackEndUser = $this->backEndUserMapper->getNewGhost();

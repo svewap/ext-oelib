@@ -23,7 +23,7 @@ class FrontEndUserTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->subject = new FrontEndUser();
@@ -32,11 +32,9 @@ class FrontEndUserTest extends FunctionalTestCase
     /**
      * Imports static records - but only if they aren't already available as static data.
      *
-     * @return void
-     *
      * @throws NimutException
      */
-    private function importStaticData()
+    private function importStaticData(): void
     {
         if ($this->getDatabaseConnection()->selectCount('*', 'static_countries') === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Countries.xml');
@@ -46,7 +44,7 @@ class FrontEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getCountryWithoutCountryReturnsNull()
+    public function getCountryWithoutCountryReturnsNull(): void
     {
         $this->subject->setData([]);
 
@@ -56,7 +54,7 @@ class FrontEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getCountryWithInvalidCountryCodeReturnsNull()
+    public function getCountryWithInvalidCountryCodeReturnsNull(): void
     {
         $this->subject->setData(['static_info_country' => 'xyz']);
 
@@ -66,7 +64,7 @@ class FrontEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getCountryWithCountryReturnsCountryAsModel()
+    public function getCountryWithCountryReturnsCountryAsModel(): void
     {
         $this->importStaticData();
 
@@ -82,7 +80,7 @@ class FrontEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function setCountrySetsCountry()
+    public function setCountrySetsCountry(): void
     {
         $this->importStaticData();
 
@@ -99,7 +97,7 @@ class FrontEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function countryCanBeSetToNull()
+    public function countryCanBeSetToNull(): void
     {
         $this->subject->setCountry(null);
 
@@ -109,7 +107,7 @@ class FrontEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function hasCountryWithoutCountryReturnsFalse()
+    public function hasCountryWithoutCountryReturnsFalse(): void
     {
         $this->subject->setData([]);
 
@@ -119,7 +117,7 @@ class FrontEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function hasCountryWithInvalidCountryReturnsFalse()
+    public function hasCountryWithInvalidCountryReturnsFalse(): void
     {
         $this->importStaticData();
 
@@ -131,7 +129,7 @@ class FrontEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function hasCountryWithCountryReturnsTrue()
+    public function hasCountryWithCountryReturnsTrue(): void
     {
         $this->importStaticData();
 

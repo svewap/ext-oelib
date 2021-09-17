@@ -15,20 +15,16 @@ abstract class AbstractObjectWithAccessors extends AbstractReadOnlyObjectWithAcc
      *
      * @param string $key the key of the data item to get, must not be empty
      * @param mixed $value the data for the key $key
-     *
-     * @return void
      */
-    abstract protected function set($key, $value);
+    abstract protected function set(string $key, $value): void;
 
     /**
      * Sets a value for the key $key (and converts it to a string).
      *
      * @param string $key the key of the element to set, must not be empty
      * @param mixed $value the value to set, may be empty
-     *
-     * @return void
      */
-    protected function setAsString(string $key, $value)
+    protected function setAsString(string $key, $value): void
     {
         $this->checkForNonEmptyKey($key);
 
@@ -40,10 +36,8 @@ abstract class AbstractObjectWithAccessors extends AbstractReadOnlyObjectWithAcc
      *
      * @param string $key the key of the element to set, must not be empty
      * @param mixed $value the value to set, may be empty
-     *
-     * @return void
      */
-    protected function setAsInteger(string $key, $value)
+    protected function setAsInteger(string $key, $value): void
     {
         $this->checkForNonEmptyKey($key);
 
@@ -61,12 +55,10 @@ abstract class AbstractObjectWithAccessors extends AbstractReadOnlyObjectWithAcc
      * @param string $key the key of the element to set, must not be empty
      * @param array $value the value to set, may be empty
      *
-     * @return void
-     *
      * @see getAsIntegerArray
      * @see getAsTrimmedArray
      */
-    protected function setAsArray(string $key, array $value)
+    protected function setAsArray(string $key, array $value): void
     {
         $this->setAsString($key, implode(',', $value));
     }
@@ -76,10 +68,8 @@ abstract class AbstractObjectWithAccessors extends AbstractReadOnlyObjectWithAcc
      *
      * @param string $key the key of the element to set, must not be empty
      * @param mixed $value the value to set, may be empty
-     *
-     * @return void
      */
-    protected function setAsBoolean(string $key, $value)
+    protected function setAsBoolean(string $key, $value): void
     {
         $this->checkForNonEmptyKey($key);
 
@@ -91,10 +81,8 @@ abstract class AbstractObjectWithAccessors extends AbstractReadOnlyObjectWithAcc
      *
      * @param string $key the key of the element to set, must not be empty
      * @param mixed $value the value to set, may be empty
-     *
-     * @return void
      */
-    protected function setAsFloat(string $key, $value)
+    protected function setAsFloat(string $key, $value): void
     {
         $this->checkForNonEmptyKey($key);
 

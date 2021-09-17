@@ -43,10 +43,8 @@ class TestingMapPoint implements MapPoint, Identity
      * This function may only be called on objects that do not have a UID yet.
      *
      * @param int $uid the UID to set, must be > 0
-     *
-     * @return void
      */
-    public function setUid(int $uid)
+    public function setUid(int $uid): void
     {
         $this->uid = $uid;
     }

@@ -75,10 +75,8 @@ class PageFinder
 
     /**
      * Purges the current instance so that getInstance will create a new instance.
-     *
-     * @return void
      */
-    public static function purgeInstance()
+    public static function purgeInstance(): void
     {
         self::$instance = null;
     }
@@ -117,10 +115,8 @@ class PageFinder
      * Manually sets a page UID which always will be returned by getPageUid.
      *
      * @param int $uidToStore the page UID to store manually, must be > 0
-     *
-     * @return void
      */
-    public function setPageUid(int $uidToStore)
+    public function setPageUid(int $uidToStore): void
     {
         if ($uidToStore <= 0) {
             throw new \InvalidArgumentException(
@@ -136,10 +132,8 @@ class PageFinder
      * source, ignoring an empty value or the original precedence.
      *
      * @param int $modeToForce SOURCE_BACK_END or SOURCE_FRONT_END
-     *
-     * @return void
      */
-    public function forceSource(int $modeToForce)
+    public function forceSource(int $modeToForce): void
     {
         $this->manualPageUidSource = $modeToForce;
     }
@@ -202,10 +196,8 @@ class PageFinder
 
     /**
      * Returns the current front-end instance.
-     *
-     * @return TypoScriptFrontendController|null
      */
-    protected function getFrontEndController()
+    protected function getFrontEndController(): ?TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'] ?? null;
     }

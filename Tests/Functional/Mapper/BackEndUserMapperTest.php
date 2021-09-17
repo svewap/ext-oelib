@@ -25,7 +25,7 @@ final class BackEndUserMapperTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -35,7 +35,7 @@ final class BackEndUserMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function loadForExistingRecordLoadsScalarData()
+    public function loadForExistingRecordLoadsScalarData(): void
     {
         $this->importDataSet(__DIR__ . '/Fixtures/BackEndUsers.xml');
         $model = $this->subject->find(1);
@@ -50,7 +50,7 @@ final class BackEndUserMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByUserNameWithNameOfExistingUserReturnsMatchingBackEndUserInstance()
+    public function findByUserNameWithNameOfExistingUserReturnsMatchingBackEndUserInstance(): void
     {
         $this->importDataSet(__DIR__ . '/Fixtures/BackEndUsers.xml');
 
@@ -63,7 +63,7 @@ final class BackEndUserMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByUserNameWithUppercasedNameOfExistingLowercasedUserReturnsMatchingModel()
+    public function findByUserNameWithUppercasedNameOfExistingLowercasedUserReturnsMatchingModel(): void
     {
         $this->importDataSet(__DIR__ . '/Fixtures/BackEndUsers.xml');
 
@@ -76,7 +76,7 @@ final class BackEndUserMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByUserNameWithUppercasedNameOfExistingUppercasedUserReturnsMatchingModel()
+    public function findByUserNameWithUppercasedNameOfExistingUppercasedUserReturnsMatchingModel(): void
     {
         $this->importDataSet(__DIR__ . '/Fixtures/BackEndUsers.xml');
 
@@ -89,7 +89,7 @@ final class BackEndUserMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByUserNameWithLowercaseNameOfExistingUppercaseUserReturnsModelWithThatUid()
+    public function findByUserNameWithLowercaseNameOfExistingUppercaseUserReturnsModelWithThatUid(): void
     {
         $this->importDataSet(__DIR__ . '/Fixtures/BackEndUsers.xml');
 
@@ -102,7 +102,7 @@ final class BackEndUserMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByUserNameNotFindsDeletedUser()
+    public function findByUserNameNotFindsDeletedUser(): void
     {
         $this->importDataSet(__DIR__ . '/Fixtures/BackEndUsers.xml');
 
@@ -118,7 +118,7 @@ final class BackEndUserMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function loadsMapsUserGroupsRelation()
+    public function loadsMapsUserGroupsRelation(): void
     {
         $this->importDataSet(__DIR__ . '/Fixtures/BackEndUsers.xml');
 

@@ -21,22 +21,12 @@ class TestingModel extends AbstractModel
         return $this->getAsString('title');
     }
 
-    /**
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setTitle(string $value)
+    public function setTitle(string $value): void
     {
         $this->setAsString('title', $value);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setHeader(string $value)
+    public function setHeader(string $value): void
     {
         $this->setAsString('header', $value);
     }
@@ -45,30 +35,24 @@ class TestingModel extends AbstractModel
      * Sets the deleted property via set().
      *
      * Note: This function is expected to fail.
-     *
-     * @return void
      */
-    public function setDeletedPropertyUsingSet()
+    public function setDeletedPropertyUsingSet(): void
     {
         $this->setAsBoolean('deleted', true);
     }
 
     /**
      * Sets the dummy column to TRUE.
-     *
-     * @return void
      */
-    public function markAsDummyModel()
+    public function markAsDummyModel(): void
     {
         $this->set('is_dummy_record', true);
     }
 
     /**
      * Marks this model as read-only.
-     *
-     * @return void
      */
-    public function markAsReadOnly()
+    public function markAsReadOnly(): void
     {
         $this->readOnly = true;
     }
@@ -88,12 +72,8 @@ class TestingModel extends AbstractModel
 
     /**
      * Sets the "friend" data item. This is an n:1 relation.
-     *
-     * @param TestingModel $friend
-     *
-     * @return void
      */
-    public function setFriend(TestingModel $friend)
+    public function setFriend(TestingModel $friend): void
     {
         $this->set('friend', $friend);
     }
@@ -139,12 +119,8 @@ class TestingModel extends AbstractModel
 
     /**
      * Adds a related record.
-     *
-     * @param TestingModel $record
-     *
-     * @return void
      */
-    public function addRelatedRecord(TestingModel $record)
+    public function addRelatedRecord(TestingModel $record): void
     {
         $this->getRelatedRecords()->add($record);
     }
@@ -177,12 +153,8 @@ class TestingModel extends AbstractModel
 
     /**
      * Adds $model to the "composition" relation.
-     *
-     * @param TestingChildModel $model
-     *
-     * @return void
      */
-    public function addCompositionRecord(TestingChildModel $model)
+    public function addCompositionRecord(TestingChildModel $model): void
     {
         $this->getComposition()->add($model);
     }
@@ -280,12 +252,7 @@ class TestingModel extends AbstractModel
         return parent::getAsInteger($key);
     }
 
-    /**
-     * @param int $status
-     *
-     * @return void
-     */
-    public function setLoadStatus(int $status)
+    public function setLoadStatus(int $status): void
     {
         parent::setLoadStatus($status);
     }

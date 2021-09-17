@@ -16,7 +16,7 @@ class DummyGeocodingLookupTest extends UnitTestCase
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new DummyGeocodingLookup();
     }
@@ -28,7 +28,7 @@ class DummyGeocodingLookupTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForEmptyAddressSetsCoordinatesError()
+    public function lookUpForEmptyAddressSetsCoordinatesError(): void
     {
         /** @var TestingGeo&MockObject $geo */
         $geo = $this->createPartialMock(TestingGeo::class, ['setGeoError']);
@@ -40,7 +40,7 @@ class DummyGeocodingLookupTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForAFullGermanAddressSetsCoordinatesFromSetCoordinates()
+    public function lookUpForAFullGermanAddressSetsCoordinatesFromSetCoordinates(): void
     {
         $coordinates = ['latitude' => 50.7335500, 'longitude' => 7.1014300];
         $this->subject->setCoordinates(
@@ -59,7 +59,7 @@ class DummyGeocodingLookupTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForAFullGermanAddressWithoutSetCoordinatesSetsNoCoordinates()
+    public function lookUpForAFullGermanAddressWithoutSetCoordinatesSetsNoCoordinates(): void
     {
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
@@ -72,7 +72,7 @@ class DummyGeocodingLookupTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForAFullGermanAddressWithoutSetCoordinatesNotClearsExistingCoordinates()
+    public function lookUpForAFullGermanAddressWithoutSetCoordinatesNotClearsExistingCoordinates(): void
     {
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
@@ -85,7 +85,7 @@ class DummyGeocodingLookupTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForAFullGermanAddressWithoutSetCoordinatesSetsGeoError()
+    public function lookUpForAFullGermanAddressWithoutSetCoordinatesSetsGeoError(): void
     {
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
@@ -98,7 +98,7 @@ class DummyGeocodingLookupTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForAFullGermanAddressWithCoordinatesNotOverwritesCoordinates()
+    public function lookUpForAFullGermanAddressWithCoordinatesNotOverwritesCoordinates(): void
     {
         $this->subject->setCoordinates(42.0, 42.0);
 
@@ -115,7 +115,7 @@ class DummyGeocodingLookupTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpAfterClearCoordinatesSetsNoCoordinates()
+    public function lookUpAfterClearCoordinatesSetsNoCoordinates(): void
     {
         $this->subject->setCoordinates(42.0, 42.0);
         $this->subject->clearCoordinates();

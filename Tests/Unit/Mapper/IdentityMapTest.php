@@ -16,7 +16,7 @@ class IdentityMapTest extends UnitTestCase
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new IdentityMap();
     }
@@ -28,7 +28,7 @@ class IdentityMapTest extends UnitTestCase
     /**
      * @test
      */
-    public function getWithZeroUidThrowsException()
+    public function getWithZeroUidThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -43,7 +43,7 @@ class IdentityMapTest extends UnitTestCase
     /**
      * @test
      */
-    public function getWithNegativeUidThrowsException()
+    public function getWithNegativeUidThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -58,7 +58,7 @@ class IdentityMapTest extends UnitTestCase
     /**
      * @test
      */
-    public function addWithModelWithoutUidThrowsException()
+    public function addWithModelWithoutUidThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -76,7 +76,7 @@ class IdentityMapTest extends UnitTestCase
     /**
      * @test
      */
-    public function getWithExistingUidAfterAddWithModelHavingAUidReturnsSameObject()
+    public function getWithExistingUidAfterAddWithModelHavingAUidReturnsSameObject(): void
     {
         $model = new TestingModel();
         $model->setUid(42);
@@ -91,7 +91,7 @@ class IdentityMapTest extends UnitTestCase
     /**
      * @test
      */
-    public function addForExistingUidReturnsModelWithGivenUidForSeveralUids()
+    public function addForExistingUidReturnsModelWithGivenUidForSeveralUids(): void
     {
         $model1 = new TestingModel();
         $model1->setUid(1);
@@ -114,7 +114,7 @@ class IdentityMapTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForExistingUidAfterAddingTwoModelsWithSameUidReturnsTheLastAddedModel()
+    public function getForExistingUidAfterAddingTwoModelsWithSameUidReturnsTheLastAddedModel(): void
     {
         $model1 = new TestingModel();
         $model1->setUid(1);
@@ -133,7 +133,7 @@ class IdentityMapTest extends UnitTestCase
     /**
      * @test
      */
-    public function getForInexistentUidThrowsNotFoundException()
+    public function getForInexistentUidThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(
@@ -150,7 +150,7 @@ class IdentityMapTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNewUidForEmptyMapReturnsOne()
+    public function getNewUidForEmptyMapReturnsOne(): void
     {
         self::assertSame(1, $this->subject->getNewUid());
     }
@@ -158,7 +158,7 @@ class IdentityMapTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNewUidForNonEmptyMapReturnsUidNotInMap()
+    public function getNewUidForNonEmptyMapReturnsUidNotInMap(): void
     {
         $this->expectException(NotFoundException::class);
 
@@ -174,7 +174,7 @@ class IdentityMapTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNewUidForNonEmptyMapReturnsUidGreaterThanGreatestUid()
+    public function getNewUidForNonEmptyMapReturnsUidGreaterThanGreatestUid(): void
     {
         $model = new TestingModel();
         $model->setUid(42);
@@ -186,7 +186,7 @@ class IdentityMapTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNewUidForMapWithTwoItemsInReverseOrderReturnsUidGreaterThanTheGreatesUid()
+    public function getNewUidForMapWithTwoItemsInReverseOrderReturnsUidGreaterThanTheGreatesUid(): void
     {
         $model2 = new TestingModel();
         $model2->setUid(2);

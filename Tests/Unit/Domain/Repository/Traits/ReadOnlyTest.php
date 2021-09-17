@@ -17,7 +17,7 @@ class ReadOnlyTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var ObjectManagerInterface&ProphecySubjectInterface $objectManagerStub */
         $objectManagerStub = $this->prophesize(ObjectManagerInterface::class)->reveal();
@@ -27,7 +27,7 @@ class ReadOnlyTest extends UnitTestCase
     /**
      * @test
      */
-    public function addThrowsException()
+    public function addThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
 
@@ -37,7 +37,7 @@ class ReadOnlyTest extends UnitTestCase
     /**
      * @test
      */
-    public function removeThrowsException()
+    public function removeThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
 
@@ -47,7 +47,7 @@ class ReadOnlyTest extends UnitTestCase
     /**
      * @test
      */
-    public function updateThrowsException()
+    public function updateThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
 
@@ -57,7 +57,7 @@ class ReadOnlyTest extends UnitTestCase
     /**
      * @test
      */
-    public function removeAllThrowsException()
+    public function removeAllThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
 

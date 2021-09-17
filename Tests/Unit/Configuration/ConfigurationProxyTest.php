@@ -33,7 +33,7 @@ class ConfigurationProxyTest extends UnitTestCase
         'testValueFalse' => 0,
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var ConfigurationProxy $subject */
         $subject = ConfigurationProxy::getInstance('oelib');
@@ -43,7 +43,7 @@ class ConfigurationProxyTest extends UnitTestCase
         $this->subject = $subject;
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         ConfigurationProxy::purgeInstances();
         parent::tearDown();
@@ -52,7 +52,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function isPublicObjectWithAccessors()
+    public function isPublicObjectWithAccessors(): void
     {
         self::assertInstanceOf(AbstractObjectWithPublicAccessors::class, $this->subject);
     }
@@ -60,7 +60,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function implementsConfigurationInterface()
+    public function implementsConfigurationInterface(): void
     {
         self::assertInstanceOf(Configuration::class, $this->subject);
     }
@@ -68,7 +68,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceReturnsProxyInstance()
+    public function getInstanceReturnsProxyInstance(): void
     {
         self::assertInstanceOf(ConfigurationProxy::class, ConfigurationProxy::getInstance('oelib'));
     }
@@ -76,7 +76,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceThrowsExceptionIfNoExtensionKeyGiven()
+    public function getInstanceThrowsExceptionIfNoExtensionKeyGiven(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The extension key was not set.');
@@ -88,7 +88,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceReturnsTheSameObjectWhenCalledForTheSameClass()
+    public function getInstanceReturnsTheSameObjectWhenCalledForTheSameClass(): void
     {
         self::assertSame(ConfigurationProxy::getInstance('oelib'), ConfigurationProxy::getInstance('oelib'));
     }
@@ -96,7 +96,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function instantiateOfAnotherProxyCreatesNewObject()
+    public function instantiateOfAnotherProxyCreatesNewObject(): void
     {
         $otherConfiguration = ConfigurationProxy::getInstance('other_extension');
 
@@ -106,7 +106,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCompleteConfigurationReturnsAllTestConfigurationData()
+    public function getCompleteConfigurationReturnsAllTestConfigurationData(): void
     {
         self::assertSame(
             $this->testConfiguration,
@@ -117,7 +117,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function retrieveConfigurationForNoConfigurationReturnsEmptyArray()
+    public function retrieveConfigurationForNoConfigurationReturnsEmptyArray(): void
     {
         unset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['oelib']);
 
@@ -129,7 +129,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function retrieveConfigurationIfThereIsNoneAndSetNewConfigurationValue()
+    public function retrieveConfigurationIfThereIsNoneAndSetNewConfigurationValue(): void
     {
         unset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['oelib']);
         $this->subject->retrieveConfiguration();
@@ -144,7 +144,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function instantiateAnotherProxyAndSetValueNotAffectsThisFixture()
+    public function instantiateAnotherProxyAndSetValueNotAffectsThisFixture(): void
     {
         /** @var ConfigurationProxy $otherConfiguration */
         $otherConfiguration = ConfigurationProxy::getInstance('other_extension');
@@ -164,7 +164,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function setInstanceWithEmptyExtensionKeyThrowsException()
+    public function setInstanceWithEmptyExtensionKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The extension key must not be empty.');
@@ -176,7 +176,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function setInstanceSetsInstanceForTheGivenExtensionKey()
+    public function setInstanceSetsInstanceForTheGivenExtensionKey(): void
     {
         $extensionKey = 'greenery';
         $instance = new DummyConfiguration();
@@ -189,7 +189,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function setInstanceOverwritesInstanceForTheGivenExtensionKey()
+    public function setInstanceOverwritesInstanceForTheGivenExtensionKey(): void
     {
         $extensionKey = 'greenery';
         $instance1 = new DummyConfiguration();
@@ -203,7 +203,7 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function setInstanceNotSetsInstanceForTheOtherExtensionKey()
+    public function setInstanceNotSetsInstanceForTheOtherExtensionKey(): void
     {
         $instance = new DummyConfiguration();
 

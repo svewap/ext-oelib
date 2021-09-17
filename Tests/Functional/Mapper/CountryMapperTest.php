@@ -21,7 +21,7 @@ class CountryMapperTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->importStaticData();
@@ -32,11 +32,9 @@ class CountryMapperTest extends FunctionalTestCase
     /**
      * Imports static records - but only if they aren't already available as static data.
      *
-     * @return void
-     *
      * @throws NimutException
      */
-    private function importStaticData()
+    private function importStaticData(): void
     {
         if ($this->getDatabaseConnection()->selectCount('*', 'static_countries') === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Countries.xml');
@@ -50,7 +48,7 @@ class CountryMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsCountryInstance()
+    public function findWithUidOfExistingRecordReturnsCountryInstance(): void
     {
         self::assertInstanceOf(Country::class, $this->subject->find(54));
     }
@@ -58,7 +56,7 @@ class CountryMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsRecordAsModel()
+    public function findWithUidOfExistingRecordReturnsRecordAsModel(): void
     {
         /** @var Country $model */
         $model = $this->subject->find(54);
@@ -75,7 +73,7 @@ class CountryMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsCountryInstance()
+    public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsCountryInstance(): void
     {
         self::assertInstanceOf(
             Country::class,
@@ -86,7 +84,7 @@ class CountryMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsRecordAsModel()
+    public function findByIsoAlpha2CodeWithIsoAlpha2CodeOfExistingRecordReturnsRecordAsModel(): void
     {
         self::assertSame(
             'DE',
@@ -101,7 +99,7 @@ class CountryMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsCountryInstance()
+    public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsCountryInstance(): void
     {
         self::assertInstanceOf(
             Country::class,
@@ -112,7 +110,7 @@ class CountryMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsRecordAsModel()
+    public function findByIsoAlpha3CodeWithIsoAlpha3CodeOfExistingRecordReturnsRecordAsModel(): void
     {
         self::assertSame(
             'DE',

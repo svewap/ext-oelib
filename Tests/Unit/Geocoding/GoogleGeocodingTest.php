@@ -24,7 +24,7 @@ class GoogleGeocodingTest extends UnitTestCase
      */
     private $configuration = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $configurationRegistry = ConfigurationRegistry::getInstance();
         $configurationRegistry->set('plugin', new TypoScriptConfiguration());
@@ -37,7 +37,7 @@ class GoogleGeocodingTest extends UnitTestCase
         $this->subject = $subject;
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         GoogleGeocoding::purgeInstance();
         ConfigurationRegistry::purgeInstance();
@@ -48,7 +48,7 @@ class GoogleGeocodingTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInstanceCreatesGoogleMapsLookupInstance()
+    public function getInstanceCreatesGoogleMapsLookupInstance(): void
     {
         self::assertInstanceOf(GoogleGeocoding::class, GoogleGeocoding::getInstance());
     }
@@ -56,7 +56,7 @@ class GoogleGeocodingTest extends UnitTestCase
     /**
      * @test
      */
-    public function setInstanceSetsInstance()
+    public function setInstanceSetsInstance(): void
     {
         GoogleGeocoding::purgeInstance();
 
@@ -71,7 +71,7 @@ class GoogleGeocodingTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForEmptyAddressSetsCoordinatesError()
+    public function lookUpForEmptyAddressSetsCoordinatesError(): void
     {
         /** @var TestingGeo&MockObject $geo */
         $geo = $this->createPartialMock(TestingGeo::class, ['setGeoError']);
@@ -83,7 +83,7 @@ class GoogleGeocodingTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForEmptyAddressWithErrorSendsNoRequest()
+    public function lookUpForEmptyAddressWithErrorSendsNoRequest(): void
     {
         $geo = new TestingGeo();
         $geo->setGeoError();
@@ -100,7 +100,7 @@ class GoogleGeocodingTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForAFullGermanAddressWithCoordinatesSendsNoRequest()
+    public function lookUpForAFullGermanAddressWithCoordinatesSendsNoRequest(): void
     {
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
@@ -120,7 +120,7 @@ class GoogleGeocodingTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForAFullGermanAddressWithErrorSendsNoRequest()
+    public function lookUpForAFullGermanAddressWithErrorSendsNoRequest(): void
     {
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
@@ -157,7 +157,7 @@ class GoogleGeocodingTest extends UnitTestCase
      *
      * @dataProvider noResultsStatusDataProvider
      */
-    public function lookUpWithErrorSetsGeoProblem(string $status)
+    public function lookUpWithErrorSetsGeoProblem(string $status): void
     {
         $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
 
@@ -184,7 +184,7 @@ class GoogleGeocodingTest extends UnitTestCase
      *
      * @dataProvider noResultsStatusDataProvider
      */
-    public function lookUpWithErrorSetsGeoProblemAndLogsError(string $status)
+    public function lookUpWithErrorSetsGeoProblemAndLogsError(string $status): void
     {
         $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
 
@@ -211,7 +211,7 @@ class GoogleGeocodingTest extends UnitTestCase
      *
      * @dataProvider noResultsStatusDataProvider
      */
-    public function lookUpWithErrorLogsErrorDetails(string $status)
+    public function lookUpWithErrorLogsErrorDetails(string $status): void
     {
         $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
 
@@ -235,7 +235,7 @@ class GoogleGeocodingTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForAFullGermanAddressWithNetworkErrorSetsGeoProblemAndLogsError()
+    public function lookUpForAFullGermanAddressWithNetworkErrorSetsGeoProblemAndLogsError(): void
     {
         $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
 
@@ -257,7 +257,7 @@ class GoogleGeocodingTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpSetsCoordinatesFromSendRequest()
+    public function lookUpSetsCoordinatesFromSendRequest(): void
     {
         $this->configuration->setAsString('googleGeocodingApiKey', 'iugo7t4zq3ewrdsxc');
 
@@ -299,7 +299,7 @@ class GoogleGeocodingTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForEmptyApiKeyThrowsException()
+    public function lookUpForEmptyApiKeyThrowsException(): void
     {
         $this->expectException(\UnexpectedValueException::class);
 
@@ -314,7 +314,7 @@ class GoogleGeocodingTest extends UnitTestCase
     /**
      * @test
      */
-    public function lookUpForMissingApiKeyThrowsException()
+    public function lookUpForMissingApiKeyThrowsException(): void
     {
         $this->expectException(\UnexpectedValueException::class);
 
@@ -329,7 +329,7 @@ class GoogleGeocodingTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function lookUpUsesApiKey()
+    public function lookUpUsesApiKey(): void
     {
         $apiKey = 'iugo7t4zq3ewrdsxc';
         $this->configuration->setAsString('googleGeocodingApiKey', $apiKey);

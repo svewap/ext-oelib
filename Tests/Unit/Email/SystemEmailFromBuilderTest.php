@@ -15,7 +15,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new SystemEmailFromBuilder();
     }
@@ -23,7 +23,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
     /**
      * @test
      */
-    public function canBuildForEmptyAddressAndNameReturnsFalse()
+    public function canBuildForEmptyAddressAndNameReturnsFalse(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = '';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = '';
@@ -34,7 +34,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
     /**
      * @test
      */
-    public function canBuildForNullAddressAndNameReturnsFalse()
+    public function canBuildForNullAddressAndNameReturnsFalse(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = null;
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = null;
@@ -45,7 +45,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
     /**
      * @test
      */
-    public function canBuildForNonEmptyValidAddressAndEmptyNameReturnsTrue()
+    public function canBuildForNonEmptyValidAddressAndEmptyNameReturnsTrue(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = 'admin@example.com';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = '';
@@ -56,7 +56,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
     /**
      * @test
      */
-    public function canBuildForNonEmptyValidAddressAndNullNameReturnsTrue()
+    public function canBuildForNonEmptyValidAddressAndNullNameReturnsTrue(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = 'admin@example.com';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = null;
@@ -67,7 +67,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
     /**
      * @test
      */
-    public function canBuildForNonEmptyInvalidAddressAndEmptyNameReturnsFalse()
+    public function canBuildForNonEmptyInvalidAddressAndEmptyNameReturnsFalse(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = '78345uirefdx';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = '';
@@ -78,7 +78,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
     /**
      * @test
      */
-    public function buildForInvalidDataThrowsException()
+    public function buildForInvalidDataThrowsException(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = '';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = '';
@@ -91,7 +91,7 @@ class SystemEmailFromBuilderTest extends UnitTestCase
     /**
      * @test
      */
-    public function buildForValidDataReturnSystemEmailSubjectWithGivenData()
+    public function buildForValidDataReturnSystemEmailSubjectWithGivenData(): void
     {
         $emailAddress = 'elena@example.com';
         $name = 'Elena Alene';

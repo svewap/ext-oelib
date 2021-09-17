@@ -28,7 +28,7 @@ class FrontEndUserTest extends UnitTestCase
      */
     private $tcaBackup = [];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new FrontEndUser();
 
@@ -36,25 +36,19 @@ class FrontEndUserTest extends UnitTestCase
         $this->tcaBackup = $GLOBALS['TCA']['fe_users'] ?? [];
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         $GLOBALS['TCA']['fe_users'] = $this->tcaBackup;
         $GLOBALS['EXEC_TIME'] = $this->globalExecTimeBackup;
     }
 
-    /**
-     * @return void
-     */
-    private function removeGenderField()
+    private function removeGenderField(): void
     {
         unset($GLOBALS['TCA']['fe_users']['columns']['gender']);
     }
 
-    /**
-     * @return void
-     */
-    private function enableGenderField()
+    private function enableGenderField(): void
     {
         $GLOBALS['TCA']['fe_users']['columns']['gender'] = ['config' => ['type' => 'radio']];
     }
@@ -64,7 +58,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getUserNameForEmptyUserNameReturnsEmptyString()
+    public function getUserNameForEmptyUserNameReturnsEmptyString(): void
     {
         $this->subject->setData(['username' => '']);
 
@@ -77,7 +71,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getUserNameForNonEmptyUserNameReturnsUserName()
+    public function getUserNameForNonEmptyUserNameReturnsUserName(): void
     {
         $this->subject->setData(['username' => 'johndoe']);
 
@@ -90,7 +84,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setUserNameSetsUserName()
+    public function setUserNameSetsUserName(): void
     {
         $this->subject->setUserName('foo_bar');
 
@@ -103,7 +97,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setUserNameWithEmptyUserNameThrowsException()
+    public function setUserNameWithEmptyUserNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -115,7 +109,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPasswordInitiallyReturnsEmptyString()
+    public function getPasswordInitiallyReturnsEmptyString(): void
     {
         $this->subject->setData([]);
 
@@ -128,7 +122,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPasswordReturnsPassword()
+    public function getPasswordReturnsPassword(): void
     {
         $this->subject->setData(['password' => 'kasfdjklsdajk']);
 
@@ -141,7 +135,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setPasswordSetsPassword()
+    public function setPasswordSetsPassword(): void
     {
         $this->subject->setPassword('kljvasgd24vsga354');
 
@@ -154,7 +148,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setPasswordWithEmptyPasswordThrowsException()
+    public function setPasswordWithEmptyPasswordThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -166,7 +160,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasNameForEmptyNameLastNameAndFirstNameReturnsFalse()
+    public function hasNameForEmptyNameLastNameAndFirstNameReturnsFalse(): void
     {
         $this->subject->setData(
             [
@@ -184,7 +178,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasNameForNonEmptyUserReturnsFalse()
+    public function hasNameForNonEmptyUserReturnsFalse(): void
     {
         $this->subject->setData(
             [
@@ -200,7 +194,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasNameForNonEmptyNameReturnsTrue()
+    public function hasNameForNonEmptyNameReturnsTrue(): void
     {
         $this->subject->setData(
             [
@@ -218,7 +212,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasNameForNonEmptyFirstNameReturnsTrue()
+    public function hasNameForNonEmptyFirstNameReturnsTrue(): void
     {
         $this->subject->setData(
             [
@@ -236,7 +230,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasNameForNonEmptyLastNameReturnsTrue()
+    public function hasNameForNonEmptyLastNameReturnsTrue(): void
     {
         $this->subject->setData(
             [
@@ -254,7 +248,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNameForNonEmptyNameReturnsName()
+    public function getNameForNonEmptyNameReturnsName(): void
     {
         $this->subject->setData(
             [
@@ -271,7 +265,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNameForNonEmptyNameFirstNameAndLastNameReturnsName()
+    public function getNameForNonEmptyNameFirstNameAndLastNameReturnsName(): void
     {
         $this->subject->setData(
             [
@@ -290,7 +284,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNameForEmptyNameAndNonEmptyFirstAndLastNameReturnsFirstAndLastName()
+    public function getNameForEmptyNameAndNonEmptyFirstAndLastNameReturnsFirstAndLastName(): void
     {
         $this->subject->setData(
             [
@@ -309,7 +303,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNameForNonEmptyFirstAndLastNameAndNonEmptyUserNameReturnsFirstAndLastName()
+    public function getNameForNonEmptyFirstAndLastNameAndNonEmptyUserNameReturnsFirstAndLastName(): void
     {
         $this->subject->setData(
             [
@@ -328,7 +322,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNameForEmptyFirstNameAndNonEmptyLastAndUserNameReturnsLastName()
+    public function getNameForEmptyFirstNameAndNonEmptyLastAndUserNameReturnsLastName(): void
     {
         $this->subject->setData(
             [
@@ -347,7 +341,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNameForEmptyLastNameAndNonEmptyFirstAndUserNameReturnsFirstName()
+    public function getNameForEmptyLastNameAndNonEmptyFirstAndUserNameReturnsFirstName(): void
     {
         $this->subject->setData(
             [
@@ -366,7 +360,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNameForEmptyFirstAndLastNameAndNonEmptyUserNameReturnsUserName()
+    public function getNameForEmptyFirstAndLastNameAndNonEmptyUserNameReturnsUserName(): void
     {
         $this->subject->setData(
             [
@@ -385,7 +379,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setNameSetsFullName()
+    public function setNameSetsFullName(): void
     {
         $this->subject->setName('Alfred E. Neumann');
 
@@ -400,7 +394,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasCompanyForEmptyCompanyReturnsFalse()
+    public function hasCompanyForEmptyCompanyReturnsFalse(): void
     {
         $this->subject->setData(['company' => '']);
 
@@ -412,7 +406,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasCompanyForNonEmptyCompanyReturnsTrue()
+    public function hasCompanyForNonEmptyCompanyReturnsTrue(): void
     {
         $this->subject->setData(['company' => 'Test Inc.']);
 
@@ -424,7 +418,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCompanyForEmptyCompanyReturnsEmptyString()
+    public function getCompanyForEmptyCompanyReturnsEmptyString(): void
     {
         $this->subject->setData(['company' => '']);
 
@@ -437,7 +431,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCompanyForNonEmptyCompanyReturnsCompany()
+    public function getCompanyForNonEmptyCompanyReturnsCompany(): void
     {
         $this->subject->setData(['company' => 'Test Inc.']);
 
@@ -450,7 +444,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCompanySetsCompany()
+    public function setCompanySetsCompany(): void
     {
         $this->subject->setCompany('Test Inc.');
 
@@ -465,7 +459,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasStreetForEmptyAddressReturnsFalse()
+    public function hasStreetForEmptyAddressReturnsFalse(): void
     {
         $this->subject->setData(['address' => '']);
 
@@ -477,7 +471,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasStreetForNonEmptyAddressReturnsTrue()
+    public function hasStreetForNonEmptyAddressReturnsTrue(): void
     {
         $this->subject->setData(['address' => 'Foo street 1']);
 
@@ -489,7 +483,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getStreetForEmptyAddressReturnsEmptyString()
+    public function getStreetForEmptyAddressReturnsEmptyString(): void
     {
         $this->subject->setData(['address' => '']);
 
@@ -502,7 +496,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getStreetForNonEmptyAddressReturnsAddress()
+    public function getStreetForNonEmptyAddressReturnsAddress(): void
     {
         $this->subject->setData(['address' => 'Foo street 1']);
 
@@ -515,7 +509,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getStreetForMultilineAddressReturnsAddress()
+    public function getStreetForMultilineAddressReturnsAddress(): void
     {
         $this->subject->setData(
             [
@@ -532,7 +526,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setStreetSetsStreet()
+    public function setStreetSetsStreet(): void
     {
         $street = 'Barber Street 42';
         $this->subject->setData([]);
@@ -549,7 +543,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasZipForEmptyZipReturnsFalse()
+    public function hasZipForEmptyZipReturnsFalse(): void
     {
         $this->subject->setData(['zip' => '']);
 
@@ -561,7 +555,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasZipForNonEmptyZipReturnsTrue()
+    public function hasZipForNonEmptyZipReturnsTrue(): void
     {
         $this->subject->setData(['zip' => '12345']);
 
@@ -573,7 +567,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getZipForEmptyZipReturnsEmptyString()
+    public function getZipForEmptyZipReturnsEmptyString(): void
     {
         $this->subject->setData(['zip' => '']);
 
@@ -586,7 +580,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getZipForNonEmptyZipReturnsZip()
+    public function getZipForNonEmptyZipReturnsZip(): void
     {
         $this->subject->setData(['zip' => '12345']);
 
@@ -599,7 +593,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setZipSetsZip()
+    public function setZipSetsZip(): void
     {
         $zip = '12356';
         $this->subject->setData([]);
@@ -616,7 +610,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasCityForEmptyCityReturnsFalse()
+    public function hasCityForEmptyCityReturnsFalse(): void
     {
         $this->subject->setData(['city' => '']);
 
@@ -628,7 +622,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasCityForNonEmptyCityReturnsTrue()
+    public function hasCityForNonEmptyCityReturnsTrue(): void
     {
         $this->subject->setData(['city' => 'Test city']);
 
@@ -640,7 +634,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCityForEmptyCityReturnsEmptyString()
+    public function getCityForEmptyCityReturnsEmptyString(): void
     {
         $this->subject->setData(['city' => '']);
 
@@ -653,7 +647,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCityForNonEmptyCityReturnsCity()
+    public function getCityForNonEmptyCityReturnsCity(): void
     {
         $this->subject->setData(['city' => 'Test city']);
 
@@ -666,7 +660,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCitySetsCity()
+    public function setCitySetsCity(): void
     {
         $city = 'Köln';
         $this->subject->setData([]);
@@ -681,7 +675,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getZipAndCityForNonEmptyZipAndCityReturnsZipAndCity()
+    public function getZipAndCityForNonEmptyZipAndCityReturnsZipAndCity(): void
     {
         $this->subject->setData(
             [
@@ -699,7 +693,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getZipAndCityForEmptyZipAndNonEmptyCityReturnsCity()
+    public function getZipAndCityForEmptyZipAndNonEmptyCityReturnsCity(): void
     {
         $this->subject->setData(
             [
@@ -717,7 +711,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getZipAndGetCityForNonEmptyZipAndEmptyCityReturnsEmptyString()
+    public function getZipAndGetCityForNonEmptyZipAndEmptyCityReturnsEmptyString(): void
     {
         $this->subject->setData(
             [
@@ -735,7 +729,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getZipAndGetCityForEmptyZipAndEmptyCityReturnsEmptyString()
+    public function getZipAndGetCityForEmptyZipAndEmptyCityReturnsEmptyString(): void
     {
         $this->subject->setData(
             [
@@ -755,7 +749,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasPhoneNumberForEmptyPhoneReturnsFalse()
+    public function hasPhoneNumberForEmptyPhoneReturnsFalse(): void
     {
         $this->subject->setData(['telephone' => '']);
 
@@ -767,7 +761,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasPhoneNumberForNonEmptyPhoneReturnsTrue()
+    public function hasPhoneNumberForNonEmptyPhoneReturnsTrue(): void
     {
         $this->subject->setData(['telephone' => '1234 5678']);
 
@@ -779,7 +773,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPhoneNumberForEmptyPhoneReturnsEmptyString()
+    public function getPhoneNumberForEmptyPhoneReturnsEmptyString(): void
     {
         $this->subject->setData(['telephone' => '']);
 
@@ -792,7 +786,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPhoneNumberForNonEmptyPhoneReturnsPhone()
+    public function getPhoneNumberForNonEmptyPhoneReturnsPhone(): void
     {
         $this->subject->setData(['telephone' => '1234 5678']);
 
@@ -805,7 +799,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setPhoneNumberSetsPhoneNumber()
+    public function setPhoneNumberSetsPhoneNumber(): void
     {
         $phoneNumber = '+49 124 1234123';
         $this->subject->setData([]);
@@ -822,7 +816,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasEmailAddressForEmptyEmailReturnsFalse()
+    public function hasEmailAddressForEmptyEmailReturnsFalse(): void
     {
         $this->subject->setData(['email' => '']);
 
@@ -834,7 +828,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasEmailAddressForNonEmptyEmailReturnsTrue()
+    public function hasEmailAddressForNonEmptyEmailReturnsTrue(): void
     {
         $this->subject->setData(['email' => 'john@doe.com']);
 
@@ -846,7 +840,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getEmailAddressForEmptyEmailReturnsEmptyString()
+    public function getEmailAddressForEmptyEmailReturnsEmptyString(): void
     {
         $this->subject->setData(['email' => '']);
 
@@ -859,7 +853,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getEmailAddressForNonEmptyEmailReturnsEmail()
+    public function getEmailAddressForNonEmptyEmailReturnsEmail(): void
     {
         $this->subject->setData(['email' => 'john@doe.com']);
 
@@ -872,7 +866,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setEmailAddressSetsEmailAddress()
+    public function setEmailAddressSetsEmailAddress(): void
     {
         $this->subject->setEmailAddress('john@example.com');
 
@@ -887,7 +881,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasHomepageForEmptyWwwReturnsFalse()
+    public function hasHomepageForEmptyWwwReturnsFalse(): void
     {
         $this->subject->setData(['www' => '']);
 
@@ -899,7 +893,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasHomepageForNonEmptyWwwReturnsTrue()
+    public function hasHomepageForNonEmptyWwwReturnsTrue(): void
     {
         $this->subject->setData(['www' => 'https://www.example.com']);
 
@@ -911,7 +905,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getHomepageForEmptyWwwReturnsEmptyString()
+    public function getHomepageForEmptyWwwReturnsEmptyString(): void
     {
         $this->subject->setData(['www' => '']);
 
@@ -924,7 +918,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getHomepageForNonEmptyWwwReturnsWww()
+    public function getHomepageForNonEmptyWwwReturnsWww(): void
     {
         $this->subject->setData(['www' => 'https://www.example.com']);
 
@@ -939,7 +933,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasImageForEmptyImageReturnsFalse()
+    public function hasImageForEmptyImageReturnsFalse(): void
     {
         $this->subject->setData(['image' => '']);
 
@@ -951,7 +945,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasImageForNonEmptyImageReturnsTrue()
+    public function hasImageForNonEmptyImageReturnsTrue(): void
     {
         $this->subject->setData(['image' => 'thats-me.jpg']);
 
@@ -963,7 +957,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getImageForEmptyImageReturnsEmptyString()
+    public function getImageForEmptyImageReturnsEmptyString(): void
     {
         $this->subject->setData(['image' => '']);
 
@@ -976,7 +970,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getImageForNonEmptyImageReturnsImage()
+    public function getImageForNonEmptyImageReturnsImage(): void
     {
         $this->subject->setData(['image' => 'thats-me.jpg']);
 
@@ -991,7 +985,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function wantsHtmlEmailForMissingModuleSysDmailHtmlFieldReturnsFalse()
+    public function wantsHtmlEmailForMissingModuleSysDmailHtmlFieldReturnsFalse(): void
     {
         $this->subject->setData([]);
 
@@ -1003,7 +997,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function wantsHtmlEmailForModuleSysDmailHtmlOneReturnsTrue()
+    public function wantsHtmlEmailForModuleSysDmailHtmlOneReturnsTrue(): void
     {
         $this->subject->setData(['module_sys_dmail_html' => 1]);
 
@@ -1015,7 +1009,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function wantsHtmlEmailForModuleSysDmailHtmlZeroReturnsFalse()
+    public function wantsHtmlEmailForModuleSysDmailHtmlZeroReturnsFalse(): void
     {
         $this->subject->setData(['module_sys_dmail_html' => 0]);
 
@@ -1029,7 +1023,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getUserGroupsForReturnsUserGroups()
+    public function getUserGroupsForReturnsUserGroups(): void
     {
         $userGroups = new Collection();
 
@@ -1044,7 +1038,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setUserGroupsSetsUserGroups()
+    public function setUserGroupsSetsUserGroups(): void
     {
         /** @var Collection<FrontEndUserGroup> $userGroups */
         $userGroups = new Collection();
@@ -1060,7 +1054,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function addUserGroupAddsUserGroup()
+    public function addUserGroupAddsUserGroup(): void
     {
         /** @var Collection<FrontEndUserGroup> $userGroups */
         $userGroups = new Collection();
@@ -1079,7 +1073,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGroupMembershipWithEmptyUidListThrowsException()
+    public function hasGroupMembershipWithEmptyUidListThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -1089,7 +1083,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGroupMembershipForUserOnlyInProvidedGroupReturnsTrue()
+    public function hasGroupMembershipForUserOnlyInProvidedGroupReturnsTrue(): void
     {
         $userGroup = MapperRegistry::get(FrontEndUserGroupMapper::class)->getNewGhost();
         $list = new Collection();
@@ -1105,7 +1099,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGroupMembershipForUserInProvidedGroupAndInAnotherReturnsTrue()
+    public function hasGroupMembershipForUserInProvidedGroupAndInAnotherReturnsTrue(): void
     {
         $groupMapper = MapperRegistry::get(FrontEndUserGroupMapper::class);
         $userGroup = $groupMapper->getNewGhost();
@@ -1123,7 +1117,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGroupMembershipForUserInOneOfTheProvidedGroupsReturnsTrue()
+    public function hasGroupMembershipForUserInOneOfTheProvidedGroupsReturnsTrue(): void
     {
         $groupMapper = MapperRegistry::get(FrontEndUserGroupMapper::class);
         $userGroup = $groupMapper->getNewGhost();
@@ -1142,7 +1136,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGroupMembershipForUserNoneOfTheProvidedGroupsReturnsFalse()
+    public function hasGroupMembershipForUserNoneOfTheProvidedGroupsReturnsFalse(): void
     {
         $groupMapper = MapperRegistry::get(FrontEndUserGroupMapper::class);
         $list = new Collection();
@@ -1163,7 +1157,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGenderForNoGenderFieldInTcaReturnsFalse()
+    public function hasGenderForNoGenderFieldInTcaReturnsFalse(): void
     {
         $this->removeGenderField();
 
@@ -1173,7 +1167,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasGenderForGenderFieldInTcaReturnsTrue()
+    public function hasGenderForGenderFieldInTcaReturnsTrue(): void
     {
         $this->enableGenderField();
 
@@ -1183,7 +1177,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGenderForForNoGenderFieldReturnsGenderUnknown()
+    public function getGenderForForNoGenderFieldReturnsGenderUnknown(): void
     {
         $this->removeGenderField();
 
@@ -1193,7 +1187,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGenderForGenderValueZeroReturnsGenderMale()
+    public function getGenderForGenderValueZeroReturnsGenderMale(): void
     {
         $this->enableGenderField();
 
@@ -1205,7 +1199,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGenderForGenderValueOneReturnsGenderFemale()
+    public function getGenderForGenderValueOneReturnsGenderFemale(): void
     {
         $this->enableGenderField();
 
@@ -1233,7 +1227,7 @@ class FrontEndUserTest extends UnitTestCase
      *
      * @dataProvider genderDataProvider
      */
-    public function setGenderCanSetGender(int $gender)
+    public function setGenderCanSetGender(int $gender): void
     {
         $this->enableGenderField();
         $this->subject->setData([]);
@@ -1246,7 +1240,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setGenderForInvalidGenderKeyThrowsException()
+    public function setGenderForInvalidGenderKeyThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -1261,7 +1255,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasFirstNameForNoFirstNameSetReturnsFalse()
+    public function hasFirstNameForNoFirstNameSetReturnsFalse(): void
     {
         $this->subject->setData([]);
 
@@ -1273,7 +1267,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasFirstNameForFirstNameSetReturnsTrue()
+    public function hasFirstNameForFirstNameSetReturnsTrue(): void
     {
         $this->subject->setData(['first_name' => 'foo']);
 
@@ -1285,7 +1279,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getFirstNameForNoFirstNameSetReturnsEmptyString()
+    public function getFirstNameForNoFirstNameSetReturnsEmptyString(): void
     {
         $this->subject->setData([]);
 
@@ -1298,7 +1292,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getFirstNameForFirstNameSetReturnsFirstName()
+    public function getFirstNameForFirstNameSetReturnsFirstName(): void
     {
         $this->subject->setData(['first_name' => 'foo']);
 
@@ -1311,7 +1305,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setFirstNameSetsFirstName()
+    public function setFirstNameSetsFirstName(): void
     {
         $this->subject->setFirstName('John');
 
@@ -1324,7 +1318,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getFirstOrFullNameForUserWithFirstNameReturnsFirstName()
+    public function getFirstOrFullNameForUserWithFirstNameReturnsFirstName(): void
     {
         $this->subject->setData(
             ['first_name' => 'foo', 'name' => 'foo bar']
@@ -1339,7 +1333,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getFirstOrFullNameForUserWithoutFirstNameReturnsName()
+    public function getFirstOrFullNameForUserWithoutFirstNameReturnsName(): void
     {
         $this->subject->setData(['name' => 'foo bar']);
 
@@ -1354,7 +1348,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasLastNameForNoLastNameSetReturnsFalse()
+    public function hasLastNameForNoLastNameSetReturnsFalse(): void
     {
         $this->subject->setData([]);
 
@@ -1366,7 +1360,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasLastNameForLastNameSetReturnsTrue()
+    public function hasLastNameForLastNameSetReturnsTrue(): void
     {
         $this->subject->setData(['last_name' => 'bar']);
 
@@ -1378,7 +1372,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLastNameForNoLastNameSetReturnsEmptyString()
+    public function getLastNameForNoLastNameSetReturnsEmptyString(): void
     {
         $this->subject->setData([]);
 
@@ -1391,7 +1385,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLastNameForLastNameSetReturnsLastName()
+    public function getLastNameForLastNameSetReturnsLastName(): void
     {
         $this->subject->setData(['last_name' => 'bar']);
 
@@ -1404,7 +1398,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLastNameSetsLastName()
+    public function setLastNameSetsLastName(): void
     {
         $this->subject->setLastName('Jacuzzi');
 
@@ -1417,7 +1411,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLastOrFullNameForUserWithLastNameReturnsLastName()
+    public function getLastOrFullNameForUserWithLastNameReturnsLastName(): void
     {
         $this->subject->setData(
             ['last_name' => 'bar', 'name' => 'foo bar']
@@ -1432,7 +1426,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLastOrFullNameForUserWithoutLastNameReturnsName()
+    public function getLastOrFullNameForUserWithoutLastNameReturnsName(): void
     {
         $this->subject->setData(['name' => 'foo bar']);
 
@@ -1447,7 +1441,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDateOfBirthReturnsZeroForNoDateSet()
+    public function getDateOfBirthReturnsZeroForNoDateSet(): void
     {
         $this->subject->setData([]);
 
@@ -1460,7 +1454,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDateOfBirthReturnsDateFromDateOfBirthField()
+    public function getDateOfBirthReturnsDateFromDateOfBirthField(): void
     {
         // 1980-04-01
         $date = 323391600;
@@ -1475,7 +1469,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasDateOfBirthForNoDateOfBirthReturnsFalse()
+    public function hasDateOfBirthForNoDateOfBirthReturnsFalse(): void
     {
         $this->subject->setData([]);
 
@@ -1487,7 +1481,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasDateOfBirthForNonZeroDateOfBirthReturnsTrue()
+    public function hasDateOfBirthForNonZeroDateOfBirthReturnsTrue(): void
     {
         // 1980-04-01
         $date = 323391600;
@@ -1503,7 +1497,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAgeForNoDateOfBirthReturnsZero()
+    public function getAgeForNoDateOfBirthReturnsZero(): void
     {
         $this->subject->setData([]);
 
@@ -1516,7 +1510,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAgeForBornOneHourAgoReturnsZero()
+    public function getAgeForBornOneHourAgoReturnsZero(): void
     {
         $now = mktime(18, 0, 0, 9, 15, 2010);
         $GLOBALS['EXEC_TIME'] = $now;
@@ -1534,7 +1528,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAgeForAnAgeOfTenYearsAndSomeMonthsReturnsTen()
+    public function getAgeForAnAgeOfTenYearsAndSomeMonthsReturnsTen(): void
     {
         $GLOBALS['EXEC_TIME'] = mktime(18, 0, 0, 9, 15, 2010);
 
@@ -1551,7 +1545,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAgeForAnAgeOfTenYearsMinusSomeMonthsReturnsNine()
+    public function getAgeForAnAgeOfTenYearsMinusSomeMonthsReturnsNine(): void
     {
         $GLOBALS['EXEC_TIME'] = mktime(18, 0, 0, 9, 15, 2010);
 
@@ -1568,7 +1562,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAgeForAnAgeOfTenYearsMinusSomeDaysReturnsNine()
+    public function getAgeForAnAgeOfTenYearsMinusSomeDaysReturnsNine(): void
     {
         $GLOBALS['EXEC_TIME'] = mktime(18, 0, 0, 9, 15, 2010);
 
@@ -1587,7 +1581,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLastLoginAsUnixTimestampReturnsZeroForNoDateSet()
+    public function getLastLoginAsUnixTimestampReturnsZeroForNoDateSet(): void
     {
         $this->subject->setData([]);
 
@@ -1600,7 +1594,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLastLoginAsUnixTimestampReturnsDateFromLastLoginField()
+    public function getLastLoginAsUnixTimestampReturnsDateFromLastLoginField(): void
     {
         // 1980-04-01
         $date = 323391600;
@@ -1615,7 +1609,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasLastLoginForNoLastLoginReturnsFalse()
+    public function hasLastLoginForNoLastLoginReturnsFalse(): void
     {
         $this->subject->setData([]);
 
@@ -1627,7 +1621,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasLastLoginForNonZeroLastLoginReturnsTrue()
+    public function hasLastLoginForNonZeroLastLoginReturnsTrue(): void
     {
         // 1980-04-01
         $date = 323391600;
@@ -1643,7 +1637,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasJobTitleForEmptyJobTitleReturnsFalse()
+    public function hasJobTitleForEmptyJobTitleReturnsFalse(): void
     {
         $this->subject->setData(['title' => '']);
 
@@ -1655,7 +1649,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasJobTitleForNonEmptyJobTitleReturnsTrue()
+    public function hasJobTitleForNonEmptyJobTitleReturnsTrue(): void
     {
         $this->subject->setData(['title' => 'facility manager']);
 
@@ -1667,7 +1661,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getJobTitleForEmptyJobTitleReturnsEmptyString()
+    public function getJobTitleForEmptyJobTitleReturnsEmptyString(): void
     {
         $this->subject->setData(['title' => '']);
 
@@ -1680,7 +1674,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function getJobTitleForNonEmptyJobTitleReturnsJobTitle()
+    public function getJobTitleForNonEmptyJobTitleReturnsJobTitle(): void
     {
         $this->subject->setData(['title' => 'facility manager']);
 
@@ -1693,7 +1687,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
-    public function setJobTitleSetsJobTitle()
+    public function setJobTitleSetsJobTitle(): void
     {
         $this->subject->setJobTitle('foo bar');
 

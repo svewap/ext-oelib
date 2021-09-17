@@ -15,10 +15,7 @@ interface HeaderProxy
     /**
      * This function usually should add a HTTP header.
      *
-     * @param string $header
-     *        HTTP header to send, e.g. 'Status: 404 Not Found', must not be empty
-     *
-     * @return void
+     * @param string $header HTTP header to send, e.g. 'Status: 404 Not Found', must not be empty
      */
-    public function addHeader(string $header);
+    public function addHeader(string $header): void;
 }

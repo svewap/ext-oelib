@@ -14,7 +14,7 @@ class FederalStateTest extends UnitTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new FederalState();
     }
@@ -22,7 +22,7 @@ class FederalStateTest extends UnitTestCase
     /**
      * @test
      */
-    public function isReadOnlyIsTrue()
+    public function isReadOnlyIsTrue(): void
     {
         self::assertTrue($this->subject->isReadOnly());
     }
@@ -30,7 +30,7 @@ class FederalStateTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLocalNameReturnsLocalName()
+    public function getLocalNameReturnsLocalName(): void
     {
         $name = 'Nordrhein-Westfalen';
         $this->subject->setData(['zn_name_local' => $name]);
@@ -41,7 +41,7 @@ class FederalStateTest extends UnitTestCase
     /**
      * @test
      */
-    public function getEnglishNameReturnsEnglishName()
+    public function getEnglishNameReturnsEnglishName(): void
     {
         $name = 'North Rhine-Westphalia';
         $this->subject->setData(['zn_name_en' => $name]);
@@ -52,7 +52,7 @@ class FederalStateTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsoAlpha2CodeReturnsIsoAlpha2Code()
+    public function getIsoAlpha2CodeReturnsIsoAlpha2Code(): void
     {
         $code = 'DE';
         $this->subject->setData(['zn_country_iso_2' => $code]);
@@ -63,7 +63,7 @@ class FederalStateTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsoAlpha2ZoneCodeReturnsIsoAlpha2ZoneCode()
+    public function getIsoAlpha2ZoneCodeReturnsIsoAlpha2ZoneCode(): void
     {
         $code = 'NW';
         $this->subject->setData(['zn_code' => $code]);

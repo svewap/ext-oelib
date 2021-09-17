@@ -22,7 +22,7 @@ class BackEndUserTest extends FunctionalTestCase
      */
     private $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->subject = new BackEndUser();
@@ -35,7 +35,7 @@ class BackEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllGroupsForNoGroupsReturnsList()
+    public function getAllGroupsForNoGroupsReturnsList(): void
     {
         $this->subject->setData(['usergroup' => new Collection()]);
 
@@ -48,7 +48,7 @@ class BackEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllGroupsForNoGroupsReturnsEmptyList()
+    public function getAllGroupsForNoGroupsReturnsEmptyList(): void
     {
         $this->subject->setData(['usergroup' => new Collection()]);
 
@@ -60,7 +60,7 @@ class BackEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllGroupsForOneGroupReturnsListWithThatGroup()
+    public function getAllGroupsForOneGroupReturnsListWithThatGroup(): void
     {
         $group = MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
         $groups = new Collection();
@@ -76,7 +76,7 @@ class BackEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllGroupsForTwoGroupsReturnsBothGroups()
+    public function getAllGroupsForTwoGroupsReturnsBothGroups(): void
     {
         $group1 = MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
         $group2 = MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
@@ -96,7 +96,7 @@ class BackEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllGroupsForGroupWithSubgroupReturnsBothGroups()
+    public function getAllGroupsForGroupWithSubgroupReturnsBothGroups(): void
     {
         $subgroup = MapperRegistry::get(BackEndUserGroupMapper::class)->getLoadedTestingModel([]);
         $group = MapperRegistry::get(BackEndUserGroupMapper::class)
@@ -116,7 +116,7 @@ class BackEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllGroupsForGroupWithSubsubgroupContainsSubsubgroup()
+    public function getAllGroupsForGroupWithSubsubgroupContainsSubsubgroup(): void
     {
         $subsubgroup = MapperRegistry::get(BackEndUserGroupMapper::class)
             ->getLoadedTestingModel([]);
@@ -136,7 +136,7 @@ class BackEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllGroupsForGroupWithSubgroupSelfReferenceReturnsOnlyOneGroup()
+    public function getAllGroupsForGroupWithSubgroupSelfReferenceReturnsOnlyOneGroup(): void
     {
         $group = MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
         $subgroups = new Collection();
@@ -153,7 +153,7 @@ class BackEndUserTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllGroupsForGroupWithSubgroupCycleReturnsBothGroups()
+    public function getAllGroupsForGroupWithSubgroupCycleReturnsBothGroups(): void
     {
         $group1 = MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();
         $group2 = MapperRegistry::get(BackEndUserGroupMapper::class)->getNewGhost();

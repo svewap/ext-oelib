@@ -26,10 +26,8 @@ class IdentityMap
      * Adds a model to the identity map.
      *
      * @param AbstractModel $model the model to add, must have a UID
-     *
-     * @return void
      */
-    public function add(AbstractModel $model)
+    public function add(AbstractModel $model): void
     {
         if (!$model->hasUid()) {
             throw new \InvalidArgumentException('Add() requires a model that has a UID.', 1331488748);

@@ -59,10 +59,8 @@ abstract class SalutationSwitcher extends AbstractPlugin
 
     /**
      * Restores data that got lost during the serialization.
-     *
-     * @return void
      */
-    public function __wakeup()
+    public function __wakeup(): void
     {
         $this->frontendController = $this->getFrontEndController();
     }

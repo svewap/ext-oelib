@@ -36,7 +36,7 @@ class TemplateHelperTest extends UnitTestCase
      */
     private $customConfigurationCheckProphecy = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var CacheManager $cacheManager */
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
@@ -60,7 +60,7 @@ class TemplateHelperTest extends UnitTestCase
         $this->subject = new TestingTemplateHelper([]);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
         ConfigurationProxy::purgeInstances();
@@ -71,7 +71,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function defaultConfigurationCheckCanBeUsed()
+    public function defaultConfigurationCheckCanBeUsed(): void
     {
         /** @var ConfigurationProxy $configuration */
         $configuration = ConfigurationProxy::getInstance('oelib');
@@ -84,7 +84,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkConfigurationWithEnabledConfigurationAndDefaultConfigurationCheckCheckChecksIt()
+    public function checkConfigurationWithEnabledConfigurationAndDefaultConfigurationCheckCheckChecksIt(): void
     {
         /** @var ConfigurationProxy $configuration */
         $configuration = ConfigurationProxy::getInstance('oelib');
@@ -100,7 +100,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function customConfigurationCheckCanBeSet()
+    public function customConfigurationCheckCanBeSet(): void
     {
         /** @var ConfigurationProxy $configuration */
         $configuration = ConfigurationProxy::getInstance('oelib');
@@ -114,7 +114,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkConfigurationWithEnabledConfigurationAndCustomConfigurationCheckCheckChecksIt()
+    public function checkConfigurationWithEnabledConfigurationAndCustomConfigurationCheckCheckChecksIt(): void
     {
         /** @var ConfigurationProxy $configuration */
         $configuration = ConfigurationProxy::getInstance('oelib');
@@ -137,7 +137,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function initMarksObjectAsInitialized()
+    public function initMarksObjectAsInitialized(): void
     {
         $this->subject->init();
 
@@ -149,7 +149,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function initInitializesContentObjectRenderer()
+    public function initInitializesContentObjectRenderer(): void
     {
         $this->subject->init();
 
@@ -159,7 +159,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function configurationCheckCreationForEnabledConfigurationCheck()
+    public function configurationCheckCreationForEnabledConfigurationCheck(): void
     {
         /** @var ConfigurationProxy $configuration */
         $configuration = ConfigurationProxy::getInstance('oelib');
@@ -172,7 +172,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function configurationCheckCreationForDisabledConfigurationCheck()
+    public function configurationCheckCreationForDisabledConfigurationCheck(): void
     {
         /** @var ConfigurationProxy $configuration */
         $configuration = ConfigurationProxy::getInstance('oelib');
@@ -192,7 +192,7 @@ class TemplateHelperTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function processTemplateWithoutTemplateFileDoesNotThrowException()
+    public function processTemplateWithoutTemplateFileDoesNotThrowException(): void
     {
         $this->subject->processTemplate('foo');
     }
@@ -200,7 +200,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function processTemplateTwoTimesWillUseTheLastSetTemplate()
+    public function processTemplateTwoTimesWillUseTheLastSetTemplate(): void
     {
         $this->subject->processTemplate('foo');
         $this->subject->processTemplate('bar');
@@ -218,7 +218,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCachedConfigurationValueCreatesConfigurationForNewInstance()
+    public function setCachedConfigurationValueCreatesConfigurationForNewInstance(): void
     {
         TemplateHelper::setCachedConfigurationValue('foo', 'bar');
 
@@ -234,7 +234,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function purgeCachedConfigurationsDropsCachedConfiguration()
+    public function purgeCachedConfigurationsDropsCachedConfiguration(): void
     {
         TemplateHelper::setCachedConfigurationValue('foo', 'bar');
         TemplateHelper::purgeCachedConfigurations();
@@ -248,7 +248,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function configurationInitiallyIsAnEmptyArray()
+    public function configurationInitiallyIsAnEmptyArray(): void
     {
         self::assertSame(
             [],
@@ -259,7 +259,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setConfigurationValueFailsWithAnEmptyKey()
+    public function setConfigurationValueFailsWithAnEmptyKey(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -274,7 +274,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setConfigurationValueWithNonEmptyStringChangesTheConfiguration()
+    public function setConfigurationValueWithNonEmptyStringChangesTheConfiguration(): void
     {
         $this->subject->setConfigurationValue('test', 'This is a test.');
         self::assertSame(
@@ -286,7 +286,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setConfigurationValueWithEmptyStringChangesTheConfiguration()
+    public function setConfigurationValueWithEmptyStringChangesTheConfiguration(): void
     {
         $this->subject->setConfigurationValue('test', '');
         self::assertSame(
@@ -298,7 +298,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setConfigurationValueStringNotEmpty()
+    public function setConfigurationValueStringNotEmpty(): void
     {
         $this->subject->setConfigurationValue('test', 'This is a test.');
         self::assertSame(
@@ -310,7 +310,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getConfValueStringCastsIntToString()
+    public function getConfValueStringCastsIntToString(): void
     {
         $this->subject->setConfigurationValue('test', 42);
 
@@ -320,7 +320,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getConfValueIntegerCastsStringToInt()
+    public function getConfValueIntegerCastsStringToInt(): void
     {
         $this->subject->setConfigurationValue('test', '42');
 
@@ -330,7 +330,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getConfValueBooleanCastsStringToBool()
+    public function getConfValueBooleanCastsStringToBool(): void
     {
         $this->subject->setConfigurationValue('test', '1');
 
@@ -340,7 +340,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getConfValueBooleanCastsIntegerToBool()
+    public function getConfValueBooleanCastsIntegerToBool(): void
     {
         $this->subject->setConfigurationValue('test', 1);
 
@@ -350,7 +350,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueStringReturnsAString()
+    public function getListViewConfValueStringReturnsAString(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -366,7 +366,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueStringReturnsATrimmedString()
+    public function getListViewConfValueStringReturnsATrimmedString(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -382,7 +382,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueStringReturnsEmptyStringWhichWasSet()
+    public function getListViewConfValueStringReturnsEmptyStringWhichWasSet(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -398,7 +398,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueStringReturnsEmptyStringIfNoValueSet()
+    public function getListViewConfValueStringReturnsEmptyStringIfNoValueSet(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -414,7 +414,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueIntegerReturnsNumber()
+    public function getListViewConfValueIntegerReturnsNumber(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -430,7 +430,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueIntegerReturnsZeroIfTheValueWasEmpty()
+    public function getListViewConfValueIntegerReturnsZeroIfTheValueWasEmpty(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -446,7 +446,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueIntegerReturnsZeroIfTheValueWasNoInteger()
+    public function getListViewConfValueIntegerReturnsZeroIfTheValueWasNoInteger(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -462,7 +462,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueIntegerReturnsZeroIfNoValueWasSet()
+    public function getListViewConfValueIntegerReturnsZeroIfNoValueWasSet(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -478,7 +478,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueBooleanReturnsTrue()
+    public function getListViewConfValueBooleanReturnsTrue(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -493,7 +493,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueBooleanReturnsTrueIfTheValueWasAPositiveInteger()
+    public function getListViewConfValueBooleanReturnsTrueIfTheValueWasAPositiveInteger(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -508,7 +508,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueBooleanReturnsFalseIfTheValueWasZero()
+    public function getListViewConfValueBooleanReturnsFalseIfTheValueWasZero(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -523,7 +523,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueBooleanReturnsFalseIfTheValueWasAnEmptyString()
+    public function getListViewConfValueBooleanReturnsFalseIfTheValueWasAnEmptyString(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -538,7 +538,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueBooleanReturnsFalseIfTheValueWasNotSet()
+    public function getListViewConfValueBooleanReturnsFalseIfTheValueWasNotSet(): void
     {
         $this->subject->setConfigurationValue(
             'listView.',
@@ -553,7 +553,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueThrowsAnExceptionIfNoFieldNameWasProvided()
+    public function getListViewConfValueThrowsAnExceptionIfNoFieldNameWasProvided(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -568,7 +568,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueStringCastsIntToString()
+    public function getListViewConfValueStringCastsIntToString(): void
     {
         $this->subject->setConfigurationValue('listView.', ['test' => 42]);
 
@@ -578,7 +578,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueIntegerCastsStringToInt()
+    public function getListViewConfValueIntegerCastsStringToInt(): void
     {
         $this->subject->setConfigurationValue('listView.', ['test' => '42']);
 
@@ -588,7 +588,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueBooleanCastsStringToBool()
+    public function getListViewConfValueBooleanCastsStringToBool(): void
     {
         $this->subject->setConfigurationValue('listView.', ['test' => '1']);
 
@@ -598,7 +598,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getListViewConfValueBooleanCastsIntegerToBool()
+    public function getListViewConfValueBooleanCastsIntegerToBool(): void
     {
         $this->subject->setConfigurationValue('listView.', ['test' => 1]);
 
@@ -612,7 +612,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCompleteTemplateCanContainUtf8Umlauts()
+    public function getCompleteTemplateCanContainUtf8Umlauts(): void
     {
         $this->subject->processTemplate('äöüßÄÖÜßéèáàóò');
 
@@ -625,7 +625,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCompleteTemplateCanContainIso88591Umlauts()
+    public function getCompleteTemplateCanContainIso88591Umlauts(): void
     {
         // 228 = ä, 223 = ß (in ISO8859-1)
         $this->subject->processTemplate(\chr(228) . \chr(223));
@@ -639,7 +639,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCompleteTemplateWithComment()
+    public function getCompleteTemplateWithComment(): void
     {
         $templateCode = 'This is a test including a comment. '
             . '<!-- This is a comment. -->'
@@ -660,7 +660,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSimpleSubpart()
+    public function getSimpleSubpart(): void
     {
         $subpartContent = 'Subpart content';
         $templateCode = 'Text before the subpart'
@@ -684,7 +684,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubpartFromTemplateCanContainUtf8Umlauts()
+    public function getSubpartFromTemplateCanContainUtf8Umlauts(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
@@ -701,7 +701,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubpartFromTemplateCanContainIso88591Umlauts()
+    public function getSubpartFromTemplateCanContainIso88591Umlauts(): void
     {
         // 228 = ä, 223 = ß (in ISO8859-1)
         $this->subject->processTemplate(
@@ -719,7 +719,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getOneOfTwoSimpleSubparts()
+    public function getOneOfTwoSimpleSubparts(): void
     {
         $subpartContent = 'Subpart content';
         $templateCode = 'Text before the subpart'
@@ -747,7 +747,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSimpleSubpartWithLinefeed()
+    public function getSimpleSubpartWithLinefeed(): void
     {
         $subpartContent = "\nSubpart content\n";
         $templateCode = "Text before the subpart\n"
@@ -771,7 +771,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDoubleOccurringSubpart()
+    public function getDoubleOccurringSubpart(): void
     {
         $subpartContent = 'Subpart content';
         $templateCode = 'Text before the subpart'
@@ -799,7 +799,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubpartWithNestedInnerSubparts()
+    public function getSubpartWithNestedInnerSubparts(): void
     {
         $subpartContent = 'Subpart content ';
         $templateCode = 'Text before the subpart'
@@ -831,7 +831,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getEmptyExistingSubpart()
+    public function getEmptyExistingSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -850,7 +850,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getHiddenSubpart()
+    public function getHiddenSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -872,7 +872,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartsArrayAndGetHiddenSubpartReturnsEmptySubpartContent()
+    public function hideSubpartsArrayAndGetHiddenSubpartReturnsEmptySubpartContent(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
@@ -898,7 +898,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getInexistentMarkerWillReturnAnEmptyString()
+    public function getInexistentMarkerWillReturnAnEmptyString(): void
     {
         $this->subject->processTemplate(
             'foo'
@@ -912,7 +912,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setAndGetInexistentMarkerSucceeds()
+    public function setAndGetInexistentMarkerSucceeds(): void
     {
         $this->subject->processTemplate(
             'foo'
@@ -928,7 +928,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setAndGetExistingMarkerSucceeds()
+    public function setAndGetExistingMarkerSucceeds(): void
     {
         $this->subject->processTemplate(
             '###BAR###'
@@ -944,7 +944,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerAndGetMarkerCanHaveUtf8UmlautsInMarkerContent()
+    public function setMarkerAndGetMarkerCanHaveUtf8UmlautsInMarkerContent(): void
     {
         $this->subject->processTemplate(
             '###BAR###'
@@ -960,7 +960,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerAndGetMarkerCanHaveIso88591UmlautsInMarkerContent()
+    public function setMarkerAndGetMarkerCanHaveIso88591UmlautsInMarkerContent(): void
     {
         $this->subject->processTemplate(
             '###BAR###'
@@ -977,7 +977,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLowercaseMarkerInCompleteTemplate()
+    public function setLowercaseMarkerInCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'This is some template code. ###MARKER### More text.'
@@ -996,7 +996,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setUppercaseMarkerInCompleteTemplate()
+    public function setUppercaseMarkerInCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'This is some template code. ###MARKER### More text.'
@@ -1015,7 +1015,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLowercaseMarkerInSubpart()
+    public function setLowercaseMarkerInSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1036,7 +1036,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setUppercaseMarkerInSubpart()
+    public function setUppercaseMarkerInSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1057,7 +1057,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setDoubleMarkerInSubpart()
+    public function setDoubleMarkerInSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1078,7 +1078,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerInCompleteTemplateTwoTimes()
+    public function setMarkerInCompleteTemplateTwoTimes(): void
     {
         $this->subject->processTemplate(
             'This is some template code. ###MARKER### More text.'
@@ -1104,7 +1104,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerInSubpartTwoTimes()
+    public function setMarkerInSubpartTwoTimes(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1132,7 +1132,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function markerNamesArePrefixesBothUsed()
+    public function markerNamesArePrefixesBothUsed(): void
     {
         $this->subject->processTemplate(
             '###MY_MARKER### ###MY_MARKER_TOO###'
@@ -1153,7 +1153,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function markerNamesAreSuffixesBothUsed()
+    public function markerNamesAreSuffixesBothUsed(): void
     {
         $this->subject->processTemplate(
             '###MY_MARKER### ###ALSO_MY_MARKER###'
@@ -1174,7 +1174,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function markerNamesArePrefixesFirstUsed()
+    public function markerNamesArePrefixesFirstUsed(): void
     {
         $this->subject->processTemplate(
             '###MY_MARKER### ###MY_MARKER_TOO###'
@@ -1194,7 +1194,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function markerNamesAreSuffixesFirstUsed()
+    public function markerNamesAreSuffixesFirstUsed(): void
     {
         $this->subject->processTemplate(
             '###MY_MARKER### ###ALSO_MY_MARKER###'
@@ -1214,7 +1214,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function markerNamesArePrefixesSecondUsed()
+    public function markerNamesArePrefixesSecondUsed(): void
     {
         $this->subject->processTemplate(
             '###MY_MARKER### ###MY_MARKER_TOO###'
@@ -1234,7 +1234,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function markerNamesAreSuffixesSecondUsed()
+    public function markerNamesAreSuffixesSecondUsed(): void
     {
         $this->subject->processTemplate(
             '###MY_MARKER### ###ALSO_MY_MARKER###'
@@ -1254,7 +1254,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function markerNamesArePrefixesBothUsedWithSubpart()
+    public function markerNamesArePrefixesBothUsedWithSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1277,7 +1277,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function markerNamesAreSuffixesBothUsedWithSubpart()
+    public function markerNamesAreSuffixesBothUsedWithSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1304,7 +1304,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getUnchangedSubpartInCompleteTemplate()
+    public function getUnchangedSubpartInCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'This is some template code.'
@@ -1328,7 +1328,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getUnchangedDoubleSubpartInCompleteTemplate()
+    public function getUnchangedDoubleSubpartInCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'This is some template code.'
@@ -1358,7 +1358,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getUnchangedSubpartInRequestedSubpart()
+    public function getUnchangedSubpartInRequestedSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1384,7 +1384,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getUnchangedDoubleSubpartInRequestedSubpart()
+    public function getUnchangedDoubleSubpartInRequestedSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1420,7 +1420,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartWithNameWithSpaceThrowsException()
+    public function subpartWithNameWithSpaceThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -1436,7 +1436,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartWithNameWithUtf8UmlautThrowsException()
+    public function subpartWithNameWithUtf8UmlautThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -1452,7 +1452,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartWithNameWithUnderscoreSuffixThrowsException()
+    public function subpartWithNameWithUnderscoreSuffixThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -1468,7 +1468,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartWithNameStartingWithUnderscoreThrowsException()
+    public function subpartWithNameStartingWithUnderscoreThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -1484,7 +1484,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartWithNameStartingWithNumberThrowsException()
+    public function subpartWithNameStartingWithNumberThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -1505,7 +1505,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartNamesArePrefixesGetCompleteTemplate()
+    public function subpartNamesArePrefixesGetCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1529,7 +1529,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartNamesAreSuffixesGetCompleteTemplate()
+    public function subpartNamesAreSuffixesGetCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1553,7 +1553,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartNamesArePrefixesGetFirstSubpart()
+    public function subpartNamesArePrefixesGetFirstSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1577,7 +1577,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartNamesAreSuffixesGetFirstSubpart()
+    public function subpartNamesAreSuffixesGetFirstSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1601,7 +1601,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartNamesArePrefixesGetSecondSubpart()
+    public function subpartNamesArePrefixesGetSecondSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1625,7 +1625,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartNamesAreSuffixesGetSecondSubpart()
+    public function subpartNamesAreSuffixesGetSecondSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -1653,7 +1653,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartInCompleteTemplate()
+    public function hideSubpartInCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -1677,7 +1677,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideOverwrittenSubpartInCompleteTemplate()
+    public function hideOverwrittenSubpartInCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -1701,7 +1701,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unhideSubpartInCompleteTemplate()
+    public function unhideSubpartInCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -1726,7 +1726,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartInCompleteTemplate()
+    public function hideAndUnhideSubpartInCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -1752,7 +1752,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartInSubpart()
+    public function hideSubpartInSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
@@ -1778,7 +1778,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function twoSubpartInNestedSubpart()
+    public function twoSubpartInNestedSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###SINGLE_VIEW###  -->'
@@ -1806,7 +1806,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unhideSubpartInSubpart()
+    public function unhideSubpartInSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
@@ -1833,7 +1833,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartInSubpart()
+    public function hideAndUnhideSubpartInSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
@@ -1861,7 +1861,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideTwoSubpartsSeparately()
+    public function hideTwoSubpartsSeparately(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -1889,7 +1889,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideTwoSubpartsWithoutSpaceAfterComma()
+    public function hideTwoSubpartsWithoutSpaceAfterComma(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -1916,7 +1916,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideTwoSubpartsInReverseOrder()
+    public function hideTwoSubpartsInReverseOrder(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -1943,7 +1943,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideTwoSubpartsWithSpaceAfterComma()
+    public function hideTwoSubpartsWithSpaceAfterComma(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -1970,7 +1970,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideTwoSubpartsSeparately()
+    public function hideAndUnhideTwoSubpartsSeparately(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -2002,7 +2002,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideTwoSubpartsInSameOrder()
+    public function hideAndUnhideTwoSubpartsInSameOrder(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -2032,7 +2032,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideTwoSubpartsInReverseOrder()
+    public function hideAndUnhideTwoSubpartsInReverseOrder(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -2062,7 +2062,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideTwoSubpartsUnhideFirst()
+    public function hideTwoSubpartsUnhideFirst(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -2091,7 +2091,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideTwoSubpartsUnhideSecond()
+    public function hideTwoSubpartsUnhideSecond(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -2120,7 +2120,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unhidePermanentlyHiddenSubpart()
+    public function unhidePermanentlyHiddenSubpart(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -2145,7 +2145,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unhideOneOfTwoPermanentlyHiddenSubparts()
+    public function unhideOneOfTwoPermanentlyHiddenSubparts(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -2170,7 +2170,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unhideSubpartAndPermanentlyHideAnother()
+    public function unhideSubpartAndPermanentlyHideAnother(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -2196,7 +2196,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unhidePermanentlyHiddenSubpartWithPrefix()
+    public function unhidePermanentlyHiddenSubpartWithPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->'
@@ -2223,7 +2223,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unhideOneOfTwoPermanentlyHiddenSubpartsWithPrefix()
+    public function unhideOneOfTwoPermanentlyHiddenSubpartsWithPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->'
@@ -2250,7 +2250,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unhideSubpartAndPermanentlyHideAnotherWithPrefix()
+    public function unhideSubpartAndPermanentlyHideAnotherWithPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->'
@@ -2278,7 +2278,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartIsInvisibleIfTheSubpartNameIsEmpty()
+    public function subpartIsInvisibleIfTheSubpartNameIsEmpty(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -2292,7 +2292,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function nonexistentSubpartIsInvisible()
+    public function nonexistentSubpartIsInvisible(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -2306,7 +2306,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartIsVisibleByDefault()
+    public function subpartIsVisibleByDefault(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -2320,7 +2320,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartIsNotVisibleAfterHiding()
+    public function subpartIsNotVisibleAfterHiding(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -2335,7 +2335,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function subpartIsVisibleAfterHidingAndUnhiding()
+    public function subpartIsVisibleAfterHidingAndUnhiding(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -2351,7 +2351,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubpartReturnsContentOfVisibleSubpartThatWasFilledWhenHidden()
+    public function getSubpartReturnsContentOfVisibleSubpartThatWasFilledWhenHidden(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
@@ -2369,7 +2369,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartsArrayWithCompleteTemplateHidesSubpart()
+    public function hideSubpartsArrayWithCompleteTemplateHidesSubpart(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2393,7 +2393,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartsArrayWithCompleteTemplateHidesOverwrittenSubpart()
+    public function hideSubpartsArrayWithCompleteTemplateHidesOverwrittenSubpart(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2417,7 +2417,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unhideSubpartsArrayWithCompleteTemplateUnhidesSubpart()
+    public function unhideSubpartsArrayWithCompleteTemplateUnhidesSubpart(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2442,7 +2442,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayWithCompleteTemplateHidesAndUnhidesSubpart()
+    public function hideAndUnhideSubpartsArrayWithCompleteTemplateHidesAndUnhidesSubpart(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2468,7 +2468,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartsArrayHidesSubpartInSubpart()
+    public function hideSubpartsArrayHidesSubpartInSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->' .
@@ -2494,7 +2494,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartsArrayHidesSubpartInNestedSubpart()
+    public function hideSubpartsArrayHidesSubpartInNestedSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###SINGLE_VIEW###  -->' .
@@ -2522,7 +2522,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unhideSubpartsArrayUnhidesSubpartInSubpart()
+    public function unhideSubpartsArrayUnhidesSubpartInSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->' .
@@ -2549,7 +2549,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesAndUnhidesSubpartInSubpart()
+    public function hideAndUnhideSubpartsArrayHidesAndUnhidesSubpartInSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->' .
@@ -2577,7 +2577,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartsArrayHidesTwoSubpartsSeparately()
+    public function hideSubpartsArrayHidesTwoSubpartsSeparately(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2605,7 +2605,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartsArrayHidesTwoSubparts()
+    public function hideSubpartsArrayHidesTwoSubparts(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2632,7 +2632,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartsArrayHidesTwoSubpartsInReverseOrder()
+    public function hideSubpartsArrayHidesTwoSubpartsInReverseOrder(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2659,7 +2659,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesAndUnhidesTwoSubpartsSeparately()
+    public function hideAndUnhideSubpartsArrayHidesAndUnhidesTwoSubpartsSeparately(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2691,7 +2691,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesAndUnhidesTwoSubpartsInSameOrder()
+    public function hideAndUnhideSubpartsArrayHidesAndUnhidesTwoSubpartsInSameOrder(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2721,7 +2721,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesAndUnhidesTwoSubpartsInReverseOrder()
+    public function hideAndUnhideSubpartsArrayHidesAndUnhidesTwoSubpartsInReverseOrder(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2751,7 +2751,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesTwoSubpartsAndUnhidesTheFirst()
+    public function hideAndUnhideSubpartsArrayHidesTwoSubpartsAndUnhidesTheFirst(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2780,7 +2780,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesTwoSubpartsAndUnhidesTheSecond()
+    public function hideAndUnhideSubpartsArrayHidesTwoSubpartsAndUnhidesTheSecond(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2809,7 +2809,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesPermanentlyHiddenSubpart()
+    public function hideAndUnhideSubpartsArrayHidesPermanentlyHiddenSubpart(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2837,7 +2837,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesOneOfTwoPermanentlyHiddenSubparts()
+    public function hideAndUnhideSubpartsArrayHidesOneOfTwoPermanentlyHiddenSubparts(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2865,7 +2865,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayUnhidesSubpartAndPermanentlyHidesAnother()
+    public function hideAndUnhideSubpartsArrayUnhidesSubpartAndPermanentlyHidesAnother(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -2894,7 +2894,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesPermanentlyHiddenSubpartWithPrefix()
+    public function hideAndUnhideSubpartsArrayHidesPermanentlyHiddenSubpartWithPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->' .
@@ -2925,7 +2925,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesOneOfTwoPermanentlyHiddenSubpartsWithPrefix()
+    public function hideAndUnhideSubpartsArrayHidesOneOfTwoPermanentlyHiddenSubpartsWithPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->' .
@@ -2956,7 +2956,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayUnhidesSubpartAndPermanentlyHidesAnotherWithPrefix()
+    public function hideAndUnhideSubpartsArrayUnhidesSubpartAndPermanentlyHidesAnotherWithPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###SUBPART### -->' .
@@ -2988,7 +2988,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartsArrayResultsInNotVisibleSubpart()
+    public function hideSubpartsArrayResultsInNotVisibleSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
@@ -3003,7 +3003,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayResultsInVisibleSubpart()
+    public function hideAndUnhideSubpartsArrayResultsInVisibleSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
@@ -3019,7 +3019,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayWithFilledSubpartWhenHiddenReturnsContentOfUnhiddenSubpart()
+    public function hideAndUnhideSubpartsArrayWithFilledSubpartWhenHiddenReturnsContentOfUnhiddenSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
@@ -3041,7 +3041,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setNewSubpartWithNameWithSpaceThrowsException()
+    public function setNewSubpartWithNameWithSpaceThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -3052,7 +3052,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setNewSubpartWithNameWithUtf8UmlautThrowsException()
+    public function setNewSubpartWithNameWithUtf8UmlautThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -3063,7 +3063,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setNewSubpartWithNameWithUnderscoreSuffixThrowsException()
+    public function setNewSubpartWithNameWithUnderscoreSuffixThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -3075,7 +3075,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setNewSubpartWithNameStartingWithUnderscoreThrowsException()
+    public function setNewSubpartWithNameStartingWithUnderscoreThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -3087,7 +3087,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setNewSubpartWithNameStartingWithNumberThrowsException()
+    public function setNewSubpartWithNameStartingWithNumberThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -3099,7 +3099,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSubpartNotEmptyGetCompleteTemplate()
+    public function setSubpartNotEmptyGetCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -3124,7 +3124,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSubpartNotEmptyGetSubpart()
+    public function setSubpartNotEmptyGetSubpart(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -3147,7 +3147,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setNewSubpartNotEmptyGetSubpart()
+    public function setNewSubpartNotEmptyGetSubpart(): void
     {
         $this->subject->processTemplate(
             'Some text.'
@@ -3166,7 +3166,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSubpartNotEmptyGetOuterSubpart()
+    public function setSubpartNotEmptyGetOuterSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
@@ -3191,7 +3191,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSubpartToEmptyGetCompleteTemplate()
+    public function setSubpartToEmptyGetCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -3215,7 +3215,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSubpartToEmptyGetSubpart()
+    public function setSubpartToEmptyGetSubpart(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -3238,7 +3238,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSubpartToEmptyGetOuterSubpart()
+    public function setSubpartToEmptyGetOuterSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
@@ -3263,7 +3263,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSubpartAndGetSubpartCanHaveUtf8UmlautsInSubpartContent()
+    public function setSubpartAndGetSubpartCanHaveUtf8UmlautsInSubpartContent(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
@@ -3280,7 +3280,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSubpartAndGetSubpartCanHaveIso88591UmlautsInSubpartContent()
+    public function setSubpartAndGetSubpartCanHaveIso88591UmlautsInSubpartContent(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->' .
@@ -3302,7 +3302,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerInSubpartWithinCompleteTemplate()
+    public function setMarkerInSubpartWithinCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -3327,7 +3327,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerInSubpartWithinOtherSubpart()
+    public function setMarkerInSubpartWithinOtherSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
@@ -3354,7 +3354,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerInOverwrittenSubpartWithinCompleteTemplate()
+    public function setMarkerInOverwrittenSubpartWithinCompleteTemplate(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -3382,7 +3382,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerInOverwrittenSubpartWithinOtherSubpart()
+    public function setMarkerInOverwrittenSubpartWithinOtherSubpart(): void
     {
         $this->subject->processTemplate(
             '<!-- ###OUTER_SUBPART### -->'
@@ -3412,7 +3412,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerWithinNestedInnerSubpart()
+    public function setMarkerWithinNestedInnerSubpart(): void
     {
         $templateCode = 'Text before the subpart'
             . '<!-- ###MY_SUBPART### -->'
@@ -3449,7 +3449,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerWithPrefix()
+    public function setMarkerWithPrefix(): void
     {
         $this->subject->processTemplate(
             'This is some template code. '
@@ -3469,7 +3469,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSubpartWithPrefix()
+    public function setSubpartWithPrefix(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -3498,7 +3498,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartWithPrefix()
+    public function hideSubpartWithPrefix(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -3526,7 +3526,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartWithPrefix()
+    public function hideAndUnhideSubpartWithPrefix(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -3556,7 +3556,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideTwoSubpartsWithPrefix()
+    public function hideTwoSubpartsWithPrefix(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -3583,7 +3583,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideTwoSubpartsWithPrefix()
+    public function hideAndUnhideTwoSubpartsWithPrefix(): void
     {
         $this->subject->processTemplate(
             'Some text. '
@@ -3614,7 +3614,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartsArrayHidesSubpartWithPrefix()
+    public function hideSubpartsArrayHidesSubpartWithPrefix(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -3642,7 +3642,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideSubpartsArrayHidesTwoSubpartsWithPrefix()
+    public function hideSubpartsArrayHidesTwoSubpartsWithPrefix(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -3672,7 +3672,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesAndUnhidesSubpartWithPrefix()
+    public function hideAndUnhideSubpartsArrayHidesAndUnhidesSubpartWithPrefix(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -3702,7 +3702,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function hideAndUnhideSubpartsArrayHidesAndUnhidesTwoSubpartsWithPrefix()
+    public function hideAndUnhideSubpartsArrayHidesAndUnhidesTwoSubpartsWithPrefix(): void
     {
         $this->subject->processTemplate(
             'Some text. ' .
@@ -3741,7 +3741,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerIfNotZeroWithPositiveInteger()
+    public function setMarkerIfNotZeroWithPositiveInteger(): void
     {
         $this->subject->processTemplate(
             '###MARKER###'
@@ -3759,7 +3759,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerIfNotZeroWithNegativeInteger()
+    public function setMarkerIfNotZeroWithNegativeInteger(): void
     {
         $this->subject->processTemplate(
             '###MARKER###'
@@ -3777,7 +3777,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerIfNotZeroWithZero()
+    public function setMarkerIfNotZeroWithZero(): void
     {
         $this->subject->processTemplate(
             '###MARKER###'
@@ -3795,7 +3795,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerIfNotZeroWithPositiveIntegerWithPrefix()
+    public function setMarkerIfNotZeroWithPositiveIntegerWithPrefix(): void
     {
         $this->subject->processTemplate(
             '###MY_MARKER###'
@@ -3813,7 +3813,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerIfNotZeroWithNegativeIntegerWithPrefix()
+    public function setMarkerIfNotZeroWithNegativeIntegerWithPrefix(): void
     {
         $this->subject->processTemplate(
             '###MY_MARKER###'
@@ -3831,7 +3831,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerIfNotZeroWithZeroWithPrefix()
+    public function setMarkerIfNotZeroWithZeroWithPrefix(): void
     {
         $this->subject->processTemplate(
             '###MY_MARKER###'
@@ -3849,7 +3849,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerIfNotEmptyWithNotEmpty()
+    public function setMarkerIfNotEmptyWithNotEmpty(): void
     {
         $this->subject->processTemplate(
             '###MARKER###'
@@ -3867,7 +3867,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerIfNotEmptyWithEmpty()
+    public function setMarkerIfNotEmptyWithEmpty(): void
     {
         $this->subject->processTemplate(
             '###MARKER###'
@@ -3885,7 +3885,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerIfNotEmptyWithNotEmptyWithPrefix()
+    public function setMarkerIfNotEmptyWithNotEmptyWithPrefix(): void
     {
         $this->subject->processTemplate(
             '###MY_MARKER###'
@@ -3903,7 +3903,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMarkerIfNotEmptyWithEmptyWithPrefix()
+    public function setMarkerIfNotEmptyWithEmptyWithPrefix(): void
     {
         $this->subject->processTemplate(
             '###MY_MARKER###'
@@ -3921,7 +3921,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerWithTrue()
+    public function setOrDeleteMarkerWithTrue(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -3947,7 +3947,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerWithFalse()
+    public function setOrDeleteMarkerWithFalse(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -3973,7 +3973,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerWithTrueWithMarkerPrefix()
+    public function setOrDeleteMarkerWithTrueWithMarkerPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -3999,7 +3999,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerWithFalseWithMarkerPrefix()
+    public function setOrDeleteMarkerWithFalseWithMarkerPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -4025,7 +4025,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerIfNotZeroWithZero()
+    public function setOrDeleteMarkerIfNotZeroWithZero(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -4050,7 +4050,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerIfNotZeroWithPositiveIntegers()
+    public function setOrDeleteMarkerIfNotZeroWithPositiveIntegers(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -4075,7 +4075,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerIfNotZeroWithNegativeIntegers()
+    public function setOrDeleteMarkerIfNotZeroWithNegativeIntegers(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -4100,7 +4100,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerIfNotZeroWithZeroWithMarkerPrefix()
+    public function setOrDeleteMarkerIfNotZeroWithZeroWithMarkerPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -4125,7 +4125,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerIfNotZeroWithPositiveIntegerWithMarkerPrefix()
+    public function setOrDeleteMarkerIfNotZeroWithPositiveIntegerWithMarkerPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -4150,7 +4150,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerIfNotZeroWithNegativeIntegerWithMarkerPrefix()
+    public function setOrDeleteMarkerIfNotZeroWithNegativeIntegerWithMarkerPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -4175,7 +4175,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerIfNotEmptyWithEmpty()
+    public function setOrDeleteMarkerIfNotEmptyWithEmpty(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -4200,7 +4200,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerIfNotEmptyWithNotEmpty()
+    public function setOrDeleteMarkerIfNotEmptyWithNotEmpty(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -4225,7 +4225,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerIfNotEmptyWithEmptyWithMarkerPrefix()
+    public function setOrDeleteMarkerIfNotEmptyWithEmptyWithMarkerPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -4250,7 +4250,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setOrDeleteMarkerIfNotEmptyWithNotEmptyWithMarkerPrefix()
+    public function setOrDeleteMarkerIfNotEmptyWithNotEmptyWithMarkerPrefix(): void
     {
         $this->subject->processTemplate(
             '<!-- ###WRAPPER_MARKER### -->'
@@ -4279,7 +4279,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unclosedMarkersAreIgnored()
+    public function unclosedMarkersAreIgnored(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -4317,7 +4317,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unclosedSubpartsAreIgnored()
+    public function unclosedSubpartsAreIgnored(): void
     {
         $this->subject->processTemplate(
             'Text before. '
@@ -4360,7 +4360,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function unclosedSubpartMarkersAreIgnored()
+    public function unclosedSubpartMarkersAreIgnored(): void
     {
         $this->subject->processTemplate(
             'Text before. '
@@ -4403,7 +4403,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function invalidMarkerNamesAreIgnored()
+    public function invalidMarkerNamesAreIgnored(): void
     {
         $this->subject->processTemplate(
             '<!-- ###MY_SUBPART### -->'
@@ -4439,7 +4439,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerPiVarsDefinesAPiVarsArrayWithShowUidPointerAndModeIfPiVarsWasUndefined()
+    public function ensureIntegerPiVarsDefinesAPiVarsArrayWithShowUidPointerAndModeIfPiVarsWasUndefined(): void
     {
         $this->subject->piVars = [];
         $this->subject->ensureIntegerPiVars();
@@ -4453,7 +4453,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerPiVarsDefinesProvidedAdditionalParameterIfPiVarsWasUndefined()
+    public function ensureIntegerPiVarsDefinesProvidedAdditionalParameterIfPiVarsWasUndefined(): void
     {
         $this->subject->piVars = [];
         $this->subject->ensureIntegerPiVars(['additionalParameter']);
@@ -4467,7 +4467,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerPiVarsIntvalsAnAlreadyDefinedAdditionalParameter()
+    public function ensureIntegerPiVarsIntvalsAnAlreadyDefinedAdditionalParameter(): void
     {
         $this->subject->piVars = [];
         $this->subject->piVars['additionalParameter'] = 1.1;
@@ -4487,7 +4487,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerPiVarsDoesNotIntvalsDefinedPiVarWhichIsNotInTheListOfPiVarsToSecure()
+    public function ensureIntegerPiVarsDoesNotIntvalsDefinedPiVarWhichIsNotInTheListOfPiVarsToSecure(): void
     {
         $this->subject->piVars = [];
         $this->subject->piVars['non-integer'] = 'foo';
@@ -4502,7 +4502,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerPiVarsIntvalsAlreadyDefinedShowUid()
+    public function ensureIntegerPiVarsIntvalsAlreadyDefinedShowUid(): void
     {
         $this->subject->piVars = [];
         $this->subject->piVars['showUid'] = 1.1;
@@ -4521,7 +4521,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureContentObjectForExistingContentObjectLeavesItUntouched()
+    public function ensureContentObjectForExistingContentObjectLeavesItUntouched(): void
     {
         $contentObject = new ContentObjectRenderer();
         $this->subject->cObj = $contentObject;
@@ -4537,7 +4537,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureContentObjectForMissingContentObjectWithFrontEndUsesContentObjectFromFrontEnd()
+    public function ensureContentObjectForMissingContentObjectWithFrontEndUsesContentObjectFromFrontEnd(): void
     {
         $this->subject->cObj = null;
 
@@ -4558,7 +4558,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerArrayValuesForEmptyArrayGivenDoesNotAddAnyPiVars()
+    public function ensureIntegerArrayValuesForEmptyArrayGivenDoesNotAddAnyPiVars(): void
     {
         $originalPiVars = $this->subject->piVars;
         $this->subject->ensureIntegerArrayValues([]);
@@ -4572,7 +4572,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerArrayValuesForNotSetPiVarGivenDoesNotAddThisPiVar()
+    public function ensureIntegerArrayValuesForNotSetPiVarGivenDoesNotAddThisPiVar(): void
     {
         $originalPiVars = $this->subject->piVars;
         $this->subject->ensureIntegerArrayValues(['foo']);
@@ -4586,7 +4586,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerArrayValuesForPiVarNotArrayDoesNotModifyThisPiVar()
+    public function ensureIntegerArrayValuesForPiVarNotArrayDoesNotModifyThisPiVar(): void
     {
         $this->subject->piVars['foo'] = 'Hallo';
         $this->subject->ensureIntegerArrayValues(['foo']);
@@ -4600,7 +4600,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerArrayValuesForValidIntegerInArrayDoesNotModifyThisArrayElement()
+    public function ensureIntegerArrayValuesForValidIntegerInArrayDoesNotModifyThisArrayElement(): void
     {
         $this->subject->piVars['foo'] = [10];
         $this->subject->ensureIntegerArrayValues(['foo']);
@@ -4614,7 +4614,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerArrayValuesForStringInArrayRemovesThisArrayElement()
+    public function ensureIntegerArrayValuesForStringInArrayRemovesThisArrayElement(): void
     {
         $this->subject->piVars['foo'] = ['Hallo'];
         $this->subject->ensureIntegerArrayValues(['foo']);
@@ -4627,7 +4627,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerArrayValuesForIntegerFollowedByStringInArrayRemovesStringFromArrayElement()
+    public function ensureIntegerArrayValuesForIntegerFollowedByStringInArrayRemovesStringFromArrayElement(): void
     {
         $this->subject->piVars['foo'] = ['2;blubb'];
         $this->subject->ensureIntegerArrayValues(['foo']);
@@ -4641,7 +4641,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerArrayValuesForSingleInArrayRemovesNumbersAfterDecimalPoint()
+    public function ensureIntegerArrayValuesForSingleInArrayRemovesNumbersAfterDecimalPoint(): void
     {
         $this->subject->piVars['foo'] = [2.3];
         $this->subject->ensureIntegerArrayValues(['foo']);
@@ -4655,7 +4655,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerArrayValuesForZeroInArrayRemovesThisArrayElement()
+    public function ensureIntegerArrayValuesForZeroInArrayRemovesThisArrayElement(): void
     {
         $this->subject->piVars['foo'] = [0];
         $this->subject->ensureIntegerArrayValues(['foo']);
@@ -4668,7 +4668,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function ensureIntegerArrayValuesMultiplePiKeysGivenValidatesElementsOfAllPiVars()
+    public function ensureIntegerArrayValuesMultiplePiKeysGivenValidatesElementsOfAllPiVars(): void
     {
         $this->subject->piVars['foo'] = ['2;blubb'];
         $this->subject->piVars['bar'] = ['42'];
@@ -4692,7 +4692,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubpartWithLabelsReturnsVerbatimSubpartWithoutLabels()
+    public function getSubpartWithLabelsReturnsVerbatimSubpartWithoutLabels(): void
     {
         $subpartContent = 'Subpart content';
         $templateCode = 'Text before the subpart'
@@ -4712,7 +4712,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubpartWithLabelsReplacesLabelMarkersWithLabels()
+    public function getSubpartWithLabelsReplacesLabelMarkersWithLabels(): void
     {
         $templateCode = 'Text before the subpart'
             . '<!-- ###MY_SUBPART### -->before ###LABEL_FOO### after<!-- ###MY_SUBPART### -->'
@@ -4733,7 +4733,7 @@ class TemplateHelperTest extends UnitTestCase
      *
      * @doesNotPerformAssertions
      */
-    public function setLabelsAfterGetTemplateCodeWithoutTemplatePathDoesNotCrash()
+    public function setLabelsAfterGetTemplateCodeWithoutTemplatePathDoesNotCrash(): void
     {
         $this->subject->getTemplateCode();
         $this->subject->setLabels();
@@ -4742,7 +4742,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLabels()
+    public function setLabels(): void
     {
         $this->subject->processTemplate(
             'a ###LABEL_FOO### b'
@@ -4757,7 +4757,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLabelsNoSalutation()
+    public function setLabelsNoSalutation(): void
     {
         $this->subject->processTemplate(
             'a ###LABEL_BAR### b'
@@ -4772,7 +4772,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLabelsFormal()
+    public function setLabelsFormal(): void
     {
         $this->subject->setSalutationMode('formal');
         $this->subject->processTemplate(
@@ -4788,7 +4788,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLabelsInformal()
+    public function setLabelsInformal(): void
     {
         $this->subject->setSalutationMode('informal');
         $this->subject->processTemplate(
@@ -4804,7 +4804,7 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLabelsWithOneBeingThePrefixOfAnother()
+    public function setLabelsWithOneBeingThePrefixOfAnother(): void
     {
         $this->subject->processTemplate(
             '###LABEL_FOO###, ###LABEL_FOO2###'

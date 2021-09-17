@@ -119,12 +119,8 @@ abstract class AbstractDataMapper
     /**
      * Sets the testing framework. During functional tests, this makes sure that records created with this mapper
      * will be deleted during cleanUp again.
-     *
-     * @param TestingFramework $testingFramework
-     *
-     * @return void
      */
-    public function setTestingFramework(TestingFramework $testingFramework)
+    public function setTestingFramework(TestingFramework $testingFramework): void
     {
         $this->testingFramework = $testingFramework;
     }
@@ -267,14 +263,11 @@ abstract class AbstractDataMapper
      *
      * Note: This method may only be called at most once per model instance.
      *
-     * @param M $model
-     *        the model to fill, must already have a UID
-     *
-     * @return void
+     * @param M $model the model to fill, must already have a UID
      *
      * @throws \InvalidArgumentException if $model has no UID or has been created via getNewGhost
      */
-    public function load(AbstractModel $model)
+    public function load(AbstractModel $model): void
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
             throw new \InvalidArgumentException(
@@ -309,14 +302,11 @@ abstract class AbstractDataMapper
      *
      * This method may be called more than once per model instance.
      *
-     * @param M $model
-     *        the model to fill, must already have a UID
-     *
-     * @return void
+     * @param M $model the model to fill, must already have a UID
      *
      * @throws \InvalidArgumentException if $model has no UID or has been created via getNewGhost
      */
-    public function reload(AbstractModel $model)
+    public function reload(AbstractModel $model): void
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
             throw new \InvalidArgumentException(
@@ -346,13 +336,10 @@ abstract class AbstractDataMapper
      *
      * This method must be called at most once per model instance.
      *
-     * @param M $model
-     *        the model to fill, needs to have a UID
+     * @param M $model the model to fill, needs to have a UID
      * @param array $data the model data to process as it comes from the DB
-     *
-     * @return void
      */
-    private function fillModel(AbstractModel $model, array $data)
+    private function fillModel(AbstractModel $model, array $data): void
     {
         $this->cacheModelByKeys($model, $data);
         $this->createRelations($data, $model);
@@ -366,13 +353,10 @@ abstract class AbstractDataMapper
      *
      * This method may be called more than once per model instance.
      *
-     * @param M $model
-     *        the model to fill, needs to have a UID
+     * @param M $model the model to fill, needs to have a UID
      * @param array $data the model data to process as it comes from the DB
-     *
-     * @return void
      */
-    private function refillModel(AbstractModel $model, array $data)
+    private function refillModel(AbstractModel $model, array $data): void
     {
         $this->cacheModelByKeys($model, $data);
         $this->createRelations($data, $model);
@@ -383,14 +367,10 @@ abstract class AbstractDataMapper
      * Processes a model's data and creates any relations that are hidden within
      * it using foreign key mapping.
      *
-     * @param array $data
-     *        the model data to process, might be modified
-     * @param M $model
-     *        the model to create the relations for
-     *
-     * @return void
+     * @param array<string, mixed> $data the model data to process, might be modified
+     * @param M $model the model to create the relations for
      */
-    protected function createRelations(array &$data, AbstractModel $model)
+    protected function createRelations(array &$data, AbstractModel $model): void
     {
         foreach (array_keys($this->relations) as $key) {
             if ($this->isOneToManyRelationConfigured($key)) {
@@ -501,17 +481,12 @@ abstract class AbstractDataMapper
     /**
      * Creates an 1:n relation using foreign field mapping.
      *
-     * @param array $data
-     *        the model data to process, will be modified
-     * @param string $key
-     *        the key of the data item for which the relation should be created,
+     * @param array<string, mixed> $data the model data to process, will be modified
+     * @param string $key the key of the data item for which the relation should be created,
      *        must not be empty
-     * @param M $model
-     *        the model to create the relation for
-     *
-     * @return void
+     * @param M $model the model to create the relation for
      */
-    private function createOneToManyRelation(array &$data, string $key, AbstractModel $model)
+    private function createOneToManyRelation(array &$data, string $key, AbstractModel $model): void
     {
         $modelData = [];
 
@@ -549,14 +524,10 @@ abstract class AbstractDataMapper
     /**
      * Creates an n:1 relation using foreign key mapping.
      *
-     * @param array $data
-     *        the model data to process, will be modified
-     * @param string $key
-     *        the key of the data item for which the relation should be created, must not be empty
-     *
-     * @return void
+     * @param array<string, mixed> $data the model data to process, will be modified
+     * @param string $key the key of the data item for which the relation should be created, must not be empty
      */
-    private function createManyToOneRelation(array &$data, string $key)
+    private function createManyToOneRelation(array &$data, string $key): void
     {
         $uid = isset($data[$key]) ? (int)$data[$key] : 0;
 
@@ -568,15 +539,11 @@ abstract class AbstractDataMapper
     /**
      * Creates an n:1 relation using a comma-separated list of UIDs.
      *
-     * @param array $data
-     *        the model data to process, will be modified
-     * @param string $key
-     *        the key of the data item for which the relation should be created, must not be empty
+     * @param array<string, mixed> $data the model data to process, will be modified
+     * @param string $key the key of the data item for which the relation should be created, must not be empty
      * @param M $model the model to create the relation for
-     *
-     * @return void
      */
-    private function createCommaSeparatedRelation(array &$data, string $key, AbstractModel $model)
+    private function createCommaSeparatedRelation(array &$data, string $key, AbstractModel $model): void
     {
         $list = new Collection();
         $list->setParentModel($model);
@@ -603,15 +570,11 @@ abstract class AbstractDataMapper
      * Note: This doesn't work for the reverse direction of bidirectional
      * relations yet.
      *
-     * @param array $data
-     *        the model data to process, will be modified
-     * @param string $key
-     *        the key of the data item for which the relation should be created, must not be empty
+     * @param array<string, mixed> $data the model data to process, will be modified
+     * @param string $key the key of the data item for which the relation should be created, must not be empty
      * @param M $model the model to create the relation for
-     *
-     * @return void
      */
-    private function createMToNRelation(array &$data, string $key, AbstractModel $model)
+    private function createMToNRelation(array &$data, string $key, AbstractModel $model): void
     {
         $list = new Collection();
         $list->setParentModel($model);
@@ -771,15 +734,11 @@ abstract class AbstractDataMapper
     }
 
     /**
-     * Disables all database querying, so model data can only be fetched from
-     * memory.
+     * Disables all database querying, so model data can only be fetched from memory.
      *
-     * This function is for testing purposes only. For testing, it should be
-     * used whenever possible.
-     *
-     * @return void
+     * This function is for testing purposes only. For testing, it should be used whenever possible.
      */
-    public function disableDatabaseAccess()
+    public function disableDatabaseAccess(): void
     {
         $this->denyDatabaseAccess = true;
     }
@@ -800,10 +759,8 @@ abstract class AbstractDataMapper
      * ghost, if the model is read-only or if there is no data to set.
      *
      * @param M $model the model to write to the database
-     *
-     * @return void
      */
-    public function save(AbstractModel $model)
+    public function save(AbstractModel $model): void
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
             throw new \InvalidArgumentException(
@@ -903,11 +860,9 @@ abstract class AbstractDataMapper
     /**
      * Prepares the data for models that get newly inserted into the DB.
      *
-     * @param array $data the data of the record, will be modified
-     *
-     * @return void
+     * @param array<string, mixed> $data the data of the record, will be modified
      */
-    protected function prepareDataForNewRecord(array &$data)
+    protected function prepareDataForNewRecord(array &$data): void
     {
         if (!$this->testingFramework instanceof TestingFramework) {
             return;
@@ -923,10 +878,8 @@ abstract class AbstractDataMapper
      *
      * @param AbstractModel $model the model to save
      * @param AbstractDataMapper $mapper the mapper to use for saving
-     *
-     * @return void
      */
-    private function saveManyToOneRelatedModels(AbstractModel $model, AbstractDataMapper $mapper)
+    private function saveManyToOneRelatedModels(AbstractModel $model, AbstractDataMapper $mapper): void
     {
         $mapper->save($model);
     }
@@ -936,10 +889,8 @@ abstract class AbstractDataMapper
      *
      * @param Collection<AbstractModel> $list the list of models to save
      * @param AbstractDataMapper $mapper the mapper to use for saving
-     *
-     * @return void
      */
-    private function saveManyToManyAndCommaSeparatedRelatedModels(Collection $list, AbstractDataMapper $mapper)
+    private function saveManyToManyAndCommaSeparatedRelatedModels(Collection $list, AbstractDataMapper $mapper): void
     {
         /** @var AbstractModel $model */
         foreach ($list as $model) {
@@ -951,12 +902,9 @@ abstract class AbstractDataMapper
      * Deletes the records in the intermediate table of m:n relations for a
      * given model.
      *
-     * @param M $model the model to delete the records in the
-     *                              intermediate table of m:n relations for
-     *
-     * @return void
+     * @param M $model the model to delete the records in the intermediate table of m:n relations for
      */
-    private function deleteManyToManyRelationIntermediateRecords(AbstractModel $model)
+    private function deleteManyToManyRelationIntermediateRecords(AbstractModel $model): void
     {
         foreach (array_keys($this->relations) as $key) {
             if (!$this->isManyToManyRelationConfigured($key)) {
@@ -974,10 +922,8 @@ abstract class AbstractDataMapper
      * Creates records in the intermediate table of m:n relations for a given model.
      *
      * @param M $model the model to create the records in the intermediate table of m:n relations for
-     *
-     * @return void
      */
-    private function createManyToManyRelationIntermediateRecords(AbstractModel $model)
+    private function createManyToManyRelationIntermediateRecords(AbstractModel $model): void
     {
         $data = $model->getData();
 
@@ -1012,10 +958,8 @@ abstract class AbstractDataMapper
      * Saves records that this model relates to as 1:n.
      *
      * @param M $model the model to save the related records for
-     *
-     * @return void
      */
-    private function saveOneToManyRelationRecords(AbstractModel $model)
+    private function saveOneToManyRelationRecords(AbstractModel $model): void
     {
         $data = $model->getData();
 
@@ -1112,13 +1056,9 @@ abstract class AbstractDataMapper
     /**
      * Marks $model as deleted and saves it to the DB (if it has a UID).
      *
-     * @param M $model
-     *        the model to delete, must not be a memory-only dummy, must not be
-     *        read-only
-     *
-     * @return void
+     * @param M $model the model to delete, must not be a memory-only dummy, must not be read-only
      */
-    public function delete(AbstractModel $model)
+    public function delete(AbstractModel $model): void
     {
         if ($this->isModelAMemoryOnlyDummy($model)) {
             throw new \InvalidArgumentException(
@@ -1147,12 +1087,9 @@ abstract class AbstractDataMapper
     /**
      * Deletes all one-to-many related models of this model.
      *
-     * @param M $model
-     *        the model for which to delete the related models
-     *
-     * @return void
+     * @param M $model the model for which to delete the related models
      */
-    private function deleteOneToManyRelations(AbstractModel $model)
+    private function deleteOneToManyRelations(AbstractModel $model): void
     {
         $data = $model->getData();
 
@@ -1218,10 +1155,8 @@ abstract class AbstractDataMapper
      * Registers a model as a memory-only dummy that must not be saved.
      *
      * @param M $model the model to register
-     *
-     * @return void
      */
-    private function registerModelAsMemoryOnlyDummy(AbstractModel $model)
+    private function registerModelAsMemoryOnlyDummy(AbstractModel $model): void
     {
         if (!$model->hasUid()) {
             return;
@@ -1271,10 +1206,8 @@ abstract class AbstractDataMapper
     /**
      * @param QueryBuilder $query
      * @param string $pageUids comma-separated list of page UIDs
-     *
-     * @return void
      */
-    protected function addPageUidRestriction(QueryBuilder $query, string $pageUids)
+    protected function addPageUidRestriction(QueryBuilder $query, string $pageUids): void
     {
         if (\in_array($pageUids, ['', '0', 0], true)) {
             return;
@@ -1285,12 +1218,10 @@ abstract class AbstractDataMapper
 
     /**
      * @param QueryBuilder $query
-     * @param string $sorting
-     *        the sorting for the found records, must be a valid DB field optionally followed by "ASC" or "DESC"
-     *
-     * @return void
+     * @param string $sorting the sorting for the found records, must be a valid DB field
+     *        optionally followed by "ASC" or "DESC"
      */
-    protected function addOrdering(QueryBuilder $query, string $sorting)
+    protected function addOrdering(QueryBuilder $query, string $sorting): void
     {
         foreach ($this->sortingToOrderArray($sorting) as $fieldName => $order) {
             $query->addOrderBy($fieldName, $order);
@@ -1363,10 +1294,8 @@ abstract class AbstractDataMapper
      *
      * @param M $model the model to cache
      * @param array<string, string|int> $data the data of the model as it is in the DB, may be empty
-     *
-     * @return void
      */
-    private function cacheModelByKeys(AbstractModel $model, array $data)
+    private function cacheModelByKeys(AbstractModel $model, array $data): void
     {
         foreach ($this->additionalKeys as $key) {
             if (isset($data[$key])) {
@@ -1392,11 +1321,9 @@ abstract class AbstractDataMapper
      * @param M $model the model to cache
      * @param array<string, string|int> $data the data of the model as it is in the DB, may be empty
      *
-     * @return void
-     *
      * @see cacheModelByCompoundKey
      */
-    protected function cacheModelByCombinedKeys(AbstractModel $model, array $data)
+    protected function cacheModelByCombinedKeys(AbstractModel $model, array $data): void
     {
     }
 
@@ -1410,11 +1337,9 @@ abstract class AbstractDataMapper
      * @param M $model the model to cache
      * @param array<string, string|int> $data the data of the model as it is in the DB, may be empty
      *
-     * @return void
-     *
      * @throws \BadMethodCallException
      */
-    protected function cacheModelByCompoundKey(AbstractModel $model, array $data)
+    protected function cacheModelByCompoundKey(AbstractModel $model, array $data): void
     {
         if (empty($this->compoundKeyParts)) {
             throw new \BadMethodCallException(

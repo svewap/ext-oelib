@@ -39,10 +39,8 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @param string $key the key of the element to set, must not be empty
      * @param mixed $value the value to set, may be empty
-     *
-     * @return void
      */
-    public function setAsString(string $key, $value)
+    public function setAsString(string $key, $value): void
     {
         parent::setAsString($key, $value);
     }
@@ -78,10 +76,8 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @param string $key the key of the element to set, must not be empty
      * @param mixed $value the value to set, may be empty
-     *
-     * @return void
      */
-    public function setAsInteger(string $key, $value)
+    public function setAsInteger(string $key, $value): void
     {
         parent::setAsInteger($key, $value);
     }
@@ -124,10 +120,8 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @see getAsTrimmedArray
      * @see getAsIntegerArray
-     *
-     * @return void
      */
-    public function setAsArray(string $key, array $value)
+    public function setAsArray(string $key, array $value): void
     {
         parent::setAsArray($key, $value);
     }
@@ -149,10 +143,8 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @param string $key the key of the element to set, must not be empty
      * @param mixed $value the value to set, may be empty
-     *
-     * @return void
      */
-    public function setAsBoolean(string $key, $value)
+    public function setAsBoolean(string $key, $value): void
     {
         parent::setAsBoolean($key, $value);
     }
@@ -188,10 +180,8 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @param string $key the key of the element to set, must not be empty
      * @param mixed $value the value to set, may be empty
-     *
-     * @return void
      */
-    public function setAsFloat(string $key, $value)
+    public function setAsFloat(string $key, $value): void
     {
         parent::setAsFloat($key, $value);
     }

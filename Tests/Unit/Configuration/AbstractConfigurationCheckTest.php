@@ -14,7 +14,7 @@ use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\TestingConfigurationCheck
  */
 final class AbstractConfigurationCheckTest extends UnitTestCase
 {
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']);
     }
@@ -22,7 +22,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function isAbstractConfigurationCheck()
+    public function isAbstractConfigurationCheck(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
 
@@ -32,7 +32,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasWarningsInitiallyReturnsFalse()
+    public function hasWarningsInitiallyReturnsFalse(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
 
@@ -42,7 +42,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasWarningsWithOneWarningReturnsTrue()
+    public function hasWarningsWithOneWarningReturnsTrue(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
         $subject->generateDummyWarnings(1);
@@ -53,7 +53,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function hasWarningsWithTwoWarningReturnsTrue()
+    public function hasWarningsWithTwoWarningReturnsTrue(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
         $subject->generateDummyWarnings(2);
@@ -64,7 +64,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function getWarningsAsHtmlInitiallyReturnsEmptyArray()
+    public function getWarningsAsHtmlInitiallyReturnsEmptyArray(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
 
@@ -74,7 +74,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function getWarningsWithOneWarningReturnsWarningWithWarningText()
+    public function getWarningsWithOneWarningReturnsWarningWithWarningText(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
         $subject->generateDummyWarnings(1);
@@ -87,7 +87,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function getWarningsWithMultipleWarningsReturnsMultipleWarnings()
+    public function getWarningsWithMultipleWarningsReturnsMultipleWarnings(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
         $subject->generateDummyWarnings(2);
@@ -99,7 +99,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function warningTextCanContainHtml()
+    public function warningTextCanContainHtml(): void
     {
         $warningText = '<em>Hello!</em>';
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
@@ -112,7 +112,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function warningTextIsRenderedAsBootstrapWarningWithEnglish()
+    public function warningTextIsRenderedAsBootstrapWarningWithEnglish(): void
     {
         $warningText = 'Something is wrong.';
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
@@ -125,7 +125,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkWithUnknownCheckMethodThrowsException()
+    public function checkWithUnknownCheckMethodThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionCode(1616068312);
@@ -140,7 +140,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkWithoutCheckMethodThrowsException()
+    public function checkWithoutCheckMethodThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionCode(1616068312);
@@ -154,7 +154,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkWithoutCreatingWarningsDoesNotAddAnyWarning()
+    public function checkWithoutCreatingWarningsDoesNotAddAnyWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkNothing');
@@ -167,7 +167,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkStaticIncludedForStaticTemplateIncludedGeneratesNoWarnings()
+    public function checkStaticIncludedForStaticTemplateIncludedGeneratesNoWarnings(): void
     {
         $subject = new TestingConfigurationCheck(
             new DummyConfiguration(['isStaticTemplateLoaded' => 1]),
@@ -183,7 +183,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkStaticIncludedForStaticTemplateNotIncludedGeneratesWarning()
+    public function checkStaticIncludedForStaticTemplateNotIncludedGeneratesWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkStaticIncluded');
@@ -197,7 +197,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkWithCreatingWarningsAddsWarningsOnlyOnce()
+    public function checkWithCreatingWarningsAddsWarningsOnlyOnce(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkStaticIncluded');
@@ -211,7 +211,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function configurationPathsAreEncoded()
+    public function configurationPathsAreEncoded(): void
     {
         $namespace = 'plugin.tx&oelib';
         $key = 'a"b';
@@ -228,7 +228,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkForNonEmptyStringForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkForNonEmptyStringForEmptyStringAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['title' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkForNonEmptyString');
@@ -244,7 +244,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkForNonEmptyStringForNonEmptyStringNotAddsWarning()
+    public function checkForNonEmptyStringForNonEmptyStringNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['title' => 'Yo!']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkForNonEmptyString');
@@ -257,7 +257,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfSingleInSetOrEmptyForEmptyStringNotAddsWarning()
+    public function checkIfSingleInSetOrEmptyForEmptyStringNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInSetOrEmpty');
@@ -270,7 +270,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfSingleInSetOrEmptyForNonEmptyStringNotInSetAddsWarningWithPathAndExplanation()
+    public function checkIfSingleInSetOrEmptyForNonEmptyStringNotInSetAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => 'great']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInSetOrEmpty');
@@ -286,7 +286,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfSingleInSetOrEmptyForStringInSetNotAddsWarning()
+    public function checkIfSingleInSetOrEmptyForStringInSetNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => 's']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInSetOrEmpty');
@@ -299,7 +299,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfSingleInSetNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkIfSingleInSetNotEmptyForEmptyStringAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInSetNotEmpty');
@@ -315,7 +315,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfSingleInSetNotEmptyForNonEmptyStringNotInSetAddsWarningWithPathAndExplanation()
+    public function checkIfSingleInSetNotEmptyForNonEmptyStringNotInSetAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => 'great']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInSetNotEmpty');
@@ -331,7 +331,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfSingleInSetNotEmptyForStringInSetNotAddsWarning()
+    public function checkIfSingleInSetNotEmptyForStringInSetNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['size' => 's']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfSingleInSetNotEmpty');
@@ -359,7 +359,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider nonBooleanStringDataProvider
      */
-    public function checkIfBooleanForNonBooleanStringAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfBooleanForNonBooleanStringAddsWarningWithPathAndExplanation(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['switch' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfBoolean');
@@ -388,7 +388,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider booleanStringDataProvider
      */
-    public function checkIfBooleanForValidBooleanNotAddsWarning(string $value)
+    public function checkIfBooleanForValidBooleanNotAddsWarning(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['switch' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfBoolean');
@@ -416,7 +416,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider nonIntegerStringDataProvider
      */
-    public function checkIfNonNegativeIntegerOrEmptyForNonIntegerStringAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfNonNegativeIntegerOrEmptyForNonIntegerStringAddsWarning(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfNonNegativeIntegerOrEmpty');
@@ -432,7 +432,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfNonNegativeIntegerOrEmptyForNegativeIntegerStringAddsWarningWithPathAndExplanation()
+    public function checkIfNonNegativeIntegerOrEmptyForNegativeIntegerStringAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => '-1']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfNonNegativeIntegerOrEmpty');
@@ -484,7 +484,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      * @dataProvider positiveIntegerDataProvider
      * @dataProvider zeroIntegerDataProvider
      */
-    public function checkIfNonNegativeIntegerOrEmptyForNonNegativeIntegerNotAddsWarning(string $value)
+    public function checkIfNonNegativeIntegerOrEmptyForNonNegativeIntegerNotAddsWarning(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfNonNegativeIntegerOrEmpty');
@@ -497,7 +497,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfNonNegativeIntegerOrEmptyForEmptyStringNotAddsWarning()
+    public function checkIfNonNegativeIntegerOrEmptyForEmptyStringNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfNonNegativeIntegerOrEmpty');
@@ -510,7 +510,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfIntegerInRangeForMinimumAndMaximumSameAllowsTheSameValue()
+    public function checkIfIntegerInRangeForMinimumAndMaximumSameAllowsTheSameValue(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => 2]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfIntegerInRangeSame');
@@ -523,7 +523,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfIntegerInRangeForMinimumGreaterThaneMaximumThrowsException()
+    public function checkIfIntegerInRangeForMinimumGreaterThaneMaximumThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionCode(1616069185);
@@ -540,7 +540,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider nonIntegerStringDataProvider
      */
-    public function checkIfIntegerInRangeForNonIntegerStringAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfIntegerInRangeForNonIntegerStringAddsWarningWithPathAndExplanation(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfIntegerInRange');
@@ -569,7 +569,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider integerNotInRangeDataProvider
      */
-    public function checkIfIntegerInRangeForValuesOutsideTheRangeAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfIntegerInRangeForValuesOutsideTheRangeAddsWarningWithPathAndExplanation(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfIntegerInRange');
@@ -599,7 +599,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider integerInRangeDataProvider
      */
-    public function checkIfIntegerInRangeForValuesInRangeNotAddsWarning(string $value)
+    public function checkIfIntegerInRangeForValuesInRangeNotAddsWarning(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfIntegerInRange');
@@ -614,7 +614,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider nonIntegerStringDataProvider
      */
-    public function checkIfPositiveIntegerForNonIntegerStringAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfPositiveIntegerForNonIntegerStringAddsWarningWithPathAndExplanation(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfPositiveInteger');
@@ -633,7 +633,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      * @dataProvider negativeIntegerDataProvider
      * @dataProvider zeroIntegerDataProvider
      */
-    public function checkIfPositiveIntegerForNonPositiveIntegerStringAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfPositiveIntegerForNonPositiveIntegerStringAddsWarningWithPathExplanation(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfPositiveInteger');
@@ -649,7 +649,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfPositiveIntegerForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkIfPositiveIntegerForEmptyStringAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfPositiveInteger');
@@ -667,7 +667,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider positiveIntegerDataProvider
      */
-    public function checkIfPositiveIntegerForPositiveIntegerNotAddsWarning(string $value)
+    public function checkIfPositiveIntegerForPositiveIntegerNotAddsWarning(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfPositiveInteger');
@@ -682,7 +682,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider nonIntegerStringDataProvider
      */
-    public function checkIfPositiveIntegerOrEmptyForNonIntegerStringAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfPositiveIntegerOrEmptyForNonIntegerStringAddsWarningWithPathExplanation(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfPositiveIntegerOrEmpty');
@@ -703,7 +703,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      */
     public function checkIfPositiveIntegerOrEmptyForNonPositiveIntegerStringAddsWarningWithPathAndExplanation(
         string $value
-    ) {
+    ): void {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfPositiveIntegerOrEmpty');
 
@@ -718,7 +718,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfPositiveIntegerOrEmptyForEmptyStringNotAddsWarning()
+    public function checkIfPositiveIntegerOrEmptyForEmptyStringNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfPositiveIntegerOrEmpty');
@@ -733,7 +733,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider positiveIntegerDataProvider
      */
-    public function checkIfPositiveIntegerOrEmptyForPositiveIntegerNotAddsWarning(string $value)
+    public function checkIfPositiveIntegerOrEmptyForPositiveIntegerNotAddsWarning(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfPositiveIntegerOrEmpty');
@@ -748,7 +748,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider nonIntegerStringDataProvider
      */
-    public function checkIfNonNegativeIntegerForNonIntegerStringAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfNonNegativeIntegerForNonIntegerStringAddsWarningWithPathAndExplanation(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfNonNegativeInteger');
@@ -766,7 +766,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider negativeIntegerDataProvider
      */
-    public function checkIfNonNegativeIntegerForNegativeIntegerStringAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfNonNegativeIntegerForNegativeIntegerStringAddsWarningWithPathExplanation(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfNonNegativeInteger');
@@ -782,7 +782,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfNonNegativeIntegerForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkIfNonNegativeIntegerForEmptyStringAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfNonNegativeInteger');
@@ -801,7 +801,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      * @dataProvider positiveIntegerDataProvider
      * @dataProvider zeroIntegerDataProvider
      */
-    public function checkIfNonNegativeIntegerForNonNegativeIntegerNotAddsWarning(string $value)
+    public function checkIfNonNegativeIntegerForNonNegativeIntegerNotAddsWarning(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['limit' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfNonNegativeInteger');
@@ -814,7 +814,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetOrEmptyForEmptyStringNotAddsWarning()
+    public function checkIfMultiInSetOrEmptyForEmptyStringNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
@@ -827,7 +827,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetOrEmptyForSingleStringNotInSetAddsWarningWithPathAndExplanation()
+    public function checkIfMultiInSetOrEmptyForSingleStringNotInSetAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 'great']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
@@ -844,7 +844,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetOrEmptyForOneStringInSetAndAnotherMotInSetAddsWarningWithPathAndExplanation()
+    public function checkIfMultiInSetOrEmptyForOneStringInSetAndAnotherMotInSetAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's,great']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
@@ -861,7 +861,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetOrEmptyForSingleStringInSetNotAddsWarning()
+    public function checkIfMultiInSetOrEmptyForSingleStringInSetNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
@@ -874,7 +874,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetOrEmptyForMultipleStringsInSetNotAddsWarning()
+    public function checkIfMultiInSetOrEmptyForMultipleStringsInSetNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's,m']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
@@ -887,7 +887,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetOrEmptyForMultipleStringsInSetWithSpaceNotAddsWarning()
+    public function checkIfMultiInSetOrEmptyForMultipleStringsInSetWithSpaceNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's, m']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetOrEmpty');
@@ -900,7 +900,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkIfMultiInSetNotEmptyForEmptyStringAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetNotEmpty');
@@ -916,7 +916,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetNotEmptyForSingleStringNotInSetAddsWarningWithPathAndExplanation()
+    public function checkIfMultiInSetNotEmptyForSingleStringNotInSetAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 'great']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetNotEmpty');
@@ -933,7 +933,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetNotEmptyForOneStringInSetAndAnotherNotInSetAddsWarningWithPathAndExplanation()
+    public function checkIfMultiInSetNotEmptyForOneStringInSetAndAnotherNotInSetAddsWarningWithPathExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's,great']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetNotEmpty');
@@ -950,7 +950,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetNotEmptyForMultipleStringInSetNotAddsWarning()
+    public function checkIfMultiInSetNotEmptyForMultipleStringInSetNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's,m']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetNotEmpty');
@@ -963,7 +963,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfMultiInSetNotEmptyForMultipleStringWithSpaceInSetNotAddsWarning()
+    public function checkIfMultiInSetNotEmptyForMultipleStringWithSpaceInSetNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['sizes' => 's, m']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfMultiInSetNotEmpty');
@@ -976,7 +976,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkSalutationModeForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkSalutationModeForEmptyStringAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['salutation' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkSalutationMode');
@@ -992,7 +992,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkSalutationModeForNonEmptyStringNotInSetAddsWarningWithPathAndExplanation()
+    public function checkSalutationModeForNonEmptyStringNotInSetAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['salutation' => 'great']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkSalutationMode');
@@ -1020,7 +1020,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      * @test
      * @dataProvider validSalutationDataProvider
      */
-    public function checkSalutationModeForSalutationInSetNotAddsWarning(string $salutation)
+    public function checkSalutationModeForSalutationInSetNotAddsWarning(string $salutation): void
     {
         $subject = new TestingConfigurationCheck(
             new DummyConfiguration(['salutation' => $salutation]),
@@ -1036,7 +1036,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkRegExpNonMatchingValueAddsWarningWithPathAndExplanation()
+    public function checkRegExpNonMatchingValueAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['title' => 'Heyho!']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkRegExp');
@@ -1053,7 +1053,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkRegExpForMatchingValueNotAddsWarning()
+    public function checkRegExpForMatchingValueNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['title' => 'ab 42']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkRegExp');
@@ -1103,7 +1103,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider validNonEmptyIntegerListDataProvider
      */
-    public function checkIfIntegerListOrEmptyForValidIntegerListNotAddsWarning(string $value)
+    public function checkIfIntegerListOrEmptyForValidIntegerListNotAddsWarning(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfIntegerListOrEmpty');
@@ -1118,7 +1118,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider invalidIntegerListDataProvider
      */
-    public function checkIfIntegerListOrEmptyForInvalidIntegerListAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfIntegerListOrEmptyForInvalidIntegerListAddsWarningWithPathAndExplanation(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfIntegerListOrEmpty');
@@ -1134,7 +1134,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfIntegerListOrEmptyForEmptyStringNotAddsWarning()
+    public function checkIfIntegerListOrEmptyForEmptyStringNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfIntegerListOrEmpty');
@@ -1149,7 +1149,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider validNonEmptyIntegerListDataProvider
      */
-    public function checkIfIntegerListNotEmptyForValidIntegerListNotAddsWarning(string $value)
+    public function checkIfIntegerListNotEmptyForValidIntegerListNotAddsWarning(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfIntegerListNotEmpty');
@@ -1164,7 +1164,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider invalidIntegerListDataProvider
      */
-    public function checkIfIntegerListNotEmptyForInvalidIntegerListAddsWarningWithPathAndExplanation(string $value)
+    public function checkIfIntegerListNotEmptyForInvalidIntegerListAddsWarningWithPathExplanation(string $value): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => $value]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfIntegerListNotEmpty');
@@ -1180,7 +1180,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIfIntegerListNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkIfIntegerListNotEmptyForEmptyStringAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['pages' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIfIntegerListNotEmpty');
@@ -1220,7 +1220,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider validEmailDataProvider
      */
-    public function checkIsValidEmailOrEmptyForValidEmailNotAddsWarning(string $email)
+    public function checkIsValidEmailOrEmptyForValidEmailNotAddsWarning(string $email): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => $email]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIsValidEmailOrEmpty');
@@ -1235,7 +1235,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider invalidEmailDataProvider
      */
-    public function checkIsValidEmailOrEmptyForInvalidEmailAddsWarningWithPathAndExplanation(string $email)
+    public function checkIsValidEmailOrEmptyForInvalidEmailAddsWarningWithPathAndExplanation(string $email): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => $email]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIsValidEmailOrEmpty');
@@ -1251,7 +1251,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIsValidEmailOrEmptyForEmptyStringNotAddsWarning()
+    public function checkIsValidEmailOrEmptyForEmptyStringNotAddsWarning(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIsValidEmailOrEmpty');
@@ -1266,7 +1266,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider validEmailDataProvider
      */
-    public function checkIsValidEmailNotEmptyForValidEmailNotAddsWarning(string $email)
+    public function checkIsValidEmailNotEmptyForValidEmailNotAddsWarning(string $email): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => $email]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIsValidEmailNotEmpty');
@@ -1281,7 +1281,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider invalidEmailDataProvider
      */
-    public function checkIsValidEmailNotEmptyForInvalidEmailAddsWarningWithPathAndExplanation(string $email)
+    public function checkIsValidEmailNotEmptyForInvalidEmailAddsWarningWithPathAndExplanation(string $email): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => $email]), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIsValidEmailNotEmpty');
@@ -1297,7 +1297,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIsValidEmailNotEmptyForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkIsValidEmailNotEmptyForEmptyStringAddsWarningWithPathAndExplanation(): void
     {
         $subject = new TestingConfigurationCheck(new DummyConfiguration(['email' => '']), 'plugin.tx_oelib');
         $subject->setCheckMethod('checkIsValidEmailNotEmpty');
@@ -1315,7 +1315,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider validEmailDataProvider
      */
-    public function checkIsValidDefaultFromEmailAddressForValidEmailNotAddsWarning(string $email)
+    public function checkIsValidDefaultFromEmailAddressForValidEmailNotAddsWarning(string $email): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $email;
         $subject = new TestingConfigurationCheck(new DummyConfiguration([]), 'plugin.tx_oelib');
@@ -1331,7 +1331,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
      *
      * @dataProvider invalidEmailDataProvider
      */
-    public function checkIsValidDefaultFromEmailAddressForInvalidEmailAddsWarningWithPathAndExplanation(string $email)
+    public function checkIsValidDefaultFromEmailAddressForInvalidAddsWarningWithPathAndExplanation(string $email): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $email;
         $subject = new TestingConfigurationCheck(new DummyConfiguration([]), 'plugin.tx_oelib');
@@ -1348,7 +1348,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIsValidDefaultFromEmailAddressForEmptyStringAddsWarningWithPathAndExplanation()
+    public function checkIsValidDefaultFromEmailAddressForEmptyStringAddsWarningWithPathAndExplanation(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = '';
         $subject = new TestingConfigurationCheck(new DummyConfiguration([]), 'plugin.tx_oelib');
@@ -1365,7 +1365,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkIsValidDefaultFromEmailAddressForMissingConfigurationAddsWarningWithPathAndExplanation()
+    public function checkIsValidDefaultFromEmailAddressForMissingConfigurationAddsWarningWithPathAndExplanation(): void
     {
         unset($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']);
         $subject = new TestingConfigurationCheck(new DummyConfiguration([]), 'plugin.tx_oelib');

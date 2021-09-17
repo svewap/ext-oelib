@@ -11,12 +11,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
  */
 trait LazyLoadingProperties
 {
-    /**
-     * @param string $propertyName
-     *
-     * @return void
-     */
-    private function loadLazyProperty(string $propertyName)
+    private function loadLazyProperty(string $propertyName): void
     {
         if ($this->$propertyName instanceof LazyLoadingProxy) {
             $this->$propertyName = $this->$propertyName->_loadRealInstance();

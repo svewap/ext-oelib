@@ -14,7 +14,7 @@ class NodeTest extends UnitTestCase
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new Node();
     }
@@ -26,7 +26,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function isVisibleIfSetToVisibleConstructionReturnsVisibilityFromConstruction()
+    public function isVisibleIfSetToVisibleConstructionReturnsVisibilityFromConstruction(): void
     {
         $subject = new Node(true);
 
@@ -38,7 +38,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function isVisibleIfSetToHiddenConstructionReturnsVisibilityFromConstruction()
+    public function isVisibleIfSetToHiddenConstructionReturnsVisibilityFromConstruction(): void
     {
         $subject = new Node(false);
 
@@ -54,7 +54,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getChildrenWithoutChildrenSetReturnsEmptyArray()
+    public function getChildrenWithoutChildrenSetReturnsEmptyArray(): void
     {
         self::assertSame(
             [],
@@ -65,7 +65,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function addChildWithOneGivenChildrenAddsOneChildToNode()
+    public function addChildWithOneGivenChildrenAddsOneChildToNode(): void
     {
         $childNode = new Node();
         $this->subject->addChild($childNode);
@@ -79,7 +79,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function addChildForNodeWithOneChildAndAnotherChildGivenAddsAnotherChildToNode()
+    public function addChildForNodeWithOneChildAndAnotherChildGivenAddsAnotherChildToNode(): void
     {
         $this->subject->addChild(new Node());
         $this->subject->addChild(new Node());
@@ -93,7 +93,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function addChildAddsParentToChild()
+    public function addChildAddsParentToChild(): void
     {
         $childNode = new Node();
         $this->subject->addChild($childNode);
@@ -111,7 +111,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function getParentForNodeWithoutParentReturnsNull()
+    public function getParentForNodeWithoutParentReturnsNull(): void
     {
         self::assertNull(
             $this->subject->getParent()
@@ -121,7 +121,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function setParentWithGivenParentSetsThisNodeAsParent()
+    public function setParentWithGivenParentSetsThisNodeAsParent(): void
     {
         $childNode = new Node();
         $childNode->setParent($this->subject);
@@ -135,7 +135,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function setParentForNodeWithAlreadySetParentAndGivenParentThrowsException()
+    public function setParentForNodeWithAlreadySetParentAndGivenParentThrowsException(): void
     {
         $this->expectException(
             \InvalidArgumentException::class
@@ -156,7 +156,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function markAsVisibleForInvisibleNodeSetsVisibilityTrue()
+    public function markAsVisibleForInvisibleNodeSetsVisibilityTrue(): void
     {
         $this->subject->markAsVisible();
 
@@ -168,7 +168,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function markAsVisibleForVisibleNodeSetsVisibilityTrue()
+    public function markAsVisibleForVisibleNodeSetsVisibilityTrue(): void
     {
         $visibleNode = new Node(true);
         $visibleNode->markAsVisible();
@@ -181,7 +181,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function markAsVisibleForNodeWithParentMarksParentAsVisible()
+    public function markAsVisibleForNodeWithParentMarksParentAsVisible(): void
     {
         $childNode = new Node();
         $childNode->setParent($this->subject);
@@ -195,7 +195,7 @@ class NodeTest extends UnitTestCase
     /**
      * @test
      */
-    public function markAsVisibleForNodeWithParentAndGrandparentMarksGrandparentNodeAsVisible()
+    public function markAsVisibleForNodeWithParentAndGrandparentMarksGrandparentNodeAsVisible(): void
     {
         $childNode = new Node();
         $grandChildNode = new Node();

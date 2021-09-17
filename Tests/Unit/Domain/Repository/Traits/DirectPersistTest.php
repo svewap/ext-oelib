@@ -24,7 +24,7 @@ class DirectPersistTest extends UnitTestCase
      */
     private $persistenceManagerProphecy = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var ObjectManagerInterface&ProphecySubjectInterface $objectManagerStub */
         $objectManagerStub = $this->prophesize(ObjectManagerInterface::class)->reveal();
@@ -39,7 +39,7 @@ class DirectPersistTest extends UnitTestCase
     /**
      * @test
      */
-    public function implementsDirectPersist()
+    public function implementsDirectPersist(): void
     {
         self::assertInstanceOf(DirectPersist::class, $this->subject);
     }
@@ -47,7 +47,7 @@ class DirectPersistTest extends UnitTestCase
     /**
      * @test
      */
-    public function persistAllPersistsAll()
+    public function persistAllPersistsAll(): void
     {
         // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
         $this->persistenceManagerProphecy->persistAll()->shouldBeCalled();
