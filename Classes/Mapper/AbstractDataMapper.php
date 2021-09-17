@@ -655,7 +655,7 @@ abstract class AbstractDataMapper
      *        WHERE clause parts for the record to retrieve, each element must consist of a column name as key and a
      *        value to search for as value (will automatically get quoted), must not be empty
      *
-     * @return array<string, string> the record from the database, will not be empty
+     * @return array<string, string|int> the record from the database, will not be empty
      *
      * @throws NotFoundException if there is no record in the DB which matches the WHERE clause
      * @throws NotFoundException if database access is disabled
@@ -692,7 +692,7 @@ abstract class AbstractDataMapper
      *
      * @param int $uid the UID of the record to retrieve, must be > 0
      *
-     * @return array<string, string> the record from the database, will not be empty
+     * @return array<string, string|int> the record from the database, will not be empty
      *
      * @throws NotFoundException if there is no record in the DB with the UID $uid
      */
@@ -1362,7 +1362,7 @@ abstract class AbstractDataMapper
      * additional keys).
      *
      * @param M $model the model to cache
-     * @param array<string, string> $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string|int> $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      */
@@ -1390,7 +1390,7 @@ abstract class AbstractDataMapper
      * cacheModelByCompoundKey instead. So this method primarily is here for backwards compatibility.
      *
      * @param M $model the model to cache
-     * @param array<string, string> $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string|int> $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      *
@@ -1408,7 +1408,7 @@ abstract class AbstractDataMapper
      * This method works automatically; it is not necessary to overwrite it.
      *
      * @param M $model the model to cache
-     * @param array<string, string> $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string|int> $data the data of the model as it is in the DB, may be empty
      *
      * @return void
      *
