@@ -624,7 +624,7 @@ final class TestingFramework
      *
      * @throws \InvalidArgumentException
      */
-    public function createRelation(string $table, int $uidLocal, int $uidForeign, int $sorting = 0)
+    public function createRelation(string $table, int $uidLocal, int $uidForeign)
     {
         $this->initializeDatabase();
         if (!$this->isNoneSystemTableNameAllowed($table)) {
