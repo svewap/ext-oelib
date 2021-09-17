@@ -92,7 +92,6 @@
 	},
 	"scripts": {
 		"php:fix": [
-			"@php:rector",
 			"@php:fixer",
 			"@php:cbf"
 		],
@@ -136,7 +135,7 @@
 	"scripts-descriptions": {
 		"ci": "Runs all dynamic and static code checks.",
 		"php:cbf": "Updates the code with PHPCBF.",
-		"php:fix": "Updates the code with Rector, PHP-CS-Fixer and PHPCBF.",
+		"php:fix": "Updates the code with PHP-CS-Fixer and PHPCBF (but not with Rector).",
 		"php:fixer": "Updates the code with PHP-CS-Fixer.",
 		"php:rector": "Updates the code with Rector.",
 		"ci:php:stan": "Checks the types with PHPStan.",
