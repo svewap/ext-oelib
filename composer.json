@@ -36,10 +36,9 @@
 		"typo3/cms-lang": "^9.5"
 	},
 	"require-dev": {
-		"cweagans/composer-patches": "^1.7.1",
 		"friendsofphp/php-cs-fixer": "^3.1.0",
 		"mikey179/vfsstream": "^1.6.9",
-		"nimut/testing-framework": "^5.2.1",
+		"nimut/testing-framework": "dev-task/faster-truncate",
 		"oliverklee/user-oelibtest": "@dev",
 		"oliverklee/user-oelibtest2": "@dev",
 		"phpstan/extension-installer": "^1.1",
@@ -73,6 +72,10 @@
 	},
 	"prefer-stable": true,
 	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/oliverklee/testing-framework/"
+		},
 		{
 			"type": "path",
 			"url": "TestExtensions/*"
@@ -137,12 +140,6 @@
 			"class-alias-maps": [
 				"Migrations/Code/ClassAliasMap.php"
 			]
-		},
-		"composer-exit-on-patch-failure": true,
-		"patches": {
-			"nimut/testing-framework": {
-				"Only truncate changed tables": "Resources/Private/Patches/testing-framework/faster-truncate.diff"
-			}
 		}
 	}
 }
