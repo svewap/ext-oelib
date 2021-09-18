@@ -20,8 +20,7 @@ class Collection extends \SplObjectStorage
     /**
      * The model this List belongs to.
      *
-     * This is used for modeling relations and will remain NULL in any other
-     * context.
+     * This is used for modeling relations and will remain NULL in any other context.
      *
      * @var AbstractModel|null
      */
@@ -104,11 +103,9 @@ class Collection extends \SplObjectStorage
     }
 
     /**
-     * Returns a comma-separted list of unique UIDs of the current items,
-     * ordered by first insertion.
+     * Returns a comma-separated list of unique UIDs of the current items, ordered by first insertion.
      *
-     * @return string comma-separated list of UIDs, will be empty if the list is
-     *                empty or no item has a UID
+     * @return string comma-separated list of UIDs, will be empty if the list is empty or no item has a UID
      */
     public function getUids(): string
     {
@@ -130,8 +127,7 @@ class Collection extends \SplObjectStorage
     }
 
     /**
-     * Checks whether the UID list cache needs to be rebuild and does so if
-     * necessary.
+     * Checks whether the UID list cache needs to be rebuilt and does so if necessary.
      */
     private function checkUidCache(): void
     {
@@ -200,11 +196,9 @@ class Collection extends \SplObjectStorage
     }
 
     /**
-     * Drops the current element from the list and sets the pointer to the
-     * next element.
+     * Drops the current element from the list and sets the pointer to the next element.
      *
-     * If the pointer does not point to a valid element, this function is a
-     * no-op.
+     * If the pointer does not point to a valid element, this function is a no-op.
      */
     public function purgeCurrent(): void
     {
@@ -323,8 +317,7 @@ class Collection extends \SplObjectStorage
      * @param int $start the zero-based start position, must be >= 0
      * @param int $length the number of elements to return, must be >= 0
      *
-     * @return Collection<AbstractModel>
-     *         the selected elements starting at $start
+     * @return Collection<AbstractModel> the selected elements starting at $start
      */
     public function inRange(int $start, int $length): Collection
     {
@@ -367,8 +360,7 @@ class Collection extends \SplObjectStorage
     /**
      * Returns the elements of this list in an array.
      *
-     * @return AbstractModel[]
-     *         the elements of this list, might be empty
+     * @return array<int, AbstractModel> the elements of this list, might be empty
      */
     public function toArray(): array
     {

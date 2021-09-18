@@ -170,10 +170,8 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
      *
      * The configuration setters are intended to be used for testing purposes only.
      *
-     *        key of the value to set, must not be empty
-     *
-     * @param mixed $value
-     *        the value to set
+     * @param string $key key of the value to set, must not be empty
+     * @param mixed $value the value to set
      */
     protected function set(string $key, $value): void
     {

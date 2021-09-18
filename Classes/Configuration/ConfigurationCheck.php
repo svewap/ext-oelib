@@ -1114,7 +1114,7 @@ class ConfigurationCheck
      * Retrieves the column names of a given DB table name.
      *
      * @param string $tableName
-     *        the name of a existing DB table (must not be empty, must exist)
+     *        the name of an existing DB table (must not be empty, must exist)
      *
      * @return string[] column names as values
      */

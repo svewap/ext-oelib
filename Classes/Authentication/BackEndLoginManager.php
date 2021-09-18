@@ -50,8 +50,7 @@ class BackEndLoginManager implements LoginManager
     }
 
     /**
-     * Purges the current instance so that getInstance will create a new
-     * instance.
+     * Purges the current instance so that getInstance will create a new instance.
      */
     public static function purgeInstance(): void
     {
@@ -72,8 +71,7 @@ class BackEndLoginManager implements LoginManager
     /**
      * Gets the currently logged-in back-end user.
      *
-     * @param class-string<AbstractDataMapper> $mapperName
-     *        the name of the mapper to use for getting the back-end user model, must not be empty
+     * @param class-string<AbstractDataMapper> $mapperName the mapper to use for getting the back-end user model
      *
      * @return BackEndUser|null the logged-in back-end user, will be null if no user is logged in
      *

@@ -190,8 +190,7 @@ class Template
      * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
      *     not be empty
      *
-     * @return string the marker's content or an empty string if the
-     *                marker has not been set before
+     * @return string the marker's content or an empty string if the marker has not been set before
      */
     public function getMarker(string $markerName): string
     {
@@ -278,8 +277,7 @@ class Template
     /**
      * Checks whether a subpart is visible.
      *
-     * Note: If the subpart to check does not exist, this function will return
-     * FALSE.
+     * Note: If the subpart to check does not exist, this function will return FALSE.
      *
      * @param string $subpartName name of the subpart to check (without the ###), must not be empty
      *
@@ -426,19 +424,13 @@ class Template
      * If $condition is FALSE, this function removes the wrapping subpart,
      * working exactly like hideSubparts($markerName, $wrapperPrefix).
      *
-     * @param string $markerName
-     *        the marker's name without the ### signs, case-insensitive, will get uppercased, must not be empty
-     * @param bool $condition
-     *        if this is TRUE, the marker will be filled, otherwise the wrapped marker will be hidden
-     * @param mixed $content
-     *        content with which the marker will be filled, may be empty
-     * @param string $markerPrefix
-     *        prefix to the marker name for setting (may be empty, case-insensitive, will get uppercased)
-     * @param string $wrapperPrefix
-     *        prefix to the subpart name for hiding (may be empty, case-insensitive, will get uppercased)
+     * @param string $markerName the marker's name without the ### signs, case-insensitive, must not be empty
+     * @param bool $condition if this is TRUE, the marker will be filled, otherwise the wrapped marker will be hidden
+     * @param mixed $content content with which the marker will be filled, may be empty
+     * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive)
+     * @param string $wrapperPrefix prefix to the subpart name for hiding (may be empty, case-insensitive)
      *
-     * @return bool TRUE if the marker content has been set, FALSE if
-     *                 the subpart has been hidden
+     * @return bool TRUE if the marker content has been set, FALSE if the subpart has been hidden
      *
      * @see setMarkerContent
      * @see hideSubparts
@@ -468,17 +460,12 @@ class Template
      * If (int)$condition is zero, this function removes the wrapping
      * subpart, working exactly like hideSubparts($markerName, $wrapperPrefix).
      *
-     * @param string $markerName
-     *        the marker's name without the ### signs, case-insensitive, will get uppercased, must not be* empty
-     * @param mixed $content
-     *        content with which the marker will be filled, may be empty
-     * @param string $markerPrefix
-     *        prefix to the marker name for setting (may be empty, case-insensitive, will get uppercased)
-     * @param string $wrapperPrefix
-     *        prefix to the subpart name for hiding (may be empty, case-insensitive, will get uppercased)
+     * @param string $markerName the marker's name without the ### signs, case-insensitive, must not be* empty
+     * @param mixed $content content with which the marker will be filled, may be empty
+     * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive)
+     * @param string $wrapperPrefix prefix to the subpart name for hiding (may be empty, case-insensitive)
      *
-     * @return bool TRUE if the marker content has been set, FALSE if
-     *                 the subpart has been hidden
+     * @return bool TRUE if the marker content has been set, FALSE if the subpart has been hidden
      *
      * @see setOrDeleteMarker
      * @see setOrDeleteMarkerIfNotEmpty
@@ -603,8 +590,7 @@ class Template
      * This function either works on the subpart with the name $key or the
      * complete HTML template if $key is an empty string.
      *
-     * @param string $subpartKey
-     *        key of an existing subpart, for example 'LIST_ITEM' (without the ###),
+     * @param string $subpartKey key of an existing subpart, for example 'LIST_ITEM' (without the ###),
      *        or an empty string to use the complete HTML template
      *
      * @return string the subpart content or an empty string if the subpart is hidden or the subpart name is missing

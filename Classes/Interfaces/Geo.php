@@ -20,8 +20,7 @@ interface Geo
     public function getGeoAddress(): string;
 
     /**
-     * Checks whether this object has a non-empty address suitable for a geo
-     * lookup.
+     * Checks whether this object has a non-empty address suitable for a geo lookup.
      *
      * @return bool TRUE if this object has a non-empty address, FALSE otherwise
      */
@@ -30,8 +29,7 @@ interface Geo
     /**
      * Retrieves this object's coordinates.
      *
-     * @return array<string, float>
-     *         this object's geo coordinates using the keys "latitude" and
+     * @return array<string, float> this object's geo coordinates using the keys "latitude" and
      *         "longitude", will be empty if this object has no coordinates
      */
     public function getGeoCoordinates(): array;
@@ -39,8 +37,7 @@ interface Geo
     /**
      * Sets this object's coordinates.
      *
-     * @param array<string, float> $coordinates
-     *        the coordinates, using the keys "latitude" and "longitude",
+     * @param array<string, float> $coordinates the coordinates, using the keys "latitude" and "longitude",
      *        the array values must not be empty
      */
     public function setGeoCoordinates(array $coordinates): void;
@@ -48,16 +45,14 @@ interface Geo
     /**
      * Checks whether this object has non-empty coordinates.
      *
-     * @return bool TRUE if this object has both a non-empty longitude and
-     *                 a non-empty latitude, FALSE otherwise
+     * @return bool TRUE if this object has both a non-empty longitude and a non-empty latitude, FALSE otherwise
      */
     public function hasGeoCoordinates(): bool;
 
     /**
      * Purges this object's geo coordinates.
      *
-     * Note: Calling this function has no influence on this object's geo error
-     * status.
+     * Note: Calling this function has no influence on this object's geo error status.
      */
     public function clearGeoCoordinates(): void;
 

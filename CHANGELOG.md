@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
-- Add Rector to the toolchain (#720, #722)
+- Add Rector to the toolchain (#720, #722, #724)
 
 ### Changed
 - Use PHP 7.2 features and more type declarations (#721, #723)

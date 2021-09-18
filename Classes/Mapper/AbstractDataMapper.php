@@ -135,8 +135,7 @@ abstract class AbstractDataMapper
      * Note: This function does not check that a record with the UID $uid
      * actually exists in the database.
      *
-     * @param int $uid
-     *        the UID of the record to retrieve, must be > 0
+     * @param int $uid the UID of the record to retrieve, must be > 0
      *
      * @return M the model with the UID $uid
      */
@@ -235,10 +234,8 @@ abstract class AbstractDataMapper
      * Checks whether a model with a certain UID actually exists in the database
      * and could be loaded.
      *
-     * @param int $uid
-     *        the UID of the record to retrieve, must be > 0
-     * @param bool $allowHidden
-     *        whether hidden records should be allowed to be retrieved
+     * @param int $uid the UID of the record to retrieve, must be > 0
+     * @param bool $allowHidden whether hidden records should be allowed to be retrieved
      *
      * @return bool TRUE if a model with the UID $uid exists in the database,
      *                 FALSE otherwise
@@ -388,8 +385,7 @@ abstract class AbstractDataMapper
     /**
      * Retrieves the configuration of a relation from the TCA.
      *
-     * @param string $key
-     *        the key of the relation to retrieve, must not be empty
+     * @param string $key the key of the relation to retrieve, must not be empty
      *
      * @return array configuration for that relation, will not be empty if the TCA is valid
      *
@@ -413,11 +409,9 @@ abstract class AbstractDataMapper
      * Checks whether the relation is configured in the TCA to be an 1:n
      * relation.
      *
-     * @param string $key
-     *        key of the relation, must not be empty
+     * @param string $key key of the relation, must not be empty
      *
-     * @return bool
-     *         TRUE if the relation is an 1:n relation, FALSE otherwise
+     * @return bool TRUE if the relation is an 1:n relation, FALSE otherwise
      */
     private function isOneToManyRelationConfigured(string $key): bool
     {
@@ -431,11 +425,9 @@ abstract class AbstractDataMapper
      * Checks whether the relation is configured in the TCA to be an n:1
      * relation.
      *
-     * @param string $key
-     *        key of the relation, must not be empty
+     * @param string $key key of the relation, must not be empty
      *
-     * @return bool
-     *         TRUE if the relation is an n:1 relation, FALSE otherwise
+     * @return bool TRUE if the relation is an n:1 relation, FALSE otherwise
      */
     private function isManyToOneRelationConfigured(string $key): bool
     {
@@ -452,12 +444,9 @@ abstract class AbstractDataMapper
      * Checks whether there is a table for an m:n relation configured in the
      * TCA.
      *
-     * @param string $key
-     *        key of the relation, must not be empty
+     * @param string $key key of the relation, must not be empty
      *
-     * @return bool
-     *         TRUE if the relation's configuration provides an m:n table,
-     *         FALSE otherwise
+     * @return bool TRUE if the relation's configuration provides an m:n table, FALSE otherwise
      */
     private function isManyToManyRelationConfigured(string $key): bool
     {
@@ -1114,10 +1103,8 @@ abstract class AbstractDataMapper
      *
      * If no sorting is provided, the records are sorted like in the BE.
      *
-     * @param string $sorting
-     *        the sorting for the found records, must be a valid DB field
-     *        optionally followed by "ASC" or "DESC" or may
-     *        be empty
+     * @param string $sorting the sorting for the found records, must be a valid DB field
+     *        optionally followed by "ASC" or "DESC" or may be empty
      *
      * @return Collection<M> all models from the DB, already loaded
      */
@@ -1130,8 +1117,6 @@ abstract class AbstractDataMapper
     }
 
     /**
-     * @param string $sorting
-     *
      * @return array<string, string>
      */
     protected function sortingToOrderArray(string $sorting): array
@@ -1184,11 +1169,9 @@ abstract class AbstractDataMapper
     /**
      * Finds all records which are located on the given pages.
      *
-     * @param string|int $pageUids
-     *        comma-separated UIDs of the pages on which the records should be
+     * @param string|int $pageUids comma-separated UIDs of the pages on which the records should be
      *        found, may be empty
-     * @param string $sorting
-     *        the sorting for the found records, must be a valid DB field
+     * @param string $sorting the sorting for the found records, must be a valid DB field
      *        optionally followed by "ASC" or "DESC", may be empty
      *
      * @return Collection<M> all records with the matching page UIDs, will be
@@ -1267,8 +1250,7 @@ abstract class AbstractDataMapper
      * When this function reports "no match", the model could still exist in the
      * database, though.
      *
-     * @param string $value
-     *        the value for the compound key of the model to find, must not be empty
+     * @param string $value the value for the compound key of the model to find, must not be empty
      *
      * @return M the cached model
      *
@@ -1368,8 +1350,7 @@ abstract class AbstractDataMapper
      * will try to find the model in the database.
      *
      * @param string $key an existing key, must not be empty
-     * @param string $value
-     *        the value for the key of the model to find, must not be empty
+     * @param string $value the value for the key of the model to find, must not be empty
      *
      * @return M the cached model
      *

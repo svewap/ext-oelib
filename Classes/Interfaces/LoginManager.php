@@ -36,8 +36,7 @@ interface LoginManager
     /**
      * Gets the currently logged-in user.
      *
-     * @param class-string<AbstractDataMapper> $mapperName
-     *        the name of the mapper to use for getting the user model, must not be empty
+     * @param class-string<AbstractDataMapper> $mapperName mapper to use for getting the user model, must not be empty
      *
      * @return AbstractModel|null the logged-in user, will be null if no user is logged in
      */

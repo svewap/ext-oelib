@@ -28,20 +28,28 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]
     );
 
-    $containerConfigurator->import(SetList::PHP_52);
-    $containerConfigurator->import(SetList::PHP_53);
-    $containerConfigurator->import(SetList::PHP_54);
-    $containerConfigurator->import(SetList::PHP_55);
-    $containerConfigurator->import(SetList::PHP_56);
-    $containerConfigurator->import(SetList::PHP_70);
-    $containerConfigurator->import(SetList::PHP_71);
-    $containerConfigurator->import(SetList::PHP_72);
-    $containerConfigurator->import(SetList::TYPE_DECLARATION);
+    // All rule sets are disabled by default. We can enable them to work on certain refactorings.
+
+//    $containerConfigurator->import(SetList::PHP_52);
+//    $containerConfigurator->import(SetList::PHP_53);
+//    $containerConfigurator->import(SetList::PHP_54);
+//    $containerConfigurator->import(SetList::PHP_55);
+//    $containerConfigurator->import(SetList::PHP_56);
+//    $containerConfigurator->import(SetList::PHP_70);
+//    $containerConfigurator->import(SetList::PHP_71);
+//    $containerConfigurator->import(SetList::PHP_72);
+//    $containerConfigurator->import(SetList::TYPE_DECLARATION);
 //    $containerConfigurator->import(SetList::TYPE_DECLARATION_STRICT);
 
 //    $containerConfigurator->import(Typo3SetList::TYPO3_76);
 //    $containerConfigurator->import(Typo3SetList::TYPO3_87);
 //    $containerConfigurator->import(Typo3SetList::TYPO3_95);
+
+//    $containerConfigurator->import(SetList::CODE_QUALITY);
+//    $containerConfigurator->import(SetList::CODING_STYLE);
+//    $containerConfigurator->import(SetList::CODING_STYLE_ADVANCED);
+//    $containerConfigurator->import(SetList::DEAD_CODE);
+//    $containerConfigurator->import(SetList::PSR_4);
 
     // In order to have a better analysis from phpstan we teach it here some more things
     $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
@@ -75,9 +83,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'ext_emconf.php',
             'ext_localconf.php',
             'ext_tables.php',
-            'Classes/Configuration/ConfigurationCheck.php',
-            'Classes/Domain/Repository/Traits/ReadOnlyRepository.php',
-            'Classes/FrontEnd/UserWithoutCookies.php',
             __DIR__ . '/**/Configuration/AjaxRoutes.php',
             __DIR__ . '/**/Configuration/Backend/AjaxRoutes.php',
             __DIR__ . '/**/Configuration/Commands.php',

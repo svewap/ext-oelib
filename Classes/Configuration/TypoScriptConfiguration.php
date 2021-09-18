@@ -102,9 +102,7 @@ class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implemen
      * - if the data item is not an array,
      * - if the key does not exist in $this->data.
      *
-     * @param string $key
-     *        the key of the data item to get as a multidimensional array, must
-     *        not be empty
+     * @param string $key the key of the data item to get as a multidimensional array, must not be empty
      *
      * @return array the data for the key $key as a multidimensional array, may be empty
      */

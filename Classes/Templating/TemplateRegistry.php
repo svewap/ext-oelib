@@ -57,9 +57,8 @@ class TemplateRegistry
      * If the template file name is empty, no template file will be used for
      * that template.
      *
-     * @param string $templateFileName
-     *        the file name of the template to retrieve, may not be empty to get a template that is not related to a
-     *     template file.
+     * @param string $templateFileName the file name of the template to retrieve, may not be empty to get a template
+     *        that is not related to a template file.
      *
      * @return Template the template for the given template file name
      *
@@ -77,9 +76,8 @@ class TemplateRegistry
      * If the template file name is empty, no template file will be used for
      * that template.
      *
-     * @param string $fileName
-     *        the file name of the template to retrieve, may not be empty to get a template that is not related to a
-     *     template file
+     * @param string $fileName the file name of the template to retrieve, may not be empty to get a template that
+     *        is not related to a template file
      *
      * @return Template the template for the given template file name
      */

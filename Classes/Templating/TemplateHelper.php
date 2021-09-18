@@ -321,8 +321,7 @@ class TemplateHelper extends SalutationSwitcher
      * extension.
      *
      * @param string $fileName the file name
-     * @param string $path
-     *        the path to the file (without filename), must contain a slash at the end,
+     * @param string $path the path to the file (without filename), must contain a slash at the end,
      *        may contain a slash at the beginning (if not relative)
      *
      * @return string the complete path including file name

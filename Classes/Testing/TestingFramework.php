@@ -78,8 +78,7 @@ final class TestingFramework
     private $ownAllowedTables = [];
 
     /**
-     * all additional DB table names to which this instance of the testing
-     * framework has access
+     * all additional DB table names to which this instance of the testing framework has access
      *
      * @var string[]
      */

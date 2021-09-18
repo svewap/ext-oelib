@@ -59,8 +59,7 @@ class ConfigurationRegistry
     }
 
     /**
-     * Purges the current instance so that getInstance will create a new
-     * instance.
+     * Purges the current instance so that getInstance will create a new instance.
      */
     public static function purgeInstance(): void
     {
@@ -70,9 +69,7 @@ class ConfigurationRegistry
     /**
      * Retrieves a Configuration by namespace.
      *
-     * @param string $namespace
-     *        the name of a configuration namespace, e.g., "plugin.tx_oelib",
-     *        must not be empty
+     * @param string $namespace the name of a configuration namespace, e.g., "plugin.tx_oelib", must not be empty
      *
      * @return ConfigurationInterface the configuration for the given namespace
      *
@@ -132,8 +129,7 @@ class ConfigurationRegistry
     /**
      * Retrieves the configuration from TypoScript setup of the current page for a given namespace.
      *
-     * @param string $namespace
-     *        the namespace of the configuration to retrieve, must not be empty
+     * @param string $namespace the namespace of the configuration to retrieve, must not be empty
      *
      * @return TypoScriptConfiguration the TypoScript configuration for that namespace, might be empty
      */
@@ -157,8 +153,7 @@ class ConfigurationRegistry
     }
 
     /**
-     * Retrieves the complete TypoScript setup for the current page as a nested
-     * array.
+     * Retrieves the complete TypoScript setup for the current page as a nested array.
      *
      * @return array the TypoScriptSetup for the current page, will be empty if
      *               no page is selected or if the TypoScript setup of the page is empty

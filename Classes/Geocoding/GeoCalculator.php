@@ -30,10 +30,8 @@ class GeoCalculator implements SingletonInterface
      * Calculates the great-circle distance in kilometers between two geo
      * objects using the haversine formula.
      *
-     * @param Geo $object1
-     *        the first object, must have geo coordinates
-     * @param Geo $object2
-     *        the second object, must have geo coordinates
+     * @param Geo $object1 the first object, must have geo coordinates
+     * @param Geo $object2 the second object, must have geo coordinates
      *
      * @return float the distance between $object1 and $object2 in kilometers, will be >= 0.0
      *
@@ -78,16 +76,11 @@ class GeoCalculator implements SingletonInterface
      * $center, including objects that are located at a distance of exactly
      * $distance.
      *
-     * @param Collection<Geo> $unfilteredObjects
-     *        the list to filter, may be empty
-     * @param Geo $center
-     *        the center to which $distance related
-     * @param float $distance
-     *        the distance in kilometers within which the returned objects must
-     *        be located
+     * @param Collection<Geo> $unfilteredObjects the list to filter, may be empty
+     * @param Geo $center the center to which $distance related
+     * @param float $distance the distance in kilometers within which the returned objects must be located
      *
-     * @return Collection<Geo>
-     *         a copy of $unfilteredObjects with only those objects that are
+     * @return Collection<Geo> a copy of $unfilteredObjects with only those objects that are
      *         located within $distance kilometers of $center
      */
     public function filterByDistance(

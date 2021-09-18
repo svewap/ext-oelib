@@ -54,8 +54,7 @@ class FrontEndLoginManager implements LoginManager
     }
 
     /**
-     * Purges the current instance so that getInstance will create a new
-     * instance.
+     * Purges the current instance so that getInstance will create a new instance.
      */
     public static function purgeInstance(): void
     {
@@ -86,11 +85,10 @@ class FrontEndLoginManager implements LoginManager
     /**
      * Gets the currently logged-in front-end user.
      *
-     * @param class-string<AbstractDataMapper> $mapperName
-     *        the name of the mapper to use for getting the back-end user model, must not be empty
+     * @param class-string<AbstractDataMapper> $mapperName the mapper to use for getting the back-end user model
      *
-     * @return FrontEndUser|null the logged-in front-end user
-     *                                     will be null if no user is logged in or if there is no front end
+     * @return FrontEndUser|null the logged-in front-end user,
+     *         will be null if no user is logged in or if there is no front end
      *
      * @throws \InvalidArgumentException
      */
