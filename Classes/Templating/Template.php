@@ -8,8 +8,8 @@ use OliverKlee\Oelib\Exception\NotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * This class represents a HTML template with markers (###MARKER###) and
- * subparts (<!-- ###SUBPART### --><!-- ###SUBPART### -->).
+ * This class represents an HTML template with markers (`###MARKER###`) and
+ * subparts (`<!-- ###SUBPART### --><!-- ###SUBPART### -->`).
  */
 class Template
 {
@@ -24,7 +24,7 @@ class Template
     private $templateCode = '';
 
     /**
-     * associative array of all HTML template subparts, using the uppercase marker names without ### as keys,
+     * associative array of all HTML template subparts, using the uppercase marker names without `###` as keys,
      * for example "MY_MARKER"
      *
      * @var array<string, string>
@@ -41,7 +41,7 @@ class Template
 
     /**
      * associative array of *populated* markers and their contents
-     * (with the keys being the marker names including the wrapping hash signs ###).
+     * (with the keys being the marker names including the wrapping hash signs `###`).
      *
      * @var array<string, string>
      */
@@ -77,7 +77,7 @@ class Template
      * are used as array keys. For this, the ### are removed, but the names stay
      * uppercase.
      *
-     * Example: The subpart ###MY_SUBPART### will be stored with the array key
+     * Example: The subpart `###MY_SUBPART###` will be stored with the array key
      * 'MY_SUBPART'.
      *
      * @param string $templateCode the content of the HTML template
@@ -160,7 +160,7 @@ class Template
      * Sets a marker's content.
      *
      * Example: If the prefix is "field" and the marker name is "one", the
-     * marker "###FIELD_ONE###" will be written.
+     * marker `###FIELD_ONE###` will be written.
      *
      * If the prefix is empty and the marker name is "one", the marker
      * "###ONE###" will be written.

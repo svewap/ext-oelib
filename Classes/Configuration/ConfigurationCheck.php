@@ -360,7 +360,7 @@ class ConfigurationCheck
      */
     protected function checkTemplateFile(bool $canUseFlexforms = false): void
     {
-        // @phpstan-ignore-next-line PHPStan does not know about TYPO3_mode.
+        // @phpstan-ignore-next-line PHPStan does not know about TYPO3_MODE.
         if (TYPO3_MODE === 'BE') {
             return;
         }
