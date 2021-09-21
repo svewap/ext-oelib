@@ -8,12 +8,15 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Domain\Model\Interfaces\CreationDate;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\CreatedModel;
 
+/**
+ * @covers \OliverKlee\Oelib\Domain\Model\Traits\CreationDate
+ */
 class CreationDateTest extends UnitTestCase
 {
     /**
      * @var CreatedModel
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {
@@ -41,7 +44,7 @@ class CreationDateTest extends UnitTestCase
      */
     public function setCreationDateSetsCreationDate(): void
     {
-        $date = new \DateTime();
+        $date = new \DateTimeImmutable();
         $this->subject->setCreationDate($date);
 
         self::assertSame($date, $this->subject->getCreationDate());

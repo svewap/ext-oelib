@@ -8,12 +8,15 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Domain\Model\Interfaces\ChangeDate;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\ChangedModel;
 
+/**
+ * @covers \OliverKlee\Oelib\Domain\Model\Traits\ChangeDate
+ */
 class ChangeDateTest extends UnitTestCase
 {
     /**
      * @var ChangedModel
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {
@@ -41,7 +44,7 @@ class ChangeDateTest extends UnitTestCase
      */
     public function setChangeDateSetsChangeDate(): void
     {
-        $date = new \DateTime();
+        $date = new \DateTimeImmutable();
         $this->subject->setChangeDate($date);
 
         self::assertSame($date, $this->subject->getChangeDate());

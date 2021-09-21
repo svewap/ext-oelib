@@ -14,16 +14,16 @@ namespace OliverKlee\Oelib\Domain\Model\Traits;
 trait CreationDate
 {
     /**
-     * @var \DateTime|null
+     * @var \DateTimeImmutable|null
      */
     protected $creationDate = null;
 
-    public function getCreationDate(): ?\DateTime
+    public function getCreationDate(): ?\DateTimeImmutable
     {
         return $this->creationDate;
     }
 
-    public function setCreationDate(\DateTime $creationDate): void
+    public function setCreationDate(\DateTimeImmutable $creationDate): void
     {
         $this->creationDate = $creationDate;
     }

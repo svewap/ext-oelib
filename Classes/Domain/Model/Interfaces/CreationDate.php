@@ -11,7 +11,7 @@ namespace OliverKlee\Oelib\Domain\Model\Interfaces;
  */
 interface CreationDate
 {
-    public function getCreationDate(): ?\DateTime;
+    public function getCreationDate(): ?\DateTimeImmutable;
 
-    public function setCreationDate(\DateTime $creationDate): void;
+    public function setCreationDate(\DateTimeImmutable $creationDate): void;
 }
