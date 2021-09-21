@@ -117,14 +117,13 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
      */
     public function retrieveConfiguration(): void
     {
-        if ($this->hasNewConfigurationFormat()) {
-            $this->configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)
-                ->get($this->extensionKey);
-        } elseif ($this->hasOldConfigurationFormat()) {
-            $this->configuration = (array)\unserialize(
-                (string)$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey],
-                ['allowed_classes' => false]
-            );
+        if (
+            isset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS'][$this->extensionKey])
+            && \is_array($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS'][$this->extensionKey])
+        ) {
+            /** @var ExtensionConfiguration $extensionConfiguration */
+            $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+            $this->configuration = $extensionConfiguration->get($this->extensionKey);
         } else {
             $this->configuration = [];
         }
@@ -190,21 +189,5 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
         $this->loadConfigurationLazily();
 
         return $this->configuration;
-    }
-
-    /**
-     * @deprecated This function will be removed in oelib v4.0
-     */
-    private function hasNewConfigurationFormat(): bool
-    {
-        return isset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS'][$this->extensionKey]);
-    }
-
-    /**
-     * @deprecated This function will be removed in oelib v4.0. You are using the old configuration format. Please switch to the new one. See https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82254-DeprecateGLOBALSTYPO3_CONF_VARSEXTextConf.html
-     */
-    private function hasOldConfigurationFormat(): bool
-    {
-        return isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extensionKey]);
     }
 }

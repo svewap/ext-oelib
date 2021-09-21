@@ -38,13 +38,14 @@ class ConfigurationProxyTest extends UnitTestCase
         /** @var ConfigurationProxy $subject */
         $subject = ConfigurationProxy::getInstance('oelib');
         // ensures the same configuration at the beginning of each test
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['oelib'] = \serialize($this->testConfiguration);
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['oelib'] = $this->testConfiguration;
         $subject->retrieveConfiguration();
         $this->subject = $subject;
     }
 
     protected function tearDown(): void
     {
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['oelib'] = [];
         ConfigurationProxy::purgeInstances();
         parent::tearDown();
     }
@@ -119,7 +120,7 @@ class ConfigurationProxyTest extends UnitTestCase
      */
     public function retrieveConfigurationForNoConfigurationReturnsEmptyArray(): void
     {
-        unset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['oelib']);
+        unset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['oelib']);
 
         $this->subject->retrieveConfiguration();
 
@@ -131,7 +132,7 @@ class ConfigurationProxyTest extends UnitTestCase
      */
     public function retrieveConfigurationIfThereIsNoneAndSetNewConfigurationValue(): void
     {
-        unset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['oelib']);
+        unset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['oelib']);
         $this->subject->retrieveConfiguration();
         $this->subject->setAsString('testValue', 'foo');
 
