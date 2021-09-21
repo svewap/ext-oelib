@@ -10,6 +10,8 @@ use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
  * This trait marks repositories as read-only.
  *
  * @mixin RepositoryInterface
+ *
+ * @deprecated will be removed in oelib 5.0; copy the code directly to your classes
  */
 trait ReadOnlyRepository
 {
@@ -50,7 +52,7 @@ trait ReadOnlyRepository
     }
 
     /**
-     * Removes all objects of this repository as if remove() was called for all of them.
+     * Removes all objects of this repository as if `remove()` was called for all of them.
      *
      * @throws \BadMethodCallException
      */

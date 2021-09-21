@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Move PHPStan from PHIVE to Composer (#695)
 
 ### Deprecated
+- Deprecate the `ReadOnlyRepository` trait (#729)
 
 ### Removed
 - Drop support for `$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']` (#728)
