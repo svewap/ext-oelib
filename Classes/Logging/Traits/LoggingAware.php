@@ -17,7 +17,7 @@ trait LoggingAware
      */
     private $logger = null;
 
-    public function injectLogManager(LogManagerInterface $logManager)
+    public function injectLogManager(LogManagerInterface $logManager): void
     {
         $this->logger = $logManager->getLogger(self::class);
     }

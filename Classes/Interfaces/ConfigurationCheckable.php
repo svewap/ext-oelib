@@ -14,5 +14,5 @@ interface ConfigurationCheckable
      *
      * @return string the namespace prefix, will end with a dot
      */
-    public function getTypoScriptNamespace();
+    public function getTypoScriptNamespace(): string;
 }

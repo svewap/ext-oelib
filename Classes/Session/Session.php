@@ -149,10 +149,8 @@ class Session extends AbstractObjectWithPublicAccessors
 
     /**
      * Returns the current front-end instance.
-     *
-     * @return TypoScriptFrontendController|null
      */
-    protected function getFrontEndController()
+    protected function getFrontEndController(): ?TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'] ?? null;
     }

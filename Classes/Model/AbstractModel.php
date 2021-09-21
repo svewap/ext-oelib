@@ -319,12 +319,9 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
-     * @return AbstractModel|null
-     *
-     * @throws \UnexpectedValueException
-     *         if there is a data item stored for the key $key that is not a model instance
+     * @throws \UnexpectedValueException if there is a data item stored for the key $key that is not a model instance
      */
-    protected function getAsModel(string $key)
+    protected function getAsModel(string $key): ?AbstractModel
     {
         $this->checkForNonEmptyKey($key);
 

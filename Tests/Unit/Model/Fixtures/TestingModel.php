@@ -221,13 +221,9 @@ class TestingModel extends AbstractModel
     }
 
     /**
-     * @param string $key
-     *
-     * @return AbstractModel|null
-     *
      * @throws \UnexpectedValueException
      */
-    public function getAsModel(string $key)
+    public function getAsModel(string $key): ?AbstractModel
     {
         return parent::getAsModel($key);
     }

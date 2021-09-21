@@ -165,10 +165,8 @@ class GermanZipCode extends AbstractEntity implements Geo
 
     /**
      * This method must not be called.
-     *
-     * @param string $reason
      */
-    public function setGeoError($reason = ''): void
+    public function setGeoError(string $reason = ''): void
     {
         throw new \BadMethodCallException('This method must not be called.', 1542211438);
     }

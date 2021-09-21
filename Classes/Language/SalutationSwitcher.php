@@ -220,22 +220,15 @@ abstract class SalutationSwitcher extends AbstractPlugin
         return $this->suffixesToTry;
     }
 
-    /**
-     * Returns the current front-end instance.
-     *
-     * @return TypoScriptFrontendController|null
-     */
-    protected function getFrontEndController()
+    protected function getFrontEndController(): ?TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'] ?? null;
     }
 
     /**
      * Returns $GLOBALS['LANG'].
-     *
-     * @return LanguageService|null
      */
-    protected function getLanguageService()
+    protected function getLanguageService(): ?LanguageService
     {
         return $GLOBALS['LANG'] ?? null;
     }

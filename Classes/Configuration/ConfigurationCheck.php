@@ -73,10 +73,8 @@ class ConfigurationCheck
      * e.g. the list view and the single view (which both are pi1 objects).
      *
      * @param string $flavor a short string identifying the "flavor" of the object to check (may be empty)
-     *
-     * @return void
      */
-    public function setFlavor(string $flavor)
+    public function setFlavor(string $flavor): void
     {
         $this->flavor = $flavor;
     }
@@ -137,11 +135,9 @@ class ConfigurationCheck
 
     /**
      * Calls the correct configuration checks, depending on the class name of
-     * $this->objectToCheck and (if applicable) on $this->flavor.
-     *
-     * @return void
+     * `$this->objectToCheck` and (if applicable) on `$this->flavor`.
      */
-    protected function checkByClassNameAndFlavor()
+    protected function checkByClassNameAndFlavor(): void
     {
         $checkFunctionName = 'check_' . $this->className;
         if (!empty($this->flavor)) {
@@ -161,13 +157,11 @@ class ConfigurationCheck
     /**
      * Adds a warning.
      *
-     * This a an alias for `setErrorMessage` in order to ease copy'n'pasting for the new configuration check class.
+     * This is an alias for `setErrorMessage` in order to ease copy'n'pasting for the new configuration check class.
      *
      * @param string $rawWarningText the warning text, may contain HTML, will not be encoded
-     *
-     * @return void
      */
-    protected function addWarning(string $rawWarningText)
+    protected function addWarning(string $rawWarningText): void
     {
         $this->setErrorMessage($rawWarningText);
     }
@@ -185,10 +179,8 @@ class ConfigurationCheck
      * this function is a no-op.
      *
      * @param string $message error text to set (may be empty)
-     *
-     * @return void
      */
-    public function setErrorMessage(string $message)
+    public function setErrorMessage(string $message): void
     {
         if ($message !== '' && $this->errorText === '') {
             $this->errorText = $message;
@@ -199,12 +191,10 @@ class ConfigurationCheck
      * Sets the error message, consisting of $explanation and a request to change the TypoScript setup
      * variable $key (with the current TypoScript setup path prepended).
      *
-     * This a an alias for `setErrorMessageAndRequestCorrection` in order to ease copy'n'pasting for the new
+     * This is an alias for `setErrorMessageAndRequestCorrection` in order to ease copy'n'pasting for the new
      * configuration check class.
-     *
-     * @return void
      */
-    protected function addWarningAndRequestCorrection(string $key, bool $canUseFlexforms, string $explanation)
+    protected function addWarningAndRequestCorrection(string $key, bool $canUseFlexforms, string $explanation): void
     {
         $this->setErrorMessageAndRequestCorrection($key, $canUseFlexforms, $explanation);
     }
@@ -220,11 +210,12 @@ class ConfigurationCheck
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
      * @param string $explanation error text to set (may be empty)
-     *
-     * @return void
      */
-    protected function setErrorMessageAndRequestCorrection(string $key, bool $canUseFlexforms, string $explanation)
-    {
+    protected function setErrorMessageAndRequestCorrection(
+        string $key,
+        bool $canUseFlexforms,
+        string $explanation
+    ): void {
         $message = $explanation . ' Please fix the TypoScript setup variable <strong>' .
             $this->buildEncodedConfigurationPath($key) . '</strong> in your TypoScript template setup';
         if ($canUseFlexforms) {
@@ -347,10 +338,8 @@ class ConfigurationCheck
 
     /**
      * Checks whether the static template has been included.
-     *
-     * @return void
      */
-    protected function checkStaticIncluded()
+    protected function checkStaticIncluded(): void
     {
         if (!$this->objectToCheck->getConfValueBoolean('isStaticTemplateLoaded')) {
             $this->addWarning(
@@ -368,10 +357,8 @@ class ConfigurationCheck
      *
      * @param bool $canUseFlexforms
      *        whether the template can also be selected via flexforms
-     *
-     * @return void
      */
-    protected function checkTemplateFile(bool $canUseFlexforms = false)
+    protected function checkTemplateFile(bool $canUseFlexforms = false): void
     {
         // @phpstan-ignore-next-line PHPStan does not know about TYPO3_mode.
         if (TYPO3_MODE === 'BE') {
@@ -415,10 +402,8 @@ class ConfigurationCheck
      * Checks whether the CSS file (if a name is provided) actually is a file.
      * If no file name is provided, no error will be displayed as this is
      * perfectly allowed.
-     *
-     * @return void
      */
-    protected function checkCssFileFromConstants()
+    protected function checkCssFileFromConstants(): void
     {
         $key = 'cssFile';
         if ($this->objectToCheck->hasConfValueString($key)) {
@@ -467,10 +452,8 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for
      *        and why it needs to be non-empty, must not be empty
-     *
-     * @return void
      */
-    public function checkForNonEmptyString(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
+    public function checkForNonEmptyString(string $key, bool $canUseFlexforms, string $sheet, string $explanation): void
     {
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
         $this->checkForNonEmptyStringValue($value, $key, $canUseFlexforms, $explanation);
@@ -492,15 +475,13 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for
      *        and why it needs to be non-empty, must not be empty
-     *
-     * @return void
      */
     protected function checkForNonEmptyStringValue(
         string $value,
         string $key,
         bool $canUseFlexforms,
         string $explanation
-    ) {
+    ): void {
         if ($value === '') {
             $message = $this->buildWarningStartWithKey($key) . 'is empty, but needs to be non-empty. ' . $explanation;
             $this->addWarningAndRequestCorrection(
@@ -528,8 +509,6 @@ class ConfigurationCheck
      *        must not be empty
      * @param string[] $allowedValues
      *        allowed values (must not be empty)
-     *
-     * @return void
      */
     protected function checkIfSingleInSetNotEmpty(
         string $key,
@@ -537,7 +516,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation,
         array $allowedValues
-    ) {
+    ): void {
         $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
         $this->checkIfSingleInSetOrEmpty($key, $canUseFlexforms, $sheet, $explanation, $allowedValues);
     }
@@ -559,8 +538,6 @@ class ConfigurationCheck
      *        must not be empty
      * @param string[] $allowedValues
      *        allowed values (must not be empty)
-     *
-     * @return void
      */
     protected function checkIfSingleInSetOrEmpty(
         string $key,
@@ -568,7 +545,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation,
         array $allowedValues
-    ) {
+    ): void {
         if ($this->objectToCheck->hasConfValueString($key, $sheet)) {
             $value = $this->objectToCheck->getConfValueString($key, $sheet);
             $this->checkIfSingleInSetOrEmptyValue($value, $key, $canUseFlexforms, $explanation, $allowedValues);
@@ -593,8 +570,6 @@ class ConfigurationCheck
      *        must not be empty
      * @param string[] $allowedValues
      *        allowed values (must not be empty)
-     *
-     * @return void
      */
     protected function checkIfSingleInSetOrEmptyValue(
         string $value,
@@ -602,7 +577,7 @@ class ConfigurationCheck
         bool $canUseFlexforms,
         string $explanation,
         array $allowedValues
-    ) {
+    ): void {
         if (!empty($value) && !\in_array($value, $allowedValues, true)) {
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
                 'the following values are allowed: <br/><strong>' . $this->buildValueOverview($allowedValues) .
@@ -630,10 +605,8 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
-    protected function checkIfBoolean(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
+    protected function checkIfBoolean(string $key, bool $canUseFlexforms, string $sheet, string $explanation): void
     {
         $this->checkIfSingleInSetNotEmpty($key, $canUseFlexforms, $sheet, $explanation, ['0', '1']);
     }
@@ -654,10 +627,8 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
-    protected function checkIfInteger(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
+    protected function checkIfInteger(string $key, bool $canUseFlexforms, string $sheet, string $explanation): void
     {
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
 
@@ -685,8 +656,6 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
     protected function checkIfIntegerInRange(
         string $key,
@@ -695,7 +664,7 @@ class ConfigurationCheck
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
-    ) {
+    ): void {
         // Checks if our minimum value is bigger then our maximum value and
         // swaps their values if this is the case.
         if ($minValue > $maxValue) {
@@ -730,15 +699,13 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
     protected function checkIfPositiveIntegerValue(
         string $value,
         string $key,
         bool $canUseFlexforms,
         string $explanation
-    ) {
+    ): void {
         $this->checkForNonEmptyStringValue($value, $key, $canUseFlexforms, $explanation);
         if (!preg_match('/^[1-9]\\d*$/', $value)) {
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) . 'positive integers are allowed. ' .
@@ -761,11 +728,13 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
-    protected function checkIfPositiveInteger(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
-    {
+    protected function checkIfPositiveInteger(
+        string $key,
+        bool $canUseFlexforms,
+        string $sheet,
+        string $explanation
+    ): void {
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
         $this->checkIfPositiveIntegerValue($value, $key, $canUseFlexforms, $explanation);
     }
@@ -785,15 +754,13 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
     protected function checkIfPositiveIntegerOrEmpty(
         string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
-    ) {
+    ): void {
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
         if (!empty($value) && !preg_match('/^[1-9]\\d*$/', $value)) {
             $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
@@ -819,15 +786,13 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
     protected function checkIfPositiveIntegerOrZero(
         string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
-    ) {
+    ): void {
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
 
         $this->checkForNonEmptyStringValue($value, $key, $canUseFlexforms, $explanation);
@@ -857,8 +822,6 @@ class ConfigurationCheck
      *        must not be empty
      * @param string[] $allowedValues
      *        allowed values (must not be empty)
-     *
-     * @return void
      */
     protected function checkIfMultiInSetNotEmpty(
         string $key,
@@ -866,7 +829,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation,
         array $allowedValues
-    ) {
+    ): void {
         $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
         $this->checkIfMultiInSetOrEmpty($key, $canUseFlexforms, $sheet, $explanation, $allowedValues);
     }
@@ -888,8 +851,6 @@ class ConfigurationCheck
      *        must not be empty
      * @param string[] $allowedValues
      *        allowed values (must not be empty)
-     *
-     * @return void
      */
     protected function checkIfMultiInSetOrEmpty(
         string $key,
@@ -897,7 +858,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation,
         array $allowedValues
-    ) {
+    ): void {
         if ($this->objectToCheck->hasConfValueString($key, $sheet)) {
             $allValues = GeneralUtility::trimExplode(',', $this->objectToCheck->getConfValueString($key, $sheet), true);
 
@@ -932,8 +893,6 @@ class ConfigurationCheck
      *        must not be empty
      * @param string $tableName
      *        a DB table name (must not be empty)
-     *
-     * @return void
      */
     public function checkIfSingleInTableNotEmpty(
         string $key,
@@ -941,7 +900,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation,
         string $tableName
-    ) {
+    ): void {
         $this->checkIfSingleInSetNotEmpty(
             $key,
             $canUseFlexforms,
@@ -970,8 +929,6 @@ class ConfigurationCheck
      *        must not be empty
      * @param string $tableName
      *        a DB table name (must not be empty)
-     *
-     * @return void
      */
     protected function checkIfSingleInTableOrEmpty(
         string $key,
@@ -979,7 +936,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation,
         string $tableName
-    ) {
+    ): void {
         $this->checkIfSingleInSetOrEmpty(
             $key,
             $canUseFlexforms,
@@ -1008,8 +965,6 @@ class ConfigurationCheck
      *        must not be empty
      * @param string $tableName
      *        a DB table name (must not be empty)
-     *
-     * @return void
      */
     protected function checkIfMultiInTableNotEmpty(
         string $key,
@@ -1017,7 +972,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation,
         string $tableName
-    ) {
+    ): void {
         $this->checkIfMultiInSetNotEmpty(
             $key,
             $canUseFlexforms,
@@ -1046,8 +1001,6 @@ class ConfigurationCheck
      *        must not be empty
      * @param string $tableName
      *        a DB table name (must not be empty)
-     *
-     * @return void
      */
     protected function checkIfMultiInTableOrEmpty(
         string $key,
@@ -1055,7 +1008,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation,
         string $tableName
-    ) {
+    ): void {
         $this->checkIfMultiInSetOrEmpty(
             $key,
             $canUseFlexforms,
@@ -1071,10 +1024,8 @@ class ConfigurationCheck
      * @param bool $canUseFlexforms
      *        whether the value can also be set via flexforms (this will be
      *        mentioned in the error message)
-     *
-     * @return void
      */
-    protected function checkSalutationMode($canUseFlexforms = false)
+    protected function checkSalutationMode(bool $canUseFlexforms = false): void
     {
         $this->checkIfSingleInSetNotEmpty(
             'salutation',
@@ -1146,8 +1097,6 @@ class ConfigurationCheck
      *        must not be empty
      * @param string $regExp
      *        a regular expression (including the delimiting slashes)
-     *
-     * @return void
      */
     protected function checkRegExp(
         string $key,
@@ -1155,7 +1104,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation,
         string $regExp
-    ) {
+    ): void {
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
 
         if (!preg_match($regExp, $value)) {
@@ -1183,8 +1132,6 @@ class ConfigurationCheck
      * @param string $regExp
      *        a regular expression (including the delimiting slashes)
      *
-     * @return void
-     *
      * @deprecated will be removed without replacement in oelib 4.0
      */
     protected function checkRegExpNotEmpty(
@@ -1193,7 +1140,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation,
         string $regExp
-    ) {
+    ): void {
         $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
         $this->checkRegExp($key, $canUseFlexforms, $sheet, $explanation, $regExp);
     }
@@ -1215,11 +1162,13 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
-    protected function checkIfPidListOrEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
-    {
+    protected function checkIfPidListOrEmpty(
+        string $key,
+        bool $canUseFlexforms,
+        string $sheet,
+        string $explanation
+    ): void {
         $this->checkRegExp($key, $canUseFlexforms, $sheet, $explanation, '/^([0-9]+(,( *)[0-9]+)*)?$/');
     }
 
@@ -1240,11 +1189,13 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
-    protected function checkIfPidListNotEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
-    {
+    protected function checkIfPidListNotEmpty(
+        string $key,
+        bool $canUseFlexforms,
+        string $sheet,
+        string $explanation
+    ): void {
         $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
         $this->checkIfPidListOrEmpty($key, $canUseFlexforms, $sheet, $explanation);
     }
@@ -1264,12 +1215,14 @@ class ConfigurationCheck
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
      *
-     * @return void
-     *
      * @deprecated Will be removed in oelib 4.0. Use checkIfPidListNotEmpty instead.
      */
-    protected function checkIfFePagesNotEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
-    {
+    protected function checkIfFePagesNotEmpty(
+        string $key,
+        bool $canUseFlexforms,
+        string $sheet,
+        string $explanation
+    ): void {
         $this->checkIfPidListNotEmpty($key, $canUseFlexforms, $sheet, $explanation);
     }
 
@@ -1288,15 +1241,13 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
     protected function checkIfSingleFePageNotEmpty(
         string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
-    ) {
+    ): void {
         $this->checkIfPositiveInteger($key, $canUseFlexforms, $sheet, $explanation);
     }
 
@@ -1315,15 +1266,13 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
     protected function checkIfSingleFePageOrEmpty(
         string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
-    ) {
+    ): void {
         $this->checkIfInteger($key, $canUseFlexforms, $sheet, $explanation);
     }
 
@@ -1343,12 +1292,14 @@ class ConfigurationCheck
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
      *
-     * @return void
-     *
      * @deprecated will be removed in oelib 4.0.0; is a no-op in the meantime
      */
-    protected function checkIfFePagesOrEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
-    {
+    protected function checkIfFePagesOrEmpty(
+        string $key,
+        bool $canUseFlexforms,
+        string $sheet,
+        string $explanation
+    ): void {
         trigger_error(
             'checkIfFePagesOrEmpty() is deprecated and will be removed in oelib 4.0.0; is a no-op in the meantime',
             E_USER_DEPRECATED
@@ -1370,11 +1321,13 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
-    protected function checkIfSysFoldersNotEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
-    {
+    protected function checkIfSysFoldersNotEmpty(
+        string $key,
+        bool $canUseFlexforms,
+        string $sheet,
+        string $explanation
+    ): void {
         $this->checkIfPidListNotEmpty($key, $canUseFlexforms, $sheet, $explanation);
     }
 
@@ -1392,15 +1345,13 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
     protected function checkIfSingleSysFolderNotEmpty(
         string $key,
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
-    ) {
+    ): void {
         $this->checkIfPositiveInteger($key, $canUseFlexforms, $sheet, $explanation);
     }
 
@@ -1420,8 +1371,6 @@ class ConfigurationCheck
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
      *
-     * @return void
-     *
      * @deprecated will be removed without replacement in oelib 4.0
      */
     protected function checkIfSingleSysFolderOrEmpty(
@@ -1429,7 +1378,7 @@ class ConfigurationCheck
         bool $canUseFlexforms,
         string $sheet,
         string $explanation
-    ) {
+    ): void {
         $this->checkIfInteger($key, $canUseFlexforms, $sheet, $explanation);
     }
 
@@ -1449,12 +1398,14 @@ class ConfigurationCheck
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
      *
-     * @return void
-     *
      * @deprecated will be removed in oelib 4.0.0; is a no-op in the meantime
      */
-    protected function checkIfSysFoldersOrEmpty(string $key, bool $canUseFlexforms, string $sheet, string $explanation)
-    {
+    protected function checkIfSysFoldersOrEmpty(
+        string $key,
+        bool $canUseFlexforms,
+        string $sheet,
+        string $explanation
+    ): void {
         trigger_error(
             'checkIfSysFoldersOrEmpty() is deprecated and will be removed in oelib 4.0.0; ' .
             'is a no-op in the meantime',
@@ -1482,8 +1433,6 @@ class ConfigurationCheck
      *        query to check for the correct page types, for example "<199" or
      *        "=254", must not be empty
      *
-     * @return void
-     *
      * @deprecated will be removed in oelib 4.0.0; is a no-op in the meantime
      */
     protected function checkPageTypeOrEmpty(
@@ -1492,7 +1441,7 @@ class ConfigurationCheck
         string $sheet,
         string $explanation,
         string $typeCondition
-    ) {
+    ): void {
         trigger_error(
             'checkPageTypeOrEmpty() is deprecated and will be removed in oelib 4.0.0; is a no-op in the meantime',
             E_USER_DEPRECATED
@@ -1505,11 +1454,9 @@ class ConfigurationCheck
      * @param string[] $allowedSortFields
      *        allowed sort keys for the list view, must not be empty
      *
-     * @return void
-     *
      * @deprecated will be removed without replacement in oelib 4.0
      */
-    protected function checkListView(array $allowedSortFields)
+    protected function checkListView(array $allowedSortFields): void
     {
         $key = 'listView.';
 
@@ -1559,11 +1506,9 @@ class ConfigurationCheck
      * @param string[] $allowedValues
      *        allowed values (must not be empty)
      *
-     * @return void
-     *
      * @deprecated will be removed without replacement in oelib 4.0
      */
-    protected function checkListViewIfSingleInSetNotEmpty(string $key, string $explanation, array $allowedValues)
+    protected function checkListViewIfSingleInSetNotEmpty(string $key, string $explanation, array $allowedValues): void
     {
         $fieldSubPath = 'listView.' . $key;
         $value = $this->objectToCheck->getListViewConfValueString($key);
@@ -1582,11 +1527,9 @@ class ConfigurationCheck
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
      *
-     * @return void
-     *
      * @deprecated will be removed without replacement in oelib 4.0
      */
-    protected function checkListViewIfPositiveInteger(string $key, string $explanation)
+    protected function checkListViewIfPositiveInteger(string $key, string $explanation): void
     {
         $fieldSubPath = 'listView.' . $key;
         $value = $this->objectToCheck->getListViewConfValueString($key);
@@ -1613,8 +1556,6 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
     public function checkIsValidEmailOrEmpty(
         string $key,
@@ -1622,7 +1563,7 @@ class ConfigurationCheck
         string $sheet,
         bool $unused,
         string $explanation
-    ) {
+    ): void {
         $value = $this->objectToCheck->getConfValueString($key, $sheet);
         if ($value === '') {
             return;
@@ -1652,8 +1593,6 @@ class ConfigurationCheck
      * @param string $explanation
      *        a sentence explaining what that configuration value is needed for,
      *        must not be empty
-     *
-     * @return void
      */
     public function checkIsValidEmailNotEmpty(
         string $key,
@@ -1661,7 +1600,7 @@ class ConfigurationCheck
         string $sheet,
         bool $allowInternalAddresses,
         string $explanation
-    ) {
+    ): void {
         $this->checkForNonEmptyString($key, $canUseFlexforms, $sheet, $explanation);
         $this->checkIsValidEmailOrEmpty($key, $canUseFlexforms, $sheet, $allowInternalAddresses, $explanation);
     }
@@ -1669,17 +1608,15 @@ class ConfigurationCheck
     /**
      * @return TypoScriptFrontendController|null
      */
-    protected function getFrontEndController()
+    protected function getFrontEndController(): ?TypoScriptFrontendController
     {
         return $GLOBALS['TypoScriptFE'] ?? null;
     }
 
     /**
      * Checks that there is a valid email address set in $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'].
-     *
-     * @return void
      */
-    public function checkIsValidDefaultFromEmailAddress()
+    public function checkIsValidDefaultFromEmailAddress(): void
     {
         /** @var SystemEmailFromBuilder $emailBuilder */
         $emailBuilder = GeneralUtility::makeInstance(SystemEmailFromBuilder::class);

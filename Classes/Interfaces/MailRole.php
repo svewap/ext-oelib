@@ -14,12 +14,12 @@ interface MailRole
      *
      * @return string the real name of the e-mail role, might be empty
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Returns the e-mail address of the e-mail role.
      *
      * @return string the e-mail address of the e-mail role, might be empty
      */
-    public function getEmailAddress();
+    public function getEmailAddress(): string;
 }
