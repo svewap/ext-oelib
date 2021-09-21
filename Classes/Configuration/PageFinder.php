@@ -15,27 +15,27 @@ class PageFinder
     /**
      * @var int
      */
-    const SOURCE_AUTO = 0;
+    private const SOURCE_AUTO = 0;
 
     /**
      * @var int
      */
-    const SOURCE_FRONT_END = 1;
+    public const SOURCE_FRONT_END = 1;
 
     /**
      * @var int
      */
-    const SOURCE_BACK_END = 2;
+    public const SOURCE_BACK_END = 2;
 
     /**
      * @var int
      */
-    const SOURCE_MANUAL = 3;
+    public const SOURCE_MANUAL = 3;
 
     /**
      * @var int
      */
-    const NO_SOURCE_FOUND = 4;
+    public const NO_SOURCE_FOUND = 4;
 
     /**
      * @var PageFinder|null the Singleton instance

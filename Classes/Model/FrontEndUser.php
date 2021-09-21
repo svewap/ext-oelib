@@ -20,17 +20,17 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     /**
      * @var int represents the male gender for this user
      */
-    const GENDER_MALE = 0;
+    public const GENDER_MALE = 0;
 
     /**
      * @var int represents the female gender for this user
      */
-    const GENDER_FEMALE = 1;
+    public const GENDER_FEMALE = 1;
 
     /**
      * @var int represents an unknown gender for this user
      */
-    const GENDER_UNKNOWN = 99;
+    public const GENDER_UNKNOWN = 99;
 
     /**
      * Gets this user's user name (login name).

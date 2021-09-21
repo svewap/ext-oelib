@@ -32,7 +32,28 @@ final class TestingFramework
     /**
      * @var int
      */
-    const AUTO_INCREMENT_THRESHOLD_WITHOUT_ROOTLINE_CACHE = 100;
+    private const AUTO_INCREMENT_THRESHOLD_WITHOUT_ROOTLINE_CACHE = 100;
+
+    /**
+     * all system table names to which this instance of the testing framework
+     * has access
+     *
+     * @var array<int, string>
+     */
+    private const ALLOWED_SYSTEM_TABLES = [
+        'be_users',
+        'fe_groups',
+        'fe_users',
+        'pages',
+        'sys_template',
+        'tt_content',
+        'be_groups',
+        'sys_file',
+        'sys_file_collection',
+        'sys_file_reference',
+        'sys_category',
+        'sys_category_record_mm',
+    ];
 
     /**
      * cache for the results of hasTableColumn with the column names as keys and
@@ -83,27 +104,6 @@ final class TestingFramework
      * @var string[]
      */
     private $additionalAllowedTables = [];
-
-    /**
-     * all system table names to which this instance of the testing framework
-     * has access
-     *
-     * @var string[]
-     */
-    const ALLOWED_SYSTEM_TABLES = [
-        'be_users',
-        'fe_groups',
-        'fe_users',
-        'pages',
-        'sys_template',
-        'tt_content',
-        'be_groups',
-        'sys_file',
-        'sys_file_collection',
-        'sys_file_reference',
-        'sys_category',
-        'sys_category_record_mm',
-    ];
 
     /**
      * all "dirty" non-system tables (i.e. all tables that were used for testing

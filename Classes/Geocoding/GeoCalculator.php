@@ -19,12 +19,12 @@ class GeoCalculator implements SingletonInterface
      *
      * @var float
      */
-    const EARTH_RADIUS_IN_KILOMETERS = 6378.7;
+    private const EARTH_RADIUS_IN_KILOMETERS = 6378.7;
 
     /**
      * @var float
      */
-    const ONE_DEGREE_LATITUDE_IN_KILOMETERS = 111.0;
+    private const ONE_DEGREE_LATITUDE_IN_KILOMETERS = 111.0;
 
     /**
      * Calculates the great-circle distance in kilometers between two geo

@@ -16,12 +16,7 @@ class Template
     /**
      * @var string the regular expression used to find subparts
      */
-    const SUBPART_PATTERN = '/<!-- *###([A-Z0-9_]+)###.*-->(.*)<!-- *###\\1###.*-->/msU';
-
-    /**
-     * @var string the regular expression used to find subparts
-     */
-    const LABEL_PATTERN = '/###(LABEL_([A-Z0-9_]+))###/';
+    private const SUBPART_PATTERN = '/<!-- *###([A-Z0-9_]+)###.*-->(.*)<!-- *###\\1###.*-->/msU';
 
     /**
      * @var string the complete HTML template

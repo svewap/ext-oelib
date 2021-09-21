@@ -11,7 +11,7 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
     /**
      * @var string
      */
-    const TEST_TABLE_NAME = 'tx_oelib_test';
+    private const TEST_TABLE_NAME = 'tx_oelib_test';
 
     /**
      * @var string

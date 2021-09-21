@@ -32,21 +32,21 @@ class GoogleMapsViewHelper extends AbstractViewHelper
      *
      * @var string
      */
-    const LIBRARY_JAVASCRIPT_HEADER_KEY = 'tx-oelib-googleMapsLibrary';
+    private const LIBRARY_JAVASCRIPT_HEADER_KEY = 'tx-oelib-googleMapsLibrary';
 
     /**
      * the prefix to the HTML ID of the generated DIV
      *
      * @var string
      */
-    const MAP_HTML_ID_PREFIX = 'tx_oelib_map';
+    private const MAP_HTML_ID_PREFIX = 'tx_oelib_map';
 
     /**
      * the URL of the Google Maps library
      *
      * @var string
      */
-    const GOOGLE_MAPS_LIBRARY_URL = 'https://maps.googleapis.com/maps/api/js?key=';
+    private const GOOGLE_MAPS_LIBRARY_URL = 'https://maps.googleapis.com/maps/api/js?key=';
 
     /**
      * the default zoom level used when there is exactly one element with
@@ -55,7 +55,7 @@ class GoogleMapsViewHelper extends AbstractViewHelper
      *
      * @var int
      */
-    const DEFAULT_ZOOM_LEVEL = 8;
+    private const DEFAULT_ZOOM_LEVEL = 8;
 
     /**
      * counter of the rendered map instances

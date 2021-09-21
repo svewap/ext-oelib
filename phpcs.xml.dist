@@ -8,8 +8,5 @@
     <arg name="extensions" value="php"/>
 
     <!-- The complete PSR-12 ruleset -->
-    <rule ref="PSR12">
-        <!-- This rule requires PHP >= 7.1. -->
-        <exclude name="PSR12.Properties.ConstantVisibility"/>
-    </rule>
+    <rule ref="PSR12"/>
 </ruleset>

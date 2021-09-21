@@ -19,26 +19,19 @@ class GoogleGeocoding implements GeocodingLookup
     /**
      * @var string
      */
-    const STATUS_OK = 'OK';
+    private const STATUS_OK = 'OK';
 
     /**
-     * @var string[]
-     */
-    protected static $statusCodesForRetry = ['OVER_QUERY_LIMIT', 'UNKNOWN_ERROR'];
-
-    /**
-     * the base URL of the Google Maps geo coding service
+     * the base URL of the Google Maps geocoding service
      *
      * @var string
      */
-    const BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
+    private const BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 
     /**
-     * the Singleton instance
-     *
-     * @var GeocodingLookup|null
+     * @var array<int, string>
      */
-    private static $instance = null;
+    protected const STATUS_CODES_FOR_RETRY = ['OVER_QUERY_LIMIT', 'UNKNOWN_ERROR'];
 
     /**
      * the amount of time (in microseconds) that need to pass between subsequent geocoding requests
@@ -47,7 +40,14 @@ class GoogleGeocoding implements GeocodingLookup
      *
      * @var int
      */
-    const INITIAL_DELAY_IN_MICROSECONDS = 100000;
+    private const INITIAL_DELAY_IN_MICROSECONDS = 100000;
+
+    /**
+     * the Singleton instance
+     *
+     * @var GeocodingLookup|null
+     */
+    private static $instance = null;
 
     /**
      * 120 seconds
@@ -148,7 +148,7 @@ class GoogleGeocoding implements GeocodingLookup
                     );
                     break;
                 }
-                if (!\in_array($status, static::$statusCodesForRetry, true)) {
+                if (!\in_array($status, static::STATUS_CODES_FOR_RETRY, true)) {
                     $errorText = 'Error: ' . $status;
                     if (isset($resultParts['error_message'])) {
                         $errorText .= ' with additional details: ' . $resultParts['error_message'];

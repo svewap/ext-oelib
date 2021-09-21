@@ -19,7 +19,7 @@ class AbstractModelTest extends FunctionalTestCase
     /**
      * @var string
      */
-    const TEST_RECORD_TITLE = 'Hello world';
+    private const TEST_RECORD_TITLE = 'Hello world';
 
     /**
      * @var string[]

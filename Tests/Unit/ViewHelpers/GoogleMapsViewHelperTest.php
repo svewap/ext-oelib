@@ -120,7 +120,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     public function renderReturnsDivWithIdWithGeneralMapId(): void
     {
         self::assertStringContainsString(
-            '<div id="' . GoogleMapsViewHelper::MAP_HTML_ID_PREFIX,
+            '<div id="tx_oelib_map_',
             $this->subject->render([$this->mapPointWithCoordinates])
         );
     }
@@ -248,7 +248,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 
         self::assertContains(
             '<script src="https://maps.googleapis.com/maps/api/js?key=' . $apiKey . '></script>',
-            $this->mockFrontEnd->additionalHeaderData[GoogleMapsViewHelper::LIBRARY_JAVASCRIPT_HEADER_KEY]
+            $this->mockFrontEnd->additionalHeaderData['tx-oelib-googleMapsLibrary']
         );
     }
 

@@ -24,6 +24,11 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class TemplateHelper extends SalutationSwitcher
 {
     /**
+     * @var string the regular expression used to find subparts
+     */
+    private const LABEL_PATTERN = '/###(LABEL_([A-Z0-9_]+))###/';
+
+    /**
      * @var string the prefix used for CSS classes
      */
     public $prefixId = '';
@@ -981,7 +986,7 @@ class TemplateHelper extends SalutationSwitcher
 
         $translator = $this;
         return preg_replace_callback(
-            Template::LABEL_PATTERN,
+            self::LABEL_PATTERN,
             static function (array $matches) use ($translator): string {
                 return $translator->translate(strtolower($matches[1]));
             },

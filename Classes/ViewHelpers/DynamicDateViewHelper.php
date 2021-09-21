@@ -57,7 +57,7 @@ class DynamicDateViewHelper extends AbstractViewHelper implements CompilableInte
     /**
      * @var string
      */
-    const DEFAULT_DATE_FORMAT = 'd.m.Y H:i';
+    private const DEFAULT_DATE_FORMAT = 'd.m.Y H:i';
 
     /**
      * Renders the DateTime object (which is the child) as a formatted date.

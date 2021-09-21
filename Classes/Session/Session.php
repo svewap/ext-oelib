@@ -17,13 +17,13 @@ class Session extends AbstractObjectWithPublicAccessors
      *              logged-in front-end user and will be available when the
      *              user logs in again
      */
-    const TYPE_USER = 1;
+    public const TYPE_USER = 1;
 
     /**
      * @var int session type for volatile data that will be deleted when
      *              the session cookie is dropped (when the browser is closed)
      */
-    const TYPE_TEMPORARY = 2;
+    public const TYPE_TEMPORARY = 2;
 
     /**
      * @var array<int, string> available type codes for the FE session functions
