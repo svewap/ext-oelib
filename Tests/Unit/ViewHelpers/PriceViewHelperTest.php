@@ -6,19 +6,40 @@ namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
 use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
 use OliverKlee\Oelib\ViewHelpers\PriceViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
+/**
+ * @covers \OliverKlee\Oelib\ViewHelpers\PriceViewHelper
+ */
 class PriceViewHelperTest extends ViewHelperBaseTestcase
 {
     /**
      * @var PriceViewHelper
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->subject = new PriceViewHelper();
+    }
+
+    /**
+     * @test
+     */
+    public function isViewHelper(): void
+    {
+        self::assertInstanceOf(AbstractViewHelper::class, $this->subject);
+    }
+
+    /**
+     * @test
+     */
+    public function implementsViewHelper(): void
+    {
+        self::assertInstanceOf(ViewHelperInterface::class, $this->subject);
     }
 
     /**

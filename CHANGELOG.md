@@ -33,6 +33,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for PHP 7.0 and 7.1 (#690)
 
 ### Fixed
+- Update the usage of the Fluid view helper classes (#732)
 - Stop using patches for dependencies (713)
 - Improve some type annotations (#712)
 

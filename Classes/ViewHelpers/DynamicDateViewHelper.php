@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\ViewHelpers;
 
-use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Fluid\Core\ViewHelper\Exception as FluidException;
-use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 
 /**
  * Formats an object implementing \DateTimeInterface using the HTML5 time element and microdata, already marked up
@@ -52,7 +51,7 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
  *
  * @see https://github.com/rmm5t/jquery-timeago
  */
-class DynamicDateViewHelper extends AbstractViewHelper implements CompilableInterface
+class DynamicDateViewHelper extends AbstractViewHelper
 {
     /**
      * @var string
@@ -62,14 +61,11 @@ class DynamicDateViewHelper extends AbstractViewHelper implements CompilableInte
     /**
      * Renders the DateTime object (which is the child) as a formatted date.
      *
-     * @param string $displayFormat format string which is taken to format the visible Date/Time
-     *
-     * @return string formatted date
-     *
-     * @throws FluidException
+     * @throws Exception
      */
-    public function render(string $displayFormat = self::DEFAULT_DATE_FORMAT): string
+    public function render(): string
     {
+        $displayFormat = $this->arguments['displayFormat'] ?? '';
         return static::renderStatic(
             ['format' => $displayFormat],
             $this->buildRenderChildrenClosure(),
@@ -86,7 +82,7 @@ class DynamicDateViewHelper extends AbstractViewHelper implements CompilableInte
      *
      * @return string
      *
-     * @throws FluidException
+     * @throws Exception
      */
     public static function renderStatic(
         array $arguments,
@@ -95,7 +91,7 @@ class DynamicDateViewHelper extends AbstractViewHelper implements CompilableInte
     ): string {
         $date = $renderChildrenClosure();
         if (!$date instanceof \DateTimeInterface) {
-            throw new FluidException('"' . $date . '" is not a DateTimeInterface instance.', 1459514034);
+            throw new Exception('"' . $date . '" is not a DateTimeInterface instance.', 1459514034);
         }
 
         /** @var \DateTimeInterface $date */
@@ -104,5 +100,17 @@ class DynamicDateViewHelper extends AbstractViewHelper implements CompilableInte
         $metadataDate = $date->format('Y-m-d\\TH:i');
 
         return '<time datetime="' . $metadataDate . '" class="js-time-ago">' . $visibleDate . '</time>';
+    }
+
+    public function initializeArguments(): void
+    {
+        parent::initializeArguments();
+        $this->registerArgument(
+            'displayFormat',
+            'string',
+            'format string which is taken to format the visible Date/Time',
+            false,
+            'd.m.Y H:i'
+        );
     }
 }

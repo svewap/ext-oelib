@@ -12,28 +12,33 @@ use OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures\TestingMapPoint;
 use OliverKlee\Oelib\ViewHelpers\GoogleMapsViewHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
+/**
+ * @covers \OliverKlee\Oelib\ViewHelpers\GoogleMapsViewHelper;
+ */
 class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 {
     /**
      * @var GoogleMapsViewHelper
      */
-    private $subject = null;
+    private $subject;
 
     /**
      * @var TypoScriptConfiguration
      */
-    private $configuration = null;
+    private $configuration;
 
     /**
      * @var MapPoint&MockObject
      */
-    private $mapPointWithCoordinates = null;
+    private $mapPointWithCoordinates;
 
     /**
      * @var TypoScriptFrontendController&MockObject
      */
-    private $mockFrontEnd = null;
+    private $mockFrontEnd;
 
     protected function setUp(): void
     {
@@ -44,7 +49,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $this->configuration = new TypoScriptConfiguration();
         $configurationRegistry->set('plugin.tx_oelib', $this->configuration);
 
-        /** @var TypoScriptFrontendController&MockObject  $mockFrontend */
+        /** @var TypoScriptFrontendController&MockObject $mockFrontend */
         $mockFrontend = $this->createMock(TypoScriptFrontendController::class);
         $GLOBALS['TSFE'] = $mockFrontend;
         $this->mockFrontEnd = $mockFrontend;
@@ -58,13 +63,30 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $this->mapPointWithCoordinates = $mapPointWithCoordinates;
 
         $this->subject = new GoogleMapsViewHelper();
+        $this->subject->initializeArguments();
     }
 
     protected function tearDown(): void
     {
         ConfigurationRegistry::purgeInstance();
-        parent::tearDown();
         unset($GLOBALS['TSFE']);
+        parent::tearDown();
+    }
+
+    /**
+     * @test
+     */
+    public function isViewHelper(): void
+    {
+        self::assertInstanceOf(AbstractViewHelper::class, $this->subject);
+    }
+
+    /**
+     * @test
+     */
+    public function implementsViewHelper(): void
+    {
+        self::assertInstanceOf(ViewHelperInterface::class, $this->subject);
     }
 
     /**
@@ -73,9 +95,13 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     public function twoMapsAfterRenderingHaveDifferentMapIds(): void
     {
         $map1 = new GoogleMapsViewHelper();
-        $map1->render([$this->mapPointWithCoordinates]);
+        $map1->initializeArguments();
+        $map1->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
+        $map1->render();
         $map2 = new GoogleMapsViewHelper();
-        $map2->render([$this->mapPointWithCoordinates]);
+        $map2->initializeArguments();
+        $map2->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
+        $map2->render();
 
         self::assertNotSame($map1->getMapId(), $map2->getMapId());
     }
@@ -85,7 +111,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForEmptyMapPointsReturnsEmptyString(): void
     {
-        self::assertSame('', $this->subject->render([]));
+        self::assertSame('', $this->subject->render());
     }
 
     /**
@@ -96,8 +122,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         /** @var MapPoint&MockObject $mapPoint */
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(false);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertSame('', $this->subject->render([$mapPoint]));
+        self::assertSame('', $this->subject->render());
     }
 
     /**
@@ -109,7 +136,8 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $mapPoint = $this->createMock(MapPoint::class);
         $mapPoint->method('hasGeoCoordinates')->willReturn(false);
 
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
+        $this->subject->render();
 
         self::assertSame([], $this->mockFrontEnd->additionalHeaderData);
     }
@@ -119,10 +147,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderReturnsDivWithIdWithGeneralMapId(): void
     {
-        self::assertStringContainsString(
-            '<div id="tx_oelib_map_',
-            $this->subject->render([$this->mapPointWithCoordinates])
-        );
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
+
+        self::assertStringContainsString('<div id="tx_oelib_map_', $this->subject->render());
     }
 
     /**
@@ -130,7 +157,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderReturnsDivWithIdWithSpecificMapId(): void
     {
-        $result = $this->subject->render([$this->mapPointWithCoordinates]);
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
+
+        $result = $this->subject->render();
 
         self::assertStringContainsString('<div id="' . $this->subject->getMapId(), $result);
     }
@@ -140,10 +169,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderWithoutWidthAndWithoutHeightReturnsStyleWithDefaultWidth(): void
     {
-        self::assertStringContainsString(
-            'width: 600px;',
-            $this->subject->render([$this->mapPointWithCoordinates])
-        );
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
+
+        self::assertStringContainsString('width: 600px;', $this->subject->render());
     }
 
     /**
@@ -151,7 +179,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderWithoutWidthAndWithoutHeightReturnsStyleWithDefaultHeight(): void
     {
-        self::assertStringContainsString('height: 400px;', $this->subject->render([$this->mapPointWithCoordinates]));
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
+
+        self::assertStringContainsString('height: 400px;', $this->subject->render());
     }
 
     /**
@@ -159,9 +189,15 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderWithEmptyWidthThrowsException(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->subject->setArguments(
+            ['mapPoints' => [$this->mapPointWithCoordinates], 'width' => '', 'height' => '42px']
+        );
 
-        $this->subject->render([$this->mapPointWithCoordinates], '', '42px');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionCode(1319058935);
+        $this->expectExceptionMessage('$width must be a valid CSS length, but actually is: ');
+
+        $this->subject->render();
     }
 
     /**
@@ -169,9 +205,14 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderWithInvalidWidthThrowsException(): void
     {
+        $this->subject->setArguments(
+            ['mapPoints' => [$this->mapPointWithCoordinates], 'width' => 'foo', 'height' => '42px']
+        );
         $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionCode(1319058935);
+        $this->expectExceptionMessage('$width must be a valid CSS length, but actually is: foo');
 
-        $this->subject->render([$this->mapPointWithCoordinates], 'foo', '42px');
+        $this->subject->render();
     }
 
     /**
@@ -179,9 +220,14 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderWithEmptyHeightThrowsException(): void
     {
+        $this->subject->setArguments(
+            ['mapPoints' => [$this->mapPointWithCoordinates], 'width' => '42px', 'height' => '']
+        );
         $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionCode(1319058966);
+        $this->expectExceptionMessage('$height must be a valid CSS length, but actually is: ');
 
-        $this->subject->render([$this->mapPointWithCoordinates], '42px', '');
+        $this->subject->render();
     }
 
     /**
@@ -189,9 +235,14 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderWithInvalidHeightThrowsException(): void
     {
+        $this->subject->setArguments(
+            ['mapPoints' => [$this->mapPointWithCoordinates], 'width' => '42px', 'height' => 'foo']
+        );
         $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionCode(1319058966);
+        $this->expectExceptionMessage('$height must be a valid CSS length, but actually is: foo');
 
-        $this->subject->render([$this->mapPointWithCoordinates], '42px', 'foo');
+        $this->subject->render();
     }
 
     /**
@@ -201,7 +252,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderWithWithAndHeightInPixelsNotThrowsException(): void
     {
-        $this->subject->render([$this->mapPointWithCoordinates], '42px', '91px');
+        $this->subject->setArguments(
+            ['mapPoints' => [$this->mapPointWithCoordinates], 'width' => '42px', 'height' => '91px']
+        );
+
+        $this->subject->render();
     }
 
     /**
@@ -211,7 +266,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderWithWithAndHeightInPercentNotThrowsException(): void
     {
-        $this->subject->render([$this->mapPointWithCoordinates], '42%', '91%');
+        $this->subject->setArguments(
+            ['mapPoints' => [$this->mapPointWithCoordinates], 'width' => '42%', 'height' => '91%']
+        );
+
+        $this->subject->render();
     }
 
     /**
@@ -219,10 +278,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderReturnsStyleWithGivenWidth(): void
     {
-        self::assertStringContainsString(
-            'width: 142px;',
-            $this->subject->render([$this->mapPointWithCoordinates], '142px')
-        );
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates], 'width' => '142px']);
+
+        self::assertStringContainsString('width: 142px;', $this->subject->render());
     }
 
     /**
@@ -230,10 +288,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderReturnsStyleWithGivenHeight(): void
     {
-        self::assertStringContainsString(
-            'height: 99px;',
-            $this->subject->render([$this->mapPointWithCoordinates], '142px', '99px')
-        );
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates], 'height' => '99px']);
+
+        self::assertStringContainsString('height: 99px;', $this->subject->render());
     }
 
     /**
@@ -243,10 +300,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     {
         $apiKey = 'iugo7t4adasfdsq3ewrdsxc';
         $this->configuration->setAsString('googleMapsApiKey', $apiKey);
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
 
-        $this->subject->render([$this->mapPointWithCoordinates]);
+        $this->subject->render();
 
-        self::assertContains(
+        self::assertStringContainsString(
             '<script src="https://maps.googleapis.com/maps/api/js?key=' . $apiKey . '></script>',
             $this->mockFrontEnd->additionalHeaderData['tx-oelib-googleMapsLibrary']
         );
@@ -257,7 +315,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderIncludesJavaScriptInHeader(): void
     {
-        $this->subject->render([$this->mapPointWithCoordinates]);
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
+
+        $this->subject->render();
 
         self::assertTrue(isset($this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]));
     }
@@ -267,9 +327,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderIncludesJavaScriptWithGoogleMapInitializationInHeader(): void
     {
-        $this->subject->render([$this->mapPointWithCoordinates]);
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'new google.maps.Map(',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -280,10 +342,10 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderReturnsInitializationCallWithMapNumber(): void
     {
-        self::assertRegExp(
-            '/initializeGoogleMap_\\d+/',
-            $this->subject->render([$this->mapPointWithCoordinates])
-        );
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
+
+        $this->subject->render();
+        self::assertRegExp('/initializeGoogleMap_\\d+/', $this->subject->render());
     }
 
     /**
@@ -291,12 +353,16 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForMapPointsOfNonMapPointClassThrowsException(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
-
         $element = new \stdClass();
+        $this->subject->setArguments(['mapPoints' => [$element]]);
 
-        // @phpstan-ignore-next-line We explicitly check for contract violations here.
-        $this->subject->render([$element]);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionCode(1318093613);
+        $this->expectExceptionMessage(
+            'All $mapPoints need to implement OliverKlee\\Oelib\\Interfaces\\MapPoint, but stdClass does not.'
+        );
+
+        $this->subject->render();
     }
 
     /**
@@ -304,9 +370,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithCoordinatesCreatesMapMarker(): void
     {
-        $this->subject->render([$this->mapPointWithCoordinates]);
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'new google.maps.Marker(',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -317,9 +385,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithCoordinatesCreatesMapPointCoordinates(): void
     {
-        $this->subject->render([$this->mapPointWithCoordinates]);
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'new google.maps.LatLng(1.200000, 3.400000)',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -330,7 +400,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithCoordinatesWithoutIdentityNotCreatesUidProperty(): void
     {
-        $this->subject->render([$this->mapPointWithCoordinates]);
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
+
+        $this->subject->render();
 
         self::assertNotContains(
             'uid:',
@@ -345,7 +417,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     {
         $mapPoint = new TestingMapPoint();
         $mapPoint->setUid(0);
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
+
+        $this->subject->render();
 
         self::assertNotContains(
             'uid:',
@@ -361,9 +435,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $uid = 42;
         $mapPoint = new TestingMapPoint();
         $mapPoint->setUid($uid);
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'uid: ' . $uid,
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -374,7 +450,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForElementWithCoordinatesWithoutIdentityNotCreatesEntryInMapMarkersByUid(): void
     {
-        $this->subject->render([$this->mapPointWithCoordinates]);
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
+
+        $this->subject->render();
 
         self::assertNotContains(
             'mapMarkersByUid.' . $this->subject->getMapId() . '[',
@@ -389,7 +467,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     {
         $mapPoint = new TestingMapPoint();
         $mapPoint->setUid(0);
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
+
+        $this->subject->render();
 
         self::assertNotContains(
             'mapMarkersByUid.' . $this->subject->getMapId() . '[',
@@ -405,9 +485,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $uid = 42;
         $mapPoint = new TestingMapPoint();
         $mapPoint->setUid($uid);
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'mapMarkersByUid.' . $this->subject->getMapId() . '[' . $uid . '] = marker_',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -418,9 +500,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
      */
     public function renderForOneElementWithCoordinatesUsesMapPointCoordinatesAsCenter(): void
     {
-        $this->subject->render([$this->mapPointWithCoordinates]);
+        $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'var center = new google.maps.LatLng(1.200000, 3.400000);',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -441,10 +525,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $mapPoint2->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint2->method('getGeoCoordinates')
             ->willReturn(['latitude' => 5.6, 'longitude' => 7.8]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint1, $mapPoint2]]);
 
-        $this->subject->render([$mapPoint1, $mapPoint2]);
+        $this->subject->render();
 
-        self::assertContains(
+        self::assertStringContainsString(
             'var center = new google.maps.LatLng(1.200000, 3.400000);',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -465,8 +550,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $mapPoint2->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint2->method('getGeoCoordinates')
             ->willReturn(['latitude' => 5.6, 'longitude' => 7.8]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint1, $mapPoint2]]);
 
-        $this->subject->render([$mapPoint1, $mapPoint2]);
+        $this->subject->render();
 
         self::assertSame(
             2,
@@ -492,7 +578,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $mapPoint2->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint2->method('getGeoCoordinates')
             ->willReturn(['latitude' => 5.6, 'longitude' => 7.8]);
-        $this->subject->render([$mapPoint1, $mapPoint2]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint1, $mapPoint2]]);
+
+        $this->subject->render();
 
         self::assertSame(
             2,
@@ -518,9 +606,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $mapPoint2->method('hasGeoCoordinates')->willReturn(true);
         $mapPoint2->method('getGeoCoordinates')
             ->willReturn(['latitude' => 5.6, 'longitude' => 7.8]);
-        $this->subject->render([$mapPoint1, $mapPoint2]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint1, $mapPoint2]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'map.fitBounds(',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -538,9 +628,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasTooltipTitle')->willReturn(true);
         $mapPoint->method('getTooltipTitle')->willReturn('Hello world!');
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'title: "Hello world!"',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -558,9 +650,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasTooltipTitle')->willReturn(true);
         $mapPoint->method('getTooltipTitle')->willReturn('The "B" side');
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'title: "The \\"B\\" side"',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -578,9 +672,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasTooltipTitle')->willReturn(true);
         $mapPoint->method('getTooltipTitle')->willReturn("Here\nThere");
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'title: "Here\\nThere"',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -598,9 +694,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasTooltipTitle')->willReturn(true);
         $mapPoint->method('getTooltipTitle')->willReturn("Here\rThere");
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'title: "Here\\rThere"',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -618,9 +716,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasTooltipTitle')->willReturn(true);
         $mapPoint->method('getTooltipTitle')->willReturn('Here\\There');
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'title: "Here\\\\There"',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -637,7 +737,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $mapPoint->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasTooltipTitle')->willReturn(false);
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
+
+        $this->subject->render();
 
         self::assertNotContains(
             'title: ',
@@ -657,9 +759,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasInfoWindowContent')->willReturn(true);
         $mapPoint->method('getInfoWindowContent')->willReturn('Hello world!');
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             'new google.maps.InfoWindow',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -677,9 +781,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasInfoWindowContent')->willReturn(true);
         $mapPoint->method('getInfoWindowContent')->willReturn('The "B" side');
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             '"The \\"B\\" side"',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -697,9 +803,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasInfoWindowContent')->willReturn(true);
         $mapPoint->method('getInfoWindowContent')->willReturn("Here\nThere");
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             '"Here\\nThere"',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -717,9 +825,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasInfoWindowContent')->willReturn(true);
         $mapPoint->method('getInfoWindowContent')->willReturn("Here\rThere");
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             '"Here\\rThere"',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -737,9 +847,11 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasInfoWindowContent')->willReturn(true);
         $mapPoint->method('getInfoWindowContent')->willReturn('Here\\There');
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
 
-        self::assertContains(
+        $this->subject->render();
+
+        self::assertStringContainsString(
             '"Here\\\\There"',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -756,7 +868,9 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         $mapPoint->method('getGeoCoordinates')
             ->willReturn(['latitude' => 1.2, 'longitude' => 3.4]);
         $mapPoint->method('hasInfoWindowContent')->willReturn(false);
-        $this->subject->render([$mapPoint]);
+        $this->subject->setArguments(['mapPoints' => [$mapPoint]]);
+
+        $this->subject->render();
 
         self::assertNotContains(
             'new google.maps.InfoWindow',

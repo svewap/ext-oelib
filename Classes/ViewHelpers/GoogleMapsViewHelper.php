@@ -7,28 +7,41 @@ namespace OliverKlee\Oelib\ViewHelpers;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Interfaces\Identity;
 use OliverKlee\Oelib\Interfaces\MapPoint;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * This ViewHelper creates a Google Map with markers/points on it.
  *
- * In the generated JavaScript, the markers will also be accessible via the map
- * ID and the marker's UID (if the markers implement IdentityInterface)
- * like this:
+ * Arguments:
  *
- * mapMarkersByUid.tx_oelib_map_1[42]
+ * - `MapPoint[] mapPoints` the points to render, may be empty
+ * - `string width` the CSS width of the Map element, e.g., "600px" or "100%", must be a non-empty valid CSS length
+ * - `string height` the CSS height of the Map element, e.g., "400px" or "60%", must be a non-empty valid CSS length
  *
- * "tx_oelib_map_1" is the map ID which can be retrieved with the function
- * getMapId.
+ * In the generated JavaScript, the markers will also be accessible via the map ID and the marker's UID
+ * (if the markers implement IdentityInterface) like this:
+ *
+ * `mapMarkersByUid.tx_oelib_map_1[42]`
+ *
+ * `tx_oelib_map_1` is the map ID which can be retrieved with the function getMapId.
  *
  * 42 is the UID of the corresponding map point.
  */
 class GoogleMapsViewHelper extends AbstractViewHelper
 {
     /**
-     * array key in $GLOBALS['TSFE']->additionalHeaderData for the Google Maps
-     * JavaScript library
+     * @var string
+     */
+    private const DEFAULT_WIDTH = '600px';
+
+    /**
+     * @var string
+     */
+    private const DEFAULT_HEIGHT = '400px';
+
+    /**
+     * array key in `$GLOBALS['TSFE']->additionalHeaderData` for the Google Maps JavaScript library
      *
      * @var string
      */
@@ -73,24 +86,17 @@ class GoogleMapsViewHelper extends AbstractViewHelper
     protected $mapNumber = 0;
 
     /**
-     * Renders a Google Map with $mapPoints on it and sets the corresponding
-     * HTML HEAD data.
+     * Renders a Google Map with $mapPoints on it and sets the corresponding HTML HEAD data.
      *
-     * @param MapPoint[] $mapPoints
-     *        the points to render, may be empty
-     * @param string $width
-     *        the CSS width of the Map element, e.g., "600px" or "100%",
-     *        must be a non-empty valid CSS length
-     * @param string $height
-     *        the CSS height of the Map element, e.g., "400px" or "60%",
-     *        must be a non-empty valid CSS length
-     *
-     * @return string
-     *         HTML for the Google Map, will be empty if there are no map points
-     *         with coordinates
+     * @return string HTML for the Google Map, will be empty if there are no map points with coordinates
      */
-    public function render(array $mapPoints = [], string $width = '600px', string $height = '400px'): string
+    public function render(): string
     {
+        /** @var array{mapPoints: MapPoint[]|null, width: ?string, height: ?string} $arguments */
+        $arguments = $this->arguments;
+        $mapPoints = (array)$arguments['mapPoints'];
+        $width = (string)($arguments['width'] ?? self::DEFAULT_WIDTH);
+        $height = (string)($arguments['height'] ?? self::DEFAULT_HEIGHT);
         if (!\preg_match('/^\\d+(px|%)$/', $width)) {
             throw new \InvalidArgumentException(
                 '$width must be a valid CSS length, but actually is: ' . $width,
@@ -103,23 +109,18 @@ class GoogleMapsViewHelper extends AbstractViewHelper
                 1319058966
             );
         }
-
         $mapPointsWithCoordinates = $this->findMapPointsWithCoordinates($mapPoints);
         if (empty($mapPointsWithCoordinates)) {
             return '';
         }
-
         self::$mapCounter++;
         $this->mapNumber = self::$mapCounter;
         $mapId = $this->getMapId();
-
         $apiKey = ConfigurationRegistry::get('plugin.tx_oelib')->getAsString('googleMapsApiKey');
-
         // pageRenderer->addJsLibrary() would not work here if this ViewHelper
         // is used in an uncached plugin on a cached page.
         $this->getFrontEndController()->additionalHeaderData[self::LIBRARY_JAVASCRIPT_HEADER_KEY]
             = '<script src="' . self::GOOGLE_MAPS_LIBRARY_URL . $apiKey . '></script>';
-
         $initializeFunctionName = 'initializeGoogleMap_' . $this->mapNumber;
         $this->getFrontEndController()->additionalJavaScript[$mapId]
             = $this->generateJavaScript($mapId, $mapPointsWithCoordinates, $initializeFunctionName);
@@ -134,13 +135,9 @@ class GoogleMapsViewHelper extends AbstractViewHelper
     /**
      * Generates the JavaScript for the Google Map.
      *
-     * @param string $mapId
-     *        HTML ID of the map, must not be empty
-     * @param MapPoint[] $mapPoints
-     *        map points with coordinates, must not be empty
-     * @param string $initializeFunctionName
-     *        name of the JavaScript initialization function to create, must
-     *        not be empty
+     * @param string $mapId HTML ID of the map, must not be empty
+     * @param MapPoint[] $mapPoints map points with coordinates, must not be empty
+     * @param string $initializeFunctionName name of the JavaScript initialization function to create, must not be empty
      *
      * @return string the generated JavaScript, will not be empty
      */
@@ -171,18 +168,16 @@ class GoogleMapsViewHelper extends AbstractViewHelper
     /**
      * Finds the map points within $mapPoints that have coordinates.
      *
-     * @param MapPoint[] $mapPoints
-     *        the points to check for coordinates, may be empty
+     * @param MapPoint[] $mapPoints the points to check for coordinates, may be empty
      *
-     * @return MapPoint[]
-     *         the map points from $mapPoints that have coordinates, might be empty
+     * @return array<int, MapPoint> the map points from $mapPoints that have coordinates, might be empty
      */
     protected function findMapPointsWithCoordinates(array $mapPoints): array
     {
         $mapPointsWithCoordinates = [];
 
         foreach ($mapPoints as $mapPoint) {
-            if (!($mapPoint instanceof MapPoint)) {
+            if (!$mapPoint instanceof MapPoint) {
                 throw new \InvalidArgumentException(
                     'All $mapPoints need to implement ' . MapPoint::class . ', but ' .
                     \get_class($mapPoint) . ' does not.',
@@ -200,14 +195,10 @@ class GoogleMapsViewHelper extends AbstractViewHelper
     /**
      * Creates the JavaScript code for creating map markers for $mapPoints.
      *
-     * @param MapPoint[] $mapPoints
-     *        the points to render, all must have geo coordinates, may be empty
-     * @param string $mapId
-     *        HTML ID of the map, must not be empty
+     * @param MapPoint[] $mapPoints the points to render, all must have geo coordinates, may be empty
+     * @param string $mapId HTML ID of the map, must not be empty
      *
-     * @return string
-     *         the JavaScript code to create all markers, will be empty if
-     *         $mapPoints is empty
+     * @return string the JavaScript code to create all markers, will be empty if `$mapPoints` is empty
      */
     protected function createMapMarkers(array $mapPoints, string $mapId): string
     {
@@ -260,16 +251,11 @@ class GoogleMapsViewHelper extends AbstractViewHelper
     /**
      * Creates the JavaScript for the info window of $mapPoint.
      *
-     * @param MapPoint $mapPoint
-     *        the map point for which to create the info window
-     * @param string $markerVariableName
-     *        valid name of the marker JavaScript variable, must not be empty
-     * @param int $index
-     *        the zero-based index of the map marker, must be >= 0
+     * @param MapPoint $mapPoint the map point for which to create the info window
+     * @param string $markerVariableName valid name of the marker JavaScript variable, must not be empty
+     * @param int $index the zero-based index of the map marker, must be >= 0
      *
-     * @return string
-     *         JavaScript code for the info window, will be empty if $mapPoint
-     *         does not have info window content
+     * @return string JavaScript code for the info window, will be empty if $mapPoint does not have info window content
      */
     protected function createInfoWindowJavaScript(
         MapPoint $mapPoint,
@@ -308,13 +294,16 @@ class GoogleMapsViewHelper extends AbstractViewHelper
         return self::MAP_HTML_ID_PREFIX . '_' . $this->mapNumber;
     }
 
-    /**
-     * Returns $GLOBALS['TSFE'].
-     *
-     * @return TypoScriptFrontendController
-     */
     protected function getFrontEndController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
+    }
+
+    public function initializeArguments(): void
+    {
+        parent::initializeArguments();
+        $this->registerArgument('mapPoints', 'array', '', false, []);
+        $this->registerArgument('width', 'string', '', false, '600px');
+        $this->registerArgument('height', 'string', '', false, '400px');
     }
 }
