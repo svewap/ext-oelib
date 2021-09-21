@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Language;
 
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
-use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * This class provides functions for localization.
