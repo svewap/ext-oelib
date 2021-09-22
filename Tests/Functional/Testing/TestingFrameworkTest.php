@@ -7,7 +7,6 @@ namespace OliverKlee\Oelib\Tests\Functional\Testing;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\Testing\TestingFramework;
-use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -2007,27 +2006,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function templateConfigIsReadableAsTsTemplate(): void
-    {
-        $pageId = $this->subject->createFrontEndPage();
-        $this->subject->createTemplate(
-            $pageId,
-            ['config' => 'plugin.tx_oelib.test = 42']
-        );
-        $configuration = (new TestingTemplateHelper([]))->retrievePageConfig($pageId);
-
-        self::assertTrue(
-            isset($configuration['test'])
-        );
-        self::assertSame(
-            '42',
-            $configuration['test']
-        );
-    }
-
-    /**
-     * @test
-     */
     public function templateInitiallyHasNoConstants(): void
     {
         $pageId = $this->subject->createFrontEndPage();
@@ -2062,30 +2040,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame(
             'plugin.tx_oelib.test = 1',
             $row['constants']
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function templateConstantsAreUsedInTsSetup(): void
-    {
-        $pageId = $this->subject->createFrontEndPage();
-        $this->subject->createTemplate(
-            $pageId,
-            [
-                'constants' => 'plugin.tx_oelib.test = 42',
-                'config' => 'plugin.tx_oelib.test = {$plugin.tx_oelib.test}',
-            ]
-        );
-        $configuration = (new TestingTemplateHelper([]))->retrievePageConfig($pageId);
-
-        self::assertTrue(
-            isset($configuration['test'])
-        );
-        self::assertSame(
-            '42',
-            $configuration['test']
         );
     }
 

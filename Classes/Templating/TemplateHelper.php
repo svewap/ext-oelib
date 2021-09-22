@@ -6,13 +6,9 @@ namespace OliverKlee\Oelib\Templating;
 
 use OliverKlee\Oelib\Configuration\ConfigurationCheck;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
-use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Language\SalutationSwitcher;
-use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
-use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -109,46 +105,6 @@ class TemplateHelper extends SalutationSwitcher
         $this->isInitialized = true;
     }
 
-    /**
-     * @deprecated will be removed in oelib 4.0
-     */
-    protected function initializeConfiguration(): void
-    {
-        // Note: Starting from TYPO3 8.7, `$this->conf` always in an array.
-        // So this method now is a no-op.
-        if (\is_array($this->conf)) {
-            return;
-        }
-
-        $frontEndController = $this->getFrontEndController();
-        if (
-            $frontEndController instanceof TypoScriptFrontendController
-            && !isset($frontEndController->config['config'])
-        ) {
-            $frontEndController->config['config'] = [];
-        }
-
-        $pageUid = $this->getCurrentBePageId();
-        if ($pageUid === 0) {
-            $this->conf = [];
-        } elseif (isset(self::$cachedConfigurations[$pageUid])) {
-            $this->conf = self::$cachedConfigurations[$pageUid];
-        } else {
-            // We need to create our own template setup if we are in the
-            // BE and we aren't currently creating a DirectMail page.
-            // @phpstan-ignore-next-line PHPStan does not know about TYPO3_MODE.
-            if (TYPO3_MODE === 'BE' && !$frontEndController instanceof TypoScriptFrontendController) {
-                $this->conf = $this->retrievePageConfig($pageUid);
-            } else {
-                // On the front end, we can use the provided template setup.
-                $this->conf = $this->extKey !== ''
-                    ? $frontEndController->tmpl->setup['plugin.']['tx_' . $this->extKey . '.'] : [];
-            }
-
-            self::$cachedConfigurations[$pageUid] = $this->conf;
-        }
-    }
-
     protected function initializeConfigurationCheck(): void
     {
         if ($this->configurationCheck instanceof ConfigurationCheck || !$this->isConfigurationCheckEnabled()) {
@@ -231,44 +187,6 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * Retrieves the configuration (TypoScript setup) of the page with the PID provided
-     * as the parameter $pageId.
-     *
-     * Only the configuration for the current extension key will be retrieved.
-     * For example, if the extension key is "foo", the TypoScript setup for plugin.
-     * tx_foo will be retrieved.
-     *
-     * @param int $pageId UID of the page for which the configuration should be retrieved, must be > 0
-     *
-     * @return array configuration array of the requested page for the current extension key
-     *
-     * @deprecated will be removed in oelib 4.0
-     */
-    protected function retrievePageConfig(int $pageId): array
-    {
-        /** @var TemplateService $template */
-        $template = GeneralUtility::makeInstance(TemplateService::class);
-        // Disables the logging of time-performance information.
-        $template->tt_track = false;
-
-        // Gets the root line.
-        // Finds the selected page in the BE exactly as in BaseScriptClass::init().
-        /** @var RootlineUtility $rootLineUtility */
-        $rootLineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageId);
-        try {
-            $rootLine = $rootLineUtility->get();
-        } catch (PageNotFoundException $e) {
-            $rootLine = [];
-        }
-
-        // Generates the constants/config and hierarchy info for the template.
-        $template->runThroughTemplates($rootLine);
-        $template->generateConfig();
-
-        return $template->setup['plugin.']['tx_' . $this->extKey . '.'] ?? [];
-    }
-
-    /**
      * Gets a value from flexforms or TypoScript setup.
      * The priority lies on flexforms; if nothing is found there, the value
      * from TypoScript setup is returned. If there is no field with that name in TypoScript setup,
@@ -289,8 +207,6 @@ class TemplateHelper extends SalutationSwitcher
         bool $isFileName = false,
         bool $ignoreFlexform = false
     ): string {
-        $this->initializeConfiguration();
-
         $flexFormsData = $this->cObj->data['pi_flexform'] ?? null;
         if (!$ignoreFlexform && \is_array($flexFormsData)) {
             $flexFormsValue = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $fieldName, $sheet);
@@ -452,7 +368,6 @@ class TemplateHelper extends SalutationSwitcher
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty', 1331489491);
         }
-        $this->initializeConfiguration();
 
         $this->conf[$key] = $value;
     }
@@ -464,8 +379,6 @@ class TemplateHelper extends SalutationSwitcher
      */
     public function getConfiguration(): array
     {
-        $this->initializeConfiguration();
-
         return $this->conf;
     }
 
@@ -1230,17 +1143,5 @@ class TemplateHelper extends SalutationSwitcher
         }
 
         return $this->configurationCheck->getWrappedMessage();
-    }
-
-    /**
-     * Gets the UID of the currently selected back-end page.
-     *
-     * @return int the current back-end page UID (or 0 if there is an error)
-     *
-     * @deprecated will be removed in oelib 4.0
-     */
-    public function getCurrentBePageId(): int
-    {
-        return PageFinder::getInstance()->getPageUid();
     }
 }

@@ -162,17 +162,4 @@ class TemplateHelperTest extends FunctionalTestCase
             $this->subject->getWrappedConfigCheckMessage()
         );
     }
-
-    // Tests concerning TypoScript templates.
-
-    /**
-     * @test
-     */
-    public function pageSetupInitiallyIsEmpty(): void
-    {
-        self::assertSame(
-            [],
-            $this->subject->retrievePageConfig(1)
-        );
-    }
 }

@@ -42,24 +42,6 @@ final class TestingTemplateHelper extends TemplateHelper
     }
 
     /**
-     * Retrieves the configuration (TypoScript setup) of the page with the PID provided as the parameter $pageId.
-     *
-     * Only the configuration for the current extension key will be retrieved.
-     * For example, if the extension key is "foo", the TypoScript setup for `plugin.tx_foo` will be retrieved.
-     *
-     * @param int $pageId
-     *        page ID of the page for which the configuration should be retrieved, must be > 0
-     *
-     * @return array configuration array of the requested page for the current extension key
-     *
-     * @deprecated will be removed in oelib 4.0
-     */
-    public function retrievePageConfig(int $pageId): array
-    {
-        return parent::retrievePageConfig($pageId);
-    }
-
-    /**
      * Intvals all piVars that are supposed to be integers:
      * showUid, pointer, mode
      *
