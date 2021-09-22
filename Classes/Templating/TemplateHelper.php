@@ -10,7 +10,6 @@ use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Language\SalutationSwitcher;
 use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
-use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
@@ -50,11 +49,10 @@ class TemplateHelper extends SalutationSwitcher
      *
      * @var ContentObjectRenderer|null
      */
-    public $cObj;
+    public $cObj = null;
 
     /**
-     * @var bool whether init() already has been called (in order to
-     *              avoid double calls)
+     * @var bool whether `init()` already has been called (in order to avoid duplicate calls)
      */
     protected $isInitialized = false;
 
@@ -88,23 +86,20 @@ class TemplateHelper extends SalutationSwitcher
      *
      * This is merely a convenience function.
      *
-     * If the parameter is omitted, the configuration for plugin.tx_[extkey] is
-     * used instead, e.g. plugin.tx_seminars.
+     * If the parameter is omitted, the configuration for `plugin.tx_[extkey]` is
+     * used instead, e.g., `plugin.tx_seminars`.
      *
-     * @param array|null $configuration TypoScript configuration for the plugin, set to null to load the configuration
-     *     from a BE page
+     * @param mixed $configuration TypoScript configuration for the plugin (usually an array)
      */
     public function init($configuration = null): void
     {
         if ($this->isInitialized) {
             return;
         }
-        if (!$this->templateService instanceof MarkerBasedTemplateService) {
-            // Calls the base class's constructor manually as this isn't done automatically.
-            parent::__construct();
-        }
 
-        $this->conf = $configuration;
+        if (\is_array($configuration)) {
+            $this->conf = $configuration;
+        }
         $this->ensureContentObject();
 
         if ($this->extKey !== '' && !empty($this->conf)) {
