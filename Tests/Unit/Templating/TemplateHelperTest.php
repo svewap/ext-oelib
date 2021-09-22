@@ -7,7 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Templating;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationCheck;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
-use OliverKlee\Oelib\Templating\TemplateHelper;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\PluginWithCustomConfigurationCheck;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingConfigurationCheck;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
@@ -64,7 +63,6 @@ class TemplateHelperTest extends UnitTestCase
     {
         GeneralUtility::purgeInstances();
         ConfigurationProxy::purgeInstances();
-        TemplateHelper::purgeCachedConfigurations();
         parent::tearDown();
     }
 
@@ -211,39 +209,7 @@ class TemplateHelperTest extends UnitTestCase
         );
     }
 
-    ////////////////////////////////////////////////////////
     // Tests for setting and reading configuration values.
-    ////////////////////////////////////////////////////////
-
-    /**
-     * @test
-     */
-    public function setCachedConfigurationValueCreatesConfigurationForNewInstance(): void
-    {
-        TemplateHelper::setCachedConfigurationValue('foo', 'bar');
-
-        $subject = new TemplateHelper();
-        $subject->init();
-
-        self::assertSame(
-            'bar',
-            $subject->getConfValueString('foo')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function purgeCachedConfigurationsDropsCachedConfiguration(): void
-    {
-        TemplateHelper::setCachedConfigurationValue('foo', 'bar');
-        TemplateHelper::purgeCachedConfigurations();
-
-        $subject = new TemplateHelper();
-        $subject->init([]);
-
-        self::assertSame('', $subject->getConfValueString('foo'));
-    }
 
     /**
      * @test

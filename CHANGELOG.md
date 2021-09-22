@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Deprecate the `ReadOnlyRepository` trait (#729)
 
 ### Removed
+- Drop `TemplateHelper::setCachedConfigurationValue()` (#741)
 - Drop the use of removed Core functionality (#735, #736)
 - Drop support for `$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']` (#728)
 - Drop the deprecated email-related classes (#694)

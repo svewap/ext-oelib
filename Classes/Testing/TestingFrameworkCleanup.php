@@ -13,7 +13,6 @@ use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
 use OliverKlee\Oelib\Http\HeaderProxyFactory;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Session\Session;
-use OliverKlee\Oelib\Templating\TemplateHelper;
 
 /**
  * This class takes care of cleaning up oelib after the testing framework.
@@ -34,6 +33,5 @@ class TestingFrameworkCleanup
         MapperRegistry::purgeInstance();
         PageFinder::purgeInstance();
         Session::purgeInstances();
-        TemplateHelper::purgeCachedConfigurations();
     }
 }
