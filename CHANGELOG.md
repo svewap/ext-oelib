@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add Rector to the toolchain (#720, #722, #724)
 
 ### Changed
+- Improve the styling of the config check warnings (#752)
 - Use PHP 7.2 features and more type declarations (#721, #723, #730, #731)
 - Upgrade to PHP-CS-Fixer V3 (#639)
 - Make the testing framework classes final (#702)

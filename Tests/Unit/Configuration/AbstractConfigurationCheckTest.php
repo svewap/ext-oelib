@@ -119,7 +119,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $subject->generateWarningWithText($warningText);
 
         $warnings = $subject->getWarningsAsHtml();
-        self::assertStringContainsString('<div lang="en" class="alert alert-dark" role="alert">', $warnings[0]);
+        self::assertStringContainsString('<div lang="en" class="alert alert-warning mt-3" role="alert">', $warnings[0]);
     }
 
     /**

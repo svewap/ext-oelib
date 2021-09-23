@@ -119,7 +119,8 @@ abstract class AbstractConfigurationCheck
      */
     protected function addWarning(string $rawWarningText): void
     {
-        $this->warnings[] = '<div lang="en" class="alert alert-dark" role="alert">' . $rawWarningText . '</div>';
+        $this->warnings[]
+            = '<div lang="en" class="alert alert-warning mt-3" role="alert">' . $rawWarningText . '</div>';
     }
 
     /**
