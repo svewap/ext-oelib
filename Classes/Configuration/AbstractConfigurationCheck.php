@@ -151,14 +151,14 @@ abstract class AbstractConfigurationCheck
      */
     protected function buildWarningStartWithKeyAndValue(string $key, $value): string
     {
-        return $this->buildWarningStartWithKey($key) . 'is set to the value &quot;<strong>' .
+        return $this->buildWarningStartWithKey($key) . 'contains the value &quot;<strong>' .
             $this->encode((string)$value) . '</strong>&quot;, but only ';
     }
 
     /**
      * Retrieves the column names of a given DB table name.
      *
-     * @param string $tableName the name of a existing DB table (must not be empty, must exist)
+     * @param string $tableName the name of an existing DB table (must not be empty, must exist)
      *
      * @return string[] column names as values
      */
@@ -407,9 +407,9 @@ abstract class AbstractConfigurationCheck
 
         $values = GeneralUtility::trimExplode(',', $this->configuration->getAsString($key), true);
 
-        foreach ($values as $currentValue) {
-            if (!\in_array($currentValue, $allowedValues, true)) {
-                $message = $this->buildWarningStartWithKey($key) .
+        foreach ($values as $value) {
+            if (!\in_array($value, $allowedValues, true)) {
+                $message = $this->buildWarningStartWithKeyAndValue($key, $value) .
                     'the following values are allowed: <br/><strong>' . $this->buildValueOverview($allowedValues) .
                     '</strong><br />' .
                     $explanation;

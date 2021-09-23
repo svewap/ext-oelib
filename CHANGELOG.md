@@ -36,6 +36,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for PHP 7.0 and 7.1 (#690)
 
 ### Fixed
+- Always display the incorrect value in the configuration check (#751)
 - Fix the `TemplateHelper` initialization (#740)
 - Allow `DateTimeImmutable` as change and creation date (#734)
 - Update the usage of the Fluid view helper classes (#732)
