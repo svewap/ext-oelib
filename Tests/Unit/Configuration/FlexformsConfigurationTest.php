@@ -15,24 +15,31 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 final class FlexformsConfigurationTest extends UnitTestCase
 {
-    private function buildContentObjectWithFlexformsData(string $key, string $value): ContentObjectRenderer
+    private function buildContentObjectWithXmlFlexformsData(string $key, string $value): ContentObjectRenderer
     {
         $flexformsXml = '<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-                             <T3FlexForms>
-                                 <data>
-                                     <sheet index="sDEF">
-                                         <language index="lDEF">
-                                             <field index="' . $key . '">
-                                                 <value index="vDEF">' . $value . '</value>
-                                             </field>
-                                         </language>
-                                     </sheet>
-                                 </data>
-                             </T3FlexForms>';
-        $data = ['pi_flexform' => $flexformsXml];
+                         <T3FlexForms>
+                             <data>
+                                 <sheet index="sDEF">
+                                     <language index="lDEF">
+                                         <field index="' . $key . '">
+                                             <value index="vDEF">' . $value . '</value>
+                                         </field>
+                                     </language>
+                                 </sheet>
+                             </data>
+                         </T3FlexForms>';
 
         $contentObject = new ContentObjectRenderer();
-        $contentObject->data = $data;
+        $contentObject->data = ['pi_flexform' => $flexformsXml];
+
+        return $contentObject;
+    }
+
+    private function buildContentObjectWithArrayFlexformsData(array $data): ContentObjectRenderer
+    {
+        $contentObject = new ContentObjectRenderer();
+        $contentObject->data = ['pi_flexform' => $data];
 
         return $contentObject;
     }
@@ -58,7 +65,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array<array<string, string|null>>>
+     * @return array<string, array<array<string, string|array|null>>>
      */
     public function noFlexformsDataDataProvider(): array
     {
@@ -70,6 +77,18 @@ final class FlexformsConfigurationTest extends UnitTestCase
             'non-flexforms XML string' => [
                 ['pi_flexform' => '<?xml version="1.0" encoding="utf-8" standalone="yes" ?><html></html>'],
             ],
+            'empty array' => [['pi_flexform' => []]],
+            'empty data array (without any sheets)' => [['pi_flexform' => ['data' => []]]],
+            'data array, empty sDEF sheet' => [['pi_flexform' => ['data' => ['sDEF' => []]]]],
+            'data array, sDEF sheet, empty language' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['de' => []]]]],
+            ],
+            'data array, sDEF sheet, language, empty key contents' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['de' => ['flavor' => []]]]]],
+            ],
+            'data array, sDEF sheet, language, key, empty vDEF' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['de' => ['flavor' => ['vDEF' => '']]]]]],
+            ],
         ];
     }
 
@@ -77,7 +96,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
      * @test
      * @dataProvider noFlexformsDataDataProvider
      *
-     * @param array<array<string, string|null>> $contentObjectData
+     * @param array<array<string, string|array|null>> $contentObjectData
      */
     public function getAsStringForNoFlexformsDataReturnsEmptyString(array $contentObjectData): void
     {
@@ -257,35 +276,146 @@ final class FlexformsConfigurationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAsStringForExistingNonEmptyFieldReturnsValueFromField(): void
+    public function getAsStringForExistingNonEmptyFieldInXmlReturnsValueFromField(): void
     {
         $key = 'flavor';
         $value = 'hazelnut';
-        $subject = new FlexformsConfiguration($this->buildContentObjectWithFlexformsData($key, $value));
+        $subject = new FlexformsConfiguration($this->buildContentObjectWithXmlFlexformsData($key, $value));
 
         self::assertSame($value, $subject->getAsString($key));
     }
 
     /**
-     * @test
+     * @return array<string, array>>
      */
-    public function getAsIntegerForExistingNonEmptyFieldReturnsValueFromField(): void
+    public function stringValueInArrayDataProvider(): array
     {
-        $key = 'size';
-        $value = 4;
-        $subject = new FlexformsConfiguration($this->buildContentObjectWithFlexformsData($key, (string)$value));
+        return [
+            'default array key names' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['de' => ['catName' => ['vDEF' => 'Clyde']]]]]],
+            ],
+            'missing sheet level' => [
+                ['pi_flexform' => ['data' => ['de' => ['catName' => ['vDEF' => 'Clyde']]]]],
+            ],
+            'different sheet name' => [
+                ['pi_flexform' => ['data' => ['general' => ['de' => ['catName' => ['vDEF' => 'Clyde']]]]]],
+            ],
+            'different language' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['en' => ['catName' => ['vDEF' => 'Clyde']]]]]],
+            ],
+            'different field key' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['de' => ['catName' => ['contents' => 'Clyde']]]]]],
+            ],
+        ];
+    }
 
-        self::assertSame($value, $subject->getAsInteger($key));
+    /**
+     * @test
+     * @dataProvider stringValueInArrayDataProvider
+     */
+    public function getAsStringForExistingNonEmptyFieldInArrayReturnsValueFromField(array $data): void
+    {
+        $subject = new FlexformsConfiguration($this->buildContentObjectWithArrayFlexformsData($data));
+
+        self::assertSame('Clyde', $subject->getAsString('catName'));
     }
 
     /**
      * @test
      */
-    public function getAsBooleanForExistingNonEmptyFieldReturnsValueFromField(): void
+    public function getAsIntegerForExistingNonEmptyFieldInXmlReturnsValueFromField(): void
+    {
+        $key = 'size';
+        $value = 4;
+        $subject = new FlexformsConfiguration($this->buildContentObjectWithXmlFlexformsData($key, (string)$value));
+
+        self::assertSame($value, $subject->getAsInteger($key));
+    }
+
+    /**
+     * @return array<string, array>>
+     */
+    public function integerValueInArrayDataProvider(): array
+    {
+        return [
+            'default array key names with string' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['de' => ['numberOfCats' => ['vDEF' => '17']]]]]],
+            ],
+            'default array key names with int' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['de' => ['numberOfCats' => ['vDEF' => 17]]]]]],
+            ],
+            'missing sheet level' => [
+                ['pi_flexform' => ['data' => ['de' => ['numberOfCats' => ['vDEF' => '17']]]]],
+            ],
+            'different sheet name' => [
+                ['pi_flexform' => ['data' => ['general' => ['de' => ['numberOfCats' => ['vDEF' => '17']]]]]],
+            ],
+            'different language' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['en' => ['numberOfCats' => ['vDEF' => '17']]]]]],
+            ],
+            'different field key' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['de' => ['numberOfCats' => ['contents' => '17']]]]]],
+            ],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider integerValueInArrayDataProvider
+     */
+    public function getAsIntegerForExistingNonEmptyFieldInArrayReturnsValueFromField(array $data): void
+    {
+        $subject = new FlexformsConfiguration($this->buildContentObjectWithArrayFlexformsData($data));
+
+        self::assertSame(17, $subject->getAsInteger('numberOfCats'));
+    }
+
+    /**
+     * @test
+     */
+    public function getAsBooleanForExistingNonEmptyFieldInXmlReturnsValueFromField(): void
     {
         $key = 'hasCats';
-        $subject = new FlexformsConfiguration($this->buildContentObjectWithFlexformsData($key, '1'));
+        $subject = new FlexformsConfiguration($this->buildContentObjectWithXmlFlexformsData($key, '1'));
 
         self::assertTrue($subject->getAsBoolean($key));
+    }
+
+    /**
+     * @return array<string, array>>
+     */
+    public function booleanValueInArrayDataProvider(): array
+    {
+        return [
+            'default array key names with string' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['de' => ['hasCats' => ['vDEF' => '1']]]]]],
+            ],
+            'default array key names with int' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['de' => ['hasCats' => ['vDEF' => 1]]]]]],
+            ],
+            'missing sheet level' => [
+                ['pi_flexform' => ['data' => ['de' => ['hasCats' => ['vDEF' => '1']]]]],
+            ],
+            'different sheet name' => [
+                ['pi_flexform' => ['data' => ['general' => ['de' => ['hasCats' => ['vDEF' => '1']]]]]],
+            ],
+            'different language' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['en' => ['hasCats' => ['vDEF' => '1']]]]]],
+            ],
+            'different field key' => [
+                ['pi_flexform' => ['data' => ['sDEF' => ['de' => ['hasCats' => ['contents' => '1']]]]]],
+            ],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider booleanValueInArrayDataProvider
+     */
+    public function getAsBooleanForExistingNonEmptyFieldInArrayReturnsValueFromField(array $data): void
+    {
+        $subject = new FlexformsConfiguration($this->buildContentObjectWithArrayFlexformsData($data));
+
+        self::assertTrue($subject->getAsBoolean('hasCats'));
     }
 }
