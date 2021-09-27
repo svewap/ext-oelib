@@ -21,6 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Deprecate the `ReadOnlyRepository` trait (#729)
 
 ### Removed
+- Drop `AccessDeniedException` (#759)
 - Drop the legacy configuration check (#758)
 - Drop deprecated methods from `TemplateHelper` (#741, #742)
 - Drop the use of removed Core functionality (#735, #736)
