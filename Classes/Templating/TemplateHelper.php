@@ -802,24 +802,6 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * Includes a link to the JavaScript file configured as "jsFile" and adds it
-     * to the automatic page header with $this->prefixId.'_js' as the array key.
-     *
-     * If no file is specified, no link is created.
-     *
-     * This function may only be called if $this->$prefixId has been set.
-     *
-     * @deprecated will be removed in oelib 4.0
-     */
-    public function addJavaScriptToPageHeader(): void
-    {
-        if ($this->hasConfValueString('jsFile', 's_template_special')) {
-            $this->getFrontEndController()->additionalHeaderData[$this->prefixId . '_js']
-                = '<script src="' . $this->getConfValueString('jsFile', 's_template_special', true) . '"></script>';
-        }
-    }
-
-    /**
      * Resets the list of subparts to hide.
      */
     public function resetSubpartsHiding(): void
