@@ -278,14 +278,6 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
-     * @deprecated will be removed in oelib 4.0; use checkIfNonNegativeIntegerOrEmpty instead.
-     */
-    protected function checkIfInteger(string $key, string $explanation): bool
-    {
-        return $this->checkIfNonNegativeIntegerOrEmpty($key, $explanation);
-    }
-
-    /**
      * Checks whether a configuration value has a non-negative integer value (or is empty).
      */
     protected function checkIfNonNegativeIntegerOrEmpty(string $key, string $explanation): bool
@@ -373,14 +365,6 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
-     * @deprecated will be removed in oelib 4.0; use checkIfNonNegativeInteger instead.
-     */
-    protected function checkIfPositiveIntegerOrZero(string $key, string $explanation): bool
-    {
-        return $this->checkIfNonNegativeInteger($key, $explanation);
-    }
-
-    /**
      * Checks whether a configuration value is non-empty
      * and its comma-separated values lie within a set of allowed values.
      *
@@ -459,50 +443,6 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value is non-empty
-     * and is one of the column names of a given DB table.
-     *
-     * @deprecated Will be removed in oelib 4.0. Use checkIfSingleInTableColumnsNotEmpty instead.
-     */
-    public function checkIfSingleInTableNotEmpty(string $key, string $explanation, string $tableName): bool
-    {
-        return $this->checkIfSingleInTableColumnsNotEmpty($key, $explanation, $tableName);
-    }
-
-    /**
-     * Checks whether a configuration value either is empty
-     * or is one of the column names of a given DB table.
-     *
-     * @deprecated Will be removed in oelib 4.0. Use checkIfSingleInTableColumnsOrEmpty instead.
-     */
-    protected function checkIfSingleInTableOrEmpty(string $key, string $explanation, string $tableName): bool
-    {
-        return $this->checkIfSingleInTableColumnsOrEmpty($key, $explanation, $tableName);
-    }
-
-    /**
-     * Checks whether a configuration value is non-empty
-     * and its comma-separated values is a column name of a given DB table.
-     *
-     * @deprecated Will be removed in oelib 4.0. Use checkIfMultiInTableColumnsNotEmpty instead.
-     */
-    protected function checkIfMultiInTableNotEmpty(string $key, string $explanation, string $tableName): bool
-    {
-        return $this->checkIfMultiInTableColumnsNotEmpty($key, $explanation, $tableName);
-    }
-
-    /**
-     * Checks whether a configuration value either is empty
-     * or its comma-separated values is a column name of a given DB table.
-     *
-     * @deprecated Will be removed in oelib 4.0. Use checkIfMultiInTableColumnsOrEmpty instead.
-     */
-    protected function checkIfMultiInTableOrEmpty(string $key, string $explanation, string $tableName): bool
-    {
-        return $this->checkIfMultiInTableColumnsOrEmpty($key, $explanation, $tableName);
-    }
-
-    /**
      * Checks whether the salutation mode is set correctly.
      */
     protected function checkSalutationMode(): bool
@@ -542,82 +482,12 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value either is empty or contains a comma-separated list of integers.
-     *
-     * @deprecated Will be removed in oelib 4.0. Use checkIfIntegerListOrEmpty instead.
-     */
-    protected function checkIfPidListOrEmpty(string $key, string $explanation): bool
-    {
-        return $this->checkIfIntegerListOrEmpty($key, $explanation);
-    }
-
-    /**
      * Checks whether a configuration value is non-empty and contains a comma-separated list of integers.
      */
     protected function checkIfIntegerListNotEmpty(string $key, string $explanation): bool
     {
         return $this->checkForNonEmptyString($key, $explanation)
             && $this->checkIfIntegerListOrEmpty($key, $explanation);
-    }
-
-    /**
-     * Checks whether a configuration value is non-empty and contains a comma-separated list of integers.
-     *
-     * @deprecated Will be removed in oelib 4.0. Use checkIfIntegerListNotEmpty instead.
-     */
-    protected function checkIfPidListNotEmpty(string $key, string $explanation): bool
-    {
-        return $this->checkIfIntegerListNotEmpty($key, $explanation);
-    }
-
-    /**
-     * Checks whether a configuration value is non-empty and contains a comma-separated list of front-end PIDs.
-     *
-     * @deprecated Will be removed in oelib 4.0. Use checkIfIntegerListNotEmpty instead.
-     */
-    protected function checkIfFePagesNotEmpty(string $key, string $explanation): bool
-    {
-        return $this->checkIfIntegerListNotEmpty($key, $explanation);
-    }
-
-    /**
-     * Checks whether a configuration value is non-empty and contains a single front-end PID.
-     *
-     * @deprecated Will be removed in oelib 4.0. Use checkIfPositiveInteger instead.
-     */
-    protected function checkIfSingleFePageNotEmpty(string $key, string $explanation): bool
-    {
-        return $this->checkIfPositiveInteger($key, $explanation);
-    }
-
-    /**
-     * Checks whether a configuration value is non-empty and contains a single front-end PID.
-     *
-     * @deprecated Will be removed in oelib 4.0. Use checkIfNonNegativeIntegerOrEmpty instead.
-     */
-    protected function checkIfSingleFePageOrEmpty(string $key, string $explanation): bool
-    {
-        return $this->checkIfNonNegativeIntegerOrEmpty($key, $explanation);
-    }
-
-    /**
-     * Checks whether a configuration value is non-empty and contains a comma-separated list of system folder PIDs.
-     *
-     * @deprecated Will be removed in oelib 4.0. Use checkIfIntegerListNotEmpty instead.
-     */
-    protected function checkIfSysFoldersNotEmpty(string $key, string $explanation): bool
-    {
-        return $this->checkIfIntegerListNotEmpty($key, $explanation);
-    }
-
-    /**
-     * Checks whether a configuration value is non-empty and contains a single system folder PID.
-     *
-     * @deprecated Will be removed in oelib 4.0. Use checkIfPositiveInteger instead.
-     */
-    protected function checkIfSingleSysFolderNotEmpty(string $key, string $explanation): bool
-    {
-        return $this->checkIfPositiveInteger($key, $explanation);
     }
 
     /**
