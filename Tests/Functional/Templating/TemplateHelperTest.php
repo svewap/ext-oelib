@@ -6,11 +6,15 @@ namespace OliverKlee\Oelib\Tests\Functional\Templating;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
+use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
+/**
+ * @covers \OliverKlee\Oelib\Templating\TemplateHelper
+ */
 class TemplateHelperTest extends FunctionalTestCase
 {
     /**
@@ -21,7 +25,7 @@ class TemplateHelperTest extends FunctionalTestCase
     /**
      * @var TestingTemplateHelper
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {
@@ -52,29 +56,18 @@ class TemplateHelperTest extends FunctionalTestCase
             '',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
      * @test
      */
-    public function notExistingSubpartName(): void
+    public function getSubpartWithNotExistingSubpartNameThrowsException(): void
     {
-        self::assertSame(
-            '',
-            $this->subject->getSubpart('FOOBAR')
-        );
-        self::assertStringContainsString(
-            'The subpart',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
-        self::assertStringContainsString(
-            'is missing',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('$key contained the subpart name "FOOBAR"');
+        $this->expectExceptionCode(1632760625);
+
+        $this->subject->getSubpart('FOOBAR');
     }
 
     /**
@@ -89,10 +82,6 @@ class TemplateHelperTest extends FunctionalTestCase
         self::assertSame(
             $templateCode,
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -113,10 +102,6 @@ class TemplateHelperTest extends FunctionalTestCase
             'foo',
             $this->subject->getSubpart('MY_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     ///////////////////////////////////////////////////
@@ -126,21 +111,19 @@ class TemplateHelperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function subpartWithLowercaseNameIsIgnoredWithUsingLowercase(): void
+    public function getSubpartWithLowercaseNameIsIgnoredWithUsingLowercase(): void
     {
         $this->subject->processTemplate(
             '<!-- ###my_subpart### -->'
             . 'Some text.'
             . '<!-- ###my_subpart### -->'
         );
-        self::assertSame(
-            '',
-            $this->subject->getSubpart('my_subpart')
-        );
-        self::assertNotSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
+
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('$key contained the subpart name "my_subpart"');
+        $this->expectExceptionCode(1632760625);
+
+        $this->subject->getSubpart('my_subpart');
     }
 
     /**
@@ -153,13 +136,11 @@ class TemplateHelperTest extends FunctionalTestCase
             . 'Some text.'
             . '<!-- ###my_subpart### -->'
         );
-        self::assertSame(
-            '',
-            $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertNotSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
+
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('$key contained the subpart name "MY_SUBPART"');
+        $this->expectExceptionCode(1632760625);
+
+        $this->subject->getSubpart('MY_SUBPART');
     }
 }

@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Templating;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use OliverKlee\Oelib\Configuration\ConfigurationCheck;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
-use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\PluginWithCustomConfigurationCheck;
-use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingConfigurationCheck;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
-use Prophecy\Prophecy\ObjectProphecy;
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
@@ -18,22 +14,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
+/**
+ * @covers \OliverKlee\Oelib\Templating\TemplateHelper
+ */
 class TemplateHelperTest extends UnitTestCase
 {
     /**
      * @var TestingTemplateHelper
      */
-    private $subject = null;
-
-    /**
-     * @var ObjectProphecy
-     */
-    private $defaultConfigurationCheckProphecy = null;
-
-    /**
-     * @var ObjectProphecy
-     */
-    private $customConfigurationCheckProphecy = null;
+    private $subject;
 
     protected function setUp(): void
     {
@@ -46,84 +35,13 @@ class TemplateHelperTest extends UnitTestCase
         $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
         $GLOBALS['TSFE'] = $frontEndController;
 
-        $this->customConfigurationCheckProphecy = $this->prophesize(TestingConfigurationCheck::class);
-        /** @var TestingConfigurationCheck&ProphecySubjectInterface $customConfigurationCheck */
-        $customConfigurationCheck = $this->customConfigurationCheckProphecy->reveal();
-        GeneralUtility::addInstance(TestingConfigurationCheck::class, $customConfigurationCheck);
-
-        $this->defaultConfigurationCheckProphecy = $this->prophesize(ConfigurationCheck::class);
-        /** @var ConfigurationCheck&ProphecySubjectInterface $defaultConfigurationCheck */
-        $defaultConfigurationCheck = $this->defaultConfigurationCheckProphecy->reveal();
-        GeneralUtility::addInstance(ConfigurationCheck::class, $defaultConfigurationCheck);
-
         $this->subject = new TestingTemplateHelper([]);
     }
 
     protected function tearDown(): void
     {
-        GeneralUtility::purgeInstances();
         ConfigurationProxy::purgeInstances();
         parent::tearDown();
-    }
-
-    /**
-     * @test
-     */
-    public function defaultConfigurationCheckCanBeUsed(): void
-    {
-        /** @var ConfigurationProxy $configuration */
-        $configuration = ConfigurationProxy::getInstance('oelib');
-        $configuration->setAsBoolean('enableConfigCheck', true);
-        $subject = new TestingTemplateHelper([]);
-
-        self::assertInstanceOf(ConfigurationCheck::class, $subject->getConfigurationCheck());
-    }
-
-    /**
-     * @test
-     */
-    public function checkConfigurationWithEnabledConfigurationAndDefaultConfigurationCheckCheckChecksIt(): void
-    {
-        /** @var ConfigurationProxy $configuration */
-        $configuration = ConfigurationProxy::getInstance('oelib');
-        $configuration->setAsBoolean('enableConfigCheck', true);
-        $subject = new TestingTemplateHelper([]);
-
-        // @phpstan-ignore-next-line This requires the Prophecy plugin for PHPStan (which requires PHP >= 7.2).
-        $this->defaultConfigurationCheckProphecy->checkItAndWrapIt()->shouldBeCalled();
-
-        $subject->checkConfiguration();
-    }
-
-    /**
-     * @test
-     */
-    public function customConfigurationCheckCanBeSet(): void
-    {
-        /** @var ConfigurationProxy $configuration */
-        $configuration = ConfigurationProxy::getInstance('oelib');
-        $configuration->setAsBoolean('enableConfigCheck', true);
-        $subject = new PluginWithCustomConfigurationCheck();
-        $subject->init([]);
-
-        self::assertInstanceOf(TestingConfigurationCheck::class, $subject->getConfigurationCheck());
-    }
-
-    /**
-     * @test
-     */
-    public function checkConfigurationWithEnabledConfigurationAndCustomConfigurationCheckCheckChecksIt(): void
-    {
-        /** @var ConfigurationProxy $configuration */
-        $configuration = ConfigurationProxy::getInstance('oelib');
-        $configuration->setAsBoolean('enableConfigCheck', true);
-        $subject = new PluginWithCustomConfigurationCheck();
-        $subject->init([]);
-
-        // @phpstan-ignore-next-line This requires the Prophecy plugin for PHPStan (which requires PHP >= 7.2).
-        $this->customConfigurationCheckProphecy->checkItAndWrapIt()->shouldBeCalled();
-
-        $subject->checkConfiguration();
     }
 
     // New tests from functional
@@ -152,33 +70,6 @@ class TemplateHelperTest extends UnitTestCase
         $this->subject->init();
 
         self::assertInstanceOf(ContentObjectRenderer::class, $this->subject->cObj);
-    }
-
-    /**
-     * @test
-     */
-    public function configurationCheckCreationForEnabledConfigurationCheck(): void
-    {
-        /** @var ConfigurationProxy $configuration */
-        $configuration = ConfigurationProxy::getInstance('oelib');
-        $configuration->setAsBoolean('enableConfigCheck', true);
-        $result = (new TestingTemplateHelper())->getConfigurationCheck();
-
-        self::assertNotNull($result);
-    }
-
-    /**
-     * @test
-     */
-    public function configurationCheckCreationForDisabledConfigurationCheck(): void
-    {
-        /** @var ConfigurationProxy $configuration */
-        $configuration = ConfigurationProxy::getInstance('oelib');
-        $configuration->setAsBoolean('enableConfigCheck', false);
-
-        $result = (new TestingTemplateHelper())->getConfigurationCheck();
-
-        self::assertNull($result);
     }
 
     /////////////////////////////////////////////////////////////
@@ -617,10 +508,6 @@ class TemplateHelperTest extends UnitTestCase
             $templateCode,
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -640,10 +527,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             $subpartContent,
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -704,10 +587,6 @@ class TemplateHelperTest extends UnitTestCase
             $subpartContent,
             $this->subject->getSubpart('MY_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -727,10 +606,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             $subpartContent,
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -755,10 +630,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             $subpartContent,
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -788,10 +659,6 @@ class TemplateHelperTest extends UnitTestCase
             'outer start, inner start, ' . $subpartContent . 'inner end, outer end ',
             $this->subject->getSubpart('MY_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -806,10 +673,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             '',
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -829,10 +692,6 @@ class TemplateHelperTest extends UnitTestCase
             '',
             $this->subject->getSubpart('MY_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -850,10 +709,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             '',
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -953,10 +808,6 @@ class TemplateHelperTest extends UnitTestCase
             'This is some template code. foo More text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -971,10 +822,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'This is some template code. foo More text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -993,10 +840,6 @@ class TemplateHelperTest extends UnitTestCase
             'This is some template code. foo More text.',
             $this->subject->getSubpart('MY_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1014,10 +857,6 @@ class TemplateHelperTest extends UnitTestCase
             'This is some template code. foo More text.',
             $this->subject->getSubpart('MY_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1034,10 +873,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'foo This is some template code. foo More text.',
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1060,10 +895,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'This is some template code. bar More text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1089,10 +920,6 @@ class TemplateHelperTest extends UnitTestCase
             'This is some template code. bar More text.',
             $this->subject->getSubpart('MY_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1109,10 +936,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'foo bar',
             $this->subject->getSubpart('')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1131,10 +954,6 @@ class TemplateHelperTest extends UnitTestCase
             'foo bar',
             $this->subject->getSubpart('')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1150,10 +969,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'foo ###MY_MARKER_TOO###',
             $this->subject->getSubpart('')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1171,10 +986,6 @@ class TemplateHelperTest extends UnitTestCase
             'foo ###ALSO_MY_MARKER###',
             $this->subject->getSubpart('')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1191,10 +1002,6 @@ class TemplateHelperTest extends UnitTestCase
             '###MY_MARKER### bar',
             $this->subject->getSubpart('')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1210,10 +1017,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             '###MY_MARKER### bar',
             $this->subject->getSubpart('')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1234,10 +1037,6 @@ class TemplateHelperTest extends UnitTestCase
             'foo bar',
             $this->subject->getSubpart('MY_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1256,10 +1055,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'foo bar',
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1284,10 +1079,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'This is some subpart code.'
             . 'More text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1315,10 +1106,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1340,10 +1127,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'This is some subpart code.'
             . 'More text.',
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1372,10 +1155,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'This is some subpart code.'
             . 'Even more text.',
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1486,10 +1265,6 @@ class TemplateHelperTest extends UnitTestCase
             'foo Some more text. bar',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1509,10 +1284,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'foo Some more text. bar',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1534,10 +1305,6 @@ class TemplateHelperTest extends UnitTestCase
             'foo',
             $this->subject->getSubpart('MY_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1557,10 +1324,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'foo',
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1582,10 +1345,6 @@ class TemplateHelperTest extends UnitTestCase
             'bar',
             $this->subject->getSubpart('MY_SUBPART_TOO')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1605,10 +1364,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'bar',
             $this->subject->getSubpart('ALSO_MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1634,10 +1389,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1657,10 +1408,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. '
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1682,10 +1429,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'More text. '
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1709,10 +1452,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1734,10 +1473,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. '
             . 'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1763,10 +1498,6 @@ class TemplateHelperTest extends UnitTestCase
             . '</h3>',
             $this->subject->getSubpart('SINGLE_VIEW')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1789,10 +1520,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'More text. '
             . 'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1818,10 +1545,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1846,10 +1569,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1872,10 +1591,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. '
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1900,10 +1615,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1926,10 +1637,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. '
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -1959,10 +1666,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -1988,10 +1691,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'More text there. '
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2019,10 +1718,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2047,10 +1742,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'More text here.'
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2077,10 +1768,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2101,10 +1788,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. '
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2127,10 +1810,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2152,10 +1831,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'More text here. '
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2180,10 +1855,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2206,10 +1877,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. '
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2234,10 +1901,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'More text here. '
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2350,10 +2013,6 @@ class TemplateHelperTest extends UnitTestCase
             'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2373,10 +2032,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. ' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2398,10 +2053,6 @@ class TemplateHelperTest extends UnitTestCase
             'More text. ' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2425,10 +2076,6 @@ class TemplateHelperTest extends UnitTestCase
             'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2450,10 +2097,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. ' .
             'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2479,10 +2122,6 @@ class TemplateHelperTest extends UnitTestCase
             '</h3>',
             $this->subject->getSubpart('SINGLE_VIEW')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2505,10 +2144,6 @@ class TemplateHelperTest extends UnitTestCase
             'More text. ' .
             'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2534,10 +2169,6 @@ class TemplateHelperTest extends UnitTestCase
             'Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2562,10 +2193,6 @@ class TemplateHelperTest extends UnitTestCase
             'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2589,10 +2216,6 @@ class TemplateHelperTest extends UnitTestCase
             'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2615,10 +2238,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. ' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2648,10 +2267,6 @@ class TemplateHelperTest extends UnitTestCase
             'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2677,10 +2292,6 @@ class TemplateHelperTest extends UnitTestCase
             'More text there. ' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2708,10 +2319,6 @@ class TemplateHelperTest extends UnitTestCase
             'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2736,10 +2343,6 @@ class TemplateHelperTest extends UnitTestCase
             'More text here.' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2766,10 +2369,6 @@ class TemplateHelperTest extends UnitTestCase
             'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2793,10 +2392,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. ' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2822,10 +2417,6 @@ class TemplateHelperTest extends UnitTestCase
             'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2850,10 +2441,6 @@ class TemplateHelperTest extends UnitTestCase
             'More text here. ' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2882,10 +2469,6 @@ class TemplateHelperTest extends UnitTestCase
             'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -2912,10 +2495,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. ' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -2944,10 +2523,6 @@ class TemplateHelperTest extends UnitTestCase
             'More text here. ' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3081,10 +2656,6 @@ class TemplateHelperTest extends UnitTestCase
             . ' Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -3104,10 +2675,6 @@ class TemplateHelperTest extends UnitTestCase
             'foo',
             $this->subject->getSubpart('MY_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -3122,10 +2689,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'foo',
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3148,10 +2711,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. foo Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -3172,10 +2731,6 @@ class TemplateHelperTest extends UnitTestCase
             . ' Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -3194,10 +2749,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             '',
             $this->subject->getSubpart('MY_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3219,10 +2770,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'Some text.  Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3284,10 +2831,6 @@ class TemplateHelperTest extends UnitTestCase
             . ' Even more text.',
             $this->subject->getSubpart('')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -3310,10 +2853,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'This is some template code. foo More text.'
             . ' Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3338,10 +2877,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'This is some template code. foo More text.'
             . ' Even more text.',
             $this->subject->getSubpart('')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3368,10 +2903,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'This is some template code. foo More text.'
             . ' Even more text.',
             $this->subject->getSubpart('OUTER_SUBPART')
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3402,10 +2933,6 @@ class TemplateHelperTest extends UnitTestCase
             'outer start, inner start, foo inner end, outer end ',
             $this->subject->getSubpart('MY_SUBPART')
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     ////////////////////////////////////////////////////////////
@@ -3425,10 +2952,6 @@ class TemplateHelperTest extends UnitTestCase
         self::assertSame(
             'This is some template code. foo ###MARKER### More text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3455,10 +2978,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -3482,10 +3001,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'More text there. '
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3513,10 +3028,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -3539,10 +3050,6 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. '
             . 'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3571,10 +3078,6 @@ class TemplateHelperTest extends UnitTestCase
             . 'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -3598,10 +3101,6 @@ class TemplateHelperTest extends UnitTestCase
             'More text there. ' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3629,10 +3128,6 @@ class TemplateHelperTest extends UnitTestCase
             'Even more text.',
             $this->subject->getSubpart()
         );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
-        );
     }
 
     /**
@@ -3658,10 +3153,6 @@ class TemplateHelperTest extends UnitTestCase
             'More text there. ' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 
@@ -3693,10 +3184,6 @@ class TemplateHelperTest extends UnitTestCase
             'More text there. ' .
             'Even more text.',
             $this->subject->getSubpart()
-        );
-        self::assertSame(
-            '',
-            $this->subject->getWrappedConfigCheckMessage()
         );
     }
 

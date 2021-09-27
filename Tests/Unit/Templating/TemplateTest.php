@@ -8,6 +8,9 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Templating\Template;
 
+/**
+ * @covers \OliverKlee\Oelib\Templating\Template
+ */
 class TemplateTest extends UnitTestCase
 {
     /**
@@ -70,6 +73,7 @@ class TemplateTest extends UnitTestCase
         $this->expectExceptionMessage(
             '$key contained the subpart name "FOOBAR", but only the following subparts are available: ()'
         );
+        $this->expectExceptionCode(1632760625);
 
         self::assertSame(
             '',
@@ -86,6 +90,7 @@ class TemplateTest extends UnitTestCase
         $this->expectExceptionMessage(
             '$key contained the subpart name "COFFEE", but only the following subparts are available: (FOO, BAR)'
         );
+        $this->expectExceptionCode(1632760625);
 
         $this->subject->processTemplate(
             '<!-- ###FOO### -->' .
@@ -3834,6 +3839,7 @@ class TemplateTest extends UnitTestCase
         $this->expectExceptionMessage(
             '$key contained the subpart name "my_subpart", but only the following subparts are available: ()'
         );
+        $this->expectExceptionCode(1632760625);
 
         $this->subject->processTemplate(
             '<!-- ###my_subpart### -->' .
@@ -3853,6 +3859,7 @@ class TemplateTest extends UnitTestCase
         $this->expectExceptionMessage(
             '$key contained the subpart name "MY_SUBPART", but only the following subparts are available: ()'
         );
+        $this->expectExceptionCode(1632760625);
 
         $this->subject->processTemplate(
             '<!-- ###my_subpart### -->' .

@@ -605,7 +605,8 @@ class Template
             throw new NotFoundException(
                 '$key contained the subpart name "' . $subpartKey
                 . '", but only the following subparts are available: (' .
-                implode(', ', array_keys($this->subparts)) . ')'
+                implode(', ', array_keys($this->subparts)) . ')',
+                1632760625
             );
         }
         if (!$this->isSubpartVisible($subpartKey)) {

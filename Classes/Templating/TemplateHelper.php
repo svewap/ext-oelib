@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Templating;
 
-use OliverKlee\Oelib\Configuration\ConfigurationCheck;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Language\SalutationSwitcher;
@@ -53,11 +52,6 @@ class TemplateHelper extends SalutationSwitcher
     protected $isInitialized = false;
 
     /**
-     * @var ConfigurationCheck|null
-     */
-    protected $configurationCheck = null;
-
-    /**
      * @var string the file name of the template set via TypoScript or FlexForms
      */
     private $templateFileName = '';
@@ -66,13 +60,6 @@ class TemplateHelper extends SalutationSwitcher
      * @var Template this object's (only) template
      */
     private $template = null;
-
-    /**
-     * TypoScript Setup for plugin.tx_extensionkey, using the current page UID as key
-     *
-     * @var array<int, array>
-     */
-    private static $cachedConfigurations = [];
 
     /**
      * Initializes the FE plugin stuff and reads the configuration.
@@ -105,18 +92,6 @@ class TemplateHelper extends SalutationSwitcher
         $this->isInitialized = true;
     }
 
-    protected function initializeConfigurationCheck(): void
-    {
-        if ($this->configurationCheck instanceof ConfigurationCheck || !$this->isConfigurationCheckEnabled()) {
-            return;
-        }
-
-        $className = $this->getConfigurationCheckClassName();
-        if ($className !== '') {
-            $this->configurationCheck = GeneralUtility::makeInstance($className, $this);
-        }
-    }
-
     /**
      * @return bool
      */
@@ -127,34 +102,6 @@ class TemplateHelper extends SalutationSwitcher
         }
 
         return ConfigurationProxy::getInstance($this->extKey)->getAsBoolean('enableConfigCheck');
-    }
-
-    /**
-     * This class is intended to be overwritten in subclasses.
-     *
-     * @return class-string|string might be empty
-     */
-    protected function getConfigurationCheckClassName(): string
-    {
-        return $this->getDefaultConfigurationCheckClassName();
-    }
-
-    /**
-     * @return class-string|string might be empty
-     */
-    protected function getDefaultConfigurationCheckClassName(): string
-    {
-        $camelCaseClassName = 'Tx_' . ucfirst($this->extKey) . '_ConfigCheck';
-        $lowercaseClassName = \strtolower($camelCaseClassName);
-        if (\class_exists($camelCaseClassName)) {
-            $className = $camelCaseClassName;
-        } elseif (\class_exists($lowercaseClassName)) {
-            $className = $lowercaseClassName;
-        } else {
-            $className = '';
-        }
-
-        return $className;
     }
 
     /**
@@ -493,26 +440,12 @@ class TemplateHelper extends SalutationSwitcher
      * @param string $subpartName name without the ### signs, case-insensitive, will get uppercased, must not be empty
      * @param mixed $content the subpart's content, may be empty
      * @param string $prefix prefix to the subpart name (may be empty, case-insensitive, will get uppercased)
+     *
+     * @throws NotFoundException
      */
     public function setSubpart(string $subpartName, $content, string $prefix = ''): void
     {
-        try {
-            $this->getTemplate()->setSubpart($subpartName, $content, $prefix);
-        } catch (NotFoundException $exception) {
-            $this->setErrorMessage(
-                'The subpart <strong>' . $subpartName .
-                '</strong> is missing in the HTML template file <strong>' .
-                $this->getConfValueString(
-                    'templateFile',
-                    's_template_special',
-                    true
-                ) .
-                '</strong>. If you are using a modified HTML template, please ' .
-                'fix it. If you are using the original HTML template file, ' .
-                'please file a bug report in the ' .
-                '<a href="https://github.com/oliverklee/ext-oelib/issues">issue tracker</a>.'
-            );
-        }
+        $this->getTemplate()->setSubpart($subpartName, $content, $prefix);
     }
 
     /**
@@ -818,25 +751,7 @@ class TemplateHelper extends SalutationSwitcher
      */
     public function getSubpart(string $key = ''): string
     {
-        try {
-            return $this->getTemplate()->getSubpart($key);
-        } catch (NotFoundException $exception) {
-            $this->setErrorMessage(
-                'The subpart <strong>' . $key .
-                '</strong> is missing in the HTML template file <strong>' .
-                $this->getConfValueString(
-                    'templateFile',
-                    's_template_special',
-                    true
-                ) .
-                '</strong>. If you are using a modified HTML template, please ' .
-                'fix it. If you are using the original HTML template file, ' .
-                'please file a bug report in the ' .
-                '<a href="https://github.com/oliverklee/ext-oelib/issues">issue tracker</a>.'
-            );
-
-            return '';
-        }
+        return $this->getTemplate()->getSubpart($key);
     }
 
     /**
@@ -1023,125 +938,5 @@ class TemplateHelper extends SalutationSwitcher
     public function getListViewConfValueBoolean(string $fieldName): bool
     {
         return (bool)$this->getListViewConfigurationValue($fieldName);
-    }
-
-    /**
-     * Sets the "flavor" of the object to check.
-     *
-     * @param string $flavor a short string identifying the "flavor" of the object to check (may be empty)
-     *
-     * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
-     */
-    public function setFlavor(string $flavor): void
-    {
-        if ($this->getConfigurationCheck() instanceof ConfigurationCheck) {
-            $this->configurationCheck->setFlavor($flavor);
-        }
-    }
-
-    /**
-     * Returns the current flavor of the object to check.
-     *
-     * @return string the current flavor of the object to check (or an empty string if no flavor is set)
-     *
-     * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
-     */
-    public function getFlavor(): string
-    {
-        if (!$this->getConfigurationCheck() instanceof ConfigurationCheck) {
-            return '';
-        }
-
-        return $this->configurationCheck->getFlavor();
-    }
-
-    /**
-     * Sets the error text of $this->configurationCheck.
-     *
-     * If this->configurationCheck is NULL, this function is a no-op.
-     *
-     * @param string $message error text to set (may be empty)
-     */
-    protected function setErrorMessage(string $message): void
-    {
-        if ($this->getConfigurationCheck() instanceof ConfigurationCheck) {
-            $this->configurationCheck->setErrorMessage($message);
-        }
-    }
-
-    /**
-     * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
-     */
-    public function getConfigurationCheck(): ?ConfigurationCheck
-    {
-        $this->initializeConfigurationCheck();
-
-        return $this->configurationCheck;
-    }
-
-    /**
-     * Checks this object's configuration and returns a formatted error message
-     * (if any). If there are several objects of this class, still only one
-     * error message is created (in order to prevent duplicate messages).
-     *
-     * @param bool $useRawMessage whether to use the raw message instead of the wrapped message
-     * @param string $temporaryFlavor flavor to use temporarily for this call (leave empty to not change the flavor)
-     *
-     * @return string a formatted error message (if there are errors) or an empty string
-     *
-     * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
-     */
-    public function checkConfiguration(bool $useRawMessage = false, string $temporaryFlavor = ''): string
-    {
-        static $hasDisplayedMessage = false;
-
-        $configurationCheck = $this->getConfigurationCheck();
-        if (!$configurationCheck instanceof ConfigurationCheck) {
-            return '';
-        }
-
-        $result = '';
-        if (!empty($temporaryFlavor)) {
-            $oldFlavor = $this->getFlavor();
-            $this->setFlavor($temporaryFlavor);
-        } else {
-            $oldFlavor = '';
-        }
-
-        $message = $useRawMessage ? $configurationCheck->checkIt() : $configurationCheck->checkItAndWrapIt();
-
-        if (!empty($temporaryFlavor)) {
-            $this->setFlavor($oldFlavor);
-        }
-
-        // If we have a message, only returns it if it is the first message
-        // for objects of this class.
-        if (!empty($message) && !$hasDisplayedMessage) {
-            $result = $message;
-            $hasDisplayedMessage = true;
-        }
-
-        return $result;
-    }
-
-    /**
-     * Returns an empty string if there are no configuration errors.
-     * Otherwise, returns the wrapped error text.
-     *
-     * Use this method if you want to display this message pretty
-     * directly and it doesn't need to get handled to other configcheck
-     * objects.
-     *
-     * @return string the wrapped error text (or an empty string if there are no errors)
-     *
-     * @deprecated will be removed in oelib 4.0, use the new `AbstractConfigurationCheck` instead
-     */
-    public function getWrappedConfigCheckMessage(): string
-    {
-        if (!$this->getConfigurationCheck() instanceof ConfigurationCheck) {
-            return '';
-        }
-
-        return $this->configurationCheck->getWrappedMessage();
     }
 }
