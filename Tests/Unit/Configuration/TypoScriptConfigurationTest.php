@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use OliverKlee\Oelib\Configuration\Configuration;
 use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
@@ -41,17 +40,7 @@ final class TypoScriptConfigurationTest extends UnitTestCase
         self::assertInstanceOf(AbstractObjectWithPublicAccessors::class, $this->subject);
     }
 
-    /**
-     * @test
-     */
-    public function hasAlias(): void
-    {
-        self::assertInstanceOf(Configuration::class, $this->subject);
-    }
-
-    //////////////////////////////////////
     // Tests for the basic functionality
-    //////////////////////////////////////
 
     /**
      * @test

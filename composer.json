@@ -99,7 +99,7 @@
 		"php:fixer": ".Build/vendor/bin/php-cs-fixer --config=Configuration/php-cs-fixer.php fix Classes Tests",
 		"php:rector": ".Build/vendor/bin/rector",
 		"ci:php:fixer": ".Build/vendor/bin/php-cs-fixer --config=Configuration/php-cs-fixer.php fix --dry-run -v --show-progress=dots Classes Tests",
-		"ci:php:lint": "find *.php Classes Configuration Migrations TestExtensions Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+		"ci:php:lint": "find *.php Classes Configuration TestExtensions Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
 		"ci:php:rector": ".Build/vendor/bin/rector --dry-run",
 		"ci:php:sniff": ".Build/vendor/bin/phpcs Classes Configuration Tests TestExtensions",
 		"ci:php:stan": ".Build/vendor/bin/phpstan --no-progress",
@@ -150,11 +150,6 @@
 		"typo3/cms": {
 			"extension-key": "oelib",
 			"web-dir": ".Build/public"
-		},
-		"typo3/class-alias-loader": {
-			"class-alias-maps": [
-				"Migrations/Code/ClassAliasMap.php"
-			]
 		}
 	}
 }
