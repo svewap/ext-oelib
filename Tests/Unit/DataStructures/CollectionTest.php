@@ -302,9 +302,9 @@ final class CollectionTest extends UnitTestCase
      */
     public function currentForEmptyListReturnsNull(): void
     {
-        self::assertNull(
-            $this->subject->current()
-        );
+        /** @var object|null $current */
+        $current = $this->subject->current();
+        self::assertNull($current);
     }
 
     /**
@@ -371,9 +371,9 @@ final class CollectionTest extends UnitTestCase
 
         $this->subject->next();
 
-        self::assertNull(
-            $this->subject->current()
-        );
+        /** @var object|null $current */
+        $current = $this->subject->current();
+        self::assertNull($current);
     }
 
     /**

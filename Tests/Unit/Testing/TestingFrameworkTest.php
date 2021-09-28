@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Testing;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Testing\TestingFramework;
+use OliverKlee\Oelib\Tests\Unit\Testing\Fixtures\TestingCleanup;
 use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -97,7 +98,7 @@ final class TestingFrameworkTest extends UnitTestCase
     {
         $this->subject->purgeHooks();
 
-        $cleanUpWithoutDatabaseHookMock = $this->createPartialMock(\stdClass::class, ['cleanUp']);
+        $cleanUpWithoutDatabaseHookMock = $this->createMock(TestingCleanup::class);
         $cleanUpWithoutDatabaseHookMock->expects(self::atLeastOnce())->method('cleanUp');
         $hookClassName = \get_class($cleanUpWithoutDatabaseHookMock);
 

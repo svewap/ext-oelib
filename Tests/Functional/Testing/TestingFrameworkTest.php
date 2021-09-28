@@ -2459,10 +2459,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->createFrontEndPage();
         $result = $this->subject->createFakeFrontEnd();
 
-        self::assertSame(
-            $this->getFrontEndController()->id,
-            $result
-        );
+        self::assertSame((int)$this->getFrontEndController()->id, $result);
     }
 
     /**
@@ -2610,10 +2607,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $pageUid = $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd($pageUid);
 
-        self::assertSame(
-            $pageUid,
-            $this->getFrontEndController()->id
-        );
+        self::assertSame($pageUid, (int)$this->getFrontEndController()->id);
     }
 
     // Tests regarding user login and logout
