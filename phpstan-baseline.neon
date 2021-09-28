@@ -11,11 +11,6 @@ parameters:
 			path: Classes/Authentication/FrontEndLoginManager.php
 
 		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\ConfigurationProxy\\:\\:getCompleteConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Configuration/ConfigurationProxy.php
-
-		-
 			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\ConfigurationRegistry\\:\\:getCompleteTypoScriptSetup\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Classes/Configuration/ConfigurationRegistry.php

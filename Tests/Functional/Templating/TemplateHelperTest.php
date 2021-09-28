@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Templating;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
+use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
 use Prophecy\Prophecy\ProphecySubjectInterface;
@@ -36,11 +37,15 @@ class TemplateHelperTest extends FunctionalTestCase
         $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
         $GLOBALS['TSFE'] = $frontEndController;
 
-        /** @var ConfigurationProxy $configuration */
-        $configuration = ConfigurationProxy::getInstance('oelib');
-        $configuration->setAsBoolean('enableConfigCheck', true);
+        $configuration = new DummyConfiguration(['enableConfigCheck' => true]);
+        ConfigurationProxy::setInstance('oelib', $configuration);
 
         $this->subject = new TestingTemplateHelper([]);
+    }
+
+    protected function tearDown(): void
+    {
+        ConfigurationProxy::purgeInstances();
     }
 
     ///////////////////////////////

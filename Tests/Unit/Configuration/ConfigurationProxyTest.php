@@ -7,7 +7,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\DummyConfiguration;
-use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithPublicAccessors;
 use OliverKlee\Oelib\Interfaces\Configuration;
 
 /**
@@ -53,9 +53,9 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function isPublicObjectWithAccessors(): void
+    public function isPublicReadOnlyObjectWithAccessors(): void
     {
-        self::assertInstanceOf(AbstractObjectWithPublicAccessors::class, $this->subject);
+        self::assertInstanceOf(AbstractReadOnlyObjectWithPublicAccessors::class, $this->subject);
     }
 
     /**
@@ -118,48 +118,13 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
-    public function retrieveConfigurationForNoConfigurationReturnsEmptyArray(): void
+    public function retrieveConfigurationForNoConfigurationSetsEmptyArray(): void
     {
         unset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['oelib']);
 
         $this->subject->retrieveConfiguration();
 
         self::assertSame([], $this->subject->getCompleteConfiguration());
-    }
-
-    /**
-     * @test
-     */
-    public function retrieveConfigurationIfThereIsNoneAndSetNewConfigurationValue(): void
-    {
-        unset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['oelib']);
-        $this->subject->retrieveConfiguration();
-        $this->subject->setAsString('testValue', 'foo');
-
-        self::assertSame(
-            'foo',
-            $this->subject->getAsString('testValue')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function instantiateAnotherProxyAndSetValueNotAffectsThisFixture(): void
-    {
-        /** @var ConfigurationProxy $otherConfiguration */
-        $otherConfiguration = ConfigurationProxy::getInstance('other_extension');
-        $otherConfiguration->setAsString('testValue', 'foo');
-
-        self::assertSame(
-            'foo',
-            $otherConfiguration->getAsString('testValue')
-        );
-
-        self::assertSame(
-            $this->testConfiguration,
-            $this->subject->getCompleteConfiguration()
-        );
     }
 
     /**

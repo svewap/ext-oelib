@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Configuration;
 
-use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithPublicAccessors;
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This singleton class provides access to an extension's global configuration
- * and allows to fake global configuration values for testing purposes.
+ * and allows faking global configuration values for testing purposes.
  */
-class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements ConfigurationInterface
+class ConfigurationProxy extends AbstractReadOnlyObjectWithPublicAccessors implements ConfigurationInterface
 {
     /**
      * @var array<string, ConfigurationInterface> the singleton configuration proxy objects
@@ -38,8 +38,7 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
     /**
      * Don't call this constructor; use getInstance instead.
      *
-     * @param string $extensionKey
-     *        extension key without the 'tx' prefix, used to retrieve the EM
+     * @param string $extensionKey extension key without the 'tx' prefix, used to retrieve the EM
      *        configuration and as identifier for an extension's instance of
      *        this class, must not be empty
      */
@@ -51,8 +50,7 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
     /**
      * Retrieves the configuration for the given extension key.
      *
-     * @param string $extensionKey
-     *        extension key without the 'tx' prefix, used to retrieve the EM
+     * @param string $extensionKey extension key without the 'tx' prefix, used to retrieve the EM
      *        configuration and as identifier for an extension's instance of
      *        this class, must not be empty
      *
@@ -99,7 +97,7 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
 
     /**
      * Loads the EM configuration for the extension key passed via
-     * getInstance() if the configuration is not yet loaded.
+     * `getInstance()` if the configuration is not yet loaded.
      */
     private function loadConfigurationLazily(): void
     {
@@ -109,8 +107,7 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
     }
 
     /**
-     * Retrieves the EM configuration for the extension key passed via
-     * getInstance().
+     * Retrieves the EM configuration for the extension key passed via `getInstance()`.
      *
      * This function is accessible for testing purposes. As lazy implementation
      * is used, this function might be useful to ensure static test conditions.
@@ -182,7 +179,7 @@ class ConfigurationProxy extends AbstractObjectWithPublicAccessors implements Co
     /**
      * Returns an extension's complete configuration.
      *
-     * @return array an extension's configuration, empty if the configuration was not retrieved before
+     * @return array<string, mixed> an extension's configuration, empty if the configuration was not retrieved before
      */
     public function getCompleteConfiguration(): array
     {
