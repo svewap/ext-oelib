@@ -24,7 +24,7 @@ class FrontEndUserTest extends UnitTestCase
     private $globalExecTimeBackup = 0;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $tcaBackup = [];
 

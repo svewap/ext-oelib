@@ -14,7 +14,7 @@ use OliverKlee\Oelib\Model\FrontEndUser;
 class FrontEndUserTest extends FunctionalTestCase
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/static_info_tables', 'typo3conf/ext/oelib'];
 

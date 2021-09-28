@@ -50,7 +50,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Allow `DateTimeImmutable` as change and creation date (#734)
 - Update the usage of the Fluid view helper classes (#732)
 - Stop using patches for dependencies (713)
-- Improve some type annotations (#712, #769)
+- Improve some type annotations (#712, #769, #776)
 
 ## 3.6.1
 

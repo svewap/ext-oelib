@@ -72,7 +72,7 @@ class TemplateHelper extends SalutationSwitcher
      * If the parameter is omitted, the configuration for `plugin.tx_[extkey]` is
      * used instead, e.g., `plugin.tx_seminars`.
      *
-     * @param mixed $configuration TypoScript configuration for the plugin (usually an array)
+     * @param array<string, mixed>|mixed $configuration TypoScript configuration for the plugin (usually an array)
      */
     public function init($configuration = null): void
     {
@@ -145,8 +145,7 @@ class TemplateHelper extends SalutationSwitcher
      * @param bool $ignoreFlexform
      *        whether to ignore the flexform values and just get the settings from TypoScript, may be empty
      *
-     * @return string the value of the corresponding flexforms or TypoScript setup
-     *                entry (may be empty)
+     * @return string the value of the corresponding flexforms or TypoScript setup entry (may be empty)
      */
     private function getConfValue(
         string $fieldName,
@@ -322,7 +321,7 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Gets the configuration.
      *
-     * @return array configuration array, might be empty
+     * @return array<string, mixed> configuration array, might be empty
      */
     public function getConfiguration(): array
     {

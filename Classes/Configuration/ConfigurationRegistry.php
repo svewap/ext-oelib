@@ -155,8 +155,8 @@ class ConfigurationRegistry
     /**
      * Retrieves the complete TypoScript setup for the current page as a nested array.
      *
-     * @return array the TypoScriptSetup for the current page, will be empty if
-     *               no page is selected or if the TypoScript setup of the page is empty
+     * @return array<string, mixed> the TypoScriptSetup for the current page, will be empty if
+     *         no page is selected or if the TypoScript setup of the page is empty
      */
     private function getCompleteTypoScriptSetup(): array
     {

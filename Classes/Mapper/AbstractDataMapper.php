@@ -157,13 +157,9 @@ abstract class AbstractDataMapper
      * irrespective of the other provided data, otherwise the model will be
      * loaded with the provided data.
      *
-     * @param array $data
-     *        data for the model to return, must at least contain an element
-     *        with the key "uid"
+     * @param array<string, string|int> $data data for the model to return, must at least contain the UID
      *
-     * @return M model for the provided UID, filled with the data
-     *                        provided in case it did not have any data in
-     *                        memory before
+     * @return M model for the given UID, filled with data provided in case it did not have any data in memory before
      */
     public function getModel(array $data): AbstractModel
     {
@@ -334,7 +330,7 @@ abstract class AbstractDataMapper
      * This method must be called at most once per model instance.
      *
      * @param M $model the model to fill, needs to have a UID
-     * @param array $data the model data to process as it comes from the DB
+     * @param array<string, string|int> $data the model data to process as it comes from the DB
      */
     private function fillModel(AbstractModel $model, array $data): void
     {
@@ -351,7 +347,7 @@ abstract class AbstractDataMapper
      * This method may be called more than once per model instance.
      *
      * @param M $model the model to fill, needs to have a UID
-     * @param array $data the model data to process as it comes from the DB
+     * @param array<string, string|int> $data the model data to process as it comes from the DB
      */
     private function refillModel(AbstractModel $model, array $data): void
     {
@@ -364,7 +360,7 @@ abstract class AbstractDataMapper
      * Processes a model's data and creates any relations that are hidden within
      * it using foreign key mapping.
      *
-     * @param array<string, mixed> $data the model data to process, might be modified
+     * @param array<string, string|int> $data the model data to process, might be modified
      * @param M $model the model to create the relations for
      */
     protected function createRelations(array &$data, AbstractModel $model): void
@@ -387,7 +383,7 @@ abstract class AbstractDataMapper
      *
      * @param string $key the key of the relation to retrieve, must not be empty
      *
-     * @return array configuration for that relation, will not be empty if the TCA is valid
+     * @return array<string, string> configuration for that relation, will not be empty if the TCA is valid
      *
      * @throws \BadMethodCallException
      */
@@ -804,7 +800,7 @@ abstract class AbstractDataMapper
      *
      * @param M $model the model to write to the database
      *
-     * @return array the model's data prepared for the database, will not be empty
+     * @return array<string, string|int|float> the model's data prepared for the database, will not be empty
      */
     private function getPreparedModelData(AbstractModel $model): array
     {

@@ -21,7 +21,7 @@ class ConfigurationProxyTest extends UnitTestCase
     private $subject;
 
     /**
-     * @var array
+     * @var array<string, string|int>
      */
     private $testConfiguration = [
         'testValueString' => 'foo',

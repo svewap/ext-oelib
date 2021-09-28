@@ -36,6 +36,9 @@ final class FlexformsConfigurationTest extends UnitTestCase
         return $contentObject;
     }
 
+    /**
+     * @param array<string, array> $data
+     */
     private function buildContentObjectWithArrayFlexformsData(array $data): ContentObjectRenderer
     {
         $contentObject = new ContentObjectRenderer();
@@ -286,7 +289,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array>>
+     * @return array<string, array<int, array<string, array<string, array<string, array<string, array>>>>>>
      */
     public function stringValueInArrayDataProvider(): array
     {
@@ -311,6 +314,8 @@ final class FlexformsConfigurationTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @param array<string, array<string, array<string, array<string, array<string, array>>>>> $data
      * @dataProvider stringValueInArrayDataProvider
      */
     public function getAsStringForExistingNonEmptyFieldInArrayReturnsValueFromField(array $data): void
@@ -333,7 +338,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array>>
+     * @return array<string, array<int, array<string, array<string, array<string, array<string, array>>>>>>
      */
     public function integerValueInArrayDataProvider(): array
     {
@@ -361,6 +366,8 @@ final class FlexformsConfigurationTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @param array<string, array<string, array<string, array<string, array<string, array>>>>> $data
      * @dataProvider integerValueInArrayDataProvider
      */
     public function getAsIntegerForExistingNonEmptyFieldInArrayReturnsValueFromField(array $data): void
@@ -382,7 +389,7 @@ final class FlexformsConfigurationTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array>>
+     * @return array<string, array<int, array<string, array<string, array<string, array<string, array>>>>>>
      */
     public function booleanValueInArrayDataProvider(): array
     {
@@ -410,6 +417,8 @@ final class FlexformsConfigurationTest extends UnitTestCase
 
     /**
      * @test
+     *
+     * @param array<string, array<string, array<string, array<string, array<string, array>>>>> $data
      * @dataProvider booleanValueInArrayDataProvider
      */
     public function getAsBooleanForExistingNonEmptyFieldInArrayReturnsValueFromField(array $data): void

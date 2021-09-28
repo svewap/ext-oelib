@@ -11,39 +11,9 @@ parameters:
 			path: Classes/Authentication/FrontEndLoginManager.php
 
 		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\ConfigurationRegistry\\:\\:getCompleteTypoScriptSetup\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Configuration/ConfigurationRegistry.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\FlexformsConfiguration\\:\\:getFromArray\\(\\) has parameter \\$haystack with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Configuration/FlexformsConfiguration.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\TypoScriptConfiguration\\:\\:getAsMultidimensionalArray\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Configuration/TypoScriptConfiguration.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractObjectWithAccessors\\:\\:setAsArray\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/DataStructures/AbstractObjectWithAccessors.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractObjectWithPublicAccessors\\:\\:setAsArray\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/DataStructures/AbstractObjectWithPublicAccessors.php
-
-		-
 			message: "#^Class OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection extends generic class SplObjectStorage but does not specify its types\\: TObject, TData$#"
 			count: 1
 			path: Classes/DataStructures/Collection.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Email\\\\SystemEmailFromBuilder\\:\\:getEmailConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Email/SystemEmailFromBuilder.php
 
 		-
 			message: "#^Method OliverKlee\\\\Oelib\\\\Interfaces\\\\LoginManager\\:\\:getLoggedInUser\\(\\) has parameter \\$mapperName with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"
@@ -54,31 +24,6 @@ parameters:
 			message: "#^Method OliverKlee\\\\Oelib\\\\Logging\\\\Interfaces\\\\LoggingAware\\:\\:injectLogManager\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: Classes/Logging/Interfaces/LoggingAware.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:fillModel\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:getModel\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:getPreparedModelData\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:getRelationConfigurationFromTca\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:refillModel\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
 
 		-
 			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:saveManyToManyAndCommaSeparatedRelatedModels\\(\\) has parameter \\$mapper with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"
@@ -126,159 +71,9 @@ parameters:
 			path: Classes/Mapper/MapperRegistry.php
 
 		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Model/AbstractModel.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\:\\:resetData\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Model/AbstractModel.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\:\\:setData\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Model/AbstractModel.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Templating\\\\TemplateHelper\\:\\:getConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Templating/TemplateHelper.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:changeRecord\\(\\) has parameter \\$rawData with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:count\\(\\) has parameter \\$criteria with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:createAndLoginFrontEndUser\\(\\) has parameter \\$recordData with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:createBackEndUser\\(\\) has parameter \\$recordData with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:createFrontEndUser\\(\\) has parameter \\$recordData with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:createFrontEndUserGroup\\(\\) has parameter \\$recordData with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:createGeneralPageRecord\\(\\) has parameter \\$recordData with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:createRecord\\(\\) has parameter \\$recordData with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:createRecordWithoutTableNameChecks\\(\\) has parameter \\$rawData with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:createTemplate\\(\\) has parameter \\$recordData with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:getHooks\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:normalizeDatabaseRow\\(\\) has parameter \\$rawData with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:normalizeDatabaseRow\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:\\$hooks type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Unable to resolve the template type T in call to method static method TYPO3\\\\CMS\\\\Core\\\\Utility\\\\GeneralUtility\\:\\:makeInstance\\(\\)$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Visibility\\\\Tree\\:\\:__construct\\(\\) has parameter \\$treeStructure with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Visibility/Tree.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Visibility\\\\Tree\\:\\:buildTreeFromArray\\(\\) has parameter \\$treeStructure with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Visibility/Tree.php
-
-		-
 			message: "#^PHPDoc tag @var for variable \\$objectManager contains generic class TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManager but does not specify its types\\: T$#"
 			count: 1
 			path: Tests/Functional/Domain/Repository/GermanZipCodeRepositoryTest.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\AbstractDataMapperTest\\:\\:findRecordByUid\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
-
-		-
-			message: "#^PHPDoc tag @var for variable \\$result has no value type specified in iterable type Doctrine\\\\DBAL\\\\Driver\\\\Mysqli\\\\MysqliStatement\\.$#"
-			count: 1
-			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\ConfigurationProxyTest\\:\\:\\$testConfiguration type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Unit/Configuration/ConfigurationProxyTest.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:buildContentObjectWithArrayFlexformsData\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:getAsBooleanForExistingNonEmptyFieldInArrayReturnsValueFromField\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:getAsIntegerForExistingNonEmptyFieldInArrayReturnsValueFromField\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:getAsStringForExistingNonEmptyFieldInArrayReturnsValueFromField\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\DataStructures\\\\Fixtures\\\\TestingObjectWithPublicAccessors\\:\\:setData\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Unit/DataStructures/Fixtures/TestingObjectWithPublicAccessors.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\DataStructures\\\\Fixtures\\\\TestingReadOnlyObjectWithPublicAccessors\\:\\:setData\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Unit/DataStructures/Fixtures/TestingReadOnlyObjectWithPublicAccessors.php
 
 		-
 			message: "#^PHPDoc tag @var for variable \\$objectManagerStub contains generic interface TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManagerInterface but does not specify its types\\: T$#"
@@ -296,11 +91,6 @@ parameters:
 			path: Tests/Unit/Domain/Repository/Traits/ReadOnlyTest.php
 
 		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Language\\\\Fixtures\\\\TestingSalutationSwitcher\\:\\:__construct\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Unit/Language/Fixtures/TestingSalutationSwitcher.php
-
-		-
 			message: "#^Class OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\ModelLessTestingMapper extends generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"
 			count: 1
 			path: Tests/Unit/Mapper/Fixtures/ModelLessTestingMapper.php
@@ -314,14 +104,4 @@ parameters:
 			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:\\$relations with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper does not specify its types\\: M$#"
 			count: 1
 			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\FrontEndUserTest\\:\\:\\$tcaBackup type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Unit/Model/FrontEndUserTest.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Templating\\\\Fixtures\\\\TestingTemplateHelper\\:\\:__construct\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Unit/Templating/Fixtures/TestingTemplateHelper.php
 

@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Model\BackEndUser;
 class BackEndUserTest extends FunctionalTestCase
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

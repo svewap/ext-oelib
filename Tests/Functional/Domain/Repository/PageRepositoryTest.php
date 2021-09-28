@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Domain\Repository\PageRepository;
 class PageRepositoryTest extends FunctionalTestCase
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

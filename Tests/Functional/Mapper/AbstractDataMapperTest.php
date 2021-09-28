@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class AbstractDataMapperTest extends FunctionalTestCase
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
@@ -1909,8 +1909,9 @@ class AbstractDataMapperTest extends FunctionalTestCase
 
         $uid = $model->getUid();
 
-        /** @var MysqliStatement $result */
+        /** @var MysqliStatement<string|int|float> $result */
         $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'uid = ' . $uid);
+        /** @var array<string, string|int|float> $data */
         $data = $result->fetch();
 
         self::assertSame($expectedValue, $data[$propertyName]);
@@ -2801,7 +2802,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     /**
      * @param int $uid
      *
-     * @return array
+     * @return array<string, string|int>
      */
     private function findRecordByUid(int $uid): array
     {

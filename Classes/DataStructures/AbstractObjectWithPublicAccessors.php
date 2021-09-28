@@ -100,7 +100,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
-     * @return int[] the array value of the given key, may be empty
+     * @return array<int, int> the array value of the given key, may be empty
      */
     public function getAsIntegerArray(string $key): array
     {
@@ -116,7 +116,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      * limitation.
      *
      * @param string $key the key of the element to set, must not be empty
-     * @param array $value the value to set, may be empty
+     * @param array<array-key, string|int> $value the value to set, may be empty
      *
      * @see getAsTrimmedArray
      * @see getAsIntegerArray

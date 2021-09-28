@@ -12,7 +12,7 @@ use OliverKlee\Oelib\Testing\TestingFramework;
 class FrontEndUserGroupMapperTest extends FunctionalTestCase
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

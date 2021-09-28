@@ -69,6 +69,9 @@ class FlexformsConfiguration extends AbstractReadOnlyObjectWithPublicAccessors i
         return $firstMatchingNode instanceof \DOMNode ? (string)$firstMatchingNode->textContent : null;
     }
 
+    /**
+     * @param array<array-key, array|int|string> $haystack
+     */
     private function getFromArray(array $haystack, string $needleKey): ?string
     {
         $value = null;

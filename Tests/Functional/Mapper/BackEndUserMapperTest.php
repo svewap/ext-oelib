@@ -16,7 +16,7 @@ use OliverKlee\Oelib\Model\BackEndUserGroup;
 final class BackEndUserMapperTest extends FunctionalTestCase
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

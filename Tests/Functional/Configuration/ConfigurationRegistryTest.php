@@ -18,7 +18,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class ConfigurationRegistryTest extends FunctionalTestCase
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

@@ -22,7 +22,7 @@ class AbstractModelTest extends FunctionalTestCase
     private const TEST_RECORD_TITLE = 'Hello world';
 
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

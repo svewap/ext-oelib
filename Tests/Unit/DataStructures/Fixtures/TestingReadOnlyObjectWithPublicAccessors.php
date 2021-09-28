@@ -19,7 +19,7 @@ final class TestingReadOnlyObjectWithPublicAccessors extends AbstractReadOnlyObj
     /**
      * Sets the data of this object.
      *
-     * @param array $data the data to set, may be empty
+     * @param array<string, mixed> $data the data to set, may be empty
      */
     public function setData(array $data): void
     {

@@ -26,7 +26,7 @@ class SystemEmailFromBuilder
     }
 
     /**
-     * @return array
+     * @return array{defaultMailFromAddress?: string}
      */
     protected function getEmailConfiguration(): array
     {

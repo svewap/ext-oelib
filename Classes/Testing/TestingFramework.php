@@ -173,7 +173,7 @@ final class TestingFramework
     /**
      * hook objects for this class
      *
-     * @var array
+     * @var array<int, object>
      */
     private static $hooks = [];
 
@@ -251,11 +251,9 @@ final class TestingFramework
      * Should there be any problem creating the record (wrong table name or a
      * problem with the database), 0 instead of a valid UID will be returned.
      *
-     * @param string $table
-     *        the name of the table on which the record should be created, must not be empty
-     * @param array $recordData
-     *        associative array that contains the data to save in the new record, may be empty, but must not contain
-     *     the key "uid"
+     * @param string $table the name of the table on which the record should be created, must not be empty
+     * @param array<string, string|int|bool> $recordData data to save in the new record, may be empty,
+     *        but must not contain the key "uid"
      *
      * @return int the UID of the new record, will be > 0
      *
@@ -284,9 +282,7 @@ final class TestingFramework
      * problem with the database), 0 instead of a valid UID will be returned.
      *
      * @param string $table the name of the table on which the record should be created, must not be empty
-     * @param array $rawData
-     *        associative array containing the data to save in the new record, may be empty, but must not contain
-     *     the key "uid"
+     * @param array<string, string|int|bool> $rawData data to save, may be empty, but must not contain the key "uid"
      *
      * @return int the UID of the new record, will be > 0
      */
@@ -307,9 +303,9 @@ final class TestingFramework
     /**
      * Normalizes the types in the given data so that the data con be inserted into a DB.
      *
-     * @param array $rawData
+     * @param array<string, string|int|bool> $rawData
      *
-     * @return array
+     * @return array<string, string|int>
      */
     private function normalizeDatabaseRow(array $rawData): array
     {
@@ -384,13 +380,10 @@ final class TestingFramework
      * The record will be created on the page with the UID given by the second
      * parameter $parentId.
      *
-     * @param int $documentType
-     *        document type of the record to create, must be > 0
-     * @param int $parentId
-     *        UID of the page on which the record should be created
-     * @param array $recordData
-     *        associative array that contains the data to save in the record,
-     *        may be empty, but must not contain the keys "uid", "pid" or "doktype"
+     * @param int $documentType document type of the record to create, must be > 0
+     * @param int $parentId UID of the page on which the record should be created
+     * @param array<string, string|int|bool> $recordData data to save in the record, may be empty,
+     *        but must not contain the keys "uid", "pid" or "doktype"
      *
      * @return int the UID of the new record, will be > 0
      *
@@ -420,9 +413,8 @@ final class TestingFramework
      *
      * @param int $pageId
      *        UID of the page on which the template should be created, must be > 0
-     * @param array $recordData
-     *        associative array that contains the data to save in the new template,
-     *        may be empty, but must not contain the keys "uid" or "pid"
+     * @param array<string, string|int|bool> $recordData data to save, may be empty,
+     *        but must not contain the keys "uid" or "pid"
      *
      * @return int the UID of the new template, will be > 0
      *
@@ -449,9 +441,7 @@ final class TestingFramework
     /**
      * Creates a FE user group.
      *
-     * @param array $recordData
-     *        associative array that contains the data to save in the new user group record,
-     *        may be empty, but must not contain the key "uid"
+     * @param array<string, string|int|bool> $recordData data to save, may be empty, but must not contain the key "uid"
      *
      * @return int the UID of the new user group, will be > 0
      *
@@ -472,9 +462,8 @@ final class TestingFramework
      * @param string|int $frontEndUserGroups
      *        comma-separated list of UIDs of the user groups to which the new user belongs, each must be > 0,
      *        may contain spaces, if empty a new FE user group will be created
-     * @param array $recordData
-     *        associative array that contains the data to save in the new user record,
-     *        may be empty, but must not contain the keys "uid" or "usergroup"
+     * @param array<string, string|int|bool> $recordData data to save, may be empty,
+     *        but must not contain the keys "uid" or "usergroup"
      *
      * @return int the UID of the new FE user, will be > 0
      *
@@ -509,12 +498,10 @@ final class TestingFramework
     /**
      * Creates and logs in an FE user.
      *
-     * @param string|int $frontEndUserGroups
-     *        comma-separated list of UIDs of the user groups to which the new user belongs, each must be > 0,
-     *        may contain spaces; if empty a new front-end user group is created
-     * @param array $recordData
-     *        associative array that contains the data to save in the new user record,
-     *        may be empty, but must not contain the keys "uid" or "usergroup"
+     * @param string|int $frontEndUserGroups comma-separated list of UIDs of the user groups to which the user belongs,
+     *        each must be > 0, may contain spaces; if empty a new front-end user group is created
+     * @param array<string, string|int|bool> $recordData data to save, may be empty,
+     *        but must not contain the keys "uid" or "usergroup"
      *
      * @return int the UID of the new FE user, will be > 0
      */
@@ -530,9 +517,7 @@ final class TestingFramework
     /**
      * Creates a BE user record.
      *
-     * @param array $recordData
-     *        associative array that contains the data to save in the new user record,
-     *        may be empty, but must not contain the key "uid"
+     * @param array<string, string|int|bool> $recordData data to save, may be empty, but must not contain the key "uid"
      *
      * @return int the UID of the new BE user, will be > 0
      */
@@ -556,8 +541,7 @@ final class TestingFramework
      *
      * @param string $table the name of the table, must not be empty
      * @param int $uid the UID of the record to change, must not be empty
-     * @param array $rawData associative array containing key => value pairs for those fields of the record that
-     *        need to be changed, must not be empty
+     * @param array<string, string|int|bool|float> $rawData the values to be changed as key-value pairs
      *
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
@@ -1558,7 +1542,7 @@ final class TestingFramework
      * that match a given WHERE clause.
      *
      * @param string $table the name of the table to query, must not be empty
-     * @param array $criteria key-value pairs to match
+     * @param array<string, string|int|bool> $criteria key-value pairs to match
      *
      * @return int the number of records that have been found, will be >= 0
      *
@@ -1871,7 +1855,7 @@ final class TestingFramework
     /**
      * Gets all hooks for this class.
      *
-     * @return array the hook objects, will be empty if no hooks have been set
+     * @return array<int, object> the hook objects, will be empty if no hooks have been set
      */
     private function getHooks(): array
     {
@@ -1879,6 +1863,7 @@ final class TestingFramework
             return self::$hooks;
         }
 
+        /** @var array<array-key, class-string> $hookClasses */
         $hookClasses = (array)($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oelib']['testingFrameworkCleanUp'] ?? []);
         foreach ($hookClasses as $hookClass) {
             self::$hooks[] = GeneralUtility::makeInstance($hookClass);
