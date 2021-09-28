@@ -8,8 +8,8 @@ $EM_CONF[$_EXTKEY] = [
     'constraints' => [
         'depends' => [
             'php' => '7.2.0-8.0.99',
-            'typo3' => '9.5.0-9.5.99',
-            'extbase' => '9.5.0-9.5.99',
+            'typo3' => '9.5.0-10.4.99',
+            'extbase' => '9.5.0-10.4.99',
         ],
         'conflicts' => [
         ],
