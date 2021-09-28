@@ -56,17 +56,7 @@ parameters:
 			path: Classes/Mapper/FrontEndUserMapper.php
 
 		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\:\\:unifyClassName\\(\\) has parameter \\$className with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Mapper/MapperRegistry.php
-
-		-
 			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\:\\:\\$mappers with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Mapper/MapperRegistry.php
-
-		-
-			message: "#^Unable to resolve the template type T in call to method static method TYPO3\\\\CMS\\\\Core\\\\Utility\\\\GeneralUtility\\:\\:makeInstance\\(\\)$#"
 			count: 1
 			path: Classes/Mapper/MapperRegistry.php
 

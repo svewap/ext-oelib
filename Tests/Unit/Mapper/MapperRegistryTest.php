@@ -9,6 +9,9 @@ use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 
+/**
+ * @covers \OliverKlee\Oelib\Mapper\MapperRegistry
+ */
 class MapperRegistryTest extends UnitTestCase
 {
     protected function tearDown(): void
@@ -160,10 +163,7 @@ class MapperRegistryTest extends UnitTestCase
     public function getReturnsMapperSetViaSet(): void
     {
         $mapper = new TestingMapper();
-        MapperRegistry::set(
-            TestingMapper::class,
-            $mapper
-        );
+        MapperRegistry::set(TestingMapper::class, $mapper);
 
         self::assertSame(
             $mapper,

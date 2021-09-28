@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add Rector to the toolchain (#720, #722, #724)
 
 ### Changed
+- Handle mapper names in a case-sensitives way in the `MapperRegistry` (#787)
 - Allow psr/log in versions 2 and 3 as well (#785)
 - Switch the lazy loading callback to a closure (#775)
 - Make `TypoScriptConfiguration` and `ConfigurationProxy` immutable (#771)

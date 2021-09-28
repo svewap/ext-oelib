@@ -20,7 +20,7 @@ class MapperRegistry
     private static $instance = null;
 
     /**
-     * @var array<string, AbstractDataMapper> already created mappers (by class name)
+     * @var array<class-string, AbstractDataMapper> already created mappers (by class name)
      */
     private $mappers = [];
 
@@ -105,20 +105,16 @@ class MapperRegistry
             throw new \InvalidArgumentException('$className must not be empty.', 1331488868);
         }
 
-        $unifiedClassName = self::unifyClassName($className);
-        if (isset($this->mappers[$unifiedClassName])) {
+        if (isset($this->mappers[$className])) {
             /** @var M $mapper */
-            $mapper = $this->mappers[$unifiedClassName];
+            $mapper = $this->mappers[$className];
         } else {
             if (!\class_exists($className)) {
-                throw new \InvalidArgumentException(
-                    'No mapper class "' . $className . '" could be found.'
-                );
+                throw new \InvalidArgumentException('No mapper class "' . $className . '" could be found.', 1632844178);
             }
 
-            /** @var M $mapper */
-            $mapper = GeneralUtility::makeInstance($unifiedClassName);
-            $this->mappers[$unifiedClassName] = $mapper;
+            $mapper = GeneralUtility::makeInstance($className);
+            $this->mappers[$className] = $mapper;
         }
 
         if ($this->testingMode) {
@@ -132,19 +128,7 @@ class MapperRegistry
     }
 
     /**
-     * Unifies a class name to a common format.
-     *
-     * @param class-string<AbstractDataMapper> $className the class name to unify, must not be empty
-     *
-     * @return string the unified class name
-     */
-    protected static function unifyClassName(string $className): string
-    {
-        return strtolower($className);
-    }
-
-    /**
-     * Disables database access for all mappers received with get().
+     * Disables database access for all mappers received with `get()`.
      */
     public static function denyDatabaseAccess(): void
     {
@@ -176,7 +160,7 @@ class MapperRegistry
      */
     public static function set(string $className, AbstractDataMapper $mapper): void
     {
-        self::getInstance()->setByClassName(self::unifyClassName($className), $mapper);
+        self::getInstance()->setByClassName($className, $mapper);
     }
 
     /**
@@ -188,10 +172,13 @@ class MapperRegistry
      *
      * @param class-string<M> $className the class name of the mapper to set
      * @param M $mapper the mapper to set, must be an instance of `$className`
+     *
+     * @throws \InvalidArgumentException
+     * @throws \BadMethodCallException
      */
     private function setByClassName(string $className, AbstractDataMapper $mapper): void
     {
-        if (!($mapper instanceof $className)) {
+        if (!$mapper instanceof $className) {
             throw new \InvalidArgumentException(
                 'The provided mapper is not an instance of ' . $className . '.',
                 1331488915
@@ -199,8 +186,8 @@ class MapperRegistry
         }
         if (isset($this->mappers[$className])) {
             throw new \BadMethodCallException(
-                'There already is a ' . $className
-                . ' mapper registered. Overwriting existing wrappers is not allowed.',
+                'There already is a ' . $className . ' mapper registered. ' .
+                ' Overwriting existing wrappers is not allowed.',
                 1331488928
             );
         }
