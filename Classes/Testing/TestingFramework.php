@@ -18,6 +18,9 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
+use TYPO3\CMS\Core\Http\Uri;
+use TYPO3\CMS\Core\Site\Entity\Site;
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
@@ -1128,10 +1131,9 @@ final class TestingFramework
     /**
      * Fakes a TYPO3 front end, using $pageUid as front-end page ID if provided.
      *
-     * If $pageUid is zero, the UID of the start page of the current domain
-     * will be used as page UID.
+     * If $pageUid is zero, the front end will have not page UID.
      *
-     * This function creates $GLOBALS['TSFE'].
+     * This function creates `$GLOBALS['TSFE']`.
      *
      * Note: This function does not set TYPO3_MODE to "FE" (because the value of
      * a constant cannot be changed after it has once been set).
@@ -1155,9 +1157,24 @@ final class TestingFramework
 
         // Needed in TYPO3 V10; can be removed in V11.
         $GLOBALS['_SERVER']['HTTP_HOST'] = 'typo3-test.dev';
-        /** @var TypoScriptFrontendController $frontEnd */
-        $frontEnd =
-            GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
+        if (Typo3Version::isAtLeast(10)) {
+            $this->disableCoreCaches();
+            /** @var TypoScriptFrontendController $frontEnd */
+            $frontEnd = GeneralUtility::makeInstance(
+                TypoScriptFrontendController::class,
+                $GLOBALS['TYPO3_CONF_VARS'],
+                new Site('test', $pageUid, []),
+                new SiteLanguage(0, 'en_US.utf8', new Uri(), [])
+            );
+        } else {
+            /** @var TypoScriptFrontendController $frontEnd */
+            $frontEnd = GeneralUtility::makeInstance(
+                TypoScriptFrontendController::class,
+                $GLOBALS['TYPO3_CONF_VARS'],
+                $pageUid,
+                0
+            );
+        }
         $GLOBALS['TSFE'] = $frontEnd;
 
         /** @var FrontendUserAuthentication $frontEndUser */
@@ -1167,7 +1184,10 @@ final class TestingFramework
         $frontEndUser->fetchGroupData();
 
         $frontEnd->fe_user = $frontEndUser;
-        $frontEnd->determineId();
+        if ($pageUid > 0) {
+            $frontEnd->id = (string)$pageUid;
+            $frontEnd->determineId();
+        }
         $frontEnd->tmpl = GeneralUtility::makeInstance(TemplateService::class);
         $frontEnd->config = [];
 
@@ -1192,7 +1212,7 @@ final class TestingFramework
         $this->hasFakeFrontEnd = true;
         $this->logoutFrontEndUser();
 
-        return (int)$frontEnd->id;
+        return $pageUid;
     }
 
     /**
@@ -1898,8 +1918,7 @@ final class TestingFramework
     private function registerNullPageCache(): void
     {
         $cacheKey = $this->getCacheKeyPrefix() . 'pages';
-        /** @var CacheManager $cacheManager */
-        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        $cacheManager = $this->getCacheManager();
         if ($cacheManager->hasCache($cacheKey)) {
             return;
         }
@@ -1914,5 +1933,24 @@ final class TestingFramework
     private function getCacheKeyPrefix(): string
     {
         return Typo3Version::isAtLeast(10) ? '' : '_cache';
+    }
+
+    private function getCacheManager(): CacheManager
+    {
+        /** @var CacheManager $cacheManager */
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+
+        return $cacheManager;
+    }
+
+    private function disableCoreCaches(): void
+    {
+        $this->getCacheManager()->setCacheConfigurations(
+            [
+                'l10n' => ['backend' => NullBackend::class],
+                'rootline' => ['backend' => NullBackend::class],
+                'runtime' => ['backend' => NullBackend::class],
+            ]
+        );
     }
 }

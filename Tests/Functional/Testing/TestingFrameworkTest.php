@@ -37,6 +37,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
     protected function setUp(): void
     {
+        $GLOBALS['TSFE'] = null;
         parent::setUp();
 
         $this->subject = new TestingFramework('tx_oelib', ['user_oelibtest']);
@@ -2431,9 +2432,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createFakeFrontEndCreatesGlobalFrontEnd(): void
     {
-        $GLOBALS['TSFE'] = null;
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
         self::assertInstanceOf(TypoScriptFrontendController::class, $GLOBALS['TSFE']);
     }
@@ -2441,37 +2441,36 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndReturnsPositivePageUidIfCalledWithoutParameters(): void
+    public function createFakeFrontEndReturnsCalledWithoutParametersReturnsZero(): void
     {
         $this->subject->createFrontEndPage();
-        self::assertGreaterThan(
-            0,
-            $this->subject->createFakeFrontEnd()
-        );
+
+        self::assertSame(0, $this->subject->createFakeFrontEnd());
     }
 
     /**
      * @test
      */
-    public function createFakeFrontEndReturnsCurrentFrontEndPageUid(): void
+    public function createFakeFrontEndWithPageUidCreatesSysPage(): void
     {
-        $GLOBALS['TSFE'] = null;
-        $this->subject->createFrontEndPage();
-        $result = $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
-        self::assertSame((int)$this->getFrontEndController()->id, $result);
+        /** @var PageRepository|string $page */
+        $page = $this->getFrontEndController()->sys_page;
+        self::assertInstanceOf(PageRepository::class, $page);
     }
 
     /**
      * @test
      */
-    public function createFakeFrontEndCreatesSysPage(): void
+    public function createFakeFrontEndWithoutPageUidDoesNotCreateSysPage(): void
     {
-        $GLOBALS['TSFE'] = null;
-        $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        self::assertInstanceOf(PageRepository::class, $this->getFrontEndController()->sys_page);
+        /** @var PageRepository|string $page */
+        $page = $this->getFrontEndController()->sys_page;
+        self::assertSame('', $page);
     }
 
     /**
@@ -2479,9 +2478,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createFakeFrontEndCreatesFrontEndUser(): void
     {
-        $GLOBALS['TSFE'] = null;
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
         self::assertInstanceOf(
             FrontendUserAuthentication::class,
@@ -2494,9 +2492,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createFakeFrontEndCreatesContentObjectRenderer(): void
     {
-        $GLOBALS['TSFE'] = null;
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
         self::assertInstanceOf(ContentObjectRenderer::class, $this->getFrontEndController()->cObj);
     }
@@ -2506,9 +2503,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createFakeFrontEndCreatesTemplate(): void
     {
-        $GLOBALS['TSFE'] = null;
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
         self::assertInstanceOf(TemplateService::class, $this->getFrontEndController()->tmpl);
     }
@@ -2553,9 +2549,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createFakeFrontEndCreatesConfiguration(): void
     {
-        $GLOBALS['TSFE'] = null;
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
         self::assertIsArray($this->getFrontEndController()->config);
     }
@@ -2565,8 +2560,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function loginUserIsFalseAfterCreateFakeFrontEnd(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
         $isLoggedIn = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
 
@@ -2576,10 +2571,10 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFakeFrontEndSetsDefaultGroupList(): void
+    public function createFakeFrontEndWithPageUidSetsDefaultGroupList(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
         $groups = (array)$this->getContext()->getPropertyFromAspect('frontend.user', 'groupIds');
 
@@ -2617,8 +2612,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function isLoggedInInitiallyIsFalse(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
         self::assertFalse($this->subject->isLoggedIn());
     }
@@ -2628,8 +2623,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function logoutFrontEndUserAfterLoginSwitchesLoginManagerToNotLoggedIn(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
         $this->subject->createAndLoginFrontEndUser();
         $this->subject->logoutFrontEndUser();
@@ -2642,8 +2637,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function logoutFrontEndUserSetsLoginUserToFalse(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
         $this->subject->logoutFrontEndUser();
 
@@ -2659,8 +2654,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function logoutFrontEndUserCanBeCalledTwoTimes(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
 
         $this->subject->logoutFrontEndUser();
         $this->subject->logoutFrontEndUser();
@@ -2671,8 +2666,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createAndLoginFrontEndUserCreatesFrontEndUser(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
         $this->subject->createAndLoginFrontEndUser();
 
         self::assertSame(
@@ -2686,8 +2681,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createAndLoginFrontEndUserWithRecordDataCreatesFrontEndUserWithThatData(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
         $this->subject->createAndLoginFrontEndUser(
             '',
             ['name' => 'John Doe']
@@ -2704,8 +2699,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createAndLoginFrontEndUserLogsInFrontEndUser(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
         $this->subject->createAndLoginFrontEndUser();
 
         self::assertTrue($this->subject->isLoggedIn());
@@ -2716,8 +2711,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createAndLoginFrontEndUserWithFrontEndUserGroupCreatesFrontEndUser(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
         $frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
         $this->subject->createAndLoginFrontEndUser($frontEndUserGroupUid);
 
@@ -2732,8 +2727,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createAndLoginFrontEndUserWithFrontEndUserGroupCreatesFrontEndUserWithGivenGroup(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
         $frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
         $frontEndUserUid = $this->subject->createAndLoginFrontEndUser(
             $frontEndUserGroupUid
@@ -2756,8 +2751,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createAndLoginFrontEndUserWithFrontEndUserGroupDoesNotCreateFrontEndUserGroup(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
         $frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
         $this->subject->createAndLoginFrontEndUser(
             $frontEndUserGroupUid
@@ -2774,8 +2769,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createAndLoginFrontEndUserWithFrontEndUserGroupLogsInFrontEndUser(): void
     {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
         $frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
         $this->subject->createAndLoginFrontEndUser($frontEndUserGroupUid);
 
