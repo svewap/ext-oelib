@@ -23,7 +23,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 - Drop `addJavaScriptToPageHeader` (#762)
 - Drop `AccessDeniedException` (#759)
-- Drop the legacy configuration check (#758, #760)
+- Drop the legacy configuration check (#758, #760, #768)
 - Drop deprecated methods from `TemplateHelper` (#741, #742)
 - Drop the use of removed Core functionality (#735, #736)
 - Drop support for `$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']` (#728)
