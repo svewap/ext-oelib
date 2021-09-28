@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add Rector to the toolchain (#720, #722, #724)
 
 ### Changed
+- Switch the lazy loading callback to a closure (#775)
 - Make `TypoScriptConfiguration` and `ConfigurationProxy` immutable (#771)
 - Raise PHPStan to level 6 (#770)
 - Improve the styling of the config check warnings (#752)

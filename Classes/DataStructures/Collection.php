@@ -20,7 +20,7 @@ class Collection extends \SplObjectStorage
     /**
      * The model this List belongs to.
      *
-     * This is used for modeling relations and will remain NULL in any other context.
+     * This is used for modeling relations and will remain null in any other context.
      *
      * @var AbstractModel|null
      */

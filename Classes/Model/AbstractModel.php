@@ -69,9 +69,9 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     private $isDirty = false;
 
     /**
-     * @var array the callback function that fills this model with data
+     * @var \Closure|null the callback function that fills this model with data
      */
-    private $loadCallback = [];
+    private $loadCallback = null;
 
     /**
      * Clone.
@@ -397,7 +397,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
         }
 
         if ($this->isGhost()) {
-            if (!$this->hasLoadCallBack()) {
+            if (!$this->loadCallback instanceof \Closure) {
                 throw new \BadMethodCallException(
                     'Ghosts need a load callback function before their data can be accessed.',
                     1331489414
@@ -405,7 +405,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
             }
 
             $this->markAsLoading();
-            call_user_func($this->loadCallback, $this);
+            $callback = $this->loadCallback;
+            $callback($this);
         }
     }
 
@@ -528,23 +529,16 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     /**
      * Sets the callback function for loading this model with data.
      *
-     * @param array $callback the callback function for loading this model with data
+     * @param \Closure $callback the callback function for loading this model with data
      */
-    public function setLoadCallback(array $callback): void
+    public function setLoadCallback(\Closure $callback): void
     {
         $this->loadCallback = $callback;
     }
 
     /**
-     * Checks whether this model has a callback function set for loading its
-     * data.
-     *
-     * @return bool TRUE if this model has a loading callback function set, FALSE otherwise
+     * Checks whether this model has a callback function set for loading its data.
      */
-    private function hasLoadCallBack(): bool
-    {
-        return !empty($this->loadCallback);
-    }
 
     /**
      * Marks this model's data as clean.
@@ -670,8 +664,6 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
 
     /**
      * Checks whether this model is empty.
-     *
-     * @return bool TRUE if this model is empty, FALSE if it is writable
      */
     public function isEmpty(): bool
     {

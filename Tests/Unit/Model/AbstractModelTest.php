@@ -33,6 +33,13 @@ class AbstractModelTest extends UnitTestCase
     {
     }
 
+    private function getLoadCallback(): \Closure
+    {
+        return function (AbstractModel $model): void {
+            $this->load($model);
+        };
+    }
+
     // Tests concerning __clone
 
     /**
@@ -869,7 +876,7 @@ class AbstractModelTest extends UnitTestCase
     {
         $this->subject->setData([]);
         $this->subject->setUid(1);
-        $this->subject->setLoadCallback([$this, 'load']);
+        $this->subject->setLoadCallback($this->getLoadCallback());
         $this->subject->isEmpty();
 
         self::assertTrue(
@@ -886,7 +893,7 @@ class AbstractModelTest extends UnitTestCase
             ['foo' => 'bar']
         );
         $this->subject->setUid(1);
-        $this->subject->setLoadCallback([$this, 'load']);
+        $this->subject->setLoadCallback($this->getLoadCallback());
 
         self::assertFalse(
             $this->subject->isEmpty()
@@ -899,7 +906,7 @@ class AbstractModelTest extends UnitTestCase
     public function isEmptyForGhostWithoutLoadedDataReturnsTrue(): void
     {
         $this->subject->setUid(1);
-        $this->subject->setLoadCallback([$this, 'load']);
+        $this->subject->setLoadCallback($this->getLoadCallback());
 
         self::assertTrue(
             $this->subject->isEmpty()

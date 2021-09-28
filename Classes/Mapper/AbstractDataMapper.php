@@ -665,7 +665,11 @@ abstract class AbstractDataMapper
         /** @var M $model */
         $model = GeneralUtility::makeInstance($this->modelClassName);
         $model->setUid($uid);
-        $model->setLoadCallback([$this, 'load']);
+        $callback = function (AbstractModel $model): void {
+            /** @var M $model */
+            $this->load($model);
+        };
+        $model->setLoadCallback($callback);
         $this->map->add($model);
 
         return $model;

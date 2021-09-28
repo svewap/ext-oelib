@@ -141,16 +141,6 @@ parameters:
 			path: Classes/Model/AbstractModel.php
 
 		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\:\\:setLoadCallback\\(\\) has parameter \\$callback with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Model/AbstractModel.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\:\\:\\$loadCallback type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Model/AbstractModel.php
-
-		-
 			message: "#^Method OliverKlee\\\\Oelib\\\\Templating\\\\TemplateHelper\\:\\:getConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Classes/Templating/TemplateHelper.php
