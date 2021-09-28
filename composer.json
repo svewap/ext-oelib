@@ -27,7 +27,7 @@
 		"ext-json": "*",
 		"ext-libxml": "*",
 		"ext-zip": "*",
-		"psr/log": "^1.0",
+		"psr/log": "^1.0 || ^2.0 || ^3.0",
 		"swiftmailer/swiftmailer": "^5.4",
 		"typo3/cms-core": "^9.5.7 || ^10.4",
 		"typo3/cms-extbase": "^9.5 || ^10.4",
