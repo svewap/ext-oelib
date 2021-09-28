@@ -815,21 +815,16 @@ class TemplateHelper extends SalutationSwitcher
      * If some piVars are not set or no piVars array is defined yet, this
      * function will set the not yet existing piVars to zero.
      *
-     * @param string[] $additionalPiVars
-     *        keys for $this->piVars that will be ensured to exist as ints in $this->piVars as well, may be empty
+     * @param array<array-key, string> $additionalPiVars keys for $this->piVars that will be ensured to exist
+     *        as integers in `$this->piVars` as well
      */
     protected function ensureIntegerPiVars(array $additionalPiVars = []): void
     {
-        if (!is_array($this->piVars)) {
+        if (!\is_array($this->piVars)) {
             $this->piVars = [];
         }
 
-        foreach (
-            array_merge(
-                ['showUid', 'pointer', 'mode'],
-                $additionalPiVars
-            ) as $key
-        ) {
+        foreach (\array_merge(['showUid', 'pointer', 'mode'], $additionalPiVars) as $key) {
             if (isset($this->piVars[$key])) {
                 $this->piVars[$key] = (int)$this->piVars[$key];
             } else {

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace OliverKlee\Oelib\Tests\Unit\Language\Fixtures;
+namespace OliverKlee\Oelib\Tests\Functional\Language\Fixtures;
 
 use OliverKlee\Oelib\Language\SalutationSwitcher;
 
 /**
- * This is mere a class used for unit tests. Do not use it for any other purpose.
+ * This is mere a class used for testing. Do not use it for any other purpose.
  */
 final class TestingSalutationSwitcher extends SalutationSwitcher
 {
     /**
      * @var string
      */
-    public $scriptRelPath = 'Tests/Unit/Language/Fixtures/locallang.xlf';
+    public $scriptRelPath = 'Tests/Functional/Language/Fixtures/locallang.xlf';
 
     /**
      * @var string
@@ -77,8 +77,7 @@ final class TestingSalutationSwitcher extends SalutationSwitcher
     /**
      * Gets the salutation mode.
      *
-     * @return string the current salutation mode to use: "formal", "informal"
-     *                or an empty string
+     * @return string the current salutation mode to use: "formal", "informal" or an empty string
      */
     public function getSalutationMode(): string
     {

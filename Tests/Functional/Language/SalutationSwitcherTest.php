@@ -2,29 +2,40 @@
 
 declare(strict_types=1);
 
-namespace OliverKlee\Oelib\Tests\Unit\Language;
+namespace OliverKlee\Oelib\Tests\Functional\Language;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use OliverKlee\Oelib\Tests\Unit\Language\Fixtures\TestingSalutationSwitcher;
-use TYPO3\CMS\Core\Cache\Backend\NullBackend;
-use TYPO3\CMS\Core\Cache\CacheManager;
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Testing\TestingFramework;
+use OliverKlee\Oelib\Tests\Functional\Language\Fixtures\TestingSalutationSwitcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-class SalutationSwitcherTest extends UnitTestCase
+/**
+ * @covers \OliverKlee\Oelib\Language\SalutationSwitcher
+ */
+final class SalutationSwitcherTest extends FunctionalTestCase
 {
+    /**
+     * @var array<int, string>
+     */
+    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
+
+    /**
+     * @var TestingFramework
+     */
+    private $testingFramework;
+
     /**
      * @var TestingSalutationSwitcher
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {
-        /** @var CacheManager $cacheManager */
-        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
-        $cacheManager->setCacheConfigurations(['l10n' => ['backend' => NullBackend::class]]);
+        parent::setUp();
 
-        $GLOBALS['TSFE'] = $this->prophesize(TypoScriptFrontendController::class)->reveal();
+        $this->testingFramework = new TestingFramework('tx_oelib');
+        $this->testingFramework->disableCoreCaches();
+        $this->testingFramework->createFakeFrontEnd();
 
         $this->subject = new TestingSalutationSwitcher([]);
     }
@@ -32,7 +43,7 @@ class SalutationSwitcherTest extends UnitTestCase
     protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
-        parent::tearDown();
+        $this->testingFramework->cleanUpWithoutDatabase();
     }
 
     /**

@@ -14,7 +14,7 @@ final class TestingTemplateHelper extends TemplateHelper
     /**
      * @var string
      */
-    public $scriptRelPath = 'Tests/Unit/Language/Fixtures/locallang.xlf';
+    public $scriptRelPath = 'Tests/Functional/Language/Fixtures/locallang.xlf';
 
     /**
      * @var string the extension key
@@ -48,9 +48,8 @@ final class TestingTemplateHelper extends TemplateHelper
      * If some piVars are not set or no piVars array is defined yet, this
      * function will set the not yet existing piVars to zero.
      *
-     * @param string[] $additionalPiVars
-     *        keys for $this->piVars that will be ensured to exist as ints in
-     *        $this->piVars as well
+     * @param array<array-key, string> $additionalPiVars keys for $this->piVars that will be ensured to exist
+     *        as integers in `$this->piVars` as well
      */
     public function ensureIntegerPiVars(array $additionalPiVars = []): void
     {
