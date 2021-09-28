@@ -148,4 +148,94 @@ class TemplateHelperTest extends FunctionalTestCase
 
         $this->subject->getSubpart('MY_SUBPART');
     }
+
+    // Tests for automatically setting labels.
+
+    /**
+     * @test
+     *
+     * @doesNotPerformAssertions
+     */
+    public function setLabelsAfterGetTemplateCodeWithoutTemplatePathDoesNotCrash(): void
+    {
+        $this->subject->getTemplateCode();
+        $this->subject->setLabels();
+    }
+
+    /**
+     * @test
+     */
+    public function setLabels(): void
+    {
+        $this->subject->processTemplate(
+            'a ###LABEL_FOO### b'
+        );
+        $this->subject->setLabels();
+        self::assertSame(
+            'a foo b',
+            $this->subject->getSubpart()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setLabelsNoSalutation(): void
+    {
+        $this->subject->processTemplate(
+            'a ###LABEL_BAR### b'
+        );
+        $this->subject->setLabels();
+        self::assertSame(
+            'a bar (no salutation) b',
+            $this->subject->getSubpart()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setLabelsFormal(): void
+    {
+        $this->subject->setSalutationMode('formal');
+        $this->subject->processTemplate(
+            'a ###LABEL_BAR### b'
+        );
+        $this->subject->setLabels();
+        self::assertSame(
+            'a bar (formal) b',
+            $this->subject->getSubpart()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setLabelsInformal(): void
+    {
+        $this->subject->setSalutationMode('informal');
+        $this->subject->processTemplate(
+            'a ###LABEL_BAR### b'
+        );
+        $this->subject->setLabels();
+        self::assertSame(
+            'a bar (informal) b',
+            $this->subject->getSubpart()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setLabelsWithOneBeingThePrefixOfAnother(): void
+    {
+        $this->subject->processTemplate(
+            '###LABEL_FOO###, ###LABEL_FOO2###'
+        );
+        $this->subject->setLabels();
+        self::assertSame(
+            'foo, foo two',
+            $this->subject->getSubpart()
+        );
+    }
 }
