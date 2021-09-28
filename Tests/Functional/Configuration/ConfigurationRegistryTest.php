@@ -31,12 +31,12 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     {
         parent::setUp();
         $this->testingFramework = new TestingFramework('tx_oelib');
+        $this->testingFramework->disableCoreCaches();
     }
 
     protected function tearDown(): void
     {
         $this->testingFramework->cleanUpWithoutDatabase();
-        parent::tearDown();
     }
 
     ////////////////////////////////
