@@ -7,6 +7,8 @@ namespace OliverKlee\Oelib\Tests\Functional\Testing;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\Testing\TestingFramework;
+use TYPO3\CMS\Core\Cache\Backend\NullBackend;
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -2812,5 +2814,32 @@ final class TestingFrameworkTest extends FunctionalTestCase
             'user_oelibtest_is_dummy_record',
             $testingFramework->getDummyColumnName('user_oelibtest2_test')
         );
+    }
+
+    /**
+     * @return array<string, array<int, string>>
+     */
+    public function cacheDataProvider(): array
+    {
+        return [
+            'l10n' => ['l10n'],
+            'rootline' => ['rootline'],
+            'runtime' => ['runtime'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider cacheDataProvider
+     */
+    public function disableCoreCaches(string $identifier): void
+    {
+        $this->subject->disableCoreCaches();
+
+        /** @var CacheManager $cacheManager */
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+
+        $cache = $cacheManager->getCache($identifier);
+        self::assertInstanceOf(NullBackend::class, $cache->getBackend());
     }
 }

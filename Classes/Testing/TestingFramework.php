@@ -1943,7 +1943,10 @@ final class TestingFramework
         return $cacheManager;
     }
 
-    private function disableCoreCaches(): void
+    /**
+     * Sets the following Core caches to the null backen: l10n, rootline, runtime
+     */
+    public function disableCoreCaches(): void
     {
         $this->getCacheManager()->setCacheConfigurations(
             [
