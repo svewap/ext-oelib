@@ -78,10 +78,7 @@ class ConfigurationRegistryTest extends UnitTestCase
             '$namespace must not be empty.'
         );
 
-        ConfigurationRegistry::getInstance()->set(
-            '',
-            new TypoScriptConfiguration()
-        );
+        ConfigurationRegistry::getInstance()->set('', new DummyConfiguration());
     }
 
     /**
@@ -115,13 +112,7 @@ class ConfigurationRegistryTest extends UnitTestCase
      */
     public function setTwoTimesForTheSameNamespaceDoesNotFail(): void
     {
-        ConfigurationRegistry::getInstance()->set(
-            'foo',
-            new TypoScriptConfiguration()
-        );
-        ConfigurationRegistry::getInstance()->set(
-            'foo',
-            new TypoScriptConfiguration()
-        );
+        ConfigurationRegistry::getInstance()->set('foo', new DummyConfiguration());
+        ConfigurationRegistry::getInstance()->set('foo', new DummyConfiguration());
     }
 }

@@ -6,7 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
-use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithPublicAccessors;
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 
 /**
@@ -37,25 +37,10 @@ final class TypoScriptConfigurationTest extends UnitTestCase
      */
     public function isObjectWithPublicAccessors(): void
     {
-        self::assertInstanceOf(AbstractObjectWithPublicAccessors::class, $this->subject);
+        self::assertInstanceOf(AbstractReadOnlyObjectWithPublicAccessors::class, $this->subject);
     }
 
     // Tests for the basic functionality
-
-    /**
-     * @test
-     */
-    public function setWithEmptyKeyThrowsException(): void
-    {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$key must not be empty.'
-        );
-
-        $this->subject->set('', 'foo');
-    }
 
     /**
      * @test
@@ -65,19 +50,6 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     public function setDataWithEmptyArrayIsAllowed(): void
     {
         $this->subject->setData([]);
-    }
-
-    /**
-     * @test
-     */
-    public function getAfterSetReturnsTheSetValue(): void
-    {
-        $this->subject->set('foo', 'bar');
-
-        self::assertSame(
-            'bar',
-            $this->subject->getAsString('foo')
-        );
     }
 
     /**

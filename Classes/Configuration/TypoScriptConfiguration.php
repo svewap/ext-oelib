@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Configuration;
 
-use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithPublicAccessors;
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
 
 /**
  * This class represents a set of configuration values within a certain namespace.
  */
-class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implements ConfigurationInterface
+class TypoScriptConfiguration extends AbstractReadOnlyObjectWithPublicAccessors implements ConfigurationInterface
 {
     /**
      * @var array<string|int, mixed> the data for this configuration
@@ -30,24 +30,9 @@ class TypoScriptConfiguration extends AbstractObjectWithPublicAccessors implemen
     }
 
     /**
-     * Sets the value of the data item for the key $key.
-     *
-     * @param string $key the key of the data item to get, must not be empty
-     * @param mixed $value the data for the key $key
-     */
-    public function set(string $key, $value): void
-    {
-        if ($key === '') {
-            throw new \InvalidArgumentException('$key must not be empty.', 1331318809);
-        }
-
-        $this->data[$key] = $value;
-    }
-
-    /**
      * Gets the value of the data item for the key $key.
      *
-     * @param string $key  the key of the data item to get, must not be empty
+     * @param string $key the key of the data item to get, must not be empty
      *
      * @return string|mixed the data for the key $key, will be an empty string if the key has not been set yet
      */

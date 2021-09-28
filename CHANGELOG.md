@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add Rector to the toolchain (#720, #722, #724)
 
 ### Changed
+- Make the `TypoScriptConfiguration` immutable (#771)
 - Raise PHPStan to level 6 (#770)
 - Improve the styling of the config check warnings (#752)
 - Use PHP 7.2 features and more type declarations (#721, #723, #730, #731)

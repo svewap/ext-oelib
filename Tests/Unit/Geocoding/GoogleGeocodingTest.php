@@ -6,7 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
-use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
+use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Geocoding\DummyGeocodingLookup;
 use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
@@ -20,15 +20,15 @@ class GoogleGeocodingTest extends UnitTestCase
     private $subject = null;
 
     /**
-     * @var TypoScriptConfiguration
+     * @var DummyConfiguration
      */
     private $configuration = null;
 
     protected function setUp(): void
     {
         $configurationRegistry = ConfigurationRegistry::getInstance();
-        $configurationRegistry->set('plugin', new TypoScriptConfiguration());
-        $this->configuration = new TypoScriptConfiguration();
+        $configurationRegistry->set('plugin', new DummyConfiguration());
+        $this->configuration = new DummyConfiguration();
         $configurationRegistry->set('plugin.tx_oelib', $this->configuration);
 
         /** @var GoogleGeocoding $subject */

@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Configuration;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
+use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 use OliverKlee\Oelib\Testing\TestingFramework;
@@ -185,13 +186,9 @@ class ConfigurationRegistryTest extends FunctionalTestCase
         );
         PageFinder::getInstance()->setPageUid($pageUid);
 
-        $configuration = new TypoScriptConfiguration();
-        ConfigurationRegistry::getInstance()
-            ->set('plugin.tx_oelib', $configuration);
+        $configuration = new DummyConfiguration();
+        ConfigurationRegistry::getInstance()->set('plugin.tx_oelib', $configuration);
 
-        self::assertSame(
-            $configuration,
-            ConfigurationRegistry::get('plugin.tx_oelib')
-        );
+        self::assertSame($configuration, ConfigurationRegistry::get('plugin.tx_oelib'));
     }
 }

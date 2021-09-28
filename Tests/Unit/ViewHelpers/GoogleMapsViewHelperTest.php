@@ -6,7 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
 use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
-use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
+use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Interfaces\MapPoint;
 use OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures\TestingMapPoint;
 use OliverKlee\Oelib\ViewHelpers\GoogleMapsViewHelper;
@@ -26,7 +26,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     private $subject;
 
     /**
-     * @var TypoScriptConfiguration
+     * @var DummyConfiguration
      */
     private $configuration;
 
@@ -45,8 +45,8 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
         parent::setUp();
 
         $configurationRegistry = ConfigurationRegistry::getInstance();
-        $configurationRegistry->set('plugin', new TypoScriptConfiguration());
-        $this->configuration = new TypoScriptConfiguration();
+        $configurationRegistry->set('plugin', new DummyConfiguration());
+        $this->configuration = new DummyConfiguration();
         $configurationRegistry->set('plugin.tx_oelib', $this->configuration);
 
         /** @var TypoScriptFrontendController&MockObject $mockFrontend */
