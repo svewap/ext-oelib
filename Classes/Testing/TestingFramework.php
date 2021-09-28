@@ -1169,6 +1169,8 @@ final class TestingFramework
 
         $this->registerNullPageCache();
 
+        // Needed in TYPO3 V10; can be removed in V11.
+        $GLOBALS['_SERVER']['HTTP_HOST'] = 'typo3-test.dev';
         /** @var TypoScriptFrontendController $frontEnd */
         $frontEnd =
             GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
