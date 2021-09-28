@@ -36,8 +36,7 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
 
     protected function tearDown(): void
     {
-        $this->testingFramework->cleanUp();
-        parent::tearDown();
+        $this->testingFramework->cleanUpWithoutDatabase();
     }
 
     /////////////////////////////////////////
