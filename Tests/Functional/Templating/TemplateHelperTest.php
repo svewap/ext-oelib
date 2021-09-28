@@ -167,14 +167,11 @@ class TemplateHelperTest extends FunctionalTestCase
      */
     public function setLabels(): void
     {
-        $this->subject->processTemplate(
-            'a ###LABEL_FOO### b'
-        );
+        $this->subject->processTemplate('a ###LABEL_FOO### b');
+
         $this->subject->setLabels();
-        self::assertSame(
-            'a foo b',
-            $this->subject->getSubpart()
-        );
+
+        self::assertSame('a foo b', $this->subject->getSubpart());
     }
 
     /**
@@ -182,14 +179,11 @@ class TemplateHelperTest extends FunctionalTestCase
      */
     public function setLabelsNoSalutation(): void
     {
-        $this->subject->processTemplate(
-            'a ###LABEL_BAR### b'
-        );
+        $this->subject->processTemplate('a ###LABEL_BAR### b');
+
         $this->subject->setLabels();
-        self::assertSame(
-            'a bar (no salutation) b',
-            $this->subject->getSubpart()
-        );
+
+        self::assertSame('a bar (no salutation) b', $this->subject->getSubpart());
     }
 
     /**
@@ -198,14 +192,11 @@ class TemplateHelperTest extends FunctionalTestCase
     public function setLabelsFormal(): void
     {
         $this->subject->setSalutationMode('formal');
-        $this->subject->processTemplate(
-            'a ###LABEL_BAR### b'
-        );
+        $this->subject->processTemplate('a ###LABEL_BAR### b');
+
         $this->subject->setLabels();
-        self::assertSame(
-            'a bar (formal) b',
-            $this->subject->getSubpart()
-        );
+
+        self::assertSame('a bar (formal) b', $this->subject->getSubpart());
     }
 
     /**
@@ -214,14 +205,11 @@ class TemplateHelperTest extends FunctionalTestCase
     public function setLabelsInformal(): void
     {
         $this->subject->setSalutationMode('informal');
-        $this->subject->processTemplate(
-            'a ###LABEL_BAR### b'
-        );
+        $this->subject->processTemplate('a ###LABEL_BAR### b');
+
         $this->subject->setLabels();
-        self::assertSame(
-            'a bar (informal) b',
-            $this->subject->getSubpart()
-        );
+
+        self::assertSame('a bar (informal) b', $this->subject->getSubpart());
     }
 
     /**
@@ -229,13 +217,43 @@ class TemplateHelperTest extends FunctionalTestCase
      */
     public function setLabelsWithOneBeingThePrefixOfAnother(): void
     {
-        $this->subject->processTemplate(
-            '###LABEL_FOO###, ###LABEL_FOO2###'
-        );
+        $this->subject->processTemplate('###LABEL_FOO###, ###LABEL_FOO2###');
+
         $this->subject->setLabels();
-        self::assertSame(
-            'foo, foo two',
-            $this->subject->getSubpart()
-        );
+
+        self::assertSame('foo, foo two', $this->subject->getSubpart());
+    }
+
+    // Tests for getting subparts.
+
+    /**
+     * @test
+     */
+    public function getSubpartWithLabelsReturnsVerbatimSubpartWithoutLabels(): void
+    {
+        $subpartContent = 'Subpart content';
+        $templateCode = 'Text before the subpart
+            <!-- ###MY_SUBPART### -->'
+            . $subpartContent
+            . '<!-- ###MY_SUBPART### -->'
+            . 'Text after the subpart.';
+
+        $this->subject->processTemplate($templateCode);
+
+        self::assertSame($subpartContent, $this->subject->getSubpartWithLabels('MY_SUBPART'));
+    }
+
+    /**
+     * @test
+     */
+    public function getSubpartWithLabelsReplacesLabelMarkersWithLabels(): void
+    {
+        $templateCode = 'Text before the subpart
+            <!-- ###MY_SUBPART### -->before ###LABEL_FOO### after<!-- ###MY_SUBPART### -->
+            Text after the subpart.';
+
+        $this->subject->processTemplate($templateCode);
+
+        self::assertSame('before foo after', $this->subject->getSubpartWithLabels('MY_SUBPART'));
     }
 }

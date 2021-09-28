@@ -4137,45 +4137,4 @@ class TemplateHelperTest extends UnitTestCase
             $this->subject->piVars['bar'][0]
         );
     }
-
-    ///////////////////////////////
-    // Tests for getting subparts.
-    ///////////////////////////////
-
-    /**
-     * @test
-     */
-    public function getSubpartWithLabelsReturnsVerbatimSubpartWithoutLabels(): void
-    {
-        $subpartContent = 'Subpart content';
-        $templateCode = 'Text before the subpart'
-            . '<!-- ###MY_SUBPART### -->'
-            . $subpartContent
-            . '<!-- ###MY_SUBPART### -->'
-            . 'Text after the subpart.';
-
-        $this->subject->processTemplate($templateCode);
-
-        self::assertSame(
-            $subpartContent,
-            $this->subject->getSubpartWithLabels('MY_SUBPART')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getSubpartWithLabelsReplacesLabelMarkersWithLabels(): void
-    {
-        $templateCode = 'Text before the subpart'
-            . '<!-- ###MY_SUBPART### -->before ###LABEL_FOO### after<!-- ###MY_SUBPART### -->'
-            . 'Text after the subpart.';
-
-        $this->subject->processTemplate($templateCode);
-
-        self::assertSame(
-            'before foo after',
-            $this->subject->getSubpartWithLabels('MY_SUBPART')
-        );
-    }
 }
