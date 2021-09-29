@@ -95,11 +95,14 @@ abstract class AbstractReadOnlyObjectWithAccessors
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
-     * @return array<int, string> the array value of the given key, may be empty
+     * @return array<int, non-empty-string> the array value of the given key, may be empty
      */
     protected function getAsTrimmedArray(string $key): array
     {
-        return GeneralUtility::trimExplode(',', $this->getAsString($key), true);
+        /** @var array<int, non-empty-string> $values */
+        $values = GeneralUtility::trimExplode(',', $this->getAsString($key), true);
+
+        return $values;
     }
 
     /**

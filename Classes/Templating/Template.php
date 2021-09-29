@@ -305,6 +305,7 @@ class Template
      */
     public function hideSubparts(string $subparts, string $prefix = ''): void
     {
+        /** @var array<int, non-empty-string> $subpartNames */
         $subpartNames = GeneralUtility::trimExplode(',', $subparts, true);
 
         $this->hideSubpartsArray($subpartNames, $prefix);
@@ -362,13 +363,11 @@ class Template
         string $permanentlyHiddenSubparts = '',
         string $prefix = ''
     ): void {
+        /** @var array<int, non-empty-string> $subpartNames */
         $subpartNames = GeneralUtility::trimExplode(',', $subparts, true);
 
-        $hiddenSubpartNames = GeneralUtility::trimExplode(
-            ',',
-            $permanentlyHiddenSubparts,
-            true
-        );
+        /** @var array<int, non-empty-string> $hiddenSubpartNames */
+        $hiddenSubpartNames = GeneralUtility::trimExplode(',', $permanentlyHiddenSubparts, true);
 
         $this->unhideSubpartsArray($subpartNames, $hiddenSubpartNames, $prefix);
     }
