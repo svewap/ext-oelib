@@ -111,9 +111,7 @@ class GermanZipCode extends AbstractEntity implements Geo
     }
 
     /**
-     * Retrieves this object's coordinates.
-     *
-     * @return array<string, float> this object's geo coordinates using the keys "latitude" and "longitude"
+     * @return array{latitude?: float, longitude?: float}
      */
     public function getGeoCoordinates(): array
     {
@@ -126,7 +124,7 @@ class GermanZipCode extends AbstractEntity implements Geo
     /**
      * This method must not be called.
      *
-     * @param array<string, float> $coordinates
+     * @param array{latitude: float, longitude: float} $coordinates
      *
      * @throws \BadMethodCallException
      */
@@ -135,11 +133,6 @@ class GermanZipCode extends AbstractEntity implements Geo
         throw new \BadMethodCallException('This method must not be called.', 1542211338);
     }
 
-    /**
-     * Checks whether this object has non-empty coordinates.
-     *
-     * @return bool
-     */
     public function hasGeoCoordinates(): bool
     {
         return true;
@@ -155,8 +148,6 @@ class GermanZipCode extends AbstractEntity implements Geo
 
     /**
      * Checks whether there has been a problem with this object's geo coordinates.
-     *
-     * @return bool
      */
     public function hasGeoError(): bool
     {

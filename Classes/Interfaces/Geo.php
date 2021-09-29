@@ -27,18 +27,12 @@ interface Geo
     public function hasGeoAddress(): bool;
 
     /**
-     * Retrieves this object's coordinates.
-     *
-     * @return array<string, float> this object's geo coordinates using the keys "latitude" and
-     *         "longitude", will be empty if this object has no coordinates
+     * @return array{latitude?: float, longitude?: float}
      */
     public function getGeoCoordinates(): array;
 
     /**
-     * Sets this object's coordinates.
-     *
-     * @param array<string, float> $coordinates the coordinates, using the keys "latitude" and "longitude",
-     *        the array values must not be empty
+     * @param array{latitude: float, longitude: float} $coordinates
      */
     public function setGeoCoordinates(array $coordinates): void;
 

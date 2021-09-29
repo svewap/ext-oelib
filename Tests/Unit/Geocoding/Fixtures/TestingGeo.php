@@ -34,7 +34,7 @@ class TestingGeo extends AbstractModel implements Geo
     /**
      * the geo coordinates of this object
      *
-     * @var float[]
+     * @var array{latitude?: float, longitude?: float}
      */
     private $coordinates = [];
 
@@ -75,11 +75,7 @@ class TestingGeo extends AbstractModel implements Geo
     }
 
     /**
-     * Retrieves this object's coordinates.
-     *
-     * @return float[]
-     *         this object's geo coordinates using the keys "latitude" and
-     *         "longitude", will be empty if this object has no coordinates
+     * @return array{latitude?: float, longitude?: float}
      */
     public function getGeoCoordinates(): array
     {
@@ -89,9 +85,7 @@ class TestingGeo extends AbstractModel implements Geo
     /**
      * Sets this object's coordinates.
      *
-     * @param float[] $coordinates
-     *        the coordinates, using the keys "latitude" and "longitude",
-     *        the array values must not be empty
+     * @param array{latitude: float, longitude: float} $coordinates
      */
     public function setGeoCoordinates(array $coordinates): void
     {
