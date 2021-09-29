@@ -13,5 +13,5 @@ use TYPO3\CMS\Core\Log\LogManagerInterface;
  */
 interface LoggingAware
 {
-    public function injectLogManager(LogManagerInterface $logManager);
+    public function injectLogManager(LogManagerInterface $logManager): void;
 }

@@ -11,19 +11,9 @@ parameters:
 			path: Classes/Authentication/FrontEndLoginManager.php
 
 		-
-			message: "#^Class OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection extends generic class SplObjectStorage but does not specify its types\\: TObject, TData$#"
-			count: 1
-			path: Classes/DataStructures/Collection.php
-
-		-
 			message: "#^Method OliverKlee\\\\Oelib\\\\Interfaces\\\\LoginManager\\:\\:getLoggedInUser\\(\\) has parameter \\$mapperName with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"
 			count: 1
 			path: Classes/Interfaces/LoginManager.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Logging\\\\Interfaces\\\\LoggingAware\\:\\:injectLogManager\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: Classes/Logging/Interfaces/LoggingAware.php
 
 		-
 			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:saveManyToManyAndCommaSeparatedRelatedModels\\(\\) has parameter \\$mapper with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"

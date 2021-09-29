@@ -20,6 +20,9 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * @covers \OliverKlee\Oelib\Mapper\AbstractDataMapper
+ */
 class AbstractDataMapperTest extends FunctionalTestCase
 {
     /**
@@ -353,11 +356,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function getListOfModelsReturnsListOfModelWithProvidedTitle(): void
     {
-        self::assertSame(
-            'foo',
-            $this->subject->getListOfModels([['uid' => 1, 'title' => 'foo']])
-                ->current()->getTitle()
-        );
+        /** @var Collection<TestingModel> $models */
+        $models = $this->subject->getListOfModels([['uid' => 1, 'title' => 'foo']]);
+
+        /** @var TestingModel $current */
+        $current = $models->current();
+        self::assertSame('foo', $current->getTitle());
     }
 
     // Tests concerning load and reload
