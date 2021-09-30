@@ -12,6 +12,9 @@ use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
+/**
+ * @covers \OliverKlee\Oelib\Authentication\FrontEndLoginManager
+ */
 class FrontEndLoginManagerTest extends FunctionalTestCase
 {
     /**
@@ -173,7 +176,9 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $this->getFrontEndController()->fe_user->user['name'] = 'Jane Doe';
         $this->testingFramework->changeRecord('fe_users', $feUserUid, ['name' => 'James Doe']);
 
-        self::assertSame($oldName, $this->subject->getLoggedInUser()->getName());
+        /** @var FrontEndUser $loggedInUser */
+        $loggedInUser = $this->subject->getLoggedInUser();
+        self::assertSame($oldName, $loggedInUser->getName());
     }
 
     // Tests concerning logInUser

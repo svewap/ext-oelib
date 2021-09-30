@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Authentication;
 
 use OliverKlee\Oelib\Interfaces\LoginManager;
-use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
+use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -83,16 +83,15 @@ class FrontEndLoginManager implements LoginManager
     }
 
     /**
-     * Gets the currently logged-in front-end user.
+     * Gets the currently logged-in user.
      *
-     * @param class-string<AbstractDataMapper> $mapperName the mapper to use for getting the back-end user model
+     * @param class-string $mapperName mapper to use for getting the user model
      *
-     * @return FrontEndUser|null the logged-in front-end user,
-     *         will be null if no user is logged in or if there is no front end
+     * @return AbstractModel|null the logged-in user, will be null if no user is logged in
      *
      * @throws \InvalidArgumentException
      */
-    public function getLoggedInUser(string $mapperName = FrontEndUserMapper::class): ?FrontEndUser
+    public function getLoggedInUser(string $mapperName = FrontEndUserMapper::class): ?AbstractModel
     {
         // @phpstan-ignore-next-line We explicitly check for contract violations here.
         if ($mapperName === '') {

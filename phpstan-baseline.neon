@@ -1,21 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\:\\:getLoggedInUser\\(\\) has parameter \\$mapperName with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Authentication/BackEndLoginManager.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\:\\:getLoggedInUser\\(\\) has parameter \\$mapperName with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Authentication/FrontEndLoginManager.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Interfaces\\\\LoginManager\\:\\:getLoggedInUser\\(\\) has parameter \\$mapperName with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Interfaces/LoginManager.php
-
-		-
 			message: "#^PHPDoc tag @var for variable \\$objectManager contains generic class TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManager but does not specify its types\\: T$#"
 			count: 1
 			path: Tests/Functional/Domain/Repository/GermanZipCodeRepositoryTest.php
