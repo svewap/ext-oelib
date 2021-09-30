@@ -9,6 +9,7 @@ use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\FrontEnd\UserWithoutCookies;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
+use OliverKlee\Oelib\Model\FrontEndUserGroup;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
@@ -1300,14 +1301,13 @@ final class TestingFramework
             $this->logoutFrontEndUser();
         }
 
-        /** @var FrontEndUserMapper $mapper */
         $mapper = MapperRegistry::get(FrontEndUserMapper::class);
         // loads the model from database if it is a ghost
         $mapper->existsModel($userId);
         $dataToSet = $mapper->find($userId)->getData();
         $dataToSet['uid'] = $userId;
         if (isset($dataToSet['usergroup'])) {
-            /** @var Collection $userGroups */
+            /** @var Collection<FrontEndUserGroup> $userGroups */
             $userGroups = $dataToSet['usergroup'];
             $dataToSet['usergroup'] = $userGroups->getUids();
         }

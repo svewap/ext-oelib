@@ -2466,7 +2466,6 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
-        /** @var TestingModel $model */
         $model = $this->subject->find($uid);
         $model->markAsDirty();
 
@@ -2474,7 +2473,6 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $mapper = MapperRegistry::get(TestingChildMapper::class);
         $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
         $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
-        /** @var TestingModel $component1 */
         $component1 = $mapper->find($childUid1);
         $composition->add($component1);
         $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
@@ -3545,22 +3543,25 @@ class AbstractDataMapperTest extends FunctionalTestCase
      */
     public function findAllByRelationIgnoresIgnoreList(): void
     {
-        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
-        $model = $this->subject->find($uid);
-        $mapper = MapperRegistry::get(TestingChildMapper::class);
-        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
-        $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
-        $relatedModel = $mapper->find($childUid1);
-        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $model->getUid()]);
-        $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
-        $ignoredRelatedModel = $mapper->find($childUid2);
+        $childMapper = MapperRegistry::get(TestingChildMapper::class);
+        $parentMapper = MapperRegistry::get(TestingMapper::class);
 
-        /** @var Collection<TestingModel> $ignoreList */
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
+        $parentUid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $parentModel = $parentMapper->find($parentUid);
+
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $parentModel->getUid()]);
+        $childUid1 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $relatedModel = $childMapper->find($childUid1);
+        $this->getDatabaseConnection()->insertArray('tx_oelib_testchild', ['parent' => $parentModel->getUid()]);
+        $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
+        $ignoredRelatedModel = $childMapper->find($childUid2);
+
+        /** @var Collection<AbstractModel> $ignoreList */
         $ignoreList = new Collection();
         $ignoreList->add($ignoredRelatedModel);
 
-        $result = MapperRegistry::get(TestingChildMapper::class)->findAllByRelation($model, 'parent', $ignoreList);
+        $result = $childMapper->findAllByRelation($parentModel, 'parent', $ignoreList);
 
         self::assertCount(1, $result);
         self::assertSame($relatedModel, $result->first());

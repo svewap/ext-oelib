@@ -8,9 +8,13 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
+use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
 
+/**
+ * @covers \OliverKlee\Oelib\Model\FrontEndUser
+ */
 class FrontEndUserTest extends UnitTestCase
 {
     /**
@@ -1025,14 +1029,14 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getUserGroupsForReturnsUserGroups(): void
     {
-        $userGroups = new Collection();
+        /** @var Collection<AbstractModel> $expectedGroups */
+        $expectedGroups = new Collection();
 
-        $this->subject->setData(['usergroup' => $userGroups]);
+        $this->subject->setData(['usergroup' => $expectedGroups]);
 
-        self::assertSame(
-            $userGroups,
-            $this->subject->getUserGroups()
-        );
+        /** @var Collection<AbstractModel> $actualGroups */
+        $actualGroups = $this->subject->getUserGroups();
+        self::assertSame($expectedGroups, $actualGroups);
     }
 
     /**

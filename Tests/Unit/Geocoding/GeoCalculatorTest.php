@@ -7,9 +7,14 @@ namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Geocoding\GeoCalculator;
+use OliverKlee\Oelib\Interfaces\Geo;
+use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 use TYPO3\CMS\Core\SingletonInterface;
 
+/**
+ * @covers \OliverKlee\Oelib\Geocoding\GeoCalculator
+ */
 class GeoCalculatorTest extends UnitTestCase
 {
     /**
@@ -161,15 +166,11 @@ class GeoCalculatorTest extends UnitTestCase
         $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
-        /** @var Collection<TestingGeo> $list */
+        /** @var Collection<Geo&AbstractModel> $list */
         $list = new Collection();
         $list->add($bonn);
 
-        $filteredList = $this->subject->filterByDistance(
-            $list,
-            $cologne,
-            27.0
-        );
+        $filteredList = $this->subject->filterByDistance($list, $cologne, 27.0);
 
         self::assertCount(1, $filteredList);
         self::assertSame($bonn, $filteredList->first());
@@ -185,15 +186,11 @@ class GeoCalculatorTest extends UnitTestCase
         $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
-        /** @var Collection<TestingGeo> $list */
+        /** @var Collection<Geo&AbstractModel> $list */
         $list = new Collection();
         $list->add($bonn);
 
-        $filteredList = $this->subject->filterByDistance(
-            $list,
-            $cologne,
-            25.0
-        );
+        $filteredList = $this->subject->filterByDistance($list, $cologne, 25.0);
 
         self::assertTrue($filteredList->isEmpty());
     }
@@ -207,7 +204,7 @@ class GeoCalculatorTest extends UnitTestCase
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
         $nowhere = new TestingGeo();
 
-        /** @var Collection<TestingGeo> $list */
+        /** @var Collection<Geo&AbstractModel> $list */
         $list = new Collection();
         $list->add($nowhere);
 
@@ -225,7 +222,7 @@ class GeoCalculatorTest extends UnitTestCase
         $bonn->setGeoCoordinates(['latitude' => 50.72254683, 'longitude' => 7.07519531]);
         $nowhere = new TestingGeo();
 
-        /** @var Collection<TestingGeo> $list */
+        /** @var Collection<Geo&AbstractModel> $list */
         $list = new Collection();
         $list->add($bonn);
 
@@ -244,7 +241,7 @@ class GeoCalculatorTest extends UnitTestCase
         $cologne = new TestingGeo();
         $cologne->setGeoCoordinates(['latitude' => 50.94458443, 'longitude' => 6.9543457]);
 
-        /** @var Collection<TestingGeo> $list */
+        /** @var Collection<Geo&AbstractModel> $list */
         $list = new Collection();
         $list->add($bonn);
         $list->add($cologne);

@@ -10,7 +10,8 @@ use OliverKlee\Oelib\Model\AbstractModel;
 /**
  * This class represents a list of models.
  *
- * @extends \SplObjectStorage<AbstractModel, int>
+ * @template M of AbstractModel
+ * @extends \SplObjectStorage<M, int>
  */
 class Collection extends \SplObjectStorage
 {
@@ -48,7 +49,7 @@ class Collection extends \SplObjectStorage
      *
      * The model to add need not necessarily have a UID.
      *
-     * @param AbstractModel $model the model to add, need not have a UID
+     * @param M $model the model to add, need not have a UID
      *
      * @throws \UnexpectedValueException
      */
@@ -94,11 +95,13 @@ class Collection extends \SplObjectStorage
      * Returns the first item.
      *
      * Note: This method rewinds the iterator.
+     *
+     * @return M|null
      */
     public function first(): ?AbstractModel
     {
         $this->rewind();
-        /** @var AbstractModel|null $current */
+        /** @var M|null $current */
         $current = $this->current();
 
         return $current;
@@ -145,7 +148,7 @@ class Collection extends \SplObjectStorage
     {
         $this->hasItemWithoutUid = false;
 
-        /** @var AbstractModel $item */
+        /** @var M $item */
         foreach ($this as $item) {
             if ($item->hasUid()) {
                 $uid = $item->getUid();
@@ -171,7 +174,7 @@ class Collection extends \SplObjectStorage
         $items = iterator_to_array($this, false);
         usort($items, $callbackFunction);
 
-        /** @var AbstractModel $item */
+        /** @var M $item */
         foreach ($items as $item) {
             $this->detach($item);
             $this->attach($item);
@@ -187,11 +190,11 @@ class Collection extends \SplObjectStorage
      * cases a synonym to `appendUnique()` as `\SplObjectStorage` makes sure that
      * no object is added more than once to it.
      *
-     * @param Collection<AbstractModel> $list the list to append, may be empty
+     * @param Collection<M> $list the list to append, may be empty
      */
     public function append(Collection $list): void
     {
-        /** @var AbstractModel $item */
+        /** @var M $item */
         foreach ($list as $item) {
             $this->add($item);
         }
@@ -234,8 +237,6 @@ class Collection extends \SplObjectStorage
      * Sets the model this list belongs to.
      *
      * @internal
-     *
-     * @param AbstractModel $model the model this list belongs to
      */
     public function setParentModel(AbstractModel $model): void
     {
@@ -246,8 +247,6 @@ class Collection extends \SplObjectStorage
      * Checks whether this relation is owner by the parent model.
      *
      * @internal
-     *
-     * @return bool
      */
     public function isRelationOwnedByParent(): bool
     {
@@ -319,7 +318,7 @@ class Collection extends \SplObjectStorage
      * @param int $start the zero-based start position, must be >= 0
      * @param int $length the number of elements to return, must be >= 0
      *
-     * @return Collection<AbstractModel> the selected elements starting at $start
+     * @return Collection<M> the selected elements starting at $start
      */
     public function inRange(int $start, int $length): Collection
     {
@@ -330,12 +329,12 @@ class Collection extends \SplObjectStorage
             throw new \InvalidArgumentException('$length must be >= 0.');
         }
 
-        /** @var Collection<AbstractModel> $result */
+        /** @var Collection<M> $result */
         $result = new self();
 
         $lastPosition = $start + $length - 1;
         $currentIndex = 0;
-        /** @var AbstractModel $item */
+        /** @var M $item */
         foreach ($this as $item) {
             if ($currentIndex > $lastPosition) {
                 break;
@@ -353,6 +352,8 @@ class Collection extends \SplObjectStorage
      * Returns the model at position $position.
      *
      * @param int $position the zero-based position of the model to retrieve, must be >= 0
+     *
+     * @return M|null
      */
     public function at(int $position): ?AbstractModel
     {
@@ -362,14 +363,15 @@ class Collection extends \SplObjectStorage
     /**
      * Returns the elements of this list in an array.
      *
-     * @return array<int, AbstractModel> the elements of this list, might be empty
+     * @return array<int, M> the elements of this list, might be empty
      */
     public function toArray(): array
     {
+        /** @var array<int, M> $elements */
         $elements = [];
-        /** @var AbstractModel $model */
-        foreach ($this as $model) {
-            $elements[] = $model;
+        /** @var M $item */
+        foreach ($this as $item) {
+            $elements[] = $item;
         }
 
         return $elements;

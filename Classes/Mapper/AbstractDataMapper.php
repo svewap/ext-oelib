@@ -499,7 +499,7 @@ abstract class AbstractDataMapper
                 ->fetchAll();
         }
 
-        /** @var Collection $models */
+        /** @var Collection<AbstractModel> $models */
         $models = MapperRegistry::get($this->relations[$key])->getListOfModels($modelData);
         $models->setParentModel($model);
         $models->markAsOwnedByParent();
@@ -1432,15 +1432,11 @@ abstract class AbstractDataMapper
     /**
      * Finds all records that are related to $model via the field $key.
      *
-     * @param AbstractModel $model
-     *        the model to which the matches should be related
-     * @param string $relationKey
-     *        the key of the field in the matches that should contain the UID
-     *        of $model
-     * @param Collection<AbstractModel>|null $ignoreList
-     *        related records that should _not_ be returned
+     * @param AbstractModel $model the model to which the matches should be related
+     * @param string $relationKey the key of the field in the matches that should contain the UID of $model
+     * @param Collection<AbstractModel>|null $ignoreList related records that should _not_ be returned
      *
-     * @return Collection<AbstractModel> the related models, will be empty if there are no matches
+     * @return Collection<M> the related models, will be empty if there are no matches
      */
     public function findAllByRelation(
         AbstractModel $model,

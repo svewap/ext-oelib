@@ -53,7 +53,9 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     private $uid = 0;
 
     /**
-     * @var array<string, Collection|AbstractModel|string|int|float|bool|null> data for this object (without the UID)
+     * data for this object (without the UID)
+     *
+     * @var array<string, Collection<AbstractModel>|AbstractModel|string|int|float|bool|null>
      */
     private $data = [];
 
@@ -95,7 +97,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
 
         $this->resetUid();
 
-        /** @var int|string|bool|float|Collection|AbstractModel|null $dataItem */
+        /** @var int|string|bool|float|Collection<AbstractModel>|AbstractModel|null $dataItem */
         foreach ($this->data as $key => $dataItem) {
             if ($dataItem instanceof Collection) {
                 /** Collection $dataItem */
@@ -132,7 +134,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * 2. when a new model is created in some unit tests
      * 3. before a new model should be saved to the database
      *
-     * @param array<string, Collection|AbstractModel|string|int|float|bool|null> $data data to set, may be empty
+     * @param array<string, Collection<AbstractModel>|AbstractModel|string|int|float|bool|null> $data data to set,
+     *        may be empty
      */
     public function setData(array $data): void
     {
@@ -173,7 +176,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      *
      * This function may only be called by the mapper.
      *
-     * @return array<string, Collection|AbstractModel|string|int|float|bool|null> the model data, might be empty
+     * @return array<string, Collection<AbstractModel>|AbstractModel|string|int|float|bool|null> the model data,
+     *         might be empty
      */
     public function getData(): array
     {
@@ -239,7 +243,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * Sets the value of the data item for the key $key.
      *
      * @param string $key the key of the data item to get, must not be empty
-     * @param Collection|AbstractModel|string|int|float|bool|null $value the data for the key $key
+     * @param Collection<AbstractModel>|AbstractModel|string|int|float|bool|null $value the data for the given key
      */
     protected function set(string $key, $value): void
     {
@@ -272,8 +276,8 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      *
      * @param string $key the key of the data item to get, must not be empty
      *
-     * @return Collection|AbstractModel|string|int|float|bool|null the data for the key $key, will be an empty string
-     *         if the key has not been set yet
+     * @return Collection<AbstractModel>|AbstractModel|string|int|float|bool|null the data for the key $key,
+     *         will be an empty string if the key has not been set yet
      */
     protected function get(string $key)
     {

@@ -394,11 +394,12 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      */
     public function setUserGroups(Collection $userGroups): void
     {
+        /** @var Collection<AbstractModel> $userGroups */
         $this->set('usergroup', $userGroups);
     }
 
     /**
-     * Adds $group to this user's direct groups.
+     * Adds the provided group to this user's direct groups.
      */
     public function addUserGroup(FrontEndUserGroup $group): void
     {
@@ -409,8 +410,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Checks whether this user is a member of at least one of the user groups
      * provided as comma-separated UID list.
      *
-     * @param string $uidList
-     *        comma-separated list of user group UIDs, can also consist of only
+     * @param string $uidList comma-separated list of user group UIDs, can also consist of only
      *        one UID, but must not be empty
      *
      * @return bool TRUE if the user is member of at least one of the user groups provided, FALSE otherwise

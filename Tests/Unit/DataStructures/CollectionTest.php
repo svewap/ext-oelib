@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\DataStructures;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
+use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -16,13 +17,15 @@ use PHPUnit\Framework\MockObject\MockObject;
 final class CollectionTest extends UnitTestCase
 {
     /**
-     * @var Collection
+     * @var Collection<TestingModel>
      */
     private $subject = null;
 
     protected function setUp(): void
     {
-        $this->subject = new Collection();
+        /** @var Collection<TestingModel> $subject */
+        $subject = new Collection();
+        $this->subject = $subject;
     }
 
     /**
@@ -51,8 +54,7 @@ final class CollectionTest extends UnitTestCase
      * Adds models with the given titles to the subject, one for each title
      * given in $titles.
      *
-     * @param string[] $titles
-     *        the titles for the models, must not be empty
+     * @param array<int, string> $titles the titles for the models, must not be empty
      */
     private function addModelsToFixture(array $titles = ['']): void
     {
@@ -743,7 +745,7 @@ final class CollectionTest extends UnitTestCase
      */
     public function sortMakesListDirty(): void
     {
-        /** @var Collection&MockObject $subject */
+        /** @var Collection<AbstractModel>&MockObject $subject */
         $subject = $this->createPartialMock(Collection::class, ['markAsDirty']);
         $subject->expects(self::once())->method('markAsDirty');
 
@@ -1003,20 +1005,20 @@ final class CollectionTest extends UnitTestCase
      */
     public function sortBySortingMovesItemWithHigherSortingValueAfterItemWithLowerSortingValue(): void
     {
+        /** @var Collection<TestingChildModel> $subject */
+        $subject = new Collection();
+
         $model1 = new TestingChildModel();
         $model1->setSorting(2);
-        $this->subject->add($model1);
+        $subject->add($model1);
 
         $model2 = new TestingChildModel();
         $model2->setSorting(1);
-        $this->subject->add($model2);
+        $subject->add($model2);
 
-        $this->subject->sortBySorting();
+        $subject->sortBySorting();
 
-        self::assertSame(
-            $model2,
-            $this->subject->first()
-        );
+        self::assertSame($model2, $subject->first());
     }
 
     /**

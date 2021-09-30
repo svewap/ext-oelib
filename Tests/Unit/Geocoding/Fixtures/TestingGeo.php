@@ -8,7 +8,7 @@ use OliverKlee\Oelib\Interfaces\Geo;
 use OliverKlee\Oelib\Model\AbstractModel;
 
 /**
- * This class represents an testing object that can have an address and geo coordinates.
+ * This class represents a testing object that can have an address and geo coordinates.
  */
 class TestingGeo extends AbstractModel implements Geo
 {
