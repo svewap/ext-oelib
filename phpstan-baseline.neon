@@ -16,41 +16,6 @@ parameters:
 			path: Classes/Interfaces/LoginManager.php
 
 		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:saveManyToManyAndCommaSeparatedRelatedModels\\(\\) has parameter \\$mapper with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:saveManyToOneRelatedModels\\(\\) has parameter \\$mapper with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:\\$relations with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserGroupMapper\\:\\:\\$relations with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Mapper/BackEndUserGroupMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserMapper\\:\\:\\$relations with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Mapper/BackEndUserMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\FrontEndUserMapper\\:\\:\\$relations with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Mapper/FrontEndUserMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\:\\:\\$mappers with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper does not specify its types\\: M$#"
-			count: 1
-			path: Classes/Mapper/MapperRegistry.php
-
-		-
 			message: "#^PHPDoc tag @var for variable \\$objectManager contains generic class TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManager but does not specify its types\\: T$#"
 			count: 1
 			path: Tests/Functional/Domain/Repository/GermanZipCodeRepositoryTest.php
@@ -69,19 +34,4 @@ parameters:
 			message: "#^PHPDoc tag @var for variable \\$objectManagerStub contains generic interface TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManagerInterface but does not specify its types\\: T$#"
 			count: 1
 			path: Tests/Unit/Domain/Repository/Traits/ReadOnlyTest.php
-
-		-
-			message: "#^Class OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\ModelLessTestingMapper extends generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper but does not specify its types\\: M$#"
-			count: 1
-			path: Tests/Unit/Mapper/Fixtures/ModelLessTestingMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingChildMapper\\:\\:\\$relations with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper does not specify its types\\: M$#"
-			count: 1
-			path: Tests/Unit/Mapper/Fixtures/TestingChildMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:\\$relations with generic class OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper does not specify its types\\: M$#"
-			count: 1
-			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
 

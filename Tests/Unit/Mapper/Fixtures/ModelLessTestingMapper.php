@@ -8,6 +8,8 @@ use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 
 /**
  * This class represents a mapper that is broken because it has no model name defined.
+ *
+ * @phpstan-ignore-next-line We explicitly test for a contract violation here.
  */
 class ModelLessTestingMapper extends AbstractDataMapper
 {
