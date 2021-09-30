@@ -47,6 +47,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for PHP 7.0 and 7.1 (#690)
 
 ### Fixed
+- Do not provide empty geo coordinates in the `Geo` interface (#802)
 - Adapt the tests and testing framework to TYPO3 10LTS (#767, #777, #778, #779, #780, #781, #783)
 - Recognize flexforms data converted to an array (#753)
 - Always display the incorrect value in the configuration check (#751)

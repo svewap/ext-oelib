@@ -26,16 +26,6 @@ parameters:
 			path: Classes/Geocoding/DummyGeocodingLookup.php
 
 		-
-			message: "#^Offset 'latitude' does not exist on array\\(\\?'latitude' \\=\\> float, \\?'longitude' \\=\\> float\\)\\.$#"
-			count: 3
-			path: Classes/Geocoding/GeoCalculator.php
-
-		-
-			message: "#^Offset 'longitude' does not exist on array\\(\\?'latitude' \\=\\> float, \\?'longitude' \\=\\> float\\)\\.$#"
-			count: 3
-			path: Classes/Geocoding/GeoCalculator.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|true given\\.$#"
 			count: 1
 			path: Classes/Geocoding/GoogleGeocoding.php
@@ -209,16 +199,6 @@ parameters:
 			message: "#^PHPDoc tag @var for variable \\$objectManagerStub contains generic interface TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManagerInterface but does not specify its types\\: T$#"
 			count: 1
 			path: Tests/Unit/Domain/Repository/Traits/ReadOnlyTest.php
-
-		-
-			message: "#^Offset 'latitude' does not exist on array\\(\\?'latitude' \\=\\> float, \\?'longitude' \\=\\> float\\)\\.$#"
-			count: 8
-			path: Tests/Unit/Geocoding/GeoCalculatorTest.php
-
-		-
-			message: "#^Offset 'longitude' does not exist on array\\(\\?'latitude' \\=\\> float, \\?'longitude' \\=\\> float\\)\\.$#"
-			count: 4
-			path: Tests/Unit/Geocoding/GeoCalculatorTest.php
 
 		-
 			message: "#^Property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$cObj \\(TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer\\) does not accept object\\.$#"

@@ -27,7 +27,7 @@ interface Geo
     public function hasGeoAddress(): bool;
 
     /**
-     * @return array{latitude?: float, longitude?: float}
+     * @return array{latitude: float, longitude: float}
      */
     public function getGeoCoordinates(): array;
 

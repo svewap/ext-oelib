@@ -111,7 +111,7 @@ class GermanZipCode extends AbstractEntity implements Geo
     }
 
     /**
-     * @return array{latitude?: float, longitude?: float}
+     * @return array{latitude: float, longitude: float}
      */
     public function getGeoCoordinates(): array
     {

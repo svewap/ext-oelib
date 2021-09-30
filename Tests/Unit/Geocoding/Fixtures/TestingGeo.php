@@ -75,10 +75,16 @@ class TestingGeo extends AbstractModel implements Geo
     }
 
     /**
-     * @return array{latitude?: float, longitude?: float}
+     * @return array{latitude: float, longitude: float}
+     *
+     * @throws \BadMethodCallException
      */
     public function getGeoCoordinates(): array
     {
+        if (!isset($this->coordinates['latitude'], $this->coordinates['longitude'])) {
+            throw new \BadMethodCallException('Missing geo coordinates!', 1633018227);
+        }
+
         return $this->coordinates;
     }
 
