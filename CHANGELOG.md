@@ -15,7 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Allow psr/log in versions 2 and 3 as well (#785)
 - Switch the lazy loading callback to a closure (#775)
 - Make `TypoScriptConfiguration` and `ConfigurationProxy` immutable (#771)
-- Raise PHPStan to level 6 (#770)
+- Raise PHPStan to level 7 (#770, #801)
 - Improve the styling of the config check warnings (#752)
 - Use PHP 7.2 features and more type declarations (#721, #723, #730, #731)
 - Upgrade to PHP-CS-Fixer V3 (#639)
