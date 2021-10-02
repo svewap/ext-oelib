@@ -55,7 +55,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     /**
      * data for this object (without the UID)
      *
-     * @var array<string, Collection<AbstractModel>|AbstractModel|string|int|float|bool|null>
+     * @var array<string, string|int|float|bool|object|null> $data
      */
     private $data = [];
 
@@ -134,8 +134,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * 2. when a new model is created in some unit tests
      * 3. before a new model should be saved to the database
      *
-     * @param array<string, Collection<AbstractModel>|AbstractModel|string|int|float|bool|null> $data data to set,
-     *        may be empty
+     * @param array<string, string|int|float|bool|object|null> $data
      */
     public function setData(array $data): void
     {
@@ -151,14 +150,16 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      *
      * This function may be called more than once.
      *
-     * @param array<string, string|int> $data the data for this model, may be empty
+     * @param array<string, string|int|float|bool|object|null> $data
      */
     public function resetData(array $data): void
     {
         $this->data = $data;
         if ($this->existsKey('uid')) {
             if (!$this->hasUid()) {
-                $this->setUid((int)$this->data['uid']);
+                $rawUid = $this->data['uid'];
+                $uid = (\is_int($rawUid) || \is_string($rawUid)) ? (int)$rawUid : 0;
+                $this->setUid($uid);
             }
             unset($this->data['uid']);
         }
@@ -176,8 +177,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      *
      * This function may only be called by the mapper.
      *
-     * @return array<string, Collection<AbstractModel>|AbstractModel|string|int|float|bool|null> the model data,
-     *         might be empty
+     * @return array<string, string|int|float|bool|object|null> $data the model data, might be empty
      */
     public function getData(): array
     {
@@ -269,15 +269,14 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     /**
      * Gets the value of the data item for the key $key.
      *
-     * Before this function may be called, setData() or set() must have been
-     * called once.
-     *
-     * @throws NotFoundException if this model is dead
+     * Before this function may be called, `setData()` or `set()` must have been called once.
      *
      * @param string $key the key of the data item to get, must not be empty
      *
-     * @return Collection<AbstractModel>|AbstractModel|string|int|float|bool|null the data for the key $key,
+     * @return string|int|float|bool|object|null the data for the key $key,
      *         will be an empty string if the key has not been set yet
+     *
+     * @throws NotFoundException if this model is dead
      */
     protected function get(string $key)
     {
@@ -372,14 +371,14 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     /**
      * Gets the value stored in under the key $key as a collection of models.
      *
-     * @deprecated will be removed in oelib 5.0 - use `getAsCollection` instead
-     *
      * @param string $key the key of the element to retrieve, must not be empty
      *
      * @return Collection<AbstractModel> the data item for the given key
      *
      * @throws \UnexpectedValueException if there is a data item stored for the key $key that is not a collection
      *         or if that item has not been set yet
+     *
+     * @deprecated will be removed in oelib 5.0 - use `getAsCollection` instead
      */
     public function getAsList(string $key): Collection
     {

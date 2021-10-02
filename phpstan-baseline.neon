@@ -71,11 +71,6 @@ parameters:
 			path: Classes/Mapper/MapperRegistry.php
 
 		-
-			message: "#^Parameter \\#1 \\$data of method OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\:\\:resetData\\(\\) expects array\\<string, int\\|string\\>, array\\<string, bool\\|float\\|int\\|OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\|OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\|string\\|null\\> given\\.$#"
-			count: 1
-			path: Classes/Model/AbstractModel.php
-
-		-
 			message: "#^Cannot call method getKey\\(\\) on string\\|TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication\\.$#"
 			count: 1
 			path: Classes/Session/Session.php
