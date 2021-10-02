@@ -8,7 +8,6 @@ use OliverKlee\Oelib\Interfaces\LoginManager;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
-use OliverKlee\Oelib\Model\BackEndUser;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
@@ -24,7 +23,7 @@ class BackEndLoginManager implements LoginManager
     private static $instance = null;
 
     /**
-     * @var BackEndUser|null a logged-in back-end user (real or faked)
+     * @var AbstractModel|null a logged-in back-end user (real or faked)
      */
     private $loggedInUser = null;
 
@@ -64,7 +63,7 @@ class BackEndLoginManager implements LoginManager
      */
     public function isLoggedIn(): bool
     {
-        return $this->loggedInUser instanceof BackEndUser
+        return $this->loggedInUser instanceof AbstractModel
             || $this->getBackEndUserAuthentication() instanceof BackendUserAuthentication;
     }
 
@@ -88,13 +87,11 @@ class BackEndLoginManager implements LoginManager
         if (!$this->isLoggedIn()) {
             return null;
         }
-        if ($this->loggedInUser instanceof BackEndUser) {
+        if ($this->loggedInUser instanceof AbstractModel) {
             return $this->loggedInUser;
         }
 
-        /** @var BackEndUserMapper $mapper */
-        $mapper = MapperRegistry::get($mapperName);
-        $this->loggedInUser = $mapper->find((int)$this->getBackEndUserAuthentication()->user['uid']);
+        $this->loggedInUser = MapperRegistry::get($mapperName)->find($this->getLoggedInUserUid());
 
         return $this->loggedInUser;
     }
@@ -104,9 +101,9 @@ class BackEndLoginManager implements LoginManager
      *
      * This function is for testing purposes only!
      *
-     * @param BackEndUser $loggedInUser the fake logged-in back-end user
+     * @param AbstractModel $loggedInUser the fake logged-in back-end user
      */
-    public function setLoggedInUser(BackEndUser $loggedInUser): void
+    public function setLoggedInUser(AbstractModel $loggedInUser): void
     {
         $this->loggedInUser = $loggedInUser;
     }
@@ -117,5 +114,19 @@ class BackEndLoginManager implements LoginManager
     protected function getBackEndUserAuthentication(): ?BackendUserAuthentication
     {
         return $GLOBALS['BE_USER'] ?? null;
+    }
+
+    /**
+     * Returns the UID of the currently logged-in user.
+     *
+     * @return int will be zero if no user is logged in
+     */
+    public function getLoggedInUserUid(): int
+    {
+        if ($this->loggedInUser instanceof AbstractModel) {
+            return $this->loggedInUser->getUid();
+        }
+
+        return (int)$this->getBackEndUserAuthentication()->user['uid'];
     }
 }

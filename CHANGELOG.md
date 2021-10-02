@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add `LoginManager::getLoggedInUserUid()` (#804)
 - Add generics for the `Collection` class (#798)
 - Add support for TYPO3 10LTS (#431)
 - Add Rector to the toolchain (#720, #722, #724)

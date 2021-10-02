@@ -138,4 +138,38 @@ class FrontEndLoginManagerTest extends UnitTestCase
             $this->subject->isLoggedIn()
         );
     }
+
+    /**
+     * @test
+     */
+    public function getLoggedInUserUidWithoutLoginReturnsZero(): void
+    {
+        self::assertSame(0, $this->subject->getLoggedInUserUid());
+    }
+
+    /**
+     * @test
+     */
+    public function getLoggedInUserUidWithLoginReturnsUserUid(): void
+    {
+        $uid = 12;
+        $user = new FrontEndUser();
+        $user->setUid($uid);
+
+        $this->subject->logInUser($user);
+
+        self::assertSame($uid, $this->subject->getLoggedInUserUid());
+    }
+
+    /**
+     * @test
+     */
+    public function getLoggedInUserUidWithLoginWithoutUIdReturnsZeo(): void
+    {
+        $user = new FrontEndUser();
+
+        $this->subject->logInUser($user);
+
+        self::assertSame(0, $this->subject->getLoggedInUserUid());
+    }
 }

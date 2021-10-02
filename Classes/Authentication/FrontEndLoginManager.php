@@ -8,7 +8,6 @@ use OliverKlee\Oelib\Interfaces\LoginManager;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
-use OliverKlee\Oelib\Model\FrontEndUser;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -28,7 +27,7 @@ class FrontEndLoginManager implements LoginManager
     /**
      * the real or simulated logged-in user
      *
-     * @var FrontEndUser|null
+     * @var AbstractModel|null
      */
     private $loggedInUser = null;
 
@@ -76,7 +75,7 @@ class FrontEndLoginManager implements LoginManager
      */
     public function isLoggedIn(): bool
     {
-        $isSimulatedLoggedIn = $this->loggedInUser instanceof FrontEndUser;
+        $isSimulatedLoggedIn = $this->loggedInUser instanceof AbstractModel;
         $sessionExists = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
 
         return $isSimulatedLoggedIn || $sessionExists;
@@ -99,17 +98,14 @@ class FrontEndLoginManager implements LoginManager
         if ($mapperName === '') {
             throw new \InvalidArgumentException('$mapperName must not be empty.', 1331488730);
         }
-        if ($this->loggedInUser instanceof FrontEndUser) {
+        if ($this->loggedInUser instanceof AbstractModel) {
             return $this->loggedInUser;
         }
         if (!$this->isLoggedIn()) {
             return null;
         }
 
-        $uid = (int)$this->getContext()->getPropertyFromAspect('frontend.user', 'id');
-        /** @var FrontEndUserMapper $mapper */
-        $mapper = MapperRegistry::get($mapperName);
-        $this->loggedInUser = $mapper->find($uid);
+        $this->loggedInUser = MapperRegistry::get($mapperName)->find($this->getLoggedInUserUid());
 
         return $this->loggedInUser;
     }
@@ -119,9 +115,9 @@ class FrontEndLoginManager implements LoginManager
      *
      * This function is intended to be used for unit test only. Don't use it in the production code.
      *
-     * @param FrontEndUser|null $user the user to log in, set to NULL for no logged-in user
+     * @param AbstractModel|null $user the user to log in, set to NULL for no logged-in user
      */
-    public function logInUser(FrontEndUser $user = null): void
+    public function logInUser(AbstractModel $user = null): void
     {
         $this->loggedInUser = $user;
     }
@@ -132,5 +128,19 @@ class FrontEndLoginManager implements LoginManager
     protected function getFrontEndController(): ?TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'] ?? null;
+    }
+
+    /**
+     * Returns the UID of the currently logged-in user.
+     *
+     * @return int will be zero if no user is logged in
+     */
+    public function getLoggedInUserUid(): int
+    {
+        if ($this->loggedInUser instanceof AbstractModel) {
+            return $this->loggedInUser->getUid();
+        }
+
+        return (int)$this->getContext()->getPropertyFromAspect('frontend.user', 'id');
     }
 }

@@ -42,4 +42,11 @@ interface LoginManager
      * @deprecated will be removed in oelib 5.0
      */
     public function getLoggedInUser(string $mapperName): ?AbstractModel;
+
+    /**
+     * Returns the UID of the currently logged-in user.
+     *
+     * @return int will be zero if no user is logged in
+     */
+    public function getLoggedInUserUid(): int;
 }
