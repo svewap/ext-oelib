@@ -90,6 +90,8 @@ class FrontEndLoginManager implements LoginManager
      * @return AbstractModel|null the logged-in user, will be null if no user is logged in
      *
      * @throws \InvalidArgumentException
+     *
+     * @deprecated will be removed in oelib 5.0
      */
     public function getLoggedInUser(string $mapperName = FrontEndUserMapper::class): ?AbstractModel
     {

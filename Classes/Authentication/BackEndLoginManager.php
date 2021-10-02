@@ -76,6 +76,8 @@ class BackEndLoginManager implements LoginManager
      * @return AbstractModel|null the logged-in user, will be null if no user is logged in
      *
      * @throws \InvalidArgumentException
+     *
+     * @deprecated will be removed in oelib 5.0
      */
     public function getLoggedInUser(string $mapperName = BackEndUserMapper::class): ?AbstractModel
     {

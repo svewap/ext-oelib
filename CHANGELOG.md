@@ -24,6 +24,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Move PHPStan from PHIVE to Composer (#695)
 
 ### Deprecated
+- Deprecate `*LoginManager::getLoggedInUser()` (#803)
 - Deprecate the `PriceViewHelper` (#743)
 - Deprecate the `ReadOnlyRepository` trait (#729)
 

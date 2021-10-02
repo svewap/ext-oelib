@@ -38,6 +38,8 @@ interface LoginManager
      * @param class-string $mapperName mapper to use for getting the user model
      *
      * @return AbstractModel|null the logged-in user, will be null if no user is logged in
+     *
+     * @deprecated will be removed in oelib 5.0
      */
     public function getLoggedInUser(string $mapperName): ?AbstractModel;
 }
