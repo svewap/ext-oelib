@@ -10,8 +10,8 @@ use OliverKlee\Oelib\Model\AbstractModel;
 /**
  * This class represents a list of models.
  *
- * @template M of AbstractModel
- * @extends \SplObjectStorage<M, int>
+ * @template-covariant M of AbstractModel
+ * @extends \SplObjectStorage<AbstractModel, int>
  */
 class Collection extends \SplObjectStorage
 {
@@ -49,12 +49,13 @@ class Collection extends \SplObjectStorage
      *
      * The model to add need not necessarily have a UID.
      *
-     * @param M $model the model to add, need not have a UID
+     * @param AbstractModel $model the model to add, need not have a UID
      *
      * @throws \UnexpectedValueException
      */
     public function add(AbstractModel $model): void
     {
+        /** @var M $model */
         $this->attach($model);
 
         if ($model->hasUid()) {
@@ -190,7 +191,7 @@ class Collection extends \SplObjectStorage
      * cases a synonym to `appendUnique()` as `\SplObjectStorage` makes sure that
      * no object is added more than once to it.
      *
-     * @param Collection<M> $list the list to append, may be empty
+     * @param Collection<AbstractModel> $list the list to append, may be empty
      */
     public function append(Collection $list): void
     {

@@ -80,18 +80,22 @@ class GeoCalculator implements SingletonInterface
      * @param Geo $center the center to which $distance related
      * @param float $distance the distance in kilometers within which the returned objects must be located
      *
-     * @return Collection<Geo&AbstractModel> a subset of `$unfilteredObjects` with only those objects that are
+     * @return Collection<AbstractModel> a subset of `$unfilteredObjects` with only those objects that are
      *         located within $distance kilometers of $center
      */
     public function filterByDistance(Collection $unfilteredObjects, Geo $center, float $distance): Collection
     {
-        /** @var Collection<Geo&AbstractModel> $objectsWithinDistance */
+        /** @var Collection<AbstractModel> $objectsWithinDistance */
         $objectsWithinDistance = new Collection();
         if (!$center->hasGeoCoordinates()) {
             return $objectsWithinDistance;
         }
 
         foreach ($unfilteredObjects as $object) {
+            if (!$object instanceof Geo) {
+                continue;
+            }
+
             if ($object->hasGeoCoordinates() && $this->calculateDistanceInKilometers($center, $object) <= $distance) {
                 $objectsWithinDistance->add($object);
             }

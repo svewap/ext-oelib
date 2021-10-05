@@ -394,7 +394,6 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      */
     public function setUserGroups(Collection $userGroups): void
     {
-        /** @var Collection<AbstractModel> $userGroups */
         $this->set('usergroup', $userGroups);
     }
 
