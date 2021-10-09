@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 4.0.0
+
+### Added
 - Add `LoginManager::getLoggedInUserUid()` (#804)
 - Add generics for the `Collection` class (#798)
 - Add support for TYPO3 10LTS (#431)
@@ -58,6 +70,26 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Update the usage of the Fluid view helper classes (#732)
 - Stop using patches for dependencies (713)
 - Improve some type annotations (#712, #769, #776, #787, #792, #794, #799, #780, #805, #808)
+
+## 3.6.3
+
+### Changed
+- Improve the styling of the config check warnings (#755)
+
+### Deprecated
+- Deprecate the setters of `ConfigurationProxy` and `TypoScriptConfiguration` (#774)
+- Deprecate `ConfigurationCheckable` (#766)
+
+### Fixed
+- Improve some type annotations (#791)
+- Recognize flexforms data converted to an array (#756)
+- Always display the incorrect value in the configuration check (#754)
+
+## 3.6.2
+
+### Fixed
+- Stop using patches for dependencies (#714)
+- Improve some type annotations (#711)
 
 ## 3.6.1
 
