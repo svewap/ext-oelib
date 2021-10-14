@@ -32,7 +32,7 @@ class DummyGeocodingLookup implements GeocodingLookup
             return;
         }
 
-        if (!empty($this->coordinates)) {
+        if (isset($this->coordinates['latitude'], $this->coordinates['longitude'])) {
             $geoObject->setGeoCoordinates($this->coordinates);
         } else {
             $geoObject->setGeoError();

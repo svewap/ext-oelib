@@ -64,9 +64,10 @@ class Template
      */
     public function processTemplateFromFile(string $fileName): void
     {
-        $this->processTemplate(
-            file_get_contents(GeneralUtility::getFileAbsFileName($fileName))
-        );
+        $fileContents = file_get_contents(GeneralUtility::getFileAbsFileName($fileName));
+        if (\is_string($fileContents)) {
+            $this->processTemplate($fileContents);
+        }
     }
 
     /**

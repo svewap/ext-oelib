@@ -16,18 +16,18 @@ class LazyLoadingModel extends AbstractEntity
     use LazyLoadingProperties;
 
     /**
-     * @var EmptyModel|LazyLoadingProxy
+     * @var EmptyModel
+     * @phpstan-var EmptyModel|LazyLoadingProxy
      */
     protected $lazyProperty = null;
 
-    /**
-     * @return EmptyModel
-     */
     public function getLazyProperty(): EmptyModel
     {
         $this->loadLazyProperty('lazyProperty');
+        /** @var EmptyModel $property */
+        $property = $this->lazyProperty;
 
-        return $this->lazyProperty;
+        return $property;
     }
 
     /**

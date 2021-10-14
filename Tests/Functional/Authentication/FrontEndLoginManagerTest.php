@@ -10,6 +10,7 @@ use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Testing\TestingFramework;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -78,7 +79,10 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
     {
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
 
-        $this->getFrontEndController()->fe_user->setAndSaveSessionData('oelib_test', 1);
+        $user = $this->getFrontEndController()->fe_user;
+        if ($user instanceof FrontendUserAuthentication) {
+            $user->setAndSaveSessionData('oelib_test', 1);
+        }
 
         self::assertFalse($this->subject->isLoggedIn());
     }
@@ -173,7 +177,10 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $oldName = 'John Doe';
         $feUserUid = $this->testingFramework->createAndLoginFrontEndUser('', ['name' => $oldName]);
 
-        $this->getFrontEndController()->fe_user->user['name'] = 'Jane Doe';
+        $user = $this->getFrontEndController()->fe_user;
+        if ($user instanceof FrontendUserAuthentication) {
+            $user->user['name'] = 'Jane Doe';
+        }
         $this->testingFramework->changeRecord('fe_users', $feUserUid, ['name' => 'James Doe']);
 
         /** @var FrontEndUser $loggedInUser */

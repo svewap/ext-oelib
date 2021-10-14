@@ -32,7 +32,9 @@ class TemplateHelperTest extends UnitTestCase
 
         /** @var TypoScriptFrontendController&ProphecySubjectInterface $frontEndController */
         $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
-        $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
+        /** @var ContentObjectRenderer&ProphecySubjectInterface $contentObject */
+        $contentObject = $this->prophesize(ContentObjectRenderer::class)->reveal();
+        $frontEndController->cObj = $contentObject;
         $GLOBALS['TSFE'] = $frontEndController;
 
         $this->subject = new TestingTemplateHelper([]);

@@ -64,7 +64,7 @@ class TypoScriptConfiguration extends AbstractReadOnlyObjectWithPublicAccessors 
      *
      * @param string $key the key of the data item to get the array keys for, may be empty
      *
-     * @return array<int, string> the array keys of the data item for the key $key, may be empty
+     * @return array<int, string|int> the array keys of the data item for the key $key, may be empty
      */
     public function getArrayKeys(string $key = ''): array
     {

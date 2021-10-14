@@ -1,44 +1,19 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$className of static method OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\:\\:get\\(\\) expects class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\>, class\\-string given\\.$#"
+			message: "#^Default value of the parameter \\#1 \\$mapperName \\('OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\BackEndUserMapper'\\) of method OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\:\\:getLoggedInUser\\(\\) is incompatible with type class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
 			count: 1
 			path: Classes/Authentication/BackEndLoginManager.php
 
 		-
-			message: "#^Parameter \\#1 \\$className of static method OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\:\\:get\\(\\) expects class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\>, class\\-string given\\.$#"
+			message: "#^Default value of the parameter \\#1 \\$mapperName \\('OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\FrontEndUserMapper'\\) of method OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\:\\:getLoggedInUser\\(\\) is incompatible with type class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
 			count: 1
 			path: Classes/Authentication/FrontEndLoginManager.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\TypoScriptConfiguration\\:\\:getArrayKeys\\(\\) should return array\\<int, string\\> but returns array\\<int, int\\|string\\>\\.$#"
-			count: 1
-			path: Classes/Configuration/TypoScriptConfiguration.php
 
 		-
 			message: "#^Cannot call method fetchAll\\(\\) on Doctrine\\\\DBAL\\\\Driver\\\\ResultStatement\\|int\\.$#"
 			count: 1
 			path: Classes/Domain/Repository/PageRepository.php
-
-		-
-			message: "#^Parameter \\#1 \\$coordinates of method OliverKlee\\\\Oelib\\\\Interfaces\\\\Geo\\:\\:setGeoCoordinates\\(\\) expects array\\('latitude' \\=\\> float, 'longitude' \\=\\> float\\), array\\<string, float\\>&nonEmpty given\\.$#"
-			count: 1
-			path: Classes/Geocoding/DummyGeocodingLookup.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|true given\\.$#"
-			count: 1
-			path: Classes/Geocoding/GoogleGeocoding.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Http\\\\HeaderProxyFactory\\:\\:getHeaderProxy\\(\\) should return OliverKlee\\\\Oelib\\\\Http\\\\Interfaces\\\\HeaderProxy but returns object\\.$#"
-			count: 1
-			path: Classes/Http/HeaderProxyFactory.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Http\\\\HeaderProxyFactory\\:\\:\\$headerProxy \\(OliverKlee\\\\Oelib\\\\Http\\\\Interfaces\\\\HeaderProxy\\|null\\) does not accept object\\.$#"
-			count: 1
-			path: Classes/Http/HeaderProxyFactory.php
 
 		-
 			message: "#^Cannot call method fetch\\(\\) on Doctrine\\\\DBAL\\\\Driver\\\\ResultStatement\\|int\\.$#"
@@ -56,54 +31,9 @@ parameters:
 			path: Classes/Mapper/AbstractDataMapper.php
 
 		-
-			message: "#^Parameter \\#1 \\$className of static method OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\:\\:get\\(\\) expects class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\>, class\\-string given\\.$#"
-			count: 8
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
-			message: "#^Parameter \\#2 \\$data of method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\:\\:cacheModelByKeys\\(\\) expects array\\<string, int\\|string\\>, array\\<string, float\\|int\\|string\\> given\\.$#"
-			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
 			message: "#^Array \\(array\\<class\\-string, OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\) does not accept M of OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\.$#"
 			count: 2
 			path: Classes/Mapper/MapperRegistry.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on string\\|TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication\\.$#"
-			count: 1
-			path: Classes/Session/Session.php
-
-		-
-			message: "#^Cannot call method setKey\\(\\) on string\\|TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication\\.$#"
-			count: 1
-			path: Classes/Session/Session.php
-
-		-
-			message: "#^Cannot call method storeSessionData\\(\\) on string\\|TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication\\.$#"
-			count: 1
-			path: Classes/Session/Session.php
-
-		-
-			message: "#^Parameter \\#1 \\$templateCode of method OliverKlee\\\\Oelib\\\\Templating\\\\Template\\:\\:processTemplate\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: Classes/Templating/Template.php
-
-		-
-			message: "#^Array \\(array\\<string, array\\<string, array\\>\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Cannot access property \\$user on string\\|TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Cannot call method createUserSession\\(\\) on string\\|TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
 
 		-
 			message: "#^Cannot call method fetchColumn\\(\\) on Doctrine\\\\DBAL\\\\Driver\\\\ResultStatement\\|int\\.$#"
@@ -111,74 +41,9 @@ parameters:
 			path: Classes/Testing/TestingFramework.php
 
 		-
-			message: "#^Cannot call method fetchGroupData\\(\\) on string\\|TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Cannot call method logoff\\(\\) on string\\|TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Parameter \\#1 \\$rawData of method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:normalizeDatabaseRow\\(\\) expects array\\<string, bool\\|int\\|string\\>, array\\<string, bool\\|float\\|int\\|string\\> given\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Parameter \\#2 \\$encoding of function mb_strlen expects string, string\\|false given\\.$#"
-			count: 2
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Parameter \\#2 \\$start of function mb_substr expects int, int\\|false given\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Parameter \\#3 \\$length of function mb_substr expects int\\|null, int\\|false given\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Parameter \\#4 \\$encoding of function mb_substr expects string, string\\|false given\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Static property OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:\\$tableNameCache \\(array\\<string, array\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Cannot access property \\$user on string\\|TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication\\.$#"
-			count: 1
-			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
-
-		-
-			message: "#^Cannot call method setAndSaveSessionData\\(\\) on string\\|TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication\\.$#"
-			count: 1
-			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
-
-		-
 			message: "#^PHPDoc tag @var for variable \\$objectManager contains generic class TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManager but does not specify its types\\: T$#"
 			count: 1
 			path: Tests/Functional/Domain/Repository/GermanZipCodeRepositoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function rtrim expects string, int\\|string given\\.$#"
-			count: 2
-			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
-
-		-
-			message: "#^Property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$cObj \\(TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer\\) does not accept object\\.$#"
-			count: 1
-			path: Tests/Functional/Templating/TemplateHelperTest.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Fixtures\\\\LazyLoadingModel\\:\\:getLazyProperty\\(\\) should return OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Fixtures\\\\EmptyModel but returns OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Fixtures\\\\EmptyModel\\|TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Generic\\\\LazyLoadingProxy\\.$#"
-			count: 1
-			path: Tests/Unit/Domain/Fixtures/LazyLoadingModel.php
 
 		-
 			message: "#^PHPDoc tag @var for variable \\$objectManagerStub contains generic interface TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManagerInterface but does not specify its types\\: T$#"
@@ -194,9 +59,4 @@ parameters:
 			message: "#^PHPDoc tag @var for variable \\$objectManagerStub contains generic interface TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManagerInterface but does not specify its types\\: T$#"
 			count: 1
 			path: Tests/Unit/Domain/Repository/Traits/ReadOnlyTest.php
-
-		-
-			message: "#^Property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$cObj \\(TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer\\) does not accept object\\.$#"
-			count: 1
-			path: Tests/Unit/Templating/TemplateHelperTest.php
 

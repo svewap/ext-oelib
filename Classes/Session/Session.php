@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Session;
 
 use OliverKlee\Oelib\DataStructures\AbstractObjectWithPublicAccessors;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -123,28 +124,37 @@ class Session extends AbstractObjectWithPublicAccessors
     }
 
     /**
-     * Gets the value of the data item for the key $key.
+     * Gets the value of the data item for the key `$key`.
      *
      * @param string $key the key of the data item to get, must not be empty
      *
-     * @return mixed the data for the key $key, will be an empty string
-     *               if the key has not been set yet
+     * @return mixed the data for the key `$key`, will be an empty string if the key has not been set yet
      */
     protected function get(string $key)
     {
-        return $this->getFrontEndController()->fe_user->getKey(self::$types[$this->type], $key);
+        $user = $this->getFrontEndUser();
+        if (!$user instanceof FrontendUserAuthentication) {
+            return '';
+        }
+
+        return $user->getKey(self::$types[$this->type], $key);
     }
 
     /**
-     * Sets the value of the data item for the key $key.
+     * Sets the value of the data item for the key `$key`.
      *
      * @param string $key the key of the data item to get, must not be empty
-     * @param mixed $value the data for the key $key
+     * @param mixed $value the data for the key `$key`
      */
     protected function set(string $key, $value): void
     {
-        $this->getFrontEndController()->fe_user->setKey(self::$types[$this->type], $key, $value);
-        $this->getFrontEndController()->fe_user->storeSessionData();
+        $user = $this->getFrontEndUser();
+        if (!$user instanceof FrontendUserAuthentication) {
+            return;
+        }
+
+        $user->setKey(self::$types[$this->type], $key, $value);
+        $user->storeSessionData();
     }
 
     /**
@@ -153,5 +163,11 @@ class Session extends AbstractObjectWithPublicAccessors
     protected function getFrontEndController(): ?TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'] ?? null;
+    }
+
+    private function getFrontEndUser(): ?FrontendUserAuthentication
+    {
+        $user = $this->getFrontEndController()->fe_user;
+        return $user instanceof FrontendUserAuthentication ? $user : null;
     }
 }

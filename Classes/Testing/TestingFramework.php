@@ -307,9 +307,9 @@ final class TestingFramework
     /**
      * Normalizes the types in the given data so that the data con be inserted into a DB.
      *
-     * @param array<string, string|int|bool> $rawData
+     * @param array<string, string|int|bool|float> $rawData
      *
-     * @return array<string, string|int>
+     * @return array<string, string|int|float>
      */
     private function normalizeDatabaseRow(array $rawData): array
     {
@@ -840,7 +840,9 @@ final class TestingFramework
         $columns = [];
         $queryResult = $this->getConnectionForTable($table)->query('SHOW FULL COLUMNS FROM `' . $table . '`');
         foreach ($queryResult->fetchAll() as $fieldRow) {
-            $columns[$fieldRow['Field']] = $fieldRow;
+            /** @var string $field */
+            $field = $fieldRow['Field'];
+            $columns[$field] = $fieldRow;
         }
 
         self::$tableColumnCache[$table] = $columns;
@@ -1084,7 +1086,7 @@ final class TestingFramework
             );
         }
 
-        $encoding = mb_detect_encoding($this->getUploadFolderPath());
+        $encoding = 'UTF-8';
         $uploadFolderPathLength = mb_strlen($this->getUploadFolderPath(), $encoding);
         $absolutePathLength = mb_strlen($absolutePath, $encoding);
 
@@ -1314,12 +1316,13 @@ final class TestingFramework
 
         $this->suppressFrontEndCookies();
 
-        // Instead of passing the actual user data to createUserSession, we pass an empty array to improve performance
-        // (e.g., no session record will be written to the database).
         $frontEnd = $this->getFrontEndController();
-        $frontEnd->fe_user->createUserSession(['uid' => $userId, 'disableIPlock' => true]);
-        $frontEnd->fe_user->user = $dataToSet;
-        $frontEnd->fe_user->fetchGroupData();
+        $frontEndUser = $frontEnd->fe_user;
+        if ($frontEndUser instanceof FrontendUserAuthentication) {
+            $frontEndUser->createUserSession(['uid' => $userId, 'disableIPlock' => true]);
+            $frontEndUser->user = $dataToSet;
+            $frontEndUser->fetchGroupData();
+        }
     }
 
     /**
@@ -1342,7 +1345,10 @@ final class TestingFramework
         }
 
         $this->suppressFrontEndCookies();
-        $this->getFrontEndController()->fe_user->logoff();
+        $frontEndUser = $this->getFrontEndController()->fe_user;
+        if ($frontEndUser instanceof FrontendUserAuthentication) {
+            $frontEndUser->logoff();
+        }
 
         FrontEndLoginManager::getInstance()->logInUser();
     }
@@ -1393,9 +1399,12 @@ final class TestingFramework
 
         $connection = $this->getConnectionPool()->getConnectionByName('Default');
         $queryResult = $connection->query('SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`');
+        /** @var array<string, array> $tableNames */
         $tableNames = [];
         foreach ($queryResult->fetchAll() as $tableInformation) {
-            $tableNames[$tableInformation['Name']] = $tableInformation;
+            /** @var string $tableName */
+            $tableName = $tableInformation['Name'];
+            $tableNames[$tableName] = $tableInformation;
         }
 
         self::$tableNameCache = $tableNames;

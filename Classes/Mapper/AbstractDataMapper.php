@@ -51,7 +51,7 @@ abstract class AbstractDataMapper
     protected $uidsOfMemoryOnlyDummyModels = [];
 
     /**
-     * @var array<non-empty-string, class-string>
+     * @var array<non-empty-string, class-string<AbstractDataMapper<AbstractModel>>>
      *      the (possible) relations of the created models in the format DB column name => mapper name
      */
     protected $relations = [];
@@ -1271,11 +1271,10 @@ abstract class AbstractDataMapper
     }
 
     /**
-     * Puts a model in the cache-by-keys (if the model has any non-empty
-     * additional keys).
+     * Puts a model in the cache-by-keys (if the model has any non-empty additional keys).
      *
      * @param M $model the model to cache
-     * @param array<string, string|int> $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string|int|float> $data the data of the model as it is in the DB, may be empty
      */
     private function cacheModelByKeys(AbstractModel $model, array $data): void
     {
@@ -1301,7 +1300,7 @@ abstract class AbstractDataMapper
      * cacheModelByCompoundKey instead. So this method primarily is here for backwards compatibility.
      *
      * @param M $model the model to cache
-     * @param array<string, string|int> $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string|int|float> $data the data of the model as it is in the DB, may be empty
      *
      * @see cacheModelByCompoundKey
      */
@@ -1317,7 +1316,7 @@ abstract class AbstractDataMapper
      * This method works automatically; it is not necessary to overwrite it.
      *
      * @param M $model the model to cache
-     * @param array<string, string|int> $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string|int|float> $data the data of the model as it is in the DB, may be empty
      *
      * @throws \BadMethodCallException
      */

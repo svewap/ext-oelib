@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Authentication;
 
 use OliverKlee\Oelib\Interfaces\LoginManager;
+use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
@@ -70,9 +71,11 @@ class BackEndLoginManager implements LoginManager
     /**
      * Gets the currently logged-in user.
      *
-     * @param class-string $mapperName mapper to use for getting the user model
+     * @template M of AbstractModel
      *
-     * @return AbstractModel|null the logged-in user, will be null if no user is logged in
+     * @param class-string<AbstractDataMapper<M>> $mapperName mapper to use for getting the user model
+     *
+     * @return M|null the logged-in user, will be null if no user is logged in
      *
      * @throws \InvalidArgumentException
      *
@@ -84,16 +87,22 @@ class BackEndLoginManager implements LoginManager
         if ($mapperName === '') {
             throw new \InvalidArgumentException('$mapperName must not be empty.', 1331318483);
         }
+
+        /** @var M|null $loggedInUser */
+        $loggedInUser = $this->loggedInUser;
+        if ($loggedInUser instanceof AbstractModel) {
+            return $loggedInUser;
+        }
+
         if (!$this->isLoggedIn()) {
             return null;
         }
-        if ($this->loggedInUser instanceof AbstractModel) {
-            return $this->loggedInUser;
-        }
 
-        $this->loggedInUser = MapperRegistry::get($mapperName)->find($this->getLoggedInUserUid());
+        /** @var M $loggedInUser */
+        $loggedInUser = MapperRegistry::get($mapperName)->find($this->getLoggedInUserUid());
+        $this->loggedInUser = $loggedInUser;
 
-        return $this->loggedInUser;
+        return $loggedInUser;
     }
 
     /**

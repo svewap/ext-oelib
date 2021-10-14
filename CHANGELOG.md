@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the (cosmetic) `TemplateHelper::cObj` (#814)
 
 ### Fixed
+- Improve type safety (#815)
 
 ## 4.0.0
 

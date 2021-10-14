@@ -135,7 +135,7 @@ class GoogleGeocoding implements GeocodingLookup
         while (true) {
             \usleep($delayInMicroseconds);
             $response = $this->sendRequest($url);
-            if ($response !== false) {
+            if (\is_string($response)) {
                 $resultParts = \json_decode($response, true);
                 $status = $resultParts['status'];
                 if ($status === self::STATUS_OK) {
@@ -179,7 +179,7 @@ class GoogleGeocoding implements GeocodingLookup
      *
      * @param string $url
      *
-     * @return string|bool string with the JSON result from the Google Maps server, or false if an error has occurred
+     * @return string|false string with the JSON result from the Google Maps server, or false if an error has occurred
      */
     protected function sendRequest(string $url)
     {

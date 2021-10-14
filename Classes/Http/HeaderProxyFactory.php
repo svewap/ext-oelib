@@ -59,7 +59,6 @@ class HeaderProxyFactory
      */
     public function getHeaderProxy(): HeaderProxy
     {
-        /** @var class-string $className */
         $className = $this->isTestMode ? HeaderCollector::class : RealHeaderProxy::class;
         if (!$this->headerProxy instanceof $className) {
             $this->headerProxy = GeneralUtility::makeInstance($className);

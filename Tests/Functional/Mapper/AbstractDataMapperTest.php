@@ -2785,7 +2785,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->save($model);
 
         $row = $this->findRecordByUid($model->getUid());
-        self::assertSame('9.5', rtrim($row['decimal_data'], '0'));
+        self::assertSame('9.5', rtrim((string)$row['decimal_data'], '0'));
     }
 
     /**
@@ -2798,7 +2798,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->save($model);
 
         $row = $this->findRecordByUid($model->getUid());
-        self::assertSame('9.5', rtrim($row['string_data'], '0'));
+        self::assertSame('9.5', rtrim((string)$row['string_data'], '0'));
     }
 
     /**
