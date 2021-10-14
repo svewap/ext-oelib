@@ -157,9 +157,6 @@ class Session extends AbstractObjectWithPublicAccessors
         $user->storeSessionData();
     }
 
-    /**
-     * Returns the current front-end instance.
-     */
     protected function getFrontEndController(): ?TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'] ?? null;
@@ -167,7 +164,12 @@ class Session extends AbstractObjectWithPublicAccessors
 
     private function getFrontEndUser(): ?FrontendUserAuthentication
     {
-        $user = $this->getFrontEndController()->fe_user;
+        $frontEndController = $this->getFrontEndController();
+        if (!$frontEndController instanceof TypoScriptFrontendController) {
+            return null;
+        }
+
+        $user = $frontEndController->fe_user;
         return $user instanceof FrontendUserAuthentication ? $user : null;
     }
 }

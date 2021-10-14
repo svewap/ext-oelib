@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the (cosmetic) `TemplateHelper::cObj` (#814)
 
 ### Fixed
+- Fix a possible null pointer exception in `Session` (#826)
 - Improve type safety (#815)
 
 ## 4.0.0
