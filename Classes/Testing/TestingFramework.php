@@ -883,6 +883,8 @@ final class TestingFramework
      * @return string the absolute path of the created dummy file, will not be empty
      *
      * @throws \RuntimeException
+     *
+     * @deprecated will be removed in oelib 5.0
      */
     public function createDummyFile(string $fileName = 'test.txt', string $content = ''): string
     {
@@ -1012,6 +1014,8 @@ final class TestingFramework
      * Creates the upload folder if it does not exist yet.
      *
      * @throws \RuntimeException
+     *
+     * @deprecated will be removed in oelib 5.0
      */
     private function createDummyUploadFolder(): void
     {

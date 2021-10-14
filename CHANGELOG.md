@@ -12,6 +12,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Raise PHPStan to level 8 (#820)
 
 ### Deprecated
+- Deprecate `TemplateHelper::addPathToFileName` (#821)
+- Deprecate `TestingFramework::createDummyFile` (#821)
 
 ### Removed
 - Drop the (cosmetic) `TemplateHelper::cObj` (#814)

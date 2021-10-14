@@ -178,6 +178,8 @@ class TemplateHelper extends SalutationSwitcher
      *        may contain a slash at the beginning (if not relative)
      *
      * @return string the complete path including file name
+     *
+     * @deprecated will be removed in oelib 5.0
      */
     private function addPathToFileName(string $fileName, string $path = ''): string
     {
