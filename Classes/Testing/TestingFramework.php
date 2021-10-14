@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
 use TYPO3\CMS\Core\Http\Uri;
+use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -1201,7 +1202,11 @@ final class TestingFramework
             $frontEnd->tmpl->generateConfig();
             $frontEnd->tmpl->loaded = true;
             $frontEnd->settingLanguage();
-            $frontEnd->settingLocale();
+            if (Typo3Version::isAtLeast(10)) {
+                Locales::setSystemLocaleFromSiteLanguage($frontEnd->getLanguage());
+            } else {
+                $frontEnd->settingLocale();
+            }
         }
 
         $frontEnd->newCObj();
