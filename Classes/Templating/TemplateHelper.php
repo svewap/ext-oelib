@@ -38,15 +38,6 @@ class TemplateHelper extends SalutationSwitcher
     public $extKey = '';
 
     /**
-     * the back reference to the mother cObj object set at call time
-     *
-     * Note: this can also be null. So we overwrite the parent definition to make the type nullable.
-     *
-     * @var ContentObjectRenderer|null
-     */
-    public $cObj = null;
-
-    /**
      * @var bool whether `init()` already has been called (in order to avoid duplicate calls)
      */
     protected $isInitialized = false;
