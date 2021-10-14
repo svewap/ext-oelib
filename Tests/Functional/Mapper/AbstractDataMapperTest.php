@@ -39,9 +39,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        /** @var TestingMapper $subject */
-        $subject = MapperRegistry::get(TestingMapper::class);
-        $this->subject = $subject;
+        $this->subject = MapperRegistry::get(TestingMapper::class);
     }
 
     protected function tearDown(): void

@@ -36,9 +36,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        /** @var BackEndUserMapper $backEndUserMapper */
-        $backEndUserMapper = MapperRegistry::get(BackEndUserMapper::class);
-        $this->backEndUserMapper = $backEndUserMapper;
+        $this->backEndUserMapper = MapperRegistry::get(BackEndUserMapper::class);
 
         $this->subject = BackEndLoginManager::getInstance();
     }

@@ -26,7 +26,6 @@ class GermanZipCodeRepositoryTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        /** @var ObjectManager $objectManager */
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->subject = $objectManager->get(GermanZipCodeRepository::class);
         $this->importDataSet(__DIR__ . '/Fixtures/ZipCodes.xml');

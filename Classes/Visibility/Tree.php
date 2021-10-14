@@ -56,7 +56,6 @@ class Tree
         Node $parentNode
     ): void {
         foreach ($treeStructure as $nodeKey => $nodeContents) {
-            /** @var Node $childNode */
             $childNode = GeneralUtility::makeInstance(Node::class);
             $parentNode->addChild($childNode);
 

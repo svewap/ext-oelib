@@ -8,7 +8,6 @@ use Nimut\TestingFramework\Exception\Exception as NimutException;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\CountryMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
-use OliverKlee\Oelib\Model\Country;
 use OliverKlee\Oelib\Model\FrontEndUser;
 
 class FrontEndUserTest extends FunctionalTestCase
@@ -68,10 +67,7 @@ class FrontEndUserTest extends FunctionalTestCase
     {
         $this->importStaticData();
 
-        /** @var CountryMapper $mapper */
-        $mapper = MapperRegistry::get(CountryMapper::class);
-        /** @var Country $country */
-        $country = $mapper->find(54);
+        $country = MapperRegistry::get(CountryMapper::class)->find(54);
         $this->subject->setData(['static_info_country' => $country->getIsoAlpha3Code()]);
 
         self::assertSame($country, $this->subject->getCountry());
@@ -84,10 +80,7 @@ class FrontEndUserTest extends FunctionalTestCase
     {
         $this->importStaticData();
 
-        /** @var CountryMapper $mapper */
-        $mapper = MapperRegistry::get(CountryMapper::class);
-        /** @var Country $country */
-        $country = $mapper->find(54);
+        $country = MapperRegistry::get(CountryMapper::class)->find(54);
 
         $this->subject->setCountry($country);
 
@@ -133,10 +126,7 @@ class FrontEndUserTest extends FunctionalTestCase
     {
         $this->importStaticData();
 
-        /** @var CountryMapper $mapper */
-        $mapper = MapperRegistry::get(CountryMapper::class);
-        /** @var Country $country */
-        $country = $mapper->find(54);
+        $country = MapperRegistry::get(CountryMapper::class)->find(54);
         $this->subject->setCountry($country);
 
         self::assertTrue($this->subject->hasCountry());

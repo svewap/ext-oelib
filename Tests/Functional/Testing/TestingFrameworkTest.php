@@ -59,10 +59,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
     private function getContext(): Context
     {
-        /** @var Context $context */
-        $context = GeneralUtility::makeInstance(Context::class);
-
-        return $context;
+        return GeneralUtility::makeInstance(Context::class);
     }
 
     /**
@@ -2836,7 +2833,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
     {
         $this->subject->disableCoreCaches();
 
-        /** @var CacheManager $cacheManager */
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
 
         $cache = $cacheManager->getCache($identifier);

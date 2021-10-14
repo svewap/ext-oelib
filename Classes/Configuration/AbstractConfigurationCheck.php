@@ -169,9 +169,7 @@ abstract class AbstractConfigurationCheck
      */
     private function getDbColumnNames(string $tableName): array
     {
-        /** @var ConnectionPool $connectionPool */
-        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        $connection = $connectionPool->getConnectionForTable($tableName);
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
         $statement = $connection->query('SHOW FULL COLUMNS FROM `' . $tableName . '`');
         $columns = [];
         foreach ($statement->fetchAll() as $row) {
@@ -529,9 +527,7 @@ abstract class AbstractConfigurationCheck
      */
     public function checkIsValidDefaultFromEmailAddress(): bool
     {
-        /** @var SystemEmailFromBuilder $emailBuilder */
-        $emailBuilder = GeneralUtility::makeInstance(SystemEmailFromBuilder::class);
-        $okay = $emailBuilder->canBuild();
+        $okay = GeneralUtility::makeInstance(SystemEmailFromBuilder::class)->canBuild();
 
         if (!$okay) {
             $this->addWarning(

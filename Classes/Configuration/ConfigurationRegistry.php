@@ -146,7 +146,6 @@ class ConfigurationRegistry
             $data = $data[$namespacePart . '.'];
         }
 
-        /** @var TypoScriptConfiguration $configuration */
         $configuration = GeneralUtility::makeInstance(TypoScriptConfiguration::class);
         $configuration->setData($data);
         return $configuration;
@@ -169,14 +168,11 @@ class ConfigurationRegistry
             return $this->getFrontEndController()->tmpl->setup;
         }
 
-        /** @var TemplateService $template */
         $template = GeneralUtility::makeInstance(TemplateService::class);
         $template->tt_track = false;
 
-        /** @var RootlineUtility $rootLineUtility */
-        $rootLineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageUid);
         try {
-            $rootLine = $rootLineUtility->get();
+            $rootLine = GeneralUtility::makeInstance(RootlineUtility::class, $pageUid)->get();
         } catch (PageNotFoundException $e) {
             $rootLine = [];
         }

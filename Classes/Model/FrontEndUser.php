@@ -657,10 +657,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
         }
 
         try {
-            /** @var CountryMapper $countryMapper */
-            $countryMapper = MapperRegistry::get(CountryMapper::class);
-            /** @var Country $country */
-            $country = $countryMapper->findByIsoAlpha3Code($countryCode);
+            $country = MapperRegistry::get(CountryMapper::class)->findByIsoAlpha3Code($countryCode);
         } catch (NotFoundException $exception) {
             $country = null;
         }

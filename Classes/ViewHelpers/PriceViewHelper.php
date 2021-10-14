@@ -56,9 +56,7 @@ class PriceViewHelper extends AbstractViewHelper
         }
 
         try {
-            /** @var CurrencyMapper $mapper */
-            $mapper = MapperRegistry::get(CurrencyMapper::class);
-            $this->currency = $mapper->findByIsoAlpha3Code($isoAlpha3Code);
+            $this->currency = MapperRegistry::get(CurrencyMapper::class)->findByIsoAlpha3Code($isoAlpha3Code);
         } catch (NotFoundException $exception) {
             $this->currency = null;
         }

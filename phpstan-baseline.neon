@@ -126,11 +126,6 @@ parameters:
 			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
 
 		-
-			message: "#^PHPDoc tag @var for variable \\$objectManager contains generic class TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManager but does not specify its types\\: T$#"
-			count: 1
-			path: Tests/Functional/Domain/Repository/GermanZipCodeRepositoryTest.php
-
-		-
 			message: "#^Cannot call method getTitle\\(\\) on OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\|null\\.$#"
 			count: 2
 			path: Tests/Functional/Mapper/AbstractDataMapperTest.php

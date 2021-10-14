@@ -26,7 +26,6 @@ class TemplateHelperTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        /** @var CacheManager $cacheManager */
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         $cacheManager->setCacheConfigurations(['l10n' => ['backend' => NullBackend::class]]);
 

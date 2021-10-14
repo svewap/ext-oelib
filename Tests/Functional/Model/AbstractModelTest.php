@@ -40,12 +40,9 @@ class AbstractModelTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        /** @var TestingMapper $dataMapper */
-        $dataMapper = MapperRegistry::get(TestingMapper::class);
-        $this->dataMapper = $dataMapper;
+        $this->dataMapper = MapperRegistry::get(TestingMapper::class);
 
         $uid = $this->createTestRecord();
-        /** @var TestingModel $subject */
         $subject = $this->dataMapper->find($uid);
         $this->subject = $subject;
     }

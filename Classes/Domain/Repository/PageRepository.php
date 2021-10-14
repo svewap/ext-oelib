@@ -67,9 +67,6 @@ class PageRepository implements SingletonInterface
 
     private function getConnectionPool(): ConnectionPool
     {
-        /** @var ConnectionPool $pool */
-        $pool = GeneralUtility::makeInstance(ConnectionPool::class);
-
-        return $pool;
+        return GeneralUtility::makeInstance(ConnectionPool::class);
     }
 }

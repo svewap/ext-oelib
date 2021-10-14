@@ -829,7 +829,6 @@ abstract class AbstractDataMapper
 
                 $relatedData = $data[$key];
                 if ($relatedData instanceof Collection) {
-                    /** @var Collection<AbstractModel> $relatedData */
                     $this->saveManyToManyAndCommaSeparatedRelatedModels($relatedData, MapperRegistry::get($relation));
                 }
             }
@@ -974,9 +973,7 @@ abstract class AbstractDataMapper
             $relatedMapper = MapperRegistry::get($relation);
             $foreignField = $relationConfiguration['foreign_field'];
             if (\strncmp($foreignField, 'tx_', 3) === 0) {
-                $foreignKey = ucfirst(
-                    preg_replace('/tx_[a-z]+_/', '', $foreignField)
-                );
+                $foreignKey = ucfirst(preg_replace('/tx_[a-z]+_/', '', $foreignField));
             } else {
                 $foreignKey = ucfirst($foreignField);
             }
@@ -1542,9 +1539,6 @@ abstract class AbstractDataMapper
      */
     private function getConnectionPool(): ConnectionPool
     {
-        /** @var ConnectionPool $pool */
-        $pool = GeneralUtility::makeInstance(ConnectionPool::class);
-
-        return $pool;
+        return GeneralUtility::makeInstance(ConnectionPool::class);
     }
 }

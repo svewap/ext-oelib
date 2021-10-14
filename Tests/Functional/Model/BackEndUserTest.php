@@ -118,10 +118,10 @@ class BackEndUserTest extends FunctionalTestCase
      */
     public function getAllGroupsForGroupWithSubsubgroupContainsSubsubgroup(): void
     {
-        $subsubgroup = MapperRegistry::get(BackEndUserGroupMapper::class)
+        $subSubGroup = MapperRegistry::get(BackEndUserGroupMapper::class)
             ->getLoadedTestingModel([]);
         $subgroup = MapperRegistry::get(BackEndUserGroupMapper::class)
-            ->getLoadedTestingModel(['subgroup' => $subsubgroup->getUid()]);
+            ->getLoadedTestingModel(['subgroup' => $subSubGroup->getUid()]);
         $group = MapperRegistry::get(BackEndUserGroupMapper::class)
             ->getLoadedTestingModel(['subgroup' => $subgroup->getUid()]);
         $groups = new Collection();
@@ -129,7 +129,7 @@ class BackEndUserTest extends FunctionalTestCase
         $this->subject->setData(['usergroup' => $groups]);
 
         self::assertTrue(
-            $this->subject->getAllGroups()->hasUid($subsubgroup->getUid())
+            $this->subject->getAllGroups()->hasUid($subSubGroup->getUid())
         );
     }
 

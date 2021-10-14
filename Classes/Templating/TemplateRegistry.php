@@ -84,7 +84,6 @@ class TemplateRegistry
     public function getByFileName(string $fileName): Template
     {
         if (!isset($this->templates[$fileName])) {
-            /** @var Template $template */
             $template = GeneralUtility::makeInstance(Template::class);
 
             if ($fileName !== '') {

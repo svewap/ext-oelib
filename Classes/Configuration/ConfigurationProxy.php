@@ -118,9 +118,8 @@ class ConfigurationProxy extends AbstractReadOnlyObjectWithPublicAccessors imple
             isset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS'][$this->extensionKey])
             && \is_array($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS'][$this->extensionKey])
         ) {
-            /** @var ExtensionConfiguration $extensionConfiguration */
-            $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
-            $this->configuration = $extensionConfiguration->get($this->extensionKey);
+            $this->configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)
+                ->get($this->extensionKey);
         } else {
             $this->configuration = [];
         }

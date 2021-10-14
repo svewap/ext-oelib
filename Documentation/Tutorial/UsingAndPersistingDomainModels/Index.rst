@@ -144,7 +144,7 @@ model’s data is never expected to be loaded or saved):
 
 ::
 
-   $realtyObject = tx_oelib_MapperRegistry::get('tx_realty_Mapper_RealtyObject')
+   $realtyObject = MapperRegistry::get('tx_realty_Mapper_RealtyObject')
        ->getNewGhost();
 
 If you need a model with data and you’re not testing any m:n or 1:n
@@ -152,7 +152,7 @@ relations, you can fill the model with data:
 
 ::
 
-   $realtyObject = tx_oelib_MapperRegistry::get('tx_realty_Mapper_RealtyObject')
+   $realtyObject = MapperRegistry::get('tx_realty_Mapper_RealtyObject')
        ->getLoadedTestingModel(array(‘title’ => ‘nice house’, ‘city’ => $cityUid));
 
 
@@ -182,7 +182,7 @@ modified looks like this:
 
 ::
 
-   tx_oelib_MapperRegistry::get('tx_realty_Mapper_RealtyObject')->save($model);
+   MapperRegistry::get('tx_realty_Mapper_RealtyObject')->save($model);
 
 
 Creating a new model in memory and saving it looks like this:
@@ -213,7 +213,7 @@ $tender->setData(array(
 
 $tender->markAsDirty();
 
-MapperRegistry::get('tx\_geotenders\_Mapper\_Tender')->save($tender);
+MapperRegistry::get(TenderMapper::class)->save($tender);
 
 Related records are automatically saved recursively. Unmodified record
 are not saved.
