@@ -6,9 +6,10 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
-- Add add explanation to the configuration check output (#815)
+- Add an explanation to the configuration check output (#815)
 
 ### Changed
+- Raise PHPStan to level 8 (#820)
 
 ### Deprecated
 
