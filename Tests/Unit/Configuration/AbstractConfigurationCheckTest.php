@@ -125,6 +125,22 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     /**
      * @test
      */
+    public function warningTextContainsInstructionsOnHowToDisableTheCheck(): void
+    {
+        $warningText = 'Something is wrong.';
+        $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
+        $subject->generateWarningWithText($warningText);
+
+        $warnings = $subject->getWarningsAsHtml();
+        self::assertStringContainsString(
+            'The configuration check for this extension can be disabled in the extension manager.',
+            $warnings[0]
+        );
+    }
+
+    /**
+     * @test
+     */
     public function checkWithUnknownCheckMethodThrowsException(): void
     {
         $this->expectException(\BadMethodCallException::class);

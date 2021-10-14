@@ -120,12 +120,14 @@ abstract class AbstractConfigurationCheck
     protected function addWarning(string $rawWarningText): void
     {
         $this->warnings[]
-            = '<div lang="en" class="alert alert-warning mt-3" role="alert">' . $rawWarningText . '</div>';
+            = '<div lang="en" class="alert alert-warning mt-3" role="alert">' . $rawWarningText .
+            '<i>The configuration check for this extension can be disabled in the extension manager.</i>' .
+            '</div>';
     }
 
     /**
-     * Sets the error message, consisting of $explanation and a request to change the TypoScript setup
-     * variable $key (with the current TypoScript setup path prepended).
+     * Sets the error message, consisting of `$explanation` and a request to change the TypoScript setup
+     * variable `$key` (with the current TypoScript setup path prepended).
      */
     protected function addWarningAndRequestCorrection(string $key, string $explanation): void
     {
