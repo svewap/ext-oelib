@@ -128,6 +128,8 @@ abstract class AbstractConfigurationCheck
     /**
      * Sets the error message, consisting of `$explanation` and a request to change the TypoScript setup
      * variable `$key` (with the current TypoScript setup path prepended).
+     *
+     * @param string $explanation explanation, may contain HTML, will not be encoded
      */
     protected function addWarningAndRequestCorrection(string $key, string $explanation): void
     {
