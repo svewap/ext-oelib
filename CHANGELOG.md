@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Add missing parts to the fake frontend (#837)
 - Specify `app-dir` in the `composer.json` (#836)
 
 ## 4.0.1

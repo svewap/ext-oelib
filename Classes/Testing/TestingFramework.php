@@ -11,6 +11,7 @@ use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
 use OliverKlee\Oelib\System\Typo3Version;
+use Psr\Log\NullLogger;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -24,6 +25,7 @@ use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -1157,12 +1159,13 @@ final class TestingFramework
 
         // Needed in TYPO3 V10; can be removed in V11.
         $GLOBALS['_SERVER']['HTTP_HOST'] = 'typo3-test.dev';
+        $GLOBALS['_SERVER']['REQUEST_URL'] = '/';
         if (Typo3Version::isAtLeast(10)) {
             $frontEnd = GeneralUtility::makeInstance(
                 TypoScriptFrontendController::class,
                 $GLOBALS['TYPO3_CONF_VARS'],
                 new Site('test', $pageUid, []),
-                new SiteLanguage(0, 'en_US.utf8', new Uri(), [])
+                new SiteLanguage(0, 'en_US.utf8', new Uri('https://typo3-test.dev/'), [])
             );
         } else {
             $frontEnd = GeneralUtility::makeInstance(
@@ -1206,6 +1209,9 @@ final class TestingFramework
         }
 
         $frontEnd->newCObj();
+        /** @var ContentObjectRenderer $contentObject */
+        $contentObject = $frontEnd->cObj;
+        $contentObject->setLogger(new NullLogger());
 
         $this->hasFakeFrontEnd = true;
         $this->logoutFrontEndUser();
