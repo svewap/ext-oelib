@@ -12,7 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Raise PHPStan to level 8 (#820)
 
 ### Deprecated
-- Deprecate `TemplateHelper::ensureIntegerArrayValues` (#830)
+- Deprecate `TemplateHelper::ensureIntegerArrayValues` (#832)
 - Deprecate `TemplateHelper::addPathToFileName` (#821)
 - Deprecate `TestingFramework::createDummyFile` (#821)
 
@@ -20,6 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the (cosmetic) `TemplateHelper::cObj` (#814)
 
 ### Fixed
+- Disable Core caches version-specific in the testing framework (#829)
 - Fix a possible null pointer exception in `Session` (#826)
 - Improve type safety (#815)
 

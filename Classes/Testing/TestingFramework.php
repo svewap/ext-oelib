@@ -13,6 +13,7 @@ use OliverKlee\Oelib\Model\FrontEndUserGroup;
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\Connection;
@@ -26,6 +27,7 @@ use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
+use TYPO3\CMS\Fluid\Core\Cache\FluidTemplateCache;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -214,13 +216,7 @@ final class TestingFramework
         $this->additionalTablePrefixes = $additionalTablePrefixes;
         $this->uploadFolderPath = Environment::getPublicPath() . '/typo3temp/' . $this->tablePrefix . '/';
 
-        $cacheKey = $this->getCacheKeyPrefix() . 'rootline';
-        $rootLineCacheConfiguration =
-            (array)($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$cacheKey] ?? []);
-        $rootLineCacheConfiguration['backend'] = NullBackend::class;
-        $rootLineCacheConfiguration['options'] = [];
-        $cacheConfigurations = [$cacheKey => $rootLineCacheConfiguration];
-        GeneralUtility::makeInstance(CacheManager::class)->setCacheConfigurations($cacheConfigurations);
+        $this->disableCoreCaches();
     }
 
     private function initializeDatabase(): void
@@ -1156,12 +1152,9 @@ final class TestingFramework
         $this->suppressFrontEndCookies();
         $this->discardFakeFrontEnd();
 
-        $this->registerNullPageCache();
-
         // Needed in TYPO3 V10; can be removed in V11.
         $GLOBALS['_SERVER']['HTTP_HOST'] = 'typo3-test.dev';
         if (Typo3Version::isAtLeast(10)) {
-            $this->disableCoreCaches();
             $frontEnd = GeneralUtility::makeInstance(
                 TypoScriptFrontendController::class,
                 $GLOBALS['TYPO3_CONF_VARS'],
@@ -1924,40 +1917,73 @@ final class TestingFramework
         return $GLOBALS['TSFE'];
     }
 
-    private function registerNullPageCache(): void
-    {
-        $cacheKey = $this->getCacheKeyPrefix() . 'pages';
-        $cacheManager = $this->getCacheManager();
-        if ($cacheManager->hasCache($cacheKey)) {
-            return;
-        }
-
-        $backEnd = GeneralUtility::makeInstance(NullBackend::class, 'Testing');
-        $frontEnd = GeneralUtility::makeInstance(VariableFrontend::class, $cacheKey, $backEnd);
-        $cacheManager->registerCache($frontEnd);
-    }
-
-    private function getCacheKeyPrefix(): string
-    {
-        return Typo3Version::isAtLeast(10) ? '' : '_cache';
-    }
-
     private function getCacheManager(): CacheManager
     {
         return GeneralUtility::makeInstance(CacheManager::class);
     }
 
     /**
-     * Sets the following Core caches to the null backen: l10n, rootline, runtime
+     * Sets all Core caches to the `NullBackend`, except for: assets, core, di.
      */
     public function disableCoreCaches(): void
     {
+        if (Typo3Version::isNotHigherThan(9)) {
+            $this->disableCoreCachesForVersion9();
+        } else {
+            $this->disableCoreCachesForVersion10();
+        }
+    }
+
+    private function disableCoreCachesForVersion9(): void
+    {
         $this->getCacheManager()->setCacheConfigurations(
             [
+                'cache_hash' => ['backend' => NullBackend::class],
+                'cache_pagesection' => ['backend' => NullBackend::class],
+                'cache_rootline' => ['backend' => NullBackend::class],
+                'cache_runtime' => ['backend' => NullBackend::class],
                 'l10n' => ['backend' => NullBackend::class],
+            ]
+        );
+        $this->registerNullCache('pages', VariableFrontend::class);
+    }
+
+    private function disableCoreCachesForVersion10(): void
+    {
+        $this->getCacheManager()->setCacheConfigurations(
+            [
+                'assets' => ['backend' => NullBackend::class],
+                'core' => ['backend' => NullBackend::class],
+                'extbase' => ['backend' => NullBackend::class],
+                'hash' => ['backend' => NullBackend::class],
+                'l10n' => ['backend' => NullBackend::class],
+                'pagesection' => ['backend' => NullBackend::class],
                 'rootline' => ['backend' => NullBackend::class],
                 'runtime' => ['backend' => NullBackend::class],
             ]
         );
+        $this->registerNullCache('pages', VariableFrontend::class);
+        $this->registerNullFluidCache();
+    }
+
+    private function registerNullFluidCache(): void
+    {
+        $this->registerNullCache('fluid_template', FluidTemplateCache::class);
+    }
+
+    /**
+     * @param non-empty-string $cacheKey
+     * @param class-string<FrontendInterface> $frontEndClass
+     */
+    private function registerNullCache(string $cacheKey, string $frontEndClass): void
+    {
+        $cacheManager = $this->getCacheManager();
+        if ($cacheManager->hasCache($cacheKey)) {
+            return;
+        }
+
+        $backEnd = GeneralUtility::makeInstance(NullBackend::class, 'Testing');
+        $frontEnd = GeneralUtility::makeInstance($frontEndClass, $cacheKey, $backEnd);
+        $cacheManager->registerCache($frontEnd);
     }
 }

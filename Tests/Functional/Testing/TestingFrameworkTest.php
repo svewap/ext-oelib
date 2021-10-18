@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Functional\Testing;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
+use OliverKlee\Oelib\System\Typo3Version;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
@@ -2814,12 +2815,48 @@ final class TestingFrameworkTest extends FunctionalTestCase
     }
 
     /**
-     * @return array<string, array<int, string>>
+     * @return array<non-empty-string, array<int, non-empty-string>>
      */
-    public function cacheDataProvider(): array
+    public function coreCachesVersion9DataProvider(): array
     {
         return [
+            'hash' => ['cache_hash'],
             'l10n' => ['l10n'],
+            'pages' => ['pages'],
+            'pagesection' => ['cache_pagesection'],
+            'rootline' => ['cache_rootline'],
+            'runtime' => ['cache_runtime'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider coreCachesVersion9DataProvider
+     */
+    public function disableCoreCachesDisablesAllCoreCachesForVersion9(string $identifier): void
+    {
+        if (Typo3Version::isAtLeast(10)) {
+            self::markTestSkipped('This test is specific to TYPO3 9LTS.');
+        }
+
+        $this->subject->disableCoreCaches();
+
+        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache($identifier);
+        self::assertInstanceOf(NullBackend::class, $cache->getBackend());
+    }
+
+    /**
+     * @return array<non-empty-string, array<int, non-empty-string>>
+     */
+    public function coreCachesVersion10DataProvider(): array
+    {
+        return [
+            'extbase' => ['extbase'],
+            'fluid_template' => ['fluid_template'],
+            'hash' => ['hash'],
+            'l10n' => ['l10n'],
+            'pages' => ['pages'],
+            'pagesection' => ['pagesection'],
             'rootline' => ['rootline'],
             'runtime' => ['runtime'],
         ];
@@ -2827,15 +2864,17 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
     /**
      * @test
-     * @dataProvider cacheDataProvider
+     * @dataProvider coreCachesVersion10DataProvider
      */
-    public function disableCoreCaches(string $identifier): void
+    public function disableCoreCachesDisablesAllCoreCachesForVersion10(string $identifier): void
     {
+        if (Typo3Version::isNotHigherThan(9)) {
+            self::markTestSkipped('This test is specific to TYPO3 10LTS.');
+        }
+
         $this->subject->disableCoreCaches();
 
-        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
-
-        $cache = $cacheManager->getCache($identifier);
+        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache($identifier);
         self::assertInstanceOf(NullBackend::class, $cache->getBackend());
     }
 }
