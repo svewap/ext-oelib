@@ -149,6 +149,7 @@
 		},
 		"typo3/cms": {
 			"extension-key": "oelib",
+			"app-dir": ".Build",
 			"web-dir": ".Build/public"
 		}
 	}

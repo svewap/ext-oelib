@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Specify `app-dir` in the `composer.json` (#836)
 
 ## 4.0.1
 
