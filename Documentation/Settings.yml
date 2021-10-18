@@ -7,7 +7,7 @@ conf.py:
   copyright: 2021
   project: One is Enough Library
   version: 4.0
-  release: 4.0.0
+  release: 4.0.1
   latex_documents:
     - - Index
       - oelib.tex
