@@ -6,11 +6,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add a `CacheNullifyer` (#835)
 - Add `AbstractConfigurationCheck::shouldCheck()` (#834)
 
 ### Changed
 
 ### Deprecated
+- Deprecate `TestingFramework::disableCoreCaches` (#835)
 
 ### Removed
 

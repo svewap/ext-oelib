@@ -11,10 +11,6 @@ use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
 use OliverKlee\Oelib\System\Typo3Version;
-use TYPO3\CMS\Core\Cache\Backend\NullBackend;
-use TYPO3\CMS\Core\Cache\CacheManager;
-use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
-use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -27,7 +23,6 @@ use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
-use TYPO3\CMS\Fluid\Core\Cache\FluidTemplateCache;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -192,23 +187,30 @@ final class TestingFramework
     private static $hooksHaveBeenRetrieved = false;
 
     /**
-     * The constructor for this class.
-     *
+     * @var CacheNullifyer
+     */
+    private $cacheNullifyer;
+
+    /**
      * This testing framework can be instantiated for one extension at a time.
      * Example: In your testcase, you'll have something similar to this line of code:
-     * $this->subject = new TestingFramework('tx_seminars');
+     *
+     * `$this->subject = new TestingFramework('tx_seminars');`
+     *
      * The parameter you provide is the prefix of the table names of that particular
      * extension. Like this, we ensure that the testing framework creates and
      * deletes records only on table with this prefix.
      *
      * If you need dummy records on tables of multiple extensions, you'll have to
-     * instantiate the testing frame work multiple times (once per extension).
+     * instantiate the testing framework multiple times (once per extension).
+     *
+     * Instantiating this class disables all core caches, avoid errors about not registered caches.
      *
      * @param string $tablePrefix
      *        the table name prefix of the extension for which this instance of the testing framework should be used
-     * @param string[] $additionalTablePrefixes
+     * @param array<int, string> $additionalTablePrefixes
      *        the additional table name prefixes of the extensions for which this instance of the testing framework
-     *     should be used, may be empty
+     *        should be used, may be empty
      */
     public function __construct(string $tablePrefix, array $additionalTablePrefixes = [])
     {
@@ -216,7 +218,8 @@ final class TestingFramework
         $this->additionalTablePrefixes = $additionalTablePrefixes;
         $this->uploadFolderPath = Environment::getPublicPath() . '/typo3temp/' . $this->tablePrefix . '/';
 
-        $this->disableCoreCaches();
+        $this->cacheNullifyer = new CacheNullifyer();
+        $this->cacheNullifyer->disableCoreCaches();
     }
 
     private function initializeDatabase(): void
@@ -1917,73 +1920,13 @@ final class TestingFramework
         return $GLOBALS['TSFE'];
     }
 
-    private function getCacheManager(): CacheManager
-    {
-        return GeneralUtility::makeInstance(CacheManager::class);
-    }
-
     /**
      * Sets all Core caches to the `NullBackend`, except for: assets, core, di.
+     *
+     * @deprecated will be removed in oelib 5.0
      */
     public function disableCoreCaches(): void
     {
-        if (Typo3Version::isNotHigherThan(9)) {
-            $this->disableCoreCachesForVersion9();
-        } else {
-            $this->disableCoreCachesForVersion10();
-        }
-    }
-
-    private function disableCoreCachesForVersion9(): void
-    {
-        $this->getCacheManager()->setCacheConfigurations(
-            [
-                'cache_hash' => ['backend' => NullBackend::class],
-                'cache_pagesection' => ['backend' => NullBackend::class],
-                'cache_rootline' => ['backend' => NullBackend::class],
-                'cache_runtime' => ['backend' => NullBackend::class],
-                'l10n' => ['backend' => NullBackend::class],
-            ]
-        );
-        $this->registerNullCache('pages', VariableFrontend::class);
-    }
-
-    private function disableCoreCachesForVersion10(): void
-    {
-        $this->getCacheManager()->setCacheConfigurations(
-            [
-                'assets' => ['backend' => NullBackend::class],
-                'core' => ['backend' => NullBackend::class],
-                'extbase' => ['backend' => NullBackend::class],
-                'hash' => ['backend' => NullBackend::class],
-                'l10n' => ['backend' => NullBackend::class],
-                'pagesection' => ['backend' => NullBackend::class],
-                'rootline' => ['backend' => NullBackend::class],
-                'runtime' => ['backend' => NullBackend::class],
-            ]
-        );
-        $this->registerNullCache('pages', VariableFrontend::class);
-        $this->registerNullFluidCache();
-    }
-
-    private function registerNullFluidCache(): void
-    {
-        $this->registerNullCache('fluid_template', FluidTemplateCache::class);
-    }
-
-    /**
-     * @param non-empty-string $cacheKey
-     * @param class-string<FrontendInterface> $frontEndClass
-     */
-    private function registerNullCache(string $cacheKey, string $frontEndClass): void
-    {
-        $cacheManager = $this->getCacheManager();
-        if ($cacheManager->hasCache($cacheKey)) {
-            return;
-        }
-
-        $backEnd = GeneralUtility::makeInstance(NullBackend::class, 'Testing');
-        $frontEnd = GeneralUtility::makeInstance($frontEndClass, $cacheKey, $backEnd);
-        $cacheManager->registerCache($frontEnd);
+        $this->cacheNullifyer->disableCoreCaches();
     }
 }
