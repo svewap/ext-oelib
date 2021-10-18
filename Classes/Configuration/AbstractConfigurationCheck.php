@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Configuration;
 
 use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 use OliverKlee\Oelib\Interfaces\Configuration as ConfigurationInterface;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -39,6 +40,29 @@ abstract class AbstractConfigurationCheck
     {
         $this->configuration = $configurationToCheck;
         $this->namespace = $typoScriptNamespace;
+    }
+
+    /**
+     * Checks whether the extensions check is enabled for the given extension, and whether an admin back-end user is
+     * logged in. (The configuration check should only be visible to admins, not to editors or regular visitors.)
+     *
+     * It is recommended to use this function either before instantiating this class, or before calling `check()`.
+     *
+     * @param non-empty-string $extensionKey
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function shouldCheck(string $extensionKey): bool
+    {
+        // @phpstan-ignore-next-line We are explicitly checking for a contract violation here.
+        if ($extensionKey === '') {
+            throw new \InvalidArgumentException('Please provide a non-empty extension key.', 1634575363);
+        }
+
+        /** @var BackendUserAuthentication|null $backEndUser */
+        $backEndUser = $GLOBALS['BE_USER'] ?? null;
+        return $backEndUser instanceof BackendUserAuthentication && $backEndUser->isAdmin()
+            && ConfigurationProxy::getInstance($extensionKey)->getAsBoolean('enableConfigCheck');
     }
 
     protected function getSuffixedNamespace(): string

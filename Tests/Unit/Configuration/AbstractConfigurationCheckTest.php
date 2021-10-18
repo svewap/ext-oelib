@@ -6,8 +6,11 @@ namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\AbstractConfigurationCheck;
+use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\TestingConfigurationCheck;
+use Prophecy\Prophecy\ProphecySubjectInterface;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
  * @covers \OliverKlee\Oelib\Configuration\AbstractConfigurationCheck
@@ -16,7 +19,8 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
 {
     protected function tearDown(): void
     {
-        unset($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']);
+        ConfigurationProxy::purgeInstances();
+        unset($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'], $GLOBALS['BE_USER']);
     }
 
     /**
@@ -27,6 +31,114 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $subject = new TestingConfigurationCheck(new DummyConfiguration(), 'plugin.tx_oelib');
 
         self::assertInstanceOf(AbstractConfigurationCheck::class, $subject);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldCheckWithEmptyStringThrowsException(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Please provide a non-empty extension key.');
+        $this->expectExceptionCode(1634575363);
+
+        // @phpstan-ignore-next-line We are explicitly checking for a contract violation here.
+        TestingConfigurationCheck::shouldCheck('');
+    }
+
+    /**
+     * @test
+     */
+    public function shouldCheckForExtensionWithEnabledConfigurationCheckAndAdminUserLoggedInReturnsTrue(): void
+    {
+        $extensionKey = 'oelib';
+        $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => true]);
+        ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
+
+        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
+        // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
+        $adminUserProphecy->isAdmin()->willReturn(true);
+        /** @var BackendUserAuthentication&ProphecySubjectInterface $adminUser */
+        $adminUser = $adminUserProphecy->reveal();
+        $GLOBALS['BE_USER'] = $adminUser;
+
+        self::assertTrue(TestingConfigurationCheck::shouldCheck($extensionKey));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldCheckForExtensionWithEnabledConfigurationCheckAndNonAdminUserLoggedInReturnsFalse(): void
+    {
+        $extensionKey = 'oelib';
+        $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => true]);
+        ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
+
+        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
+        // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
+        $adminUserProphecy->isAdmin()->willReturn(false);
+        /** @var BackendUserAuthentication&ProphecySubjectInterface $adminUser */
+        $adminUser = $adminUserProphecy->reveal();
+        $GLOBALS['BE_USER'] = $adminUser;
+
+        self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldCheckForExtensionWithDisabledConfigurationCheckAndAdminUserLoggedInReturnsFalse(): void
+    {
+        $extensionKey = 'oelib';
+        $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => false]);
+        ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
+
+        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
+        // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
+        $adminUserProphecy->isAdmin()->willReturn(true);
+        /** @var BackendUserAuthentication&ProphecySubjectInterface $adminUser */
+        $adminUser = $adminUserProphecy->reveal();
+        $GLOBALS['BE_USER'] = $adminUser;
+
+        self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldCheckForExtensionWithoutConfigurationCheckAndAdminUserLoggedInReturnsFalse(): void
+    {
+        $extensionKey = 'oelib';
+        $extensionConfiguration = new DummyConfiguration([]);
+        ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
+
+        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
+        // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
+        $adminUserProphecy->isAdmin()->willReturn(true);
+        /** @var BackendUserAuthentication&ProphecySubjectInterface $adminUser */
+        $adminUser = $adminUserProphecy->reveal();
+        $GLOBALS['BE_USER'] = $adminUser;
+
+        self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldCheckForNotInstalledExtensionAndAdminUserLoggedInReturnsFalse(): void
+    {
+        $extensionKey = 'gherkin';
+        $extensionConfiguration = new DummyConfiguration([]);
+        ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
+
+        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
+        // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
+        $adminUserProphecy->isAdmin()->willReturn(true);
+        /** @var BackendUserAuthentication&ProphecySubjectInterface $adminUser */
+        $adminUser = $adminUserProphecy->reveal();
+        $GLOBALS['BE_USER'] = $adminUser;
+
+        self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
     }
 
     /**
