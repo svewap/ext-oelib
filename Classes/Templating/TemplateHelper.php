@@ -830,6 +830,8 @@ class TemplateHelper extends SalutationSwitcher
      * Ensures that all values in the given array are cast to integers and removes empty or invalid values.
      *
      * @param array<array-key, string> $keys the keys of the piVars to check, may be empty
+     *
+     * @deprecated will be remove in oelib 5.0
      */
     protected function ensureIntegerArrayValues(array $keys): void
     {
