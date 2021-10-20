@@ -41,7 +41,7 @@ final class CacheNullifyerTest extends FunctionalTestCase
         return [
             'hash' => ['cache_hash'],
             'l10n' => ['l10n'],
-            'pages' => ['pages'],
+            'pages' => ['cache_pages'],
             'pagesection' => ['cache_pagesection'],
             'rootline' => ['cache_rootline'],
             'runtime' => ['cache_runtime'],

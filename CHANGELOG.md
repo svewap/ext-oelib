@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix the page cache identifyer for TYPO3 9LTS (#845)
 
 ## 4.1.0
 

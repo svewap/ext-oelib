@@ -8,7 +8,6 @@ use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
-use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\Cache\FluidTemplateCache;
 
@@ -34,13 +33,14 @@ final class CacheNullifyer
         $this->getCacheManager()->setCacheConfigurations(
             [
                 'cache_hash' => ['backend' => NullBackend::class],
+                'cache_pages' => ['backend' => NullBackend::class],
                 'cache_pagesection' => ['backend' => NullBackend::class],
                 'cache_rootline' => ['backend' => NullBackend::class],
                 'cache_runtime' => ['backend' => NullBackend::class],
                 'l10n' => ['backend' => NullBackend::class],
+                'pages' => ['backend' => NullBackend::class],
             ]
         );
-        $this->registerNullCache('pages', VariableFrontend::class);
     }
 
     private function disableCoreCachesForVersion10(): void
@@ -52,12 +52,12 @@ final class CacheNullifyer
                 'extbase' => ['backend' => NullBackend::class],
                 'hash' => ['backend' => NullBackend::class],
                 'l10n' => ['backend' => NullBackend::class],
+                'pages' => ['backend' => NullBackend::class],
                 'pagesection' => ['backend' => NullBackend::class],
                 'rootline' => ['backend' => NullBackend::class],
                 'runtime' => ['backend' => NullBackend::class],
             ]
         );
-        $this->registerNullCache('pages', VariableFrontend::class);
         $this->registerNullFluidCache();
     }
 
