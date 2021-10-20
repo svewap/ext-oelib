@@ -17,7 +17,7 @@ use TYPO3\CMS\Fluid\Core\Cache\FluidTemplateCache;
 final class CacheNullifyer
 {
     /**
-     * Sets all Core caches to the `NullBackend`, except for: assets, core, di.
+     * Sets all Core caches to the `NullBackend`, except for `assets` and `di`.
      */
     public function disableCoreCaches(): void
     {
@@ -32,6 +32,7 @@ final class CacheNullifyer
     {
         $this->getCacheManager()->setCacheConfigurations(
             [
+                'cache_core' => ['backend' => NullBackend::class],
                 'cache_hash' => ['backend' => NullBackend::class],
                 'cache_pages' => ['backend' => NullBackend::class],
                 'cache_pagesection' => ['backend' => NullBackend::class],
