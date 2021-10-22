@@ -2608,6 +2608,99 @@ final class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame($pageUid, (int)$this->getFrontEndController()->id);
     }
 
+    /**
+     * @test
+     */
+    public function getFakeFrontEndDomainReturnsDevDomain(): void
+    {
+        self::assertSame('typo3-test.dev', $this->subject->getFakeFrontEndDomain());
+    }
+
+    /**
+     * @return array<string, array{0: string, 1: string|bool|null}>
+     */
+    public function globalsDataProvider(): array
+    {
+        return [
+            'HTTP_HOST' => ['HTTP_HOST', 'typo3-test.dev'],
+            'TYPO3_HOST_ONLY' => ['TYPO3_HOST_ONLY', 'typo3-test.dev'],
+            'TYPO3_PORT' => ['TYPO3_PORT', ''],
+            'PATH_INFO' => ['PATH_INFO', null],
+            'QUERY_STRING' => ['QUERY_STRING', ''],
+            'HTTP_REFERER' => ['HTTP_REFERER', 'http://typo3-test.dev/'],
+            'TYPO3_REQUEST_HOST' => ['TYPO3_REQUEST_HOST', 'http://typo3-test.dev'],
+            'TYPO3_REQUEST_SCRIPT' => ['TYPO3_REQUEST_SCRIPT', 'http://typo3-test.dev/index.php'],
+            'TYPO3_REQUEST_DIR' => ['TYPO3_REQUEST_DIR', 'http://typo3-test.dev/'],
+            'TYPO3_SITE_URL' => ['TYPO3_SITE_URL', 'http://typo3-test.dev/'],
+            'TYPO3_SSL' => ['TYPO3_SSL', false],
+            'TYPO3_REV_PROXY' => ['TYPO3_REV_PROXY', false],
+            'SCRIPT_NAME' => ['SCRIPT_NAME', '/index.php'],
+            'TYPO3_DOCUMENT_ROOT' => ['TYPO3_DOCUMENT_ROOT', '/var/www/html/public'],
+            'SCRIPT_FILENAME' => ['SCRIPT_FILENAME', '/var/www/html/public/index.php'],
+            'REMOTE_ADDR' => ['REMOTE_ADDR', '127.0.0.1'],
+            'REMOTE_HOST' => ['REMOTE_HOST', ''],
+            'HTTP_USER_AGENT' => [
+                'HTTP_USER_AGENT',
+                'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:93.0) Gecko/20100101 Firefox/93.0',
+            ],
+            'HTTP_ACCEPT_LANGUAGE' => ['HTTP_ACCEPT_LANGUAGE', 'de,en-US;q=0.7,en;q=0.3'],
+            'HTTP_ACCEPT_ENCODING' => ['HTTP_ACCEPT_ENCODING', 'gzip, deflate, br'],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @param string|bool|null $expected
+     *
+     * @dataProvider globalsDataProvider
+     */
+    public function createFakeFrontEndPopulatesGlobals(string $key, $expected): void
+    {
+        $this->subject->createFakeFrontEnd();
+
+        self::assertSame($expected, GeneralUtility::getIndpEnv($key));
+    }
+
+    /**
+     * @return array<string, array<int, string>>
+     */
+    public function pageSpecificGlobalsDataProvider(): array
+    {
+        return [
+            'REQUEST_URI' => ['REQUEST_URI', '/%1d'],
+            'TYPO3_REQUEST_URL' => ['TYPO3_REQUEST_URL', 'http://typo3-test.dev/%1d'],
+            'TYPO3_SITE_SCRIPT' => ['TYPO3_SITE_SCRIPT', '%1d'],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider pageSpecificGlobalsDataProvider
+     */
+    public function createFakeFrontWithWithoutPageUsesPage1InUri(string $key, string $expectedWithPlaceholder): void
+    {
+        $this->subject->createFakeFrontEnd();
+
+        $expected = \sprintf($expectedWithPlaceholder, 1);
+        self::assertSame($expected, GeneralUtility::getIndpEnv($key));
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider pageSpecificGlobalsDataProvider
+     */
+    public function createFakeFrontWithWithPageUsesGivenPageInUri(string $key, string $expectedWithPlaceholder): void
+    {
+        $pageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($pageUid);
+
+        $expected = \sprintf($expectedWithPlaceholder, $pageUid);
+        self::assertSame($expected, GeneralUtility::getIndpEnv($key));
+    }
+
     // Tests regarding user login and logout
 
     /**

@@ -60,6 +60,11 @@ final class TestingFramework
     ];
 
     /**
+     * @var string
+     */
+    private const FAKE_FRONTEND_DOMAIN_NAME = 'typo3-test.dev';
+
+    /**
      * cache for the results of hasTableColumn with the column names as keys and
      * the SHOW COLUMNS field information (in an array) as values
      *
@@ -1133,6 +1138,14 @@ final class TestingFramework
     // Functions concerning a fake front end
 
     /**
+     * Returns the domain name that will be used for the fake frontend
+     */
+    public function getFakeFrontEndDomain(): string
+    {
+        return self::FAKE_FRONTEND_DOMAIN_NAME;
+    }
+
+    /**
      * Fakes a TYPO3 front end, using $pageUid as front-end page ID if provided.
      *
      * If $pageUid is zero, the front end will have not page UID.
@@ -1157,9 +1170,8 @@ final class TestingFramework
         $this->suppressFrontEndCookies();
         $this->discardFakeFrontEnd();
 
-        // Needed in TYPO3 V10; can be removed in V11.
-        $GLOBALS['_SERVER']['HTTP_HOST'] = 'typo3-test.dev';
-        $GLOBALS['_SERVER']['REQUEST_URL'] = '/';
+        $this->setPageIndependentGlobalsForFakeFrontEnd();
+        $this->setPageDependentGlobalsForFakeFrontEnd($pageUid > 0 ? $pageUid : 1);
         if (Typo3Version::isAtLeast(10)) {
             $frontEnd = GeneralUtility::makeInstance(
                 TypoScriptFrontendController::class,
@@ -1217,6 +1229,42 @@ final class TestingFramework
         $this->logoutFrontEndUser();
 
         return $pageUid;
+    }
+
+    private function setPageIndependentGlobalsForFakeFrontEnd(): void
+    {
+        $hostName = $this->getFakeFrontEndDomain();
+        $documentRoot = '/var/www/html/public';
+        $relativeScriptPath = '/index.php';
+        $absoluteScriptPath = $documentRoot . '/index.php';
+        $url = 'http://' . $hostName . '/';
+        $server = &$GLOBALS['_SERVER'];
+
+        $server['DOCUMENT_ROOT'] = $documentRoot;
+        $server['HOSTNAME'] = $hostName;
+        $server['HTTP'] = 'off';
+        $server['HTTP_ACCEPT_ENCODING'] = 'gzip, deflate, br';
+        $server['HTTP_ACCEPT_LANGUAGE'] = 'de,en-US;q=0.7,en;q=0.3';
+        $server['HTTP_HOST'] = $hostName;
+        $server['HTTP_REFERER'] = $url;
+        $server['HTTP_USER_AGENT'] = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:93.0) Gecko/20100101 Firefox/93.0';
+        $server['PHP_SELF'] = '/index.php';
+        $server['QUERY_STRING'] = '';
+        $server['REMOTE_ADDR'] = '127.0.0.1';
+        $server['REMOTE_HOST'] = '';
+        $server['REQUEST_SCHEME'] = 'http';
+        $server['SCRIPT_FILENAME'] = $absoluteScriptPath;
+        $server['SCRIPT_NAME'] = $relativeScriptPath;
+        $server['SERVER_ADDR'] = '127.0.0.1';
+        $server['SERVER_NAME'] = $hostName;
+        $server['SERVER_SOFTWARE'] = 'Apache/2.4.48 (Debian)';
+
+        WritableEnvironment::setCurrentScript($absoluteScriptPath);
+    }
+
+    private function setPageDependentGlobalsForFakeFrontEnd(int $pageUid): void
+    {
+        $GLOBALS['_SERVER']['REQUEST_URI'] = '/' . $pageUid;
     }
 
     /**
