@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Bump the version number of the static_info_tables suggestion (#850)
 
 ### Deprecated
 

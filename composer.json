@@ -52,14 +52,13 @@
 		"typo3/cms-extensionmanager": "^9.5 || ^10.4"
 	},
 	"conflict": {
-		"sjbr/static-info-tables": "6.7.1",
 		"typo3/cms-composer-installers": "<1.4.6"
 	},
 	"replace": {
 		"typo3-ter/oelib": "self.version"
 	},
 	"suggest": {
-		"sjbr/static-info-tables": "^6.7"
+		"sjbr/static-info-tables": "^6.9.5"
 	},
 	"autoload": {
 		"psr-4": {
