@@ -6,20 +6,23 @@ namespace OliverKlee\Oelib\Testing;
 
 use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
+use TYPO3\CMS\Core\Cache\Backend\SimpleFileBackend;
+use TYPO3\CMS\Core\Cache\Backend\TransientMemoryBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
-use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
+use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\Cache\FluidTemplateCache;
 
 /**
- * This class can disable all core caches (by setting them to a `NullBackend`) for tests.
+ * This class sets all core caches for tests.
  */
 final class CacheNullifyer
 {
     /**
-     * Sets all Core caches to the `NullBackend`, except for `assets` and `di`.
+     * Sets all Core caches to make testing easier, either to a null backend (for page, page section, rootline)
+     * or a simple file backend.
      */
-    public function disableCoreCaches(): void
+    public function setAllCoreCaches(): void
     {
         if (Typo3Version::isNotHigherThan(9)) {
             $this->disableCoreCachesForVersion9();
@@ -28,18 +31,30 @@ final class CacheNullifyer
         }
     }
 
+    /**
+     * @deprecated will be removed in oelib 5.0; use `setAllCoreCaches` instead
+     */
+    public function disableCoreCaches(): void
+    {
+        $this->setAllCoreCaches();
+    }
+
     private function disableCoreCachesForVersion9(): void
     {
         $this->getCacheManager()->setCacheConfigurations(
             [
-                'cache_core' => ['backend' => NullBackend::class],
-                'cache_hash' => ['backend' => NullBackend::class],
+                'cache_core' => ['backend' => SimpleFileBackend::class, 'frontend' => PhpFrontend::class],
+                'cache_hash' => ['backend' => SimpleFileBackend::class],
+                'cache_imagesizes' => ['backend' => NullBackend::class],
                 'cache_pages' => ['backend' => NullBackend::class],
                 'cache_pagesection' => ['backend' => NullBackend::class],
                 'cache_rootline' => ['backend' => NullBackend::class],
-                'cache_runtime' => ['backend' => NullBackend::class],
-                'l10n' => ['backend' => NullBackend::class],
-                'pages' => ['backend' => NullBackend::class],
+                'cache_runtime' => ['backend' => TransientMemoryBackend::class],
+                'extbase_datamapfactory_datamap' => ['backend' => SimpleFileBackend::class],
+                'extbase_reflection' => ['backend' => SimpleFileBackend::class],
+                'fluid_template' => ['backend' => SimpleFileBackend::class, 'frontend' => FluidTemplateCache::class],
+                'l10n' => ['backend' => SimpleFileBackend::class],
+                'pages' => ['backend' => SimpleFileBackend::class],
             ]
         );
     }
@@ -48,48 +63,23 @@ final class CacheNullifyer
     {
         $this->getCacheManager()->setCacheConfigurations(
             [
-                'assets' => ['backend' => NullBackend::class],
-                'core' => ['backend' => NullBackend::class],
-                'extbase' => ['backend' => NullBackend::class],
-                'hash' => ['backend' => NullBackend::class],
-                'l10n' => ['backend' => NullBackend::class],
+                'assets' => ['backend' => SimpleFileBackend::class],
+                'core' => ['backend' => SimpleFileBackend::class, 'frontend' => PhpFrontend::class],
+                'extbase' => ['backend' => SimpleFileBackend::class],
+                'fluid_template' => ['backend' => SimpleFileBackend::class, 'frontend' => FluidTemplateCache::class],
+                'hash' => ['backend' => SimpleFileBackend::class],
+                'imagesizes' => ['backend' => NullBackend::class],
+                'l10n' => ['backend' => SimpleFileBackend::class],
                 'pages' => ['backend' => NullBackend::class],
                 'pagesection' => ['backend' => NullBackend::class],
                 'rootline' => ['backend' => NullBackend::class],
-                'runtime' => ['backend' => NullBackend::class],
+                'runtime' => ['backend' => TransientMemoryBackend::class],
             ]
         );
-        $this->registerNullFluidCache();
     }
 
     private function getCacheManager(): CacheManager
     {
         return GeneralUtility::makeInstance(CacheManager::class);
-    }
-
-    private function registerNullFluidCache(): void
-    {
-        $this->registerNullCache('fluid_template', FluidTemplateCache::class);
-    }
-
-    /**
-     * Registers a `NullCache` for the given key using a frontend of the given class.
-     *
-     * Use this method for caches that do not work without a frontend, e.g., the pages cache or the Fluid template
-     * cache.
-     *
-     * @param non-empty-string $cacheKey
-     * @param class-string<FrontendInterface> $frontEndClass
-     */
-    private function registerNullCache(string $cacheKey, string $frontEndClass): void
-    {
-        $cacheManager = $this->getCacheManager();
-        if ($cacheManager->hasCache($cacheKey)) {
-            return;
-        }
-
-        $backEnd = GeneralUtility::makeInstance(NullBackend::class, 'Testing');
-        $frontEnd = GeneralUtility::makeInstance($frontEndClass, $cacheKey, $backEnd);
-        $cacheManager->registerCache($frontEnd);
     }
 }

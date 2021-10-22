@@ -221,7 +221,7 @@ final class TestingFramework
         $this->uploadFolderPath = Environment::getPublicPath() . '/typo3temp/' . $this->tablePrefix . '/';
 
         $this->cacheNullifyer = new CacheNullifyer();
-        $this->cacheNullifyer->disableCoreCaches();
+        $this->cacheNullifyer->setAllCoreCaches();
     }
 
     private function initializeDatabase(): void

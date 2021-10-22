@@ -7,7 +7,10 @@ namespace OliverKlee\Oelib\Tests\Functional\Testing;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\System\Typo3Version;
 use OliverKlee\Oelib\Testing\CacheNullifyer;
+use TYPO3\CMS\Core\Cache\Backend\AbstractBackend;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
+use TYPO3\CMS\Core\Cache\Backend\SimpleFileBackend;
+use TYPO3\CMS\Core\Cache\Backend\TransientMemoryBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -34,25 +37,31 @@ final class CacheNullifyerTest extends FunctionalTestCase
     }
 
     /**
-     * @return array<non-empty-string, array<int, non-empty-string>>
+     * @return array<non-empty-string, array{0: non-empty-string, 1: class-string<AbstractBackend>}>
      */
     public function coreCachesVersion9DataProvider(): array
     {
         return [
-            'hash' => ['cache_hash'],
-            'l10n' => ['l10n'],
-            'pages' => ['cache_pages'],
-            'pagesection' => ['cache_pagesection'],
-            'rootline' => ['cache_rootline'],
-            'runtime' => ['cache_runtime'],
+            'extbase_datamapfactory_datamap' => ['extbase_datamapfactory_datamap', SimpleFileBackend::class],
+            'extbase_reflection' => ['extbase_reflection', SimpleFileBackend::class],
+            'fluid_template' => ['fluid_template', SimpleFileBackend::class],
+            'hash' => ['cache_hash', SimpleFileBackend::class],
+            'imagesizes' => ['cache_imagesizes', NullBackend::class],
+            'l10n' => ['l10n', SimpleFileBackend::class],
+            'pages' => ['cache_pages', NullBackend::class],
+            'pagesection' => ['cache_pagesection', NullBackend::class],
+            'rootline' => ['cache_rootline', NullBackend::class],
+            'runtime' => ['cache_runtime', TransientMemoryBackend::class],
         ];
     }
 
     /**
      * @test
+     *
+     * @param class-string<AbstractBackend> $backend
      * @dataProvider coreCachesVersion9DataProvider
      */
-    public function disableCoreCachesDisablesAllCoreCachesForVersion9(string $identifier): void
+    public function disableCoreCachesSetsAllCoreCachesForVersion9(string $identifier, string $backend): void
     {
         if (Typo3Version::isAtLeast(10)) {
             self::markTestSkipped('This test is specific to TYPO3 9LTS.');
@@ -61,31 +70,54 @@ final class CacheNullifyerTest extends FunctionalTestCase
         $this->subject->disableCoreCaches();
 
         $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache($identifier);
-        self::assertInstanceOf(NullBackend::class, $cache->getBackend());
+        self::assertInstanceOf($backend, $cache->getBackend());
     }
 
     /**
-     * @return array<non-empty-string, array<int, non-empty-string>>
+     * @test
+     *
+     * @param class-string<AbstractBackend> $backend
+     * @dataProvider coreCachesVersion9DataProvider
+     */
+    public function setAllCoreCachesSetsAllCoreCachesForVersion9(string $identifier, string $backend): void
+    {
+        if (Typo3Version::isAtLeast(10)) {
+            self::markTestSkipped('This test is specific to TYPO3 9LTS.');
+        }
+
+        $this->subject->setAllCoreCaches();
+
+        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache($identifier);
+        self::assertInstanceOf($backend, $cache->getBackend());
+    }
+
+    /**
+     * @return array<non-empty-string, array{0: non-empty-string, 1: class-string<AbstractBackend>}>
      */
     public function coreCachesVersion10DataProvider(): array
     {
         return [
-            'extbase' => ['extbase'],
-            'fluid_template' => ['fluid_template'],
-            'hash' => ['hash'],
-            'l10n' => ['l10n'],
-            'pages' => ['pages'],
-            'pagesection' => ['pagesection'],
-            'rootline' => ['rootline'],
-            'runtime' => ['runtime'],
+            'assets' => ['assets', SimpleFileBackend::class],
+            'core' => ['extbase', SimpleFileBackend::class],
+            'extbase' => ['extbase', SimpleFileBackend::class],
+            'fluid_template' => ['fluid_template', SimpleFileBackend::class],
+            'hash' => ['hash', SimpleFileBackend::class],
+            'imagesizes' => ['imagesizes', NullBackend::class],
+            'l10n' => ['l10n', SimpleFileBackend::class],
+            'pages' => ['pages', NullBackend::class],
+            'pagesection' => ['pagesection', NullBackend::class],
+            'rootline' => ['rootline', NullBackend::class],
+            'runtime' => ['runtime', TransientMemoryBackend::class],
         ];
     }
 
     /**
      * @test
+     *
+     * @param class-string<AbstractBackend> $backend
      * @dataProvider coreCachesVersion10DataProvider
      */
-    public function disableCoreCachesDisablesAllCoreCachesForVersion10(string $identifier): void
+    public function disableCoreCachesSetsAllCoreCachesForVersion10(string $identifier, string $backend): void
     {
         if (Typo3Version::isNotHigherThan(9)) {
             self::markTestSkipped('This test is specific to TYPO3 10LTS.');
@@ -94,6 +126,24 @@ final class CacheNullifyerTest extends FunctionalTestCase
         $this->subject->disableCoreCaches();
 
         $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache($identifier);
-        self::assertInstanceOf(NullBackend::class, $cache->getBackend());
+        self::assertInstanceOf($backend, $cache->getBackend());
+    }
+
+    /**
+     * @test
+     *
+     * @param class-string<AbstractBackend> $backend
+     * @dataProvider coreCachesVersion10DataProvider
+     */
+    public function setAllCoreCachesSetsAllCoreCachesForVersion10(string $identifier, string $backend): void
+    {
+        if (Typo3Version::isNotHigherThan(9)) {
+            self::markTestSkipped('This test is specific to TYPO3 10LTS.');
+        }
+
+        $this->subject->setAllCoreCaches();
+
+        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache($identifier);
+        self::assertInstanceOf($backend, $cache->getBackend());
     }
 }

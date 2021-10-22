@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Use a non-null cache for some caches for testing (#852)
 - Clean up the conflicts section in the `composer.json` (#851)
 - Bump the version number of the static_info_tables suggestion (#850)
 
