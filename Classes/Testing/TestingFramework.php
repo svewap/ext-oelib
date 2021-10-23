@@ -358,14 +358,15 @@ final class TestingFramework
     }
 
     /**
-     * Creates a front-end page on the page with the UID given by the first
-     * parameter $parentId.
+     * Creates a front-end page on the given page.
      *
      * @return int the UID of the new page, will be > 0
      */
-    public function createFrontEndPage(): int
+    public function createFrontEndPage(int $parentPageUid = 0): int
     {
-        return $this->createGeneralPageRecord(1, 0, []);
+        $uid = $this->createGeneralPageRecord(1, $parentPageUid, []);
+
+        return $uid;
     }
 
     /**
@@ -1210,7 +1211,7 @@ final class TestingFramework
         $frontEnd->tmpl = GeneralUtility::makeInstance(TemplateService::class);
         $frontEnd->config = [];
 
-        if (($pageUid > 0) && in_array('sys_template', $this->dirtySystemTables, true)) {
+        if ($pageUid > 0 && \in_array('sys_template', $this->dirtySystemTables, true)) {
             try {
                 $rootLine = GeneralUtility::makeInstance(RootlineUtility::class, $pageUid)->get();
             } catch (PageNotFoundException $e) {

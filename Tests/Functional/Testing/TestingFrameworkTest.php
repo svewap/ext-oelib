@@ -1724,19 +1724,12 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function frontEndPageCanBeCreated(): void
+    public function createFrontEndPageCreatesFrontEndPageAndReturnsItsUid(): void
     {
         $uid = $this->subject->createFrontEndPage();
 
-        self::assertNotSame(
-            0,
-            $uid
-        );
-
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid)
-        );
+        self::assertNotSame(0, $uid);
+        self::assertSame(1, $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid));
     }
 
     /**
@@ -1746,45 +1739,38 @@ final class TestingFrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createFrontEndPage();
 
-        self::assertNotSame(
-            0,
-            $uid
-        );
+        self::assertNotSame(0, $uid);
 
-        $row = $this->getDatabaseConnection()->selectSingleRow(
-            'doktype',
-            'pages',
-            'uid = ' . $uid
-        );
+        $row = $this->getDatabaseConnection()->selectSingleRow('doktype', 'pages', 'uid = ' . $uid);
 
-        self::assertSame(
-            1,
-            (int)$row['doktype']
-        );
+        self::assertSame(1, (int)$row['doktype']);
     }
 
     /**
      * @test
      */
-    public function frontEndPageWillBeCreatedOnRootPage(): void
+    public function createFrontEndPageByDefaultCreatesPageOnRootPage(): void
     {
         $uid = $this->subject->createFrontEndPage();
 
-        self::assertNotSame(
-            0,
-            $uid
-        );
+        self::assertNotSame(0, $uid);
 
-        $row = $this->getDatabaseConnection()->selectSingleRow(
-            'pid',
-            'pages',
-            'uid = ' . $uid
-        );
+        $row = $this->getDatabaseConnection()->selectSingleRow('pid', 'pages', 'uid = ' . $uid);
 
-        self::assertSame(
-            0,
-            (int)$row['pid']
-        );
+        self::assertSame(0, (int)$row['pid']);
+    }
+
+    /**
+     * @test
+     */
+    public function createFrontEndPageCanCreatePageOnOtherPage(): void
+    {
+        $parentUid = $this->subject->createFrontEndPage();
+        $uid = $this->subject->createFrontEndPage($parentUid);
+
+        $row = $this->getDatabaseConnection()->selectSingleRow('pid', 'pages', 'uid = ' . $uid);
+
+        self::assertSame($parentUid, (int)$row['pid']);
     }
 
     /**
