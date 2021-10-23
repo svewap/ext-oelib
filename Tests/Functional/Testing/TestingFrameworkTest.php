@@ -2744,6 +2744,31 @@ final class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame($expected, GeneralUtility::getIndpEnv($key));
     }
 
+    /**
+     * @test
+     */
+    public function createFakeFrontEndOverwritesCurrentScript(): void
+    {
+        $previous = Environment::getCurrentScript();
+        $this->subject->createFakeFrontEnd();
+
+        self::assertNotSame($previous, Environment::getCurrentScript());
+    }
+
+    /**
+     * @test
+     */
+    public function createFakeFrontSetsDummyGlobalHttpHost(): void
+    {
+        $expected = 'typo3-test.dev';
+        $previous = $GLOBALS['_SERVER']['HTTP_HOST'];
+        self::assertNotSame($expected, $previous);
+
+        $this->subject->createFakeFrontEnd();
+
+        self::assertSame($expected, $GLOBALS['_SERVER']['HTTP_HOST']);
+    }
+
     // Tests regarding user login and logout
 
     /**
