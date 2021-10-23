@@ -12,12 +12,32 @@ use TYPO3\CMS\Core\Core\Environment;
 final class WritableEnvironment extends Environment
 {
     /**
+     * @var string|null
+     */
+    private static $currentScriptBackup = null;
+
+    /**
      * Sets the fake current PHP script.
      *
      * @param non-empty-string $currentScript the full path e.g., `'/var/www/html/public/index.php'`
      */
     public static function setCurrentScript(string $currentScript): void
     {
+        if (!\is_string(self::$currentScriptBackup)) {
+            self::$currentScriptBackup = self::getCurrentScript();
+        }
+
         self::$currentScript = $currentScript;
+    }
+
+    /**
+     * Restores the current script in case it has been overwritten.
+     */
+    public static function restoreCurrentScript(): void
+    {
+        if (\is_string(self::$currentScriptBackup)) {
+            self::$currentScript = self::$currentScriptBackup;
+            self::$currentScriptBackup = null;
+        }
     }
 }
