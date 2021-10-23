@@ -2780,6 +2780,47 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
+    public function fakeFrontEndAllowsCreatingTypoLinkToRootPage(): void
+    {
+        $rootPageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($rootPageUid);
+
+        $typolinkUrl = $this->getFrontEndController()->cObj->typoLink_URL(['parameter' => $rootPageUid]);
+
+        self::assertSame('/' . $rootPageUid, $typolinkUrl);
+    }
+
+    /**
+     * @test
+     */
+    public function fakeFrontEndAllowsCreatingTypoLinkToSubpageOfRootPage(): void
+    {
+        $rootPageUid = $this->subject->createFrontEndPage();
+        $subpageUid = $this->subject->createFrontEndPage($rootPageUid);
+        $this->subject->createFakeFrontEnd($rootPageUid);
+
+        $typolinkUrl = $this->getFrontEndController()->cObj->typoLink_URL(['parameter' => $subpageUid]);
+
+        self::assertSame('/' . $subpageUid, $typolinkUrl);
+    }
+
+    /**
+     * @test
+     */
+    public function fakeFrontEndAllowsLocationHeaderUrlWithLinkCreatedViaTypolink(): void
+    {
+        $rootPageUid = $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd($rootPageUid);
+
+        $typolinkUrl = $this->getFrontEndController()->cObj->typoLink_URL(['parameter' => $rootPageUid]);
+
+        $expectedUrl = $this->subject->getFakeSiteUrl() . $rootPageUid;
+        self::assertSame($expectedUrl, GeneralUtility::locationHeaderUrl($typolinkUrl));
+    }
+
+    /**
+     * @test
+     */
     public function createFakeFrontEndOverwritesCurrentScript(): void
     {
         $previous = Environment::getCurrentScript();

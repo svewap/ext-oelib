@@ -12,6 +12,7 @@ use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
 use OliverKlee\Oelib\System\Typo3Version;
 use Psr\Log\NullLogger;
+use TYPO3\CMS\Core\Configuration\SiteConfiguration;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\Connection;
@@ -64,6 +65,11 @@ final class TestingFramework
      * @var string
      */
     private const FAKE_FRONTEND_DOMAIN_NAME = 'typo3-test.dev';
+
+    /**
+     * @var string
+     */
+    private const SITE_IDENTIFIER = 'testing-framework';
 
     /**
      * cache for the results of hasTableColumn with the column names as keys and
@@ -1187,8 +1193,18 @@ final class TestingFramework
         $this->setRequestUriForFakeFrontEnd($pageUid);
 
         if (Typo3Version::isAtLeast(10)) {
-            $site = new Site('test', $pageUid, []);
-            $language = new SiteLanguage(0, 'en_US.utf8', new Uri($this->getFakeSiteUrl()), []);
+            if ($pageUid > 0) {
+                $this->createDummySite($pageUid);
+                $allSites = GeneralUtility::makeInstance(SiteConfiguration::class)->getAllExistingSites(false);
+                $site = $allSites[self::SITE_IDENTIFIER] ?? null;
+                if (!$site instanceof Site) {
+                    throw new \RuntimeException('Dummy site not found.', 1635024025);
+                }
+                $language = $site->getLanguageById(0);
+            } else {
+                $site = new Site('test', $pageUid, []);
+                $language = new SiteLanguage(0, 'en_US.utf8', new Uri($this->getFakeSiteUrl()), []);
+            }
             $frontEnd = GeneralUtility::makeInstance(
                 TypoScriptFrontendController::class,
                 GeneralUtility::makeInstance(Context::class),
@@ -1196,6 +1212,9 @@ final class TestingFramework
                 $language
             );
         } else {
+            if ($pageUid > 0) {
+                $this->createDummySite($pageUid);
+            }
             $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, $pageUid, 0);
         }
         $GLOBALS['TSFE'] = $frontEnd;
@@ -1211,7 +1230,9 @@ final class TestingFramework
             $frontEnd->determineId();
         }
         $frontEnd->tmpl = GeneralUtility::makeInstance(TemplateService::class);
-        $frontEnd->config = [];
+        $frontEnd->config = [
+            'config' => ['MP_disableTypolinkClosestMPvalue' => true, 'typolinkLinkAccessRestrictedPages' => true],
+        ];
 
         if ($pageUid > 0 && \in_array('sys_template', $this->dirtySystemTables, true)) {
             try {
@@ -1240,6 +1261,46 @@ final class TestingFramework
         $this->logoutFrontEndUser();
 
         return $pageUid;
+    }
+
+    /**
+     * Discards all site configuration files, and creates a new configuration file for a dummy site.
+     *
+     * Starting with TYPO3 10, we will be able to use `SiteConfiguration::createNewBasicSite()` for this.
+     */
+    private function createDummySite(int $pageUid): void
+    {
+        $siteConfigurationDirectory = Environment::getConfigPath() . '/sites/';
+        GeneralUtility::rmdir($siteConfigurationDirectory, true);
+        $configurationDirectoryForTestingDummySite = $siteConfigurationDirectory . self::SITE_IDENTIFIER;
+        GeneralUtility::mkdir_deep($configurationDirectoryForTestingDummySite);
+
+        $url = $this->getFakeSiteUrl();
+        $contents =
+            "rootPageId: $pageUid
+base: '$url'
+baseVariants: {  }
+languages:
+  -
+    title: 'Englisch'
+    enabled: true
+    languageId: 0
+    base: '/'
+    typo3Language: 'default'
+    locale: 'en_US.UTF-8'
+    iso-639-1: 'en'
+    navigationTitle: 'Englisch'
+    hreflang: 'en-US'
+    direction: 'ltr'
+    flag: 'us'
+errorHandling: {  }
+routes: {  }";
+
+        $file = $configurationDirectoryForTestingDummySite . '/config.yaml';
+        \file_put_contents($file, $contents);
+        if (!\is_readable($file)) {
+            throw new \RuntimeException('Site config file "' . $file . '" could not be created.', 1634918114);
+        }
     }
 
     private function setPageIndependentGlobalsForFakeFrontEnd(): void
