@@ -12,6 +12,7 @@ use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
 use OliverKlee\Oelib\System\Typo3Version;
 use Psr\Log\NullLogger;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -1185,18 +1186,17 @@ final class TestingFramework
         $this->setPageIndependentGlobalsForFakeFrontEnd();
         $this->setRequestUriForFakeFrontEnd($pageUid);
 
-        $configuration = $GLOBALS['TYPO3_CONF_VARS'];
         if (Typo3Version::isAtLeast(10)) {
             $site = new Site('test', $pageUid, []);
             $language = new SiteLanguage(0, 'en_US.utf8', new Uri($this->getFakeSiteUrl()), []);
             $frontEnd = GeneralUtility::makeInstance(
                 TypoScriptFrontendController::class,
-                $configuration,
+                GeneralUtility::makeInstance(Context::class),
                 $site,
                 $language
             );
         } else {
-            $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $configuration, $pageUid, 0);
+            $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, $pageUid, 0);
         }
         $GLOBALS['TSFE'] = $frontEnd;
 
