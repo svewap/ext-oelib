@@ -17,7 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
-- Improve the fake frontend (#854, #855, #856, #857)
+- Improve the fake frontend (#854, #855, #856, #857, #858)
 
 ## 4.1.1
 

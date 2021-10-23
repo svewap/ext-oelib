@@ -749,6 +749,7 @@ final class TestingFramework
     {
         $this->deleteAllDummyFoldersAndFiles();
         $this->discardFakeFrontEnd();
+        WritableEnvironment::restoreCurrentScript();
         if (\is_array($this->serverVariablesBackup)) {
             $GLOBALS['_SERVER'] = $this->serverVariablesBackup;
             $this->serverVariablesBackup = null;

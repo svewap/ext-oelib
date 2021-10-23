@@ -1048,6 +1048,19 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
+    public function cleanUpRestoresCurrentScriptAfterCreateFakeFrontEnd(): void
+    {
+        $previous = Environment::getCurrentScript();
+        $this->subject->createFakeFrontEnd();
+
+        $this->subject->cleanUp();
+
+        self::assertSame($previous, Environment::getCurrentScript());
+    }
+
+    /**
+     * @test
+     */
     public function cleanUpRestoresHttpHostAfterCreateFakeFrontEnd(): void
     {
         $previous = $GLOBALS['_SERVER']['HTTP_HOST'];
@@ -1088,6 +1101,32 @@ final class TestingFrameworkTest extends FunctionalTestCase
             $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test'),
             'Some test records were not deleted from table "tx_oelib_test"'
         );
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpWithoutDatabaseRestoresCurrentScriptAfterCreateFakeFrontEnd(): void
+    {
+        $previous = Environment::getCurrentScript();
+        $this->subject->createFakeFrontEnd();
+
+        $this->subject->cleanUpWithoutDatabase();
+
+        self::assertSame($previous, Environment::getCurrentScript());
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpWithoutDatabaseRestoresHttpHostAfterCreateFakeFrontEnd(): void
+    {
+        $previous = $GLOBALS['_SERVER']['HTTP_HOST'];
+        $this->subject->createFakeFrontEnd();
+
+        $this->subject->cleanUpWithoutDatabase();
+
+        self::assertSame($previous, $GLOBALS['_SERVER']['HTTP_HOST']);
     }
 
     // Tests regarding getAutoIncrement()
