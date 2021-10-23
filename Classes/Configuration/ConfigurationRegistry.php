@@ -164,8 +164,10 @@ class ConfigurationRegistry
             return [];
         }
 
-        if ($this->existsFrontEnd()) {
-            return $this->getFrontEndController()->tmpl->setup;
+        $frontEndController = $this->getFrontEndController();
+        $template = $frontEndController instanceof TypoScriptFrontendController ? $frontEndController->tmpl : null;
+        if ($template instanceof TemplateService && $template->loaded) {
+            return $template->setup;
         }
 
         $template = GeneralUtility::makeInstance(TemplateService::class);
@@ -181,18 +183,6 @@ class ConfigurationRegistry
         $template->generateConfig();
 
         return $template->setup;
-    }
-
-    /**
-     * Checks whether there is an initialized front end with a loaded TypoScript template.
-     *
-     * Note: This function can return true even in the BE if there is a front end.
-     */
-    private function existsFrontEnd(): bool
-    {
-        $frontEndController = $this->getFrontEndController();
-        return $frontEndController instanceof TypoScriptFrontendController
-            && $frontEndController->tmpl instanceof TemplateService && $frontEndController->tmpl->loaded;
     }
 
     protected function getFrontEndController(): ?TypoScriptFrontendController

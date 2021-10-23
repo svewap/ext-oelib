@@ -1183,23 +1183,20 @@ final class TestingFramework
         $this->discardFakeFrontEnd();
 
         $this->setPageIndependentGlobalsForFakeFrontEnd();
-        $this->setPageDependentGlobalsForFakeFrontEnd($pageUid);
+        $this->setRequestUriForFakeFrontEnd($pageUid);
+
+        $configuration = $GLOBALS['TYPO3_CONF_VARS'];
         if (Typo3Version::isAtLeast(10)) {
             $site = new Site('test', $pageUid, []);
             $language = new SiteLanguage(0, 'en_US.utf8', new Uri($this->getFakeSiteUrl()), []);
             $frontEnd = GeneralUtility::makeInstance(
                 TypoScriptFrontendController::class,
-                $GLOBALS['TYPO3_CONF_VARS'],
+                $configuration,
                 $site,
                 $language
             );
         } else {
-            $frontEnd = GeneralUtility::makeInstance(
-                TypoScriptFrontendController::class,
-                $GLOBALS['TYPO3_CONF_VARS'],
-                $pageUid,
-                0
-            );
+            $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $configuration, $pageUid, 0);
         }
         $GLOBALS['TSFE'] = $frontEnd;
 
@@ -1279,7 +1276,7 @@ final class TestingFramework
         WritableEnvironment::setCurrentScript($absoluteScriptPath);
     }
 
-    private function setPageDependentGlobalsForFakeFrontEnd(int $pageUid): void
+    private function setRequestUriForFakeFrontEnd(int $pageUid): void
     {
         $slug = '/';
         if ($pageUid > 0) {

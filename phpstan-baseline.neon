@@ -21,11 +21,6 @@ parameters:
 			path: Classes/Authentication/FrontEndLoginManager.php
 
 		-
-			message: "#^Cannot access property \\$tmpl on TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null\\.$#"
-			count: 1
-			path: Classes/Configuration/ConfigurationRegistry.php
-
-		-
 			message: "#^Cannot call method query\\(\\) on DOMXPath\\|null\\.$#"
 			count: 1
 			path: Classes/Configuration/FlexformsConfiguration.php
