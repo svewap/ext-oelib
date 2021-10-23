@@ -1146,12 +1146,14 @@ final class TestingFramework
 
     // Functions concerning a fake front end
 
-    /**
-     * Returns the domain name that will be used for the fake frontend
-     */
     public function getFakeFrontEndDomain(): string
     {
         return self::FAKE_FRONTEND_DOMAIN_NAME;
+    }
+
+    public function getFakeSiteUrl(): string
+    {
+        return 'http://' . $this->getFakeFrontEndDomain() . '/';
     }
 
     /**
@@ -1183,7 +1185,7 @@ final class TestingFramework
         $this->setPageDependentGlobalsForFakeFrontEnd($pageUid > 0 ? $pageUid : 1);
         if (Typo3Version::isAtLeast(10)) {
             $site = new Site('test', $pageUid, []);
-            $language = new SiteLanguage(0, 'en_US.utf8', new Uri('https://typo3-test.dev/'), []);
+            $language = new SiteLanguage(0, 'en_US.utf8', new Uri($this->getFakeSiteUrl()), []);
             $frontEnd = GeneralUtility::makeInstance(
                 TypoScriptFrontendController::class,
                 $GLOBALS['TYPO3_CONF_VARS'],
@@ -1252,7 +1254,6 @@ final class TestingFramework
         $documentRoot = '/var/www/html/public';
         $relativeScriptPath = '/index.php';
         $absoluteScriptPath = $documentRoot . '/index.php';
-        $url = 'http://' . $hostName . '/';
         $server = &$GLOBALS['_SERVER'];
 
         $server['DOCUMENT_ROOT'] = $documentRoot;
@@ -1261,7 +1262,7 @@ final class TestingFramework
         $server['HTTP_ACCEPT_ENCODING'] = 'gzip, deflate, br';
         $server['HTTP_ACCEPT_LANGUAGE'] = 'de,en-US;q=0.7,en;q=0.3';
         $server['HTTP_HOST'] = $hostName;
-        $server['HTTP_REFERER'] = $url;
+        $server['HTTP_REFERER'] = $this->getFakeSiteUrl();
         $server['HTTP_USER_AGENT'] = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:93.0) Gecko/20100101 Firefox/93.0';
         $server['PHP_SELF'] = '/index.php';
         $server['QUERY_STRING'] = '';

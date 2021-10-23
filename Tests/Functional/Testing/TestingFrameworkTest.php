@@ -2660,6 +2660,14 @@ final class TestingFrameworkTest extends FunctionalTestCase
     }
 
     /**
+     * @test
+     */
+    public function getFakeSiteUrlReturnsSiteUrlOfDevDomain(): void
+    {
+        self::assertSame('http://typo3-test.dev/', $this->subject->getFakeSiteUrl());
+    }
+
+    /**
      * @return array<string, array{0: string, 1: string|bool|null}>
      */
     public function globalsDataProvider(): array
