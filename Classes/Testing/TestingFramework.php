@@ -199,6 +199,11 @@ final class TestingFramework
     private $cacheNullifyer;
 
     /**
+     * @var array<string, string|bool|null>|null
+     */
+    private $serverVariablesBackup = null;
+
+    /**
      * This testing framework can be instantiated for one extension at a time.
      * Example: In your testcase, you'll have something similar to this line of code:
      *
@@ -208,16 +213,14 @@ final class TestingFramework
      * extension. Like this, we ensure that the testing framework creates and
      * deletes records only on table with this prefix.
      *
-     * If you need dummy records on tables of multiple extensions, you'll have to
+     * If you need dummy records on tables of multiple extensions, you will have to
      * instantiate the testing framework multiple times (once per extension).
      *
-     * Instantiating this class disables all core caches, avoid errors about not registered caches.
+     * Instantiating this class sets all core caches in order to avoid errors about not registered caches.
      *
-     * @param string $tablePrefix
-     *        the table name prefix of the extension for which this instance of the testing framework should be used
-     * @param array<int, string> $additionalTablePrefixes
-     *        the additional table name prefixes of the extensions for which this instance of the testing framework
-     *        should be used, may be empty
+     * @param string $tablePrefix table name prefix of the extension for this instance of the testing framework
+     * @param array<int, string> $additionalTablePrefixes additional table name prefixes of the extensions for which
+     *        this instance of the testing framework should be used, may be empty
      */
     public function __construct(string $tablePrefix, array $additionalTablePrefixes = [])
     {
@@ -746,6 +749,10 @@ final class TestingFramework
     {
         $this->deleteAllDummyFoldersAndFiles();
         $this->discardFakeFrontEnd();
+        if (\is_array($this->serverVariablesBackup)) {
+            $GLOBALS['_SERVER'] = $this->serverVariablesBackup;
+            $this->serverVariablesBackup = null;
+        }
 
         foreach ($this->getHooks() as $hook) {
             if (method_exists($hook, 'cleanUp')) {
@@ -1233,6 +1240,10 @@ final class TestingFramework
 
     private function setPageIndependentGlobalsForFakeFrontEnd(): void
     {
+        if (!\is_array($this->serverVariablesBackup)) {
+            $this->serverVariablesBackup = $GLOBALS['_SERVER'];
+        }
+
         $hostName = $this->getFakeFrontEndDomain();
         $documentRoot = '/var/www/html/public';
         $relativeScriptPath = '/index.php';

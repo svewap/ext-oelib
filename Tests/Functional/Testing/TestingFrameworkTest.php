@@ -49,6 +49,11 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject = new TestingFramework('tx_oelib', ['user_oelibtest']);
     }
 
+    protected function tearDown(): void
+    {
+        $this->subject->cleanUpWithoutDatabase();
+    }
+
     // Utility functions.
 
     /**
@@ -1038,6 +1043,19 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
         $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'deleted = 1');
         self::assertSame(0, $count);
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpRestoresHttpHostAfterCreateFakeFrontEnd(): void
+    {
+        $previous = $GLOBALS['_SERVER']['HTTP_HOST'];
+        $this->subject->createFakeFrontEnd();
+
+        $this->subject->cleanUp();
+
+        self::assertSame($previous, $GLOBALS['_SERVER']['HTTP_HOST']);
     }
 
     // Tests regarding cleanUpWithoutDatabase()
