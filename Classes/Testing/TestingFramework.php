@@ -1182,11 +1182,13 @@ final class TestingFramework
         $this->setPageIndependentGlobalsForFakeFrontEnd();
         $this->setPageDependentGlobalsForFakeFrontEnd($pageUid > 0 ? $pageUid : 1);
         if (Typo3Version::isAtLeast(10)) {
+            $site = new Site('test', $pageUid, []);
+            $language = new SiteLanguage(0, 'en_US.utf8', new Uri('https://typo3-test.dev/'), []);
             $frontEnd = GeneralUtility::makeInstance(
                 TypoScriptFrontendController::class,
                 $GLOBALS['TYPO3_CONF_VARS'],
-                new Site('test', $pageUid, []),
-                new SiteLanguage(0, 'en_US.utf8', new Uri('https://typo3-test.dev/'), [])
+                $site,
+                $language
             );
         } else {
             $frontEnd = GeneralUtility::makeInstance(

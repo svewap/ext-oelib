@@ -25,13 +25,12 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     /**
      * @var TestingFramework
      */
-    private $testingFramework = null;
+    private $testingFramework;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->testingFramework = new TestingFramework('tx_oelib');
-        $this->testingFramework->disableCoreCaches();
     }
 
     protected function tearDown(): void
@@ -92,8 +91,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             42,
-            ConfigurationRegistry::get('plugin.tx_oelib')
-                ->getAsInteger('test')
+            ConfigurationRegistry::get('plugin.tx_oelib')->getAsInteger('test')
         );
     }
 
@@ -103,20 +101,14 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     public function getReturnsDataFromTypoScriptSetupFromBackEndPage(): void
     {
         $pageUid = $this->testingFramework->createFrontEndPage();
-        $this->testingFramework->createTemplate(
-            $pageUid,
-            ['config' => 'plugin.tx_oelib.test = 42']
-        );
+        $this->testingFramework->createTemplate($pageUid, ['config' => 'plugin.tx_oelib.test = 42']);
         $_POST['id'] = $pageUid;
 
-        PageFinder::getInstance()->forceSource(
-            PageFinder::SOURCE_BACK_END
-        );
+        PageFinder::getInstance()->forceSource(PageFinder::SOURCE_BACK_END);
 
         self::assertSame(
             42,
-            ConfigurationRegistry::get('plugin.tx_oelib')
-                ->getAsInteger('test')
+            ConfigurationRegistry::get('plugin.tx_oelib')->getAsInteger('test')
         );
 
         unset($_POST['id']);
@@ -128,20 +120,14 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     public function getReturnsDataFromTypoScriptSetupFromFrontEndPage(): void
     {
         $pageUid = $this->testingFramework->createFrontEndPage();
-        $this->testingFramework->createTemplate(
-            $pageUid,
-            ['config' => 'plugin.tx_oelib.test = 42']
-        );
+        $this->testingFramework->createTemplate($pageUid, ['config' => 'plugin.tx_oelib.test = 42']);
 
         $this->testingFramework->createFakeFrontEnd($pageUid);
-        PageFinder::getInstance()->forceSource(
-            PageFinder::SOURCE_FRONT_END
-        );
+        PageFinder::getInstance()->forceSource(PageFinder::SOURCE_FRONT_END);
 
         self::assertSame(
             42,
-            ConfigurationRegistry::get('plugin.tx_oelib')
-                ->getAsInteger('test')
+            ConfigurationRegistry::get('plugin.tx_oelib')->getAsInteger('test')
         );
     }
 
@@ -151,15 +137,10 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     public function readsDataFromTypoScriptSetupEvenForFrontEndWithoutLoadedTemplate(): void
     {
         $pageUid = $this->testingFramework->createFrontEndPage();
-        $this->testingFramework->createTemplate(
-            $pageUid,
-            ['config' => 'plugin.tx_oelib.test = 42']
-        );
+        $this->testingFramework->createTemplate($pageUid, ['config' => 'plugin.tx_oelib.test = 42']);
 
         $this->testingFramework->createFakeFrontEnd($pageUid);
-        PageFinder::getInstance()->forceSource(
-            PageFinder::SOURCE_FRONT_END
-        );
+        PageFinder::getInstance()->forceSource(PageFinder::SOURCE_FRONT_END);
         /** @var TypoScriptFrontendController $frontEndController */
         $frontEndController = $GLOBALS['TSFE'];
         // @phpstan-ignore-next-line null still is the default value.
@@ -169,8 +150,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
 
         self::assertSame(
             42,
-            ConfigurationRegistry::get('plugin.tx_oelib')
-                ->getAsInteger('test')
+            ConfigurationRegistry::get('plugin.tx_oelib')->getAsInteger('test')
         );
     }
 
@@ -180,10 +160,7 @@ class ConfigurationRegistryTest extends FunctionalTestCase
     public function getAfterSetReturnsManuallySetConfigurationEvenIfThereIsAPage(): void
     {
         $pageUid = $this->testingFramework->createFrontEndPage();
-        $this->testingFramework->createTemplate(
-            $pageUid,
-            ['config' => 'plugin.tx_oelib.bar = 42']
-        );
+        $this->testingFramework->createTemplate($pageUid, ['config' => 'plugin.tx_oelib.bar = 42']);
         PageFinder::getInstance()->setPageUid($pageUid);
 
         $configuration = new DummyConfiguration();

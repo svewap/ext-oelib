@@ -34,7 +34,6 @@ final class SalutationSwitcherTest extends FunctionalTestCase
         parent::setUp();
 
         $this->testingFramework = new TestingFramework('tx_oelib');
-        $this->testingFramework->disableCoreCaches();
         $this->testingFramework->createFakeFrontEnd();
 
         $this->subject = new TestingSalutationSwitcher([]);
