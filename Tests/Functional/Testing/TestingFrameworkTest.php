@@ -1735,6 +1735,20 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
+    public function createFrontEndPagePopulatesSlugWithPageUid(): void
+    {
+        $uid = $this->subject->createFrontEndPage();
+
+        self::assertNotSame(0, $uid);
+
+        $row = $this->getDatabaseConnection()->selectSingleRow('slug', 'pages', 'uid = ' . $uid);
+
+        self::assertSame('/' . $uid, $row['slug']);
+    }
+
+    /**
+     * @test
+     */
     public function createFrontEndPageSetsCorrectDocumentType(): void
     {
         $uid = $this->subject->createFrontEndPage();
@@ -2716,32 +2730,43 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @return array<string, array<int, string>>
      */
-    public function pageSpecificGlobalsDataProvider(): array
+    public function pageSpecificGlobalsWithoutPageUidDataProvider(): array
     {
         return [
-            'REQUEST_URI' => ['REQUEST_URI', '/%1d'],
-            'TYPO3_REQUEST_URL' => ['TYPO3_REQUEST_URL', 'http://typo3-test.dev/%1d'],
-            'TYPO3_SITE_SCRIPT' => ['TYPO3_SITE_SCRIPT', '%1d'],
+            'REQUEST_URI' => ['REQUEST_URI', '/'],
+            'TYPO3_REQUEST_URL' => ['TYPO3_REQUEST_URL', 'http://typo3-test.dev/'],
+            'TYPO3_SITE_SCRIPT' => ['TYPO3_SITE_SCRIPT', ''],
         ];
     }
 
     /**
      * @test
      *
-     * @dataProvider pageSpecificGlobalsDataProvider
+     * @dataProvider pageSpecificGlobalsWithoutPageUidDataProvider
      */
-    public function createFakeFrontWithWithoutPageUsesPage1InUri(string $key, string $expectedWithPlaceholder): void
+    public function createFakeFrontWithWithoutPageUsesNoPagePageIdInUri(string $key, string $expected): void
     {
         $this->subject->createFakeFrontEnd();
 
-        $expected = \sprintf($expectedWithPlaceholder, 1);
         self::assertSame($expected, GeneralUtility::getIndpEnv($key));
+    }
+
+    /**
+     * @return array<string, array<int, string>>
+     */
+    public function pageSpecificGlobalsWithPageUidDataProvider(): array
+    {
+        return [
+            'REQUEST_URI' => ['REQUEST_URI', '/%1s'],
+            'TYPO3_REQUEST_URL' => ['TYPO3_REQUEST_URL', 'http://typo3-test.dev/%1s'],
+            'TYPO3_SITE_SCRIPT' => ['TYPO3_SITE_SCRIPT', '%1s'],
+        ];
     }
 
     /**
      * @test
      *
-     * @dataProvider pageSpecificGlobalsDataProvider
+     * @dataProvider pageSpecificGlobalsWithPageUidDataProvider
      */
     public function createFakeFrontWithWithPageUsesGivenPageInUri(string $key, string $expectedWithPlaceholder): void
     {

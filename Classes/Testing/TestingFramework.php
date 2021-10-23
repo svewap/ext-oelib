@@ -358,13 +358,14 @@ final class TestingFramework
     }
 
     /**
-     * Creates a front-end page on the given page.
+     * Creates a front-end page on the given page, and provides it with the page UID as slug.
      *
      * @return int the UID of the new page, will be > 0
      */
     public function createFrontEndPage(int $parentPageUid = 0): int
     {
         $uid = $this->createGeneralPageRecord(1, $parentPageUid, []);
+        $this->changeRecord('pages', $uid, ['slug' => '/' . $uid]);
 
         return $uid;
     }
@@ -1182,7 +1183,7 @@ final class TestingFramework
         $this->discardFakeFrontEnd();
 
         $this->setPageIndependentGlobalsForFakeFrontEnd();
-        $this->setPageDependentGlobalsForFakeFrontEnd($pageUid > 0 ? $pageUid : 1);
+        $this->setPageDependentGlobalsForFakeFrontEnd($pageUid);
         if (Typo3Version::isAtLeast(10)) {
             $site = new Site('test', $pageUid, []);
             $language = new SiteLanguage(0, 'en_US.utf8', new Uri($this->getFakeSiteUrl()), []);
@@ -1280,7 +1281,12 @@ final class TestingFramework
 
     private function setPageDependentGlobalsForFakeFrontEnd(int $pageUid): void
     {
-        $GLOBALS['_SERVER']['REQUEST_URI'] = '/' . $pageUid;
+        $slug = '/';
+        if ($pageUid > 0) {
+            $slug .= $pageUid;
+        }
+
+        $GLOBALS['_SERVER']['REQUEST_URI'] = $slug;
     }
 
     /**
