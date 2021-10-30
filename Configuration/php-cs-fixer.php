@@ -17,6 +17,7 @@ return (new \PhpCsFixer\Config())
             '@PHPUnit57Migration:risky' => true,
             '@PHPUnit60Migration:risky' => true,
             '@PHPUnit75Migration:risky' => true,
+            '@PHPUnit84Migration:risky' => true,
             '@PSR2' => true,
             'array_syntax' => ['syntax' => 'short'],
             'cast_spaces' => ['space' => 'none'],
