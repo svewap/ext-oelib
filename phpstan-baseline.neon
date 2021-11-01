@@ -26,9 +26,19 @@ parameters:
 			path: Classes/Configuration/FlexformsConfiguration.php
 
 		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\FlexformsConfiguration\\:\\:getFromArray\\(\\) has parameter \\$haystack with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Classes/Configuration/FlexformsConfiguration.php
+
+		-
 			message: "#^Cannot access property \\$id on TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null\\.$#"
 			count: 1
 			path: Classes/Configuration/PageFinder.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\TypoScriptConfiguration\\:\\:getAsMultidimensionalArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Classes/Configuration/TypoScriptConfiguration.php
 
 		-
 			message: "#^Cannot call method fetchAll\\(\\) on Doctrine\\\\DBAL\\\\Driver\\\\ResultStatement\\|int\\.$#"
@@ -66,9 +76,39 @@ parameters:
 			path: Classes/Mapper/AbstractDataMapper.php
 
 		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:getListOfModels\\(\\) has parameter \\$dataOfModels with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:getTcaForTable\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
 			message: "#^Parameter \\#1 \\$str of function ucfirst expects string, string\\|null given\\.$#"
 			count: 1
 			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserGroupMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUserGroup\\>\\:\\:\\$relations\\.$#"
+			count: 1
+			path: Classes/Mapper/BackEndUserGroupMapper.php
+
+		-
+			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUser\\>\\:\\:\\$relations\\.$#"
+			count: 1
+			path: Classes/Mapper/BackEndUserMapper.php
+
+		-
+			message: "#^PHPDoc type string of property OliverKlee\\\\Oelib\\\\Mapper\\\\FederalStateMapper\\:\\:\\$modelClassName is not covariant with PHPDoc type class\\-string\\<OliverKlee\\\\Oelib\\\\Model\\\\FederalState\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\FederalState\\>\\:\\:\\$modelClassName\\.$#"
+			count: 1
+			path: Classes/Mapper/FederalStateMapper.php
+
+		-
+			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\FrontEndUserMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\FrontEndUser\\>\\:\\:\\$relations\\.$#"
+			count: 1
+			path: Classes/Mapper/FrontEndUserMapper.php
 
 		-
 			message: "#^Array \\(array\\<class\\-string, OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\) does not accept M of OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\.$#"
@@ -101,6 +141,36 @@ parameters:
 			path: Classes/Testing/TestingFramework.php
 
 		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:getTcaForTable\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$tableNames has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:\\$tableColumnCache type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:\\$tableNameCache type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Visibility\\\\Tree\\:\\:__construct\\(\\) has parameter \\$treeStructure with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Classes/Visibility/Tree.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Visibility\\\\Tree\\:\\:buildTreeFromArray\\(\\) has parameter \\$treeStructure with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Classes/Visibility/Tree.php
+
+		-
 			message: "#^Cannot call method getUid\\(\\) on OliverKlee\\\\Oelib\\\\Model\\\\BackEndUser\\|null\\.$#"
 			count: 1
 			path: Tests/Functional/Authentication/BackEndLoginManagerTest.php
@@ -131,6 +201,76 @@ parameters:
 			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
 
 		-
+			message: "#^Missing call to parent\\:\\:tearDown\\(\\) method\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/AbstractConfigurationCheckTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:booleanValueInArrayDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:buildContentObjectWithArrayFlexformsData\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:getAsBooleanForExistingNonEmptyFieldInArrayReturnsValueFromField\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:getAsIntegerForExistingNonEmptyFieldInArrayReturnsValueFromField\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:getAsStringForExistingNonEmptyFieldInArrayReturnsValueFromField\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:getAsStringForNoFlexformsDataReturnsEmptyString\\(\\) has parameter \\$contentObjectData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:integerValueInArrayDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:noFlexformsDataDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:stringValueInArrayDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/FlexformsConfigurationTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\DataStructures\\\\AbstractObjectWithPublicAccessorsTest\\:\\:booleanDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/DataStructures/AbstractObjectWithPublicAccessorsTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\DataStructures\\\\AbstractObjectWithPublicAccessorsTest\\:\\:floatDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/DataStructures/AbstractObjectWithPublicAccessorsTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessorsTest\\:\\:booleanDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/DataStructures/AbstractReadOnlyObjectWithAccessorsTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessorsTest\\:\\:floatDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Unit/DataStructures/AbstractReadOnlyObjectWithAccessorsTest.php
+
+		-
 			message: "#^PHPDoc tag @var for variable \\$objectManagerStub contains generic interface TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManagerInterface but does not specify its types\\: T$#"
 			count: 1
 			path: Tests/Unit/Domain/Repository/GermanZipCodeRepositoryTest.php
@@ -144,4 +284,19 @@ parameters:
 			message: "#^PHPDoc tag @var for variable \\$objectManagerStub contains generic interface TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManagerInterface but does not specify its types\\: T$#"
 			count: 1
 			path: Tests/Unit/Domain/Repository/Traits/ReadOnlyTest.php
+
+		-
+			message: "#^Missing call to parent\\:\\:tearDown\\(\\) method\\.$#"
+			count: 1
+			path: Tests/Unit/Geocoding/GoogleGeocodingTest.php
+
+		-
+			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingChildMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingChildModel\\>\\:\\:\\$relations\\.$#"
+			count: 1
+			path: Tests/Unit/Mapper/Fixtures/TestingChildMapper.php
+
+		-
+			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:\\$relations\\.$#"
+			count: 1
+			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
 

@@ -335,7 +335,6 @@ class TemplateHelper extends SalutationSwitcher
         // configuration array is not initialized properly.
         // As flexforms can be used in FE mode only, `$ignoreFlexform` is set true if we are in the BE mode.
         // By this, `$this->cObj->fileResource` can be sheltered from being called.
-        // @phpstan-ignore-next-line PHPStan does not know about TYPO3_MODE.
         if (TYPO3_MODE === 'BE') {
             $ignoreFlexform = true;
         }
