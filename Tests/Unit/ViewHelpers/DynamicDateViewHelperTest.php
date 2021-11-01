@@ -101,7 +101,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
 
         $result = $this->subject->render();
 
-        self::assertContains('07.12.1980 14:37', $result);
+        self::assertStringContainsString('07.12.1980 14:37', $result);
     }
 
     /**
@@ -115,7 +115,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
         $this->subject->setArguments(['displayFormat' => 'Y-m-d g:ia']);
         $result = $this->subject->render();
 
-        self::assertContains('1980-12-07 2:37pm', $result);
+        self::assertStringContainsString('1980-12-07 2:37pm', $result);
     }
 
     /**
@@ -128,7 +128,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
 
         $result = $this->subject->render();
 
-        self::assertContains('class="js-time-ago"', $result);
+        self::assertStringContainsString('class="js-time-ago"', $result);
     }
 
     /**
@@ -142,7 +142,7 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
         $this->subject->setArguments(['displayFormat' => 'Y-m-d g:ia']);
         $result = $this->subject->render();
 
-        self::assertContains('<time datetime="1980-12-07T14:37"', $result);
+        self::assertStringContainsString('<time datetime="1980-12-07T14:37"', $result);
     }
 
     /**

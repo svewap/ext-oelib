@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
-- Upgrade to PHPUnit 8.5 (#870)
+- Upgrade to PHPUnit 8.5 (#870, #785)
 
 ### Deprecated
 

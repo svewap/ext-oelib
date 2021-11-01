@@ -404,7 +404,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 
         $this->subject->render();
 
-        self::assertNotContains(
+        self::assertStringNotContainsString(
             'uid:',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -421,7 +421,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 
         $this->subject->render();
 
-        self::assertNotContains(
+        self::assertStringNotContainsString(
             'uid:',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -454,7 +454,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 
         $this->subject->render();
 
-        self::assertNotContains(
+        self::assertStringNotContainsString(
             'mapMarkersByUid.' . $this->subject->getMapId() . '[',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -471,7 +471,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 
         $this->subject->render();
 
-        self::assertNotContains(
+        self::assertStringNotContainsString(
             'mapMarkersByUid.' . $this->subject->getMapId() . '[',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -741,7 +741,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 
         $this->subject->render();
 
-        self::assertNotContains(
+        self::assertStringNotContainsString(
             'title: ',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
@@ -872,7 +872,7 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
 
         $this->subject->render();
 
-        self::assertNotContains(
+        self::assertStringNotContainsString(
             'new google.maps.InfoWindow',
             $this->mockFrontEnd->additionalJavaScript[$this->subject->getMapId()]
         );
