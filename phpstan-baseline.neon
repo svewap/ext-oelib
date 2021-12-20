@@ -271,21 +271,6 @@ parameters:
 			path: Tests/Unit/DataStructures/AbstractReadOnlyObjectWithAccessorsTest.php
 
 		-
-			message: "#^PHPDoc tag @var for variable \\$objectManagerStub contains generic interface TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManagerInterface but does not specify its types\\: T$#"
-			count: 1
-			path: Tests/Unit/Domain/Repository/GermanZipCodeRepositoryTest.php
-
-		-
-			message: "#^PHPDoc tag @var for variable \\$objectManagerStub contains generic interface TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManagerInterface but does not specify its types\\: T$#"
-			count: 1
-			path: Tests/Unit/Domain/Repository/Traits/DirectPersistTest.php
-
-		-
-			message: "#^PHPDoc tag @var for variable \\$objectManagerStub contains generic interface TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\ObjectManagerInterface but does not specify its types\\: T$#"
-			count: 1
-			path: Tests/Unit/Domain/Repository/Traits/ReadOnlyTest.php
-
-		-
 			message: "#^Missing call to parent\\:\\:tearDown\\(\\) method\\.$#"
 			count: 1
 			path: Tests/Unit/Geocoding/GoogleGeocodingTest.php
