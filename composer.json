@@ -79,7 +79,12 @@
 		},
 		"sort-packages": true,
 		"process-timeout": 1000,
-		"vendor-dir": ".Build/vendor"
+		"vendor-dir": ".Build/vendor",
+		"allow-plugins": {
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true,
+			"phpstan/extension-installer": true
+		}
 	},
 	"scripts": {
 		"php:fix": [
