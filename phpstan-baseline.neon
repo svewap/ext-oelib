@@ -41,17 +41,17 @@ parameters:
 			path: Classes/Configuration/TypoScriptConfiguration.php
 
 		-
+			message: "#^Class OliverKlee\\\\Oelib\\\\Domain\\\\Repository\\\\GermanZipCodeRepository extends generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Repository but does not specify its types\\: TEntityClass$#"
+			count: 1
+			path: Classes/Domain/Repository/GermanZipCodeRepository.php
+
+		-
 			message: "#^Cannot call method fetchAll\\(\\) on Doctrine\\\\DBAL\\\\Driver\\\\ResultStatement\\|int\\.$#"
 			count: 1
 			path: Classes/Domain/Repository/PageRepository.php
 
 		-
 			message: "#^Cannot call method getLL\\(\\) on TYPO3\\\\CMS\\\\Core\\\\Localization\\\\LanguageService\\|null\\.$#"
-			count: 1
-			path: Classes/Language/SalutationSwitcher.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Language\\\\SalutationSwitcher\\:\\:getAvailableLanguages\\(\\) should return array\\<int, string\\> but returns array\\<int, string\\>\\|null\\.$#"
 			count: 1
 			path: Classes/Language/SalutationSwitcher.php
 
@@ -91,6 +91,11 @@ parameters:
 			path: Classes/Mapper/AbstractDataMapper.php
 
 		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\:\\:\\$cacheByKey \\(array\\<string, array\\<string, M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\) does not accept array\\<string, array\\<int\\|string, M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
 			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserGroupMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUserGroup\\>\\:\\:\\$relations\\.$#"
 			count: 1
 			path: Classes/Mapper/BackEndUserGroupMapper.php
@@ -111,7 +116,7 @@ parameters:
 			path: Classes/Mapper/FrontEndUserMapper.php
 
 		-
-			message: "#^Array \\(array\\<class\\-string, OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\) does not accept M of OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\:\\:\\$mappers \\(array\\<class\\-string, OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\) does not accept non\\-empty\\-array\\<class\\-string, M of OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\|OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
 			count: 2
 			path: Classes/Mapper/MapperRegistry.php
 
@@ -122,6 +127,11 @@ parameters:
 
 		-
 			message: "#^Method OliverKlee\\\\Oelib\\\\Templating\\\\Template\\:\\:replaceSubparts\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: Classes/Templating/Template.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Templating\\\\Template\\:\\:\\$subparts \\(array\\<string, string\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: Classes/Templating/Template.php
 
@@ -269,6 +279,16 @@ parameters:
 			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessorsTest\\:\\:floatDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Unit/DataStructures/AbstractReadOnlyObjectWithAccessorsTest.php
+
+		-
+			message: "#^Class OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Repository\\\\Fixtures\\\\DirectPersistRepository extends generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Repository but does not specify its types\\: TEntityClass$#"
+			count: 1
+			path: Tests/Unit/Domain/Repository/Fixtures/DirectPersistRepository.php
+
+		-
+			message: "#^Class OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Repository\\\\Fixtures\\\\ReadOnlyRepository extends generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Repository but does not specify its types\\: TEntityClass$#"
+			count: 1
+			path: Tests/Unit/Domain/Repository/Fixtures/ReadOnlyRepository.php
 
 		-
 			message: "#^Missing call to parent\\:\\:tearDown\\(\\) method\\.$#"

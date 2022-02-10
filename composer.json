@@ -36,25 +36,25 @@
 		"typo3fluid/fluid": "^2.6.10"
 	},
 	"require-dev": {
-		"friendsofphp/php-cs-fixer": "^3.2.1",
+		"friendsofphp/php-cs-fixer": "^3.4.0",
 		"mikey179/vfsstream": "^1.6.10",
 		"nimut/testing-framework": "^6.0.0",
 		"oliverklee/user-oelibtest": "@dev",
 		"oliverklee/user-oelibtest2": "@dev",
 		"phpstan/extension-installer": "^1.1.0",
-		"phpstan/phpstan": "^1.2.0",
+		"phpstan/phpstan": "^1.4.6",
 		"phpstan/phpstan-phpunit": "^1.0.0",
-		"phpunit/phpunit": "^8.5.21",
-		"saschaegerer/phpstan-typo3": "^1.0.0",
-		"sjbr/static-info-tables": "^6.9.5",
-		"squizlabs/php_codesniffer": "^3.6.1",
+		"phpunit/phpunit": "^8.5.23",
+		"saschaegerer/phpstan-typo3": "^1.1.2",
+		"sjbr/static-info-tables": "^6.9.6",
+		"squizlabs/php_codesniffer": "^3.6.2",
 		"typo3/cms-extensionmanager": "^9.5 || ^10.4"
 	},
 	"replace": {
 		"typo3-ter/oelib": "self.version"
 	},
 	"suggest": {
-		"sjbr/static-info-tables": "^6.9.5"
+		"sjbr/static-info-tables": "^6.9.6"
 	},
 	"autoload": {
 		"psr-4": {
@@ -112,8 +112,7 @@
 			"@ci:php:lint",
 			"@ci:php:sniff",
 			"@ci:php:fixer",
-			"@ci:php:stan",
-			"@ci:php:rector"
+			"@ci:php:stan"
 		],
 		"ci": [
 			"@ci:static",
