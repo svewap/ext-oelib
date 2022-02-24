@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Test with lowest and highest dependencies on CI (#883)
 
 ### Changed
+- Switch the TER release to tailor (#888)
 - Upgrade to PHPUnit 8.5 (#870, #785)
 
 ### Deprecated
