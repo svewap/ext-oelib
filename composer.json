@@ -122,9 +122,22 @@
 			"@php -r 'is_dir($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
 			"@php -r 'file_exists($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/oelib\") || symlink(__DIR__,$extFolder);'"
 		],
-		"phpstan:baseline": ".Build/vendor/bin/phpstan  --generate-baseline=phpstan-baseline.neon",
 		"post-autoload-dump": [
 			"@link-extension"
+		],
+		"phpstan:baseline": ".Build/vendor/bin/phpstan  --generate-baseline=phpstan-baseline.neon",
+		"prepare-release": [
+			"rm -rf .Build",
+			"rm -rf .github",
+			"rm -rf TestExtensions",
+			"rm -rf Tests",
+			"rm .editorconfig",
+			"rm .gitattributes",
+			"rm .gitignore",
+			"rm phpcs.xml.dist",
+			"rm phpstan-baseline.neon",
+			"rm phpstan.neon",
+			"rm rector.php"
 		]
 	},
 	"scripts-descriptions": {
@@ -136,7 +149,8 @@
 		"ci:php:stan": "Checks the types with PHPStan.",
 		"ci:php:rector": "Checks for code for changes by Rector.",
 		"ci:static": "Runs all static code analysis checks for the code.",
-		"phpstan:baseline": "Updates the PHPStan baseline file to match the code."
+		"phpstan:baseline": "Updates the PHPStan baseline file to match the code.",
+		"prepare-release": "Removes development-only files in preparation of a TER release."
 	},
 	"extra": {
 		"branch-alias": {
