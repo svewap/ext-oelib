@@ -41,6 +41,7 @@ class GoogleGeocodingTest extends UnitTestCase
     {
         GoogleGeocoding::purgeInstance();
         ConfigurationRegistry::purgeInstance();
+        parent::tearDown();
     }
 
     // Tests for the basic functionality

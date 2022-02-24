@@ -63,6 +63,10 @@ class FlexformsConfiguration extends AbstractReadOnlyObjectWithPublicAccessors i
 
     private function getFromXml(string $key): ?string
     {
+        if (!$this->xPath instanceof \DOMXPath) {
+            throw new \BadMethodCallException('$this->xPath is not initialized.', 1645719281);
+        }
+
         $matchingNodes = $this->xPath->query("/T3FlexForms/data/sheet/language/field[@index='{$key}']/value");
         $firstMatchingNode = $matchingNodes instanceof \DOMNodeList ? $matchingNodes->item(0) : null;
 
@@ -70,7 +74,7 @@ class FlexformsConfiguration extends AbstractReadOnlyObjectWithPublicAccessors i
     }
 
     /**
-     * @param array<array-key, array|int|string> $haystack
+     * @param array<array-key, array<string|int, mixed>|int|string> $haystack
      */
     private function getFromArray(array $haystack, string $needleKey): ?string
     {

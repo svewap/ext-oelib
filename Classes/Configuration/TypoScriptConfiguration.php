@@ -89,7 +89,7 @@ class TypoScriptConfiguration extends AbstractReadOnlyObjectWithPublicAccessors 
      *
      * @param string $key the key of the data item to get as a multidimensional array, must not be empty
      *
-     * @return array<string, array|string|int> the data for the key $key as a multidimensional array, may be empty
+     * @return array<string, array<string|int, mixed>|string|int> the data for the key $key, may be empty
      */
     public function getAsMultidimensionalArray(string $key): array
     {

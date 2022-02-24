@@ -149,7 +149,10 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
         $uid = $this->testingFramework->createAndLoginFrontEndUser();
 
-        self::assertSame($uid, $this->subject->getLoggedInUser()->getUid());
+        $user = $this->subject->getLoggedInUser();
+
+        self::assertInstanceOf(FrontEndUser::class, $user);
+        self::assertSame($uid, $user->getUid());
     }
 
     /**

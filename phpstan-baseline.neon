@@ -1,17 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Cannot access property \\$user on TYPO3\\\\CMS\\\\Core\\\\Authentication\\\\BackendUserAuthentication\\|null\\.$#"
-			count: 1
-			path: Classes/Authentication/BackEndLoginManager.php
-
-		-
 			message: "#^Default value of the parameter \\#1 \\$mapperName \\('OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\BackEndUserMapper'\\) of method OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\:\\:getLoggedInUser\\(\\) is incompatible with type class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
-			count: 1
-			path: Classes/Authentication/BackEndLoginManager.php
-
-		-
-			message: "#^Offset 'uid' does not exist on array\\|null\\.$#"
 			count: 1
 			path: Classes/Authentication/BackEndLoginManager.php
 
@@ -21,42 +11,12 @@ parameters:
 			path: Classes/Authentication/FrontEndLoginManager.php
 
 		-
-			message: "#^Cannot call method query\\(\\) on DOMXPath\\|null\\.$#"
-			count: 1
-			path: Classes/Configuration/FlexformsConfiguration.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\FlexformsConfiguration\\:\\:getFromArray\\(\\) has parameter \\$haystack with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Configuration/FlexformsConfiguration.php
-
-		-
-			message: "#^Cannot access property \\$id on TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null\\.$#"
-			count: 1
-			path: Classes/Configuration/PageFinder.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\TypoScriptConfiguration\\:\\:getAsMultidimensionalArray\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Configuration/TypoScriptConfiguration.php
-
-		-
 			message: "#^Class OliverKlee\\\\Oelib\\\\Domain\\\\Repository\\\\GermanZipCodeRepository extends generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Repository but does not specify its types\\: TEntityClass$#"
 			count: 1
 			path: Classes/Domain/Repository/GermanZipCodeRepository.php
 
 		-
-			message: "#^Cannot call method fetchAll\\(\\) on Doctrine\\\\DBAL\\\\Driver\\\\ResultStatement\\|int\\.$#"
-			count: 1
-			path: Classes/Domain/Repository/PageRepository.php
-
-		-
 			message: "#^Cannot call method getLL\\(\\) on TYPO3\\\\CMS\\\\Core\\\\Localization\\\\LanguageService\\|null\\.$#"
-			count: 1
-			path: Classes/Language/SalutationSwitcher.php
-
-		-
-			message: "#^Property TYPO3\\\\CMS\\\\Frontend\\\\Plugin\\\\AbstractPlugin\\:\\:\\$frontendController \\(TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\) does not accept TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null\\.$#"
 			count: 1
 			path: Classes/Language/SalutationSwitcher.php
 
@@ -191,11 +151,6 @@ parameters:
 			path: Tests/Functional/Authentication/BackEndLoginManagerTest.php
 
 		-
-			message: "#^Cannot call method getUid\\(\\) on OliverKlee\\\\Oelib\\\\Model\\\\FrontEndUser\\|null\\.$#"
-			count: 1
-			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
-
-		-
 			message: "#^Cannot call method getTitle\\(\\) on OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\|null\\.$#"
 			count: 2
 			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
@@ -289,11 +244,6 @@ parameters:
 			message: "#^Class OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Repository\\\\Fixtures\\\\ReadOnlyRepository extends generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Repository but does not specify its types\\: TEntityClass$#"
 			count: 1
 			path: Tests/Unit/Domain/Repository/Fixtures/ReadOnlyRepository.php
-
-		-
-			message: "#^Missing call to parent\\:\\:tearDown\\(\\) method\\.$#"
-			count: 1
-			path: Tests/Unit/Geocoding/GoogleGeocodingTest.php
 
 		-
 			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingChildMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingChildModel\\>\\:\\:\\$relations\\.$#"

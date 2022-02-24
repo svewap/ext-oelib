@@ -62,7 +62,10 @@ abstract class SalutationSwitcher extends AbstractPlugin
      */
     public function __wakeup(): void
     {
-        $this->frontendController = $this->getFrontEndController();
+        $controller = $this->getFrontEndController();
+        if ($controller instanceof TypoScriptFrontendController) {
+            $this->frontendController = $controller;
+        }
     }
 
     /**

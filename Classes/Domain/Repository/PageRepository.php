@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Domain\Repository;
 
+use Doctrine\DBAL\Driver\ResultStatement;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -43,19 +44,22 @@ class PageRepository implements SingletonInterface
     }
 
     /**
-     * @param int[] $pageUids
+     * @param array<int, int> $pageUids
      *
-     * @return int[]
+     * @return array<int, int>
      */
     private function findDirectSubpages(array $pageUids): array
     {
         $query = $this->getQueryBuilderForTable('pages')->select('uid')->from('pages');
         $query->andWhere($query->expr()->in('pid', $pageUids));
 
-        /** @var int[] $subpageUids */
+        /** @var array<int, int> $subpageUids */
         $subpageUids = [];
-        foreach ($query->execute()->fetchAll() as $row) {
-            $subpageUids[] = (int)$row['uid'];
+        $queryResult = $query->execute();
+        if ($queryResult instanceof ResultStatement) {
+            foreach ($queryResult->fetchAll() as $row) {
+                $subpageUids[] = (int)$row['uid'];
+            }
         }
         return $subpageUids;
     }

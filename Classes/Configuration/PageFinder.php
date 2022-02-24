@@ -99,7 +99,8 @@ class PageFinder
                 $result = $this->storedPageUid;
                 break;
             case self::SOURCE_FRONT_END:
-                $result = (int)$this->getFrontEndController()->id;
+                $controller = $this->getFrontEndController();
+                $result = $controller instanceof TypoScriptFrontendController ? (int)$controller->id : 0;
                 break;
             case self::SOURCE_BACK_END:
                 $result = (int)GeneralUtility::_GP('id');

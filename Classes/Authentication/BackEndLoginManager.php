@@ -136,6 +136,13 @@ class BackEndLoginManager implements LoginManager
             return $this->loggedInUser->getUid();
         }
 
-        return (int)$this->getBackEndUserAuthentication()->user['uid'];
+        $user = $this->getBackEndUserAuthentication();
+        if (!$user instanceof BackendUserAuthentication) {
+            return 0;
+        }
+
+        $userData = $user->user;
+
+        return \is_array($userData) ? (int)$userData['uid'] : 0;
     }
 }
