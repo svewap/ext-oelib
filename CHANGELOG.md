@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Require TYPO3 >= 9.5.16 to avoid missing classes (#884)
 
 ## 4.1.2
 
