@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Test with lowest and highest dependencies on CI (#883)
 
 ### Changed
 - Upgrade to PHPUnit 8.5 (#870, #785)
