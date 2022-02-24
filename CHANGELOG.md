@@ -6,15 +6,23 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 4.1.3
+
+### Added
 - Test with lowest and highest dependencies on CI (#883)
 
 ### Changed
 - Switch the TER release to tailor (#888)
 - Upgrade to PHPUnit 8.5 (#870, #785)
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 - Avoid DI-related exception in TYPO3 10LTS (#885)
@@ -24,7 +32,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 - Use a non-null cache for some caches for testing (#852)
-- Clean up the conflicts section in the `composer.json` (#851)
+- Clean up the `conflicts` section in the `composer.json` (#851)
 - Bump the version number of the static_info_tables suggestion (#850)
 
 ### Fixed

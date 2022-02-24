@@ -19,7 +19,7 @@ One is Enough Library (oelib)
 
 :Extension Key: oelib
 :Language:      en
-:Copyright:     `2005-2021, Oliver Klee, typo3-coding@oliverklee.de`
+:Copyright:     `2005-2022, Oliver Klee, typo3-coding@oliverklee.de`
 :Maintainer:    `Oliver Klee, typo3-coding@oliverklee.de`
 :License:       `CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>`_
 :Rendered:      |today|
