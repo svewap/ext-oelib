@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Avoid DI-related exception in TYPO3 10LTS (#885)
 - Require TYPO3 >= 9.5.16 to avoid missing classes (#884)
 
 ## 4.1.2
