@@ -9,7 +9,6 @@ use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
-use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -32,9 +31,7 @@ class TemplateHelperTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        /** @var TypoScriptFrontendController&ProphecySubjectInterface $frontEndController */
         $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
-        /** @var ContentObjectRenderer&ProphecySubjectInterface $contentObject */
         $contentObject = $this->prophesize(ContentObjectRenderer::class)->reveal();
         $frontEndController->cObj = $contentObject;
         $GLOBALS['TSFE'] = $frontEndController;

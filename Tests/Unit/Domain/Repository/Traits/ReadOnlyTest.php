@@ -7,7 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Domain\Repository\Traits;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\EmptyModel;
 use OliverKlee\Oelib\Tests\Unit\Domain\Repository\Fixtures\ReadOnlyRepository;
-use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 class ReadOnlyTest extends UnitTestCase
@@ -19,7 +18,6 @@ class ReadOnlyTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        /** @var ObjectManagerInterface&ProphecySubjectInterface $objectManagerStub */
         $objectManagerStub = $this->prophesize(ObjectManagerInterface::class)->reveal();
         $this->subject = new ReadOnlyRepository($objectManagerStub);
     }

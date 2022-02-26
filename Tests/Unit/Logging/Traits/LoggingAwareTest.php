@@ -8,7 +8,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Logging\Interfaces\LoggingAware;
 use OliverKlee\Oelib\Tests\Unit\Logging\Fixtures\TestingLoggingAware;
 use Prophecy\Prophecy\ObjectProphecy;
-use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Core\Log\LogManagerInterface;
 
 class LoggingAwareTest extends UnitTestCase
@@ -36,12 +35,10 @@ class LoggingAwareTest extends UnitTestCase
      */
     public function injectLogManagerGetsLoggerForClass(): void
     {
-        /** @var ObjectProphecy $logManagerProphecy */
+        /** @var ObjectProphecy<LogManagerInterface> $logManagerProphecy */
         $logManagerProphecy = $this->prophesize(LogManagerInterface::class);
-        // @phpstan-ignore-next-line This requires the Prophecy plugin for PHPStan (which requires PHP >= 7.2).
         $logManagerProphecy->getLogger(TestingLoggingAware::class)->shouldBeCalled();
 
-        /** @var LogManagerInterface&ProphecySubjectInterface $logManager */
         $logManager = $logManagerProphecy->reveal();
 
         $this->subject->injectLogManager($logManager);

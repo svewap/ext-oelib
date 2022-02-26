@@ -7,7 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Templating;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
-use Prophecy\Prophecy\ProphecySubjectInterface;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -29,9 +28,7 @@ class TemplateHelperTest extends UnitTestCase
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         $cacheManager->setCacheConfigurations(['l10n' => ['backend' => NullBackend::class]]);
 
-        /** @var TypoScriptFrontendController&ProphecySubjectInterface $frontEndController */
         $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
-        /** @var ContentObjectRenderer&ProphecySubjectInterface $contentObject */
         $contentObject = $this->prophesize(ContentObjectRenderer::class)->reveal();
         $frontEndController->cObj = $contentObject;
         $GLOBALS['TSFE'] = $frontEndController;

@@ -9,7 +9,7 @@ use OliverKlee\Oelib\Configuration\AbstractConfigurationCheck;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\TestingConfigurationCheck;
-use Prophecy\Prophecy\ProphecySubjectInterface;
+use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
@@ -55,10 +55,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => true]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
+        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
         $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
         $adminUserProphecy->isAdmin()->willReturn(true);
-        /** @var BackendUserAuthentication&ProphecySubjectInterface $adminUser */
         $adminUser = $adminUserProphecy->reveal();
         $GLOBALS['BE_USER'] = $adminUser;
 
@@ -74,10 +73,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => true]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
+        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
         $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
         $adminUserProphecy->isAdmin()->willReturn(false);
-        /** @var BackendUserAuthentication&ProphecySubjectInterface $adminUser */
         $adminUser = $adminUserProphecy->reveal();
         $GLOBALS['BE_USER'] = $adminUser;
 
@@ -93,10 +91,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => false]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
+        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
         $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
         $adminUserProphecy->isAdmin()->willReturn(true);
-        /** @var BackendUserAuthentication&ProphecySubjectInterface $adminUser */
         $adminUser = $adminUserProphecy->reveal();
         $GLOBALS['BE_USER'] = $adminUser;
 
@@ -112,10 +109,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $extensionConfiguration = new DummyConfiguration([]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
+        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
         $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
         $adminUserProphecy->isAdmin()->willReturn(true);
-        /** @var BackendUserAuthentication&ProphecySubjectInterface $adminUser */
         $adminUser = $adminUserProphecy->reveal();
         $GLOBALS['BE_USER'] = $adminUser;
 
@@ -131,10 +127,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $extensionConfiguration = new DummyConfiguration([]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
+        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
         $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        // @phpstan-ignore-next-line PHPStan does not know Prophecy (at least not without the corresponding plugin).
         $adminUserProphecy->isAdmin()->willReturn(true);
-        /** @var BackendUserAuthentication&ProphecySubjectInterface $adminUser */
         $adminUser = $adminUserProphecy->reveal();
         $GLOBALS['BE_USER'] = $adminUser;
 
