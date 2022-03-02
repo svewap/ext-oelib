@@ -760,6 +760,7 @@ final class TestingFramework
         $this->deleteAllDummyFoldersAndFiles();
         $this->discardFakeFrontEnd();
         WritableEnvironment::restoreCurrentScript();
+        GeneralUtility::flushInternalRuntimeCaches();
         if (\is_array($this->serverVariablesBackup)) {
             $GLOBALS['_SERVER'] = $this->serverVariablesBackup;
             $this->serverVariablesBackup = null;
@@ -1311,6 +1312,9 @@ routes: {  }";
             $this->serverVariablesBackup = $GLOBALS['_SERVER'];
         }
 
+        GeneralUtility::flushInternalRuntimeCaches();
+        unset($GLOBALS['TYPO3_REQUEST']);
+
         $hostName = $this->getFakeFrontEndDomain();
         $documentRoot = '/var/www/html/public';
         $relativeScriptPath = '/index.php';
@@ -1369,6 +1373,7 @@ routes: {  }";
 
         $GLOBALS['TSFE'] = null;
         unset(
+            $GLOBALS['TYPO3_REQUEST'],
             $GLOBALS['TYPO3_CONF_VARS']['FE']['dontSetCookie'],
             $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][FrontendUserAuthentication::class]
         );

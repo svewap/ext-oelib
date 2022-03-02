@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Discard the previous global request with the fake FE (#894)
 - Improve the type annotations (#896, #897, #898, #900)
 - Make the Composer dependencies explicit (#895)
 - Add `@mixin` annotations to traits (#892)

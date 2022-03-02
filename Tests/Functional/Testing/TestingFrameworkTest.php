@@ -8,6 +8,7 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\System\Typo3Version;
 use OliverKlee\Oelib\Testing\TestingFramework;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Cache\Backend\AbstractBackend;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\Backend\SimpleFileBackend;
@@ -1061,6 +1062,33 @@ final class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame($previous, $GLOBALS['_SERVER']['HTTP_HOST']);
     }
 
+    /**
+     * @test
+     */
+    public function cleanUpUnsetsGlobalRequest(): void
+    {
+        $this->subject->createFakeFrontEnd();
+        $GLOBALS['TYPO3_REQUEST'] = $this->prophesize(ServerRequestInterface::class)->reveal();
+
+        $this->subject->cleanUp();
+
+        self::assertNull($GLOBALS['TYPO3_REQUEST'] ?? null);
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpReplacesExistingSystemEnvironmentVariables(): void
+    {
+        $this->subject->createFakeFrontEnd();
+        $GLOBALS['_SERVER']['QUERY_STRING'] = 'hello.php';
+        $previous = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST');
+
+        $this->subject->cleanUp();
+
+        self::assertNotSame($previous, GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'));
+    }
+
     // Tests regarding cleanUpWithoutDatabase()
 
     /**
@@ -1117,6 +1145,33 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->cleanUpWithoutDatabase();
 
         self::assertSame($previous, $GLOBALS['_SERVER']['HTTP_HOST']);
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpWithoutDatabaseUnsetsGlobalRequest(): void
+    {
+        $this->subject->createFakeFrontEnd();
+        $GLOBALS['TYPO3_REQUEST'] = $this->prophesize(ServerRequestInterface::class)->reveal();
+
+        $this->subject->cleanUpWithoutDatabase();
+
+        self::assertNull($GLOBALS['TYPO3_REQUEST'] ?? null);
+    }
+
+    /**
+     * @test
+     */
+    public function cleanUpWithoutDatabaseReplacesExistingSystemEnvironmentVariables(): void
+    {
+        $this->subject->createFakeFrontEnd();
+        $GLOBALS['_SERVER']['QUERY_STRING'] = 'hello.php';
+        $previous = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST');
+
+        $this->subject->cleanUpWithoutDatabase();
+
+        self::assertNotSame($previous, GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'));
     }
 
     // Tests regarding getAutoIncrement()
@@ -2831,6 +2886,32 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->createFakeFrontEnd();
 
         self::assertSame($expected, $GLOBALS['_SERVER']['HTTP_HOST']);
+    }
+
+    /**
+     * @test
+     */
+    public function createFakeFrontEndReplacesExistingGlobalRequest(): void
+    {
+        $previousRequest = $this->prophesize(ServerRequestInterface::class)->reveal();
+        $GLOBALS['TYPO3_REQUEST'] = $previousRequest;
+
+        $this->subject->createFakeFrontEnd();
+
+        self::assertNotSame($previousRequest, $GLOBALS['TYPO3_REQUEST']);
+    }
+
+    /**
+     * @test
+     */
+    public function createFakeFrontEndReplacesExistingSystemEnvironmentVariables(): void
+    {
+        $GLOBALS['_SERVER']['QUERY_STRING'] = 'hello.php';
+        $previous = GeneralUtility::getIndpEnv('QUERY_STRING');
+
+        $this->subject->createFakeFrontEnd();
+
+        self::assertNotSame($previous, GeneralUtility::getIndpEnv('QUERY_STRING'));
     }
 
     // Tests regarding user login and logout
