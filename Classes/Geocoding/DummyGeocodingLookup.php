@@ -13,9 +13,7 @@ use OliverKlee\Oelib\Interfaces\GeocodingLookup;
 class DummyGeocodingLookup implements GeocodingLookup
 {
     /**
-     * faked coordinates with the keys "latitude" and "longitude" or empty if there are none
-     *
-     * @var array<string, float>
+     * @var array{latitude?: float, longitude?: float}
      */
     private $coordinates = [];
 

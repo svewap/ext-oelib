@@ -56,9 +56,11 @@ class GeoCalculator implements SingletonInterface
             );
         }
 
+        /** @var array{latitude: float, longitude: float} $coordinates1 */
         $coordinates1 = $object1->getGeoCoordinates();
         $latitude1 = \deg2rad($coordinates1['latitude']);
         $longitude1 = \deg2rad($coordinates1['longitude']);
+        /** @var array{latitude: float, longitude: float} $coordinates2 */
         $coordinates2 = $object2->getGeoCoordinates();
         $latitude2 = \deg2rad($coordinates2['latitude']);
         $longitude2 = \deg2rad($coordinates2['longitude']);

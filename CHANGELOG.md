@@ -14,7 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
-- Improve the type annotations (#896, #897)
+- Improve the type annotations (#896, #897, #898)
 - Make the Composer dependencies explicit (#895)
 - Add `@mixin` annotations to traits (#892)
 - Stop using the deprecated `ObjectManager` (#891)
