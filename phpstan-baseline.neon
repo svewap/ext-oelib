@@ -66,11 +66,6 @@ parameters:
 			path: Classes/Mapper/FrontEndUserMapper.php
 
 		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\:\\:\\$mappers \\(array\\<class\\-string, OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\) does not accept non\\-empty\\-array\\<class\\-string, M of OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\|OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
-			count: 2
-			path: Classes/Mapper/MapperRegistry.php
-
-		-
 			message: "#^Trying to invoke Closure\\|null but it might not be a callable\\.$#"
 			count: 1
 			path: Classes/Model/AbstractModel.php
