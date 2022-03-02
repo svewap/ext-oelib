@@ -14,7 +14,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
-Stop using the deprecated `ObjectManager` (#891)
+- Add `@mixin` annotations to traits (#892)
+- Stop using the deprecated `ObjectManager` (#891)
 
 ## 4.1.3
 

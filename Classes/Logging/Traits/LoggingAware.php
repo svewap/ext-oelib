@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Log\LogManagerInterface;
 
 /**
- * This is the default implementation of the LoggingAware interface.
+ * This is the default implementation of the `LoggingAware` interface.
  */
 trait LoggingAware
 {

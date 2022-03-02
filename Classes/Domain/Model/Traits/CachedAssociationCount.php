@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Domain\Model\Traits;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
 
 /**
@@ -16,6 +17,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
  *     return $this->getCachedRelationCount('children');
  * }
  * </code>
+ *
+ * @mixin AbstractEntity
  */
 trait CachedAssociationCount
 {
