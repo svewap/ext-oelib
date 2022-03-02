@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Model\Currency;
 class CurrencyMapper extends AbstractDataMapper
 {
     /**
-     * @var string the name of the database table for this mapper
+     * @var non-empty-string the name of the database table for this mapper
      */
     protected $tableName = 'static_currencies';
 

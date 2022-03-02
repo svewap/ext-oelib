@@ -62,12 +62,12 @@ final class TestingFramework
     ];
 
     /**
-     * @var string
+     * @var non-empty-string
      */
     private const FAKE_FRONTEND_DOMAIN_NAME = 'typo3-test.dev';
 
     /**
-     * @var string
+     * @var non-empty-string
      */
     private const SITE_IDENTIFIER = 'testing-framework';
 
@@ -161,23 +161,23 @@ final class TestingFramework
     /**
      * the names of the created dummy files relative to the upload folder of the extension to test
      *
-     * @var array<string, string>
+     * @var array<string, non-empty-string>
      */
     private $dummyFiles = [];
 
     /**
      * the names of the created dummy folders relative to the upload folder of the extension to test
      *
-     * @var array<string, string>
+     * @var array<string, non-empty-string>
      */
     private $dummyFolders = [];
 
     /**
      * the absolute path to the upload folder of the extension to test (with the trailing slash)
      *
-     * @var string
+     * @var non-empty-string
      */
-    private $uploadFolderPath = '';
+    private $uploadFolderPath;
 
     /**
      * whether a fake front end has been created
@@ -899,7 +899,7 @@ final class TestingFramework
      * @param string $content
      *        content for the file to create, may be empty
      *
-     * @return string the absolute path of the created dummy file, will not be empty
+     * @return non-empty-string the absolute path of the created dummy file, will not be empty
      *
      * @throws \RuntimeException
      *
@@ -922,13 +922,11 @@ final class TestingFramework
     /**
      * Adds a file name to $this->dummyFiles.
      *
-     * @param string $uniqueFileName file name to add, must be the unique name of a dummy file, must not be empty
+     * @param non-empty-string $uniqueFileName file name to add, must be the unique name of a dummy file
      */
     private function addToDummyFileList(string $uniqueFileName): void
     {
-        $relativeFileName = $this->getPathRelativeToUploadDirectory(
-            $uniqueFileName
-        );
+        $relativeFileName = $this->getPathRelativeToUploadDirectory($uniqueFileName);
 
         $this->dummyFiles[$relativeFileName] = $relativeFileName;
     }
@@ -969,7 +967,7 @@ final class TestingFramework
      * @param string $folderName name of the dummy folder to create relative to $this->uploadFolderPath, must not be
      *     empty
      *
-     * @return string the absolute path of the created dummy folder, will not be empty
+     * @return non-empty-string the absolute path of the created dummy folder, will not be empty
      *
      * @throws \RuntimeException
      */
@@ -1057,13 +1055,12 @@ final class TestingFramework
     /**
      * Sets the upload folder path.
      *
-     * @param string $absolutePath absolute path to the folder where to work on during the tests,can be either an
-     *        existing folder which will be cleaned up after the tests or a path of a folder to be created as soon as
-     *        it is needed and deleted during cleanUp, must end with a trailing slash
+     * @param non-empty-string $absolutePath absolute path to the folder where to work on during the tests,
+     *        can be either an existing folder which will be cleaned up after the tests or a path of a folder
+     *        to be created as soon as it is needed and deleted during cleanUp, must end with a trailing slash
      *
-     * @throws \BadMethodCallException
-     *         if there are dummy files within the current upload folder as these files could not be deleted if the
-     *         upload folder path has changed
+     * @throws \BadMethodCallException if there are dummy files within the current upload folder as these files could
+     *         not be deleted if the upload folder path has changed
      */
     public function setUploadFolderPath(string $absolutePath): void
     {
@@ -1080,8 +1077,7 @@ final class TestingFramework
     /**
      * Returns the absolute path to the upload folder of the extension to test.
      *
-     * @return string the absolute path to the upload folder of the
-     *                extension to test, including the trailing slash
+     * @return non-empty-string the absolute path to the upload folder of the extension to test, with the trailing slash
      */
     public function getUploadFolderPath(): string
     {
@@ -1092,13 +1088,13 @@ final class TestingFramework
      * Returns the path relative to the calling extension's upload directory for
      * a path given in the first parameter $absolutePath.
      *
-     * @param string $absolutePath
-     *        the absolute path to process, must be within the calling extension's upload directory, must not be empty
+     * @param non-empty-string $absolutePath the absolute path to process,
+     *        must be within the calling extension's upload directory
      *
-     * @return string the path relative to the calling extension's upload directory
+     * @return non-empty-string the path relative to the calling extension's upload directory
      *
      * @throws \InvalidArgumentException if the first parameter $absolutePath is not within
-     *                   the calling extension's upload directory
+     *         the calling extension's upload directory
      */
     public function getPathRelativeToUploadDirectory(string $absolutePath): string
     {
@@ -1113,7 +1109,10 @@ final class TestingFramework
         $uploadFolderPathLength = mb_strlen($this->getUploadFolderPath(), $encoding);
         $absolutePathLength = mb_strlen($absolutePath, $encoding);
 
-        return mb_substr($absolutePath, $uploadFolderPathLength, $absolutePathLength, $encoding);
+        /** @var non-empty-string $result */
+        $result = \mb_substr($absolutePath, $uploadFolderPathLength, $absolutePathLength, $encoding);
+
+        return $result;
     }
 
     /**
@@ -1122,7 +1121,7 @@ final class TestingFramework
      * @param string $path the path of a file or folder relative to the calling extension's upload directory,
      *                     must not be empty
      *
-     * @return string the unique absolute path of a file or folder
+     * @return non-empty-string the unique absolute path of a file or folder
      *
      * @throws \InvalidArgumentException
      */
@@ -1154,11 +1153,17 @@ final class TestingFramework
 
     // Functions concerning a fake front end
 
+    /**
+     * @return non-empty-string
+     */
     public function getFakeFrontEndDomain(): string
     {
         return self::FAKE_FRONTEND_DOMAIN_NAME;
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function getFakeSiteUrl(): string
     {
         return 'http://' . $this->getFakeFrontEndDomain() . '/';
@@ -1678,7 +1683,7 @@ routes: {  }";
      *
      * @param string $table the table name to look up, must not be empty
      *
-     * @return string the name of the column that marks a record as dummy record
+     * @return non-empty-string the name of the column that marks a record as dummy record
      */
     public function getDummyColumnName(string $table): string
     {

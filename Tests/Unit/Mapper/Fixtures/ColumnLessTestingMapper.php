@@ -15,12 +15,15 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 class ColumnLessTestingMapper extends AbstractDataMapper
 {
     /**
-     * @var string the name of the database table for this mapper
+     * @var non-empty-string the name of the database table for this mapper
      */
     protected $tableName = 'tx_oelib_test';
 
     /**
-     * @var string a comma-separated list of DB column names to retrieve or "*" for all columns
+     * @var non-empty-string a comma-separated list of DB column names to retrieve or "*" for all columns,
+     *      must not be empty
+     *
+     * @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
      */
     protected $columns = '';
 

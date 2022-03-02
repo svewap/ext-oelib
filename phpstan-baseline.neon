@@ -66,11 +66,6 @@ parameters:
 			path: Classes/Mapper/BackEndUserMapper.php
 
 		-
-			message: "#^PHPDoc type string of property OliverKlee\\\\Oelib\\\\Mapper\\\\FederalStateMapper\\:\\:\\$modelClassName is not covariant with PHPDoc type class\\-string\\<OliverKlee\\\\Oelib\\\\Model\\\\FederalState\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\FederalState\\>\\:\\:\\$modelClassName\\.$#"
-			count: 1
-			path: Classes/Mapper/FederalStateMapper.php
-
-		-
 			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\FrontEndUserMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\FrontEndUser\\>\\:\\:\\$relations\\.$#"
 			count: 1
 			path: Classes/Mapper/FrontEndUserMapper.php

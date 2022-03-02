@@ -32,10 +32,10 @@ class Template
     private $subparts = [];
 
     /**
-     * all lowercased label marker names in the current template without the hashes, for example ("label_foo",
-     * "label_bar")
+     * all lowercased label marker names in the current template without the hashes,
+     * for example ("label_foo", "label_bar")
      *
-     * @var array<int, string>
+     * @var array<int, non-empty-string>
      */
     private $labelMarkerNames = [];
 
@@ -139,8 +139,9 @@ class Template
         );
 
         foreach (\array_unique($matches[1]) as $markerName) {
+            /** @var non-empty-string $markerName */
             if (\strncmp($markerName, 'LABEL_', 6) === 0) {
-                $this->labelMarkerNames[] = strtolower($markerName);
+                $this->labelMarkerNames[] = \strtolower($markerName);
             }
         }
     }
@@ -150,7 +151,7 @@ class Template
      *
      * If there are no matches, an empty array is returned.
      *
-     * @return array<int, string> matching marker names (lowercased), might be empty
+     * @return array<int, non-empty-string> matching marker names (lowercased), might be empty
      */
     public function getLabelMarkerNames(): array
     {
@@ -166,8 +167,8 @@ class Template
      * If the prefix is empty and the marker name is "one", the marker
      * "###ONE###" will be written.
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
-     *     not be empty
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive,
+     *        will get uppercased
      * @param mixed $content the marker's content, may be empty
      * @param string $prefix prefix to the marker name (may be empty, case-insensitive, will get uppercased)
      */
@@ -183,14 +184,15 @@ class Template
     /**
      * Gets a marker's content.
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
-     *     not be empty
+     * @param non-empty-string $markerName the marker's name without the ### signs,
+     *        case-insensitive, will get uppercased
      *
      * @return string the marker's content or an empty string if the marker has not been set before
      */
     public function getMarker(string $markerName): string
     {
         $unifiedMarkerName = $this->createMarkerName($markerName);
+
         return $this->markers[$unifiedMarkerName] ?? '';
     }
 
@@ -203,16 +205,13 @@ class Template
      * If the prefix is empty and the subpart name is "one", the subpart
      * "###ONE###" will be written.
      *
-     * @param string $subpartName name without the ### signs, case-insensitive, will get uppercased, must not be empty
+     * @param non-empty-string $subpartName name without the ### signs, case-insensitive, will get uppercased
      * @param mixed $content the subpart's content, may be empty
      * @param string $prefix prefix to the subpart name (may be empty, case-insensitive, will get uppercased)
      */
     public function setSubpart(string $subpartName, $content, string $prefix = ''): void
     {
-        $subpartName = $this->createMarkerNameWithoutHashes(
-            $subpartName,
-            $prefix
-        );
+        $subpartName = $this->createMarkerNameWithoutHashes($subpartName, $prefix);
 
         if (!$this->isMarkerNameValidWithoutHashes($subpartName)) {
             throw new \InvalidArgumentException('The value of the parameter $subpartName is not valid.', 1331489182);
@@ -227,11 +226,11 @@ class Template
      * If (int)$content is non-zero, this function sets the marker's content, working
      * exactly like setMarker($markerName, $content, $markerPrefix).
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
-     *     not be empty
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive,
+     *        will get uppercased
      * @param mixed $content content with which the marker will be filled, may be empty
-     * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get
-     *     uppercased)
+     * @param string $markerPrefix prefix to the marker name for setting
+     *        (may be empty, case-insensitive, will get uppercased)
      *
      * @return bool TRUE if the marker content has been set, FALSE otherwise
      *
@@ -251,11 +250,11 @@ class Template
      * If $content is non-empty, this function sets the marker's content,
      * working exactly like setMarker($markerName, $content, $markerPrefix).
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
-     *     not be empty
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive,
+     *        will get uppercased
      * @param mixed $content content with which the marker will be filled, may be empty
-     * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get
-     *     uppercased)
+     * @param string $markerPrefix prefix to the marker name for setting
+     *        (may be empty, case-insensitive, will get uppercased)
      *
      * @return bool TRUE if the marker content has been set, FALSE otherwise
      *
@@ -275,7 +274,7 @@ class Template
      *
      * Note: If the subpart to check does not exist, this function will return FALSE.
      *
-     * @param string $subpartName name of the subpart to check (without the ###), must not be empty
+     * @param string $subpartName name of the subpart to check (without the ###)
      *
      * @return bool TRUE if the subpart is visible, FALSE otherwise
      */
@@ -300,8 +299,8 @@ class Template
      * If the prefix is empty and the list is "one,two", the subparts
      * "###ONE###" and "###TWO###" will be hidden.
      *
-     * @param string $subparts comma-separated list of at least 1 subpart name to hide (case-insensitive, will get
-     *     uppercased)
+     * @param non-empty-string $subparts comma-separated list of at least 1 subpart name to hide
+     *        (case-insensitive, will get uppercased)
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
      */
     public function hideSubparts(string $subparts, string $prefix = ''): void
@@ -323,16 +322,14 @@ class Template
      * If the prefix is empty and the array has two elements "one" and "two",
      * the subparts "###ONE###" and "###TWO###" will be hidden.
      *
-     * @param string[] $subparts subpart names to hide (may be empty, case-insensitive, will get uppercased)
+     * @param array<string|int, non-empty-string> $subparts subpart names to hide
+     *        (may be empty, case-insensitive, will get uppercased)
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
      */
     public function hideSubpartsArray(array $subparts, string $prefix = ''): void
     {
         foreach ($subparts as $currentSubpartName) {
-            $fullSubpartName = $this->createMarkerNameWithoutHashes(
-                $currentSubpartName,
-                $prefix
-            );
+            $fullSubpartName = $this->createMarkerNameWithoutHashes($currentSubpartName, $prefix);
 
             $this->subpartsToHide[$fullSubpartName] = true;
         }
@@ -390,7 +387,8 @@ class Template
      * If the prefix is empty and the array has two elements "one" and "two",
      * the subparts "###ONE###" and "###TWO###" will be unhidden.
      *
-     * @param string[] $subparts subpart names to unhide (may be empty, case-insensitive, will get uppercased)
+     * @param array<string|int, non-empty-string> $subparts subpart names to unhide
+     *        (may be empty, case-insensitive, will get uppercased)
      * @param string[] $permanentlyHiddenSubparts subpart names that shouldn't get unhidden
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
      */
@@ -403,10 +401,7 @@ class Template
             // Only unhide the current subpart if it is not on the list of
             // permanently hidden subparts (e.g. by configuration).
             if (!in_array($currentSubpartName, $permanentlyHiddenSubparts, true)) {
-                $currentMarkerName = $this->createMarkerNameWithoutHashes(
-                    $currentSubpartName,
-                    $prefix
-                );
+                $currentMarkerName = $this->createMarkerNameWithoutHashes($currentSubpartName, $prefix);
                 unset($this->subpartsToHide[$currentMarkerName]);
             }
         }
@@ -419,7 +414,7 @@ class Template
      * If $condition is FALSE, this function removes the wrapping subpart,
      * working exactly like hideSubparts($markerName, $wrapperPrefix).
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, must not be empty
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive
      * @param bool $condition if this is TRUE, the marker will be filled, otherwise the wrapped marker will be hidden
      * @param mixed $content content with which the marker will be filled, may be empty
      * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive)
@@ -455,7 +450,7 @@ class Template
      * If (int)$condition is zero, this function removes the wrapping
      * subpart, working exactly like hideSubparts($markerName, $wrapperPrefix).
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, must not be* empty
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive
      * @param mixed $content content with which the marker will be filled, may be empty
      * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive)
      * @param string $wrapperPrefix prefix to the subpart name for hiding (may be empty, case-insensitive)
@@ -491,13 +486,13 @@ class Template
      * If $condition is empty, this function removes the wrapping subpart,
      * working exactly like hideSubparts($markerName, $wrapperPrefix).
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
-     *     not be empty
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive,
+     *        will get uppercased
      * @param mixed $content content with which the marker will be filled, may be empty
-     * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get
-     *     uppercased)
-     * @param string $wrapperPrefix prefix to the subpart name for hiding (may be empty, case-insensitive, will get
-     *     uppercased)
+     * @param string $markerPrefix prefix to the marker name for setting
+     *        (may be empty, case-insensitive, will get uppercased)
+     * @param string $wrapperPrefix prefix to the subpart name for hiding
+     *        (may be empty, case-insensitive, will get uppercased)
      *
      * @return bool TRUE if the marker content has been set, FALSE if
      *                 the subpart has been hidden
@@ -532,10 +527,10 @@ class Template
      * If the prefix is empty and the marker name is "one", the result will be
      * "###ONE###".
      *
-     * @param string $markerName the name of the marker, must not be empty
+     * @param non-empty-string $markerName the name of the marker
      * @param string $prefix an optional prefix, may be empty
      *
-     * @return string the created marker name (including the hashes), will not be empty
+     * @return non-empty-string the created marker name (including the hashes), will not be empty
      */
     private function createMarkerName(string $markerName, string $prefix = ''): string
     {
@@ -552,10 +547,10 @@ class Template
      * If the prefix is empty and the marker name is "one", the result will be
      * "ONE".
      *
-     * @param string $markerName the name of the marker, must not be empty
+     * @param non-empty-string $markerName the name of the marker
      * @param string $prefix an optional prefix, may be empty
      *
-     * @return string the created marker name (without the hashes), will not be empty
+     * @return non-empty-string the created marker name (without the hashes)
      */
     private function createMarkerNameWithoutHashes(string $markerName, string $prefix = ''): string
     {
@@ -564,7 +559,10 @@ class Template
             $prefix .= '_';
         }
 
-        return strtoupper($prefix . trim($markerName));
+        /** @var non-empty-string $result */
+        $result = \strtoupper($prefix . trim($markerName));
+
+        return $result;
     }
 
     /**

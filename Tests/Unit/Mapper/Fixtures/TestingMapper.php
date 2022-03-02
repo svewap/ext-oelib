@@ -17,7 +17,7 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 class TestingMapper extends AbstractDataMapper
 {
     /**
-     * @var string the name of the database table for this mapper
+     * @var non-empty-string the name of the database table for this mapper
      */
     protected $tableName = 'tx_oelib_test';
 

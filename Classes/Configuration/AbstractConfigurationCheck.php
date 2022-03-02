@@ -65,6 +65,9 @@ abstract class AbstractConfigurationCheck
             && ConfigurationProxy::getInstance($extensionKey)->getAsBoolean('enableConfigCheck');
     }
 
+    /**
+     * @return non-empty-string
+     */
     protected function getSuffixedNamespace(): string
     {
         return $this->namespace . '.';
@@ -74,6 +77,8 @@ abstract class AbstractConfigurationCheck
      * Builds a fully-qualified TypoScript namespace from a suffix, e.g., `plugin.tx_oelib.foo` from `foo`.
      *
      * The output is HTML-safe.
+     *
+     * @return string
      */
     protected function buildEncodedConfigurationPath(string $localPath): string
     {
@@ -166,6 +171,8 @@ abstract class AbstractConfigurationCheck
     /**
      * Builds the sentence start "The TypoScript setup variable $variable ", including the trailing space
      * and some HTML markup.
+     *
+     * @return non-empty-string
      */
     protected function buildWarningStartWithKey(string $key): string
     {
@@ -177,6 +184,8 @@ abstract class AbstractConfigurationCheck
      * including the trailing space and some HTML markup.
      *
      * @param string|int $value
+     *
+     * @return non-empty-string
      */
     protected function buildWarningStartWithKeyAndValue(string $key, $value): string
     {

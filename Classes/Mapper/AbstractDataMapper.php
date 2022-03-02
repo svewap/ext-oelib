@@ -22,10 +22,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 abstract class AbstractDataMapper
 {
     /**
-     * @var string the name of the database table for this mapper,
-     *             must not be empty in subclasses
+     * @var non-empty-string the name of the database table for this mapper
      */
-    protected $tableName = '';
+    protected $tableName;
 
     /**
      * @var class-string<M> the model class name for this mapper, must not be empty
@@ -33,8 +32,8 @@ abstract class AbstractDataMapper
     protected $modelClassName;
 
     /**
-     * @var string a comma-separated list of DB column names to retrieve
-     *             or "*" for all columns, must not be empty
+     * @var non-empty-string a comma-separated list of DB column names to retrieve or "*" for all columns,
+     *      must not be empty
      */
     protected $columns = '*';
 
@@ -99,13 +98,15 @@ abstract class AbstractDataMapper
      */
     public function __construct()
     {
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if ($this->getTableName() === '') {
             throw new \InvalidArgumentException(\get_class($this) . '::tableName must not be empty.', 1331319361);
         }
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if ($this->columns === '') {
             throw new \InvalidArgumentException(\get_class($this) . '::columns must not be empty.', 1331319374);
         }
-        if (!is_string($this->modelClassName)) {
+        if (!\is_string($this->modelClassName)) {
             throw new \InvalidArgumentException(\get_class($this) . '::modelClassName must not be empty.', 1331319378);
         }
 
@@ -1475,7 +1476,7 @@ abstract class AbstractDataMapper
     /**
      * Returns the table name of this mapper.
      *
-     * @return string the table name, will not be empty for correctly build data mappers
+     * @return non-empty-string
      */
     public function getTableName(): string
     {
@@ -1485,7 +1486,7 @@ abstract class AbstractDataMapper
     /**
      * Returns the TCA for a certain table.
      *
-     * @param string $tableName the table name to look up, must not be empty
+     * @param non-empty-string $tableName the table name to look up
      *
      * @return array[] associative array with the TCA description for this table
      */

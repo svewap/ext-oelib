@@ -12,12 +12,12 @@ use OliverKlee\Oelib\Model\FederalState;
 class FederalStateMapper extends AbstractDataMapper
 {
     /**
-     * @var string
+     * @var non-empty-string
      */
     protected $tableName = 'static_country_zones';
 
     /**
-     * @var string
+     * @var class-string<FederalState>
      */
     protected $modelClassName = FederalState::class;
 

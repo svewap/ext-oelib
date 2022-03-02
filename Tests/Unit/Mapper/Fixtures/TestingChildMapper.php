@@ -15,7 +15,7 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 class TestingChildMapper extends AbstractDataMapper
 {
     /**
-     * @var string the name of the database table for this mapper
+     * @var non-empty-string the name of the database table for this mapper
      */
     protected $tableName = 'tx_oelib_testchild';
 

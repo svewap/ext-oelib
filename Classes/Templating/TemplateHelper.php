@@ -177,7 +177,7 @@ class TemplateHelper extends SalutationSwitcher
      * @param string $path the path to the file (without filename), must contain a slash at the end,
      *        may contain a slash at the beginning (if not relative)
      *
-     * @return string the complete path including file name
+     * @return non-empty-string the complete path including file name
      *
      * @deprecated will be removed in oelib 5.0
      */
@@ -299,11 +299,12 @@ class TemplateHelper extends SalutationSwitcher
      *
      * This function is intended to be used for testing purposes only.
      *
-     * @param string $key key of the configuration property to set, must not be empty
+     * @param non-empty-string $key key of the configuration property to set
      * @param mixed $value value of the configuration property, may be empty or zero
      */
     public function setConfigurationValue(string $key, $value): void
     {
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty', 1331489491);
         }
@@ -395,8 +396,8 @@ class TemplateHelper extends SalutationSwitcher
      * If the prefix is empty and the marker name is "one", the marker
      * "###ONE###" will be written.
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
-     *     not be empty
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive,
+     *        will get uppercased
      * @param mixed $content the marker's content, may be empty
      * @param string $prefix prefix to the marker name (may be empty, case-insensitive, will get uppercased)
      */
@@ -408,11 +409,10 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Gets a marker's content.
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
-     *     not be empty
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive,
+     *        will get uppercased
      *
-     * @return string the marker's content or an empty string if the
-     *                marker has not been set before
+     * @return string the marker's content or an empty string if the marker has not been set before
      */
     public function getMarker(string $markerName): string
     {
@@ -428,7 +428,7 @@ class TemplateHelper extends SalutationSwitcher
      * If the prefix is empty and the subpart name is "one", the subpart
      * "###ONE###" will be written.
      *
-     * @param string $subpartName name without the ### signs, case-insensitive, will get uppercased, must not be empty
+     * @param non-empty-string $subpartName name without the ### signs, case-insensitive, will get uppercased
      * @param mixed $content the subpart's content, may be empty
      * @param string $prefix prefix to the subpart name (may be empty, case-insensitive, will get uppercased)
      *
@@ -445,8 +445,8 @@ class TemplateHelper extends SalutationSwitcher
      * If (int)$content is non-zero, this function sets the marker's content, working
      * exactly like setMarker($markerName, $content, $markerPrefix).
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
-     *     not be empty
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive,
+     *        will get uppercased
      * @param mixed $content content with which the marker will be filled, may be empty
      * @param string $markerPrefix to the marker name for setting (may be empty, case-insensitive, will get uppercased)
      *
@@ -456,11 +456,7 @@ class TemplateHelper extends SalutationSwitcher
      */
     public function setMarkerIfNotZero(string $markerName, $content, string $markerPrefix = ''): bool
     {
-        return $this->getTemplate()->setMarkerIfNotZero(
-            $markerName,
-            $content,
-            $markerPrefix
-        );
+        return $this->getTemplate()->setMarkerIfNotZero($markerName, $content, $markerPrefix);
     }
 
     /**
@@ -468,11 +464,11 @@ class TemplateHelper extends SalutationSwitcher
      * If $content is non-empty, this function sets the marker's content,
      * working exactly like setMarker($markerName, $content, $markerPrefix).
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
-     *     not be empty
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive,
+     *        will get uppercased
      * @param mixed $content content with which the marker will be filled, may be empty
-     * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get
-     *     uppercased)
+     * @param string $markerPrefix prefix to the marker name for setting
+     *        (may be empty, case-insensitive, will get uppercased)
      *
      * @return bool TRUE if the marker content has been set, FALSE otherwise
      *
@@ -480,20 +476,15 @@ class TemplateHelper extends SalutationSwitcher
      */
     public function setMarkerIfNotEmpty(string $markerName, $content, string $markerPrefix = ''): bool
     {
-        return $this->getTemplate()->setMarkerIfNotEmpty(
-            $markerName,
-            $content,
-            $markerPrefix
-        );
+        return $this->getTemplate()->setMarkerIfNotEmpty($markerName, $content, $markerPrefix);
     }
 
     /**
      * Checks whether a subpart is visible.
      *
-     * Note: If the subpart to check does not exist, this function will return
-     * FALSE.
+     * Note: If the subpart to check does not exist, this function will return false.
      *
-     * @param string $subpartName name of the subpart to check (without the ###), must not be empty
+     * @param string $subpartName name of the subpart to check (without the ###)
      *
      * @return bool TRUE if the subpart is visible, FALSE otherwise
      */
@@ -513,8 +504,8 @@ class TemplateHelper extends SalutationSwitcher
      * If the prefix is empty and the list is "one,two", the subparts
      * "###ONE###" and "###TWO###" will be hidden.
      *
-     * @param string $subparts comma-separated list of at least 1 subpart name to hide (case-insensitive, will get
-     *     uppercased)
+     * @param non-empty-string $subparts comma-separated list of at least 1 subpart name to hide
+     *        (case-insensitive, will get uppercased)
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
      */
     public function hideSubparts(string $subparts, string $prefix = ''): void
@@ -533,7 +524,8 @@ class TemplateHelper extends SalutationSwitcher
      * If the prefix is empty and the array has two elements "one" and "two",
      * the subparts "###ONE###" and "###TWO###" will be hidden.
      *
-     * @param string[] $subparts subpart names to hide (may be empty, case-insensitive, will get uppercased)
+     * @param array<string|int, non-empty-string> $subparts subpart names to hide
+     *        (may be empty, case-insensitive, will get uppercased)
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
      */
     public function hideSubpartsArray(array $subparts, string $prefix = ''): void
@@ -591,7 +583,8 @@ class TemplateHelper extends SalutationSwitcher
      * If the prefix is empty and the array has two elements "one" and "two",
      * the subparts "###ONE###" and "###TWO###" will be unhidden.
      *
-     * @param string[] $subparts subpart names to unhide (may be empty, case-insensitive, will get uppercased)
+     * @param array<string|int, non-empty-string> $subparts $subparts subpart names to unhide
+     *       (may be empty, case-insensitive, will get uppercased)
      * @param string[] $permanentlyHiddenSubparts subpart names that shouldn't get unhidden
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
      */
@@ -600,11 +593,7 @@ class TemplateHelper extends SalutationSwitcher
         array $permanentlyHiddenSubparts = [],
         string $prefix = ''
     ): void {
-        $this->getTemplate()->unhideSubpartsArray(
-            $subparts,
-            $permanentlyHiddenSubparts,
-            $prefix
-        );
+        $this->getTemplate()->unhideSubpartsArray($subparts, $permanentlyHiddenSubparts, $prefix);
     }
 
     /**
@@ -614,19 +603,16 @@ class TemplateHelper extends SalutationSwitcher
      * If $condition is FALSE, this function removes the wrapping subpart,
      * working exactly like hideSubparts($markerName, $wrapperPrefix).
      *
-     * @param string $markerName
-     *        the marker's name without the ### signs, case-insensitive, will get uppercased, must not be empty
-     * @param bool $condition
-     *        if this is TRUE, the marker will be filled, otherwise the wrapped marker will be hidden
-     * @param mixed $content
-     *        content with which the marker will be filled, may be empty
-     * @param string $markerPrefix
-     *        prefix to the marker name for setting (may be empty, case-insensitive, will get uppercased)
-     * @param string $wrapperPrefix
-     *        prefix to the subpart name for hiding (may be empty, case-insensitive, will get uppercased)
+     * @param non-empty-string $markerName the marker's name without the ### signs,
+     *        case-insensitive, will get uppercased
+     * @param bool $condition if this is TRUE, the marker will be filled, otherwise the wrapped marker will be hidden
+     * @param mixed $content content with which the marker will be filled, may be empty
+     * @param string $markerPrefix prefix to the marker name for setting
+     *        (may be empty, case-insensitive, will get uppercased)
+     * @param string $wrapperPrefix prefix to the subpart name for hiding
+     *       (may be empty, case-insensitive, will get uppercased)
      *
-     * @return bool TRUE if the marker content has been set, FALSE if
-     *                 the subpart has been hidden
+     * @return bool TRUE if the marker content has been set, FALSE if the subpart has been hidden
      *
      * @see setMarkerContent
      * @see hideSubparts
@@ -656,17 +642,15 @@ class TemplateHelper extends SalutationSwitcher
      * If (int)$condition is zero, this function removes the wrapping
      * subpart, working exactly like hideSubparts($markerName, $wrapperPrefix).
      *
-     * @param string $markerName
-     *        the marker's name without the ### signs, case-insensitive, will get uppercased, must not be* empty
-     * @param mixed $content
-     *        content with which the marker will be filled, may be empty
-     * @param string $markerPrefix
-     *        prefix to the marker name for setting (may be empty, case-insensitive, will get uppercased)
-     * @param string $wrapperPrefix
-     *        prefix to the subpart name for hiding (may be empty, case-insensitive, will get uppercased)
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive,
+     *        will get uppercased
+     * @param mixed $content content with which the marker will be filled, may be empty
+     * @param string $markerPrefix prefix to the marker name for setting
+     *        (may be empty, case-insensitive, will get uppercased)
+     * @param string $wrapperPrefix prefix to the subpart name for hiding
+     *        (may be empty, case-insensitive, will get uppercased)
      *
-     * @return bool TRUE if the marker content has been set, FALSE if
-     *                 the subpart has been hidden
+     * @return bool TRUE if the marker content has been set, FALSE if the subpart has been hidden
      *
      * @see setOrDeleteMarker
      * @see setOrDeleteMarkerIfNotEmpty
@@ -696,13 +680,13 @@ class TemplateHelper extends SalutationSwitcher
      * If $condition is empty, this function removes the wrapping subpart,
      * working exactly like hideSubparts($markerName, $wrapperPrefix).
      *
-     * @param string $markerName the marker's name without the ### signs, case-insensitive, will get uppercased, must
-     *     not be empty
+     * @param non-empty-string $markerName the marker's name without the ### signs, case-insensitive,
+     *        will get uppercased
      * @param mixed $content content with which the marker will be filled, may be empty
-     * @param string $markerPrefix prefix to the marker name for setting (may be empty, case-insensitive, will get
-     *     uppercased)
-     * @param string $wrapperPrefix prefix to the subpart name for hiding (may be empty, case-insensitive, will get
-     *     uppercased)
+     * @param string $markerPrefix prefix to the marker name for setting
+     *        (may be empty, case-insensitive, will get uppercased)
+     * @param string $wrapperPrefix prefix to the subpart name for hiding
+     *        (may be empty, case-insensitive, will get uppercased)
      *
      * @return bool TRUE if the marker content has been set, FALSE if the subpart has been hidden
      *
@@ -858,13 +842,14 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Extracts a value within listView.
      *
-     * @param string $fieldName TypoScript setup field name to extract (within listView.), must not be empty
+     * @param non-empty-string $fieldName TypoScript setup field name to extract (within listView.)
      *
      * @return string the contents of that field within listView., may be empty
      */
     private function getListViewConfigurationValue(string $fieldName): string
     {
-        if (empty($fieldName)) {
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
+        if ($fieldName === '') {
             throw new \InvalidArgumentException('$fieldName must not be empty.', 1331489528);
         }
 
@@ -874,7 +859,7 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Returns a string value within listView.
      *
-     * @param string $fieldName TypoScript setup field name to extract (within listView.), must not be empty
+     * @param non-empty-string $fieldName TypoScript setup field name to extract (within listView.)
      *
      * @return string the trimmed contents of that field within listView.
      *                or an empty string if the value was not set
@@ -887,10 +872,9 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Returns an integer value within listView.
      *
-     * @param string $fieldName TypoScript setup field name to extract (within listView.), must not be empty
+     * @param non-empty-string $fieldName TypoScript setup field name to extract (within listView.)
      *
-     * @return int the integer value of that field within listView. or
-     *                 zero if the value was not set
+     * @return int the integer value of that field within listView, or zero if the value was not set
      */
     public function getListViewConfValueInteger(string $fieldName): int
     {
@@ -900,10 +884,9 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * Returns a boolean value within listView.
      *
-     * @param string $fieldName TypoScript setup field name to extract (within listView.), must not be empty
+     * @param non-empty-string $fieldName TypoScript setup field name to extract (within listView.)
      *
-     * @return bool the boolean value of that field within listView.,
-     *                 FALSE if no value was set
+     * @return bool the boolean value of that field within listView., FALSE if no value was set
      */
     public function getListViewConfValueBoolean(string $fieldName): bool
     {

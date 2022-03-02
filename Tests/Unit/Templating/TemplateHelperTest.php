@@ -123,6 +123,7 @@ class TemplateHelperTest extends UnitTestCase
             '$key must not be empty'
         );
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->setConfigurationValue('', 'test');
     }
 
@@ -417,6 +418,7 @@ class TemplateHelperTest extends UnitTestCase
             '$fieldName must not be empty.'
         );
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->getListViewConfValueBoolean('');
     }
 
