@@ -299,7 +299,7 @@ class Template
      * If the prefix is empty and the list is "one,two", the subparts
      * "###ONE###" and "###TWO###" will be hidden.
      *
-     * @param non-empty-string $subparts comma-separated list of at least 1 subpart name to hide
+     * @param string $subparts comma-separated list of the subparts to hide
      *        (case-insensitive, will get uppercased)
      * @param string $prefix prefix to the subpart names (may be empty, case-insensitive, will get uppercased)
      */
