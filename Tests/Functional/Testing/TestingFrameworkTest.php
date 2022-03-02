@@ -200,12 +200,10 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function markTableAsDirtyFailsWithEmptyTableName(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The table name "" is not allowed for markTableAsDirty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table name "" is not allowed for markTableAsDirty.');
+
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->markTableAsDirty('');
     }
 
@@ -270,12 +268,10 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createRecordWithEmptyTableName(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The table name "" is not allowed.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table name "" is not allowed.');
+
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->createRecord('', []);
     }
 
@@ -284,12 +280,9 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createRecordWithUidFails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The column "uid" must not be set in $recordData.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The column "uid" must not be set in $recordData.');
+
         $this->subject->createRecord(
             'tx_oelib_test',
             ['uid' => 99999]
@@ -661,12 +654,9 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createRelationWithEmptyTableName(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The table name "" is not allowed.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table name "" is not allowed.');
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->createRelation('', 99999, 199999);
     }
 
@@ -1202,12 +1192,12 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function getAutoIncrementWithEmptyTableNameFails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
+
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->getAutoIncrement('');
     }
 
@@ -1216,12 +1206,11 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function getAutoIncrementWithForeignTableFails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
+
         $this->subject->getAutoIncrement('tx_seminars_seminars');
     }
 
@@ -1276,6 +1265,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->count('');
     }
 
@@ -1483,6 +1473,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->existsRecordWithUid('', 1);
     }
 
@@ -1636,13 +1627,12 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function resetAutoIncrementWithEmptyTableNameFails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
         );
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->resetAutoIncrement('');
     }
 

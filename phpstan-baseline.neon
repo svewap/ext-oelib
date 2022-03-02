@@ -11,11 +11,6 @@ parameters:
 			path: Classes/Authentication/FrontEndLoginManager.php
 
 		-
-			message: "#^Class OliverKlee\\\\Oelib\\\\Domain\\\\Repository\\\\GermanZipCodeRepository extends generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Repository but does not specify its types\\: TEntityClass$#"
-			count: 1
-			path: Classes/Domain/Repository/GermanZipCodeRepository.php
-
-		-
 			message: "#^Cannot call method getLL\\(\\) on TYPO3\\\\CMS\\\\Core\\\\Localization\\\\LanguageService\\|null\\.$#"
 			count: 1
 			path: Classes/Language/SalutationSwitcher.php
@@ -111,11 +106,6 @@ parameters:
 			path: Classes/Testing/TestingFramework.php
 
 		-
-			message: "#^PHPDoc tag @var for variable \\$tableNames has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
 			message: "#^Property OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:\\$tableColumnCache type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Classes/Testing/TestingFramework.php
@@ -124,16 +114,6 @@ parameters:
 			message: "#^Property OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:\\$tableNameCache type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Visibility\\\\Tree\\:\\:__construct\\(\\) has parameter \\$treeStructure with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Visibility/Tree.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Visibility\\\\Tree\\:\\:buildTreeFromArray\\(\\) has parameter \\$treeStructure with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/Visibility/Tree.php
 
 		-
 			message: "#^Cannot call method getUid\\(\\) on OliverKlee\\\\Oelib\\\\Model\\\\BackEndUser\\|null\\.$#"
@@ -159,11 +139,6 @@ parameters:
 			message: "#^Cannot call method isLoaded\\(\\) on OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\|null\\.$#"
 			count: 2
 			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
-
-		-
-			message: "#^Missing call to parent\\:\\:tearDown\\(\\) method\\.$#"
-			count: 1
-			path: Tests/Unit/Configuration/AbstractConfigurationCheckTest.php
 
 		-
 			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Configuration\\\\FlexformsConfigurationTest\\:\\:booleanValueInArrayDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -229,16 +204,6 @@ parameters:
 			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessorsTest\\:\\:floatDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Unit/DataStructures/AbstractReadOnlyObjectWithAccessorsTest.php
-
-		-
-			message: "#^Class OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Repository\\\\Fixtures\\\\DirectPersistRepository extends generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Repository but does not specify its types\\: TEntityClass$#"
-			count: 1
-			path: Tests/Unit/Domain/Repository/Fixtures/DirectPersistRepository.php
-
-		-
-			message: "#^Class OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Repository\\\\Fixtures\\\\ReadOnlyRepository extends generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Repository but does not specify its types\\: TEntityClass$#"
-			count: 1
-			path: Tests/Unit/Domain/Repository/Fixtures/ReadOnlyRepository.php
 
 		-
 			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingChildMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingChildModel\\>\\:\\:\\$relations\\.$#"

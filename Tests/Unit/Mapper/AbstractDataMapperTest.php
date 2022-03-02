@@ -336,13 +336,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findSingleByWhereClauseWithEmptyWhereClausePartsThrowsException(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The parameter $whereClauseParts must not be empty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The parameter $whereClauseParts must not be empty.');
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->findSingleByWhereClause([]);
     }
 
@@ -355,13 +352,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findOneByKeyFromCacheForEmptyKeyThrowsException(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$key must not be empty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$key must not be empty.');
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->findOneByKeyFromCache('', 'bar');
     }
 
@@ -370,12 +364,8 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findOneByKeyFromCacheForInexistentKeyThrowsException(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '"foo" is not a valid key for this mapper.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('"foo" is not a valid key for this mapper.');
 
         $this->subject->findOneByKeyFromCache('foo', 'bar');
     }
@@ -385,13 +375,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findOneByKeyFromCacheForEmptyValueThrowsException(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$value must not be empty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$value must not be empty.');
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->findOneByKeyFromCache('title', '');
     }
 
@@ -410,13 +397,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findOneByKeyForEmptyKeyThrowsException(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$key must not be empty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$key must not be empty.');
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->findOneByKey('', 'bar');
     }
 
@@ -440,13 +424,10 @@ class AbstractDataMapperTest extends UnitTestCase
      */
     public function findOneByKeyForEmptyValueThrowsException(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$value must not be empty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$value must not be empty.');
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->findOneByKey('title', '');
     }
 
@@ -469,6 +450,7 @@ class AbstractDataMapperTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->findOneByCompoundKeyFromCache('');
     }
 
@@ -489,6 +471,7 @@ class AbstractDataMapperTest extends UnitTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->findOneByCompoundKey([]);
     }
 

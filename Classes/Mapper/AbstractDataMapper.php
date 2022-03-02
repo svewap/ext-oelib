@@ -27,13 +27,12 @@ abstract class AbstractDataMapper
     protected $tableName;
 
     /**
-     * @var class-string<M> the model class name for this mapper, must not be empty
+     * @var class-string<M> the model class name for this mapper
      */
     protected $modelClassName;
 
     /**
-     * @var non-empty-string a comma-separated list of DB column names to retrieve or "*" for all columns,
-     *      must not be empty
+     * @var non-empty-string a comma-separated list of DB column names to retrieve or "*" for all columns
      */
     protected $columns = '*';
 
@@ -209,9 +208,8 @@ abstract class AbstractDataMapper
      * Retrieves a model based on the WHERE clause given in the parameter
      * $whereClauseParts. Hidden records will be retrieved as well.
      *
-     * @param array<string, string|int> $whereClauseParts
-     *        WHERE clause parts for the record to retrieve, each element must
-     *        consist of a column name as key and a value to search for as value
+     * @param non-empty-array<string, string|int> $whereClauseParts WHERE clause parts for the record to retrieve,
+     *        each element must consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
      *
      * @return M the model
@@ -220,6 +218,7 @@ abstract class AbstractDataMapper
      */
     protected function findSingleByWhereClause(array $whereClauseParts): AbstractModel
     {
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if (empty($whereClauseParts)) {
             throw new \InvalidArgumentException('The parameter $whereClauseParts must not be empty.', 1331319506);
         }
@@ -382,7 +381,7 @@ abstract class AbstractDataMapper
     /**
      * Retrieves the configuration of a relation from the TCA.
      *
-     * @param string $key the key of the relation to retrieve, must not be empty
+     * @param non-empty-string $key the key of the relation to retrieve
      *
      * @return array<string, string> configuration for that relation, will not be empty if the TCA is valid
      *
@@ -406,7 +405,7 @@ abstract class AbstractDataMapper
      * Checks whether the relation is configured in the TCA to be an 1:n
      * relation.
      *
-     * @param string $key key of the relation, must not be empty
+     * @param non-empty-string $key key of the relation
      *
      * @return bool TRUE if the relation is an 1:n relation, FALSE otherwise
      */
@@ -422,7 +421,7 @@ abstract class AbstractDataMapper
      * Checks whether the relation is configured in the TCA to be an n:1
      * relation.
      *
-     * @param string $key key of the relation, must not be empty
+     * @param non-empty-string $key key of the relation
      *
      * @return bool TRUE if the relation is an n:1 relation, FALSE otherwise
      */
@@ -441,7 +440,7 @@ abstract class AbstractDataMapper
      * Checks whether there is a table for an m:n relation configured in the
      * TCA.
      *
-     * @param string $key key of the relation, must not be empty
+     * @param non-empty-string $key key of the relation
      *
      * @return bool TRUE if the relation's configuration provides an m:n table, FALSE otherwise
      */
@@ -452,6 +451,9 @@ abstract class AbstractDataMapper
         return isset($relationConfiguration['MM']);
     }
 
+    /**
+     * @param non-empty-string $key
+     */
     private function possiblyAllowsMultipleSelectionByType(string $key): bool
     {
         $relationConfiguration = $this->getRelationConfigurationFromTca($key);
@@ -468,9 +470,10 @@ abstract class AbstractDataMapper
      * Creates an 1:n relation using foreign field mapping.
      *
      * @param array<string, mixed> $data the model data to process, will be modified
-     * @param string $key the key of the data item for which the relation should be created,
-     *        must not be empty
+     * @param non-empty-string $key the key of the data item for which the relation should be created
      * @param M $model the model to create the relation for
+     *
+     * @throws \UnexpectedValueException
      */
     private function createOneToManyRelation(array &$data, string $key, AbstractModel $model): void
     {
@@ -485,8 +488,11 @@ abstract class AbstractDataMapper
             }
 
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
-            $foreignTable = $relationConfiguration['foreign_table'];
-            $foreignField = $relationConfiguration['foreign_field'];
+            $foreignTable = (string)($relationConfiguration['foreign_table'] ?? '');
+            if ($foreignTable === '') {
+                throw new \UnexpectedValueException('"foreign_table" is missing in the TCA.', 1646234422);
+            }
+            $foreignField = (string)($relationConfiguration['foreign_field'] ?? '');
             if (!empty($relationConfiguration['foreign_sortby'])) {
                 $sortingField = $relationConfiguration['foreign_sortby'];
             } elseif (!empty($relationConfiguration['foreign_default_sortby'])) {
@@ -557,7 +563,7 @@ abstract class AbstractDataMapper
      * relations yet.
      *
      * @param array<string, mixed> $data the model data to process, will be modified
-     * @param string $key the key of the data item for which the relation should be created, must not be empty
+     * @param non-empty-string $key the key of the data item for which the relation should be created
      * @param M $model the model to create the relation for
      */
     private function createMToNRelation(array &$data, string $key, AbstractModel $model): void
@@ -568,7 +574,10 @@ abstract class AbstractDataMapper
         if ((int)$data[$key] > 0) {
             $mapper = MapperRegistry::get($this->relations[$key]);
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
-            $mnTable = $relationConfiguration['MM'];
+            $mnTable = (string)($relationConfiguration['MM'] ?? '');
+            if ($mnTable === '') {
+                throw new \UnexpectedValueException('MM relation information missing.', 1646236363);
+            }
 
             $rightUid = (int)$data['uid'];
             if (isset($relationConfiguration['MM_opposite_field'])) {
@@ -901,7 +910,11 @@ abstract class AbstractDataMapper
             }
 
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
-            $mnTable = $relationConfiguration['MM'];
+            $mnTable = (string)($relationConfiguration['MM'] ?? '');
+            if ($mnTable === '') {
+                throw new \UnexpectedValueException('MM relation information missing.', 1646236349);
+            }
+
             $columnName = isset($relationConfiguration['MM_opposite_field']) ? 'uid_foreign' : 'uid_local';
             $this->getConnectionForTable($mnTable)->delete($mnTable, [$columnName => $model->getUid()]);
         }
@@ -923,7 +936,10 @@ abstract class AbstractDataMapper
 
             $sorting = 0;
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
-            $mnTable = $relationConfiguration['MM'];
+            $mnTable = (string)($relationConfiguration['MM'] ?? '');
+            if ($mnTable === '') {
+                throw new \UnexpectedValueException('MM relation information missing.', 1646236298);
+            }
 
             /** @var AbstractModel $relatedModel */
             foreach ($data[$key] as $relatedModel) {
@@ -962,9 +978,9 @@ abstract class AbstractDataMapper
                 continue;
             }
 
-            $relationConfiguration =
-                $this->getRelationConfigurationFromTca($key);
-            if (!isset($relationConfiguration['foreign_field'])) {
+            $relationConfiguration = $this->getRelationConfigurationFromTca($key);
+            $foreignField = (string)($relationConfiguration['foreign_field'] ?? '');
+            if ($foreignField === '') {
                 throw new \BadMethodCallException(
                     'The relation ' . $this->getTableName() . ':' . $key . ' is missing the "foreign_field" setting.',
                     1331319719
@@ -972,7 +988,6 @@ abstract class AbstractDataMapper
             }
 
             $relatedMapper = MapperRegistry::get($relation);
-            $foreignField = $relationConfiguration['foreign_field'];
             if (\strncmp($foreignField, 'tx_', 3) === 0) {
                 $foreignKey = ucfirst(preg_replace('/tx_[a-z]+_/', '', $foreignField));
             } else {
@@ -1016,7 +1031,7 @@ abstract class AbstractDataMapper
     /**
      * Returns the record data for an intermediate m:n-relation record.
      *
-     * @param string $mnTable the name of the intermediate m:n-relation table
+     * @param non-empty-string $mnTable the name of the intermediate m:n-relation table
      * @param int $uidLocal the UID of the local record
      * @param int $uidForeign the UID of the foreign record
      * @param int $sorting the sorting of the intermediate m:n-relation record
@@ -1215,8 +1230,8 @@ abstract class AbstractDataMapper
      * When this function reports "no match", the model could still exist in the
      * database, though.
      *
-     * @param string $key an existing key, must not be empty
-     * @param string $value the value for the key of the model to find, must not be empty
+     * @param non-empty-string $key an existing key
+     * @param non-empty-string $value the value for the key of the model to find, must not be empty
      *
      * @return M the cached model
      *
@@ -1225,12 +1240,14 @@ abstract class AbstractDataMapper
      */
     protected function findOneByKeyFromCache(string $key, string $value): AbstractModel
     {
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1416847364);
         }
         if (!isset($this->cacheByKey[$key])) {
             throw new \InvalidArgumentException('"' . $key . '" is not a valid key for this mapper.', 1331319882);
         }
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if ($value === '') {
             throw new \InvalidArgumentException('$value must not be empty.', 1331319892);
         }
@@ -1248,7 +1265,7 @@ abstract class AbstractDataMapper
      * When this function reports "no match", the model could still exist in the
      * database, though.
      *
-     * @param string $value the value for the compound key of the model to find, must not be empty
+     * @param non-empty-string $value the value for the compound key of the model to find
      *
      * @return M the cached model
      *
@@ -1257,6 +1274,7 @@ abstract class AbstractDataMapper
      */
     public function findOneByCompoundKeyFromCache(string $value): AbstractModel
     {
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if ($value === '') {
             throw new \InvalidArgumentException('$value must not be empty.', 1331319992);
         }
@@ -1346,8 +1364,8 @@ abstract class AbstractDataMapper
      * This function will first check the cache-by-key and, if there is no match,
      * will try to find the model in the database.
      *
-     * @param string $key an existing key, must not be empty
-     * @param string $value the value for the key of the model to find, must not be empty
+     * @param non-empty-string $key an existing key
+     * @param non-empty-string $value the value for the key of the model to find
      *
      * @return M the cached model
      *
@@ -1370,7 +1388,7 @@ abstract class AbstractDataMapper
      * This function will first check the cache-by-key and, if there is no match,
      * will try to find the model in the database.
      *
-     * @param array<string, string> $compoundKeyValues
+     * @param non-empty-array<string, string> $compoundKeyValues
      *        existing key value pairs, must not be empty
      *        The array must have all the keys that are set in the additionalCompoundKey array.
      *        The array values contain the model data with which to look up.
@@ -1382,6 +1400,7 @@ abstract class AbstractDataMapper
      */
     public function findOneByCompoundKey(array $compoundKeyValues): AbstractModel
     {
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if (empty($compoundKeyValues)) {
             throw new \InvalidArgumentException(
                 \get_class($this) . '::compoundKeyValues must not be empty.',
@@ -1401,12 +1420,12 @@ abstract class AbstractDataMapper
     /**
      * Extracting the key value from model data.
      *
-     * @param array<string, string> $compoundKeyValues
+     * @param non-empty-array<string, string> $compoundKeyValues
      *        existing key value pairs, must not be empty
      *        The array must have all the keys that are set in the additionalCompoundKey array.
      *        The array values contain the model data with which to look up.
      *
-     * @return string Contains the values for the compound key parts concatenated with a dot.
+     * @return non-empty-string Contains the values for the compound key parts concatenated with a dot.
      *
      * @throws \InvalidArgumentException
      */
@@ -1423,14 +1442,17 @@ abstract class AbstractDataMapper
             $values[] = $compoundKeyValues[$key];
         }
 
-        return implode('.', $values);
+        /** @var non-empty-string $result */
+        $result = \implode('.', $values);
+
+        return $result;
     }
 
     /**
      * Finds all records that are related to $model via the field $key.
      *
      * @param AbstractModel $model the model to which the matches should be related
-     * @param string $relationKey the key of the field in the matches that should contain the UID of $model
+     * @param non-empty-string $relationKey the key of the field in the matches that should contain the UID of $model
      * @param Collection<AbstractModel>|null $ignoreList related records that should _not_ be returned
      *
      * @return Collection<M> the related models, will be empty if there are no matches
@@ -1443,6 +1465,7 @@ abstract class AbstractDataMapper
         if (!$model->hasUid()) {
             throw new \InvalidArgumentException('$model must have a UID.', 1331319915);
         }
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if ($relationKey === '') {
             throw new \InvalidArgumentException('$relationKey must not be empty.', 1331319921);
         }
@@ -1508,7 +1531,7 @@ abstract class AbstractDataMapper
     }
 
     /**
-     * @param string $tableName
+     * @param non-empty-string $tableName
      *
      * @return Connection
      */
@@ -1526,7 +1549,7 @@ abstract class AbstractDataMapper
     }
 
     /**
-     * @param string $tableName
+     * @param non-empty-string $tableName
      *
      * @return QueryBuilder
      */

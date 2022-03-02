@@ -30,8 +30,7 @@ class CountryMapper extends AbstractDataMapper
     /**
      * Finds a country by its ISO 3166-1 alpha-2 code.
      *
-     * @param string $isoAlpha2Code
-     *        the ISO 3166-1 alpha-2 code to find, must not be empty
+     * @param non-empty-string $isoAlpha2Code the ISO 3166-1 alpha-2 code to find
      *
      * @return Country the country
      *
@@ -48,8 +47,7 @@ class CountryMapper extends AbstractDataMapper
     /**
      * Finds a country by its ISO 3166-1 alpha-3 code.
      *
-     * @param string $isoAlpha3Code
-     *        the ISO 3166-1 alpha-3 code to find, must not be empty
+     * @param non-empty-string $isoAlpha3Code the ISO 3166-1 alpha-3 code to find
      *
      * @return Country the country
      *

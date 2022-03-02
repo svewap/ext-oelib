@@ -30,7 +30,7 @@ class CurrencyMapper extends AbstractDataMapper
     /**
      * Finds a language by its ISO 4217 alpha-3 code.
      *
-     * @param string $isoAlpha3Code the ISO 4217 alpha-3 code to find, must not be empty
+     * @param non-empty-string $isoAlpha3Code the ISO 4217 alpha-3 code to find
      *
      * @return Currency the currency
      *

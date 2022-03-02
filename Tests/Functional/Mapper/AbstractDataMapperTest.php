@@ -3462,6 +3462,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         /** @var TestingModel $model */
         $model = $this->subject->find($uid);
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         MapperRegistry::get(TestingChildMapper::class)->findAllByRelation($model, '');
     }
 

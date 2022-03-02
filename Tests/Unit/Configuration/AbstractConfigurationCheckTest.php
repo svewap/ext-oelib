@@ -21,6 +21,8 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
     {
         ConfigurationProxy::purgeInstances();
         unset($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'], $GLOBALS['BE_USER']);
+
+        parent::tearDown();
     }
 
     /**

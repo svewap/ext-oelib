@@ -39,7 +39,7 @@ class BackEndUserMapper extends AbstractDataMapper
      * Finds a back-end user by user name. Hidden user records will be retrieved
      * as well.
      *
-     * @param string $username username, case-insensitive, must not be empty
+     * @param non-empty-string $username username, case-insensitive, must not be empty
      *
      * @return BackEndUser model of the back-end user with the provided username
      *

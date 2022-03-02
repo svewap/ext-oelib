@@ -335,6 +335,7 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$value must not be empty.');
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->findByUserName('');
     }
 

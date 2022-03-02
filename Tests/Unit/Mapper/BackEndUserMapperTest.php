@@ -53,6 +53,7 @@ final class BackEndUserMapperTest extends UnitTestCase
         $this->expectExceptionMessage('$value must not be empty.');
         $this->expectExceptionCode(1331319892);
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->findByUserName('');
     }
 }

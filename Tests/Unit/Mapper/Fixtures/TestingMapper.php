@@ -80,9 +80,8 @@ class TestingMapper extends AbstractDataMapper
      * Retrieves a model based on the WHERE clause given in the parameter
      * $whereClauseParts. Hidden records will be retrieved as well.
      *
-     * @param array<string, string|int> $whereClauseParts
-     *        WHERE clause parts for the record to retrieve, each element must
-     *        consist of a column name as key and a value to search for as value
+     * @param non-empty-array<string, string|int> $whereClauseParts WHERE clause parts for the record to retrieve,
+     *        each element must consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
      *
      * @return AbstractModel
@@ -124,9 +123,8 @@ class TestingMapper extends AbstractDataMapper
      * When this function reports "no match", the model could still exist in the
      * database, though.
      *
-     * @param string $key an existing key, must not be empty
-     * @param string $value
-     *        the value for the key of the model to find, must not be empty
+     * @param non-empty-string $key an existing key
+     * @param non-empty-string $value the value for the key of the model to find
      *
      * @return AbstractModel the cached model
      *

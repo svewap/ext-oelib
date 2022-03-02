@@ -10,6 +10,9 @@ use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * Repository for finding page records by UID.
+ */
 class PageRepository implements SingletonInterface
 {
     /**
@@ -64,6 +67,9 @@ class PageRepository implements SingletonInterface
         return $subpageUids;
     }
 
+    /**
+     * @param non-empty-string $tableName
+     */
     private function getQueryBuilderForTable(string $tableName): QueryBuilder
     {
         return $this->getConnectionPool()->getQueryBuilderForTable($tableName);

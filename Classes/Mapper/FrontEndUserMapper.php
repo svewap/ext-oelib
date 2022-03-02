@@ -42,15 +42,11 @@ class FrontEndUserMapper extends AbstractDataMapper
      * Finds a front-end user by user name. Hidden user records will be
      * retrieved as well.
      *
-     * @param string $userName
-     *        user name, case-insensitive, must not be empty
+     * @param non-empty-string $userName user name, case-insensitive
      *
-     * @return FrontEndUser
-     *         model of the front-end user with the provided user name
+     * @return FrontEndUser model of the front-end user with the provided user name
      *
-     * @throws NotFoundException
-     *         if there is no front-end user with the provided user name in the
-     *         database
+     * @throws NotFoundException if there is no front-end user with the provided user name in the database
      */
     public function findByUserName(string $userName): FrontEndUser
     {

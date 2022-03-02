@@ -36,7 +36,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 final class TestingFramework
 {
     /**
-     * @var int
+     * @var positive-int
      */
     private const AUTO_INCREMENT_THRESHOLD_WITHOUT_ROOTLINE_CACHE = 100;
 
@@ -44,7 +44,7 @@ final class TestingFramework
      * all system table names to which this instance of the testing framework
      * has access
      *
-     * @var array<int, string>
+     * @var array<int, non-empty-string>
      */
     private const ALLOWED_SYSTEM_TABLES = [
         'be_users',
@@ -80,7 +80,7 @@ final class TestingFramework
     private static $tableColumnCache = [];
 
     /**
-     * @var array<string, array> cache for the results of existsTable with the table names
+     * @var array<non-empty-string, array> cache for the results of existsTable with the table names
      *            as keys and the table SHOW STATUS information (in an array)
      *            as values
      */
@@ -95,9 +95,9 @@ final class TestingFramework
      * prefix of the extension for which this instance of the testing framework
      * was instantiated (e.g. "tx_seminars")
      *
-     * @var string
+     * @var non-empty-string
      */
-    private $tablePrefix = '';
+    private $tablePrefix;
 
     /**
      * prefixes of additional extensions to which this instance of the testing
@@ -110,7 +110,7 @@ final class TestingFramework
     /**
      * all own DB table names to which this instance of the testing framework has access
      *
-     * @var string[]
+     * @var array<int, non-empty-string>
      */
     private $ownAllowedTables = [];
 
@@ -122,10 +122,10 @@ final class TestingFramework
     private $additionalAllowedTables = [];
 
     /**
-     * all "dirty" non-system tables (i.e. all tables that were used for testing
+     * all "dirty" non-system tables (i.e., all tables that were used for testing
      * and need to be cleaned up)
      *
-     * @var string[]
+     * @var array<string, non-empty-string>
      */
     private $dirtyTables = [];
 
@@ -133,7 +133,7 @@ final class TestingFramework
      * all "dirty" system tables (i.e. all tables that were used for testing and
      * need to be cleaned up)
      *
-     * @var string[]
+     * @var array<string, non-empty-string>
      */
     private $dirtySystemTables = [];
 
@@ -225,7 +225,8 @@ final class TestingFramework
      *
      * Instantiating this class sets all core caches in order to avoid errors about not registered caches.
      *
-     * @param string $tablePrefix table name prefix of the extension for this instance of the testing framework
+     * @param non-empty-string $tablePrefix table name prefix of the extension
+     *        for this instance of the testing framework
      * @param array<int, string> $additionalTablePrefixes additional table name prefixes of the extensions for which
      *        this instance of the testing framework should be used, may be empty
      */
@@ -270,7 +271,7 @@ final class TestingFramework
      * Should there be any problem creating the record (wrong table name or a
      * problem with the database), 0 instead of a valid UID will be returned.
      *
-     * @param string $table the name of the table on which the record should be created, must not be empty
+     * @param non-empty-string $table the name of the table on which the record should be created
      * @param array<string, string|int|bool> $recordData data to save in the new record, may be empty,
      *        but must not contain the key "uid"
      *
@@ -300,7 +301,7 @@ final class TestingFramework
      * Should there be any problem creating the record (wrong table name or a
      * problem with the database), 0 instead of a valid UID will be returned.
      *
-     * @param string $table the name of the table on which the record should be created, must not be empty
+     * @param non-empty-string $table the name of the table on which the record should be created
      * @param array<string, string|int|bool> $rawData data to save, may be empty, but must not contain the key "uid"
      *
      * @return int the UID of the new record, will be > 0
@@ -337,7 +338,7 @@ final class TestingFramework
     }
 
     /**
-     * @param string $tableName
+     * @param non-empty-string $tableName
      *
      * @return Connection
      */
@@ -347,7 +348,7 @@ final class TestingFramework
     }
 
     /**
-     * @param string $tableName
+     * @param non-empty-string $tableName
      *
      * @return QueryBuilder
      */
@@ -557,8 +558,8 @@ final class TestingFramework
      * must not contain a new UID for the record. If you need to change the UID,
      * you have to create a new record!
      *
-     * @param string $table the name of the table, must not be empty
-     * @param int $uid the UID of the record to change, must not be empty
+     * @param non-empty-string $table the name of the table
+     * @param int $uid the UID of the record to change
      * @param array<string, string|int|bool|float> $rawData the values to be changed as key-value pairs
      *
      * @throws \InvalidArgumentException
@@ -609,7 +610,7 @@ final class TestingFramework
      * Creates a relation between two records on different tables (so called
      * m:n relation).
      *
-     * @param string $table name of the m:n table to which the record should be added, must not be empty
+     * @param non-empty-string $table name of the m:n table to which the record should be added
      * @param int $uidLocal UID of the local table, must be > 0
      * @param int $uidForeign UID of the foreign table, must be > 0
      *
@@ -645,10 +646,10 @@ final class TestingFramework
      * Creates a relation between two records based on the rules defined in TCA
      * regarding the relation.
      *
-     * @param string $tableName name of the table from which a relation should be created, must not be empty
+     * @param non-empty-string $tableName name of the table from which a relation should be created
      * @param int $uidLocal UID of the record in the local table, must be > 0
      * @param int $uidForeign UID of the record in the foreign table, must be > 0
-     * @param string $columnName name of the column in which the relation counter should be updated, must not be empty
+     * @param non-empty-string $columnName name of the column in which the relation counter should be updated
      *
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
@@ -711,7 +712,7 @@ final class TestingFramework
     /**
      * Returns the TCA for a certain table.
      *
-     * @param string $tableName the table name to look up, must not be empty
+     * @param non-empty-string $tableName the table name to look up
      *
      * @return array<array> associative array with the TCA description for this table
      */
@@ -814,7 +815,7 @@ final class TestingFramework
     /**
      * Checks whether a table has a column "uid".
      *
-     * @param string $table the name of the table to check, must not be empty
+     * @param non-empty-string $table the name of the table to check
      *
      * @return bool
      */
@@ -826,8 +827,8 @@ final class TestingFramework
     /**
      * Checks whether a table has a column with a particular name.
      *
-     * @param string $table the name of the table to check, must not be empty
-     * @param string $column the column name to check, must not be empty
+     * @param non-empty-string $table the name of the table to check
+     * @param string $column the column name to check
      *
      * @return bool
      */
@@ -848,7 +849,7 @@ final class TestingFramework
      * If the column data for that table already is cached, this function does
      * nothing.
      *
-     * @param string $table the name of the table for which the column names should be retrieved, must not be empty
+     * @param non-empty-string $table the name of the table for which the column names should be retrieved
      */
     private function retrieveColumnsForTable(string $table): void
     {
@@ -894,12 +895,11 @@ final class TestingFramework
      * Creates an empty dummy file with a unique file name in the calling
      * extension's upload directory.
      *
-     * @param string $fileName
-     *        path of the dummy file to create, relative to the calling extension's upload directory, must not be empty
-     * @param string $content
-     *        content for the file to create, may be empty
+     * @param non-empty-string $fileName path of the dummy file to create,
+     *        relative to the calling extension's upload directory
+     * @param string $content content for the file to create, may be empty
      *
-     * @return non-empty-string the absolute path of the created dummy file, will not be empty
+     * @return non-empty-string the absolute path of the created dummy file
      *
      * @throws \RuntimeException
      *
@@ -934,7 +934,7 @@ final class TestingFramework
     /**
      * Deletes the dummy file specified by the first parameter $fileName.
      *
-     * @param string $fileName the path to the file to delete relative to $this->uploadFolderPath, must not be empty
+     * @param non-empty-string $fileName the path to the file to delete relative to $this->uploadFolderPath
      *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
@@ -964,10 +964,9 @@ final class TestingFramework
      * Creates a dummy folder with a unique folder name in the calling
      * extension's upload directory.
      *
-     * @param string $folderName name of the dummy folder to create relative to $this->uploadFolderPath, must not be
-     *     empty
+     * @param non-empty-string $folderName name of the dummy folder to create relative to `$this->uploadFolderPath`
      *
-     * @return non-empty-string the absolute path of the created dummy folder, will not be empty
+     * @return non-empty-string the absolute path of the created dummy folder
      *
      * @throws \RuntimeException
      */
@@ -980,9 +979,7 @@ final class TestingFramework
             throw new \RuntimeException('The folder ' . $uniqueFolderName . ' could not be created.', 1331490619);
         }
 
-        $relativeUniqueFolderName = $this->getPathRelativeToUploadDirectory(
-            $uniqueFolderName
-        );
+        $relativeUniqueFolderName = $this->getPathRelativeToUploadDirectory($uniqueFolderName);
 
         // Adds the created dummy folder to the top of $this->dummyFolders so
         // it gets deleted before previously created folders through
@@ -996,7 +993,7 @@ final class TestingFramework
      * Deletes the dummy folder specified in the first parameter $folderName.
      * The folder must be empty (no files or subfolders).
      *
-     * @param string $folderName the path to the folder to delete relative to $this->uploadFolderPath, must not be empty
+     * @param non-empty-string $folderName the path to the folder to delete relative to $this->uploadFolderPath
      *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
@@ -1118,8 +1115,7 @@ final class TestingFramework
     /**
      * Returns a unique absolute path of a file or folder.
      *
-     * @param string $path the path of a file or folder relative to the calling extension's upload directory,
-     *                     must not be empty
+     * @param non-empty-string $path the path of a file or folder relative to the calling extension's upload directory
      *
      * @return non-empty-string the unique absolute path of a file or folder
      *
@@ -1127,6 +1123,7 @@ final class TestingFramework
      */
     private function getUniqueFileOrFolderPath(string $path): string
     {
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if ($path === '') {
             throw new \InvalidArgumentException('The first parameter $path must not be empty.', 1331490775);
         }
@@ -1511,13 +1508,15 @@ routes: {  }";
      * Returns a list of all table names that are available in the current
      * database.
      *
-     * @return string[] table names
+     * @return array<int, non-empty-string> table names
      */
     private function getAllTableNames(): array
     {
         $this->retrieveTableNames();
 
-        return \array_keys(self::$tableNameCache);
+        $tableNames = \array_keys(self::$tableNameCache);
+
+        return $tableNames;
     }
 
     /**
@@ -1533,10 +1532,9 @@ routes: {  }";
 
         $connection = $this->getConnectionPool()->getConnectionByName('Default');
         $queryResult = $connection->query('SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`');
-        /** @var array<string, array> $tableNames */
         $tableNames = [];
         foreach ($queryResult->fetchAll() as $tableInformation) {
-            /** @var string $tableName */
+            /** @var non-empty-string $tableName */
             $tableName = $tableInformation['Name'];
             $tableNames[$tableName] = $tableInformation;
         }
@@ -1601,7 +1599,7 @@ routes: {  }";
      * Checks whether the given table name is in the list of allowed tables for
      * this instance of the testing framework.
      *
-     * @param string $table the name of the table to check, must not be empty
+     * @param non-empty-string $table the name of the table to check
      *
      * @return bool TRUE if the name of the table is in the list of
      *                 allowed tables, FALSE otherwise
@@ -1615,7 +1613,7 @@ routes: {  }";
      * Checks whether the given table name is in the list of additional allowed
      * tables for this instance of the testing framework.
      *
-     * @param string $table the name of the table to check, must not be empty
+     * @param non-empty-string $table the name of the table to check
      *
      * @return bool TRUE if the name of the table is in the list of
      *                 additional allowed tables, FALSE otherwise
@@ -1629,7 +1627,7 @@ routes: {  }";
      * Checks whether the given table name is in the list of allowed
      * system tables for this instance of the testing framework.
      *
-     * @param string $table the name of the table to check, must not be empty
+     * @param non-empty-string $table the name of the table to check
      *
      * @return bool TRUE if the name of the table is in the list of
      *                 allowed system tables, FALSE otherwise
@@ -1643,7 +1641,7 @@ routes: {  }";
      * Checks whether the given table name is in the list of allowed tables or
      * additional allowed tables for this instance of the testing framework.
      *
-     * @param string $table the name of the table to check, must not be empty
+     * @param non-empty-string $table the name of the table to check
      *
      * @return bool TRUE if the name of the table is in the list of
      *                 allowed tables or additional allowed tables, FALSE
@@ -1659,7 +1657,7 @@ routes: {  }";
      * Checks whether the given table name is in the list of allowed tables,
      * additional allowed tables or allowed system tables.
      *
-     * @param string $table the name of the table to check, must not be empty
+     * @param non-empty-string $table the name of the table to check
      *
      * @return bool TRUE if the name of the table is in the list of
      *                 allowed tables, additional allowed tables or allowed
@@ -1681,7 +1679,7 @@ routes: {  }";
      * prefix e.g. "tx_seminars_is_dummy_record" if $this->tablePrefix =
      * "tx_seminars".
      *
-     * @param string $table the table name to look up, must not be empty
+     * @param non-empty-string $table the table name to look up
      *
      * @return non-empty-string the name of the column that marks a record as dummy record
      */
@@ -1704,7 +1702,7 @@ routes: {  }";
      * Counts the dummy records in the table given by the first parameter $table
      * that match a given WHERE clause.
      *
-     * @param string $table the name of the table to query, must not be empty
+     * @param non-empty-string $table the name of the table to query
      * @param array<string, string|int|bool> $criteria key-value pairs to match
      *
      * @return int the number of records that have been found, will be >= 0
@@ -1737,13 +1735,14 @@ routes: {  }";
      * Checks whether there is a dummy record in the table given by the first
      * parameter $table that has the given UID.
      *
-     * @param string $table the name of the table to query, must not be empty
+     * @param non-empty-string $table the name of the table to query
      * @param int $uid the UID of the record to look up, must be > 0
      *
      * @return bool
      */
     public function existsRecordWithUid(string $table, int $uid): bool
     {
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if ($table === '') {
             throw new \InvalidArgumentException('$table must not be empty.', 1569785503);
         }
@@ -1770,8 +1769,7 @@ routes: {  }";
      * Eagerly resets the auto increment value for a given table to the highest
      * existing UID + 1.
      *
-     * @param string $table the name of the table on which we're going to reset the auto increment entry, must not be
-     *     empty
+     * @param non-empty-string $table the name of the table on which we're going to reset the auto increment entry
      *
      * @throws \InvalidArgumentException
      *
@@ -1812,8 +1810,7 @@ routes: {  }";
      * The threshold is 100 by default and can be set using
      * setResetAutoIncrementThreshold.
      *
-     * @param string $table the name of the table on which we're going to reset the auto increment entry, must not be
-     *     empty
+     * @param non-empty-string $table the name of the table on which we're going to reset the auto increment entry
      *
      * @see resetAutoIncrement
      */
@@ -1869,7 +1866,7 @@ routes: {  }";
      * has been checked to be non-empty, valid and pointing to an existing
      * database table that has the "uid" column.
      *
-     * @param string $table the name of an existing table that has the "uid" column
+     * @param non-empty-string $table the name of an existing table that has the "uid" column
      *
      * @return int the highest UID from this table, will be >= 0
      */
@@ -1887,8 +1884,7 @@ routes: {  }";
      * This function is only valid for tables that actually have an auto
      * increment value.
      *
-     * @param string $table the name of the table for which the auto increment value should be retrieved, must not be
-     *     empty
+     * @param non-empty-string $table the name of the table for which the auto increment value should be retrieved
      *
      * @return int the current auto_increment value of table $table, will be > 0
      *
@@ -1924,8 +1920,8 @@ routes: {  }";
      * represents a list of tables that were used for testing and contain dummy
      * records and thus are called "dirty" until the next clean up).
      *
-     * @param string $tableNames the table name or a comma-separated list of table names to put on the list of dirty
-     *        tables, must not be empty
+     * @param non-empty-string $tableNames the table name or a comma-separated list of table names
+     *        to put on the list of dirty tables
      *
      * @throws \InvalidArgumentException
      */
@@ -1959,7 +1955,7 @@ routes: {  }";
      *
      * @see https://bugs.oliverklee.com/show_bug.cgi?id=1423
      *
-     * @param string $table the relation table, must not be empty
+     * @param non-empty-string $table the relation table
      * @param int $uidLocal UID of the local table, must be > 0
      *
      * @return int the next sorting value to use (> 0)
@@ -1981,9 +1977,9 @@ routes: {  }";
      *
      * The field to update must be of type int.
      *
-     * @param string $tableName name of the table, must not be empty
+     * @param non-empty-string $tableName name of the table
      * @param int $uid the UID of the record to modify, must be > 0
-     * @param string $fieldName the field name of the field to modify, must not be empty
+     * @param non-empty-string $fieldName the field name of the field to modify
      *
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException

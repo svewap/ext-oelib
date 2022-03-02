@@ -8,6 +8,9 @@ use OliverKlee\Oelib\Domain\Model\GermanZipCode;
 use OliverKlee\Oelib\Domain\Repository\Traits\StoragePageAgnostic;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
+/**
+ * @extends Repository<GermanZipCode>
+ */
 class GermanZipCodeRepository extends Repository
 {
     use StoragePageAgnostic;

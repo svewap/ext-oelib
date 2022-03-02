@@ -36,7 +36,7 @@ class Tree
      * it has the value FALSE it will be invisible.
      * These elements represent leaves in the visibility tree.
      *
-     * @param array<string, array|bool> $treeStructure the tree structure in a nested array, may be empty
+     * @param array<string, array<string, mixed>|bool> $treeStructure the tree structure in a nested array, may be empty
      */
     public function __construct(array $treeStructure)
     {
@@ -48,7 +48,7 @@ class Tree
     /**
      * Builds the node tree from the given structure.
      *
-     * @param array<string, array|bool> $treeStructure the tree structure as array, may be empty
+     * @param array<string, array<string, mixed>|bool> $treeStructure the tree structure as array, may be empty
      * @param Node $parentNode the parent node for the current key
      */
     private function buildTreeFromArray(

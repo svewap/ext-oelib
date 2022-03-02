@@ -23,18 +23,19 @@ abstract class AbstractConfigurationCheck
     protected $configuration;
 
     /**
-     * @var string[]
+     * @var array<int, non-empty-string>
      */
     protected $warnings = [];
 
     /**
-     * @var string
+     * @var non-empty-string
      */
     private $namespace;
 
     /**
      * @param ConfigurationInterface $configurationToCheck the configuration to check
-     * @param string $typoScriptNamespace the TypoScript namespace of the configuration, e.g., `plugin.tx_oelib`
+     * @param non-empty-string $typoScriptNamespace the TypoScript namespace of the configuration,
+     *        e.g., `plugin.tx_oelib`
      */
     public function __construct(ConfigurationInterface $configurationToCheck, string $typoScriptNamespace)
     {
@@ -96,7 +97,7 @@ abstract class AbstractConfigurationCheck
     /**
      * Builds an HTML-safe, text-only overview of the given values.
      *
-     * @param string[] $values
+     * @param array<string|int, string> $values
      */
     protected function buildValueOverview(array $values): string
     {
@@ -134,7 +135,7 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
-     * @return string[]
+     * @return array<int, non-empty-string>
      */
     public function getWarningsAsHtml(): array
     {
@@ -158,6 +159,7 @@ abstract class AbstractConfigurationCheck
      * Sets the error message, consisting of `$explanation` and a request to change the TypoScript setup
      * variable `$key` (with the current TypoScript setup path prepended).
      *
+     * @param non-empty-string $key
      * @param string $explanation explanation, may contain HTML, will not be encoded
      */
     protected function addWarningAndRequestCorrection(string $key, string $explanation): void
@@ -172,6 +174,8 @@ abstract class AbstractConfigurationCheck
      * Builds the sentence start "The TypoScript setup variable $variable ", including the trailing space
      * and some HTML markup.
      *
+     * @param non-empty-string $key
+     *
      * @return non-empty-string
      */
     protected function buildWarningStartWithKey(string $key): string
@@ -183,6 +187,7 @@ abstract class AbstractConfigurationCheck
      * Builds the sentence start "The TypoScript setup variable $variable is set to the value $value, but only ",
      * including the trailing space and some HTML markup.
      *
+     * @param non-empty-string $key
      * @param string|int $value
      *
      * @return non-empty-string
@@ -196,9 +201,9 @@ abstract class AbstractConfigurationCheck
     /**
      * Retrieves the column names of a given DB table name.
      *
-     * @param string $tableName the name of an existing DB table (must not be empty, must exist)
+     * @param non-empty-string $tableName the name of an existing DB table (must not be empty, must exist)
      *
-     * @return string[] column names as values
+     * @return array<string|int, non-empty-string> column names as values
      */
     private function getDbColumnNames(string $tableName): array
     {
@@ -244,6 +249,9 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks that the value is non-empty and that the referenced file exists.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $description
      */
     protected function checkFileExists(string $key, string $description): bool
     {
@@ -269,6 +277,9 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks whether a configuration value contains a non-empty-string.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
      */
     protected function checkForNonEmptyString(string $key, string $explanation): bool
     {
@@ -286,7 +297,9 @@ abstract class AbstractConfigurationCheck
     /**
      * Checks whether a configuration value is non-empty and lies within a set of allowed values.
      *
-     * @param string[] $allowedValues allowed values (must not be empty)
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
+     * @param array<string|int, string> $allowedValues allowed values (must not be empty)
      */
     protected function checkIfSingleInSetNotEmpty(string $key, string $explanation, array $allowedValues): bool
     {
@@ -297,7 +310,9 @@ abstract class AbstractConfigurationCheck
     /**
      * Checks whether a configuration value either is empty or lies within a set of allowed values.
      *
-     * @param string[] $allowedValues allowed values (must not be empty)
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
+     * @param array<string|int, string> $allowedValues allowed values (must not be empty)
      */
     protected function checkIfSingleInSetOrEmpty(string $key, string $explanation, array $allowedValues): bool
     {
@@ -306,6 +321,9 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks whether a configuration value has a non-empty boolean value.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
      */
     protected function checkIfBoolean(string $key, string $explanation): bool
     {
@@ -314,6 +332,9 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks whether a configuration value has a non-negative integer value (or is empty).
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
      */
     protected function checkIfNonNegativeIntegerOrEmpty(string $key, string $explanation): bool
     {
@@ -334,6 +355,9 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks whether a configuration value has an non-negative integer value in the specified, inclusive range.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
      *
      * @throws \InvalidArgumentException
      */
@@ -360,6 +384,9 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks whether a configuration value has a non-negative integer.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
      */
     protected function checkIfPositiveInteger(string $key, string $explanation): bool
     {
@@ -369,6 +396,9 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks whether a configuration value has a non-negative integer value (or is empty).
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
      */
     protected function checkIfPositiveIntegerOrEmpty(string $key, string $explanation): bool
     {
@@ -392,6 +422,9 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks whether a configuration value has a non-negative integer value (or is empty).
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
      */
     protected function checkIfNonNegativeInteger(string $key, string $explanation): bool
     {
@@ -403,7 +436,9 @@ abstract class AbstractConfigurationCheck
      * Checks whether a configuration value is non-empty
      * and its comma-separated values lie within a set of allowed values.
      *
-     * @param string[] $allowedValues allowed values (must not be empty)
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
+     * @param array<string|int, string> $allowedValues allowed values (must not be empty)
      */
     protected function checkIfMultiInSetNotEmpty(string $key, string $explanation, array $allowedValues): bool
     {
@@ -415,7 +450,9 @@ abstract class AbstractConfigurationCheck
      * Checks whether a configuration value either is empty
      * or its comma-separated values lie within a set of allowed values.
      *
-     * @param string[] $allowedValues allowed values (must not be empty)
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
+     * @param array<string|int, string> $allowedValues allowed values (must not be empty)
      */
     protected function checkIfMultiInSetOrEmpty(string $key, string $explanation, array $allowedValues): bool
     {
@@ -443,8 +480,11 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value is non-empty
-     * and is one of the column names of a given DB table.
+     * Checks whether a configuration value is non-empty and is one of the column names of a given DB table.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
+     * @param non-empty-string $tableName
      */
     public function checkIfSingleInTableColumnsNotEmpty(string $key, string $explanation, string $tableName): bool
     {
@@ -454,6 +494,10 @@ abstract class AbstractConfigurationCheck
     /**
      * Checks whether a configuration value either is empty
      * or is one of the column names of a given DB table.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
+     * @param non-empty-string $tableName
      */
     protected function checkIfSingleInTableColumnsOrEmpty(string $key, string $explanation, string $tableName): bool
     {
@@ -463,6 +507,10 @@ abstract class AbstractConfigurationCheck
     /**
      * Checks whether a configuration value is non-empty
      * and its comma-separated values is a column name of a given DB table.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
+     * @param non-empty-string $tableName
      */
     protected function checkIfMultiInTableColumnsNotEmpty(string $key, string $explanation, string $tableName): bool
     {
@@ -472,6 +520,10 @@ abstract class AbstractConfigurationCheck
     /**
      * Checks whether a configuration value either is empty
      * or its comma-separated values is a column name of a given DB table.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
+     * @param non-empty-string $tableName
      */
     protected function checkIfMultiInTableColumnsOrEmpty(string $key, string $explanation, string $tableName): bool
     {
@@ -493,6 +545,10 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks whether a configuration value matches the given regular expression.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
+     * @param non-empty-string $expression
      */
     protected function checkRegExp(string $key, string $explanation, string $expression): bool
     {
@@ -511,6 +567,9 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks whether a configuration value either is empty or contains a comma-separated list of integers.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
      */
     protected function checkIfIntegerListOrEmpty(string $key, string $explanation): bool
     {
@@ -519,6 +578,9 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks whether a configuration value is non-empty and contains a comma-separated list of integers.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
      */
     protected function checkIfIntegerListNotEmpty(string $key, string $explanation): bool
     {
@@ -528,6 +590,8 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks that an e-mail address is valid or empty.
+     *
+     * @param non-empty-string $key
      */
     public function checkIsValidEmailOrEmpty(string $key, string $explanation): bool
     {
@@ -548,6 +612,9 @@ abstract class AbstractConfigurationCheck
 
     /**
      * Checks that an e-mail address is valid and non-empty.
+     *
+     * @param non-empty-string $key
+     * @param non-empty-string $explanation
      */
     public function checkIsValidEmailNotEmpty(string $key, string $explanation): bool
     {

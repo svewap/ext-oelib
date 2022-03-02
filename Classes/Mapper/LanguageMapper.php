@@ -30,13 +30,11 @@ class LanguageMapper extends AbstractDataMapper
     /**
      * Finds a language by its ISO 639-1 alpha-2 code.
      *
-     * @param string $isoAlpha2Code
-     *        the ISO 639-1 alpha-2 code to find, must not be empty
+     * @param non-empty-string $isoAlpha2Code the ISO 639-1 alpha-2 code to find
      *
      * @return Language the language
      *
-     * @throws NotFoundException if there is no record with the
-     *                                     provided ISO 639-1 alpha-2 code
+     * @throws NotFoundException if there is no record with the provided ISO 639-1 alpha-2 code
      */
     public function findByIsoAlpha2Code(string $isoAlpha2Code): Language
     {

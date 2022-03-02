@@ -231,7 +231,9 @@ final class TestingFrameworkTest extends UnitTestCase
     public function deleteDummyFileDeletesCreatedDummyFile(): void
     {
         $dummyFile = $this->subject->createDummyFile();
-        $this->subject->deleteDummyFile(basename($dummyFile));
+        /** @var non-empty-string $basename */
+        $basename = \basename($dummyFile);
+        $this->subject->deleteDummyFile($basename);
 
         self::assertFileNotExists($dummyFile);
     }
@@ -246,7 +248,9 @@ final class TestingFrameworkTest extends UnitTestCase
         $dummyFile = $this->subject->createDummyFile();
         unlink($dummyFile);
 
-        $this->subject->deleteDummyFile(basename($dummyFile));
+        /** @var non-empty-string $basename */
+        $basename = \basename($dummyFile);
+        $this->subject->deleteDummyFile($basename);
     }
 
     /**
@@ -269,6 +273,7 @@ final class TestingFrameworkTest extends UnitTestCase
         vfsStream::setup('root/');
         $testFileUrl = vfsStream::url('root/test.txt');
 
+        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->deleteDummyFile($testFileUrl);
     }
 
