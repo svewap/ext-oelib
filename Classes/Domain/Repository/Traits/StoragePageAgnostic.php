@@ -11,10 +11,19 @@ use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
  */
 trait StoragePageAgnostic
 {
+    /**
+     * @var QuerySettingsInterface
+     */
+    private $querySettings;
+
+    public function injectQuerySettings(QuerySettingsInterface $querySettings): void
+    {
+        $this->querySettings = $querySettings;
+    }
+
     public function initializeObject(): void
     {
-        /** @var QuerySettingsInterface $querySettings */
-        $querySettings = $this->objectManager->get(QuerySettingsInterface::class);
+        $querySettings = clone $this->querySettings;
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }

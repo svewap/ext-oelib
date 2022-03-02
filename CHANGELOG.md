@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+Stop using the deprecated `ObjectManager` (#891)
 
 ## 4.1.3
 
