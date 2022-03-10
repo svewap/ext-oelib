@@ -210,8 +210,3 @@ parameters:
 			count: 1
 			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
 
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotSame\\(\\) with OliverKlee\\\\Oelib\\\\Templating\\\\Template and OliverKlee\\\\Oelib\\\\Templating\\\\Template will always evaluate to false\\.$#"
-			count: 2
-			path: Tests/Unit/Templating/TemplateRegistryTest.php
-
