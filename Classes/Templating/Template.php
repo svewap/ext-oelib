@@ -14,7 +14,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class Template
 {
     /**
-     * @var string the regular expression used to find subparts
+     * @var non-empty-string the regular expression used to find subparts
      */
     private const SUBPART_PATTERN = '/<!-- *###([A-Z0-9_]+)###.*-->(.*)<!-- *###\\1###.*-->/msU';
 
@@ -636,7 +636,7 @@ class Template
     protected function replaceSubparts(string $templateCode): string
     {
         $template = $this;
-        return preg_replace_callback(
+        return (string)\preg_replace_callback(
             self::SUBPART_PATTERN,
             static function (array $matches) use ($template): string {
                 return $template->getSubpart($matches[1]);

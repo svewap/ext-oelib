@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Mapper;
 
+use Doctrine\DBAL\Driver\ResultStatement;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\AbstractModel;
@@ -157,7 +158,7 @@ abstract class AbstractDataMapper
      * irrespective of the other provided data, otherwise the model will be
      * loaded with the provided data.
      *
-     * @param array<string, string|int> $data data for the model to return, must at least contain the UID
+     * @param array<string, string|int|float|null> $data data for the model to return, must at least contain the UID
      *
      * @return M model for the given UID, filled with data provided in case it did not have any data in memory before
      */
@@ -177,12 +178,10 @@ abstract class AbstractDataMapper
     }
 
     /**
-     * Returns a list of models for the provided two-dimensional array with
-     * model data.
+     * Returns a list of models for the provided two-dimensional array with model data.
      *
-     * @param array<array> $dataOfModels
-     *        two-dimensional array, each inner array must at least contain the
-     *        element "uid", may be empty
+     * @param array<string|int, array<string, float|int|string|null>> $dataOfModels two-dimensional array,
+     *        each inner array must at least contain the element "uid", may be empty
      *
      * @return Collection<M>
      *         Models with the UIDs provided. The models will be filled with the
@@ -330,7 +329,7 @@ abstract class AbstractDataMapper
      * This method must be called at most once per model instance.
      *
      * @param M $model the model to fill, needs to have a UID
-     * @param array<string, string|int> $data the model data to process as it comes from the DB
+     * @param array<string, string|int|float|null> $data the model data to process as it comes from the DB
      */
     private function fillModel(AbstractModel $model, array $data): void
     {
@@ -501,6 +500,7 @@ abstract class AbstractDataMapper
                 $sortingField = '';
             }
             $orderBy = $sortingField !== '' ? [$sortingField => 'ASC'] : [];
+            /** @var array<int, array<string, float|int|string|null>> $modelData */
             $modelData = $this->getConnectionForTable($foreignTable)
                 ->select(['*'], $foreignTable, [$foreignField => (int)$data['uid']], [], $orderBy)
                 ->fetchAll();
@@ -634,7 +634,12 @@ abstract class AbstractDataMapper
         foreach ($whereClauseParts as $identifier => $value) {
             $query->andWhere($query->expr()->eq($identifier, $query->createNamedParameter($value)));
         }
-        $data = $query->execute()->fetch();
+        $result = $query->execute();
+        if (!$result instanceof ResultStatement) {
+            throw new \UnexpectedValueException('Expected ResultStatement, got int instead.', 1646321598);
+        }
+
+        $data = $result->fetch();
         if ($data === false) {
             throw new NotFoundException(
                 'No records found in the table "' . $tableName . '" matching: ' . \json_encode($whereClauseParts)
@@ -989,9 +994,9 @@ abstract class AbstractDataMapper
 
             $relatedMapper = MapperRegistry::get($relation);
             if (\strncmp($foreignField, 'tx_', 3) === 0) {
-                $foreignKey = ucfirst(preg_replace('/tx_[a-z]+_/', '', $foreignField));
+                $foreignKey = \ucfirst((string)\preg_replace('/tx_[a-z]+_/', '', $foreignField));
             } else {
-                $foreignKey = ucfirst($foreignField);
+                $foreignKey = \ucfirst($foreignField);
             }
             $getter = 'get' . $foreignKey;
             $setter = 'set' . $foreignKey;
@@ -1196,7 +1201,12 @@ abstract class AbstractDataMapper
         $this->addPageUidRestriction($query, (string)$pageUids);
         $this->addOrdering($query, $sorting);
 
-        return $this->getListOfModels($query->execute()->fetchAll());
+        $result = $query->execute();
+        if (!$result instanceof ResultStatement) {
+            throw new \UnexpectedValueException('Expected ResultStatement, got int instead.', 1646321575);
+        }
+
+        return $this->getListOfModels($result->fetchAll());
     }
 
     /**
@@ -1290,7 +1300,7 @@ abstract class AbstractDataMapper
      * Puts a model in the cache-by-keys (if the model has any non-empty additional keys).
      *
      * @param M $model the model to cache
-     * @param array<string, string|int|float> $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string|int|float|null> $data the data of the model as it is in the DB, may be empty
      */
     private function cacheModelByKeys(AbstractModel $model, array $data): void
     {
@@ -1316,7 +1326,7 @@ abstract class AbstractDataMapper
      * cacheModelByCompoundKey instead. So this method primarily is here for backwards compatibility.
      *
      * @param M $model the model to cache
-     * @param array<string, string|int|float> $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string|int|float|null> $data the data of the model as it is in the DB, may be empty
      *
      * @see cacheModelByCompoundKey
      */
@@ -1332,7 +1342,7 @@ abstract class AbstractDataMapper
      * This method works automatically; it is not necessary to overwrite it.
      *
      * @param M $model the model to cache
-     * @param array<string, string|int|float> $data the data of the model as it is in the DB, may be empty
+     * @param array<string, string|int|float|null> $data the data of the model as it is in the DB, may be empty
      *
      * @throws \BadMethodCallException
      */
@@ -1477,14 +1487,18 @@ abstract class AbstractDataMapper
             $query->andWhere($query->expr()->notIn('uid', GeneralUtility::intExplode(',', $ignoreList->getUids())));
         }
 
-        return $this->getListOfModels($query->execute()->fetchAll());
+        $result = $query->execute();
+        if (!$result instanceof ResultStatement) {
+            throw new \UnexpectedValueException('Expected ResultStatement, got int instead.', 1646321551);
+        }
+
+        return $this->getListOfModels($result->fetchAll());
     }
 
     /**
      * Returns the number of records located on the given pages.
      *
-     * @param string $pageUids
-     *        comma-separated UIDs of the pages on which the records should be found, may be empty
+     * @param string $pageUids comma-separated UIDs of the pages on which the records should be found, may be empty
      *
      * @return int the number of records located on the given pages
      */
@@ -1492,8 +1506,12 @@ abstract class AbstractDataMapper
     {
         $query = $this->getQueryBuilder()->count('*')->from($this->getTableName());
         $this->addPageUidRestriction($query, $pageUids);
+        $result = $query->execute();
+        if (!$result instanceof ResultStatement) {
+            throw new \UnexpectedValueException('Expected ResultStatement, got int instead.', 1646321386);
+        }
 
-        return (int)$query->execute()->fetchColumn();
+        return (int)$result->fetchColumn();
     }
 
     /**
@@ -1511,7 +1529,7 @@ abstract class AbstractDataMapper
      *
      * @param non-empty-string $tableName the table name to look up
      *
-     * @return array[] associative array with the TCA description for this table
+     * @return array<string, array<string, array<string, array<string, string>>>> TCA description for this table
      */
     protected function getTcaForTable(string $tableName): array
     {

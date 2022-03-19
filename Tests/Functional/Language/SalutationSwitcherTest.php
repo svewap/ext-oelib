@@ -135,32 +135,26 @@ final class SalutationSwitcherTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function emptyKeyDefault(): void
+    public function translateForEmptyKeyInDefaultLanguageThrowsException(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$key must not be empty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$key must not be empty.');
 
         $this->subject->setLanguage('default');
+        // @phpstan-ignore-next-line We are explicitly checking for a contract violation here.
         $this->subject->translate('');
     }
 
     /**
      * @test
      */
-    public function emptyKeyDe(): void
+    public function translateForEmptyKeyInNonDefaultLanguageThrowsException(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$key must not be empty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$key must not be empty.');
 
         $this->subject->setLanguage('de');
+        // @phpstan-ignore-next-line We are explicitly checking for a contract violation here.
         $this->subject->translate('');
     }
 

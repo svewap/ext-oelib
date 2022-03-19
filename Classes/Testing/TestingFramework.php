@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Testing;
 
+use Doctrine\DBAL\Driver\ResultStatement;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\FrontEnd\UserWithoutCookies;
@@ -75,14 +76,13 @@ final class TestingFramework
      * cache for the results of hasTableColumn with the column names as keys and
      * the SHOW COLUMNS field information (in an array) as values
      *
-     * @var array<string, array<string, array>>
+     * @var array<string, array<string, array<string, string>>>
      */
     private static $tableColumnCache = [];
 
     /**
-     * @var array<non-empty-string, array> cache for the results of existsTable with the table names
-     *            as keys and the table SHOW STATUS information (in an array)
-     *            as values
+     * @var array<non-empty-string, array<string, string|int|null>> cache for the results of existsTable with the
+     *      table names as keys and the table SHOW STATUS information (in an array) as values
      */
     private static $tableNameCache = [];
 
@@ -714,7 +714,7 @@ final class TestingFramework
      *
      * @param non-empty-string $tableName the table name to look up
      *
-     * @return array<array> associative array with the TCA description for this table
+     * @return array<array<string, mixed>> associative array with the TCA description for this table
      */
     private function getTcaForTable(string $tableName): array
     {
@@ -860,8 +860,8 @@ final class TestingFramework
 
         $columns = [];
         $queryResult = $this->getConnectionForTable($table)->query('SHOW FULL COLUMNS FROM `' . $table . '`');
+        /** @var array<string, string> $fieldRow */
         foreach ($queryResult->fetchAll() as $fieldRow) {
-            /** @var string $field */
             $field = $fieldRow['Field'];
             $columns[$field] = $fieldRow;
         }
@@ -1538,6 +1538,7 @@ routes: {  }";
         $connection = $this->getConnectionPool()->getConnectionByName('Default');
         $queryResult = $connection->query('SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`');
         $tableNames = [];
+        /** @var array<string, string|int|null> $tableInformation */
         foreach ($queryResult->fetchAll() as $tableInformation) {
             /** @var non-empty-string $tableName */
             $tableName = $tableInformation['Name'];
@@ -1732,8 +1733,12 @@ routes: {  }";
         foreach ($allCriteria as $identifier => $value) {
             $query->andWhere($query->expr()->eq($identifier, $query->createNamedParameter($value)));
         }
+        $result = $query->execute();
+        if (!$result instanceof ResultStatement) {
+            throw new \UnexpectedValueException('Expected ResultStatement, got int instead.', 1646321756);
+        }
 
-        return (int)$query->execute()->fetchColumn();
+        return (int)$result->fetchColumn();
     }
 
     /**

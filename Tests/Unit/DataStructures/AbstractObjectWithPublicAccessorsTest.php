@@ -392,7 +392,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array>
+     * @return array<string, array{0: bool|int|string, 1: bool}>
      */
     public function booleanDataProvider(): array
     {
@@ -471,7 +471,7 @@ final class AbstractObjectWithPublicAccessorsTest extends UnitTestCase
     }
 
     /**
-     * @return array<string, array>
+     * @return array<string, array{0: float|string|int|bool, 1: float}>
      */
     public function floatDataProvider(): array
     {

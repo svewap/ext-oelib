@@ -85,12 +85,13 @@ abstract class SalutationSwitcher extends AbstractPlugin
      * If it doesn't exist, this functions tries to use the string with the key
      * 'greeting'.
      *
-     * @param string $key the local language key for which to return the value, must not be empty
+     * @param non-empty-string $key the local language key for which to return the value, must not be empty
      *
      * @return string the requested local language key, might be empty
      */
     public function translate(string $key): string
     {
+        // @phpstan-ignore-next-line We are explicitly checking for a contract violation here.
         if ($key === '') {
             throw new \InvalidArgumentException('$key must not be empty.', 1331489025);
         }
@@ -119,13 +120,19 @@ abstract class SalutationSwitcher extends AbstractPlugin
      * Retrieves the localized string for the local language key $key, using the
      * BE localization methods.
      *
-     * @param string $key the local language key for which to return the value, must not be empty
+     * @param non-empty-string $key the local language key for which to return the value
      *
      * @return string the requested local language key, might be empty
      */
     private function translateInBackEnd(string $key): string
     {
-        return $this->getLanguageService()->getLL($key);
+        $languageService = $this->getLanguageService();
+
+        if (!$languageService instanceof LanguageService) {
+            throw new \RuntimeException('No initialized language service.', 1646321243);
+        }
+
+        return $languageService->getLL($key);
     }
 
     /**
@@ -143,7 +150,7 @@ abstract class SalutationSwitcher extends AbstractPlugin
      * If it doesn't exist, this functions tries to use the string with the key
      * 'greeting'.
      *
-     * @param string $key the local language key for which to return the value, must not be empty
+     * @param non-empty-string $key the local language key for which to return the value, must not be empty
      *
      * @return string the requested local language key, might be empty
      */

@@ -104,23 +104,18 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithLoggedInUserReturnsBackEndUserInstance(): void
-    {
-        $this->logInBackEndUser();
-
-        self::assertInstanceOf(BackEndUser::class, $this->subject->getLoggedInUser());
-    }
-
-    /**
-     * @test
-     */
     public function getLoggedInUserWithLoggedInUserReturnsBackEndUserWithUidOfLoggedInUser(): void
     {
         $this->logInBackEndUser();
 
         $result = $this->subject->getLoggedInUser();
 
-        self::assertSame((int)$this->getBackEndUserAuthentication()->user['uid'], $result->getUid());
+        $userAuthentication = $this->getBackEndUserAuthentication();
+        self::assertIsArray($userAuthentication->user);
+        $expectedUid = (int)$userAuthentication->user['uid'];
+
+        self::assertInstanceOf(BackEndUser::class, $result);
+        self::assertSame($expectedUid, $result->getUid());
     }
 
     /**
@@ -130,8 +125,10 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     {
         $this->logInBackEndUser();
 
-        /** @var BackEndUser $user */
-        $user = $this->backEndUserMapper->find($this->getBackEndUserAuthentication()->user['uid']);
+        $userAuthentication = $this->getBackEndUserAuthentication();
+        self::assertIsArray($userAuthentication->user);
+        $user = $this->backEndUserMapper->find($userAuthentication->user['uid']);
+        self::assertInstanceOf(BackEndUser::class, $user);
 
         self::assertSame($user, $this->subject->getLoggedInUser());
     }

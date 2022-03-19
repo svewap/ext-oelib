@@ -408,6 +408,9 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
 
             $this->markAsLoading();
             $callback = $this->loadCallback;
+            if (!\is_callable($callback)) {
+                throw new \RuntimeException('Model load callback is not callable.', 1646325797);
+            }
             $callback($this);
         }
     }

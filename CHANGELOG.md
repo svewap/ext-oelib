@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix more PHPStan warnings (#902)
 
 ## 4.1.4
 

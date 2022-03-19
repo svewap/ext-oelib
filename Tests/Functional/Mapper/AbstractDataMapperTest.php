@@ -852,15 +852,13 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->disableDatabaseAccess();
 
         $relatedModel = $this->subject->getNewGhost();
-        /** @var TestingModel $model */
         $model = $this->subject->getLoadedTestingModel(
             ['friend' => $relatedModel->getUid()]
         );
 
-        self::assertSame(
-            $relatedModel->getUid(),
-            $model->getFriend()->getUid()
-        );
+        $friend = $model->getFriend();
+        self::assertInstanceOf(TestingModel::class, $friend);
+        self::assertSame($relatedModel->getUid(), $friend->getUid());
     }
 
     /////////////////////////////////////////////
@@ -896,12 +894,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
         );
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        /** @var TestingModel $model */
         $model = $this->subject->find($uid);
-        self::assertSame(
-            $friendUid,
-            $model->getFriend()->getUid()
-        );
+
+        self::assertInstanceOf(TestingModel::class, $model);
+        $friend = $model->getFriend();
+        self::assertInstanceOf(TestingModel::class, $friend);
+        self::assertSame($friendUid, $friend->getUid());
     }
 
     /**
@@ -954,13 +952,13 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['friend' => $friendUid]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        /** @var TestingModel $model */
         $model = $this->subject->find($uid);
-        $model->getFriend()->getTitle();
+        self::assertInstanceOf(TestingModel::class, $model);
+        $friend = $model->getFriend();
+        self::assertInstanceOf(TestingModel::class, $friend);
+        $friend->getTitle();
 
-        self::assertTrue(
-            $model->getFriend()->isLoaded()
-        );
+        self::assertTrue($friend->isLoaded());
     }
 
     /**
@@ -972,12 +970,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['friend' => $friendUid]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        /** @var TestingModel $model */
         $model = $this->subject->find($uid);
-        self::assertSame(
-            $friendUid,
-            $model->getFriend()->getUid()
-        );
+
+        self::assertInstanceOf(TestingModel::class, $model);
+        $friend = $model->getFriend();
+        self::assertInstanceOf(TestingModel::class, $friend);
+        self::assertSame($friendUid, $friend->getUid());
     }
 
     // Tests concerning the m:n mapping with a comma-separated list of UIDs
@@ -1550,9 +1548,12 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['friend' => $friendUid]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        /** @var TestingModel $model */
         $model = $this->subject->find($uid);
-        self::assertSame($friendTitle, $model->getFriend()->getTitle());
+
+        self::assertInstanceOf(TestingModel::class, $model);
+        $friend = $model->getFriend();
+        self::assertInstanceOf(TestingModel::class, $friend);
+        self::assertSame($friendTitle, $friend->getTitle());
     }
 
     // Tests concerning the m:n mapping with a comma-separated list of UIDs
@@ -2855,9 +2856,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
     {
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
 
-        self::assertTrue(
-            $this->subject->findAll()->first()->isLoaded()
-        );
+        $result = $this->subject->findAll()->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertTrue($result->isLoaded());
     }
 
     /**
@@ -2894,10 +2896,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $uid2 = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        self::assertSame(
-            min($uid1, $uid2),
-            $this->subject->findAll()->first()->getUid()
-        );
+        $result = $this->subject->findAll()->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame(\min($uid1, $uid2), $result->getUid());
     }
 
     /**
@@ -2909,10 +2911,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'record b']);
 
-        self::assertSame(
-            $uid,
-            $this->subject->findAll('title')->first()->getUid()
-        );
+        $result = $this->subject->findAll('title')->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame($uid, $result->getUid());
     }
 
     /**
@@ -2924,10 +2926,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'record a']);
 
-        self::assertSame(
-            $uid,
-            $this->subject->findAll('title DESC')->first()->getUid()
-        );
+        $result = $this->subject->findAll('title DESC')->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame($uid, $result->getUid());
     }
 
     /**
@@ -2951,10 +2953,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', []);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        self::assertSame(
-            $uid,
-            $this->subject->findByPageUid(0)->first()->getUid()
-        );
+        $result = $this->subject->findByPageUid(0)->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame($uid, $result->getUid());
     }
 
     /**
@@ -2965,10 +2967,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 42]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        self::assertSame(
-            $uid,
-            $this->subject->findByPageUid(0)->first()->getUid()
-        );
+        $result = $this->subject->findByPageUid(0)->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame($uid, $result->getUid());
     }
 
     /**
@@ -2979,10 +2981,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 42]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        self::assertSame(
-            $uid,
-            $this->subject->findByPageUid('')->first()->getUid()
-        );
+        $result = $this->subject->findByPageUid('')->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame($uid, $result->getUid());
     }
 
     /**
@@ -2993,10 +2995,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 1]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        self::assertSame(
-            $uid,
-            $this->subject->findByPageUid(1)->first()->getUid()
-        );
+        $result = $this->subject->findByPageUid(1)->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame($uid, $result->getUid());
     }
 
     /**
@@ -3021,10 +3023,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 2, 'sorting' => 1]);
         $firstMatchingRecord = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        self::assertSame(
-            $firstMatchingRecord,
-            $this->subject->findByPageUid(2, 'sorting ASC')->first()->getUid()
-        );
+        $result = $this->subject->findByPageUid(2, 'sorting ASC')->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame($firstMatchingRecord, $result->getUid());
     }
 
     /**
@@ -3035,10 +3037,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 1]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        self::assertSame(
-            $uid,
-            $this->subject->findByPageUid('1,2')->first()->getUid()
-        );
+        $result = $this->subject->findByPageUid('1,2')->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame($uid, $result->getUid());
     }
 
     /**
@@ -3049,10 +3051,10 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 2]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
-        self::assertSame(
-            $uid,
-            $this->subject->findByPageUid('1,2')->first()->getUid()
-        );
+        $result = $this->subject->findByPageUid('1,2')->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame($uid, $result->getUid());
     }
 
     /////////////////////////////////////

@@ -18,7 +18,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class TemplateHelper extends SalutationSwitcher
 {
     /**
-     * @var string the regular expression used to find subparts
+     * @var non-empty-string the regular expression used to find subparts
      */
     private const LABEL_PATTERN = '/###(LABEL_([A-Z0-9_]+))###/';
 
@@ -144,9 +144,14 @@ class TemplateHelper extends SalutationSwitcher
         bool $isFileName = false,
         bool $ignoreFlexform = false
     ): string {
-        $flexFormsData = $this->cObj->data['pi_flexform'] ?? null;
+        $contentObject = $this->cObj;
+        if (!$contentObject instanceof ContentObjectRenderer) {
+            throw new \RuntimeException('cObj is not set.', 1646325881);
+        }
+
+        $flexFormsData = $contentObject->data['pi_flexform'] ?? null;
         if (!$ignoreFlexform && \is_array($flexFormsData)) {
-            $flexFormsValue = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $fieldName, $sheet);
+            $flexFormsValue = $this->pi_getFFvalue($contentObject->data['pi_flexform'], $fieldName, $sheet);
         } else {
             $flexFormsValue = null;
         }
@@ -751,10 +756,12 @@ class TemplateHelper extends SalutationSwitcher
         $renderedSubpart = $this->getSubpart($subpartKey);
 
         $translator = $this;
-        return preg_replace_callback(
+        return (string)\preg_replace_callback(
             self::LABEL_PATTERN,
             static function (array $matches) use ($translator): string {
-                return $translator->translate(strtolower($matches[1]));
+                /** @var non-empty-string $key */
+                $key = \strtolower($matches[1]);
+                return $translator->translate($key);
             },
             $renderedSubpart
         );
