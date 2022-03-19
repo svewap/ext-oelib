@@ -176,6 +176,41 @@ class TemplateHelperTest extends UnitTestCase
     /**
      * @test
      */
+    public function getConfValueStringWithoutContentObjectReturnsSetValue(): void
+    {
+        $subject = new TestingTemplateHelper([]);
+        $subject->cObj = null;
+
+        $key = 'test';
+        $value = 'This is a test.';
+        $subject->setConfigurationValue($key, $value);
+
+        $result = $subject->getConfValueString($key);
+
+        self::assertSame($value, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function getConfValueStringWithoutFrontEndReturnsSetValue(): void
+    {
+        unset($GLOBALS['TSFE']);
+
+        $subject = new TestingTemplateHelper([]);
+
+        $key = 'test';
+        $value = 'This is a test.';
+        $subject->setConfigurationValue($key, $value);
+
+        $result = $subject->getConfValueString($key);
+
+        self::assertSame($value, $result);
+    }
+
+    /**
+     * @test
+     */
     public function getConfValueIntegerCastsStringToInt(): void
     {
         $this->subject->setConfigurationValue('test', '42');

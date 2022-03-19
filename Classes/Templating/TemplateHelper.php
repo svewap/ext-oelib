@@ -133,8 +133,8 @@ class TemplateHelper extends SalutationSwitcher
      * @param string $fieldName field name to extract
      * @param string $sheet sheet pointer, eg. "sDEF"
      * @param bool $isFileName whether this is a filename, which has to be combined with a path
-     * @param bool $ignoreFlexform
-     *        whether to ignore the flexform values and just get the settings from TypoScript, may be empty
+     * @param bool $ignoreFlexform whether to ignore the flexform values and just get the settings from TypoScript,
+     *        may be empty
      *
      * @return string the value of the corresponding flexforms or TypoScript setup entry (may be empty)
      */
@@ -144,9 +144,10 @@ class TemplateHelper extends SalutationSwitcher
         bool $isFileName = false,
         bool $ignoreFlexform = false
     ): string {
+        $configurationValueFromTypoScript = (string)($this->conf[$fieldName] ?? '');
         $contentObject = $this->cObj;
         if (!$contentObject instanceof ContentObjectRenderer) {
-            throw new \RuntimeException('cObj is not set.', 1646325881);
+            return $configurationValueFromTypoScript;
         }
 
         $flexFormsData = $contentObject->data['pi_flexform'] ?? null;
@@ -159,9 +160,8 @@ class TemplateHelper extends SalutationSwitcher
         if ($isFileName && $flexFormsValue !== null && $flexFormsValue !== '') {
             $flexFormsValue = $this->addPathToFileName($flexFormsValue);
         }
-        $confValue = (string)($this->conf[$fieldName] ?? '');
 
-        return $flexFormsValue ?: $confValue;
+        return $flexFormsValue ?: $configurationValueFromTypoScript;
     }
 
     /**
