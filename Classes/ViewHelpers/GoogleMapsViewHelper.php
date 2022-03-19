@@ -27,6 +27,8 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  * `tx_oelib_map_1` is the map ID which can be retrieved with the function getMapId.
  *
  * 42 is the UID of the corresponding map point.
+ *
+ * @deprecated will be removed in oelib 5.0
  */
 class GoogleMapsViewHelper extends AbstractViewHelper
 {
