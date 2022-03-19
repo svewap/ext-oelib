@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Harden `AbstractDataMapper::findByPageUid` (#911)
 - Fix more PHPStan warnings (#902)
 
 ## 4.1.4

@@ -3057,6 +3057,34 @@ class AbstractDataMapperTest extends FunctionalTestCase
         self::assertSame($uid, $result->getUid());
     }
 
+    /**
+     * @test
+     */
+    public function findByPageUidSilentlyIgnoresExtraneousCommas(): void
+    {
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 2]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
+        $result = $this->subject->findByPageUid(',1,2,,')->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame($uid, $result->getUid());
+    }
+
+    /**
+     * @test
+     */
+    public function findByPageUidSilentlyIgnoresNonIntegerStrings(): void
+    {
+        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['pid' => 2]);
+        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+
+        $result = $this->subject->findByPageUid('1,2,Club-Mate')->first();
+
+        self::assertInstanceOf(TestingModel::class, $result);
+        self::assertSame($uid, $result->getUid());
+    }
+
     /////////////////////////////////////
     // Tests concerning additional keys
     /////////////////////////////////////

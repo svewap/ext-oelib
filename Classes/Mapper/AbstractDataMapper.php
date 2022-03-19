@@ -1210,16 +1210,18 @@ abstract class AbstractDataMapper
     }
 
     /**
-     * @param QueryBuilder $query
+     * @param QueryBuilder $queryBuilder
      * @param string $pageUids comma-separated list of page UIDs
      */
-    protected function addPageUidRestriction(QueryBuilder $query, string $pageUids): void
+    protected function addPageUidRestriction(QueryBuilder $queryBuilder, string $pageUids): void
     {
         if (\in_array($pageUids, ['', '0', 0], true)) {
             return;
         }
 
-        $query->andWhere($query->expr()->in('pid', GeneralUtility::intExplode(',', $pageUids)));
+        $intUids = GeneralUtility::intExplode(',', $pageUids);
+        $pagesParameter = $queryBuilder->createNamedParameter($intUids, Connection::PARAM_INT_ARRAY);
+        $queryBuilder->andWhere($queryBuilder->expr()->in('pid', $pagesParameter));
     }
 
     /**
