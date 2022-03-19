@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Deprecate `GoogleMapsViewHelper` (#910)
 
 ### Removed
+- Drop the outdated SwiftMailer dependency (#913)
 
 ### Fixed
 - Harden `AbstractDataMapper::findByPageUid` (#911)
