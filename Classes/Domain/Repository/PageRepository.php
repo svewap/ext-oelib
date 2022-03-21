@@ -19,15 +19,16 @@ class PageRepository implements SingletonInterface
      * Recursively finds all pages within the given page, and returns them as a sorted list (including the provided
      * parent pages).
      *
-     * @param int[] $pageUids
-     * @param int $recursion
+     * @param array<array-key, positive-int> $pageUids
+     * @param int<0, max> $recursion
      *
-     * @return int[]
+     * @return array<int, positive-int>
      *
      * @throws \InvalidArgumentException
      */
     public function findWithinParentPages(array $pageUids, int $recursion = 0): array
     {
+        // @phpstan-ignore-next-line We are explicitly checking for contract violations here.
         if ($recursion < 0) {
             throw new \InvalidArgumentException('$recursion must be >= 0, but actually is: ' . $recursion, 1608389744);
         }
@@ -47,21 +48,22 @@ class PageRepository implements SingletonInterface
     }
 
     /**
-     * @param array<int, int> $pageUids
+     * @param array<array-key, positive-int> $pageUids
      *
-     * @return array<int, int>
+     * @return array<int, positive-int>
      */
     private function findDirectSubpages(array $pageUids): array
     {
         $query = $this->getQueryBuilderForTable('pages')->select('uid')->from('pages');
         $query->andWhere($query->expr()->in('pid', $pageUids));
 
-        /** @var array<int, int> $subpageUids */
         $subpageUids = [];
         $queryResult = $query->execute();
         if ($queryResult instanceof ResultStatement) {
             foreach ($queryResult->fetchAll() as $row) {
-                $subpageUids[] = (int)$row['uid'];
+                /** @var positive-int $uid */
+                $uid = (int)$row['uid'];
+                $subpageUids[] = $uid;
             }
         }
         return $subpageUids;

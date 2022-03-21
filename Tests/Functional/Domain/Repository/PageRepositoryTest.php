@@ -13,14 +13,14 @@ use OliverKlee\Oelib\Domain\Repository\PageRepository;
 class PageRepositoryTest extends FunctionalTestCase
 {
     /**
-     * @var array<int, string>
+     * @var array<int, non-empty-string>
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
      * @var PageRepository
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {
@@ -39,6 +39,7 @@ class PageRepositoryTest extends FunctionalTestCase
         $this->expectExceptionMessage('$recursion must be >= 0, but actually is: -1');
         $this->expectExceptionCode(1608389744);
 
+        // @phpstan-ignore-next-line We are explicitly testing the contract violation here.
         $this->subject->findWithinParentPages([], -1);
     }
 
@@ -53,7 +54,7 @@ class PageRepositoryTest extends FunctionalTestCase
     }
 
     /**
-     * @return array<int, array<int>>
+     * @return array<int, array{0: int}>
      */
     public function recursionDataProvider(): array
     {
@@ -71,13 +72,14 @@ class PageRepositoryTest extends FunctionalTestCase
      */
     public function findWithinParentPagesForEmptyArrayAndAnyRecursionReturnsEmptyArray(int $recursion): void
     {
+        // @phpstan-ignore-next-line We are explicitly testing the contract violation here.
         $result = $this->subject->findWithinParentPages([], $recursion);
 
         self::assertSame([], $result);
     }
 
     /**
-     * @return array<string, array<array<int>>>
+     * @return array<string, array<int, array<int, positive-int>>>
      */
     public function pagesWithoutSubpagesDataProvider(): array
     {
@@ -93,7 +95,7 @@ class PageRepositoryTest extends FunctionalTestCase
     }
 
     /**
-     * @return array<string, array<array<int>>>
+     * @return array<string, array<int, array<int, positive-int>>>
      */
     public function pagesWithDirectSubpagesDataProvider(): array
     {
@@ -107,7 +109,7 @@ class PageRepositoryTest extends FunctionalTestCase
     /**
      * @test
      *
-     * @param int[] $pageUids
+     * @param array<int, positive-int> $pageUids
      *
      * @dataProvider pagesWithoutSubpagesDataProvider
      * @dataProvider pagesWithDirectSubpagesDataProvider
@@ -122,7 +124,7 @@ class PageRepositoryTest extends FunctionalTestCase
     /**
      * @test
      *
-     * @param int[] $pageUids
+     * @param array<int, positive-int> $pageUids
      *
      * @dataProvider pagesWithoutSubpagesDataProvider
      * @dataProvider pagesWithDirectSubpagesDataProvider
@@ -137,8 +139,8 @@ class PageRepositoryTest extends FunctionalTestCase
     /**
      * @test
      *
-     * @param int[] $parentUids
-     * @param int[] $childUids
+     * @param array<int, positive-int> $parentUids
+     * @param array<int, positive-int> $childUids
      *
      * @dataProvider pagesWithDirectSubpagesDataProvider
      */
