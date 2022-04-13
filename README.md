@@ -1,11 +1,11 @@
 # "One Is Enough" library TYPO3 extension
 
+[![TYPO3 V9](https://img.shields.io/badge/TYPO3-9-orange.svg)](https://get.typo3.org/version/9)
+[![TYPO3 V10](https://img.shields.io/badge/TYPO3-10-orange.svg)](https://get.typo3.org/version/10)
+[![License](https://poser.pugx.org/oliverklee/oelib/license.svg)](https://packagist.org/packages/oliverklee/oelib)
+[![Total Downloads](https://poser.pugx.org/oliverklee/oelib/downloads.svg)](https://packagist.org/packages/oliverklee/oelib)
 [![GitHub CI Status](https://github.com/oliverklee/ext-oelib/workflows/CI/badge.svg?branch=main)](https://github.com/oliverklee/ext-oelib/actions)
 [![Coverage Status](https://coveralls.io/repos/github/oliverklee/ext-oelib/badge.svg?branch=main)](https://coveralls.io/github/oliverklee/ext-oelib?branch=main)
-[![Latest Stable Version](https://poser.pugx.org/oliverklee/oelib/v/stable.svg)](https://packagist.org/packages/oliverklee/oelib)
-[![Total Downloads](https://poser.pugx.org/oliverklee/oelib/downloads.svg)](https://packagist.org/packages/oliverklee/oelib)
-[![Latest Unstable Version](https://poser.pugx.org/oliverklee/oelib/v/unstable.svg)](https://packagist.org/packages/oliverklee/oelib)
-[![License](https://poser.pugx.org/oliverklee/oelib/license.svg)](https://packagist.org/packages/oliverklee/oelib)
 
 This extension provides useful stuff for extension development: helper functions for unit testing, templating and
 automatic configuration checks.
