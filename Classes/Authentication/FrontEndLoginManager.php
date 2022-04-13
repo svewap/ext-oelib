@@ -11,7 +11,6 @@ use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * This class represents a manager for front-end logins, providing access to the logged-in user.
@@ -126,14 +125,6 @@ class FrontEndLoginManager implements LoginManager
     public function logInUser(AbstractModel $user = null): void
     {
         $this->loggedInUser = $user;
-    }
-
-    /**
-     * Returns the current front-end instance.
-     */
-    protected function getFrontEndController(): ?TypoScriptFrontendController
-    {
-        return $GLOBALS['TSFE'] ?? null;
     }
 
     /**

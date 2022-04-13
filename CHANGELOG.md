@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the outdated SwiftMailer dependency (#913)
 
 ### Fixed
+- Remove dead code (#921)
 - Improve the type annotations (#915)
 - Allow a `TemplateHelper` Configuration without cObj (#914)
 - Harden `AbstractDataMapper::findByPageUid` (#911)
