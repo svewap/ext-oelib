@@ -1,6 +1,7 @@
 # "One Is Enough" library TYPO3 extension
 
 [![GitHub CI Status](https://github.com/oliverklee/ext-oelib/workflows/CI/badge.svg?branch=main)](https://github.com/oliverklee/ext-oelib/actions)
+[![Coverage Status](https://coveralls.io/repos/github/oliverklee/ext-oelib/badge.svg?branch=main)](https://coveralls.io/github/oliverklee/ext-oelib?branch=main)
 [![Latest Stable Version](https://poser.pugx.org/oliverklee/oelib/v/stable.svg)](https://packagist.org/packages/oliverklee/oelib)
 [![Total Downloads](https://poser.pugx.org/oliverklee/oelib/downloads.svg)](https://packagist.org/packages/oliverklee/oelib)
 [![Latest Unstable Version](https://poser.pugx.org/oliverklee/oelib/v/unstable.svg)](https://packagist.org/packages/oliverklee/oelib)
