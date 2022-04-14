@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add code coverage (#903)
 
 ### Changed
+- Switch to the TYPO3 Code of Conduct (#923)
 
 ### Deprecated
 - Deprecate `GoogleMapsViewHelper` (#910)
