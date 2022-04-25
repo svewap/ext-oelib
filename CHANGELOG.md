@@ -15,6 +15,11 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+## 4.1.6
+
+### Fixed
+- Harden `PageRepository::findDirectSubpages` (#916)
+
 ## 4.1.5
 
 ### Added

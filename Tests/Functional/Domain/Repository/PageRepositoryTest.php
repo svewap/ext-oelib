@@ -190,4 +190,43 @@ class PageRepositoryTest extends FunctionalTestCase
 
         self::assertSame([4, 5, 11, 12, 13], $result);
     }
+
+    /**
+     * @return array<string, array{0: string|int}>
+     */
+    public function invalidUidDataProvider(): array
+    {
+        return [
+            'empty string' => [''],
+            'non-empty string' => ['Bratwurst'],
+            'zero' => [0],
+            'negative int' => [-1],
+        ];
+    }
+
+    /**
+     * @test
+     */
+    public function findWithinParentPagesSilentlyCastsIntLikeUidStringsToInt(): void
+    {
+        // @phpstan-ignore-next-line We are explicitly testing with the contract violation here.
+        $result = $this->subject->findWithinParentPages(['11'], 2);
+
+        self::assertSame([11, 12, 13], $result);
+    }
+
+    /**
+     * @test
+     *
+     * @param string|int $invalidUid
+     *
+     * @dataProvider invalidUidDataProvider
+     */
+    public function findWithinParentPagesWithSubpagesSilentlyDropsInvalidUids($invalidUid): void
+    {
+        // @phpstan-ignore-next-line We are explicitly testing with the contract violation here.
+        $result = $this->subject->findWithinParentPages([1, $invalidUid]);
+
+        self::assertSame([1], $result);
+    }
 }

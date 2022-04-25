@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Domain\Repository;
 
 use Doctrine\DBAL\Driver\ResultStatement;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -32,8 +33,7 @@ class PageRepository implements SingletonInterface
         if ($recursion < 0) {
             throw new \InvalidArgumentException('$recursion must be >= 0, but actually is: ' . $recursion, 1608389744);
         }
-        $result = $pageUids;
-        \sort($result, SORT_NUMERIC);
+        $result = $this->cleanUids($pageUids);
         if ($result === [] || $recursion === 0) {
             return $result;
         }
@@ -48,14 +48,38 @@ class PageRepository implements SingletonInterface
     }
 
     /**
-     * @param array<array-key, positive-int> $pageUids
+     * Filters and int-casts the given UIDs and returns only positive integers, discarding the rest.
+     *
+     * @param array <array-key, int|string> $uids
+     *
+     * @return array<int, positive-int> sorted, filtered UIDs
+     */
+    private function cleanUids(array $uids): array
+    {
+        $cleanUids = [];
+        foreach ($uids as $uid) {
+            $intUid = (int)$uid;
+            if ($intUid > 0) {
+                $cleanUids[] = $intUid;
+            }
+        }
+        \sort($cleanUids, SORT_NUMERIC);
+
+        return $cleanUids;
+    }
+
+    /**
+     * @param array<int, positive-int> $pageUids
      *
      * @return array<int, positive-int>
      */
     private function findDirectSubpages(array $pageUids): array
     {
-        $query = $this->getQueryBuilderForTable('pages')->select('uid')->from('pages');
-        $query->andWhere($query->expr()->in('pid', $pageUids));
+        $queryBuilder = $this->getQueryBuilderForTable('pages');
+        $query = $queryBuilder->select('uid')->from('pages');
+        $query->andWhere(
+            $query->expr()->in('pid', $queryBuilder->createNamedParameter($pageUids, Connection::PARAM_INT_ARRAY))
+        );
 
         $subpageUids = [];
         $queryResult = $query->execute();
