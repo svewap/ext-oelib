@@ -6,9 +6,84 @@ parameters:
 			path: Classes/Authentication/BackEndLoginManager.php
 
 		-
+			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\|null given\\.$#"
+			count: 1
+			path: Classes/Authentication/BackEndLoginManager.php
+
+		-
 			message: "#^Default value of the parameter \\#1 \\$mapperName \\('OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\FrontEndUserMapper'\\) of method OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\:\\:getLoggedInUser\\(\\) is incompatible with type class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
 			count: 1
 			path: Classes/Authentication/FrontEndLoginManager.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\|null given\\.$#"
+			count: 1
+			path: Classes/Authentication/FrontEndLoginManager.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, int\\|false given\\.$#"
+			count: 1
+			path: Classes/Configuration/AbstractConfigurationCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Configuration\\\\ConfigurationRegistry\\|null given\\.$#"
+			count: 1
+			path: Classes/Configuration/ConfigurationRegistry.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: Classes/Configuration/FallbackConfiguration.php
+
+		-
+			message: "#^Casting to string something that's already string\\.$#"
+			count: 1
+			path: Classes/Configuration/FlexformsConfiguration.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Configuration\\\\PageFinder\\|null given\\.$#"
+			count: 1
+			path: Classes/Configuration/PageFinder.php
+
+		-
+			message: "#^Return type \\(array\\<int, string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractObjectWithPublicAccessors\\:\\:getAsTrimmedArray\\(\\) should be covariant with return type \\(array\\<int, non\\-empty\\-string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessors\\:\\:getAsTrimmedArray\\(\\)$#"
+			count: 1
+			path: Classes/DataStructures/AbstractObjectWithPublicAccessors.php
+
+		-
+			message: "#^Return type \\(array\\<int, string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractReadOnlyObjectWithPublicAccessors\\:\\:getAsTrimmedArray\\(\\) should be covariant with return type \\(array\\<int, non\\-empty\\-string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessors\\:\\:getAsTrimmedArray\\(\\)$#"
+			count: 1
+			path: Classes/DataStructures/AbstractReadOnlyObjectWithPublicAccessors.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, int\\|false given\\.$#"
+			count: 1
+			path: Classes/Domain/Repository/GermanZipCodeRepository.php
+
+		-
+			message: "#^Casting to string something that's already string\\.$#"
+			count: 3
+			path: Classes/Email/SystemEmailFromBuilder.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: Classes/Language/SalutationSwitcher.php
+
+		-
+			message: "#^Casting to string something that's already string\\.$#"
+			count: 6
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 4
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Instanceof between OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\> and OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection will always evaluate to true\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
 
 		-
 			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\:\\:\\$cacheByKey \\(array\\<string, array\\<string, M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\) does not accept array\\<string, array\\<int\\|string, M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
@@ -16,19 +91,64 @@ parameters:
 			path: Classes/Mapper/AbstractDataMapper.php
 
 		-
-			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserGroupMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUserGroup\\>\\:\\:\\$relations\\.$#"
+			message: "#^Variable method call on OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\.$#"
+			count: 2
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Variable method call on object\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserGroupMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUserGroup\\>\\:\\:\\$relations\\.$#"
 			count: 1
 			path: Classes/Mapper/BackEndUserGroupMapper.php
 
 		-
-			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUser\\>\\:\\:\\$relations\\.$#"
+			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUser\\>\\:\\:\\$relations\\.$#"
 			count: 1
 			path: Classes/Mapper/BackEndUserMapper.php
 
 		-
-			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\FrontEndUserMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\FrontEndUser\\>\\:\\:\\$relations\\.$#"
+			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\FrontEndUserMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\FrontEndUser\\>\\:\\:\\$relations\\.$#"
 			count: 1
 			path: Classes/Mapper/FrontEndUserMapper.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\|null given\\.$#"
+			count: 1
+			path: Classes/Mapper/MapperRegistry.php
+
+		-
+			message: "#^Casting to int something that's already int\\.$#"
+			count: 1
+			path: Classes/Model/AbstractModel.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: Classes/Model/AbstractModel.php
+
+		-
+			message: "#^Instanceof between OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\> and OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection will always evaluate to true\\.$#"
+			count: 1
+			path: Classes/Model/AbstractModel.php
+
+		-
+			message: "#^Parameter \\#2 \\$value \\(bool\\|float\\|int\\|OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\|OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\|string\\|null\\) of method OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\:\\:set\\(\\) should be contravariant with parameter \\$value \\(mixed\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractObjectWithAccessors\\:\\:set\\(\\)$#"
+			count: 1
+			path: Classes/Model/AbstractModel.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 2
+			path: Classes/Model/BackEndUser.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 2
+			path: Classes/Templating/Template.php
 
 		-
 			message: "#^Property OliverKlee\\\\Oelib\\\\Templating\\\\Template\\:\\:\\$subparts \\(array\\<string, string\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
@@ -36,12 +156,277 @@ parameters:
 			path: Classes/Templating/Template.php
 
 		-
-			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingChildMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingChildModel\\>\\:\\:\\$relations\\.$#"
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 3
+			path: Classes/Templating/TemplateHelper.php
+
+		-
+			message: "#^Instanceof between OliverKlee\\\\Oelib\\\\Templating\\\\Template and OliverKlee\\\\Oelib\\\\Templating\\\\Template will always evaluate to true\\.$#"
+			count: 1
+			path: Classes/Templating/TemplateHelper.php
+
+		-
+			message: "#^Instanceof between TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer and TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer will always evaluate to true\\.$#"
+			count: 1
+			path: Classes/Templating/TemplateHelper.php
+
+		-
+			message: "#^Short ternary operator is not allowed\\. Use null coalesce operator if applicable or consider using long ternary\\.$#"
+			count: 1
+			path: Classes/Templating/TemplateHelper.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Templating\\\\TemplateRegistry\\|null given\\.$#"
+			count: 1
+			path: Classes/Templating/TemplateRegistry.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 4
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, int given\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, int\\|false given\\.$#"
+			count: 2
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Parameter \\#1 \\$arguments \\(array\\<string, mixed\\>\\) of method OliverKlee\\\\Oelib\\\\ViewHelpers\\\\DynamicDateViewHelper\\:\\:renderStatic\\(\\) should be contravariant with parameter \\$arguments \\(array\\) of method TYPO3Fluid\\\\Fluid\\\\Core\\\\ViewHelper\\\\AbstractViewHelper\\:\\:renderStatic\\(\\)$#"
+			count: 1
+			path: Classes/ViewHelpers/DynamicDateViewHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$arguments \\(array\\<string, mixed\\>\\) of method OliverKlee\\\\Oelib\\\\ViewHelpers\\\\DynamicDateViewHelper\\:\\:renderStatic\\(\\) should be contravariant with parameter \\$arguments \\(array\\) of method TYPO3Fluid\\\\Fluid\\\\Core\\\\ViewHelper\\\\ViewHelperInterface\\:\\:renderStatic\\(\\)$#"
+			count: 1
+			path: Classes/ViewHelpers/DynamicDateViewHelper.php
+
+		-
+			message: "#^Short ternary operator is not allowed\\. Use null coalesce operator if applicable or consider using long ternary\\.$#"
+			count: 1
+			path: Classes/ViewHelpers/DynamicDateViewHelper.php
+
+		-
+			message: "#^Casting to string something that's already string\\.$#"
+			count: 2
+			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
+
+		-
+			message: "#^Instanceof between OliverKlee\\\\Oelib\\\\Interfaces\\\\MapPoint and OliverKlee\\\\Oelib\\\\Interfaces\\\\MapPoint will always evaluate to true\\.$#"
+			count: 1
+			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, int\\|false given\\.$#"
+			count: 2
+			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\BackEndLoginManagerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Authentication/BackEndLoginManagerTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\FrontEndLoginManagerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\AbstractConfigurationCheckTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Configuration/AbstractConfigurationCheckTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\ConfigurationRegistryTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Configuration/ConfigurationRegistryTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\PageFinderTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Configuration/PageFinderTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Domain\\\\Repository\\\\GermanZipCodeRepositoryTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Domain/Repository/GermanZipCodeRepositoryTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Domain\\\\Repository\\\\PageRepositoryTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Domain/Repository/PageRepositoryTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Language\\\\SalutationSwitcherTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Language/SalutationSwitcherTest.php
+
+		-
+			message: "#^Casting to int something that's already int\\.$#"
+			count: 185
+			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\AbstractDataMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/BackEndUserGroupMapperTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/BackEndUserMapperTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CountryMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/CountryMapperTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CurrencyMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/CurrencyMapperTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FederalStateMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/FederalStateMapperTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/FrontEndUserGroupMapperTest.php
+
+		-
+			message: "#^Casting to int something that's already int\\.$#"
+			count: 29
+			path: Tests/Functional/Mapper/FrontEndUserMapperTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/FrontEndUserMapperTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\LanguageMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/LanguageMapperTest.php
+
+		-
+			message: "#^Casting to int something that's already int\\.$#"
+			count: 1
+			path: Tests/Functional/Model/AbstractModelTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\AbstractModelTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Model/AbstractModelTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\BackEndUserTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Model/BackEndUserTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\FrontEndUserTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Model/FrontEndUserTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Templating\\\\TemplateHelperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Templating/TemplateHelperTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\CacheNullifyerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Testing/CacheNullifyerTest.php
+
+		-
+			message: "#^Casting to int something that's already int\\.$#"
+			count: 4
+			path: Tests/Functional/Testing/TestingFrameworkTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\TestingFrameworkTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Testing/TestingFrameworkTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\WritableEnvironmentTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/Testing/WritableEnvironmentTest.php
+
+		-
+			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\ViewHelpers\\\\PriceViewHelperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			count: 1
+			path: Tests/Functional/ViewHelpers/PriceViewHelperTest.php
+
+		-
+			message: "#^Variable property access on \\$this\\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Fixtures\\\\LazyLoadingModel\\)\\.$#"
+			count: 3
+			path: Tests/Unit/Domain/Fixtures/LazyLoadingModel.php
+
+		-
+			message: "#^Variable property access on \\$this\\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Fixtures\\\\ParentModel\\)\\.$#"
+			count: 3
+			path: Tests/Unit/Domain/Fixtures/ParentModel.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: Tests/Unit/Geocoding/Fixtures/TestingGeo.php
+
+		-
+			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingChildMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingChildModel\\>\\:\\:\\$relations\\.$#"
 			count: 1
 			path: Tests/Unit/Mapper/Fixtures/TestingChildMapper.php
 
 		-
-			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:\\$relations is not covariant with PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:\\$relations\\.$#"
+			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:\\$relations\\.$#"
 			count: 1
 			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
+
+		-
+			message: "#^Parameter \\#2 \\$data \\(array\\<string\\>\\) of method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:cacheModelByCombinedKeys\\(\\) should be contravariant with parameter \\$data \\(array\\<string, float\\|int\\|string\\|null\\>\\) of method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:cacheModelByCombinedKeys\\(\\)$#"
+			count: 1
+			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
+
+		-
+			message: "#^Return type \\(OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\) of method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:findOneByKeyFromCache\\(\\) should be covariant with return type \\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\) of method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:findOneByKeyFromCache\\(\\)$#"
+			count: 1
+			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
+
+		-
+			message: "#^Return type \\(OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\) of method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:findSingleByWhereClause\\(\\) should be covariant with return type \\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\) of method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:findSingleByWhereClause\\(\\)$#"
+			count: 1
+			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
+
+		-
+			message: "#^Only numeric types are allowed in \\-, int\\|false given on the left side\\.$#"
+			count: 1
+			path: Tests/Unit/Model/FrontEndUserTest.php
+
+		-
+			message: "#^OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Templating\\\\Fixtures\\\\TestingTemplateHelper\\:\\:__construct\\(\\) does not call parent constructor from TYPO3\\\\CMS\\\\Frontend\\\\Plugin\\\\AbstractPlugin\\.$#"
+			count: 1
+			path: Tests/Unit/Templating/Fixtures/TestingTemplateHelper.php
+
+		-
+			message: "#^Return type \\(array\\<float\\>\\) of method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\ViewHelpers\\\\Fixtures\\\\TestingMapPoint\\:\\:getGeoCoordinates\\(\\) should be covariant with return type \\(array\\<string, float\\>\\) of method OliverKlee\\\\Oelib\\\\Interfaces\\\\MapPoint\\:\\:getGeoCoordinates\\(\\)$#"
+			count: 1
+			path: Tests/Unit/ViewHelpers/Fixtures/TestingMapPoint.php
 
