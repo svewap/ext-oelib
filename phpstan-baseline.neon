@@ -6,29 +6,9 @@ parameters:
 			path: Classes/Authentication/BackEndLoginManager.php
 
 		-
-			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\|null given\\.$#"
-			count: 1
-			path: Classes/Authentication/BackEndLoginManager.php
-
-		-
 			message: "#^Default value of the parameter \\#1 \\$mapperName \\('OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\FrontEndUserMapper'\\) of method OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\:\\:getLoggedInUser\\(\\) is incompatible with type class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
 			count: 1
 			path: Classes/Authentication/FrontEndLoginManager.php
-
-		-
-			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\|null given\\.$#"
-			count: 1
-			path: Classes/Authentication/FrontEndLoginManager.php
-
-		-
-			message: "#^Only booleans are allowed in an if condition, int\\|false given\\.$#"
-			count: 1
-			path: Classes/Configuration/AbstractConfigurationCheck.php
-
-		-
-			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Configuration\\\\ConfigurationRegistry\\|null given\\.$#"
-			count: 1
-			path: Classes/Configuration/ConfigurationRegistry.php
 
 		-
 			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
@@ -41,11 +21,6 @@ parameters:
 			path: Classes/Configuration/FlexformsConfiguration.php
 
 		-
-			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Configuration\\\\PageFinder\\|null given\\.$#"
-			count: 1
-			path: Classes/Configuration/PageFinder.php
-
-		-
 			message: "#^Return type \\(array\\<int, string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractObjectWithPublicAccessors\\:\\:getAsTrimmedArray\\(\\) should be covariant with return type \\(array\\<int, non\\-empty\\-string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessors\\:\\:getAsTrimmedArray\\(\\)$#"
 			count: 1
 			path: Classes/DataStructures/AbstractObjectWithPublicAccessors.php
@@ -54,11 +29,6 @@ parameters:
 			message: "#^Return type \\(array\\<int, string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractReadOnlyObjectWithPublicAccessors\\:\\:getAsTrimmedArray\\(\\) should be covariant with return type \\(array\\<int, non\\-empty\\-string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessors\\:\\:getAsTrimmedArray\\(\\)$#"
 			count: 1
 			path: Classes/DataStructures/AbstractReadOnlyObjectWithPublicAccessors.php
-
-		-
-			message: "#^Only booleans are allowed in a negated boolean, int\\|false given\\.$#"
-			count: 1
-			path: Classes/Domain/Repository/GermanZipCodeRepository.php
 
 		-
 			message: "#^Casting to string something that's already string\\.$#"
@@ -116,11 +86,6 @@ parameters:
 			path: Classes/Mapper/FrontEndUserMapper.php
 
 		-
-			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Mapper\\\\MapperRegistry\\|null given\\.$#"
-			count: 1
-			path: Classes/Mapper/MapperRegistry.php
-
-		-
 			message: "#^Casting to int something that's already int\\.$#"
 			count: 1
 			path: Classes/Model/AbstractModel.php
@@ -176,23 +141,8 @@ parameters:
 			path: Classes/Templating/TemplateHelper.php
 
 		-
-			message: "#^Only booleans are allowed in a negated boolean, OliverKlee\\\\Oelib\\\\Templating\\\\TemplateRegistry\\|null given\\.$#"
-			count: 1
-			path: Classes/Templating/TemplateRegistry.php
-
-		-
 			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
 			count: 4
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Only booleans are allowed in a negated boolean, int given\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
-			message: "#^Only booleans are allowed in a negated boolean, int\\|false given\\.$#"
-			count: 2
 			path: Classes/Testing/TestingFramework.php
 
 		-
@@ -223,11 +173,6 @@ parameters:
 		-
 			message: "#^Instanceof between OliverKlee\\\\Oelib\\\\Interfaces\\\\MapPoint and OliverKlee\\\\Oelib\\\\Interfaces\\\\MapPoint will always evaluate to true\\.$#"
 			count: 1
-			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
-
-		-
-			message: "#^Only booleans are allowed in a negated boolean, int\\|false given\\.$#"
-			count: 2
 			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
 
 		-

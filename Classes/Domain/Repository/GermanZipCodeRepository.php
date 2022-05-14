@@ -22,7 +22,8 @@ class GermanZipCodeRepository extends Repository
 
     public function findOneByZipCode(string $zipCode): ?GermanZipCode
     {
-        if (!\preg_match('/^\\d{5}$/', $zipCode)) {
+        $zipCodeCheckResult = \preg_match('/^\\d{5}$/', $zipCode);
+        if (!\is_int($zipCodeCheckResult) || $zipCodeCheckResult === 0) {
             return null;
         }
         if (\array_key_exists($zipCode, $this->cachedResults)) {

@@ -495,7 +495,8 @@ final class TestingFramework
         if ($frontEndUserGroupsWithoutSpaces === '') {
             $frontEndUserGroupsWithoutSpaces = (string)$this->createFrontEndUserGroup();
         }
-        if (!\preg_match('/^(?:[1-9]+\\d*,?)+$/', $frontEndUserGroupsWithoutSpaces)) {
+        $groupsCheckResult = \preg_match('/^(?:[1-9]+\\d*,?)+$/', $frontEndUserGroupsWithoutSpaces);
+        if (!\is_int($groupsCheckResult) || $groupsCheckResult === 0) {
             throw new \InvalidArgumentException(
                 '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.',
                 1331489824
@@ -1096,7 +1097,9 @@ final class TestingFramework
      */
     public function getPathRelativeToUploadDirectory(string $absolutePath): string
     {
-        if (!\preg_match('/^' . \str_replace('/', '\\/', $this->getUploadFolderPath()) . '.*$/', $absolutePath)) {
+        $checkResult
+            = \preg_match('/^' . \str_replace('/', '\\/', $this->getUploadFolderPath()) . '.*$/', $absolutePath);
+        if (!\is_int($checkResult) || $checkResult === 0) {
             throw new \InvalidArgumentException(
                 'The first parameter $absolutePath is not within the calling extension\'s upload directory.',
                 1331490760
@@ -1972,7 +1975,7 @@ routes: {  }";
      */
     private function getRelationSorting(string $table, int $uidLocal): int
     {
-        if (!$this->relationSorting[$table][$uidLocal]) {
+        if (!isset($this->relationSorting[$table][$uidLocal])) {
             $this->relationSorting[$table][$uidLocal] = 0;
         }
 

@@ -54,7 +54,7 @@ class MapperRegistry
      */
     public static function getInstance(): MapperRegistry
     {
-        if (!self::$instance) {
+        if (!self::$instance instanceof MapperRegistry) {
             self::$instance = new MapperRegistry();
         }
 

@@ -553,7 +553,8 @@ abstract class AbstractConfigurationCheck
     protected function checkRegExp(string $key, string $explanation, string $expression): bool
     {
         $value = $this->configuration->getAsString($key);
-        if (\preg_match($expression, $value)) {
+        $checkResult = \preg_match($expression, $value);
+        if (\is_int($checkResult) && $checkResult > 0) {
             return true;
         }
 

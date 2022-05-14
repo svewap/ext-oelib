@@ -66,7 +66,7 @@ class PageFinder
      */
     public static function getInstance(): PageFinder
     {
-        if (!self::$instance) {
+        if (!self::$instance instanceof PageFinder) {
             self::$instance = new PageFinder();
         }
 

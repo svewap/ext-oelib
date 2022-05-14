@@ -99,13 +99,15 @@ class GoogleMapsViewHelper extends AbstractViewHelper
         $mapPoints = (array)$arguments['mapPoints'];
         $width = (string)($arguments['width'] ?? self::DEFAULT_WIDTH);
         $height = (string)($arguments['height'] ?? self::DEFAULT_HEIGHT);
-        if (!\preg_match('/^\\d+(px|%)$/', $width)) {
+        $widthCheckResult = \preg_match('/^\\d+(px|%)$/', $width);
+        if (!\is_int($widthCheckResult) || $widthCheckResult === 0) {
             throw new \InvalidArgumentException(
                 '$width must be a valid CSS length, but actually is: ' . $width,
                 1319058935
             );
         }
-        if (!\preg_match('/^\\d+(px|%)$/', $height)) {
+        $heightCheckResult = \preg_match('/^\\d+(px|%)$/', $height);
+        if (!\is_int($heightCheckResult) || $heightCheckResult === 0) {
             throw new \InvalidArgumentException(
                 '$height must be a valid CSS length, but actually is: ' . $height,
                 1319058966

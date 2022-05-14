@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Make the usage of types more strict (#940)
 
 ## 4.1.6
 
