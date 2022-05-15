@@ -65,7 +65,11 @@ class DynamicDateViewHelper extends AbstractViewHelper
      */
     public function render(): string
     {
-        $displayFormat = $this->arguments['displayFormat'] ?? '';
+        $displayFormat = ($this->arguments['displayFormat'] ?? null);
+        if (!\is_string($displayFormat) || $displayFormat === '') {
+            $displayFormat = self::DEFAULT_DATE_FORMAT;
+        }
+
         return static::renderStatic(
             ['format' => $displayFormat],
             $this->buildRenderChildrenClosure(),
@@ -95,7 +99,7 @@ class DynamicDateViewHelper extends AbstractViewHelper
         }
 
         /** @var \DateTimeInterface $date */
-        $format = $arguments['format'] ?: self::DEFAULT_DATE_FORMAT;
+        $format = $arguments['format'] ?? self::DEFAULT_DATE_FORMAT;
         $visibleDate = $date->format($format);
         $metadataDate = $date->format('Y-m-d\\TH:i');
 
