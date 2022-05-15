@@ -1148,7 +1148,7 @@ abstract class AbstractDataMapper
         }
 
         if (\strpos($trimmedSorting, ' ') !== false) {
-            [$orderColumn, $orderDirection] = GeneralUtility::trimExplode(' ', $sorting, true);
+            [$orderColumn, $orderDirection] = GeneralUtility::trimExplode(' ', $trimmedSorting, true);
             $orderBy = [$orderColumn => $orderDirection];
         } else {
             $orderBy = [$trimmedSorting => 'ASC'];
