@@ -304,6 +304,13 @@ final class CollectionTest extends UnitTestCase
      */
     public function currentForEmptyListReturnsNull(): void
     {
+        if (version_compare(PHP_VERSION, '8.1.0') >= 0) {
+            self::markTestSkipped(
+                'This test only makes sense for PHP < 8.1.0.' .
+                'Above that, PHP will complain about calling current() on an invalid iterator.'
+            );
+        }
+
         /** @var object|null $current */
         $current = $this->subject->current();
         self::assertNull($current);
@@ -369,6 +376,13 @@ final class CollectionTest extends UnitTestCase
      */
     public function currentWithOneItemAfterNextReturnsNull(): void
     {
+        if (version_compare(PHP_VERSION, '8.1.0') >= 0) {
+            self::markTestSkipped(
+                'This test only makes sense for PHP < 8.1.0.' .
+                'Above that, PHP will complain about calling current() on an invalid iterator.'
+            );
+        }
+
         $this->addModelsToFixture();
 
         $this->subject->next();

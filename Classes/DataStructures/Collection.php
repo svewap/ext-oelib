@@ -102,7 +102,11 @@ class Collection extends \SplObjectStorage
     public function first(): ?AbstractModel
     {
         $this->rewind();
-        /** @var M|null $current */
+        if (!$this->valid()) {
+            return null;
+        }
+
+        /** @var M $current */
         $current = $this->current();
 
         return $current;

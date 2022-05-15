@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Avoid crashes in `Collection` in PHP 8.1 (#946)
 - Avoid invalid array accesses in the view helpers (#944)
 - Move PHPCov to PHIVE (#943)
 - Improve the type annotations (#941, #942)
