@@ -8,6 +8,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\EmptyModel;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\LazyLoadingModel;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 class LazyLoadingPropertiesTest extends UnitTestCase
 {
@@ -29,7 +30,8 @@ class LazyLoadingPropertiesTest extends UnitTestCase
         $realInstance = new EmptyModel();
         $parentObject = new LazyLoadingModel();
         $parentObject->_setProperty('lazyProperty', $realInstance);
-        $proxy = new LazyLoadingProxy($parentObject, 'lazyProperty', $realInstance);
+        $dataMapper = $this->prophesize(DataMapper::class)->reveal();
+        $proxy = new LazyLoadingProxy($parentObject, 'lazyProperty', $realInstance, $dataMapper);
 
         $this->subject->setLazyProperty($proxy);
 

@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Use proper mocking with 11LTS in the storage-related tests (#951)
 - Fix compatibility with newer DBAL versions (#950)
 - Make the declaration of `UserWithoutCookies` V11-compatible (#949)
 - Avoid crashes in `Collection` in PHP 8.1 (#946)

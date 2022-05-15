@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Domain\Model\Traits;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\ParentModel;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class CachedAssociationCountTest extends UnitTestCase
@@ -48,8 +49,9 @@ class CachedAssociationCountTest extends UnitTestCase
     public function getChildrenCountForLazyChildrenStorageReturnsRawValueFromLazyStorage(): void
     {
         $childrenCount = 7;
+        $dataMapper = $this->prophesize(DataMapper::class)->reveal();
         /** @var LazyObjectStorage<ParentModel> $lazyChildrenStorage */
-        $lazyChildrenStorage = new LazyObjectStorage($this->subject, 'children', $childrenCount);
+        $lazyChildrenStorage = new LazyObjectStorage($this->subject, 'children', $childrenCount, $dataMapper);
         $this->subject->setChildren($lazyChildrenStorage);
 
         self::assertSame($childrenCount, $this->subject->getChildrenCount());
