@@ -503,10 +503,15 @@ abstract class AbstractDataMapper
                 $sortingField = '';
             }
             $orderBy = $sortingField !== '' ? [$sortingField => 'ASC'] : [];
-            /** @var array<int, array<string, float|int|string|null>> $modelData */
-            $modelData = $this->getConnectionForTable($foreignTable)
-                ->select(['*'], $foreignTable, [$foreignField => (int)$data['uid']], [], $orderBy)
-                ->fetchAll();
+            $queryResult = $this->getConnectionForTable($foreignTable)
+                ->select(['*'], $foreignTable, [$foreignField => (int)$data['uid']], [], $orderBy);
+            if (\method_exists($queryResult, 'fetchAllAssociative')) {
+                /** @var DatabaseRow[] $modelData */
+                $modelData = $queryResult->fetchAllAssociative();
+            } else {
+                /** @var DatabaseRow[] $modelData */
+                $modelData = $queryResult->fetchAll();
+            }
         }
 
         /** @var Collection<AbstractModel> $models */
@@ -593,10 +598,14 @@ abstract class AbstractDataMapper
                 $orderBy = 'sorting';
             }
             $queryResult = $this->getConnectionForTable($mnTable)
-                ->select([$leftColumn], $mnTable, [$rightColumn => $rightUid], [], [$orderBy => 'ASC'])
-                ->fetchAll();
+                ->select([$leftColumn], $mnTable, [$rightColumn => $rightUid], [], [$orderBy => 'ASC']);
+            if (\method_exists($queryResult, 'fetchAllAssociative')) {
+                $resultRows = $queryResult->fetchAllAssociative();
+            } else {
+                $resultRows = $queryResult->fetchAll();
+            }
 
-            foreach (\array_column($queryResult, $leftColumn) as $relationUid) {
+            foreach (\array_column($resultRows, $leftColumn) as $relationUid) {
                 // Some relations might have a junk 0 in it. We ignore it to avoid crashing.
                 if ((int)$relationUid === 0) {
                     continue;
@@ -1132,9 +1141,17 @@ abstract class AbstractDataMapper
     public function findAll(string $sorting = ''): Collection
     {
         $queryResult = $this->getConnection()
-            ->select(['*'], $this->getTableName(), [], [], $this->sortingToOrderArray($sorting))->fetchAll();
+            ->select(['*'], $this->getTableName(), [], [], $this->sortingToOrderArray($sorting));
 
-        return $this->getListOfModels($queryResult);
+        if (\method_exists($queryResult, 'fetchAllAssociative')) {
+            /** @var DatabaseRow[] $modelData */
+            $modelData = $queryResult->fetchAllAssociative();
+        } else {
+            /** @var DatabaseRow[] $modelData */
+            $modelData = $queryResult->fetchAll();
+        }
+
+        return $this->getListOfModels($modelData);
     }
 
     /**
