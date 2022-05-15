@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Avoid deprecated `settingLanguage` calls (#955)
 - Build a more complete fake frontend (#954)
 - Use proper mocking with 11LTS in the storage-related tests (#951)
 - Fix compatibility with newer DBAL versions (#950)

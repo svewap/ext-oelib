@@ -1253,7 +1253,6 @@ final class TestingFramework
             $frontEnd->tmpl->runThroughTemplates($rootLine);
             $frontEnd->tmpl->generateConfig();
             $frontEnd->tmpl->loaded = true;
-            $frontEnd->settingLanguage();
             if (Typo3Version::isAtLeast(10)) {
                 Locales::setSystemLocaleFromSiteLanguage($frontEnd->getLanguage());
             } else {
