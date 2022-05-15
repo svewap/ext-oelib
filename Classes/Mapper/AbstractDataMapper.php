@@ -19,6 +19,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * This class represents a mapper that maps database record to model instances.
  *
  * @template M of AbstractModel
+ *
+ * @phpstan-type DatabaseColumn string|int|float|bool|null
+ * @phpstan-type DatabaseRow array<string, DatabaseColumn>
  */
 abstract class AbstractDataMapper
 {
@@ -158,7 +161,7 @@ abstract class AbstractDataMapper
      * irrespective of the other provided data, otherwise the model will be
      * loaded with the provided data.
      *
-     * @param array<string, string|int|float|null> $data data for the model to return, must at least contain the UID
+     * @param DatabaseRow $data data for the model to return, must at least contain the UID
      *
      * @return M model for the given UID, filled with data provided in case it did not have any data in memory before
      */
@@ -180,7 +183,7 @@ abstract class AbstractDataMapper
     /**
      * Returns a list of models for the provided two-dimensional array with model data.
      *
-     * @param array<string|int, array<string, float|int|string|null>> $dataOfModels two-dimensional array,
+     * @param DatabaseRow[] $dataOfModels two-dimensional array,
      *        each inner array must at least contain the element "uid", may be empty
      *
      * @return Collection<M>
@@ -329,7 +332,7 @@ abstract class AbstractDataMapper
      * This method must be called at most once per model instance.
      *
      * @param M $model the model to fill, needs to have a UID
-     * @param array<string, string|int|float|null> $data the model data to process as it comes from the DB
+     * @param DatabaseRow $data the model data to process as it comes from the DB
      */
     private function fillModel(AbstractModel $model, array $data): void
     {
@@ -346,7 +349,7 @@ abstract class AbstractDataMapper
      * This method may be called more than once per model instance.
      *
      * @param M $model the model to fill, needs to have a UID
-     * @param array<string, string|int> $data the model data to process as it comes from the DB
+     * @param DatabaseRow $data the model data to process as it comes from the DB
      */
     private function refillModel(AbstractModel $model, array $data): void
     {
@@ -613,7 +616,7 @@ abstract class AbstractDataMapper
      *        WHERE clause parts for the record to retrieve, each element must consist of a column name as key and a
      *        value to search for as value (will automatically get quoted), must not be empty
      *
-     * @return array<string, string|int> the record from the database, will not be empty
+     * @return DatabaseRow the record from the database, will not be empty
      *
      * @throws NotFoundException if there is no record in the DB which matches the WHERE clause
      * @throws NotFoundException if database access is disabled
@@ -655,7 +658,7 @@ abstract class AbstractDataMapper
      *
      * @param int $uid the UID of the record to retrieve, must be > 0
      *
-     * @return array<string, string|int> the record from the database, will not be empty
+     * @return DatabaseRow the record from the database, will not be empty
      *
      * @throws NotFoundException if there is no record in the DB with the UID $uid
      */
@@ -815,7 +818,7 @@ abstract class AbstractDataMapper
      *
      * @param M $model the model to write to the database
      *
-     * @return array<string, string|int|float> the model's data prepared for the database, will not be empty
+     * @return DatabaseRow the model's data prepared for the database, will not be empty
      */
     private function getPreparedModelData(AbstractModel $model): array
     {
@@ -1302,7 +1305,7 @@ abstract class AbstractDataMapper
      * Puts a model in the cache-by-keys (if the model has any non-empty additional keys).
      *
      * @param M $model the model to cache
-     * @param array<string, string|int|float|null> $data the data of the model as it is in the DB, may be empty
+     * @param DatabaseRow $data the data of the model as it is in the DB, may be empty
      */
     private function cacheModelByKeys(AbstractModel $model, array $data): void
     {
@@ -1328,7 +1331,7 @@ abstract class AbstractDataMapper
      * cacheModelByCompoundKey instead. So this method primarily is here for backwards compatibility.
      *
      * @param M $model the model to cache
-     * @param array<string, string|int|float|null> $data the data of the model as it is in the DB, may be empty
+     * @param DatabaseRow $data the data of the model as it is in the DB, may be empty
      *
      * @see cacheModelByCompoundKey
      */
@@ -1344,7 +1347,7 @@ abstract class AbstractDataMapper
      * This method works automatically; it is not necessary to overwrite it.
      *
      * @param M $model the model to cache
-     * @param array<string, string|int|float|null> $data the data of the model as it is in the DB, may be empty
+     * @param DatabaseRow $data the data of the model as it is in the DB, may be empty
      *
      * @throws \BadMethodCallException
      */

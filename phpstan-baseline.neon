@@ -346,11 +346,6 @@ parameters:
 			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
 
 		-
-			message: "#^Parameter \\#2 \\$data \\(array\\<string\\>\\) of method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:cacheModelByCombinedKeys\\(\\) should be contravariant with parameter \\$data \\(array\\<string, float\\|int\\|string\\|null\\>\\) of method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:cacheModelByCombinedKeys\\(\\)$#"
-			count: 1
-			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
-
-		-
 			message: "#^Return type \\(OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\) of method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:findOneByKeyFromCache\\(\\) should be covariant with return type \\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\) of method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:findOneByKeyFromCache\\(\\)$#"
 			count: 1
 			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php

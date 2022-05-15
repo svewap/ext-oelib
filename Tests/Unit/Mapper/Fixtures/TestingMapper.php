@@ -13,6 +13,8 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
 /**
  * @extends AbstractDataMapper<TestingModel>
+ *
+ * @phpstan-import-type DatabaseRow from AbstractDataMapper
  */
 class TestingMapper extends AbstractDataMapper
 {
@@ -107,8 +109,6 @@ class TestingMapper extends AbstractDataMapper
      * Processes a model's data and creates any relations that are hidden within
      * it using foreign key mapping.
      *
-     *        the model data to process, might be modified
-     *
      * @param TestingModel $model
      *        the model to create the relations for
      */
@@ -142,7 +142,7 @@ class TestingMapper extends AbstractDataMapper
      * cacheModelByCompoundKey instead. So this method primarily is here for backwards compatibility.
      *
      * @param AbstractModel $model the model to cache
-     * @param string[] $data the data of the model as it is in the DB, may be empty
+     * @param DatabaseRow $data the data of the model as it is in the DB, may be empty
      *
      * @see cacheModelByCompoundKey
      */
