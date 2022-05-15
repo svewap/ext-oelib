@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Move PHPCov to PHIVE (#943)
 - Improve the type annotations (#941, #942)
 - Make the usage of types more strict (#940)
 

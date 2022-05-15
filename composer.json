@@ -47,7 +47,6 @@
 		"phpstan/phpstan": "^1.6.3",
 		"phpstan/phpstan-phpunit": "^1.1.1",
 		"phpstan/phpstan-strict-rules": "^1.2.2",
-		"phpunit/phpcov": "^6.0.1",
 		"phpunit/phpunit": "^8.5.25",
 		"saschaegerer/phpstan-typo3": "^1.1.2",
 		"sjbr/static-info-tables": "^6.9.6",
@@ -108,7 +107,7 @@
 		],
 		"ci:coverage:merge": [
 			"@coverage:create-directories",
-			".Build/vendor/bin/phpcov merge --clover=./build/logs/clover.xml ./.Build/coverage/"
+			"tools/phpcov merge --clover=./build/logs/clover.xml ./.Build/coverage/"
 		],
 		"ci:coverage:unit": [
 			"@coverage:create-directories",
@@ -150,8 +149,10 @@
 		"prepare-release": [
 			"rm -rf .Build",
 			"rm -rf .github",
+			"rm -rf .phive",
 			"rm -rf TestExtensions",
 			"rm -rf Tests",
+			"rm -rf tools",
 			"rm .editorconfig",
 			"rm .gitattributes",
 			"rm .gitignore",
