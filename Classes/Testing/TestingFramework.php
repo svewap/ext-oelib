@@ -22,6 +22,7 @@ use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
 use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Localization\Locales;
+use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -1198,6 +1199,11 @@ final class TestingFramework
         $this->setPageIndependentGlobalsForFakeFrontEnd();
         $this->setRequestUriForFakeFrontEnd($pageUid);
 
+        $frontEndUser = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
+        $frontEndUser->start();
+        $frontEndUser->unpack_uc();
+        $frontEndUser->fetchGroupData();
+
         if (Typo3Version::isAtLeast(10)) {
             if ($pageUid > 0) {
                 $this->createDummySite($pageUid);
@@ -1215,7 +1221,9 @@ final class TestingFramework
                 TypoScriptFrontendController::class,
                 GeneralUtility::makeInstance(Context::class),
                 $site,
-                $language
+                $language,
+                new PageArguments($pageUid, '', []),
+                $frontEndUser
             );
         } else {
             if ($pageUid > 0) {
@@ -1224,11 +1232,6 @@ final class TestingFramework
             $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, $pageUid, 0);
         }
         $GLOBALS['TSFE'] = $frontEnd;
-
-        $frontEndUser = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
-        $frontEndUser->start();
-        $frontEndUser->unpack_uc();
-        $frontEndUser->fetchGroupData();
 
         $frontEnd->fe_user = $frontEndUser;
         if ($pageUid > 0) {
