@@ -12,7 +12,7 @@ use OliverKlee\Oelib\Model\Country;
 class CountryMapperTest extends FunctionalTestCase
 {
     /**
-     * @var array<int, string>
+     * @var non-empty-string[]
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
 

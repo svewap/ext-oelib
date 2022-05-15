@@ -15,7 +15,7 @@ use OliverKlee\Oelib\Model\FrontEndUser;
 class FrontEndUserMapperTest extends FunctionalTestCase
 {
     /**
-     * @var array<int, string>
+     * @var non-empty-string[]
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

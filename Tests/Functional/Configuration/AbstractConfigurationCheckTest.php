@@ -14,7 +14,7 @@ use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\TestingConfigurationCheck
 final class AbstractConfigurationCheckTest extends FunctionalTestCase
 {
     /**
-     * @var array<int, string>
+     * @var non-empty-string[]
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

@@ -29,7 +29,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 final class TestingFrameworkTest extends FunctionalTestCase
 {
     /**
-     * @var array<int, string>
+     * @var non-empty-string[]
      */
     protected $testExtensionsToLoad = [
         'typo3conf/ext/oelib',

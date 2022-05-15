@@ -176,32 +176,32 @@ parameters:
 			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\BackEndLoginManagerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\BackEndLoginManagerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Authentication/BackEndLoginManagerTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\FrontEndLoginManagerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\FrontEndLoginManagerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\AbstractConfigurationCheckTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\AbstractConfigurationCheckTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Configuration/AbstractConfigurationCheckTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\ConfigurationRegistryTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\ConfigurationRegistryTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Configuration/ConfigurationRegistryTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\PageFinderTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\PageFinderTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Configuration/PageFinderTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Domain\\\\Repository\\\\GermanZipCodeRepositoryTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Domain\\\\Repository\\\\GermanZipCodeRepositoryTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Domain/Repository/GermanZipCodeRepositoryTest.php
 
@@ -211,7 +211,7 @@ parameters:
 			path: Tests/Functional/Domain/Repository/PageRepositoryTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Language\\\\SalutationSwitcherTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Language\\\\SalutationSwitcherTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Language/SalutationSwitcherTest.php
 
@@ -221,37 +221,37 @@ parameters:
 			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\AbstractDataMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\AbstractDataMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/BackEndUserGroupMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/BackEndUserMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CountryMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CountryMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/CountryMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CurrencyMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CurrencyMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/CurrencyMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FederalStateMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FederalStateMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/FederalStateMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/FrontEndUserGroupMapperTest.php
 
@@ -261,12 +261,12 @@ parameters:
 			path: Tests/Functional/Mapper/FrontEndUserMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/FrontEndUserMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\LanguageMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\LanguageMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/LanguageMapperTest.php
 
@@ -276,27 +276,27 @@ parameters:
 			path: Tests/Functional/Model/AbstractModelTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\AbstractModelTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\AbstractModelTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Model/AbstractModelTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\BackEndUserTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\BackEndUserTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Model/BackEndUserTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\FrontEndUserTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\FrontEndUserTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Model/FrontEndUserTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Templating\\\\TemplateHelperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Templating\\\\TemplateHelperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Templating/TemplateHelperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\CacheNullifyerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\CacheNullifyerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Testing/CacheNullifyerTest.php
 
@@ -306,17 +306,17 @@ parameters:
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\TestingFrameworkTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\TestingFrameworkTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\WritableEnvironmentTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\WritableEnvironmentTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/Testing/WritableEnvironmentTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\ViewHelpers\\\\PriceViewHelperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\ViewHelpers\\\\PriceViewHelperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/ViewHelpers/PriceViewHelperTest.php
 

@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 final class BackEndLoginManagerTest extends FunctionalTestCase
 {
     /**
-     * @var array<int, string>
+     * @var non-empty-string[]
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

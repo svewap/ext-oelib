@@ -14,7 +14,7 @@ use TYPO3\CMS\Core\Core\Environment;
 final class WritableEnvironmentTest extends FunctionalTestCase
 {
     /**
-     * @var array<int, string>
+     * @var non-empty-string[]
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

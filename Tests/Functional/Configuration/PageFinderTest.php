@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Testing\TestingFramework;
 class PageFinderTest extends FunctionalTestCase
 {
     /**
-     * @var array<int, string>
+     * @var non-empty-string[]
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
