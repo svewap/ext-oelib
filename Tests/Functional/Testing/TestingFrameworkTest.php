@@ -2709,7 +2709,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
             'HTTP_HOST' => ['HTTP_HOST', 'typo3-test.dev'],
             'TYPO3_HOST_ONLY' => ['TYPO3_HOST_ONLY', 'typo3-test.dev'],
             'TYPO3_PORT' => ['TYPO3_PORT', ''],
-            'PATH_INFO' => ['PATH_INFO', null],
             'QUERY_STRING' => ['QUERY_STRING', ''],
             'HTTP_REFERER' => ['HTTP_REFERER', 'http://typo3-test.dev/'],
             'TYPO3_REQUEST_HOST' => ['TYPO3_REQUEST_HOST', 'http://typo3-test.dev'],

@@ -15,7 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
-- Avoid some version-specific tests (#964)
+- Avoid some version-specific tests (#964, #967)
 - Avoid deprecated `settingLanguage` calls (#955)
 - Build a more complete fake frontend (#954)
 - Use proper mocking with 11LTS in the storage-related tests (#951)
