@@ -8,6 +8,8 @@ use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 
 /**
  * This XCLASS makes sure no FE login cookies are sent during the unit tests.
+ *
+ * @internal
  */
 class UserWithoutCookies extends FrontendUserAuthentication
 {

@@ -16,6 +16,8 @@ use OliverKlee\Oelib\Session\Session;
 
 /**
  * This class takes care of cleaning up oelib after the testing framework.
+ *
+ * @internal
  */
 class TestingFrameworkCleanup
 {

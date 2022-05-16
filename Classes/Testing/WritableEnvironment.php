@@ -8,6 +8,8 @@ use TYPO3\CMS\Core\Core\Environment;
 
 /**
  * This class provides functions for overwriting the TYPO3 environment for tests.
+ *
+ * @internal
  */
 final class WritableEnvironment extends Environment
 {
