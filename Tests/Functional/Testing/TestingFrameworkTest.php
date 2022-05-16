@@ -21,7 +21,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * @covers \OliverKlee\Oelib\Testing\TestingFramework
@@ -2551,31 +2550,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->createFrontEndPage();
 
         self::assertSame(0, $this->subject->createFakeFrontEnd());
-    }
-
-    /**
-     * @test
-     */
-    public function createFakeFrontEndWithPageUidCreatesSysPage(): void
-    {
-        $pageUid = $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd($pageUid);
-
-        /** @var PageRepository|string $page */
-        $page = $this->getFrontEndController()->sys_page;
-        self::assertInstanceOf(PageRepository::class, $page);
-    }
-
-    /**
-     * @test
-     */
-    public function createFakeFrontEndWithoutPageUidDoesNotCreateSysPage(): void
-    {
-        $this->subject->createFakeFrontEnd();
-
-        /** @var PageRepository|string $page */
-        $page = $this->getFrontEndController()->sys_page;
-        self::assertSame('', $page);
     }
 
     /**
