@@ -49,7 +49,7 @@
 		"phpstan/phpstan-strict-rules": "^1.2.2",
 		"phpunit/phpunit": "^8.5.25",
 		"saschaegerer/phpstan-typo3": "^1.1.2",
-		"sjbr/static-info-tables": "^6.9.6",
+		"sjbr/static-info-tables": "^6.9.0 || ^11.5.0",
 		"squizlabs/php_codesniffer": "^3.6.2",
 		"typo3/cms-extensionmanager": "^9.5 || ^10.4"
 	},
@@ -57,7 +57,7 @@
 		"typo3-ter/oelib": "self.version"
 	},
 	"suggest": {
-		"sjbr/static-info-tables": "^6.9.6"
+		"sjbr/static-info-tables": "for the country, currency and federal state data mappers"
 	},
 	"autoload": {
 		"psr-4": {
