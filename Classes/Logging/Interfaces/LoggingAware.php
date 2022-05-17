@@ -10,6 +10,8 @@ use TYPO3\CMS\Core\Log\LogManagerInterface;
  * Interface for classes that can log things.
  *
  * The default implementation is the corresponding trait.
+ *
+ * @deprecated Will be removed in oelib 6.0. Use `\Psr\Log\LoggerAwareInterface` instead.
  */
 interface LoggingAware
 {
