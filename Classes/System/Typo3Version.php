@@ -6,6 +6,8 @@ namespace OliverKlee\Oelib\System;
 
 /**
  * Utility class for checking the current TYPO3 version.
+ *
+ * @deprecated Will be removed in oelib 6.0. Use `\TYPO3\CMS\Core\Information\Typo3Version` instead.
  */
 final class Typo3Version
 {
