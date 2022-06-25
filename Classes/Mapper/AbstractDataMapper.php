@@ -685,7 +685,6 @@ abstract class AbstractDataMapper
      */
     protected function createGhost(int $uid): AbstractModel
     {
-        /** @var M $model */
         $model = GeneralUtility::makeInstance($this->modelClassName);
         $model->setUid($uid);
         $callback = function (AbstractModel $model): void {
