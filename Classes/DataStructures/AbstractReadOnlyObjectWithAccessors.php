@@ -121,7 +121,7 @@ abstract class AbstractReadOnlyObjectWithAccessors
             return [];
         }
 
-        return GeneralUtility::intExplode(',', $stringValue);
+        return GeneralUtility::intExplode(',', $stringValue, true);
     }
 
     /**

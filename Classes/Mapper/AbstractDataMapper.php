@@ -1239,7 +1239,7 @@ abstract class AbstractDataMapper
             return;
         }
 
-        $intUids = GeneralUtility::intExplode(',', $pageUids);
+        $intUids = GeneralUtility::intExplode(',', $pageUids, true);
         $pagesParameter = $queryBuilder->createNamedParameter($intUids, Connection::PARAM_INT_ARRAY);
         $queryBuilder->andWhere($queryBuilder->expr()->in('pid', $pagesParameter));
     }
@@ -1506,7 +1506,9 @@ abstract class AbstractDataMapper
         $query->select('*')->from($this->getTableName());
         $query->andWhere($query->expr()->eq($relationKey, $query->createNamedParameter($model->getUid())));
         if ($ignoreList instanceof Collection && $ignoreList->getUids() !== '') {
-            $query->andWhere($query->expr()->notIn('uid', GeneralUtility::intExplode(',', $ignoreList->getUids())));
+            $query->andWhere(
+                $query->expr()->notIn('uid', GeneralUtility::intExplode(',', $ignoreList->getUids(), true))
+            );
         }
 
         $result = $query->execute();

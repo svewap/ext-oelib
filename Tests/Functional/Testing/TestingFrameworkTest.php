@@ -195,18 +195,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->markTableAsDirty('tx_seminars_seminars');
     }
 
-    /**
-     * @test
-     */
-    public function markTableAsDirtyFailsWithEmptyTableName(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The table name "" is not allowed for markTableAsDirty.');
-
-        // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
-        $this->subject->markTableAsDirty('');
-    }
-
     // Tests regarding createRecord()
 
     /**

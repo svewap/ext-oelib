@@ -1933,7 +1933,7 @@ routes: {  }";
     /**
      * Puts one or multiple table names on the list of dirty tables (which
      * represents a list of tables that were used for testing and contain dummy
-     * records and thus are called "dirty" until the next clean up).
+     * records and thus are called "dirty" until the next cleanup).
      *
      * @param non-empty-string $tableNames the table name or a comma-separated list of table names
      *        to put on the list of dirty tables
@@ -1945,7 +1945,7 @@ routes: {  }";
         $this->initializeDatabase();
 
         /** @var non-empty-string $currentTable */
-        foreach (GeneralUtility::trimExplode(',', $tableNames) as $currentTable) {
+        foreach (GeneralUtility::trimExplode(',', $tableNames, true) as $currentTable) {
             if ($this->isNoneSystemTableNameAllowed($currentTable)) {
                 $this->dirtyTables[$currentTable] = $currentTable;
             } elseif ($this->isSystemTableNameAllowed($currentTable)) {

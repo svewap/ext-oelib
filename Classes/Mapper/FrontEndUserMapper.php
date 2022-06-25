@@ -59,22 +59,22 @@ class FrontEndUserMapper extends AbstractDataMapper
     /**
      * Returns the users which are in the groups with the given UIDs.
      *
-     * @param string|int $groupUids
+     * @param string|int $commaSeparatedGroupUids
      *        the UIDs of the user groups from which to get the users, must be a
      *        comma-separated list of group UIDs, must not be empty
      *
      * @return Collection<FrontEndUser> the found user models, will be empty if
      *                       no users were found for the given groups
      */
-    public function getGroupMembers($groupUids): Collection
+    public function getGroupMembers($commaSeparatedGroupUids): Collection
     {
-        if ((string)$groupUids === '') {
+        if ((string)$commaSeparatedGroupUids === '') {
             throw new \InvalidArgumentException('$groupUids must not be an empty string.', 1331488505);
         }
 
+        $groupUids = GeneralUtility::intExplode(',', (string)$commaSeparatedGroupUids, true);
         $tableName = $this->getTableName();
-        $where = 'deleted = 0 AND disable = 0 AND usergroup REGEXP \'(^|,)(' .
-            \implode('|', GeneralUtility::intExplode(',', (string)$groupUids)) . ')($|,)\'';
+        $where = 'deleted = 0 AND disable = 0 AND usergroup REGEXP \'(^|,)(' . \implode('|', $groupUids) . ')($|,)\'';
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
         $statement = $connection->query('SELECT * FROM `' . $tableName . '` WHERE ' . $where);
 
