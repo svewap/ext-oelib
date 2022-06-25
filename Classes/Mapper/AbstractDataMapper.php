@@ -839,18 +839,18 @@ abstract class AbstractDataMapper
 
         foreach ($this->relations as $key => $relation) {
             if ($this->isOneToManyRelationConfigured($key)) {
-                $functionName = 'count';
+                $methodName = 'count';
             } elseif ($this->isManyToOneRelationConfigured($key)) {
-                $functionName = 'getUid';
+                $methodName = 'getUid';
 
                 if ($data[$key] instanceof AbstractModel) {
                     $this->saveManyToOneRelatedModels($data[$key], MapperRegistry::get($relation));
                 }
             } else {
                 if ($this->isManyToManyRelationConfigured($key)) {
-                    $functionName = 'count';
+                    $methodName = 'count';
                 } else {
-                    $functionName = 'getUids';
+                    $methodName = 'getUids';
                 }
 
                 $relatedData = $data[$key];
@@ -859,7 +859,8 @@ abstract class AbstractDataMapper
                 }
             }
 
-            $data[$key] = (isset($data[$key]) && \is_object($data[$key])) ? $data[$key]->{$functionName}() : 0;
+            // @phpstan-ignore-next-line This variable method access is okay.
+            $data[$key] = (isset($data[$key]) && \is_object($data[$key])) ? $data[$key]->{$methodName}() : 0;
         }
 
         foreach ($data as &$dataItem) {
@@ -1028,9 +1029,10 @@ abstract class AbstractDataMapper
                         1331319803
                     );
                 }
+                // @phpstan-ignore-next-line This variable method access is okay.
                 if ($relatedModel->$getter() !== $model) {
-                    // Only sets the model if this would change anything. This
-                    // avoids marking unchanged models as dirty.
+                    // Only sets the model if this would change anything. This avoids marking unchanged models as dirty.
+                    // @phpstan-ignore-next-line This variable method access is okay.
                     $relatedModel->$setter($model);
                 }
                 $relatedMapper->save($relatedModel);

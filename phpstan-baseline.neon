@@ -61,16 +61,6 @@ parameters:
 			path: Classes/Mapper/AbstractDataMapper.php
 
 		-
-			message: "#^Variable method call on OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\.$#"
-			count: 2
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
-			message: "#^Variable method call on object\\.$#"
-			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
 			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserGroupMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUserGroup\\>\\:\\:\\$relations\\.$#"
 			count: 1
 			path: Classes/Mapper/BackEndUserGroupMapper.php
@@ -309,16 +299,6 @@ parameters:
 			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\ViewHelpers\\\\PriceViewHelperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/ViewHelpers/PriceViewHelperTest.php
-
-		-
-			message: "#^Variable property access on \\$this\\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Fixtures\\\\LazyLoadingModel\\)\\.$#"
-			count: 3
-			path: Tests/Unit/Domain/Fixtures/LazyLoadingModel.php
-
-		-
-			message: "#^Variable property access on \\$this\\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Domain\\\\Fixtures\\\\ParentModel\\)\\.$#"
-			count: 3
-			path: Tests/Unit/Domain/Fixtures/ParentModel.php
 
 		-
 			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"

@@ -16,8 +16,11 @@ trait LazyLoadingProperties
 {
     private function loadLazyProperty(string $propertyName): void
     {
-        if ($this->$propertyName instanceof LazyLoadingProxy) {
-            $this->$propertyName = $this->$propertyName->_loadRealInstance();
+        // @phpstan-ignore-next-line This variable property access is okay.
+        $propertyValue = $this->{$propertyName};
+        if ($propertyValue instanceof LazyLoadingProxy) {
+            // @phpstan-ignore-next-line This variable property access is okay.
+            $this->{$propertyName} = $propertyValue->_loadRealInstance();
         }
     }
 }

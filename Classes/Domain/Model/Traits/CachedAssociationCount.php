@@ -71,12 +71,16 @@ trait CachedAssociationCount
      */
     protected function getUncachedRelationCount(string $propertyName): int
     {
-        if ($this->$propertyName instanceof LazyObjectStorage) {
+        // @phpstan-ignore-next-line This variable property access is okay.
+        $propertyValue = $this->{$propertyName};
+        if ($propertyValue instanceof LazyObjectStorage) {
             $reflectionProperty = (new \ReflectionClass(LazyObjectStorage::class))->getProperty('fieldValue');
             $reflectionProperty->setAccessible(true);
-            $count = (int)$reflectionProperty->getValue($this->$propertyName);
+            // @phpstan-ignore-next-line This variable property access is okay.
+            $count = (int)$reflectionProperty->getValue($propertyValue);
         } else {
-            $count = $this->$propertyName->count();
+            // @phpstan-ignore-next-line This variable property access is okay.
+            $count = $propertyValue->count();
         }
 
         return $count;
