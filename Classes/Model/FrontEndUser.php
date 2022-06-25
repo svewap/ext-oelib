@@ -33,6 +33,11 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     public const GENDER_UNKNOWN = 99;
 
     /**
+     * @var array<int, self::GENDER_*>
+     */
+    private const GENDERS = [self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_UNKNOWN];
+
+    /**
      * Gets this user's user name (login name).
      *
      * @return string this user's user name, will not be empty for valid users
@@ -435,11 +440,9 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     }
 
     /**
-     * Gets this user's gender.
+     * Will return "unknown gender" if there is no `FrontEndUser.gender` field.
      *
-     * Will return "unknown gender" if there is no FrontEndUser.gender field.
-     *
-     * @return int the gender of the user, will be ::GENDER_FEMALE, ::GENDER_MALE or ::GENDER_UNKNOWN
+     * @return self::GENDER_*
      */
     public function getGender(): int
     {
@@ -447,14 +450,15 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
             return self::GENDER_UNKNOWN;
         }
 
-        return $this->getAsInteger('gender');
+        $gender = $this->getAsInteger('gender');
+        if (!$this->isValidGender($gender)) {
+            $gender = self::GENDER_UNKNOWN;
+        }
+
+        /** @var self::GENDER_* $gender */
+        return $gender;
     }
 
-    /**
-     * Checks whether FE users have a "gender" field at all.
-     *
-     * @return bool
-     */
     public static function hasGenderField(): bool
     {
         return isset($GLOBALS['TCA']['fe_users']['columns']['gender']);
@@ -468,7 +472,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     public function setGender(int $genderKey): void
     {
         $validGenderKeys = [self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_UNKNOWN];
-        if (!\in_array($genderKey, $validGenderKeys, true)) {
+        if (!$this->isValidGender($genderKey)) {
             throw new \InvalidArgumentException(
                 '$genderKey must be one of the predefined constants, but actually is: ' . $genderKey,
                 1393329321
@@ -476,6 +480,11 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
         }
 
         $this->setAsInteger('gender', $genderKey);
+    }
+
+    private function isValidGender(int $gender): bool
+    {
+        return \in_array($gender, self::GENDERS, true);
     }
 
     /**

@@ -1203,6 +1203,18 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      */
+    public function getGenderForInvalidGenderValueZeroReturnsGenderUnknown(): void
+    {
+        $this->enableGenderField();
+
+        $this->subject->setData(['gender' => 1234]);
+
+        self::assertSame(FrontEndUser::GENDER_UNKNOWN, $this->subject->getGender());
+    }
+
+    /**
+     * @test
+     */
     public function getGenderForGenderValueOneReturnsGenderFemale(): void
     {
         $this->enableGenderField();

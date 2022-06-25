@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Discard invalid gender values (#996)
 - Avoid some version-specific tests (#964, #967)
 - Avoid deprecated `settingLanguage` calls (#955)
 - Build a more complete fake frontend (#954)
@@ -27,7 +28,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Avoid crashes in `Collection` in PHP 8.1 (#946)
 - Avoid invalid array accesses in the view helpers (#944)
 - Move PHPCov to PHIVE (#943, #948)
-- Improve the type annotations (#941, #942)
+- Improve the type annotations (#941, #942, #995)
 - Make the usage of types more strict (#940)
 
 ## 4.1.6
