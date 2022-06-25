@@ -7,7 +7,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Geocoding\DummyGeocodingLookup;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
-use PHPUnit\Framework\MockObject\MockObject;
 
 class DummyGeocodingLookupTest extends UnitTestCase
 {
@@ -30,7 +29,6 @@ class DummyGeocodingLookupTest extends UnitTestCase
      */
     public function lookUpForEmptyAddressSetsCoordinatesError(): void
     {
-        /** @var TestingGeo&MockObject $geo */
         $geo = $this->createPartialMock(TestingGeo::class, ['setGeoError']);
         $geo->expects(self::once())->method('setGeoError');
 

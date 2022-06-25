@@ -25,7 +25,6 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
     {
         parent::setUp();
 
-        /** @var DynamicDateViewHelper&MockObject $subject */
         $subject = $this->createPartialMock(DynamicDateViewHelper::class, ['renderChildren']);
         $this->injectDependenciesIntoViewHelper($subject);
         $this->subject = $subject;

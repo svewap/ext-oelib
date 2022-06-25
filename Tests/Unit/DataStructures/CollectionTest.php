@@ -6,10 +6,8 @@ namespace OliverKlee\Oelib\Tests\Unit\DataStructures;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
-use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
-use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @covers \OliverKlee\Oelib\DataStructures\Collection
@@ -759,7 +757,6 @@ final class CollectionTest extends UnitTestCase
      */
     public function sortMakesListDirty(): void
     {
-        /** @var Collection<AbstractModel>&MockObject $subject */
         $subject = $this->createPartialMock(Collection::class, ['markAsDirty']);
         $subject->expects(self::once())->method('markAsDirty');
 
