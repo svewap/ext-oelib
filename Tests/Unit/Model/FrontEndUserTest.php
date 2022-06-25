@@ -1213,7 +1213,7 @@ class FrontEndUserTest extends UnitTestCase
     }
 
     /**
-     * @return int[][]
+     * @return array<string, array{0: FrontEndUser::GENDER_*}>
      */
     public function genderDataProvider(): array
     {
@@ -1227,7 +1227,7 @@ class FrontEndUserTest extends UnitTestCase
     /**
      * @test
      *
-     * @param int $gender
+     * @param FrontEndUser::GENDER_* $gender
      *
      * @dataProvider genderDataProvider
      */
@@ -1251,6 +1251,7 @@ class FrontEndUserTest extends UnitTestCase
         $this->enableGenderField();
         $this->subject->setData([]);
 
+        // @phpstan-ignore-next-line We are explicitly checking for a contract violation here.
         $this->subject->setGender(4);
     }
 

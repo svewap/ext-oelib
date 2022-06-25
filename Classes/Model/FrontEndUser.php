@@ -461,16 +461,14 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     }
 
     /**
-     * Sets the gender.
-     *
-     * @param int $genderKey one of the predefined gender constants
+     * @param self::GENDER_* $genderKey
      *
      * @throws \InvalidArgumentException
      */
     public function setGender(int $genderKey): void
     {
         $validGenderKeys = [self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_UNKNOWN];
-        if (!in_array($genderKey, $validGenderKeys, true)) {
+        if (!\in_array($genderKey, $validGenderKeys, true)) {
             throw new \InvalidArgumentException(
                 '$genderKey must be one of the predefined constants, but actually is: ' . $genderKey,
                 1393329321

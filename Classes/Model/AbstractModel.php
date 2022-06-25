@@ -60,8 +60,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     private $data = [];
 
     /**
-     * @var int this model's load status, will be STATUS_VIRGIN,
-     *              STATUS_GHOST, STATUS_DEAD, STATUS_LOADING or STATUS_LOADED
+     * @var self::STATUS_*
      */
     private $loadStatus = self::STATUS_VIRGIN;
 
@@ -436,9 +435,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     }
 
     /**
-     * Returns this model's load status.
-     *
-     * @return int
+     * @return self::STATUS_*
      */
     protected function getLoadStatus(): int
     {
@@ -446,7 +443,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     }
 
     /**
-     * Sets this model's load status.
+     * @param self::STATUS_* $status
      */
     protected function setLoadStatus(int $status): void
     {

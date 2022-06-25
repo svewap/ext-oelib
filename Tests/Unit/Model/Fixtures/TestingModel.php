@@ -248,6 +248,9 @@ class TestingModel extends AbstractModel
         return parent::getAsInteger($key);
     }
 
+    /**
+     * @param self::STATUS_* $status
+     */
     public function setLoadStatus(int $status): void
     {
         parent::setLoadStatus($status);

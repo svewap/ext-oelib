@@ -65,7 +65,7 @@ class AbstractModelTest extends UnitTestCase
     }
 
     /**
-     * @return int[][]
+     * @return array<string, array{0: AbstractModel::STATUS_*}>
      */
     public function cloneableStatusDataProvider(): array
     {
@@ -78,7 +78,7 @@ class AbstractModelTest extends UnitTestCase
     /**
      * @test
      *
-     * @param int $status
+     * @param AbstractModel::STATUS_* $status
      *
      * @dataProvider cloneableStatusDataProvider
      */
@@ -1482,7 +1482,7 @@ class AbstractModelTest extends UnitTestCase
     }
 
     /**
-     * @return int[][]
+     * @return array<string, array{0: AbstractModel::STATUS_*}>
      */
     public function uncloneableStatusDataProvider(): array
     {
@@ -1495,7 +1495,7 @@ class AbstractModelTest extends UnitTestCase
     /**
      * @test
      *
-     * @param int $status
+     * @param AbstractModel::STATUS_* $status
      *
      * @dataProvider uncloneableStatusDataProvider
      */
