@@ -14,13 +14,11 @@ class SystemEmailFromBuilder
 {
     /**
      * Checks whether a valid email address has been set as defaultMailFromAddress.
-     *
-     * @return bool
      */
     public function canBuild(): bool
     {
         $configuration = $this->getEmailConfiguration();
-        $emailAddress = (string)($configuration['defaultMailFromAddress'] ?? '');
+        $emailAddress = $configuration['defaultMailFromAddress'] ?? '';
 
         return \filter_var($emailAddress, FILTER_VALIDATE_EMAIL) !== false;
     }
@@ -34,8 +32,6 @@ class SystemEmailFromBuilder
     }
 
     /**
-     * @return GeneralEmailRole
-     *
      * @throws \UnexpectedValueException
      */
     public function build(): GeneralEmailRole
@@ -49,7 +45,8 @@ class SystemEmailFromBuilder
 
         return GeneralUtility::makeInstance(
             GeneralEmailRole::class,
-            (string)MailUtility::getSystemFromAddress(),
+            MailUtility::getSystemFromAddress(),
+            // @phpstan-ignore-next-line `getSystemFromName` actually returns a nullable string.
             (string)MailUtility::getSystemFromName()
         );
     }

@@ -16,11 +16,6 @@ parameters:
 			path: Classes/Configuration/FallbackConfiguration.php
 
 		-
-			message: "#^Casting to string something that's already string\\.$#"
-			count: 1
-			path: Classes/Configuration/FlexformsConfiguration.php
-
-		-
 			message: "#^Return type \\(array\\<int, string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractObjectWithPublicAccessors\\:\\:getAsTrimmedArray\\(\\) should be covariant with return type \\(array\\<int, non\\-empty\\-string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessors\\:\\:getAsTrimmedArray\\(\\)$#"
 			count: 1
 			path: Classes/DataStructures/AbstractObjectWithPublicAccessors.php
@@ -31,19 +26,9 @@ parameters:
 			path: Classes/DataStructures/AbstractReadOnlyObjectWithPublicAccessors.php
 
 		-
-			message: "#^Casting to string something that's already string\\.$#"
-			count: 3
-			path: Classes/Email/SystemEmailFromBuilder.php
-
-		-
 			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
 			count: 1
 			path: Classes/Language/SalutationSwitcher.php
-
-		-
-			message: "#^Casting to string something that's already string\\.$#"
-			count: 6
-			path: Classes/Mapper/AbstractDataMapper.php
 
 		-
 			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
@@ -74,11 +59,6 @@ parameters:
 			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\FrontEndUserMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\FrontEndUser\\>\\:\\:\\$relations\\.$#"
 			count: 1
 			path: Classes/Mapper/FrontEndUserMapper.php
-
-		-
-			message: "#^Casting to int something that's already int\\.$#"
-			count: 1
-			path: Classes/Model/AbstractModel.php
 
 		-
 			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"

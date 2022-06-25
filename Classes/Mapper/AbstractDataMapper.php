@@ -490,11 +490,11 @@ abstract class AbstractDataMapper
             }
 
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
-            $foreignTable = (string)($relationConfiguration['foreign_table'] ?? '');
+            $foreignTable = $relationConfiguration['foreign_table'] ?? '';
             if ($foreignTable === '') {
                 throw new \UnexpectedValueException('"foreign_table" is missing in the TCA.', 1646234422);
             }
-            $foreignField = (string)($relationConfiguration['foreign_field'] ?? '');
+            $foreignField = $relationConfiguration['foreign_field'] ?? '';
             if (!empty($relationConfiguration['foreign_sortby'])) {
                 $sortingField = $relationConfiguration['foreign_sortby'];
             } elseif (!empty($relationConfiguration['foreign_default_sortby'])) {
@@ -582,7 +582,7 @@ abstract class AbstractDataMapper
         if ((int)$data[$key] > 0) {
             $mapper = MapperRegistry::get($this->relations[$key]);
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
-            $mnTable = (string)($relationConfiguration['MM'] ?? '');
+            $mnTable = $relationConfiguration['MM'] ?? '';
             if ($mnTable === '') {
                 throw new \UnexpectedValueException('MM relation information missing.', 1646236363);
             }
@@ -927,7 +927,7 @@ abstract class AbstractDataMapper
             }
 
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
-            $mnTable = (string)($relationConfiguration['MM'] ?? '');
+            $mnTable = $relationConfiguration['MM'] ?? '';
             if ($mnTable === '') {
                 throw new \UnexpectedValueException('MM relation information missing.', 1646236349);
             }
@@ -953,7 +953,7 @@ abstract class AbstractDataMapper
 
             $sorting = 0;
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
-            $mnTable = (string)($relationConfiguration['MM'] ?? '');
+            $mnTable = $relationConfiguration['MM'] ?? '';
             if ($mnTable === '') {
                 throw new \UnexpectedValueException('MM relation information missing.', 1646236298);
             }
@@ -996,7 +996,7 @@ abstract class AbstractDataMapper
             }
 
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
-            $foreignField = (string)($relationConfiguration['foreign_field'] ?? '');
+            $foreignField = $relationConfiguration['foreign_field'] ?? '';
             if ($foreignField === '') {
                 throw new \BadMethodCallException(
                     'The relation ' . $this->getTableName() . ':' . $key . ' is missing the "foreign_field" setting.',

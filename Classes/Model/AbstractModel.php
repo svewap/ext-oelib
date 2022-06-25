@@ -421,7 +421,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      */
     public function getUid(): int
     {
-        return (int)$this->uid;
+        return $this->uid;
     }
 
     /**

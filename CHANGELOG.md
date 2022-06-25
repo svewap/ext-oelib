@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Drop redundant type casts (#1009)
 - Always drop empty values for `intExplode` calls (#1000)
 - Discard invalid gender values (#996)
 - Avoid some version-specific tests (#964, #967)
