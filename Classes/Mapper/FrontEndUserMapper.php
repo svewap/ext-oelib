@@ -59,6 +59,8 @@ class FrontEndUserMapper extends AbstractDataMapper
     /**
      * Returns the users which are in the groups with the given UIDs.
      *
+     * @deprecated will be removed in oelib 5.0 without replacement
+     *
      * @param string|int $commaSeparatedGroupUids
      *        the UIDs of the user groups from which to get the users, must be a
      *        comma-separated list of group UIDs, must not be empty
