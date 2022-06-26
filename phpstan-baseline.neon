@@ -31,21 +31,6 @@ parameters:
 			path: Classes/Mapper/AbstractDataMapper.php
 
 		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserGroupMapper\\:\\:\\$relations \\(array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\>\\) does not accept default value of type array\\{subgroup\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\BackEndUserGroupMapper'\\}\\.$#"
-			count: 1
-			path: Classes/Mapper/BackEndUserGroupMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserMapper\\:\\:\\$relations \\(array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\>\\) does not accept default value of type array\\{usergroup\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\BackEndUserGroupMapper'\\}\\.$#"
-			count: 1
-			path: Classes/Mapper/BackEndUserMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\FrontEndUserMapper\\:\\:\\$relations \\(array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\>\\) does not accept default value of type array\\{usergroup\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\FrontEndUserGroupMapper'\\}\\.$#"
-			count: 1
-			path: Classes/Mapper/FrontEndUserMapper.php
-
-		-
 			message: "#^Instanceof between OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\> and OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection will always evaluate to true\\.$#"
 			count: 1
 			path: Classes/Model/AbstractModel.php
@@ -234,16 +219,6 @@ parameters:
 			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\ViewHelpers\\\\PriceViewHelperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
 			count: 1
 			path: Tests/Functional/ViewHelpers/PriceViewHelperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingChildMapper\\:\\:\\$relations \\(array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\>\\) does not accept default value of type array\\{parent\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper', tx_oelib_parent2\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper', tx_oelib_parent3\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper'\\}\\.$#"
-			count: 1
-			path: Tests/Unit/Mapper/Fixtures/TestingChildMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:\\$relations \\(array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\>\\) does not accept default value of type array\\{friend\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper', owner\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\FrontEndUserMapper', children\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper', related_records\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper', composition\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingChildMapper', composition2\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingChildMapper', composition_without_sorting\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingChildMapper', bidirectional\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper'\\}\\.$#"
-			count: 1
-			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
 
 		-
 			message: "#^Return type \\(OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\) of method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:findOneByKeyFromCache\\(\\) should be covariant with return type \\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\) of method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:findOneByKeyFromCache\\(\\)$#"

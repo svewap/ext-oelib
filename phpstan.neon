@@ -22,3 +22,6 @@ parameters:
 
   # Allow instanceof checks, particularly in tests
   checkAlwaysTrueCheckTypeFunctionCall: false
+
+  # to allow e.g. `AbstractDataMapper` without specifying a model class name
+  checkGenericClassInNonGenericObjectType: false

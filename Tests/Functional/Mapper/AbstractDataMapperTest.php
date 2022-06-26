@@ -3586,7 +3586,7 @@ class AbstractDataMapperTest extends FunctionalTestCase
         $childUid2 = (int)$this->getDatabaseConnection()->lastInsertId();
         $ignoredRelatedModel = $childMapper->find($childUid2);
 
-        /** @var Collection<AbstractModel> $ignoreList */
+        /** @var Collection<TestingChildModel> $ignoreList */
         $ignoreList = new Collection();
         $ignoreList->add($ignoredRelatedModel);
 

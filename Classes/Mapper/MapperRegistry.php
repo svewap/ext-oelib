@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Mapper;
 
-use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -21,7 +20,7 @@ class MapperRegistry
     private static $instance = null;
 
     /**
-     * @var array<class-string, AbstractDataMapper<AbstractModel>> already created mappers (by class name)
+     * @var array<class-string, AbstractDataMapper> already created mappers (by class name)
      */
     private $mappers = [];
 

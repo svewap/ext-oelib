@@ -6,8 +6,8 @@ namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
-use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Model\BackEndUser;
+use OliverKlee\Oelib\Model\BackEndUserGroup;
 
 /**
  * @covers \OliverKlee\Oelib\Model\BackEndUser
@@ -270,12 +270,12 @@ class BackEndUserTest extends UnitTestCase
      */
     public function getGroupsReturnsListFromUserGroupField(): void
     {
-        /** @var Collection<AbstractModel> $expectedGroups */
+        /** @var Collection<BackEndUserGroup> $expectedGroups */
         $expectedGroups = new Collection();
 
         $this->subject->setData(['usergroup' => $expectedGroups]);
 
-        /** @var Collection<AbstractModel> $actualGroups */
+        /** @var Collection<BackEndUserGroup> $actualGroups */
         $actualGroups = $this->subject->getGroups();
         self::assertSame($expectedGroups, $actualGroups);
     }

@@ -162,22 +162,27 @@ class TestingModel extends AbstractModel
     /**
      * Gets the "composition2" data item. This is an 1:n relation.
      *
-     * @return Collection<AbstractModel> the "composition2" data item, will be empty (but
-     *                       not NULL) if this model has no composition2
+     * @return Collection<TestingChildModel>
      */
     public function getComposition2(): Collection
     {
-        return $this->getAsCollection('composition2');
+        /** @var Collection<TestingChildModel> $association */
+        $association = $this->getAsCollection('composition2');
+
+        return $association;
     }
 
     /**
      * Gets the "composition2" data item. This is an 1:n relation without sorting.
      *
-     * @return Collection<AbstractModel>
+     * @return Collection<TestingChildModel>
      */
     public function getCompositionWithoutSorting(): Collection
     {
-        return $this->getAsCollection('composition_without_sorting');
+        /** @var Collection<TestingChildModel> $association */
+        $association = $this->getAsCollection('composition_without_sorting');
+
+        return $association;
     }
 
     /**

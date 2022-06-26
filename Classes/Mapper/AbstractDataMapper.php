@@ -53,7 +53,7 @@ abstract class AbstractDataMapper
     protected $uidsOfMemoryOnlyDummyModels = [];
 
     /**
-     * @var array<non-empty-string, class-string<AbstractDataMapper<AbstractModel>>>
+     * @var array<non-empty-string, class-string<AbstractDataMapper>>
      *      the (possible) relations of the created models in the format DB column name => mapper name
      */
     protected $relations = [];
@@ -895,7 +895,7 @@ abstract class AbstractDataMapper
      * Saves the related model of an n:1-relation.
      *
      * @param AbstractModel $model the model to save
-     * @param AbstractDataMapper<AbstractModel> $mapper the mapper to use for saving
+     * @param AbstractDataMapper $mapper the mapper to use for saving
      */
     private function saveManyToOneRelatedModels(AbstractModel $model, AbstractDataMapper $mapper): void
     {
@@ -906,7 +906,7 @@ abstract class AbstractDataMapper
      * Saves the related models of a comma-separated and a regular m:n relation.
      *
      * @param Collection<AbstractModel> $list the list of models to save
-     * @param AbstractDataMapper<AbstractModel> $mapper the mapper to use for saving
+     * @param AbstractDataMapper $mapper the mapper to use for saving
      */
     private function saveManyToManyAndCommaSeparatedRelatedModels(Collection $list, AbstractDataMapper $mapper): void
     {
