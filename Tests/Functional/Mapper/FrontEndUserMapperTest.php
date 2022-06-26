@@ -31,38 +31,6 @@ class FrontEndUserMapperTest extends FunctionalTestCase
         $this->subject = new FrontEndUserMapper();
     }
 
-    //////////////////////////
-    // Tests concerning find
-    //////////////////////////
-
-    /**
-     * @test
-     */
-    public function findWithUidOfExistingRecordReturnsFrontEndUserInstance(): void
-    {
-        $this->getDatabaseConnection()->insertArray('fe_users', []);
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
-
-        self::assertInstanceOf(
-            FrontEndUser::class,
-            $this->subject->find($uid)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function findWithUidOfExistingRecordReturnsModelWithThatUid(): void
-    {
-        $this->getDatabaseConnection()->insertArray('fe_users', []);
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
-
-        self::assertSame(
-            $uid,
-            $this->subject->find($uid)->getUid()
-        );
-    }
-
     //////////////////////////////
     // Test concerning getGroups
     //////////////////////////////

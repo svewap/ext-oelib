@@ -48,14 +48,6 @@ class CountryMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsCountryInstance(): void
-    {
-        self::assertInstanceOf(Country::class, $this->subject->find(54));
-    }
-
-    /**
-     * @test
-     */
     public function findWithUidOfExistingRecordReturnsRecordAsModel(): void
     {
         /** @var Country $model */

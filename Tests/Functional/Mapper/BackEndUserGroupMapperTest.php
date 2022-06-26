@@ -32,14 +32,6 @@ class BackEndUserGroupMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findReturnsBackEndUserGroupInstance(): void
-    {
-        self::assertInstanceOf(BackEndUserGroup::class, $this->subject->find(1));
-    }
-
-    /**
-     * @test
-     */
     public function loadForExistingUserGroupCanLoadUserGroupData(): void
     {
         /** @var BackEndUserGroup $userGroup */

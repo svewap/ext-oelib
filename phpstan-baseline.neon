@@ -172,7 +172,7 @@ parameters:
 
 		-
 			message: "#^Casting to int something that's already int\\.$#"
-			count: 29
+			count: 27
 			path: Tests/Functional/Mapper/FrontEndUserMapperTest.php
 
 		-

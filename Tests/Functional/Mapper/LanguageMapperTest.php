@@ -47,17 +47,6 @@ class LanguageMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsLanguageInstance(): void
-    {
-        self::assertInstanceOf(
-            Language::class,
-            $this->subject->find(43)
-        );
-    }
-
-    /**
-     * @test
-     */
     public function findWithUidOfExistingRecordReturnsRecordAsModel(): void
     {
         /** @var Language $model */

@@ -46,19 +46,6 @@ class FrontEndUserGroupMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsFrontEndUserGroupInstance(): void
-    {
-        $uid = $this->testingFramework->createFrontEndUserGroup();
-
-        self::assertInstanceOf(
-            FrontEndUserGroup::class,
-            $this->subject->find($uid)
-        );
-    }
-
-    /**
-     * @test
-     */
     public function loadForExistingUserGroupCanLoadUserGroupData(): void
     {
         /** @var FrontEndUserGroup $userGroup */

@@ -27,7 +27,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Avoid calls to deprecated classes and methods (#955, #1014)
 - Build a more complete fake frontend (#954)
 - Use proper mocking with 11LTS in the storage-related tests (#951)
-- Fix compatibility with newer DBAL versions (#950)
+- Fix compatibility with newer DBAL versions (#950, #1014)
 - Make the declaration of `UserWithoutCookies` V11-compatible (#949)
 - Avoid crashes in `Collection` in PHP 8.1 (#946)
 - Avoid invalid array accesses in the view helpers (#944)

@@ -42,21 +42,6 @@ class CurrencyMapperTest extends FunctionalTestCase
         }
     }
 
-    ///////////////////////////
-    // Tests concerning find.
-    ///////////////////////////
-
-    /**
-     * @test
-     */
-    public function findWithUidOfExistingRecordReturnsCurrencyInstance(): void
-    {
-        self::assertInstanceOf(
-            Currency::class,
-            $this->subject->find(49)
-        );
-    }
-
     /////////////////////////////////////////
     // Tests regarding findByIsoAlpha3Code.
     /////////////////////////////////////////

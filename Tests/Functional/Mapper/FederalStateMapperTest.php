@@ -44,17 +44,6 @@ class FederalStateMapperTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function findWithUidOfExistingRecordReturnsFederalStateInstance(): void
-    {
-        self::assertInstanceOf(
-            FederalState::class,
-            $this->subject->find(88)
-        );
-    }
-
-    /**
-     * @test
-     */
     public function findWithUidOfExistingRecordReturnsRecordAsModel(): void
     {
         /** @var FederalState $model */
