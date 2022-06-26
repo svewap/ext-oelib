@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Model\AbstractModel;
  * This class represents a list of models.
  *
  * @template-covariant M of AbstractModel
- * @extends \SplObjectStorage<AbstractModel, int>
+ * @extends \SplObjectStorage<M, int>
  */
 class Collection extends \SplObjectStorage
 {
@@ -216,14 +216,15 @@ class Collection extends \SplObjectStorage
             return;
         }
 
-        if ($this->current()->hasUid()) {
-            $uid = $this->current()->getUid();
+        $current = $this->current();
+        if ($current->hasUid()) {
+            $uid = $current->getUid();
             if (isset($this->uids[$uid])) {
                 unset($this->uids[$uid]);
             }
         }
 
-        $this->detach($this->current());
+        $this->detach($current);
 
         $this->markAsDirty();
     }
@@ -305,10 +306,8 @@ class Collection extends \SplObjectStorage
      *                 a positive number if $model1 should be after $model2,
      *                 zero if both are equal for sorting
      */
-    public function compareSortings(
-        Sortable $object1,
-        Sortable $object2
-    ): int {
+    public function compareSortings(Sortable $object1, Sortable $object2): int
+    {
         return $object1->getSorting() - $object2->getSorting();
     }
 

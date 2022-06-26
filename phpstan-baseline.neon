@@ -21,24 +21,14 @@ parameters:
 			path: Classes/DataStructures/AbstractReadOnlyObjectWithPublicAccessors.php
 
 		-
-			message: "#^Instanceof between OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\> and OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection will always evaluate to true\\.$#"
+			message: "#^Template type M is declared as covariant, but occurs in invariant position in extended type SplObjectStorage\\<M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel, int\\> of class OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
 			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
+			path: Classes/DataStructures/Collection.php
 
 		-
 			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\:\\:\\$cacheByKey \\(array\\<string, array\\<string, M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\) does not accept array\\<string, array\\<int\\|string, M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
 			count: 1
 			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
-			message: "#^Instanceof between OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\> and OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection will always evaluate to true\\.$#"
-			count: 1
-			path: Classes/Model/AbstractModel.php
-
-		-
-			message: "#^Parameter \\#2 \\$value \\(bool\\|float\\|int\\|OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\|OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\|string\\|null\\) of method OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\:\\:set\\(\\) should be contravariant with parameter \\$value \\(mixed\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractObjectWithAccessors\\:\\:set\\(\\)$#"
-			count: 1
-			path: Classes/Model/AbstractModel.php
 
 		-
 			message: "#^Property OliverKlee\\\\Oelib\\\\Templating\\\\Template\\:\\:\\$subparts \\(array\\<string, string\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"

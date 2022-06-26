@@ -242,7 +242,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
      * Sets the value of the data item for the key $key.
      *
      * @param string $key the key of the data item to get, must not be empty
-     * @param Collection<AbstractModel>|AbstractModel|string|int|float|bool|null $value the data for the given key
+     * @param mixed $value the data for the given key
      */
     protected function set(string $key, $value): void
     {
@@ -355,7 +355,6 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     {
         $this->checkForNonEmptyKey($key);
 
-        /** @var Collection<AbstractModel> $result */
         $result = $this->get($key);
         if (!$result instanceof Collection) {
             throw new \UnexpectedValueException(

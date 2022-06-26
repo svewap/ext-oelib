@@ -992,9 +992,8 @@ abstract class AbstractDataMapper
             if (!$this->isOneToManyRelationConfigured($key)) {
                 continue;
             }
-            /** @var Collection<AbstractModel> $relatedModels */
             $relatedModels = $data[$key];
-            if (!($relatedModels instanceof Collection)) {
+            if (!$relatedModels instanceof Collection) {
                 continue;
             }
 
@@ -1122,7 +1121,7 @@ abstract class AbstractDataMapper
                 if (!$relatedModels instanceof Collection) {
                     continue;
                 }
-
+                /** @var Collection<AbstractModel> $relatedModels */
                 $relatedMapper = $this->getRelationMapperByKey($key);
                 foreach ($relatedModels as $relatedModel) {
                     $relatedMapper->delete($relatedModel);
