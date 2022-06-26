@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Raise PHPStan to level 9 (#1028)
 - Allow more versions of `static_info_tables` (#968)
 - Mark some internal classes as `@internal` (#963)
 

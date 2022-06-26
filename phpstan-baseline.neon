@@ -6,14 +6,479 @@ parameters:
 			path: Classes/Authentication/BackEndLoginManager.php
 
 		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\:\\:getBackEndUserAuthentication\\(\\) should return TYPO3\\\\CMS\\\\Core\\\\Authentication\\\\BackendUserAuthentication\\|null but returns mixed\\.$#"
+			count: 1
+			path: Classes/Authentication/BackEndLoginManager.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Classes/Authentication/FrontEndLoginManager.php
+
+		-
 			message: "#^Default value of the parameter \\#1 \\$mapperName \\('OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\FrontEndUserMapper'\\) of method OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\:\\:getLoggedInUser\\(\\) is incompatible with type class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
 			count: 1
 			path: Classes/Authentication/FrontEndLoginManager.php
 
 		-
+			message: "#^Cannot access offset 'Field' on mixed\\.$#"
+			count: 1
+			path: Classes/Configuration/AbstractConfigurationCheck.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\AbstractConfigurationCheck\\:\\:getDbColumnNames\\(\\) should return array\\<int\\|string, non\\-empty\\-string\\> but returns array\\<int, mixed\\>\\.$#"
+			count: 1
+			path: Classes/Configuration/AbstractConfigurationCheck.php
+
+		-
+			message: "#^Cannot access offset 'EXTENSIONS' on mixed\\.$#"
+			count: 2
+			path: Classes/Configuration/ConfigurationProxy.php
+
+		-
+			message: "#^Cannot access offset string on mixed\\.$#"
+			count: 2
+			path: Classes/Configuration/ConfigurationProxy.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Configuration\\\\ConfigurationProxy\\:\\:\\$configuration \\(array\\<string, mixed\\>\\) does not accept mixed\\.$#"
+			count: 1
+			path: Classes/Configuration/ConfigurationProxy.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\ConfigurationRegistry\\:\\:getFrontEndController\\(\\) should return TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null but returns mixed\\.$#"
+			count: 1
+			path: Classes/Configuration/ConfigurationRegistry.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of method OliverKlee\\\\Oelib\\\\Configuration\\\\FlexformsConfiguration\\:\\:getFromArray\\(\\) expects array\\<array\\<int\\|string, mixed\\>\\|int\\|string\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 1
+			path: Classes/Configuration/FlexformsConfiguration.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of method OliverKlee\\\\Oelib\\\\Configuration\\\\FlexformsConfiguration\\:\\:getFromArray\\(\\) expects array\\<array\\<int\\|string, mixed\\>\\|int\\|string\\>, array\\<string, mixed\\> given\\.$#"
+			count: 1
+			path: Classes/Configuration/FlexformsConfiguration.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 2
+			path: Classes/Configuration/PageFinder.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\PageFinder\\:\\:getFrontEndController\\(\\) should return TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null but returns mixed\\.$#"
+			count: 1
+			path: Classes/Configuration/PageFinder.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\TypoScriptConfiguration\\:\\:getAsMultidimensionalArray\\(\\) should return array\\<string, array\\<int\\|string, mixed\\>\\|int\\|string\\> but returns array\\.$#"
+			count: 1
+			path: Classes/Configuration/TypoScriptConfiguration.php
+
+		-
+			message: "#^Cannot cast mixed to float\\.$#"
+			count: 1
+			path: Classes/DataStructures/AbstractObjectWithAccessors.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Classes/DataStructures/AbstractObjectWithAccessors.php
+
+		-
+			message: "#^Cannot cast mixed to string\\.$#"
+			count: 1
+			path: Classes/DataStructures/AbstractObjectWithAccessors.php
+
+		-
+			message: "#^Cannot cast mixed to float\\.$#"
+			count: 1
+			path: Classes/DataStructures/AbstractReadOnlyObjectWithAccessors.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Classes/DataStructures/AbstractReadOnlyObjectWithAccessors.php
+
+		-
+			message: "#^Cannot cast mixed to string\\.$#"
+			count: 1
+			path: Classes/DataStructures/AbstractReadOnlyObjectWithAccessors.php
+
+		-
 			message: "#^Template type M is declared as covariant, but occurs in invariant position in extended type SplObjectStorage\\<M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel, int\\> of class OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
 			count: 1
 			path: Classes/DataStructures/Collection.php
+
+		-
+			message: "#^Cannot access offset 'uid' on mixed\\.$#"
+			count: 1
+			path: Classes/Domain/Repository/PageRepository.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Classes/Domain/Repository/PageRepository.php
+
+		-
+			message: "#^Cannot access offset 'MAIL' on mixed\\.$#"
+			count: 1
+			path: Classes/Email/SystemEmailFromBuilder.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Email\\\\SystemEmailFromBuilder\\:\\:getEmailConfiguration\\(\\) should return array\\{defaultMailFromAddress\\?\\: string\\} but returns mixed\\.$#"
+			count: 1
+			path: Classes/Email/SystemEmailFromBuilder.php
+
+		-
+			message: "#^Cannot access offset 'error_message' on mixed\\.$#"
+			count: 4
+			path: Classes/Geocoding/GoogleGeocoding.php
+
+		-
+			message: "#^Cannot access offset 'geometry' on mixed\\.$#"
+			count: 1
+			path: Classes/Geocoding/GoogleGeocoding.php
+
+		-
+			message: "#^Cannot access offset 'lat' on mixed\\.$#"
+			count: 1
+			path: Classes/Geocoding/GoogleGeocoding.php
+
+		-
+			message: "#^Cannot access offset 'lng' on mixed\\.$#"
+			count: 1
+			path: Classes/Geocoding/GoogleGeocoding.php
+
+		-
+			message: "#^Cannot access offset 'location' on mixed\\.$#"
+			count: 1
+			path: Classes/Geocoding/GoogleGeocoding.php
+
+		-
+			message: "#^Cannot access offset 'results' on mixed\\.$#"
+			count: 1
+			path: Classes/Geocoding/GoogleGeocoding.php
+
+		-
+			message: "#^Cannot access offset 'status' on mixed\\.$#"
+			count: 1
+			path: Classes/Geocoding/GoogleGeocoding.php
+
+		-
+			message: "#^Cannot access offset 0 on mixed\\.$#"
+			count: 1
+			path: Classes/Geocoding/GoogleGeocoding.php
+
+		-
+			message: "#^Cannot cast mixed to float\\.$#"
+			count: 2
+			path: Classes/Geocoding/GoogleGeocoding.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Geocoding\\\\GoogleGeocoding\\:\\:sendRequest\\(\\) should return string\\|false but returns mixed\\.$#"
+			count: 1
+			path: Classes/Geocoding/GoogleGeocoding.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Language\\\\SalutationSwitcher\\:\\:getFrontEndController\\(\\) should return TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null but returns mixed\\.$#"
+			count: 1
+			path: Classes/Language/SalutationSwitcher.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Language\\\\SalutationSwitcher\\:\\:getLanguageService\\(\\) should return TYPO3\\\\CMS\\\\Core\\\\Localization\\\\LanguageService\\|null but returns mixed\\.$#"
+			count: 1
+			path: Classes/Language/SalutationSwitcher.php
+
+		-
+			message: "#^Cannot access offset non\\-empty\\-string on mixed\\.$#"
+			count: 2
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 6
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Cannot cast mixed to string\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:getTcaForTable\\(\\) should return array\\<string, array\\<string, array\\<string, array\\<string, string\\>\\>\\>\\> but returns mixed\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\:\\:retrieveRecord\\(\\) should return array\\<string, bool\\|float\\|int\\|string\\|null\\> but returns mixed\\.$#"
+			count: 1
+			path: Classes/Mapper/AbstractDataMapper.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\:\\:\\$data \\(array\\<string, bool\\|float\\|int\\|object\\|string\\|null\\>\\) does not accept array\\<string, mixed\\>\\.$#"
+			count: 1
+			path: Classes/Model/AbstractModel.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Model\\\\BackEndUser\\:\\:getConfiguration\\(\\) should return array\\<string, string\\> but returns array\\.$#"
+			count: 1
+			path: Classes/Model/BackEndUser.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Model\\\\BackEndUser\\:\\:\\$configuration \\(array\\<string, string\\>\\) does not accept array\\.$#"
+			count: 1
+			path: Classes/Model/BackEndUser.php
+
+		-
+			message: "#^Cannot access offset 'columns' on mixed\\.$#"
+			count: 1
+			path: Classes/Model/FrontEndUser.php
+
+		-
+			message: "#^Cannot access offset 'fe_users' on mixed\\.$#"
+			count: 1
+			path: Classes/Model/FrontEndUser.php
+
+		-
+			message: "#^Cannot access offset 'gender' on mixed\\.$#"
+			count: 1
+			path: Classes/Model/FrontEndUser.php
+
+		-
+			message: "#^Parameter \\#2 \\$timestamp of function strftime expects int, mixed given\\.$#"
+			count: 3
+			path: Classes/Model/FrontEndUser.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Session\\\\Session\\:\\:getFrontEndController\\(\\) should return TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null but returns mixed\\.$#"
+			count: 1
+			path: Classes/Session/Session.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 2
+			path: Classes/Templating/Template.php
+
+		-
+			message: "#^Cannot cast mixed to string\\.$#"
+			count: 5
+			path: Classes/Templating/Template.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Templating\\\\Template\\:\\:\\$subparts \\(array\\<string, string\\>\\) does not accept array\\<string, mixed\\>\\.$#"
+			count: 1
+			path: Classes/Templating/Template.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Classes/Templating/TemplateHelper.php
+
+		-
+			message: "#^Cannot access offset 'Auto_increment' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'DOCUMENT_ROOT' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'EXTCONF' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'FE' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'FE_SESSION_KEY' on mixed\\.$#"
+			count: 2
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'HOSTNAME' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'HTTP' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'HTTP_ACCEPT_ENCODING' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'HTTP_ACCEPT_LANGUAGE' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'HTTP_HOST' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'HTTP_REFERER' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'HTTP_USER_AGENT' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'MM' on mixed\\.$#"
+			count: 3
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'MM_opposite_field' on mixed\\.$#"
+			count: 2
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'Objects' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'PHP_SELF' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'QUERY_STRING' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'REMOTE_ADDR' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'REMOTE_HOST' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'REQUEST_SCHEME' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'REQUEST_URI' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'SCRIPT_FILENAME' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'SCRIPT_NAME' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'SERVER_ADDR' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'SERVER_NAME' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'SERVER_SOFTWARE' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'SYS' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'TYPO3\\\\\\\\CMS\\\\\\\\Frontend\\\\\\\\Authentication\\\\\\\\FrontendUserAuthentication' on mixed\\.$#"
+			count: 2
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'config' on mixed\\.$#"
+			count: 6
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'dontSetCookie' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'foreign_table' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'oelib' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset 'testingFrameworkCle…' on mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot access offset non\\-empty\\-string on mixed\\.$#"
+			count: 2
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 2
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:getFrontEndController\\(\\) should return TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController but returns mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:getTcaForTable\\(\\) should return array\\<array\\<string, mixed\\>\\> but returns mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Parameter \\#1 \\$table of method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:createRelation\\(\\) expects non\\-empty\\-string, mixed given\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Parameter \\#1 \\$tableName of method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:createRelationAndUpdateCounter\\(\\) expects non\\-empty\\-string, mixed given\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Parameter \\#4 \\$columnName of method OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:createRelationAndUpdateCounter\\(\\) expects non\\-empty\\-string, mixed given\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Testing\\\\TestingFramework\\:\\:\\$serverVariablesBackup \\(array\\<string, bool\\|string\\|null\\>\\|null\\) does not accept mixed\\.$#"
+			count: 1
+			path: Classes/Testing/TestingFramework.php
 
 		-
 			message: "#^Parameter \\#1 \\$arguments \\(array\\<string, mixed\\>\\) of method OliverKlee\\\\Oelib\\\\ViewHelpers\\\\DynamicDateViewHelper\\:\\:renderStatic\\(\\) should be contravariant with parameter \\$arguments \\(array\\) of method TYPO3Fluid\\\\Fluid\\\\Core\\\\ViewHelper\\\\AbstractViewHelper\\:\\:renderStatic\\(\\)$#"
@@ -26,9 +491,39 @@ parameters:
 			path: Classes/ViewHelpers/DynamicDateViewHelper.php
 
 		-
+			message: "#^Parameter \\#1 \\$format of method DateTimeInterface\\:\\:format\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Classes/ViewHelpers/DynamicDateViewHelper.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\ViewHelpers\\\\GoogleMapsViewHelper\\:\\:getFrontEndController\\(\\) should return TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController but returns mixed\\.$#"
+			count: 1
+			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$mapPoints of method OliverKlee\\\\Oelib\\\\ViewHelpers\\\\GoogleMapsViewHelper\\:\\:findMapPointsWithCoordinates\\(\\) expects array\\<OliverKlee\\\\Oelib\\\\Interfaces\\\\MapPoint\\>, array given\\.$#"
+			count: 1
+			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$treeStructure of method OliverKlee\\\\Oelib\\\\Visibility\\\\Tree\\:\\:buildTreeFromArray\\(\\) expects array\\<string, array\\<string, mixed\\>\\|bool\\>, array\\<string, mixed\\> given\\.$#"
+			count: 1
+			path: Classes/Visibility/Tree.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\BackEndLoginManagerTest\\:\\:getBackEndUserAuthentication\\(\\) should return TYPO3\\\\CMS\\\\Core\\\\Authentication\\\\BackendUserAuthentication but returns mixed\\.$#"
+			count: 1
+			path: Tests/Functional/Authentication/BackEndLoginManagerTest.php
+
+		-
 			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\BackEndLoginManagerTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Authentication/BackEndLoginManagerTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\FrontEndLoginManagerTest\\:\\:getFrontEndController\\(\\) should return TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController but returns mixed\\.$#"
+			count: 1
+			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
 
 		-
 			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\FrontEndLoginManagerTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
@@ -68,6 +563,11 @@ parameters:
 		-
 			message: "#^Casting to int something that's already int\\.$#"
 			count: 185
+			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\AbstractDataMapperTest\\:\\:findRecordByUid\\(\\) should return array\\<string, int\\|string\\> but returns mixed\\.$#"
+			count: 1
 			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
 
 		-
@@ -151,8 +651,23 @@ parameters:
 			path: Tests/Functional/Testing/CacheNullifyerTest.php
 
 		-
+			message: "#^Cannot access offset 'HTTP_HOST' on mixed\\.$#"
+			count: 6
+			path: Tests/Functional/Testing/TestingFrameworkTest.php
+
+		-
+			message: "#^Cannot access offset 'QUERY_STRING' on mixed\\.$#"
+			count: 3
+			path: Tests/Functional/Testing/TestingFrameworkTest.php
+
+		-
 			message: "#^Casting to int something that's already int\\.$#"
 			count: 4
+			path: Tests/Functional/Testing/TestingFrameworkTest.php
+
+		-
+			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\TestingFrameworkTest\\:\\:getFrontEndController\\(\\) should return TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController but returns mixed\\.$#"
+			count: 1
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
 
 		-
@@ -169,3 +684,68 @@ parameters:
 			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\ViewHelpers\\\\PriceViewHelperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/ViewHelpers/PriceViewHelperTest.php
+
+		-
+			message: "#^Cannot access offset 'MAIL' on mixed\\.$#"
+			count: 2
+			path: Tests/Unit/Configuration/AbstractConfigurationCheckTest.php
+
+		-
+			message: "#^Cannot access offset 'defaultMailFromAddr…' on mixed\\.$#"
+			count: 5
+			path: Tests/Unit/Configuration/AbstractConfigurationCheckTest.php
+
+		-
+			message: "#^Cannot access offset 'EXTENSIONS' on mixed\\.$#"
+			count: 1
+			path: Tests/Unit/Configuration/ConfigurationProxyTest.php
+
+		-
+			message: "#^Cannot access offset 'oelib' on mixed\\.$#"
+			count: 3
+			path: Tests/Unit/Configuration/ConfigurationProxyTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractObjectWithPublicAccessors\\:\\:setAsArray\\(\\) expects array\\<int\\|string\\>, array\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: Tests/Unit/DataStructures/AbstractObjectWithPublicAccessorsTest.php
+
+		-
+			message: "#^Cannot access offset 'defaultMailFromAddr…' on mixed\\.$#"
+			count: 7
+			path: Tests/Unit/Email/SystemEmailFromBuilderTest.php
+
+		-
+			message: "#^Cannot access offset 'defaultMailFromName' on mixed\\.$#"
+			count: 7
+			path: Tests/Unit/Email/SystemEmailFromBuilderTest.php
+
+		-
+			message: "#^Cannot access offset 'columns' on mixed\\.$#"
+			count: 1
+			path: Tests/Unit/Model/FrontEndUserTest.php
+
+		-
+			message: "#^Cannot access offset 'fe_users' on mixed\\.$#"
+			count: 3
+			path: Tests/Unit/Model/FrontEndUserTest.php
+
+		-
+			message: "#^Cannot access offset 'gender' on mixed\\.$#"
+			count: 2
+			path: Tests/Unit/Model/FrontEndUserTest.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\FrontEndUserTest\\:\\:\\$globalExecTimeBackup \\(int\\) does not accept mixed\\.$#"
+			count: 1
+			path: Tests/Unit/Model/FrontEndUserTest.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\FrontEndUserTest\\:\\:\\$tcaBackup \\(array\\<string, mixed\\>\\) does not accept mixed\\.$#"
+			count: 1
+			path: Tests/Unit/Model/FrontEndUserTest.php
+
+		-
+			message: "#^Cannot access offset class\\-string\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Testing\\\\Fixtures\\\\TestingCleanup\\>&class\\-string\\<PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\> on mixed\\.$#"
+			count: 1
+			path: Tests/Unit/Testing/TestingFrameworkTest.php
