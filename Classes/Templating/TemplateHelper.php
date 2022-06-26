@@ -48,7 +48,7 @@ class TemplateHelper extends SalutationSwitcher
     private $templateFileName = '';
 
     /**
-     * @var Template this object's (only) template
+     * @var Template|null this object's (only) template
      */
     private $template = null;
 
@@ -111,7 +111,7 @@ class TemplateHelper extends SalutationSwitcher
         }
 
         $frontEnd = $this->getFrontEndController();
-        if ($frontEnd instanceof TypoScriptFrontendController && $frontEnd->cObj instanceof ContentObjectRenderer) {
+        if ($frontEnd instanceof TypoScriptFrontendController) {
             $this->cObj = $frontEnd->cObj;
         }
     }
@@ -161,7 +161,7 @@ class TemplateHelper extends SalutationSwitcher
             $flexFormsValue = $this->addPathToFileName($flexFormsValue);
         }
 
-        return $flexFormsValue ?: $configurationValueFromTypoScript;
+        return $flexFormsValue ?? $configurationValueFromTypoScript;
     }
 
     /**

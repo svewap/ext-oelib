@@ -52,9 +52,7 @@ class TestingMapPoint implements MapPoint, Identity
     /**
      * Returns this object's coordinates.
      *
-     * @return float[]
-     *         this object's geo coordinates using the keys "latitude" and
-     *         "longitude", will be empty if this object has no coordinates
+     * @return array{latitude: float, longitude: float}
      */
     public function getGeoCoordinates(): array
     {

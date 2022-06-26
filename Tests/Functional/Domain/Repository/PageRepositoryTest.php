@@ -12,9 +12,6 @@ use OliverKlee\Oelib\Domain\Repository\PageRepository;
  */
 class PageRepositoryTest extends FunctionalTestCase
 {
-    /**
-     * @var array<int, non-empty-string>
-     */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**

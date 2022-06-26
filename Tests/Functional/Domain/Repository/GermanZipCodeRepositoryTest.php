@@ -12,9 +12,6 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 class GermanZipCodeRepositoryTest extends FunctionalTestCase
 {
-    /**
-     * @var non-empty-string[]
-     */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**

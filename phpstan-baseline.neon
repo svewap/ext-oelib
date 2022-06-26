@@ -11,44 +11,9 @@ parameters:
 			path: Classes/Authentication/FrontEndLoginManager.php
 
 		-
-			message: "#^Return type \\(array\\<int, string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractObjectWithPublicAccessors\\:\\:getAsTrimmedArray\\(\\) should be covariant with return type \\(array\\<int, non\\-empty\\-string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessors\\:\\:getAsTrimmedArray\\(\\)$#"
-			count: 1
-			path: Classes/DataStructures/AbstractObjectWithPublicAccessors.php
-
-		-
-			message: "#^Return type \\(array\\<int, string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractReadOnlyObjectWithPublicAccessors\\:\\:getAsTrimmedArray\\(\\) should be covariant with return type \\(array\\<int, non\\-empty\\-string\\>\\) of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractReadOnlyObjectWithAccessors\\:\\:getAsTrimmedArray\\(\\)$#"
-			count: 1
-			path: Classes/DataStructures/AbstractReadOnlyObjectWithPublicAccessors.php
-
-		-
 			message: "#^Template type M is declared as covariant, but occurs in invariant position in extended type SplObjectStorage\\<M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel, int\\> of class OliverKlee\\\\Oelib\\\\DataStructures\\\\Collection\\.$#"
 			count: 1
 			path: Classes/DataStructures/Collection.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\:\\:\\$cacheByKey \\(array\\<string, array\\<string, M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\) does not accept array\\<string, array\\<int\\|string, M of OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
-			count: 1
-			path: Classes/Mapper/AbstractDataMapper.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Templating\\\\Template\\:\\:\\$subparts \\(array\\<string, string\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: Classes/Templating/Template.php
-
-		-
-			message: "#^Instanceof between OliverKlee\\\\Oelib\\\\Templating\\\\Template and OliverKlee\\\\Oelib\\\\Templating\\\\Template will always evaluate to true\\.$#"
-			count: 1
-			path: Classes/Templating/TemplateHelper.php
-
-		-
-			message: "#^Instanceof between TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer and TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer will always evaluate to true\\.$#"
-			count: 1
-			path: Classes/Templating/TemplateHelper.php
-
-		-
-			message: "#^Short ternary operator is not allowed\\. Use null coalesce operator if applicable or consider using long ternary\\.$#"
-			count: 1
-			path: Classes/Templating/TemplateHelper.php
 
 		-
 			message: "#^Parameter \\#1 \\$arguments \\(array\\<string, mixed\\>\\) of method OliverKlee\\\\Oelib\\\\ViewHelpers\\\\DynamicDateViewHelper\\:\\:renderStatic\\(\\) should be contravariant with parameter \\$arguments \\(array\\) of method TYPO3Fluid\\\\Fluid\\\\Core\\\\ViewHelper\\\\AbstractViewHelper\\:\\:renderStatic\\(\\)$#"
@@ -61,47 +26,42 @@ parameters:
 			path: Classes/ViewHelpers/DynamicDateViewHelper.php
 
 		-
-			message: "#^Instanceof between OliverKlee\\\\Oelib\\\\Interfaces\\\\MapPoint and OliverKlee\\\\Oelib\\\\Interfaces\\\\MapPoint will always evaluate to true\\.$#"
-			count: 1
-			path: Classes/ViewHelpers/GoogleMapsViewHelper.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\BackEndLoginManagerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\BackEndLoginManagerTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Authentication/BackEndLoginManagerTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\FrontEndLoginManagerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\FrontEndLoginManagerTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\AbstractConfigurationCheckTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\AbstractConfigurationCheckTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Configuration/AbstractConfigurationCheckTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\ConfigurationRegistryTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\ConfigurationRegistryTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Configuration/ConfigurationRegistryTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\PageFinderTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\PageFinderTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Configuration/PageFinderTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Domain\\\\Repository\\\\GermanZipCodeRepositoryTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Domain\\\\Repository\\\\GermanZipCodeRepositoryTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Domain/Repository/GermanZipCodeRepositoryTest.php
 
 		-
-			message: "#^PHPDoc type array\\<int, string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Domain\\\\Repository\\\\PageRepositoryTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Domain\\\\Repository\\\\PageRepositoryTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Domain/Repository/PageRepositoryTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Language\\\\SalutationSwitcherTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Language\\\\SalutationSwitcherTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Language/SalutationSwitcherTest.php
 
@@ -111,37 +71,37 @@ parameters:
 			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\AbstractDataMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\AbstractDataMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/BackEndUserGroupMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/BackEndUserMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CountryMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CountryMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/CountryMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CurrencyMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CurrencyMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/CurrencyMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FederalStateMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FederalStateMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/FederalStateMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/FrontEndUserGroupMapperTest.php
 
@@ -151,12 +111,12 @@ parameters:
 			path: Tests/Functional/Mapper/FrontEndUserMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/FrontEndUserMapperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\LanguageMapperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\LanguageMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/LanguageMapperTest.php
 
@@ -166,27 +126,27 @@ parameters:
 			path: Tests/Functional/Model/AbstractModelTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\AbstractModelTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\AbstractModelTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Model/AbstractModelTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\BackEndUserTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\BackEndUserTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Model/BackEndUserTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\FrontEndUserTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\FrontEndUserTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Model/FrontEndUserTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Templating\\\\TemplateHelperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Templating\\\\TemplateHelperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Templating/TemplateHelperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\CacheNullifyerTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\CacheNullifyerTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Testing/CacheNullifyerTest.php
 
@@ -196,42 +156,16 @@ parameters:
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\TestingFrameworkTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\TestingFrameworkTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\WritableEnvironmentTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\WritableEnvironmentTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Testing/WritableEnvironmentTest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\ViewHelpers\\\\PriceViewHelperTest\\:\\:\\$testExtensionsToLoad is not the same as PHPDoc type array of overridden property Nimut\\\\TestingFramework\\\\TestCase\\\\AbstractFunctionalTestCase\\:\\:\\$testExtensionsToLoad\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\ViewHelpers\\\\PriceViewHelperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/ViewHelpers/PriceViewHelperTest.php
-
-		-
-			message: "#^Return type \\(OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\) of method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:findOneByKeyFromCache\\(\\) should be covariant with return type \\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\) of method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:findOneByKeyFromCache\\(\\)$#"
-			count: 1
-			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
-
-		-
-			message: "#^Return type \\(OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\) of method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:findSingleByWhereClause\\(\\) should be covariant with return type \\(OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\) of method OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:findSingleByWhereClause\\(\\)$#"
-			count: 1
-			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
-
-		-
-			message: "#^Only numeric types are allowed in \\-, int\\|false given on the left side\\.$#"
-			count: 1
-			path: Tests/Unit/Model/FrontEndUserTest.php
-
-		-
-			message: "#^OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Templating\\\\Fixtures\\\\TestingTemplateHelper\\:\\:__construct\\(\\) does not call parent constructor from TYPO3\\\\CMS\\\\Frontend\\\\Plugin\\\\AbstractPlugin\\.$#"
-			count: 1
-			path: Tests/Unit/Templating/Fixtures/TestingTemplateHelper.php
-
-		-
-			message: "#^Return type \\(array\\<float\\>\\) of method OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\ViewHelpers\\\\Fixtures\\\\TestingMapPoint\\:\\:getGeoCoordinates\\(\\) should be covariant with return type \\(array\\<string, float\\>\\) of method OliverKlee\\\\Oelib\\\\Interfaces\\\\MapPoint\\:\\:getGeoCoordinates\\(\\)$#"
-			count: 1
-			path: Tests/Unit/ViewHelpers/Fixtures/TestingMapPoint.php
-

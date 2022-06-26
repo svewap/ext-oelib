@@ -182,13 +182,6 @@ class GoogleMapsViewHelper extends AbstractViewHelper
         $mapPointsWithCoordinates = [];
 
         foreach ($mapPoints as $mapPoint) {
-            if (!$mapPoint instanceof MapPoint) {
-                throw new \InvalidArgumentException(
-                    'All $mapPoints need to implement ' . MapPoint::class . ', but ' .
-                    \get_class($mapPoint) . ' does not.',
-                    1318093613
-                );
-            }
             if ($mapPoint->hasGeoCoordinates()) {
                 $mapPointsWithCoordinates[] = $mapPoint;
             }

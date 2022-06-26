@@ -351,23 +351,6 @@ class GoogleMapsViewHelperTest extends ViewHelperBaseTestcase
     /**
      * @test
      */
-    public function renderForMapPointsOfNonMapPointClassThrowsException(): void
-    {
-        $element = new \stdClass();
-        $this->subject->setArguments(['mapPoints' => [$element]]);
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionCode(1318093613);
-        $this->expectExceptionMessage(
-            'All $mapPoints need to implement OliverKlee\\Oelib\\Interfaces\\MapPoint, but stdClass does not.'
-        );
-
-        $this->subject->render();
-    }
-
-    /**
-     * @test
-     */
     public function renderForElementWithCoordinatesCreatesMapMarker(): void
     {
         $this->subject->setArguments(['mapPoints' => [$this->mapPointWithCoordinates]]);

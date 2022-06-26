@@ -11,9 +11,6 @@ use OliverKlee\Oelib\Testing\TestingFramework;
 
 class FrontEndUserGroupMapperTest extends FunctionalTestCase
 {
-    /**
-     * @var non-empty-string[]
-     */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**

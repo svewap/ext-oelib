@@ -87,7 +87,7 @@ abstract class AbstractObjectWithPublicAccessors extends AbstractObjectWithAcces
      *
      * @param string $key the key of the element to retrieve, must not be empty
      *
-     * @return array<int, string> the array value of the given key, may be empty
+     * @return array<int, non-empty-string> the array value of the given key, may be empty
      */
     public function getAsTrimmedArray(string $key): array
     {

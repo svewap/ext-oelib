@@ -1336,7 +1336,7 @@ abstract class AbstractDataMapper
     {
         foreach ($this->additionalKeys as $key) {
             if (isset($data[$key])) {
-                $value = $data[$key];
+                $value = (string)$data[$key];
                 if ($value !== '') {
                     $this->cacheByKey[$key][$value] = $model;
                 }

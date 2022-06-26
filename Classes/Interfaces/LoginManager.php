@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Model\AbstractModel;
 /**
  * This interface represents a manager for logins, providing access to the logged-in user.
  *
- * @template T
+ * @template T of LoginManager
  */
 interface LoginManager
 {

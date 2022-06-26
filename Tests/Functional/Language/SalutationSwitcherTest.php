@@ -14,9 +14,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class SalutationSwitcherTest extends FunctionalTestCase
 {
-    /**
-     * @var non-empty-string[]
-     */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**

@@ -1528,7 +1528,8 @@ class FrontEndUserTest extends UnitTestCase
      */
     public function getAgeForBornOneHourAgoReturnsZero(): void
     {
-        $now = mktime(18, 0, 0, 9, 15, 2010);
+        $now = \mktime(18, 0, 0, 9, 15, 2010);
+        \assert(\is_int($now));
         $GLOBALS['EXEC_TIME'] = $now;
 
         $this->subject->setData(

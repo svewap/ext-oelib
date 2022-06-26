@@ -25,9 +25,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class AbstractDataMapperTest extends FunctionalTestCase
 {
-    /**
-     * @var non-empty-string[]
-     */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**

@@ -27,9 +27,6 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 final class TestingFrameworkTest extends FunctionalTestCase
 {
-    /**
-     * @var non-empty-string[]
-     */
     protected $testExtensionsToLoad = [
         'typo3conf/ext/oelib',
         'typo3conf/ext/user_oelibtest',

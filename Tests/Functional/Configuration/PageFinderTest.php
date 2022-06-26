@@ -10,9 +10,6 @@ use OliverKlee\Oelib\Testing\TestingFramework;
 
 class PageFinderTest extends FunctionalTestCase
 {
-    /**
-     * @var non-empty-string[]
-     */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**

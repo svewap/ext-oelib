@@ -70,7 +70,7 @@ class TestingMapper extends AbstractDataMapper
      *        each element must consist of a column name as key and a value to search for as value
      *        (will automatically get quoted), must not be empty
      *
-     * @return AbstractModel
+     * @return TestingModel
      *
      * @throws NotFoundException if there is no record in the DB which matches the WHERE clause
      */
@@ -110,7 +110,7 @@ class TestingMapper extends AbstractDataMapper
      * @param non-empty-string $key an existing key
      * @param non-empty-string $value the value for the key of the model to find
      *
-     * @return AbstractModel the cached model
+     * @return TestingModel the cached model
      *
      * @throws NotFoundException if there is no match in the cache yet
      */

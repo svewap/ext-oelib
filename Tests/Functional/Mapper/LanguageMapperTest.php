@@ -11,9 +11,6 @@ use OliverKlee\Oelib\Model\Language;
 
 class LanguageMapperTest extends FunctionalTestCase
 {
-    /**
-     * @var non-empty-string[]
-     */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
 
     /**

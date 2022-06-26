@@ -10,9 +10,6 @@ use OliverKlee\Oelib\ViewHelpers\PriceViewHelper;
 
 class PriceViewHelperTest extends FunctionalTestCase
 {
-    /**
-     * @var non-empty-string[]
-     */
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
 
     /**
