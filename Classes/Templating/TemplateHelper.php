@@ -76,7 +76,7 @@ class TemplateHelper extends SalutationSwitcher
         }
         $this->ensureContentObject();
 
-        if ($this->extKey !== '' && !empty($this->conf)) {
+        if ($this->extKey !== '' && $this->conf !== []) {
             $this->pi_setPiVarDefaults();
         }
 
@@ -188,7 +188,7 @@ class TemplateHelper extends SalutationSwitcher
      */
     private function addPathToFileName(string $fileName, string $path = ''): string
     {
-        if (empty($path)) {
+        if ($path === '') {
             $path = 'uploads/tx_' . $this->extKey . '/';
         }
 
@@ -825,10 +825,6 @@ class TemplateHelper extends SalutationSwitcher
      */
     protected function ensureIntegerArrayValues(array $keys): void
     {
-        if (empty($keys)) {
-            return;
-        }
-
         foreach ($keys as $key) {
             if (!isset($this->piVars[$key]) || !is_array($this->piVars[$key])) {
                 continue;

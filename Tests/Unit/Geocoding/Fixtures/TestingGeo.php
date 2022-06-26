@@ -106,7 +106,7 @@ class TestingGeo extends AbstractModel implements Geo
      */
     public function hasGeoCoordinates(): bool
     {
-        return !empty($this->coordinates);
+        return $this->coordinates !== [];
     }
 
     /**

@@ -262,10 +262,11 @@ class Template
      */
     public function setMarkerIfNotEmpty(string $markerName, $content, string $markerPrefix = ''): bool
     {
-        $condition = !empty($content);
+        $condition = (string)$content !== '';
         if ($condition) {
             $this->setMarker($markerName, $content, $markerPrefix);
         }
+
         return $condition;
     }
 
@@ -508,9 +509,11 @@ class Template
         string $markerPrefix = '',
         string $wrapperPrefix = ''
     ): bool {
+        $contentIsNonEmpty = (string)$content !== '';
+
         return $this->setOrDeleteMarker(
             $markerName,
-            !empty($content),
+            $contentIsNonEmpty,
             $content,
             $markerPrefix,
             $wrapperPrefix

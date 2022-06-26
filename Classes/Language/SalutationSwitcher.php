@@ -188,7 +188,7 @@ abstract class SalutationSwitcher extends AbstractPlugin
         if ($this->availableLanguages === null) {
             $this->availableLanguages = [];
 
-            if (!empty($this->LLkey)) {
+            if ($this->LLkey !== '') {
                 $this->availableLanguages[] = $this->LLkey;
             }
             // The key for English is "default", not "en".

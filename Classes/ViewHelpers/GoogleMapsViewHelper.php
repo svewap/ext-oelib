@@ -114,9 +114,10 @@ class GoogleMapsViewHelper extends AbstractViewHelper
             );
         }
         $mapPointsWithCoordinates = $this->findMapPointsWithCoordinates($mapPoints);
-        if (empty($mapPointsWithCoordinates)) {
+        if ($mapPointsWithCoordinates === []) {
             return '';
         }
+
         self::$mapCounter++;
         $this->mapNumber = self::$mapCounter;
         $mapId = $this->getMapId();

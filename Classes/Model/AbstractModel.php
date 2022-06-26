@@ -673,6 +673,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
             $this->load();
             $this->markAsLoaded();
         }
-        return empty($this->data);
+
+        return $this->data === [];
     }
 }

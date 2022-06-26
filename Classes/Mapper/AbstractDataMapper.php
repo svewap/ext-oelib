@@ -495,9 +495,9 @@ abstract class AbstractDataMapper
                 throw new \UnexpectedValueException('"foreign_table" is missing in the TCA.', 1646234422);
             }
             $foreignField = $relationConfiguration['foreign_field'] ?? '';
-            if (!empty($relationConfiguration['foreign_sortby'])) {
+            if (($relationConfiguration['foreign_sortby'] ?? '') !== '') {
                 $sortingField = $relationConfiguration['foreign_sortby'];
-            } elseif (!empty($relationConfiguration['foreign_default_sortby'])) {
+            } elseif (($relationConfiguration['foreign_default_sortby'] ?? '') !== '') {
                 $sortingField = $relationConfiguration['foreign_default_sortby'];
             } else {
                 $sortingField = '';
@@ -1347,7 +1347,7 @@ abstract class AbstractDataMapper
         }
 
         $this->cacheModelByCombinedKeys($model, $data);
-        if (!empty($this->compoundKeyParts)) {
+        if ($this->compoundKeyParts !== []) {
             $this->cacheModelByCompoundKey($model, $data);
         }
     }
@@ -1381,7 +1381,7 @@ abstract class AbstractDataMapper
      */
     protected function cacheModelByCompoundKey(AbstractModel $model, array $data): void
     {
-        if (empty($this->compoundKeyParts)) {
+        if ($this->compoundKeyParts === []) {
             throw new \BadMethodCallException(
                 'The compound key parts are not defined.',
                 1363806895

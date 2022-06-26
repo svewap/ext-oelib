@@ -56,7 +56,8 @@ class BackEndUser extends AbstractModel implements MailRole
     public function getLanguage(): string
     {
         $configuration = $this->getConfiguration();
-        $result = !empty($configuration['lang']) ? $configuration['lang'] : $this->getDefaultLanguage();
+        $languageConfiguration = $configuration['lang'] ?? '';
+        $result = $languageConfiguration !== '' ? $languageConfiguration : $this->getDefaultLanguage();
 
         return ($result !== '') ? $result : 'default';
     }
@@ -141,7 +142,7 @@ class BackEndUser extends AbstractModel implements MailRole
      */
     private function getConfiguration(): array
     {
-        if (empty($this->configuration)) {
+        if ($this->configuration === []) {
             $this->configuration = (array)\unserialize($this->getAsString('uc'), ['allowed_classes' => false]);
         }
 

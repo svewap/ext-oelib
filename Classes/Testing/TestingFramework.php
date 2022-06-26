@@ -581,7 +581,7 @@ final class TestingFramework
         if ($uid === 0) {
             throw new \InvalidArgumentException('The parameter $uid must not be zero.', 1331490003);
         }
-        if (empty($rawData)) {
+        if ($rawData === []) {
             throw new \InvalidArgumentException('The array with the new record data must not be empty.', 1331490008);
         }
         if (isset($rawData['uid'])) {
@@ -1078,7 +1078,7 @@ final class TestingFramework
      */
     public function setUploadFolderPath(string $absolutePath): void
     {
-        if (!empty($this->dummyFiles) || !empty($this->dummyFolders)) {
+        if ($this->dummyFiles !== [] || $this->dummyFolders !== []) {
             throw new \BadMethodCallException(
                 'The upload folder path must not be changed if there are already dummy files or folders.',
                 1331490745
@@ -1550,7 +1550,7 @@ routes: {  }";
      */
     private function retrieveTableNames(): void
     {
-        if (!empty(self::$tableNameCache)) {
+        if (self::$tableNameCache !== []) {
             return;
         }
 

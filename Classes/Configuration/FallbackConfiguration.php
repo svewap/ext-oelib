@@ -66,6 +66,6 @@ class FallbackConfiguration implements ConfigurationInterface
     {
         $primaryValue = $this->primary->getAsTrimmedArray($key);
 
-        return !empty($primaryValue) ? $primaryValue : $this->secondary->getAsTrimmedArray($key);
+        return $primaryValue !== [] ? $primaryValue : $this->secondary->getAsTrimmedArray($key);
     }
 }

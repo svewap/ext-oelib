@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Stop using the `empty()` construct (#1015)
 - Drop redundant type casts (#1009)
 - Always drop empty values for `intExplode` calls (#1000)
 - Discard invalid gender values (#996)
