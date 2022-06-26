@@ -515,7 +515,7 @@ abstract class AbstractDataMapper
         }
 
         /** @var Collection<AbstractModel> $models */
-        $models = MapperRegistry::get($this->relations[$key])->getListOfModels($modelData);
+        $models = $this->getRelationMapperByKey($key)->getListOfModels($modelData);
         $models->setParentModel($model);
         $models->markAsOwnedByParent();
         $data[$key] = $models;
@@ -525,22 +525,20 @@ abstract class AbstractDataMapper
      * Creates an n:1 relation using foreign key mapping.
      *
      * @param array<string, mixed> $data the model data to process, will be modified
-     * @param string $key the key of the data item for which the relation should be created, must not be empty
+     * @param non-empty-string $key the key of the data item for which the relation should be created
      */
     private function createManyToOneRelation(array &$data, string $key): void
     {
         $uid = isset($data[$key]) ? (int)$data[$key] : 0;
 
-        $data[$key] = ($uid > 0)
-            ? MapperRegistry::get($this->relations[$key])->find($uid)
-            : null;
+        $data[$key] = $uid > 0 ? $this->getRelationMapperByKey($key)->find($uid) : null;
     }
 
     /**
      * Creates an n:1 relation using a comma-separated list of UIDs.
      *
      * @param array<string, mixed> $data the model data to process, will be modified
-     * @param string $key the key of the data item for which the relation should be created, must not be empty
+     * @param non-empty-string $key the key of the data item for which the relation should be created
      * @param M $model the model to create the relation for
      */
     private function createCommaSeparatedRelation(array &$data, string $key, AbstractModel $model): void
@@ -550,7 +548,7 @@ abstract class AbstractDataMapper
 
         $uidList = isset($data[$key]) ? trim((string)$data[$key]) : '';
         if ($uidList !== '') {
-            $mapper = MapperRegistry::get($this->relations[$key]);
+            $mapper = $this->getRelationMapperByKey($key);
             foreach (GeneralUtility::intExplode(',', $uidList, true) as $uid) {
                 // Some relations might have a junk 0 in it. We ignore it to avoid crashing.
                 if ($uid === 0) {
@@ -580,7 +578,7 @@ abstract class AbstractDataMapper
         $list->setParentModel($model);
 
         if ((int)$data[$key] > 0) {
-            $mapper = MapperRegistry::get($this->relations[$key]);
+            $mapper = $this->getRelationMapperByKey($key);
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
             $mnTable = $relationConfiguration['MM'] ?? '';
             if ($mnTable === '') {
@@ -842,13 +840,14 @@ abstract class AbstractDataMapper
         $data = $model->getData();
 
         foreach ($this->relations as $key => $relation) {
+            $relatedMapper = $this->getRelationMapperByKey($key);
             if ($this->isOneToManyRelationConfigured($key)) {
                 $methodName = 'count';
             } elseif ($this->isManyToOneRelationConfigured($key)) {
                 $methodName = 'getUid';
 
                 if ($data[$key] instanceof AbstractModel) {
-                    $this->saveManyToOneRelatedModels($data[$key], MapperRegistry::get($relation));
+                    $this->saveManyToOneRelatedModels($data[$key], $relatedMapper);
                 }
             } else {
                 if ($this->isManyToManyRelationConfigured($key)) {
@@ -859,7 +858,7 @@ abstract class AbstractDataMapper
 
                 $relatedData = $data[$key];
                 if ($relatedData instanceof Collection) {
-                    $this->saveManyToManyAndCommaSeparatedRelatedModels($relatedData, MapperRegistry::get($relation));
+                    $this->saveManyToManyAndCommaSeparatedRelatedModels($relatedData, $relatedMapper);
                 }
             }
 
@@ -999,6 +998,7 @@ abstract class AbstractDataMapper
                 continue;
             }
 
+            $relatedMapper = $this->getRelationMapperByKey($key);
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
             $foreignField = $relationConfiguration['foreign_field'] ?? '';
             if ($foreignField === '') {
@@ -1008,7 +1008,6 @@ abstract class AbstractDataMapper
                 );
             }
 
-            $relatedMapper = MapperRegistry::get($relation);
             if (\strncmp($foreignField, 'tx_', 3) === 0) {
                 $foreignKey = \ucfirst((string)\preg_replace('/tx_[a-z]+_/', '', $foreignField));
             } else {
@@ -1124,10 +1123,9 @@ abstract class AbstractDataMapper
                     continue;
                 }
 
-                $mapper = MapperRegistry::get($mapperName);
-                /** @var AbstractModel $relatedModel */
+                $relatedMapper = $this->getRelationMapperByKey($key);
                 foreach ($relatedModels as $relatedModel) {
-                    $mapper->delete($relatedModel);
+                    $relatedMapper->delete($relatedModel);
                 }
             }
         }
@@ -1629,5 +1627,15 @@ abstract class AbstractDataMapper
     private function getConnectionPool(): ConnectionPool
     {
         return GeneralUtility::makeInstance(ConnectionPool::class);
+    }
+
+    /**
+     * @param non-empty-string $key
+     *
+     * @return AbstractDataMapper<AbstractModel>
+     */
+    private function getRelationMapperByKey(string $key): AbstractDataMapper
+    {
+        return MapperRegistry::get($this->relations[$key]);
     }
 }
