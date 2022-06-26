@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Mark some internal classes as `@internal` (#963)
 
 ### Deprecated
+- Deprecate `AbstractDataMapper::countByPageUid` (#1023)
 - Deprecate `FrontEndUserMapper::getGroupMembers` (#1003)
 - Deprecate `Typo3Version` (#972)
 - Deprecate the `LoggingAware` trait and interface (#971)

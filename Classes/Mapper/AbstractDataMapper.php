@@ -1537,6 +1537,8 @@ abstract class AbstractDataMapper
     /**
      * Returns the number of records located on the given pages.
      *
+     * @deprecated will be removed in oelib 5.0 without replacement
+     *
      * @param string $pageUids comma-separated UIDs of the pages on which the records should be found, may be empty
      *
      * @return int the number of records located on the given pages
