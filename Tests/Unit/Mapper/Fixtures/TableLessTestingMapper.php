@@ -14,8 +14,5 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
  */
 class TableLessTestingMapper extends AbstractDataMapper
 {
-    /**
-     * @var class-string<TestingModel> the model class name for this mapper, must not be empty
-     */
     protected $modelClassName = TestingModel::class;
 }

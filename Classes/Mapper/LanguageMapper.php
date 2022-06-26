@@ -12,19 +12,10 @@ use OliverKlee\Oelib\Model\Language;
  */
 class LanguageMapper extends AbstractDataMapper
 {
-    /**
-     * @var non-empty-string the name of the database table for this mapper
-     */
     protected $tableName = 'static_languages';
 
-    /**
-     * @var class-string<Language> the model class name for this mapper, must not be empty
-     */
     protected $modelClassName = Language::class;
 
-    /**
-     * @var array<int, string> the column names of additional string keys
-     */
     protected $additionalKeys = ['lg_iso_2'];
 
     /**

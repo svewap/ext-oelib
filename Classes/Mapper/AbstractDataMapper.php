@@ -59,7 +59,7 @@ abstract class AbstractDataMapper
     protected $relations = [];
 
     /**
-     * @var array<int, string> the column names of additional string keys
+     * @var array<int, non-empty-string> the column names of additional string keys
      */
     protected $additionalKeys = [];
 
@@ -67,7 +67,7 @@ abstract class AbstractDataMapper
      * The column names of an additional compound key.
      * There can only be one compound key per data mapper.
      *
-     * @var string[]
+     * @var non-empty-string[]
      */
     protected $compoundKeyParts = [];
 

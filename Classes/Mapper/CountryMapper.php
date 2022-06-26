@@ -12,19 +12,10 @@ use OliverKlee\Oelib\Model\Country;
  */
 class CountryMapper extends AbstractDataMapper
 {
-    /**
-     * @var non-empty-string the name of the database table for this mapper
-     */
     protected $tableName = 'static_countries';
 
-    /**
-     * @var class-string<Country> the model class name for this mapper, must not be empty
-     */
     protected $modelClassName = Country::class;
 
-    /**
-     * @var array<int, string> the column names of additional string keys
-     */
     protected $additionalKeys = ['cn_iso_2', 'cn_iso_3'];
 
     /**

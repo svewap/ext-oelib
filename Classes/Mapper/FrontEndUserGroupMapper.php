@@ -11,13 +11,7 @@ use OliverKlee\Oelib\Model\FrontEndUserGroup;
  */
 class FrontEndUserGroupMapper extends AbstractDataMapper
 {
-    /**
-     * @var non-empty-string the name of the database table for this mapper
-     */
     protected $tableName = 'fe_groups';
 
-    /**
-     * @var class-string<FrontEndUserGroup> the model class name for this mapper, must not be empty
-     */
     protected $modelClassName = FrontEndUserGroup::class;
 }

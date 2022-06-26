@@ -13,8 +13,5 @@ use OliverKlee\Oelib\Mapper\AbstractDataMapper;
  */
 class ModelLessTestingMapper extends AbstractDataMapper
 {
-    /**
-     * @var non-empty-string the name of the database table for this mapper
-     */
     protected $tableName = 'tx_oelib_test';
 }

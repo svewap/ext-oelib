@@ -11,19 +11,10 @@ use OliverKlee\Oelib\Model\FederalState;
  */
 class FederalStateMapper extends AbstractDataMapper
 {
-    /**
-     * @var non-empty-string
-     */
     protected $tableName = 'static_country_zones';
 
-    /**
-     * @var class-string<FederalState>
-     */
     protected $modelClassName = FederalState::class;
 
-    /**
-     * @var string[] the column names of additional combined keys
-     */
     protected $compoundKeyParts = ['zn_country_iso_2', 'zn_code'];
 
     /**

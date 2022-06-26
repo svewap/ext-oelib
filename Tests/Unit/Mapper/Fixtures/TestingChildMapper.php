@@ -14,20 +14,10 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
  */
 class TestingChildMapper extends AbstractDataMapper
 {
-    /**
-     * @var non-empty-string the name of the database table for this mapper
-     */
     protected $tableName = 'tx_oelib_testchild';
 
-    /**
-     * @var class-string<TestingChildModel> the model class name for this mapper, must not be empty
-     */
     protected $modelClassName = TestingChildModel::class;
 
-    /**
-     * @var array<non-empty-string, class-string>
-     *      the (possible) relations of the created models in the format DB column name => mapper name
-     */
     protected $relations = [
         'parent' => TestingMapper::class,
         'tx_oelib_parent2' => TestingMapper::class,

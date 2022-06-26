@@ -15,27 +15,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class FrontEndUserMapper extends AbstractDataMapper
 {
-    /**
-     * @var non-empty-string the name of the database table for this mapper
-     */
     protected $tableName = 'fe_users';
 
-    /**
-     * @var class-string<FrontEndUser> the model class name for this mapper, must not be empty
-     */
     protected $modelClassName = FrontEndUser::class;
 
-    /**
-     * @var array<non-empty-string, class-string>
-     *      the (possible) relations of the created models in the format DB column name => mapper name
-     */
     protected $relations = [
         'usergroup' => FrontEndUserGroupMapper::class,
     ];
 
-    /**
-     * @var array<int, string> the column names of additional string keys
-     */
     protected $additionalKeys = ['username'];
 
     /**

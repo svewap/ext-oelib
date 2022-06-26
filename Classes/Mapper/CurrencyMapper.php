@@ -12,27 +12,16 @@ use OliverKlee\Oelib\Model\Currency;
  */
 class CurrencyMapper extends AbstractDataMapper
 {
-    /**
-     * @var non-empty-string the name of the database table for this mapper
-     */
     protected $tableName = 'static_currencies';
 
-    /**
-     * @var class-string<Currency> the model class name for this mapper, must not be empty
-     */
     protected $modelClassName = Currency::class;
 
-    /**
-     * @var array<int, string> the column names of additional string keys
-     */
     protected $additionalKeys = ['cu_iso_3'];
 
     /**
      * Finds a language by its ISO 4217 alpha-3 code.
      *
      * @param non-empty-string $isoAlpha3Code the ISO 4217 alpha-3 code to find
-     *
-     * @return Currency the currency
      *
      * @throws NotFoundException if there is no record with the provided ISO 4217 alpha-3 code
      */

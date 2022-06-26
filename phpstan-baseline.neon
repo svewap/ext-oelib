@@ -31,17 +31,17 @@ parameters:
 			path: Classes/Mapper/AbstractDataMapper.php
 
 		-
-			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserGroupMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUserGroup\\>\\:\\:\\$relations\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserGroupMapper\\:\\:\\$relations \\(array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\>\\) does not accept default value of type array\\{subgroup\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\BackEndUserGroupMapper'\\}\\.$#"
 			count: 1
 			path: Classes/Mapper/BackEndUserGroupMapper.php
 
 		-
-			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\BackEndUser\\>\\:\\:\\$relations\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\BackEndUserMapper\\:\\:\\$relations \\(array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\>\\) does not accept default value of type array\\{usergroup\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\BackEndUserGroupMapper'\\}\\.$#"
 			count: 1
 			path: Classes/Mapper/BackEndUserMapper.php
 
 		-
-			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Mapper\\\\FrontEndUserMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\FrontEndUser\\>\\:\\:\\$relations\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Mapper\\\\FrontEndUserMapper\\:\\:\\$relations \\(array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\>\\) does not accept default value of type array\\{usergroup\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\FrontEndUserGroupMapper'\\}\\.$#"
 			count: 1
 			path: Classes/Mapper/FrontEndUserMapper.php
 
@@ -236,12 +236,12 @@ parameters:
 			path: Tests/Functional/ViewHelpers/PriceViewHelperTest.php
 
 		-
-			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingChildMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingChildModel\\>\\:\\:\\$relations\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingChildMapper\\:\\:\\$relations \\(array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\>\\) does not accept default value of type array\\{parent\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper', tx_oelib_parent2\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper', tx_oelib_parent3\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper'\\}\\.$#"
 			count: 1
 			path: Tests/Unit/Mapper/Fixtures/TestingChildMapper.php
 
 		-
-			message: "#^PHPDoc type array\\<non\\-empty\\-string, class\\-string\\> of property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:\\$relations is not the same as PHPDoc type array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\> of overridden property OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\>\\:\\:\\$relations\\.$#"
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Mapper\\\\Fixtures\\\\TestingMapper\\:\\:\\$relations \\(array\\<non\\-empty\\-string, class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\>\\) does not accept default value of type array\\{friend\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper', owner\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\FrontEndUserMapper', children\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper', related_records\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper', composition\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingChildMapper', composition2\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingChildMapper', composition_without_sorting\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingChildMapper', bidirectional\\: 'OliverKlee\\\\\\\\Oelib\\\\\\\\Tests\\\\\\\\Unit\\\\\\\\Mapper\\\\\\\\Fixtures\\\\\\\\TestingMapper'\\}\\.$#"
 			count: 1
 			path: Tests/Unit/Mapper/Fixtures/TestingMapper.php
 

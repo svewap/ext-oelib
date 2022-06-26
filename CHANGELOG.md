@@ -32,7 +32,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Avoid crashes in `Collection` in PHP 8.1 (#946)
 - Avoid invalid array accesses in the view helpers (#944)
 - Move PHPCov to PHIVE (#943, #948)
-- Improve the type annotations (#941, #942, #995, #1001, #1005)
+- Improve the type annotations (#941, #942, #995, #1001, #1005, #1016)
 - Make the usage of types more strict (#940)
 
 ## 4.1.6
