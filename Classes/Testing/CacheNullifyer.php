@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Testing;
 
-use OliverKlee\Oelib\System\Typo3Version;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\Backend\SimpleFileBackend;
 use TYPO3\CMS\Core\Cache\Backend\TransientMemoryBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\Cache\FluidTemplateCache;
 
@@ -24,7 +24,7 @@ final class CacheNullifyer
      */
     public function setAllCoreCaches(): void
     {
-        if (Typo3Version::isNotHigherThan(9)) {
+        if ((new Typo3Version())->getMajorVersion() <= 9) {
             $this->disableCoreCachesForVersion9();
         } else {
             $this->disableCoreCachesForVersion10();

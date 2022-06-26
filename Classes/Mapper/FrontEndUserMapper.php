@@ -78,8 +78,18 @@ class FrontEndUserMapper extends AbstractDataMapper
         $tableName = $this->getTableName();
         $where = 'deleted = 0 AND disable = 0 AND usergroup REGEXP \'(^|,)(' . \implode('|', $groupUids) . ')($|,)\'';
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
-        $statement = $connection->query('SELECT * FROM `' . $tableName . '` WHERE ' . $where);
+        $query = 'SELECT * FROM `' . $tableName . '` WHERE ' . $where;
+        if (\method_exists($connection, 'executeQuery')) {
+            $statement = $connection->executeQuery($query);
+        } else {
+            $statement = $connection->query($query);
+        }
+        if (\method_exists($statement, 'fetchAllAssociative')) {
+            $modelData = $statement->fetchAllAssociative();
+        } else {
+            $modelData = $statement->fetchAll();
+        }
 
-        return $this->getListOfModels($statement->fetchAll());
+        return $this->getListOfModels($modelData);
     }
 }

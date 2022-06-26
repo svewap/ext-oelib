@@ -208,10 +208,21 @@ abstract class AbstractConfigurationCheck
     private function getDbColumnNames(string $tableName): array
     {
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
-        $statement = $connection->query('SHOW FULL COLUMNS FROM `' . $tableName . '`');
+        $query = 'SHOW FULL COLUMNS FROM `' . $tableName . '`';
+        if (\method_exists($connection, 'executeQuery')) {
+            $statement = $connection->executeQuery($query);
+        } else {
+            $statement = $connection->query($query);
+        }
         $columns = [];
-        foreach ($statement->fetchAll() as $row) {
-            $columns[] = $row['Field'];
+        if (\method_exists($statement, 'fetchAllAssociative')) {
+            foreach ($statement->fetchAllAssociative() as $row) {
+                $columns[] = $row['Field'];
+            }
+        } else {
+            foreach ($statement->fetchAll() as $row) {
+                $columns[] = $row['Field'];
+            }
         }
 
         return $columns;

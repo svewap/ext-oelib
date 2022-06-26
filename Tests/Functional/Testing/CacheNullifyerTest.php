@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Functional\Testing;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use OliverKlee\Oelib\System\Typo3Version;
 use OliverKlee\Oelib\Testing\CacheNullifyer;
 use TYPO3\CMS\Core\Cache\Backend\AbstractBackend;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\Backend\SimpleFileBackend;
 use TYPO3\CMS\Core\Cache\Backend\TransientMemoryBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -63,7 +63,7 @@ final class CacheNullifyerTest extends FunctionalTestCase
      */
     public function disableCoreCachesSetsAllCoreCachesForVersion9(string $identifier, string $backend): void
     {
-        if (Typo3Version::isAtLeast(10)) {
+        if ((new Typo3Version())->getMajorVersion() >= 10) {
             self::markTestSkipped('This test is specific to TYPO3 9LTS.');
         }
 
@@ -81,7 +81,7 @@ final class CacheNullifyerTest extends FunctionalTestCase
      */
     public function setAllCoreCachesSetsAllCoreCachesForVersion9(string $identifier, string $backend): void
     {
-        if (Typo3Version::isAtLeast(10)) {
+        if ((new Typo3Version())->getMajorVersion() >= 10) {
             self::markTestSkipped('This test is specific to TYPO3 9LTS.');
         }
 
@@ -119,7 +119,7 @@ final class CacheNullifyerTest extends FunctionalTestCase
      */
     public function disableCoreCachesSetsAllCoreCachesForVersion10(string $identifier, string $backend): void
     {
-        if (Typo3Version::isNotHigherThan(9)) {
+        if ((new Typo3Version())->getMajorVersion() <= 9) {
             self::markTestSkipped('This test is specific to TYPO3 10LTS.');
         }
 
@@ -137,7 +137,7 @@ final class CacheNullifyerTest extends FunctionalTestCase
      */
     public function setAllCoreCachesSetsAllCoreCachesForVersion10(string $identifier, string $backend): void
     {
-        if (Typo3Version::isNotHigherThan(9)) {
+        if ((new Typo3Version())->getMajorVersion() <= 9) {
             self::markTestSkipped('This test is specific to TYPO3 10LTS.');
         }
 

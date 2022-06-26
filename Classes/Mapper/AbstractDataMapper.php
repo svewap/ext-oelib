@@ -651,7 +651,11 @@ abstract class AbstractDataMapper
             throw new \UnexpectedValueException('Expected ResultStatement, got int instead.', 1646321598);
         }
 
-        $data = $result->fetch();
+        if (\method_exists($result, 'fetchAssociative')) {
+            $data = $result->fetchAssociative();
+        } else {
+            $data = $result->fetch();
+        }
         if ($data === false) {
             throw new NotFoundException(
                 'No records found in the table "' . $tableName . '" matching: ' . \json_encode($whereClauseParts)
@@ -1227,7 +1231,13 @@ abstract class AbstractDataMapper
             throw new \UnexpectedValueException('Expected ResultStatement, got int instead.', 1646321575);
         }
 
-        return $this->getListOfModels($result->fetchAll());
+        if (\method_exists($result, 'fetchAllAssociative')) {
+            $modelData = $result->fetchAllAssociative();
+        } else {
+            $modelData = $result->fetchAll();
+        }
+
+        return $this->getListOfModels($modelData);
     }
 
     /**
@@ -1517,7 +1527,13 @@ abstract class AbstractDataMapper
             throw new \UnexpectedValueException('Expected ResultStatement, got int instead.', 1646321551);
         }
 
-        return $this->getListOfModels($result->fetchAll());
+        if (\method_exists($result, 'fetchAllAssociative')) {
+            $modelData = $result->fetchAllAssociative();
+        } else {
+            $modelData = $result->fetchAll();
+        }
+
+        return $this->getListOfModels($modelData);
     }
 
     /**
@@ -1536,7 +1552,13 @@ abstract class AbstractDataMapper
             throw new \UnexpectedValueException('Expected ResultStatement, got int instead.', 1646321386);
         }
 
-        return (int)$result->fetchColumn();
+        if (\method_exists($result, 'fetchOne')) {
+            $count = (int)$result->fetchOne();
+        } else {
+            $count = (int)$result->fetchColumn();
+        }
+
+        return $count;
     }
 
     /**

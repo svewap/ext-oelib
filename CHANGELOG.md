@@ -23,7 +23,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Always drop empty values for `intExplode` calls (#1000)
 - Discard invalid gender values (#996)
 - Avoid some version-specific tests (#964, #967)
-- Avoid deprecated `settingLanguage` calls (#955)
+- Avoid calls to deprecated classes and methods (#955, #1014)
 - Build a more complete fake frontend (#954)
 - Use proper mocking with 11LTS in the storage-related tests (#951)
 - Fix compatibility with newer DBAL versions (#950)

@@ -87,7 +87,7 @@ class GoogleGeocodingTest extends UnitTestCase
         $geo = new TestingGeo();
         $geo->setGeoError();
 
-        $subject = $this->getMockBuilder(GoogleGeocoding::class)->setMethods(['sendRequest'])
+        $subject = $this->getMockBuilder(GoogleGeocoding::class)->onlyMethods(['sendRequest'])
             ->disableOriginalConstructor()->getMock();
         $subject->setMaximumDelay(1);
         $subject->expects(self::never())->method('sendRequest');
@@ -106,7 +106,7 @@ class GoogleGeocodingTest extends UnitTestCase
             ['latitude' => 50.7335500, 'longitude' => 7.1014300]
         );
 
-        $subject = $this->getMockBuilder(GoogleGeocoding::class)->setMethods(['sendRequest'])
+        $subject = $this->getMockBuilder(GoogleGeocoding::class)->onlyMethods(['sendRequest'])
             ->disableOriginalConstructor()->getMock();
         $subject->setMaximumDelay(1);
         $subject->expects(self::never())->method('sendRequest');
@@ -123,7 +123,7 @@ class GoogleGeocodingTest extends UnitTestCase
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
         $geo->setGeoError();
 
-        $subject = $this->getMockBuilder(GoogleGeocoding::class)->setMethods(['sendRequest'])
+        $subject = $this->getMockBuilder(GoogleGeocoding::class)->onlyMethods(['sendRequest'])
             ->disableOriginalConstructor()->getMock();
         $subject->setMaximumDelay(1);
         $subject->expects(self::never())->method('sendRequest');
@@ -162,7 +162,7 @@ class GoogleGeocodingTest extends UnitTestCase
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-        $subject = $this->getMockBuilder(GoogleGeocoding::class)->setMethods(['sendRequest'])
+        $subject = $this->getMockBuilder(GoogleGeocoding::class)->onlyMethods(['sendRequest'])
             ->disableOriginalConstructor()->getMock();
         $subject->setMaximumDelay(1);
         $subject->method('sendRequest')->willReturn($jsonResult);
@@ -188,7 +188,7 @@ class GoogleGeocodingTest extends UnitTestCase
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-        $subject = $this->getMockBuilder(GoogleGeocoding::class)->setMethods(['sendRequest'])
+        $subject = $this->getMockBuilder(GoogleGeocoding::class)->onlyMethods(['sendRequest'])
             ->disableOriginalConstructor()->getMock();
         $subject->setMaximumDelay(1);
         $subject->method('sendRequest')->willReturn($jsonResult);
@@ -215,7 +215,7 @@ class GoogleGeocodingTest extends UnitTestCase
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-        $subject = $this->getMockBuilder(GoogleGeocoding::class)->setMethods(['sendRequest'])
+        $subject = $this->getMockBuilder(GoogleGeocoding::class)->onlyMethods(['sendRequest'])
             ->disableOriginalConstructor()->getMock();
         $subject->setMaximumDelay(1);
         $subject->method('sendRequest')->willReturn($jsonResult);
@@ -235,7 +235,7 @@ class GoogleGeocodingTest extends UnitTestCase
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-        $subject = $this->getMockBuilder(GoogleGeocoding::class)->setMethods(['sendRequest'])
+        $subject = $this->getMockBuilder(GoogleGeocoding::class)->onlyMethods(['sendRequest'])
             ->disableOriginalConstructor()->getMock();
         $subject->setMaximumDelay(1);
         $subject->method('sendRequest')->willReturn(false);
@@ -271,7 +271,7 @@ class GoogleGeocodingTest extends UnitTestCase
         $geo = new TestingGeo();
         $geo->setGeoAddress('Am Hof 1, 53113 Zentrum, Bonn, DE');
 
-        $subject = $this->getMockBuilder(GoogleGeocoding::class)->setMethods(['sendRequest'])
+        $subject = $this->getMockBuilder(GoogleGeocoding::class)->onlyMethods(['sendRequest'])
             ->disableOriginalConstructor()->getMock();
         $subject->setMaximumDelay(1);
         $subject->method('sendRequest')->willReturn($jsonResult);
@@ -348,7 +348,7 @@ class GoogleGeocodingTest extends UnitTestCase
         $geo = new TestingGeo();
         $geo->setGeoAddress($address);
 
-        $subject = $this->getMockBuilder(GoogleGeocoding::class)->setMethods(['sendRequest'])
+        $subject = $this->getMockBuilder(GoogleGeocoding::class)->onlyMethods(['sendRequest'])
             ->disableOriginalConstructor()->getMock();
         $subject->method('sendRequest')->with($expectedUrl)->willReturn($jsonResult);
 

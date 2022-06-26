@@ -11,7 +11,6 @@ use OliverKlee\Oelib\FrontEnd\UserWithoutCookies;
 use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
-use OliverKlee\Oelib\System\Typo3Version;
 use Psr\Log\NullLogger;
 use TYPO3\CMS\Core\Configuration\SiteConfiguration;
 use TYPO3\CMS\Core\Context\Context;
@@ -21,6 +20,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
 use TYPO3\CMS\Core\Http\Uri;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\Site;
@@ -860,12 +860,26 @@ final class TestingFramework
             return;
         }
 
+        $connection = $this->getConnectionForTable($table);
+        $query = 'SHOW FULL COLUMNS FROM `' . $table . '`';
+        if (\method_exists($connection, 'executeQuery')) {
+            $queryResult = $connection->executeQuery($query);
+        } else {
+            $queryResult = $connection->query($query);
+        }
         $columns = [];
-        $queryResult = $this->getConnectionForTable($table)->query('SHOW FULL COLUMNS FROM `' . $table . '`');
-        /** @var array<string, string> $fieldRow */
-        foreach ($queryResult->fetchAll() as $fieldRow) {
-            $field = $fieldRow['Field'];
-            $columns[$field] = $fieldRow;
+        if (\method_exists($queryResult, 'fetchAllAssociative')) {
+            /** @var array<string, string> $fieldRow */
+            foreach ($queryResult->fetchAllAssociative() as $fieldRow) {
+                $field = $fieldRow['Field'];
+                $columns[$field] = $fieldRow;
+            }
+        } else {
+            /** @var array<string, string> $fieldRow */
+            foreach ($queryResult->fetchAll() as $fieldRow) {
+                $field = $fieldRow['Field'];
+                $columns[$field] = $fieldRow;
+            }
         }
 
         self::$tableColumnCache[$table] = $columns;
@@ -1204,7 +1218,7 @@ final class TestingFramework
         $frontEndUser->unpack_uc();
         $frontEndUser->fetchGroupData();
 
-        if (Typo3Version::isAtLeast(10)) {
+        if ((new Typo3Version())->getMajorVersion() >= 10) {
             if ($pageUid > 0) {
                 $this->createDummySite($pageUid);
                 $allSites = GeneralUtility::makeInstance(SiteConfiguration::class)->getAllExistingSites(false);
@@ -1253,7 +1267,7 @@ final class TestingFramework
             $frontEnd->tmpl->runThroughTemplates($rootLine);
             $frontEnd->tmpl->generateConfig();
             $frontEnd->tmpl->loaded = true;
-            if (Typo3Version::isAtLeast(10)) {
+            if ((new Typo3Version())->getMajorVersion() >= 10) {
                 Locales::setSystemLocaleFromSiteLanguage($frontEnd->getLanguage());
             } else {
                 $frontEnd->settingLocale();
@@ -1541,13 +1555,27 @@ routes: {  }";
         }
 
         $connection = $this->getConnectionPool()->getConnectionByName('Default');
-        $queryResult = $connection->query('SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`');
+        $query = 'SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`';
+        if (\method_exists($connection, 'executeQuery')) {
+            $queryResult = $connection->executeQuery($query);
+        } else {
+            $queryResult = $connection->query($query);
+        }
         $tableNames = [];
-        /** @var array<string, string|int|null> $tableInformation */
-        foreach ($queryResult->fetchAll() as $tableInformation) {
-            /** @var non-empty-string $tableName */
-            $tableName = $tableInformation['Name'];
-            $tableNames[$tableName] = $tableInformation;
+        if (\method_exists($queryResult, 'fetchAllAssociative')) {
+            /** @var array<string, string|int|null> $tableInformation */
+            foreach ($queryResult->fetchAllAssociative() as $tableInformation) {
+                /** @var non-empty-string $tableName */
+                $tableName = $tableInformation['Name'];
+                $tableNames[$tableName] = $tableInformation;
+            }
+        } else {
+            /** @var array<string, string|int|null> $tableInformation */
+            foreach ($queryResult->fetchAll() as $tableInformation) {
+                /** @var non-empty-string $tableName */
+                $tableName = $tableInformation['Name'];
+                $tableNames[$tableName] = $tableInformation;
+            }
         }
 
         self::$tableNameCache = $tableNames;
@@ -1743,7 +1771,13 @@ routes: {  }";
             throw new \UnexpectedValueException('Expected ResultStatement, got int instead.', 1646321756);
         }
 
-        return (int)$result->fetchColumn();
+        if (\method_exists($result, 'fetchOne')) {
+            $count = (int)$result->fetchOne();
+        } else {
+            $count = (int)$result->fetchColumn();
+        }
+
+        return $count;
     }
 
     /**
@@ -1775,9 +1809,14 @@ routes: {  }";
 
         $dummyColumn = $this->getDummyColumnName($table);
         $queryResult = $this->getConnectionForTable($table)
-            ->select(['*'], $table, ['uid' => $uid, $dummyColumn => 1])->fetchAll();
+            ->select(['*'], $table, ['uid' => $uid, $dummyColumn => 1]);
+        if (\method_exists($queryResult, 'fetchAllAssociative')) {
+            $data = $queryResult->fetchAllAssociative();
+        } else {
+            $data = $queryResult->fetchAll();
+        }
 
-        return $queryResult !== [];
+        return $data !== [];
     }
 
     /**
@@ -1814,7 +1853,12 @@ routes: {  }";
         // Updates the auto increment index for this table. The index will be
         // set to one UID above the highest existing UID.
         $connection = $this->getConnectionPool()->getConnectionByName('Default');
-        $connection->query('ALTER TABLE `' . $table . '` AUTO_INCREMENT=' . $newAutoIncrementValue . ';');
+        $query = 'ALTER TABLE `' . $table . '` AUTO_INCREMENT=' . $newAutoIncrementValue . ';';
+        if (\method_exists($connection, 'executeQuery')) {
+            $connection->executeQuery($query);
+        } else {
+            $connection->query($query);
+        }
     }
 
     /**
@@ -1887,10 +1931,20 @@ routes: {  }";
      */
     private function getMaximumUidFromTable(string $table): int
     {
-        $queryResult = $this->getConnectionForTable($table)
-            ->query('SELECT MAX(uid) AS uid FROM `' . $table . '`')->fetch();
+        $connection = $this->getConnectionForTable($table);
+        $query = 'SELECT MAX(uid) AS uid FROM `' . $table . '`';
+        if (\method_exists($connection, 'executeQuery')) {
+            $queryResult = $connection->executeQuery($query);
+        } else {
+            $queryResult = $connection->query($query);
+        }
+        if (\method_exists($queryResult, 'fetchAllAssociative')) {
+            $data = $queryResult->fetchAllAssociative();
+        } else {
+            $data = $queryResult->fetchAll();
+        }
 
-        return (int)$queryResult['uid'];
+        return (int)$data['uid'];
     }
 
     /**
@@ -1916,8 +1970,18 @@ routes: {  }";
             );
         }
 
+        $connection = $this->getConnectionForTable($table);
         $query = 'SHOW TABLE STATUS WHERE Name = \'' . $table . '\';';
-        $row = $this->getConnectionForTable($table)->query($query)->fetch();
+        if (\method_exists($connection, 'executeQuery')) {
+            $queryResult = $connection->executeQuery($query);
+        } else {
+            $queryResult = $connection->query($query);
+        }
+        if (\method_exists($queryResult, 'fetchAssociative')) {
+            $row = $queryResult->fetchAssociative();
+        } else {
+            $row = $queryResult->fetch();
+        }
 
         $autoIncrement = $row['Auto_increment'];
         if ($autoIncrement === null) {
@@ -2015,8 +2079,14 @@ routes: {  }";
             );
         }
 
+        $connection = $this->getConnectionForTable($tableName);
         $query = 'UPDATE ' . $tableName . ' SET ' . $fieldName . '=' . $fieldName . '+1 WHERE uid=' . $uid;
-        $numberOfAffectedRows = $this->getConnectionForTable($tableName)->query($query)->rowCount();
+        if (\method_exists($connection, 'executeQuery')) {
+            $queryResult = $connection->executeQuery($query);
+        } else {
+            $queryResult = $connection->query($query);
+        }
+        $numberOfAffectedRows = $queryResult->rowCount();
         if ($numberOfAffectedRows === 0) {
             throw new \BadMethodCallException(
                 'The table ' . $tableName . ' does not contain a record with UID ' . $uid . '.',
@@ -2077,6 +2147,6 @@ routes: {  }";
      */
     public function disableCoreCaches(): void
     {
-        $this->cacheNullifyer->disableCoreCaches();
+        $this->cacheNullifyer->setAllCoreCaches();
     }
 }

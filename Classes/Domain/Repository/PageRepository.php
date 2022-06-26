@@ -84,10 +84,18 @@ class PageRepository implements SingletonInterface
         $subpageUids = [];
         $queryResult = $query->execute();
         if ($queryResult instanceof ResultStatement) {
-            foreach ($queryResult->fetchAll() as $row) {
-                /** @var positive-int $uid */
-                $uid = (int)$row['uid'];
-                $subpageUids[] = $uid;
+            if (\method_exists($queryResult, 'fetchAllAssociative')) {
+                foreach ($queryResult->fetchAllAssociative() as $row) {
+                    /** @var positive-int $uid */
+                    $uid = (int)$row['uid'];
+                    $subpageUids[] = $uid;
+                }
+            } else {
+                foreach ($queryResult->fetchAll() as $row) {
+                    /** @var positive-int $uid */
+                    $uid = (int)$row['uid'];
+                    $subpageUids[] = $uid;
+                }
             }
         }
         return $subpageUids;
