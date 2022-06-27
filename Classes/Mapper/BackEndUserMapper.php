@@ -23,7 +23,7 @@ class BackEndUserMapper extends AbstractDataMapper
     protected $additionalKeys = ['username'];
 
     /**
-     * Finds a back-end user by user name. Hidden user records will be retrieved
+     * Finds a back-end user by username. Hidden user records will be retrieved
      * as well.
      *
      * @param non-empty-string $username username, case-insensitive, must not be empty

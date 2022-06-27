@@ -66,7 +66,7 @@ class PageFinder
      */
     public static function getInstance(): PageFinder
     {
-        if (!self::$instance instanceof PageFinder) {
+        if (!self::$instance instanceof self) {
             self::$instance = new PageFinder();
         }
 
@@ -85,7 +85,7 @@ class PageFinder
      * Returns the UID of the current page.
      *
      * If manualPageUidSource is set to SOURCE_FRONT_END or SOURCE_BACK_END, this
-     * function returns the UID set in this part. Otherwise starts with looking
+     * function returns the UID set in this part. Otherwise, it starts with looking
      * into the manually set page UID, then if a FE page UID is present
      * and finally if a BE page UID is present.
      *
@@ -113,7 +113,7 @@ class PageFinder
     }
 
     /**
-     * Manually sets a page UID which always will be returned by getPageUid.
+     * Manually sets a page UID which will always be returned by `getPageUid`.
      *
      * @param int $uidToStore the page UID to store manually, must be > 0
      */

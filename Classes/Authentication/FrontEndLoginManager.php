@@ -45,7 +45,7 @@ class FrontEndLoginManager implements LoginManager
      */
     public static function getInstance(): FrontEndLoginManager
     {
-        if (!self::$instance instanceof FrontEndLoginManager) {
+        if (!self::$instance instanceof self) {
             self::$instance = new self();
         }
 

@@ -18,9 +18,9 @@ class BackEndUser extends AbstractModel implements MailRole
     private $configuration = [];
 
     /**
-     * Gets this user's user name.
+     * Gets this user's username.
      *
-     * @return string this user's user name, will not be empty for valid users
+     * @return string this user's username, will not be empty for valid users
      */
     public function getUserName(): string
     {

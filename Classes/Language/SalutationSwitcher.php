@@ -42,11 +42,8 @@ abstract class SalutationSwitcher extends AbstractPlugin
      */
     public function __sleep(): array
     {
-        $reflectionClass = new \ReflectionClass($this);
-        $properties = $reflectionClass->getProperties();
-
         $propertyNames = [];
-        foreach ($properties as $property) {
+        foreach ((new \ReflectionClass($this))->getProperties() as $property) {
             $propertyName = $property->getName();
             if ($propertyName === 'frontendController') {
                 continue;

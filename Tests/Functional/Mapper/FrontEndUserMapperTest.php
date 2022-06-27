@@ -309,12 +309,12 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameWithNameOfExistingUserReturnsFrontEndUserInstance(): void
     {
-        $userName = 'max.doe';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName]);
+        $username = 'max.doe';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $username]);
 
         self::assertInstanceOf(
             FrontEndUser::class,
-            $this->subject->findByUserName($userName)
+            $this->subject->findByUserName($username)
         );
     }
 
@@ -323,13 +323,13 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameWithNameOfExistingUserReturnsModelWithThatUid(): void
     {
-        $userName = 'max.doe';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName]);
+        $username = 'max.doe';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $username]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
-            $this->subject->findByUserName($userName)->getUid()
+            $this->subject->findByUserName($username)->getUid()
         );
     }
 
@@ -338,13 +338,13 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameWithUppercasedNameOfExistingLowercasedUserReturnsModelWithThatUid(): void
     {
-        $userName = 'max.doe';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName]);
+        $username = 'max.doe';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $username]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
-            $this->subject->findByUserName(strtoupper($userName))->getUid()
+            $this->subject->findByUserName(strtoupper($username))->getUid()
         );
     }
 
@@ -353,13 +353,13 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameWithUppercasedNameOfExistingUppercasedUserReturnsModelWithThatUid(): void
     {
-        $userName = 'MAX.DOE';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName]);
+        $username = 'MAX.DOE';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $username]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
-            $this->subject->findByUserName($userName)->getUid()
+            $this->subject->findByUserName($username)->getUid()
         );
     }
 
@@ -368,13 +368,13 @@ class FrontEndUserMapperTest extends FunctionalTestCase
      */
     public function findByUserNameWithLowercasedNameOfExistingUppercasedUserReturnsModelWithThatUid(): void
     {
-        $userName = 'max.doe';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => strtoupper($userName)]);
+        $username = 'max.doe';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => strtoupper($username)]);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
         self::assertSame(
             $uid,
-            $this->subject->findByUserName($userName)->getUid()
+            $this->subject->findByUserName($username)->getUid()
         );
     }
 
@@ -385,9 +385,9 @@ class FrontEndUserMapperTest extends FunctionalTestCase
     {
         $this->expectException(NotFoundException::class);
 
-        $userName = 'max.doe';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $userName, 'deleted' => 1]);
+        $username = 'max.doe';
+        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $username, 'deleted' => 1]);
 
-        $this->subject->findByUserName($userName);
+        $this->subject->findByUserName($username);
     }
 }

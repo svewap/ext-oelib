@@ -21,6 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix PhpStorm code inspection issues (#1029)
 - Stop using the `empty()` construct (#1015)
 - Drop redundant type casts (#1009)
 - Always drop empty values for `intExplode` calls (#1000)

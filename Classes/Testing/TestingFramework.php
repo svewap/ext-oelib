@@ -106,7 +106,7 @@ final class TestingFramework
      *
      * @var string[]
      */
-    private $additionalTablePrefixes = [];
+    private $additionalTablePrefixes;
 
     /**
      * all own DB table names to which this instance of the testing framework has access
@@ -806,7 +806,7 @@ final class TestingFramework
                 continue;
             }
 
-            // Runs a delete query for each allowed table. A "one-query-deletes-them-all" approach was tested,
+            // Runs a DELETE query for each allowed table. A "one-query-deletes-them-all" approach was tested,
             // but we didn't find a working solution for that.
             $this->getConnectionForTable($currentTable)->delete($currentTable, [$dummyColumnName => 1]);
             $this->resetAutoIncrementLazily($currentTable);
@@ -998,7 +998,7 @@ final class TestingFramework
 
         $relativeUniqueFolderName = $this->getPathRelativeToUploadDirectory($uniqueFolderName);
 
-        // Adds the created dummy folder to the top of $this->dummyFolders so
+        // Adds the created dummy folder to the top of $this->dummyFolders, so that
         // it gets deleted before previously created folders through
         // $this->cleanUpFolders(). This is needed for nested dummy folders.
         $this->dummyFolders = [$relativeUniqueFolderName => $relativeUniqueFolderName] + $this->dummyFolders;
@@ -1055,8 +1055,7 @@ final class TestingFramework
             return;
         }
 
-        $creationSuccessful = GeneralUtility::mkdir($uploadFolderPath);
-        if (!$creationSuccessful) {
+        if (!GeneralUtility::mkdir($uploadFolderPath)) {
             throw new \RuntimeException(
                 'The upload folder ' . $uploadFolderPath . ' could not be created.',
                 1331490723
@@ -1471,8 +1470,7 @@ routes: {  }";
 
         $this->suppressFrontEndCookies();
 
-        $frontEnd = $this->getFrontEndController();
-        $frontEndUser = $frontEnd->fe_user;
+        $frontEndUser = $this->getFrontEndController()->fe_user;
         if ($frontEndUser instanceof FrontendUserAuthentication) {
             $frontEndUser->createUserSession(['uid' => $userId, 'disableIPlock' => true]);
             $frontEndUser->user = $dataToSet;
@@ -1538,9 +1536,7 @@ routes: {  }";
     {
         $this->retrieveTableNames();
 
-        $tableNames = \array_keys(self::$tableNameCache);
-
-        return $tableNames;
+        return \array_keys(self::$tableNameCache);
     }
 
     /**
@@ -1624,7 +1620,7 @@ routes: {  }";
         $matches = [];
 
         preg_match_all(
-            '/((' . $additionalTablePrefixes . ')_[a-z0-9]+[a-z0-9_]*)(,|$)/',
+            '/((' . $additionalTablePrefixes . ')_[a-z\\d]+[a-z\\d_]*)(,|$)/',
             $allTables,
             $matches
         );

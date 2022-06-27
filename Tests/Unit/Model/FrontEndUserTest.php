@@ -56,7 +56,7 @@ class FrontEndUserTest extends UnitTestCase
         $GLOBALS['TCA']['fe_users']['columns']['gender'] = ['config' => ['type' => 'radio']];
     }
 
-    // Tests concerning the user name
+    // Tests concerning the username
 
     /**
      * @test

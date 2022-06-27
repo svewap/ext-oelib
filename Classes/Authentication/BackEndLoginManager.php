@@ -42,7 +42,7 @@ class BackEndLoginManager implements LoginManager
      */
     public static function getInstance(): BackEndLoginManager
     {
-        if (!self::$instance instanceof BackEndLoginManager) {
+        if (!self::$instance instanceof self) {
             self::$instance = new self();
         }
 

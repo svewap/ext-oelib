@@ -584,7 +584,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     }
 
     /**
-     * Checks whether this model is set to deleted.
+     * Checks whether this model is set to be deleted.
      *
      * @return bool TRUE if this model is set to deleted, FALSE otherwise
      */

@@ -78,7 +78,7 @@ class Node
     public function markAsVisible(): void
     {
         $this->isVisible = true;
-        if ($this->parentNode instanceof Node) {
+        if ($this->parentNode instanceof self) {
             $this->parentNode->markAsVisible();
         }
     }

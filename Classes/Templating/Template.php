@@ -16,7 +16,7 @@ class Template
     /**
      * @var non-empty-string the regular expression used to find subparts
      */
-    private const SUBPART_PATTERN = '/<!-- *###([A-Z0-9_]+)###.*-->(.*)<!-- *###\\1###.*-->/msU';
+    private const SUBPART_PATTERN = '/<!-- *###([A-Z\\d_]+)###.*-->(.*)<!-- *###\\1###.*-->/msU';
 
     /**
      * @var string the complete HTML template
@@ -133,7 +133,7 @@ class Template
         $matches = [];
 
         preg_match_all(
-            '/###([A-Z0-9_]+)###/',
+            '/###([A-Z\\d_]+)###/',
             $this->templateCode,
             $matches
         );
@@ -677,7 +677,7 @@ class Template
     private function isMarkerNameValidWithHashes(string $markerName): bool
     {
         return isset($this->markers[$markerName])
-            || (bool)preg_match('/^###[a-zA-Z](?:\\w*[a-zA-Z0-9])?###$/', $markerName);
+            || (bool)\preg_match('/^###[a-zA-Z](?:\\w*[a-zA-Z\\d])?###$/', $markerName);
     }
 
     /**

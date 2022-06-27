@@ -51,7 +51,7 @@ class ConfigurationRegistry
      */
     public static function getInstance(): ConfigurationRegistry
     {
-        if (!self::$instance instanceof ConfigurationRegistry) {
+        if (!self::$instance instanceof self) {
             self::$instance = new ConfigurationRegistry();
         }
 

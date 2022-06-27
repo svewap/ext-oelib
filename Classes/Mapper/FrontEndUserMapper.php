@@ -26,19 +26,19 @@ class FrontEndUserMapper extends AbstractDataMapper
     protected $additionalKeys = ['username'];
 
     /**
-     * Finds a front-end user by user name. Hidden user records will be
+     * Finds a front-end user by username. Hidden user records will be
      * retrieved as well.
      *
-     * @param non-empty-string $userName user name, case-insensitive
+     * @param non-empty-string $username username, case-insensitive
      *
-     * @return FrontEndUser model of the front-end user with the provided user name
+     * @return FrontEndUser model of the front-end user with the provided username
      *
-     * @throws NotFoundException if there is no front-end user with the provided user name in the database
+     * @throws NotFoundException if there is no front-end user with the provided username in the database
      */
-    public function findByUserName(string $userName): FrontEndUser
+    public function findByUserName(string $username): FrontEndUser
     {
         /** @var FrontEndUser $result */
-        $result = $this->findOneByKey('username', $userName);
+        $result = $this->findOneByKey('username', $username);
 
         return $result;
     }

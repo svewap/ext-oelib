@@ -38,9 +38,9 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     private const GENDERS = [self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_UNKNOWN];
 
     /**
-     * Gets this user's user name (login name).
+     * Gets this user's username (login name).
      *
-     * @return string this user's user name, will not be empty for valid users
+     * @return string this user's username, will not be empty for valid users
      */
     public function getUserName(): string
     {
@@ -48,19 +48,19 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     }
 
     /**
-     * Sets this user's user name (login name).
+     * Sets this user's username (login name).
      *
-     * @param string $userName the user name to set, must not be empty
+     * @param string $username the username to set, must not be empty
      *
      * @throws \InvalidArgumentException
      */
-    public function setUserName(string $userName): void
+    public function setUserName(string $username): void
     {
-        if ($userName === '') {
-            throw new \InvalidArgumentException('$userName must not be empty.');
+        if ($username === '') {
+            throw new \InvalidArgumentException('$username must not be empty.');
         }
 
-        $this->setAsString('username', $userName);
+        $this->setAsString('username', $username);
     }
 
     /**
@@ -94,7 +94,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      *
      * First, the "name" field is checked. If that is empty, the fields
      * "first_name" and "last_name" are checked. If those are empty as well,
-     * the user name is returned as a fallback value.
+     * the username is returned as a fallback value.
      *
      * @return string the user's real name, will not be empty for valid records
      */
@@ -471,7 +471,6 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      */
     public function setGender(int $genderKey): void
     {
-        $validGenderKeys = [self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_UNKNOWN];
         if (!$this->isValidGender($genderKey)) {
             throw new \InvalidArgumentException(
                 '$genderKey must be one of the predefined constants, but actually is: ' . $genderKey,
@@ -600,7 +599,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
      * Note: This function only works correctly for users that were born after
      * 1970-01-01 and that were not born in the future.
      *
-     * @return int this user's age in years, will be 0 if this user has no birth date set
+     * @return int this user's age in years, will be 0 if this user has no birthdate set
      */
     public function getAge(): int
     {
@@ -707,7 +706,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address
     /**
      * Checks whether this user has a non-empty job title set.
      *
-     * @return bool TRUE if this user has an job title set, FALSE otherwise
+     * @return bool TRUE if this user has a job title set, FALSE otherwise
      */
     public function hasJobTitle(): bool
     {

@@ -25,7 +25,7 @@ class BackEndUserTest extends UnitTestCase
     }
 
     ///////////////////////////////////////////
-    // Tests concerning getting the user name
+    // Tests concerning getting the username
     ///////////////////////////////////////////
 
     /**

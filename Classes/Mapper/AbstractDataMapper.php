@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Mapper;
 
+use Doctrine\DBAL\Connection as DbalConnection;
 use Doctrine\DBAL\Driver\ResultStatement;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
@@ -721,7 +722,7 @@ abstract class AbstractDataMapper
      * data mapper yet and loads it with the data provided in $data.
      *
      * The data is considered to be in the same format as in the database,
-     * eg. m:1 relations are provided as the foreign UID, not as the constituded
+     * e.g., m:1 relations are provided as the foreign UID, not as the constituted
      * model.
      *
      * (AbstractModel::setData works differently: There you need to provide the
@@ -1248,7 +1249,7 @@ abstract class AbstractDataMapper
         }
 
         $intUids = GeneralUtility::intExplode(',', $pageUids, true);
-        $pagesParameter = $queryBuilder->createNamedParameter($intUids, Connection::PARAM_INT_ARRAY);
+        $pagesParameter = $queryBuilder->createNamedParameter($intUids, DbalConnection::PARAM_INT_ARRAY);
         $queryBuilder->andWhere($queryBuilder->expr()->in('pid', $pagesParameter));
     }
 

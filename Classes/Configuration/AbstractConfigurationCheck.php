@@ -365,7 +365,7 @@ abstract class AbstractConfigurationCheck
     }
 
     /**
-     * Checks whether a configuration value has an non-negative integer value in the specified, inclusive range.
+     * Checks whether a configuration value has a non-negative integer value in the specified, inclusive range.
      *
      * @param non-empty-string $key
      * @param non-empty-string $explanation

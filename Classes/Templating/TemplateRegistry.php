@@ -35,7 +35,7 @@ class TemplateRegistry
      */
     public static function getInstance(): TemplateRegistry
     {
-        if (!self::$instance instanceof TemplateRegistry) {
+        if (!self::$instance instanceof self) {
             self::$instance = new TemplateRegistry();
         }
 

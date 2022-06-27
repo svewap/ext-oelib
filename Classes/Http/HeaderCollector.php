@@ -22,7 +22,7 @@ class HeaderCollector implements HeaderProxy
     private $headers = [];
 
     /**
-     * Stores a HTTP header which was meant to be sent.
+     * Stores an HTTP header which was meant to be sent.
      *
      * @param string $header HTTP header to send, must not be empty
      */

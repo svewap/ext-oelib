@@ -58,7 +58,7 @@ trait CachedAssociationCount
     /**
      * Retrieves the relation count for the given property.
      *
-     * This methods tries to avoid database accesses by using the relation counter cache if the relation is still
+     * This method tries to avoid database accesses by using the relation counter cache if the relation is still
      * a LazyObjectStorage. Otherwise, the normal COUNT query will be performed as a fallback.
      *
      * This method does not cache its results.

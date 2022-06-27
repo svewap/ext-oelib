@@ -20,7 +20,7 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * @var non-empty-string the regular expression used to find subparts
      */
-    private const LABEL_PATTERN = '/###(LABEL_([A-Z0-9_]+))###/';
+    private const LABEL_PATTERN = '/###(LABEL_([A-Z\\d_]+))###/';
 
     /**
      * @var string the prefix used for CSS classes

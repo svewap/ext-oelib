@@ -13,7 +13,7 @@ namespace OliverKlee\Oelib\Http\Interfaces;
 interface HeaderProxy
 {
     /**
-     * This function usually should add a HTTP header.
+     * This function usually should add an HTTP header.
      *
      * @param string $header HTTP header to send, e.g. 'Status: 404 Not Found', must not be empty
      */

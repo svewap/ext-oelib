@@ -373,7 +373,6 @@ class Collection extends \SplObjectStorage
     {
         /** @var array<int, M> $elements */
         $elements = [];
-        /** @var M $item */
         foreach ($this as $item) {
             $elements[] = $item;
         }
