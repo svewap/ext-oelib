@@ -8,6 +8,16 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 4.1.7
+
+### Changed
 - Raise PHPStan to level 9 (#1028)
 - Allow more versions of `static_info_tables` (#968)
 - Mark some internal classes as `@internal` (#963)
@@ -17,8 +27,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Deprecate `FrontEndUserMapper::getGroupMembers` (#1003)
 - Deprecate `Typo3Version` (#972)
 - Deprecate the `LoggingAware` trait and interface (#971)
-
-### Removed
 
 ### Fixed
 - Fix PhpStorm code inspection issues (#1029, #1031)
