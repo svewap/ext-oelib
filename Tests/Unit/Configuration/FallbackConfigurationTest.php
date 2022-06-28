@@ -361,7 +361,7 @@ final class FallbackConfigurationTest extends UnitTestCase
     {
         $key = 'something';
         $primaryValue = 'primary';
-        $primary = new DummyConfiguration([$key => " ${primaryValue} "]);
+        $primary = new DummyConfiguration([$key => " $primaryValue "]);
         $secondaryValue = '';
         $secondary = new DummyConfiguration([$key => $secondaryValue]);
         $subject = new FallbackConfiguration($primary, $secondary);
@@ -377,7 +377,7 @@ final class FallbackConfigurationTest extends UnitTestCase
         $key = 'something';
         $primaryValue1 = 'primary 1';
         $primaryValue2 = 'primary 2';
-        $primary = new DummyConfiguration([$key => "${primaryValue1}, ${primaryValue2}"]);
+        $primary = new DummyConfiguration([$key => "$primaryValue1, $primaryValue2"]);
         $secondaryValue = '';
         $secondary = new DummyConfiguration([$key => $secondaryValue]);
         $subject = new FallbackConfiguration($primary, $secondary);

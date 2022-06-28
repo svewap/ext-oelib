@@ -136,10 +136,8 @@ class TestingGeo extends AbstractModel implements Geo
 
     /**
      * Marks this object as having an error with the geo coordinates.
-     *
-     * @param string $reason
      */
-    public function setGeoError($reason = ''): void
+    public function setGeoError(string $reason = ''): void
     {
         $this->hasGeoError = true;
         $this->geoErrorReason = $reason;

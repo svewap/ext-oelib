@@ -133,8 +133,7 @@ class GeoCalculatorTest extends UnitTestCase
         self::assertEqualsWithDelta(
             26.0,
             $this->subject->calculateDistanceInKilometers($bonn, $cologne),
-            2.0,
-            ''
+            2.0
         );
     }
 
@@ -350,7 +349,7 @@ class GeoCalculatorTest extends UnitTestCase
         $this->subject->move($this->geoObject, $south, $distance);
 
         $latitudeAfter = $this->geoObject->getGeoCoordinates()['latitude'];
-        self::assertEqualsWithDelta(1.0, $latitudeBefore - $latitudeAfter, 0.00001, 'The distance is not as expected.');
+        self::assertEqualsWithDelta(1.0, $latitudeBefore - $latitudeAfter, 0.00001);
     }
 
     /**
@@ -385,8 +384,7 @@ class GeoCalculatorTest extends UnitTestCase
         self::assertEqualsWithDelta(
             $distance,
             $this->subject->calculateDistanceInKilometers($this->geoObject, $otherGeoObject),
-            $distance / 10,
-            'The distance is not as expected.'
+            $distance / 10
         );
     }
 
@@ -405,8 +403,7 @@ class GeoCalculatorTest extends UnitTestCase
         self::assertEqualsWithDelta(
             \abs($distance),
             $this->subject->calculateDistanceInKilometers($this->geoObject, $otherGeoObject),
-            \abs($distance) / 10,
-            'The distance is not as expected.'
+            \abs($distance) / 10
         );
     }
 
@@ -520,8 +517,7 @@ class GeoCalculatorTest extends UnitTestCase
         self::assertEqualsWithDelta(
             $distance,
             $this->subject->calculateDistanceInKilometers($this->geoObject, $otherGeoObject),
-            $distance / 10,
-            'The distance is not as expected.'
+            $distance / 10
         );
     }
 

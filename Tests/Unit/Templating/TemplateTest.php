@@ -121,7 +121,7 @@ class TemplateTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubpartWithoutEmptySubpartNameReturnsCompleteTemplateContent(): void
+    public function getSubpartWithEmptySubpartNameReturnsCompleteTemplateContent(): void
     {
         $templateCode = "This is a test including\na linefeed.\n";
         $this->subject->processTemplate($templateCode);

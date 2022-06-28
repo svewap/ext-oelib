@@ -89,8 +89,8 @@
                 <target></target>
             </trans-unit>
             <trans-unit id="only_in_french" xml:space="preserve" approved="yes">
-                <source>only in french</source>
-                <target>only in french fr</target>
+                <source>only in French</source>
+                <target>only in French fr</target>
             </trans-unit>
             <trans-unit id="label_foo" xml:space="preserve" approved="yes">
                 <source>foo</source>

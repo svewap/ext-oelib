@@ -67,7 +67,7 @@
                 <source>both without normal, informal</source>
             </trans-unit>
             <trans-unit id="only_in_french" xml:space="preserve">
-                <source>only in french</source>
+                <source>only in French</source>
             </trans-unit>
             <trans-unit id="label_foo" xml:space="preserve">
                 <source>foo</source>

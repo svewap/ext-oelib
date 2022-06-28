@@ -17,7 +17,7 @@ class AbstractModelTest extends UnitTestCase
     /**
      * @var TestingModel
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

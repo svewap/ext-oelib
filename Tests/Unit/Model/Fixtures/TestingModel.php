@@ -59,10 +59,8 @@ class TestingModel extends AbstractModel
 
     /**
      * Gets the "friend" data item. This is an n:1 relation.
-     *
-     * @return TestingModel|null
      */
-    public function getFriend()
+    public function getFriend(): ?TestingModel
     {
         /** @var TestingModel|null $model */
         $model = $this->getAsModel('friend');

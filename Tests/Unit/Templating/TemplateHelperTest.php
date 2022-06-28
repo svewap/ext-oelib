@@ -29,8 +29,7 @@ class TemplateHelperTest extends UnitTestCase
         $cacheManager->setCacheConfigurations(['l10n' => ['backend' => NullBackend::class]]);
 
         $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
-        $contentObject = $this->prophesize(ContentObjectRenderer::class)->reveal();
-        $frontEndController->cObj = $contentObject;
+        $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
         $GLOBALS['TSFE'] = $frontEndController;
 
         $this->subject = new TestingTemplateHelper([]);
@@ -970,7 +969,7 @@ class TemplateHelperTest extends UnitTestCase
         $this->subject->setMarker('my_marker_too', 'bar');
         self::assertSame(
             'foo bar',
-            $this->subject->getSubpart('')
+            $this->subject->getSubpart()
         );
     }
 
@@ -987,7 +986,7 @@ class TemplateHelperTest extends UnitTestCase
         $this->subject->setMarker('also_my_marker', 'bar');
         self::assertSame(
             'foo bar',
-            $this->subject->getSubpart('')
+            $this->subject->getSubpart()
         );
     }
 
@@ -1003,7 +1002,7 @@ class TemplateHelperTest extends UnitTestCase
         $this->subject->setMarker('my_marker', 'foo');
         self::assertSame(
             'foo ###MY_MARKER_TOO###',
-            $this->subject->getSubpart('')
+            $this->subject->getSubpart()
         );
     }
 
@@ -1019,7 +1018,7 @@ class TemplateHelperTest extends UnitTestCase
         $this->subject->setMarker('my_marker', 'foo');
         self::assertSame(
             'foo ###ALSO_MY_MARKER###',
-            $this->subject->getSubpart('')
+            $this->subject->getSubpart()
         );
     }
 
@@ -1035,7 +1034,7 @@ class TemplateHelperTest extends UnitTestCase
         $this->subject->setMarker('my_marker_too', 'bar');
         self::assertSame(
             '###MY_MARKER### bar',
-            $this->subject->getSubpart('')
+            $this->subject->getSubpart()
         );
     }
 
@@ -1051,7 +1050,7 @@ class TemplateHelperTest extends UnitTestCase
         $this->subject->setMarker('also_my_marker', 'bar');
         self::assertSame(
             '###MY_MARKER### bar',
-            $this->subject->getSubpart('')
+            $this->subject->getSubpart()
         );
     }
 
@@ -2864,7 +2863,7 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. '
             . 'This is some template code. foo More text.'
             . ' Even more text.',
-            $this->subject->getSubpart('')
+            $this->subject->getSubpart()
         );
     }
 
@@ -2911,7 +2910,7 @@ class TemplateHelperTest extends UnitTestCase
             'Some text. '
             . 'This is some template code. foo More text.'
             . ' Even more text.',
-            $this->subject->getSubpart('')
+            $this->subject->getSubpart()
         );
     }
 

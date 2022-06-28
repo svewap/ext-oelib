@@ -89,7 +89,7 @@
                 <target>de both without normal, informal</target>
             </trans-unit>
             <trans-unit id="only_in_french" xml:space="preserve" approved="yes">
-                <source>only in french</source>
+                <source>only in French</source>
                 <target></target>
             </trans-unit>
             <trans-unit id="label_foo" xml:space="preserve" approved="yes">

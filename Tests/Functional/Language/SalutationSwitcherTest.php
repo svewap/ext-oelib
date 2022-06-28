@@ -346,7 +346,7 @@ final class SalutationSwitcherTest extends FunctionalTestCase
     {
         $this->subject->setLanguage('de');
         self::assertSame(
-            'only in french',
+            'only in French',
             $this->subject->translate('only_in_french')
         );
     }

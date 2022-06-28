@@ -60,8 +60,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
         $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
         $adminUserProphecy->isAdmin()->willReturn(true);
-        $adminUser = $adminUserProphecy->reveal();
-        $GLOBALS['BE_USER'] = $adminUser;
+        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
 
         self::assertTrue(TestingConfigurationCheck::shouldCheck($extensionKey));
     }
@@ -78,8 +77,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
         $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
         $adminUserProphecy->isAdmin()->willReturn(false);
-        $adminUser = $adminUserProphecy->reveal();
-        $GLOBALS['BE_USER'] = $adminUser;
+        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
 
         self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
     }
@@ -96,8 +94,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
         $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
         $adminUserProphecy->isAdmin()->willReturn(true);
-        $adminUser = $adminUserProphecy->reveal();
-        $GLOBALS['BE_USER'] = $adminUser;
+        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
 
         self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
     }
@@ -114,8 +111,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
         $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
         $adminUserProphecy->isAdmin()->willReturn(true);
-        $adminUser = $adminUserProphecy->reveal();
-        $GLOBALS['BE_USER'] = $adminUser;
+        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
 
         self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
     }
@@ -132,8 +128,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
         $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
         $adminUserProphecy->isAdmin()->willReturn(true);
-        $adminUser = $adminUserProphecy->reveal();
-        $GLOBALS['BE_USER'] = $adminUser;
+        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
 
         self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
     }
@@ -347,7 +342,7 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
 
         self::assertTrue($subject->hasWarnings());
         $warning = $subject->getWarningsAsHtml()[0];
-        self::assertStringContainsString(\htmlspecialchars("{$namespace}.{$key}", ENT_QUOTES | ENT_HTML5), $warning);
+        self::assertStringContainsString(\htmlspecialchars("$namespace.$key", ENT_QUOTES | ENT_HTML5), $warning);
     }
 
     /**

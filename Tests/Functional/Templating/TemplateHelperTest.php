@@ -29,8 +29,7 @@ class TemplateHelperTest extends FunctionalTestCase
         parent::setUp();
 
         $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
-        $contentObject = $this->prophesize(ContentObjectRenderer::class)->reveal();
-        $frontEndController->cObj = $contentObject;
+        $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
         $GLOBALS['TSFE'] = $frontEndController;
 
         $configuration = new DummyConfiguration(['enableConfigCheck' => true]);

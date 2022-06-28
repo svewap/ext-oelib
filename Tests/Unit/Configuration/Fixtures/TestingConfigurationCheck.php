@@ -26,7 +26,7 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
     public function generateDummyWarnings(int $numberOfWarnings): void
     {
         for ($i = 1; $i <= $numberOfWarnings; $i++) {
-            $this->addWarning("This is warning #{$i}");
+            $this->addWarning("This is warning #$i");
         }
     }
 
