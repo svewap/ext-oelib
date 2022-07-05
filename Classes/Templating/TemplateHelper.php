@@ -23,6 +23,11 @@ class TemplateHelper extends SalutationSwitcher
     private const LABEL_PATTERN = '/###(LABEL_([A-Z\\d_]+))###/';
 
     /**
+     * @var array<int, null|false|''|0|'0'>
+     */
+    private const FALSEY_VALUES = [null, false, '', 0, '0'];
+
+    /**
      * @var string the prefix used for CSS classes
      */
     public $prefixId = '';
@@ -161,7 +166,8 @@ class TemplateHelper extends SalutationSwitcher
             $flexFormsValue = $this->addPathToFileName($flexFormsValue);
         }
 
-        return $flexFormsValue ?? $configurationValueFromTypoScript;
+        return !\in_array($flexFormsValue, self::FALSEY_VALUES, true)
+            ? $flexFormsValue : $configurationValueFromTypoScript;
     }
 
     /**
