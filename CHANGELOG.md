@@ -14,6 +14,10 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+
+## 4.1.8
+
+### Fixed
 - Properly check for falsey configuration values (#1035)
 
 ## 4.1.7
