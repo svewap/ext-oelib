@@ -93,7 +93,6 @@ class FrontEndLoginManager implements LoginManager
      */
     public function getLoggedInUser(string $mapperName = FrontEndUserMapper::class): ?AbstractModel
     {
-        // @phpstan-ignore-next-line We explicitly check for contract violations here.
         if ($mapperName === '') {
             throw new \InvalidArgumentException('$mapperName must not be empty.', 1331488730);
         }

@@ -100,7 +100,6 @@ class MapperRegistry
      */
     private function getByClassName(string $className): AbstractDataMapper
     {
-        // @phpstan-ignore-next-line We explicitly check for contract violations here.
         if ($className === '') {
             throw new \InvalidArgumentException('$className must not be empty.', 1331488868);
         }
