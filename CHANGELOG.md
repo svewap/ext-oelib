@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## 4.1.8
 
 ### Fixed
+- Bump the minimal 10.4 Extbase requirement (#1044)
 - Properly check for falsey configuration values (#1035)
 
 ## 4.1.7
