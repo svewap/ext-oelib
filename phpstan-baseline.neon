@@ -46,7 +46,22 @@ parameters:
 			path: Classes/Configuration/ConfigurationProxy.php
 
 		-
+			message: "#^Cannot access offset non\\-falsy\\-string on mixed\\.$#"
+			count: 1
+			path: Classes/Configuration/ConfigurationRegistry.php
+
+		-
 			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\ConfigurationRegistry\\:\\:getFrontEndController\\(\\) should return TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null but returns mixed\\.$#"
+			count: 1
+			path: Classes/Configuration/ConfigurationRegistry.php
+
+		-
+			message: "#^Parameter \\#1 \\$data of method OliverKlee\\\\Oelib\\\\Configuration\\\\TypoScriptConfiguration\\:\\:setData\\(\\) expects array\\<int\\|string, mixed\\>, mixed given\\.$#"
+			count: 1
+			path: Classes/Configuration/ConfigurationRegistry.php
+
+		-
+			message: "#^Parameter \\#2 \\$search of function array_key_exists expects array, mixed given\\.$#"
 			count: 1
 			path: Classes/Configuration/ConfigurationRegistry.php
 
@@ -269,11 +284,6 @@ parameters:
 			message: "#^Property OliverKlee\\\\Oelib\\\\Templating\\\\Template\\:\\:\\$subparts \\(array\\<string, string\\>\\) does not accept array\\<string, mixed\\>\\.$#"
 			count: 1
 			path: Classes/Templating/Template.php
-
-		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: Classes/Templating/TemplateHelper.php
 
 		-
 			message: "#^Cannot access offset 'Auto_increment' on mixed\\.$#"
