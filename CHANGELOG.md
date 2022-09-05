@@ -14,6 +14,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+
+## 4.1.9
+
+### Changed
+- Bump the minimal 10.4 Extbase requirement (#1044)
+
+### Fixed
 - Stop injecting the query settings in repositories (#1057)
 
 ## 4.1.8
