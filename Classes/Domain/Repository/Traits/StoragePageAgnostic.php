@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Domain\Repository\Traits;
 
-use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
 
 /**
@@ -14,19 +15,9 @@ use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
  */
 trait StoragePageAgnostic
 {
-    /**
-     * @var QuerySettingsInterface
-     */
-    private $querySettings;
-
-    public function injectQuerySettings(QuerySettingsInterface $querySettings): void
-    {
-        $this->querySettings = $querySettings;
-    }
-
     public function initializeObject(): void
     {
-        $querySettings = clone $this->querySettings;
+        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }

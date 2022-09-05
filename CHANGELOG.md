@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Stop injecting the query settings in repositories (#1057)
 
 ## 4.1.8
 
