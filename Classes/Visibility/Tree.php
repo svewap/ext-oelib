@@ -8,6 +8,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class represents a visibility tree.
+ *
+ * @deprecated will be removed in oelib 5.0
  */
 class Tree
 {

@@ -6,6 +6,8 @@ namespace OliverKlee\Oelib\Visibility;
 
 /**
  * This class represents a node for a visibility tree.
+ *
+ * @deprecated will be removed in oelib 5.0
  */
 class Node
 {

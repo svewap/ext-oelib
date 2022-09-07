@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Improve the configuration check messages (#1061, #1062, #1063)
 
 ### Deprecated
+- Deprecate the visibility-related `Node` and `Tree` (#1068)
 
 ### Removed
 
