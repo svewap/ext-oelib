@@ -97,8 +97,8 @@ class GoogleMapsViewHelper extends AbstractViewHelper
         $arguments = $this->arguments;
         $mapPoints = isset($arguments['mapPoints']) && \is_array($arguments['mapPoints'])
             ? $arguments['mapPoints'] : [];
-        $width = \is_string($arguments['width'] ?? null) ? (string)$arguments['width'] : self::DEFAULT_WIDTH;
-        $height = \is_string($arguments['height'] ?? null) ? (string)$arguments['height'] : self::DEFAULT_HEIGHT;
+        $width = \is_string($arguments['width'] ?? null) ? $arguments['width'] : self::DEFAULT_WIDTH;
+        $height = \is_string($arguments['height'] ?? null) ? $arguments['height'] : self::DEFAULT_HEIGHT;
         $widthCheckResult = \preg_match('/^\\d+(px|%)$/', $width);
         if (!\is_int($widthCheckResult) || $widthCheckResult === 0) {
             throw new \InvalidArgumentException(
