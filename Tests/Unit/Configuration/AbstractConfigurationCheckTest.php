@@ -236,9 +236,14 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $subject->generateWarningWithText($warningText);
 
         $warnings = $subject->getWarningsAsHtml();
+        $firstWarning = $warnings[0];
         self::assertStringContainsString(
-            'The configuration check for this extension can be disabled in the extension manager.',
-            $warnings[0]
+            'The configuration check for this extension can be disabled in the extension settings in the backend:',
+            $firstWarning
+        );
+        self::assertStringContainsString(
+            '<i>Admin Tools &gt; Settings &gt; Extension Configuration</i>',
+            $firstWarning
         );
     }
 

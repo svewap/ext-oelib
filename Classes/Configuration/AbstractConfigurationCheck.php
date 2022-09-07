@@ -151,7 +151,8 @@ abstract class AbstractConfigurationCheck
     {
         $this->warnings[] = '<div lang="en" class="alert alert-warning mt-3" role="alert">' .
             $rawWarningText . '<br/>' .
-            '<i>The configuration check for this extension can be disabled in the extension manager.</i>' .
+            'The configuration check for this extension can be disabled in the extension settings in the backend:
+            <i>Admin Tools &gt; Settings &gt; Extension Configuration</i>' .
             '</div>';
     }
 
