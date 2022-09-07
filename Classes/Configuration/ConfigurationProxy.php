@@ -48,6 +48,18 @@ class ConfigurationProxy extends AbstractReadOnlyObjectWithPublicAccessors imple
     }
 
     /**
+     * Returns the name of the configuration source, e.g., "TypoScript setup" or "Flexforms".
+     *
+     * This name may also contain HTML.
+     *
+     * @return non-empty-string
+     */
+    public function getSourceName(): string
+    {
+        return 'the extension settings in the backend (Admin Tools, Settings, Extension Configuration)';
+    }
+
+    /**
      * Retrieves the configuration for the given extension key.
      *
      * @param string $extensionKey extension key without the 'tx' prefix, used to retrieve the EM

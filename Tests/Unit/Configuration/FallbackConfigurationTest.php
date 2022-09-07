@@ -27,6 +27,24 @@ final class FallbackConfigurationTest extends UnitTestCase
     /**
      * @test
      */
+    public function hasSourceNameFromBothConfigurations(): void
+    {
+        $primarySourceName = 'primary';
+        $primary = new DummyConfiguration();
+        $primary->setSourceName($primarySourceName);
+        $secondarySourceName = 'secondary';
+        $secondary = new DummyConfiguration();
+        $secondary->setSourceName($secondarySourceName);
+
+        $subject = new FallbackConfiguration($primary, $secondary);
+
+        $expected = $primarySourceName . ' or ' . $secondarySourceName;
+        self::assertSame($expected, $subject->getSourceName());
+    }
+
+    /**
+     * @test
+     */
     public function getAsStringForBothEmptyStringReturnsEmptyString(): void
     {
         $key = 'something';

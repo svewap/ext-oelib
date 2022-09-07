@@ -9,6 +9,15 @@ namespace OliverKlee\Oelib\Interfaces;
  */
 interface Configuration
 {
+    /**
+     * Returns the name of the configuration source, e.g., "TypoScript setup" or "Flexforms".
+     *
+     * This name may also contain HTML.
+     *
+     * @return non-empty-string
+     */
+    public function getSourceName(): string;
+
     public function getAsString(string $key): string;
 
     public function hasString(string $key): bool;

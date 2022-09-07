@@ -18,6 +18,11 @@ final class DummyConfiguration extends AbstractObjectWithPublicAccessors impleme
     private $data;
 
     /**
+     * @var non-empty-string
+     */
+    private $sourceName = 'dummy configuration for testing';
+
+    /**
      * @param array<string, mixed> $data
      */
     public function __construct(array $data = [])
@@ -33,6 +38,26 @@ final class DummyConfiguration extends AbstractObjectWithPublicAccessors impleme
     public function setAllData(array $data): void
     {
         $this->data = $data;
+    }
+
+    /**
+     * Returns the name of the configuration source, e.g., "TypoScript setup" or "Flexforms".
+     *
+     * This name may also contain HTML.
+     *
+     * @return non-empty-string
+     */
+    public function getSourceName(): string
+    {
+        return $this->sourceName;
+    }
+
+    /**
+     * @param non-empty-string $sourceName
+     */
+    public function setSourceName(string $sourceName): void
+    {
+        $this->sourceName = $sourceName;
     }
 
     /**

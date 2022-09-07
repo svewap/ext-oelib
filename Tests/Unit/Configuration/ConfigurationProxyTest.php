@@ -69,6 +69,17 @@ class ConfigurationProxyTest extends UnitTestCase
     /**
      * @test
      */
+    public function hasConfigurationProxyConfigurationName(): void
+    {
+        self::assertSame(
+            'the extension settings in the backend (Admin Tools, Settings, Extension Configuration)',
+            $this->subject->getSourceName()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getInstanceReturnsProxyInstance(): void
     {
         self::assertInstanceOf(ConfigurationProxy::class, ConfigurationProxy::getInstance('oelib'));

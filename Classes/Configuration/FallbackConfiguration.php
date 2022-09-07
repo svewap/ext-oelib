@@ -28,6 +28,18 @@ class FallbackConfiguration implements ConfigurationInterface
         $this->secondary = $secondary;
     }
 
+    /**
+     * Returns the name of the configuration source, e.g., "TypoScript setup" or "Flexforms".
+     *
+     * This name may also contain HTML.
+     *
+     * @return non-empty-string
+     */
+    public function getSourceName(): string
+    {
+        return $this->primary->getSourceName() . ' or ' . $this->secondary->getSourceName();
+    }
+
     public function getAsString(string $key): string
     {
         return $this->primary->hasString($key)

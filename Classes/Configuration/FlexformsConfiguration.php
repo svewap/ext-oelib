@@ -48,6 +48,18 @@ class FlexformsConfiguration extends AbstractReadOnlyObjectWithPublicAccessors i
         \libxml_use_internal_errors($libXmlState);
     }
 
+    /**
+     * Returns the name of the configuration source, e.g., "TypoScript setup" or "Flexforms".
+     *
+     * This name may also contain HTML.
+     *
+     * @return non-empty-string
+     */
+    public function getSourceName(): string
+    {
+        return 'in the plugin Flexforms';
+    }
+
     protected function get(string $key): ?string
     {
         if ($this->xPath instanceof \DOMXPath) {

@@ -18,6 +18,18 @@ class TypoScriptConfiguration extends AbstractReadOnlyObjectWithPublicAccessors 
     private $data = [];
 
     /**
+     * Returns the name of the configuration source, e.g., "TypoScript setup" or "Flexforms".
+     *
+     * This name may also contain HTML.
+     *
+     * @return non-empty-string
+     */
+    public function getSourceName(): string
+    {
+        return 'in your TypoScript template';
+    }
+
+    /**
      * Sets the complete data for this configuration.
      *
      * This function can be called multiple times.

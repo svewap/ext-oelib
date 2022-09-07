@@ -35,6 +35,16 @@ final class TypoScriptConfigurationTest extends UnitTestCase
     /**
      * @test
      */
+    public function hasTypoScriptName(): void
+    {
+        $subject = new TypoScriptConfiguration();
+
+        self::assertSame('in your TypoScript template', $subject->getSourceName());
+    }
+
+    /**
+     * @test
+     */
     public function isObjectWithPublicAccessors(): void
     {
         self::assertInstanceOf(AbstractReadOnlyObjectWithPublicAccessors::class, $this->subject);

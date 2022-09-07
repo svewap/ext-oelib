@@ -68,6 +68,16 @@ final class FlexformsConfigurationTest extends UnitTestCase
     }
 
     /**
+     * @test
+     */
+    public function hasFlexformsName(): void
+    {
+        $subject = new FlexformsConfiguration(new ContentObjectRenderer());
+
+        self::assertSame('in the plugin Flexforms', $subject->getSourceName());
+    }
+
+    /**
      * @return array<string, array<array<string, string|array<string, mixed>|null>>>
      */
     public function noFlexformsDataDataProvider(): array

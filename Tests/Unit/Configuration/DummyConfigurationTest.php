@@ -35,6 +35,29 @@ final class DummyConfigurationTest extends UnitTestCase
     /**
      * @test
      */
+    public function byDefaultHasDummySourceName(): void
+    {
+        $subject = new DummyConfiguration();
+
+        self::assertSame('dummy configuration for testing', $subject->getSourceName());
+    }
+
+    /**
+     * @test
+     */
+    public function canOverwriteSourceName(): void
+    {
+        $sourceName = 'set via setter';
+        $subject = new DummyConfiguration();
+
+        $subject->setSourceName($sourceName);
+
+        self::assertSame($sourceName, $subject->getSourceName());
+    }
+
+    /**
+     * @test
+     */
     public function isObjectWithPublicAccessors(): void
     {
         self::assertInstanceOf(AbstractObjectWithPublicAccessors::class, $this->subject);

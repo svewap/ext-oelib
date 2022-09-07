@@ -14,7 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
-- Improve the configuration check messages (#1061, #1062)
+- Improve the configuration check messages (#1061, #1062, #1063)
 
 ## 4.1.9
 

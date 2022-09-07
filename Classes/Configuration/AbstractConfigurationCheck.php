@@ -166,7 +166,7 @@ abstract class AbstractConfigurationCheck
     protected function addWarningAndRequestCorrection(string $key, string $explanation): void
     {
         $message = $explanation . ' Please fix the TypoScript setup variable <strong>' .
-            $this->buildEncodedConfigurationPath($key) . '</strong> in your TypoScript template setup.';
+            $this->buildEncodedConfigurationPath($key) . '</strong> ' . $this->configuration->getSourceName() . '.';
 
         $this->addWarning($message);
     }
