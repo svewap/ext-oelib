@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Add missing linebreak in the configuration check message (#1061)
 
 ## 4.1.9
 

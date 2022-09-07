@@ -149,8 +149,8 @@ abstract class AbstractConfigurationCheck
      */
     protected function addWarning(string $rawWarningText): void
     {
-        $this->warnings[]
-            = '<div lang="en" class="alert alert-warning mt-3" role="alert">' . $rawWarningText .
+        $this->warnings[] = '<div lang="en" class="alert alert-warning mt-3" role="alert">' .
+            $rawWarningText . '<br/>' .
             '<i>The configuration check for this extension can be disabled in the extension manager.</i>' .
             '</div>';
     }
