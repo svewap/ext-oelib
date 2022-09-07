@@ -8,6 +8,8 @@ use OliverKlee\Oelib\Language\SalutationSwitcher;
 
 /**
  * This is mere a class used for testing. Do not use it for any other purpose.
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 final class TestingSalutationSwitcher extends SalutationSwitcher
 {

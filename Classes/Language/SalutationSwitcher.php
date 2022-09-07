@@ -10,6 +10,8 @@ use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 
 /**
  * This class provides functions for localization.
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 abstract class SalutationSwitcher extends AbstractPlugin
 {
@@ -81,6 +83,8 @@ abstract class SalutationSwitcher extends AbstractPlugin
      * 'greeting_informal' exists, that string is used.
      * If it doesn't exist, this functions tries to use the string with the key
      * 'greeting'.
+     *
+     * @deprecated will be removed in oelib 6.0
      *
      * @param non-empty-string $key the local language key for which to return the value, must not be empty
      *
