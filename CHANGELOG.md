@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add a view helper for hiding template parts via configuration (#1070)
 
 ### Changed
 - Improve the configuration check messages (#1061, #1062, #1063)
