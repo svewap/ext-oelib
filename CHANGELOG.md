@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 4.2.0
+
+### Added
 - Add an `AbstractConfigurationCheckViewHelper` (#1082, #1084)
 - Add a configuration-dependent validator (#1075, #1077, #1078, #1080)
 - Add a view helper for hiding template parts via configuration (#1070)
@@ -16,10 +28,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 - Deprecate the salutation-switching logic (#1069)
 - Deprecate the visibility-related `Node` and `Tree` (#1068)
-
-### Removed
-
-### Fixed
 
 ## 4.1.9
 
