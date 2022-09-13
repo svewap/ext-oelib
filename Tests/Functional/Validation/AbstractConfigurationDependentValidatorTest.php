@@ -7,6 +7,9 @@ namespace OliverKlee\Oelib\Tests\Functional\Validation;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Tests\Functional\Validation\Fixtures\TestingConfigurationDependentValidator;
 use OliverKlee\Oelib\Tests\Functional\Validation\Fixtures\TestingValidatableModel;
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
@@ -19,11 +22,6 @@ final class AbstractConfigurationDependentValidatorTest extends FunctionalTestCa
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
-     * @var bool
-     */
-    protected $initializeDatabase = false;
-
-    /**
      * @var TestingConfigurationDependentValidator
      *
      * We can make this property private once we drop support for TYPO3 V9.
@@ -33,6 +31,7 @@ final class AbstractConfigurationDependentValidatorTest extends FunctionalTestCa
     protected function setUp(): void
     {
         parent::setUp();
+        $GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageService::class);
 
         $this->subject = new TestingConfigurationDependentValidator();
     }
@@ -93,7 +92,8 @@ final class AbstractConfigurationDependentValidatorTest extends FunctionalTestCa
         self::assertCount(1, $forProperty->getErrors());
         $firstError = $forProperty->getFirstError();
         self::assertInstanceOf(Error::class, $firstError);
-        self::assertSame('validationError.fillInField', $firstError->getMessage());
+        $expected = LocalizationUtility::translate('validationError.fillInField', 'oelib');
+        self::assertSame($expected, $firstError->getMessage());
     }
 
     /**

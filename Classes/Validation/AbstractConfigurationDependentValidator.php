@@ -80,7 +80,8 @@ abstract class AbstractConfigurationDependentValidator extends AbstractValidator
 
         foreach ($this->requiredFields as $field) {
             if (!$this->isFieldFilledIn($field, $value)) {
-                $error = new ValidationError('validationError.fillInField', 1651765504);
+                $errorMessage = $this->translateErrorMessage('validationError.fillInField', 'oelib') ?? '';
+                $error = new ValidationError($errorMessage, 1651765504);
                 $this->result->forProperty($field)->addError($error);
             }
         }

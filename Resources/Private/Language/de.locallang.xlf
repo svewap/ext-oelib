@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages">
 		<header/>
 		<body>
 			<trans-unit id="label_test">
@@ -8,6 +8,7 @@
 			</trans-unit>
 			<trans-unit id="validationError.fillInField">
 				<source>Please fill in this field.</source>
+				<target>Bitte füllen Sie dieses Feld aus.</target>
 			</trans-unit>
 		</body>
 	</file>
