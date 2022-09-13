@@ -12,7 +12,10 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 final class TestingConfigurationDependentValidator extends AbstractConfigurationDependentValidator
 {
-    protected $modelClassName = TestingValidatableModel::class;
+    protected function getModelClassName(): string
+    {
+        return TestingValidatableModel::class;
+    }
 
     protected function isFieldFilledIn(string $field, AbstractEntity $model): bool
     {

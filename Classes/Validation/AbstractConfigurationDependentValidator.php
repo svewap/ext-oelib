@@ -13,7 +13,7 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
  * Checks that the fields that are configured to be required are filled in.
  *
  * The subclasses need to configure the class name of the model to be validated in the generics and in
- * `$this->modelClassName`, change `$this->$configurationKey` (if needed) and implement `isFieldFilledIn()`.
+ * `$this->getModelClassName()`, change `$this->$configurationKey` (if needed) and implement `isFieldFilledIn()`.
  *
  * The code of `isFieldFilledIn()` could look like this:
  *
@@ -36,11 +36,6 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
  */
 abstract class AbstractConfigurationDependentValidator extends AbstractValidator
 {
-    /**
-     * @var class-string<M>
-     */
-    protected $modelClassName;
-
     /**
      * the name of the configuration variable with the required model fields
      *
@@ -74,7 +69,8 @@ abstract class AbstractConfigurationDependentValidator extends AbstractValidator
      */
     protected function isValid($value): void
     {
-        if (!$value instanceof $this->modelClassName) {
+        $modelClassName = $this->getModelClassName();
+        if (!$value instanceof $modelClassName) {
             return;
         }
 
@@ -86,6 +82,11 @@ abstract class AbstractConfigurationDependentValidator extends AbstractValidator
             }
         }
     }
+
+    /**
+     * @return class-string<M>
+     */
+    abstract protected function getModelClassName(): string;
 
     /**
      * @param M $model
