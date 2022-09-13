@@ -44,11 +44,6 @@ abstract class AbstractConfigurationCheckViewHelper extends AbstractViewHelper
         return 'plugin.tx_' . static::getExtensionKey() . '.settings';
     }
 
-    public function render(): string
-    {
-        return self::renderStatic([], $this->buildRenderChildrenClosure(), $this->renderingContext);
-    }
-
     public static function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,
