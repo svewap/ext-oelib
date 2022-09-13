@@ -42,7 +42,7 @@
 		"nimut/testing-framework": "^6.0.1",
 		"oliverklee/user-oelibtest": "@dev",
 		"oliverklee/user-oelibtest2": "@dev",
-		"php-coveralls/php-coveralls": "^2.5.2",
+		"php-coveralls/php-coveralls": "^2.5.3",
 		"phpspec/prophecy": "^1.15.0",
 		"phpstan/extension-installer": "^1.1.0",
 		"phpstan/phpstan": "^1.8.5",
