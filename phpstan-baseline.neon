@@ -691,6 +691,11 @@ parameters:
 			path: Tests/Functional/Testing/WritableEnvironmentTest.php
 
 		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Validation\\\\AbstractConfigurationDependentValidatorTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Tests/Functional/Validation/AbstractConfigurationDependentValidatorTest.php
+
+		-
 			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\ViewHelpers\\\\PriceViewHelperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/ViewHelpers/PriceViewHelperTest.php

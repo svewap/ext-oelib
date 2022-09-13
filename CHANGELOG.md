@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
-- Add a configuration-dependent validator (#1074)
+- Add a configuration-dependent validator (#1074, #1076)
 - Add a view helper for hiding template parts via configuration (#1070)
 
 ### Changed

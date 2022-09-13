@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace OliverKlee\Oelib\Tests\Unit\Validation;
+namespace OliverKlee\Oelib\Tests\Functional\Validation;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use OliverKlee\Oelib\Tests\Unit\Validation\Fixtures\TestingConfigurationDependentValidator;
-use OliverKlee\Oelib\Tests\Unit\Validation\Fixtures\TestingValidatableModel;
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use OliverKlee\Oelib\Tests\Functional\Validation\Fixtures\TestingConfigurationDependentValidator;
+use OliverKlee\Oelib\Tests\Functional\Validation\Fixtures\TestingValidatableModel;
 use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
@@ -14,8 +14,15 @@ use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
 /**
  * @covers \OliverKlee\Oelib\Validation\AbstractConfigurationDependentValidator
  */
-final class AbstractConfigurationDependentValidatorTest extends UnitTestCase
+final class AbstractConfigurationDependentValidatorTest extends FunctionalTestCase
 {
+    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
+
+    /**
+     * @var bool
+     */
+    protected $initializeDatabase = false;
+
     /**
      * @var TestingConfigurationDependentValidator
      *

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OliverKlee\Oelib\Tests\Unit\Validation\Fixtures;
+namespace OliverKlee\Oelib\Tests\Functional\Validation\Fixtures;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
