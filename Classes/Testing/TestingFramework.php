@@ -369,12 +369,18 @@ final class TestingFramework
     /**
      * Creates a front-end page on the given page, and provides it with the page UID as slug.
      *
+     * @param array<string, string|int>|null $data
+     *
      * @return int the UID of the new page, will be > 0
      */
-    public function createFrontEndPage(int $parentPageUid = 0): int
+    public function createFrontEndPage(int $parentPageUid = 0, ?array $data = null): int
     {
-        $uid = $this->createGeneralPageRecord(1, $parentPageUid, []);
-        $this->changeRecord('pages', $uid, ['slug' => '/' . $uid]);
+        $data = $data ?? [];
+        $hasSlug = \array_key_exists('slug', $data);
+        $uid = $this->createGeneralPageRecord(1, $parentPageUid, $data);
+        if (!$hasSlug) {
+            $this->changeRecord('pages', $uid, ['slug' => '/' . $uid]);
+        }
 
         return $uid;
     }

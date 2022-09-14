@@ -1764,7 +1764,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFrontEndPagePopulatesSlugWithPageUid(): void
+    public function createFrontEndPageByDefaultPopulatesSlugWithPageUid(): void
     {
         $uid = $this->subject->createFrontEndPage();
 
@@ -1778,7 +1778,37 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function createFrontEndPageSetsCorrectDocumentType(): void
+    public function createFrontEndPageSavesPageWithProvidedData(): void
+    {
+        $title = 'Test page';
+        $uid = $this->subject->createFrontEndPage(0, ['title' => $title]);
+
+        self::assertNotSame(0, $uid);
+
+        $row = $this->getDatabaseConnection()->selectSingleRow('title', 'pages', 'uid = ' . $uid);
+
+        self::assertSame($title, $row['title']);
+    }
+
+    /**
+     * @test
+     */
+    public function createFrontEndPageCanUseSlugFromProvidedData(): void
+    {
+        $slug = '/home';
+        $uid = $this->subject->createFrontEndPage(0, ['slug' => $slug]);
+
+        self::assertNotSame(0, $uid);
+
+        $row = $this->getDatabaseConnection()->selectSingleRow('slug', 'pages', 'uid = ' . $uid);
+
+        self::assertSame($slug, $row['slug']);
+    }
+
+    /**
+     * @test
+     */
+    public function createFrontEndPageSetsPageDocumentType(): void
     {
         $uid = $this->subject->createFrontEndPage();
 
