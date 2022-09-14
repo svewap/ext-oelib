@@ -16,6 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @covers \OliverKlee\Oelib\Testing\CacheNullifyer
+ * @covers \OliverKlee\Oelib\Testing\ExtendedGeneralUtility
  */
 final class CacheNullifyerTest extends FunctionalTestCase
 {

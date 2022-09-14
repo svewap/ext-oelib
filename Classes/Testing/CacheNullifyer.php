@@ -82,4 +82,12 @@ final class CacheNullifyer
     {
         return GeneralUtility::makeInstance(CacheManager::class);
     }
+
+    /**
+     * Flushes the class name cache for `GeneralUtility::makeInstance()`.
+     */
+    public function flushMakeInstanceCache(): void
+    {
+        ExtendedGeneralUtility::flushMakeInstanceCache();
+    }
 }
