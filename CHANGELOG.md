@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
-- Add support for TYPO3 11LTS (#1114, #1115)
+- Add support for TYPO3 11LTS (#1114, #1115, #1123)
 - Add a `ConvertableToMimeAddress` interface and trait (#1092)
 
 ### Changed
