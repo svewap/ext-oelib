@@ -10,6 +10,9 @@ use OliverKlee\Oelib\Domain\Repository\GermanZipCodeRepository;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
+/**
+ * @covers \OliverKlee\Oelib\Domain\Repository\GermanZipCodeRepository
+ */
 class GermanZipCodeRepositoryTest extends UnitTestCase
 {
     /**

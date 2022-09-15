@@ -12,6 +12,7 @@ use OliverKlee\Oelib\Model\BackEndUserGroup;
 
 /**
  * @covers \OliverKlee\Oelib\Mapper\BackEndUserMapper
+ * @covers \OliverKlee\Oelib\Model\BackEndUser
  */
 final class BackEndUserMapperTest extends FunctionalTestCase
 {

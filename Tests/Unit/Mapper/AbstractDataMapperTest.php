@@ -16,6 +16,9 @@ use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
+/**
+ * @covers \OliverKlee\Oelib\Mapper\AbstractDataMapper
+ */
 class AbstractDataMapperTest extends UnitTestCase
 {
     /**

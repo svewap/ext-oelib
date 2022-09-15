@@ -8,6 +8,9 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Testing\TestingFramework;
 
+/**
+ * @covers \OliverKlee\Oelib\Configuration\PageFinder
+ */
 class PageFinderTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];

@@ -7,6 +7,9 @@ namespace OliverKlee\Oelib\Tests\Unit\Exception;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\EmptyQueryResultException;
 
+/**
+ * @covers \OliverKlee\Oelib\Exception\EmptyQueryResultException
+ */
 class EmptyQueryResultExceptionTest extends UnitTestCase
 {
     /**

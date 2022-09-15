@@ -10,6 +10,10 @@ use OliverKlee\Oelib\Domain\Repository\GermanZipCodeRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
+/**
+ * @covers \OliverKlee\Oelib\Domain\Model\GermanZipCode
+ * @covers \OliverKlee\Oelib\Domain\Repository\GermanZipCodeRepository
+ */
 class GermanZipCodeRepositoryTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];

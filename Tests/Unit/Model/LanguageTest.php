@@ -7,6 +7,9 @@ namespace OliverKlee\Oelib\Tests\Unit\Model;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Model\Language;
 
+/**
+ * @covers \OliverKlee\Oelib\Model\Language
+ */
 class LanguageTest extends UnitTestCase
 {
     /**

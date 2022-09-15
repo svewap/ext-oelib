@@ -22,6 +22,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @covers \OliverKlee\Oelib\Mapper\AbstractDataMapper
+ * @covers \OliverKlee\Oelib\Model\AbstractModel
  */
 class AbstractDataMapperTest extends FunctionalTestCase
 {

@@ -8,6 +8,9 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Templating\Template;
 use OliverKlee\Oelib\Templating\TemplateRegistry;
 
+/**
+ * @covers \OliverKlee\Oelib\Templating\TemplateRegistry
+ */
 class TemplateRegistryTest extends UnitTestCase
 {
     // Tests concerning the Singleton property

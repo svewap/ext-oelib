@@ -9,6 +9,10 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\LanguageMapper;
 use OliverKlee\Oelib\Model\Language;
 
+/**
+ * @covers \OliverKlee\Oelib\Mapper\LanguageMapper
+ * @covers \OliverKlee\Oelib\Model\Language
+ */
 class LanguageMapperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];

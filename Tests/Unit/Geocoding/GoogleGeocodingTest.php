@@ -11,6 +11,9 @@ use OliverKlee\Oelib\Geocoding\DummyGeocodingLookup;
 use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 
+/**
+ * @covers \OliverKlee\Oelib\Geocoding\GoogleGeocoding
+ */
 class GoogleGeocodingTest extends UnitTestCase
 {
     /**

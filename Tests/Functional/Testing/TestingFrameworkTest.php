@@ -23,6 +23,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @covers \OliverKlee\Oelib\Testing\TestingFramework
+ * @covers \OliverKlee\Oelib\Testing\TestingFrameworkCleanup
  */
 final class TestingFrameworkTest extends FunctionalTestCase
 {

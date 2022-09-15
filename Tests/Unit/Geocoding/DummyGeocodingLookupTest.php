@@ -8,6 +8,9 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Geocoding\DummyGeocodingLookup;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 
+/**
+ * @covers \OliverKlee\Oelib\Geocoding\DummyGeocodingLookup
+ */
 class DummyGeocodingLookupTest extends UnitTestCase
 {
     /**

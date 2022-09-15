@@ -10,6 +10,9 @@ use OliverKlee\Oelib\Interfaces\ConvertableToMimeAddress;
 use OliverKlee\Oelib\Interfaces\MailRole;
 use Symfony\Component\Mime\Address;
 
+/**
+ * @covers \OliverKlee\Oelib\Email\GeneralEmailRole
+ */
 class GeneralEmailRoleTest extends UnitTestCase
 {
     /**

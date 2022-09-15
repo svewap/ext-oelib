@@ -9,6 +9,9 @@ use OliverKlee\Oelib\Session\FakeSession;
 use OliverKlee\Oelib\Session\Session;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
+/**
+ * @covers \OliverKlee\Oelib\Session\Session
+ */
 class SessionTest extends UnitTestCase
 {
     protected function tearDown(): void

@@ -10,6 +10,9 @@ use OliverKlee\Oelib\Mapper\CountryMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
 
+/**
+ * @covers \OliverKlee\Oelib\Model\FrontEndUser
+ */
 class FrontEndUserTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/static_info_tables', 'typo3conf/ext/oelib'];

@@ -7,6 +7,9 @@ namespace OliverKlee\Oelib\Tests\Unit\Model;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Model\FederalState;
 
+/**
+ * @covers \OliverKlee\Oelib\Model\FederalState
+ */
 class FederalStateTest extends UnitTestCase
 {
     /**

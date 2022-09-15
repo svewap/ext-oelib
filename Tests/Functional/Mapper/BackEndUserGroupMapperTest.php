@@ -8,6 +8,10 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
 
+/**
+ * @covers \OliverKlee\Oelib\Mapper\BackEndUserGroupMapper
+ * @covers \OliverKlee\Oelib\Model\BackEndUserGroup
+ */
 class BackEndUserGroupMapperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];

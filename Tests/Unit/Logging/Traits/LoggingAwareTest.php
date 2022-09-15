@@ -10,6 +10,9 @@ use OliverKlee\Oelib\Tests\Unit\Logging\Fixtures\TestingLoggingAware;
 use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Core\Log\LogManagerInterface;
 
+/**
+ * @covers \OliverKlee\Oelib\Logging\Traits\LoggingAware
+ */
 class LoggingAwareTest extends UnitTestCase
 {
     /**

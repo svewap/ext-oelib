@@ -9,6 +9,10 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\CountryMapper;
 use OliverKlee\Oelib\Model\Country;
 
+/**
+ * @covers \OliverKlee\Oelib\Mapper\CountryMapper
+ * @covers \OliverKlee\Oelib\Model\Country
+ */
 class CountryMapperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
