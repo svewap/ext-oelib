@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop `Visibilty\Tree` and `Visibilty\Node` (#1097)
 - Drop `AbstractModel::getAsList` (#1095)
 - Drop support for TYPO3 9LTS (#1094)
 
