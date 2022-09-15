@@ -10,24 +10,28 @@ namespace OliverKlee\Oelib\Interfaces;
 interface Geo
 {
     /**
-     * Returns this object's address formatted for a geo lookup, for example
+     * Returns this object's address formatted for a geocoding lookup, for example
      * "Pariser Str. 50, 53117 Auerberg, Bonn, DE". Any part of this address
      * might be missing, though.
      *
-     * @return string this object's address formatted for a geo lookup,
+     * @return string this object's address formatted for a geocoding lookup,
      *                will be empty if this object has no address
      */
     public function getGeoAddress(): string;
 
     /**
-     * Checks whether this object has a non-empty address suitable for a geo lookup.
+     * Checks whether this object has a non-empty address suitable for a geocoding lookup.
      *
      * @return bool TRUE if this object has a non-empty address, FALSE otherwise
      */
     public function hasGeoAddress(): bool;
 
     /**
+     * Note: This method needs to throw an exception if the corresponding object does not have coordinates.
+     *
      * @return array{latitude: float, longitude: float}
+     *
+     * @throws \BadMethodCallException
      */
     public function getGeoCoordinates(): array;
 

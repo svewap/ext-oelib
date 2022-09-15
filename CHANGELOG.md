@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Allow providing data for `TestingFramework::createFrontEndPage()` (#1086)
 
 ### Changed
+- Make the geo coordinates nullable (#1093)
 
 ### Deprecated
 

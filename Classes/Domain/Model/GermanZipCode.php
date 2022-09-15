@@ -34,9 +34,6 @@ class GermanZipCode extends AbstractEntity implements Geo
      */
     protected $latitude = 0.0;
 
-    /**
-     * @return string
-     */
     public function getZipCode(): string
     {
         return $this->zipCode;
@@ -47,9 +44,6 @@ class GermanZipCode extends AbstractEntity implements Geo
         $this->zipCode = $zipCode;
     }
 
-    /**
-     * @return string
-     */
     public function getCityName(): string
     {
         return $this->cityName;
@@ -61,11 +55,11 @@ class GermanZipCode extends AbstractEntity implements Geo
     }
 
     /**
-     * Returns this object's address formatted for a geo lookup, for example
+     * Returns this object's address formatted for a geocoding lookup, for example
      * "Pariser Str. 50, 53117 Auerberg, Bonn, DE". Any part of this address
      * might be missing, though.
      *
-     * @return string this object's address formatted for a geo lookup,
+     * @return string this object's address formatted for a geocoding lookup,
      *                will be empty if this object has no address
      */
     public function getGeoAddress(): string
@@ -73,9 +67,6 @@ class GermanZipCode extends AbstractEntity implements Geo
         return $this->getZipCode() . ' ' . $this->getCityName() . ', DE';
     }
 
-    /**
-     * @return float
-     */
     public function getLongitude(): float
     {
         return $this->longitude;
@@ -86,9 +77,6 @@ class GermanZipCode extends AbstractEntity implements Geo
         $this->longitude = $longitude;
     }
 
-    /**
-     * @return float
-     */
     public function getLatitude(): float
     {
         return $this->latitude;
@@ -100,10 +88,7 @@ class GermanZipCode extends AbstractEntity implements Geo
     }
 
     /**
-     * Checks whether this object has a non-empty address suitable for a geo
-     * lookup.
-     *
-     * @return bool
+     * @return true
      */
     public function hasGeoAddress(): bool
     {
@@ -122,9 +107,9 @@ class GermanZipCode extends AbstractEntity implements Geo
     }
 
     /**
-     * This method must not be called.
-     *
      * @param array{latitude: float, longitude: float} $coordinates
+     *
+     * @return never
      *
      * @throws \BadMethodCallException
      */
@@ -139,23 +124,24 @@ class GermanZipCode extends AbstractEntity implements Geo
     }
 
     /**
-     * This method must not be called.
+     * @return never
+     *
+     * @throws \BadMethodCallException
      */
     public function clearGeoCoordinates(): void
     {
         throw new \BadMethodCallException('This method must not be called.', 1542211386);
     }
 
-    /**
-     * Checks whether there has been a problem with this object's geo coordinates.
-     */
     public function hasGeoError(): bool
     {
         return false;
     }
 
     /**
-     * This method must not be called.
+     * @return never
+     *
+     * @throws \BadMethodCallException
      */
     public function setGeoError(string $reason = ''): void
     {
@@ -163,7 +149,9 @@ class GermanZipCode extends AbstractEntity implements Geo
     }
 
     /**
-     * This method must not be called.
+     * @return never
+     *
+     * @throws \BadMethodCallException
      */
     public function clearGeoError(): void
     {
