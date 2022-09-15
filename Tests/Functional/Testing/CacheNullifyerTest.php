@@ -59,20 +59,6 @@ final class CacheNullifyerTest extends FunctionalTestCase
      * @param class-string<AbstractBackend> $backend
      * @dataProvider coreCachesVersion10DataProvider
      */
-    public function disableCoreCachesSetsAllCoreCachesForVersion10(string $identifier, string $backend): void
-    {
-        $this->subject->disableCoreCaches();
-
-        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache($identifier);
-        self::assertInstanceOf($backend, $cache->getBackend());
-    }
-
-    /**
-     * @test
-     *
-     * @param class-string<AbstractBackend> $backend
-     * @dataProvider coreCachesVersion10DataProvider
-     */
     public function setAllCoreCachesSetsAllCoreCachesForVersion10(string $identifier, string $backend): void
     {
         $this->subject->setAllCoreCaches();

@@ -26,14 +26,6 @@ final class CacheNullifyer
         $this->disableCoreCachesForVersion10();
     }
 
-    /**
-     * @deprecated will be removed in oelib 5.0; use `setAllCoreCaches` instead
-     */
-    public function disableCoreCaches(): void
-    {
-        $this->setAllCoreCaches();
-    }
-
     private function disableCoreCachesForVersion10(): void
     {
         $this->getCacheManager()->setCacheConfigurations(
