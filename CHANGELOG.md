@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop `TemplateHelper::ensureIntegerArrayValues` (#1109)
 - Drop `CacheNullifyer::disableCoreCaches` (#1104)
 - Drop the `ReadOnlyRepository` trait (#1103)
 - Drop `AbstractDataMapper::countByPageUid` (#1102)

@@ -59,17 +59,6 @@ final class TestingTemplateHelper extends TemplateHelper
     }
 
     /**
-     * Ensures that all values in the given array are cast to int and removes empty
-     * or invalid values.
-     *
-     * @param string[] $keys the keys of the piVars to check, may be empty
-     */
-    public function ensureIntegerArrayValues(array $keys): void
-    {
-        parent::ensureIntegerArrayValues($keys);
-    }
-
-    /**
      * Ensures that $this->cObj points to a valid content object.
      *
      * If this object already has a valid cObj, this function does nothing.

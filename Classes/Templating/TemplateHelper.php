@@ -162,43 +162,8 @@ class TemplateHelper extends SalutationSwitcher
             $flexFormsValue = null;
         }
 
-        if ($isFileName && $flexFormsValue !== null && $flexFormsValue !== '') {
-            $flexFormsValue = $this->addPathToFileName($flexFormsValue);
-        }
-
         return !\in_array($flexFormsValue, self::FALSEY_VALUES, true)
             ? $flexFormsValue : $configurationValueFromTypoScript;
-    }
-
-    /**
-     * Adds a path in front of the file name.
-     * This is used for files that are selected in the Flexform of the front end
-     * plugin.
-     *
-     * If no path is provided, the default (uploads/[extension_name]/) is used
-     * as path.
-     *
-     * An example (default, with no path provided):
-     * If the file is named 'template.tmpl', the output will be
-     * 'uploads/[extension_name]/template.tmpl'.
-     * The '[extension_name]' will be replaced by the name of the calling
-     * extension.
-     *
-     * @param string $fileName the file name
-     * @param string $path the path to the file (without filename), must contain a slash at the end,
-     *        may contain a slash at the beginning (if not relative)
-     *
-     * @return non-empty-string the complete path including file name
-     *
-     * @deprecated will be removed in oelib 5.0
-     */
-    private function addPathToFileName(string $fileName, string $path = ''): string
-    {
-        if ($path === '') {
-            $path = 'uploads/tx_' . $this->extKey . '/';
-        }
-
-        return $path . $fileName;
     }
 
     /**
@@ -818,32 +783,6 @@ class TemplateHelper extends SalutationSwitcher
                 $this->piVars[$key] = (int)$this->piVars[$key];
             } else {
                 $this->piVars[$key] = 0;
-            }
-        }
-    }
-
-    /**
-     * Ensures that all values in the given array are cast to integers and removes empty or invalid values.
-     *
-     * @param array<array-key, string> $keys the keys of the piVars to check, may be empty
-     *
-     * @deprecated will be remove in oelib 5.0
-     */
-    protected function ensureIntegerArrayValues(array $keys): void
-    {
-        foreach ($keys as $key) {
-            if (!isset($this->piVars[$key]) || !is_array($this->piVars[$key])) {
-                continue;
-            }
-
-            foreach ($this->piVars[$key] as $innerKey => $value) {
-                $integerValue = (int)$value;
-
-                if ($integerValue === 0) {
-                    unset($this->piVars[$key][$innerKey]);
-                } else {
-                    $this->piVars[$key][$innerKey] = $integerValue;
-                }
             }
         }
     }
