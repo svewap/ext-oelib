@@ -11,6 +11,9 @@ use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 
+/**
+ * @covers \OliverKlee\Oelib\Domain\Repository\Traits\DirectPersist
+ */
 final class DirectPersistTest extends UnitTestCase
 {
     /**

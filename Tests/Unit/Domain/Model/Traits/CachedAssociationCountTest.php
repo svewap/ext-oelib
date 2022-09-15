@@ -10,6 +10,9 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
+/**
+ * @covers \OliverKlee\Oelib\Domain\Model\Traits\CachedAssociationCount
+ */
 final class CachedAssociationCountTest extends UnitTestCase
 {
     /**
