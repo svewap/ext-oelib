@@ -1535,33 +1535,6 @@ abstract class AbstractDataMapper
     }
 
     /**
-     * Returns the number of records located on the given pages.
-     *
-     * @deprecated will be removed in oelib 5.0 without replacement
-     *
-     * @param string $pageUids comma-separated UIDs of the pages on which the records should be found, may be empty
-     *
-     * @return int the number of records located on the given pages
-     */
-    public function countByPageUid(string $pageUids): int
-    {
-        $query = $this->getQueryBuilder()->count('*')->from($this->getTableName());
-        $this->addPageUidRestriction($query, $pageUids);
-        $result = $query->execute();
-        if (!$result instanceof ResultStatement) {
-            throw new \UnexpectedValueException('Expected ResultStatement, got int instead.', 1646321386);
-        }
-
-        if (\method_exists($result, 'fetchOne')) {
-            $count = (int)$result->fetchOne();
-        } else {
-            $count = (int)$result->fetchColumn();
-        }
-
-        return $count;
-    }
-
-    /**
      * Returns the table name of this mapper.
      *
      * @return non-empty-string

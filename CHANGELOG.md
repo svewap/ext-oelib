@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop `AbstractDataMapper::countByPageUid` (#1102)
 - Drop `LoginManager::getLoggedInUser` (#1101)
 - Drop the `PriceViewHelper` (#1100)
 - Drop the `GoogleMapsViewHelper` (#1099)

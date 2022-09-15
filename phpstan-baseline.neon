@@ -202,7 +202,7 @@ parameters:
 
 		-
 			message: "#^Cannot cast mixed to int\\.$#"
-			count: 6
+			count: 5
 			path: Classes/Mapper/AbstractDataMapper.php
 
 		-
