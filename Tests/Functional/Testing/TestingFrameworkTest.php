@@ -926,65 +926,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
             $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test_article_mm')
         );
 
-        // Runs a deep clean up to delete all dummy records.
+        // Runs a deep cleanup to delete all dummy records.
         $this->subject->cleanUp(true);
-    }
-
-    /**
-     * @test
-     */
-    public function cleanUpDeletesCreatedDummyFile(): void
-    {
-        $fileName = $this->subject->createDummyFile();
-
-        $this->subject->cleanUp();
-
-        self::assertFileNotExists($fileName);
-    }
-
-    /**
-     * @test
-     */
-    public function cleanUpDeletesCreatedDummyFolder(): void
-    {
-        $folderName = $this->subject->createDummyFolder('test_folder');
-
-        $this->subject->cleanUp();
-
-        self::assertFileNotExists($folderName);
-    }
-
-    /**
-     * @test
-     */
-    public function cleanUpDeletesCreatedNestedDummyFolders(): void
-    {
-        $outerDummyFolder = $this->subject->createDummyFolder('test_folder');
-        $innerDummyFolder = $this->subject->createDummyFolder(
-            $this->subject->getPathRelativeToUploadDirectory($outerDummyFolder) .
-            '/test_folder'
-        );
-
-        $this->subject->cleanUp();
-
-        self::assertFalse(
-            file_exists($outerDummyFolder) && file_exists($innerDummyFolder)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function cleanUpDeletesCreatedDummyUploadFolder(): void
-    {
-        $this->subject->setUploadFolderPath(Environment::getPublicPath() . '/typo3temp/tx_oelib_test/');
-        $this->subject->createDummyFile();
-
-        self::assertDirectoryExists($this->subject->getUploadFolderPath());
-
-        $this->subject->cleanUp();
-
-        self::assertDirectoryNotExists($this->subject->getUploadFolderPath());
     }
 
     /**

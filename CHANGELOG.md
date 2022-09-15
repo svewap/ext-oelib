@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop functionality for dummy files/folders from `TestingFramework` (#1121)
 - Drop `TestingFramework::disableCoreCaches` (#1117)
 - Drop `.htaccess` files (#1116, #1119)
 - Drop `FrontEndUserMapper::getGroupMembers` (#1113)
