@@ -13,8 +13,9 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop the `PriceViewHelper` (#1100)
 - Drop the `GoogleMapsViewHelper` (#1099)
-- Drop `Visibilty\Tree` and `Visibilty\Node` (#1097)
+- Drop `Visibility\Tree` and `Visibility\Node` (#1097)
 - Drop `AbstractModel::getAsList` (#1095)
 - Drop support for TYPO3 9LTS (#1094)
 
