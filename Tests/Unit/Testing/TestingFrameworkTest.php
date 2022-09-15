@@ -32,6 +32,8 @@ final class TestingFrameworkTest extends UnitTestCase
         $this->subject->cleanUpWithoutDatabase();
         $this->subject->purgeHooks();
 
+        GeneralUtility::purgeInstances();
+
         parent::tearDown();
     }
 

@@ -7,6 +7,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Authentication;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\Model\FrontEndUser;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @covers \OliverKlee\Oelib\Authentication\FrontEndLoginManager
@@ -23,6 +24,14 @@ final class FrontEndLoginManagerTest extends UnitTestCase
         parent::setUp();
 
         $this->subject = FrontEndLoginManager::getInstance();
+    }
+
+    protected function tearDown(): void
+    {
+        FrontEndLoginManager::purgeInstance();
+        GeneralUtility::purgeInstances();
+
+        parent::tearDown();
     }
 
     ////////////////////////////////////////////

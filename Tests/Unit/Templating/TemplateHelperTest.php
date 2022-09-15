@@ -40,6 +40,8 @@ final class TemplateHelperTest extends UnitTestCase
     protected function tearDown(): void
     {
         ConfigurationProxy::purgeInstances();
+        GeneralUtility::purgeInstances();
+
         parent::tearDown();
     }
 
