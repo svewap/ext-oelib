@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Model;
 
 use OliverKlee\Oelib\DataStructures\Collection;
+use OliverKlee\Oelib\Email\ConvertableToMimeAddressTrait;
+use OliverKlee\Oelib\Interfaces\ConvertableToMimeAddress;
 use OliverKlee\Oelib\Interfaces\MailRole;
 
 /**
  * This class represents a back-end user.
  */
-class BackEndUser extends AbstractModel implements MailRole
+class BackEndUser extends AbstractModel implements MailRole, ConvertableToMimeAddress
 {
+    use ConvertableToMimeAddressTrait;
+
     /**
      * @var array<string, string> the user's configuration (unserialized)
      */

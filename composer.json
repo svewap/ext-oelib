@@ -29,6 +29,7 @@
 		"ext-zip": "*",
 		"doctrine/dbal": "^2.10",
 		"psr/log": "^1.0 || ^2.0 || ^3.0",
+		"symfony/mime": "^4.1 || ^5.4 || ^6.1",
 		"typo3/cms-core": "^10.4.11",
 		"typo3/cms-extbase": "^10.4.11",
 		"typo3/cms-fluid": "^10.4.11",

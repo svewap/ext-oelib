@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Model;
 
 use OliverKlee\Oelib\DataStructures\Collection;
+use OliverKlee\Oelib\Email\ConvertableToMimeAddressTrait;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Interfaces\Address;
+use OliverKlee\Oelib\Interfaces\ConvertableToMimeAddress;
 use OliverKlee\Oelib\Interfaces\MailRole;
 use OliverKlee\Oelib\Mapper\CountryMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
@@ -15,8 +17,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This class represents a front-end user.
  */
-class FrontEndUser extends AbstractModel implements MailRole, Address
+class FrontEndUser extends AbstractModel implements MailRole, Address, ConvertableToMimeAddress
 {
+    use ConvertableToMimeAddressTrait;
+
     /**
      * @var int represents the male gender for this user
      */

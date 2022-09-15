@@ -6,8 +6,11 @@ namespace OliverKlee\Oelib\Tests\Unit\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
+use OliverKlee\Oelib\Interfaces\ConvertableToMimeAddress;
+use OliverKlee\Oelib\Interfaces\MailRole;
 use OliverKlee\Oelib\Model\BackEndUser;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
+use Symfony\Component\Mime\Address;
 
 /**
  * @covers \OliverKlee\Oelib\Model\BackEndUser
@@ -22,6 +25,14 @@ class BackEndUserTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = new BackEndUser();
+    }
+
+    /**
+     * @test
+     */
+    public function implementsMailRole(): void
+    {
+        self::assertInstanceOf(MailRole::class, $this->subject);
     }
 
     ///////////////////////////////////////////
@@ -261,6 +272,51 @@ class BackEndUserTest extends UnitTestCase
             'john@doe.com',
             $this->subject->getEmailAddress()
         );
+    }
+
+    // Tests concerning the MIME email address
+
+    /**
+     * @test
+     */
+    public function implementsConvertableToMimeAddress(): void
+    {
+        self::assertInstanceOf(ConvertableToMimeAddress::class, $this->subject);
+    }
+
+    /**
+     * @test
+     */
+    public function canBuildMimeAddress(): void
+    {
+        $this->subject->setData(['email' => 'tina@example.com']);
+
+        $address = $this->subject->toMimeAddress();
+        self::assertInstanceOf(Address::class, $address);
+    }
+
+    /**
+     * @test
+     */
+    public function mimeAddressHasEmailAddress(): void
+    {
+        $emailAddress = 'jade@example.com';
+        $this->subject->setData(['email' => $emailAddress]);
+
+        $address = $this->subject->toMimeAddress();
+        self::assertSame($emailAddress, $address->getAddress());
+    }
+
+    /**
+     * @test
+     */
+    public function mimeAddressHasName(): void
+    {
+        $name = 'Max';
+        $this->subject->setData(['realName' => $name, 'email' => 'tina@example.com']);
+
+        $address = $this->subject->toMimeAddress();
+        self::assertSame($name, $address->getName());
     }
 
     // Tests concerning getGroups
