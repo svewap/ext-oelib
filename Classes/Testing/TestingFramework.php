@@ -20,7 +20,6 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
 use TYPO3\CMS\Core\Http\Uri;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\Site;
@@ -1223,33 +1222,26 @@ final class TestingFramework
         $frontEndUser->unpack_uc();
         $frontEndUser->fetchGroupData();
 
-        if ((new Typo3Version())->getMajorVersion() >= 10) {
-            if ($pageUid > 0) {
-                $this->createDummySite($pageUid);
-                $allSites = GeneralUtility::makeInstance(SiteConfiguration::class)->getAllExistingSites(false);
-                $site = $allSites[self::SITE_IDENTIFIER] ?? null;
-                if (!$site instanceof Site) {
-                    throw new \RuntimeException('Dummy site not found.', 1635024025);
-                }
-                $language = $site->getLanguageById(0);
-            } else {
-                $site = new Site('test', $pageUid, []);
-                $language = new SiteLanguage(0, 'en_US.utf8', new Uri($this->getFakeSiteUrl()), []);
+        if ($pageUid > 0) {
+            $this->createDummySite($pageUid);
+            $allSites = GeneralUtility::makeInstance(SiteConfiguration::class)->getAllExistingSites(false);
+            $site = $allSites[self::SITE_IDENTIFIER] ?? null;
+            if (!$site instanceof Site) {
+                throw new \RuntimeException('Dummy site not found.', 1635024025);
             }
-            $frontEnd = GeneralUtility::makeInstance(
-                TypoScriptFrontendController::class,
-                GeneralUtility::makeInstance(Context::class),
-                $site,
-                $language,
-                new PageArguments($pageUid, '', []),
-                $frontEndUser
-            );
+            $language = $site->getLanguageById(0);
         } else {
-            if ($pageUid > 0) {
-                $this->createDummySite($pageUid);
-            }
-            $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, $pageUid, 0);
+            $site = new Site('test', $pageUid, []);
+            $language = new SiteLanguage(0, 'en_US.utf8', new Uri($this->getFakeSiteUrl()), []);
         }
+        $frontEnd = GeneralUtility::makeInstance(
+            TypoScriptFrontendController::class,
+            GeneralUtility::makeInstance(Context::class),
+            $site,
+            $language,
+            new PageArguments($pageUid, '', []),
+            $frontEndUser
+        );
         $GLOBALS['TSFE'] = $frontEnd;
 
         $frontEnd->fe_user = $frontEndUser;
@@ -1272,11 +1264,7 @@ final class TestingFramework
             $frontEnd->tmpl->runThroughTemplates($rootLine);
             $frontEnd->tmpl->generateConfig();
             $frontEnd->tmpl->loaded = true;
-            if ((new Typo3Version())->getMajorVersion() >= 10) {
-                Locales::setSystemLocaleFromSiteLanguage($frontEnd->getLanguage());
-            } else {
-                $frontEnd->settingLocale();
-            }
+            Locales::setSystemLocaleFromSiteLanguage($frontEnd->getLanguage());
         }
 
         $frontEnd->newCObj();

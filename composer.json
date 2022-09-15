@@ -29,10 +29,10 @@
 		"ext-zip": "*",
 		"doctrine/dbal": "^2.10",
 		"psr/log": "^1.0 || ^2.0 || ^3.0",
-		"typo3/cms-core": "^9.5.16 || ^10.4.6",
-		"typo3/cms-extbase": "^9.5.16 || ^10.4.6",
-		"typo3/cms-fluid": "^9.5.16 || ^10.4.6",
-		"typo3/cms-frontend": "^9.5.16 || ^10.4.6",
+		"typo3/cms-core": "^10.4.11",
+		"typo3/cms-extbase": "^10.4.11",
+		"typo3/cms-fluid": "^10.4.11",
+		"typo3/cms-frontend": "^10.4.11",
 		"typo3fluid/fluid": "^2.6.10"
 	},
 	"require-dev": {
@@ -53,7 +53,7 @@
 		"saschaegerer/phpstan-typo3": "^1.1.2",
 		"sjbr/static-info-tables": "^6.9.6 || ^11.5.2",
 		"squizlabs/php_codesniffer": "^3.7.1",
-		"typo3/cms-extensionmanager": "^9.5.16 || ^10.4.6"
+		"typo3/cms-extensionmanager": "^10.4.11"
 	},
 	"replace": {
 		"typo3-ter/oelib": "self.version"

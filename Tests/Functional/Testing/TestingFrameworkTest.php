@@ -15,7 +15,6 @@ use TYPO3\CMS\Core\Cache\Backend\TransientMemoryBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
@@ -3114,43 +3113,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @return array<non-empty-string, array{0: non-empty-string, 1: class-string<AbstractBackend>}>
      */
-    public function coreCachesVersion9DataProvider(): array
-    {
-        return [
-            'extbase_datamapfactory_datamap' => ['extbase_datamapfactory_datamap', SimpleFileBackend::class],
-            'extbase_reflection' => ['extbase_reflection', SimpleFileBackend::class],
-            'fluid_template' => ['fluid_template', SimpleFileBackend::class],
-            'hash' => ['cache_hash', SimpleFileBackend::class],
-            'imagesizes' => ['cache_imagesizes', NullBackend::class],
-            'l10n' => ['l10n', SimpleFileBackend::class],
-            'pages' => ['cache_pages', NullBackend::class],
-            'pagesection' => ['cache_pagesection', NullBackend::class],
-            'rootline' => ['cache_rootline', NullBackend::class],
-            'runtime' => ['cache_runtime', TransientMemoryBackend::class],
-        ];
-    }
-
-    /**
-     * @test
-     *
-     * @param class-string<AbstractBackend> $backend
-     * @dataProvider coreCachesVersion9DataProvider
-     */
-    public function disableCoreCachesSetsAllCoreCachesForVersion9(string $identifier, string $backend): void
-    {
-        if ((new Typo3Version())->getMajorVersion() >= 10) {
-            self::markTestSkipped('This test is specific to TYPO3 9LTS.');
-        }
-
-        $this->subject->disableCoreCaches();
-
-        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache($identifier);
-        self::assertInstanceOf($backend, $cache->getBackend());
-    }
-
-    /**
-     * @return array<non-empty-string, array{0: non-empty-string, 1: class-string<AbstractBackend>}>
-     */
     public function coreCachesVersion10DataProvider(): array
     {
         return [
@@ -3176,10 +3138,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function disableCoreCachesSetsAllCoreCachesForVersion10(string $identifier, string $backend): void
     {
-        if ((new Typo3Version())->getMajorVersion() <= 9) {
-            self::markTestSkipped('This test is specific to TYPO3 10LTS.');
-        }
-
         $this->subject->disableCoreCaches();
 
         $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache($identifier);
