@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OliverKlee\Oelib\Tests\Unit\Email;
+namespace OliverKlee\Oelib\Tests\Unit\Email\Fixtures;
 
 use OliverKlee\Oelib\Email\ConvertableToMimeAddressTrait;
 use OliverKlee\Oelib\Interfaces\ConvertableToMimeAddress;

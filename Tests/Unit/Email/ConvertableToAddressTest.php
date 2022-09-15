@@ -6,6 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Email;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Interfaces\ConvertableToMimeAddress;
+use OliverKlee\Oelib\Tests\Unit\Email\Fixtures\TestingMimeConvertableMailRole;
 use Symfony\Component\Mime\Address;
 
 /**
