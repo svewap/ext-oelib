@@ -29,6 +29,8 @@ final class GeoCalculatorTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new GeoCalculator();
 
         $this->geoObject = new TestingGeo();

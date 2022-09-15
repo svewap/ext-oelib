@@ -21,6 +21,8 @@ final class LanguageMapperTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new LanguageMapper();
     }
 

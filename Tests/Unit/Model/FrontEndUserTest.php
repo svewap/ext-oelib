@@ -36,6 +36,8 @@ final class FrontEndUserTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new FrontEndUser();
 
         $this->globalExecTimeBackup = $GLOBALS['EXEC_TIME'];

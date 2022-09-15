@@ -20,6 +20,8 @@ final class CreationDateTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new CreatedModel();
     }
 

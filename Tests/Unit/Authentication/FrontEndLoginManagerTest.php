@@ -20,6 +20,8 @@ final class FrontEndLoginManagerTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = FrontEndLoginManager::getInstance();
     }
 

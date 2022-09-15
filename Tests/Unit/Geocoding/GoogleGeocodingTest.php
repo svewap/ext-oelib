@@ -28,6 +28,8 @@ final class GoogleGeocodingTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $configurationRegistry = ConfigurationRegistry::getInstance();
         $configurationRegistry->set('plugin', new DummyConfiguration());
         $this->configuration = new DummyConfiguration();

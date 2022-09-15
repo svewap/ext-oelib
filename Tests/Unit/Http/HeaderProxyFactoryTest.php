@@ -22,6 +22,8 @@ final class HeaderProxyFactoryTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         // Only the instance with an enabled test mode can be tested as in the
         // non-test mode added headers are not accessible.
         HeaderProxyFactory::getInstance()->enableTestMode();

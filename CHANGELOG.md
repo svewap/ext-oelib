@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add a `ConvertableToMimeAddress` interface and trait (#1092)
 
 ### Changed
+- Switch to the TYPO3 testing framework (#1130)
 
 ### Deprecated
 

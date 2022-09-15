@@ -19,6 +19,8 @@ final class PageFinderTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = PageFinder::getInstance();
     }
 

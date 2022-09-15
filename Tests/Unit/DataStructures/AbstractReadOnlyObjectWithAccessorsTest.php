@@ -20,6 +20,8 @@ final class AbstractReadOnlyObjectWithAccessorsTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new TestingReadOnlyObjectWithPublicAccessors();
     }
 

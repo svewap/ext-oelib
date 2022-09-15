@@ -35,6 +35,8 @@ final class ConfigurationProxyTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         /** @var ConfigurationProxy $subject */
         $subject = ConfigurationProxy::getInstance('oelib');
         // ensures the same configuration at the beginning of each test

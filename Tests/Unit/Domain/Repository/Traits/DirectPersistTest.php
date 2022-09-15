@@ -28,6 +28,8 @@ final class DirectPersistTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $objectManagerStub = $this->prophesize(ObjectManagerInterface::class)->reveal();
         $this->subject = new DirectPersistRepository($objectManagerStub);
 

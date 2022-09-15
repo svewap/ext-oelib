@@ -19,6 +19,8 @@ final class CountryTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new Country();
     }
 

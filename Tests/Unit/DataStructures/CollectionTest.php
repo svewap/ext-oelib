@@ -21,6 +21,8 @@ final class CollectionTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         /** @var Collection<TestingModel> $subject */
         $subject = new Collection();
         $this->subject = $subject;

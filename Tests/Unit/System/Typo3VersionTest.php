@@ -19,6 +19,8 @@ final class Typo3VersionTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->version = new \TYPO3\CMS\Core\Information\Typo3Version();
     }
 

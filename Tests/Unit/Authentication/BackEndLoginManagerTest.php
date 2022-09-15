@@ -20,6 +20,8 @@ final class BackEndLoginManagerTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = BackEndLoginManager::getInstance();
     }
 
