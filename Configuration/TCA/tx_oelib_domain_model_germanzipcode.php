@@ -3,7 +3,7 @@
 defined('TYPO3') or die('Access denied.');
 
 $labelPrefix = 'LLL:EXT:oelib/Resources/Private/Language/locallang_db.xlf:tx_oelib_domain_model_germanzipcode';
-return [
+$tca = [
     'ctrl' => [
         'default_sortby' => 'zip_code',
         'delete' => 'deleted',
@@ -16,9 +16,6 @@ return [
         'rootLevel' => 1,
         'searchFields' => 'zip_code, city_name',
         'title' => $labelPrefix,
-    ],
-    'interface' => [
-        'showRecordFieldList' => 'zip_code, city_name, longitude, latitude',
     ],
     'columns' => [
         'zip_code' => [
@@ -58,3 +55,10 @@ return [
         '0' => ['showitem' => 'zip_code, city_name, longitude, latitude'],
     ],
 ];
+
+if ((new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersion() <= 10) {
+    $tca['interface'] = ['showRecordFieldList' => 'zip_code, city_name, longitude, latitude'];
+}
+
+unset($labelPrefix);
+return $tca;

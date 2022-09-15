@@ -18,9 +18,6 @@ return [
         'hideTable' => true,
         'adminOnly' => true,
     ],
-    'interface' => [
-        'showRecordFieldList' => '',
-    ],
     'columns' => [
         'hidden' => [
             'config' => [
