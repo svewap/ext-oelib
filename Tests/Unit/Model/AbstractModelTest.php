@@ -12,6 +12,9 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 
+/**
+ * @covers \OliverKlee\Oelib\Model\AbstractModel
+ */
 class AbstractModelTest extends UnitTestCase
 {
     /**
@@ -480,7 +483,7 @@ class AbstractModelTest extends UnitTestCase
         );
     }
 
-    // Tests concerning getAsCollection and getAsList
+    // Tests concerning getAsCollection
 
     /**
      * @test
@@ -528,54 +531,6 @@ class AbstractModelTest extends UnitTestCase
         $this->subject->setData(['foo' => $list]);
 
         self::assertSame($list, $this->subject->getAsCollection('foo'));
-    }
-
-    /**
-     * @test
-     */
-    public function getAsListWithEmptyKeyThrowsException(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('$key must not be empty.');
-
-        $this->subject->getAsList('');
-    }
-
-    /**
-     * @test
-     */
-    public function getAsListWithInexistentKeyThrowsException(): void
-    {
-        $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('The data item for the key "foo" is no collection.');
-
-        $this->subject->setData([]);
-
-        $this->subject->getAsList('foo');
-    }
-
-    /**
-     * @test
-     */
-    public function getAsListWithKeyForStringDataThrowsException(): void
-    {
-        $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('The data item for the key "foo" is no collection.');
-
-        $this->subject->setData(['foo' => 'bar']);
-
-        $this->subject->getAsList('foo');
-    }
-
-    /**
-     * @test
-     */
-    public function getAsListReturnsCollectionSetViaSetData(): void
-    {
-        $list = new Collection();
-        $this->subject->setData(['foo' => $list]);
-
-        self::assertSame($list, $this->subject->getAsList('foo'));
     }
 
     /////////////////////////////
