@@ -46,7 +46,6 @@ class SystemEmailFromBuilder
         return GeneralUtility::makeInstance(
             GeneralEmailRole::class,
             MailUtility::getSystemFromAddress(),
-            // @phpstan-ignore-next-line `getSystemFromName` actually returns a nullable string.
             (string)MailUtility::getSystemFromName()
         );
     }
