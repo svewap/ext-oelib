@@ -8,11 +8,6 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Core\Cache\Backend\AbstractBackend;
-use TYPO3\CMS\Core\Cache\Backend\NullBackend;
-use TYPO3\CMS\Core\Cache\Backend\SimpleFileBackend;
-use TYPO3\CMS\Core\Cache\Backend\TransientMemoryBackend;
-use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -3109,39 +3104,5 @@ final class TestingFrameworkTest extends FunctionalTestCase
             'user_oelibtest_is_dummy_record',
             $testingFramework->getDummyColumnName('user_oelibtest2_test')
         );
-    }
-
-    /**
-     * @return array<non-empty-string, array{0: non-empty-string, 1: class-string<AbstractBackend>}>
-     */
-    public function coreCachesVersion10DataProvider(): array
-    {
-        return [
-            'assets' => ['assets', SimpleFileBackend::class],
-            'core' => ['extbase', SimpleFileBackend::class],
-            'extbase' => ['extbase', SimpleFileBackend::class],
-            'fluid_template' => ['fluid_template', SimpleFileBackend::class],
-            'hash' => ['hash', SimpleFileBackend::class],
-            'imagesizes' => ['imagesizes', NullBackend::class],
-            'l10n' => ['l10n', SimpleFileBackend::class],
-            'pages' => ['pages', NullBackend::class],
-            'pagesection' => ['pagesection', NullBackend::class],
-            'rootline' => ['rootline', NullBackend::class],
-            'runtime' => ['runtime', TransientMemoryBackend::class],
-        ];
-    }
-
-    /**
-     * @test
-     *
-     * @param class-string<AbstractBackend> $backend
-     * @dataProvider coreCachesVersion10DataProvider
-     */
-    public function disableCoreCachesSetsAllCoreCachesForVersion10(string $identifier, string $backend): void
-    {
-        $this->subject->disableCoreCaches();
-
-        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache($identifier);
-        self::assertInstanceOf($backend, $cache->getBackend());
     }
 }

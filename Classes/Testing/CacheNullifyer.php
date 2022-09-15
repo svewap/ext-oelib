@@ -23,10 +23,10 @@ final class CacheNullifyer
      */
     public function setAllCoreCaches(): void
     {
-        $this->disableCoreCachesForVersion10();
+        $this->setCoreCachesForVersion10();
     }
 
-    private function disableCoreCachesForVersion10(): void
+    private function setCoreCachesForVersion10(): void
     {
         $this->getCacheManager()->setCacheConfigurations(
             [

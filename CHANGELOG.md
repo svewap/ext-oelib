@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop `TestingFramework::disableCoreCaches` (#1117)
 - Drop `.htaccess` files (#1116)
 - Drop `FrontEndUserMapper::getGroupMembers` (#1113)
 - Drop `TemplateHelper::ensureIntegerArrayValues` (#1109)

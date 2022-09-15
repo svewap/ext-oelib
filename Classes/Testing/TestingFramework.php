@@ -201,11 +201,6 @@ final class TestingFramework
     private static $hooksHaveBeenRetrieved = false;
 
     /**
-     * @var CacheNullifyer
-     */
-    private $cacheNullifyer;
-
-    /**
      * @var array<string, string|bool|null>|null
      */
     private $serverVariablesBackup = null;
@@ -236,8 +231,7 @@ final class TestingFramework
         $this->additionalTablePrefixes = $additionalTablePrefixes;
         $this->uploadFolderPath = Environment::getPublicPath() . '/typo3temp/' . $this->tablePrefix . '/';
 
-        $this->cacheNullifyer = new CacheNullifyer();
-        $this->cacheNullifyer->setAllCoreCaches();
+        (new CacheNullifyer())->setAllCoreCaches();
     }
 
     private function initializeDatabase(): void
@@ -2104,15 +2098,5 @@ routes: {  }";
     private function getFrontEndController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
-    }
-
-    /**
-     * Sets all Core caches to the `NullBackend`, except for: assets, core, di.
-     *
-     * @deprecated will be removed in oelib 5.0
-     */
-    public function disableCoreCaches(): void
-    {
-        $this->cacheNullifyer->setAllCoreCaches();
     }
 }
