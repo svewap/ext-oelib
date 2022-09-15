@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop the `ReadOnlyRepository` trait (#1103)
 - Drop `AbstractDataMapper::countByPageUid` (#1102)
 - Drop `LoginManager::getLoggedInUser` (#1101)
 - Drop the `PriceViewHelper` (#1100)
