@@ -867,11 +867,7 @@ final class TestingFramework
 
         $connection = $this->getConnectionForTable($table);
         $query = 'SHOW FULL COLUMNS FROM `' . $table . '`';
-        if (\method_exists($connection, 'executeQuery')) {
-            $queryResult = $connection->executeQuery($query);
-        } else {
-            $queryResult = $connection->query($query);
-        }
+        $queryResult = $connection->executeQuery($query);
         $columns = [];
         if (\method_exists($queryResult, 'fetchAllAssociative')) {
             /** @var array<string, string> $fieldRow */
@@ -1546,11 +1542,7 @@ routes: {  }";
 
         $connection = $this->getConnectionPool()->getConnectionByName('Default');
         $query = 'SHOW TABLE STATUS FROM `' . $connection->getDatabase() . '`';
-        if (\method_exists($connection, 'executeQuery')) {
-            $queryResult = $connection->executeQuery($query);
-        } else {
-            $queryResult = $connection->query($query);
-        }
+        $queryResult = $connection->executeQuery($query);
         $tableNames = [];
         if (\method_exists($queryResult, 'fetchAllAssociative')) {
             /** @var array<string, string|int|null> $tableInformation */
@@ -1844,11 +1836,7 @@ routes: {  }";
         // set to one UID above the highest existing UID.
         $connection = $this->getConnectionPool()->getConnectionByName('Default');
         $query = 'ALTER TABLE `' . $table . '` AUTO_INCREMENT=' . $newAutoIncrementValue . ';';
-        if (\method_exists($connection, 'executeQuery')) {
-            $connection->executeQuery($query);
-        } else {
-            $connection->query($query);
-        }
+        $connection->executeQuery($query);
     }
 
     /**
@@ -1923,11 +1911,7 @@ routes: {  }";
     {
         $connection = $this->getConnectionForTable($table);
         $query = 'SELECT MAX(uid) AS uid FROM `' . $table . '`';
-        if (\method_exists($connection, 'executeQuery')) {
-            $queryResult = $connection->executeQuery($query);
-        } else {
-            $queryResult = $connection->query($query);
-        }
+        $queryResult = $connection->executeQuery($query);
         if (\method_exists($queryResult, 'fetchAllAssociative')) {
             $data = $queryResult->fetchAllAssociative();
         } else {
@@ -1962,11 +1946,7 @@ routes: {  }";
 
         $connection = $this->getConnectionForTable($table);
         $query = 'SHOW TABLE STATUS WHERE Name = \'' . $table . '\';';
-        if (\method_exists($connection, 'executeQuery')) {
-            $queryResult = $connection->executeQuery($query);
-        } else {
-            $queryResult = $connection->query($query);
-        }
+        $queryResult = $connection->executeQuery($query);
         if (\method_exists($queryResult, 'fetchAssociative')) {
             $row = $queryResult->fetchAssociative();
         } else {
@@ -2071,11 +2051,7 @@ routes: {  }";
 
         $connection = $this->getConnectionForTable($tableName);
         $query = 'UPDATE ' . $tableName . ' SET ' . $fieldName . '=' . $fieldName . '+1 WHERE uid=' . $uid;
-        if (\method_exists($connection, 'executeQuery')) {
-            $queryResult = $connection->executeQuery($query);
-        } else {
-            $queryResult = $connection->query($query);
-        }
+        $queryResult = $connection->executeQuery($query);
         $numberOfAffectedRows = $queryResult->rowCount();
         if ($numberOfAffectedRows === 0) {
             throw new \BadMethodCallException(

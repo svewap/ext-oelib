@@ -1560,9 +1560,6 @@ abstract class AbstractDataMapper
         return $GLOBALS['TCA'][$tableName];
     }
 
-    /**
-     * @return Connection
-     */
     protected function getConnection(): Connection
     {
         return $this->getConnectionForTable($this->getTableName());
@@ -1570,17 +1567,12 @@ abstract class AbstractDataMapper
 
     /**
      * @param non-empty-string $tableName
-     *
-     * @return Connection
      */
     protected function getConnectionForTable(string $tableName): Connection
     {
         return $this->getConnectionPool()->getConnectionForTable($tableName);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     protected function getQueryBuilder(): QueryBuilder
     {
         return $this->getConnectionPool()->getQueryBuilderForTable($this->getTableName());
@@ -1588,17 +1580,12 @@ abstract class AbstractDataMapper
 
     /**
      * @param non-empty-string $tableName
-     *
-     * @return QueryBuilder
      */
     protected function getQueryBuilderForTable(string $tableName): QueryBuilder
     {
         return $this->getConnectionPool()->getQueryBuilderForTable($tableName);
     }
 
-    /**
-     * @return ConnectionPool
-     */
     private function getConnectionPool(): ConnectionPool
     {
         return GeneralUtility::makeInstance(ConnectionPool::class);
