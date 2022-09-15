@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for TYPO3 9LTS (#1094)
 
 ### Fixed
+- Use the `TYPO3` constant instead of `TYPO3_MODE` (#1098)
 
 ## 4.3.0
 
