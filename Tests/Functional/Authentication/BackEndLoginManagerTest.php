@@ -10,7 +10,6 @@ use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
  * @covers \OliverKlee\Oelib\Authentication\BackEndLoginManager
@@ -46,16 +45,6 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
         $this->setUpBackendUserFromFixture(1);
     }
 
-    /**
-     * Returns $GLOBALS['BE_USER'].
-     *
-     * @return BackendUserAuthentication
-     */
-    private function getBackEndUserAuthentication(): BackendUserAuthentication
-    {
-        return $GLOBALS['BE_USER'];
-    }
-
     // Tests concerning isLoggedIn
 
     /**
@@ -88,48 +77,6 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
         self::assertTrue($this->subject->isLoggedIn());
     }
 
-    // Tests concerning getLoggedInUser
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithoutLoggedInUserReturnsNull(): void
-    {
-        self::assertNull($this->subject->getLoggedInUser());
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithLoggedInUserReturnsBackEndUserWithUidOfLoggedInUser(): void
-    {
-        $this->logInBackEndUser();
-
-        $result = $this->subject->getLoggedInUser();
-
-        $userAuthentication = $this->getBackEndUserAuthentication();
-        self::assertIsArray($userAuthentication->user);
-        $expectedUid = (int)$userAuthentication->user['uid'];
-
-        self::assertInstanceOf(BackEndUser::class, $result);
-        self::assertSame($expectedUid, $result->getUid());
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithAlreadyCreatedUserModelReturnsThatInstance(): void
-    {
-        $this->logInBackEndUser();
-
-        $userAuthentication = $this->getBackEndUserAuthentication();
-        self::assertIsArray($userAuthentication->user);
-        $user = $this->backEndUserMapper->find($userAuthentication->user['uid']);
-        self::assertInstanceOf(BackEndUser::class, $user);
-
-        self::assertSame($user, $this->subject->getLoggedInUser());
-    }
-
     // Tests concerning setLoggedInUser
 
     /**
@@ -141,7 +88,7 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
         $backEndUser = $this->backEndUserMapper->getNewGhost();
         $this->subject->setLoggedInUser($backEndUser);
 
-        self::assertSame($backEndUser, $this->subject->getLoggedInUser());
+        self::assertSame($backEndUser->getUid(), $this->subject->getLoggedInUserUid());
     }
 
     /**
@@ -157,6 +104,6 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
         $newBackEndUser = $this->backEndUserMapper->getNewGhost();
         $this->subject->setLoggedInUser($newBackEndUser);
 
-        self::assertSame($newBackEndUser, $this->subject->getLoggedInUser());
+        self::assertSame($newBackEndUser->getUid(), $this->subject->getLoggedInUserUid());
     }
 }

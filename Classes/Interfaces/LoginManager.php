@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Interfaces;
 
-use OliverKlee\Oelib\Mapper\AbstractDataMapper;
-use OliverKlee\Oelib\Model\AbstractModel;
-
 /**
  * This interface represents a manager for logins, providing access to the logged-in user.
  *
@@ -32,19 +29,6 @@ interface LoginManager
      * @return bool
      */
     public function isLoggedIn(): bool;
-
-    /**
-     * Gets the currently logged-in user.
-     *
-     * @template M of AbstractModel
-     *
-     * @param class-string<AbstractDataMapper<M>> $mapperName mapper to use for getting the user model
-     *
-     * @return M|null the logged-in user, will be null if no user is logged in
-     *
-     * @deprecated will be removed in oelib 5.0
-     */
-    public function getLoggedInUser(string $mapperName): ?AbstractModel;
 
     /**
      * Returns the UID of the currently logged-in user.

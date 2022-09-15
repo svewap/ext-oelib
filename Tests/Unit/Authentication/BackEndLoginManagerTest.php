@@ -52,18 +52,6 @@ class BackEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLoggedInUserWithEmptyMapperNameThrowsException(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('$mapperName must not be empty.');
-
-        // @phpstan-ignore-next-line We explicitly check for contract violations here.
-        $this->subject->getLoggedInUser('');
-    }
-
-    /**
-     * @test
-     */
     public function getLoggedInUserUidWithoutLoginReturnsZero(): void
     {
         self::assertSame(0, $this->subject->getLoggedInUserUid());

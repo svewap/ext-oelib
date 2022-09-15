@@ -82,51 +82,6 @@ class FrontEndLoginManagerTest extends UnitTestCase
     /**
      * @test
      */
-    public function logInUserSetsLoggedInUser(): void
-    {
-        $user = new FrontEndUser();
-        $this->subject->logInUser($user);
-
-        self::assertSame(
-            $user,
-            $this->subject->getLoggedInUser()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function logInUserOverwritesFormerSimulatedLoggedInUser(): void
-    {
-        $oldUser = new FrontEndUser();
-        $this->subject->logInUser($oldUser);
-        $newUser = new FrontEndUser();
-        $this->subject->logInUser($newUser);
-
-        self::assertSame(
-            $newUser,
-            $this->subject->getLoggedInUser()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function logInUserWithNullSetsUserToNull(): void
-    {
-        $user = new FrontEndUser();
-        $this->subject->logInUser($user);
-
-        $this->subject->logInUser(null);
-
-        self::assertNull(
-            $this->subject->getLoggedInUser()
-        );
-    }
-
-    /**
-     * @test
-     */
     public function logInUserWithNullSetsStatusToNotLoggedIn(): void
     {
         $user = new FrontEndUser();

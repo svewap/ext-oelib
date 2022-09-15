@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Authentication;
 
 use OliverKlee\Oelib\Interfaces\LoginManager;
-use OliverKlee\Oelib\Mapper\AbstractDataMapper;
-use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
-use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -76,42 +73,6 @@ class FrontEndLoginManager implements LoginManager
         $sessionExists = (bool)$this->getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
 
         return $isSimulatedLoggedIn || $sessionExists;
-    }
-
-    /**
-     * Gets the currently logged-in user.
-     *
-     * @template M of AbstractModel
-     *
-     * @param class-string<AbstractDataMapper<M>> $mapperName mapper to use for getting the user model
-     *
-     * @return M|null the logged-in user, will be null if no user is logged in
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @deprecated will be removed in oelib 5.0
-     */
-    public function getLoggedInUser(string $mapperName = FrontEndUserMapper::class): ?AbstractModel
-    {
-        if ($mapperName === '') {
-            throw new \InvalidArgumentException('$mapperName must not be empty.', 1331488730);
-        }
-
-        /** @var M|null $loggedInUser */
-        $loggedInUser = $this->loggedInUser;
-        if ($loggedInUser instanceof AbstractModel) {
-            return $loggedInUser;
-        }
-
-        if (!$this->isLoggedIn()) {
-            return null;
-        }
-
-        /** @var M $loggedInUser */
-        $loggedInUser = MapperRegistry::get($mapperName)->find($this->getLoggedInUserUid());
-        $this->loggedInUser = $loggedInUser;
-
-        return $loggedInUser;
     }
 
     /**

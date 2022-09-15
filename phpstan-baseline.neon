@@ -1,22 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Default value of the parameter \\#1 \\$mapperName \\('OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\BackEndUserMapper'\\) of method OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\:\\:getLoggedInUser\\(\\) is incompatible with type class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
-			count: 1
-			path: Classes/Authentication/BackEndLoginManager.php
-
-		-
 			message: "#^Method OliverKlee\\\\Oelib\\\\Authentication\\\\BackEndLoginManager\\:\\:getBackEndUserAuthentication\\(\\) should return TYPO3\\\\CMS\\\\Core\\\\Authentication\\\\BackendUserAuthentication\\|null but returns mixed\\.$#"
 			count: 1
 			path: Classes/Authentication/BackEndLoginManager.php
 
 		-
 			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: Classes/Authentication/FrontEndLoginManager.php
-
-		-
-			message: "#^Default value of the parameter \\#1 \\$mapperName \\('OliverKlee\\\\\\\\Oelib\\\\\\\\Mapper\\\\\\\\FrontEndUserMapper'\\) of method OliverKlee\\\\Oelib\\\\Authentication\\\\FrontEndLoginManager\\:\\:getLoggedInUser\\(\\) is incompatible with type class\\-string\\<OliverKlee\\\\Oelib\\\\Mapper\\\\AbstractDataMapper\\<OliverKlee\\\\Oelib\\\\Model\\\\AbstractModel\\>\\>\\.$#"
 			count: 1
 			path: Classes/Authentication/FrontEndLoginManager.php
 
@@ -509,11 +499,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$format of method DateTimeInterface\\:\\:format\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: Classes/ViewHelpers/DynamicDateViewHelper.php
-
-		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\BackEndLoginManagerTest\\:\\:getBackEndUserAuthentication\\(\\) should return TYPO3\\\\CMS\\\\Core\\\\Authentication\\\\BackendUserAuthentication but returns mixed\\.$#"
-			count: 1
-			path: Tests/Functional/Authentication/BackEndLoginManagerTest.php
 
 		-
 			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\BackEndLoginManagerTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"

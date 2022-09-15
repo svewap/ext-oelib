@@ -6,8 +6,6 @@ namespace OliverKlee\Oelib\Tests\Functional\Authentication;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
-use OliverKlee\Oelib\Mapper\FrontEndUserMapper;
-use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
@@ -95,96 +93,6 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         self::assertTrue($this->subject->isLoggedIn());
     }
 
-    // Tests concerning getLoggedInUser
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithEmptyMapperNameThrowsException(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        // @phpstan-ignore-next-line We explicitly check for contract violations here.
-        $this->subject->getLoggedInUser('');
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithoutFrontEndReturnsNull(): void
-    {
-        self::assertNull($this->subject->getLoggedInUser());
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithoutLoggedInUserReturnsNull(): void
-    {
-        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
-        $this->testingFramework->logoutFrontEndUser();
-
-        self::assertNull($this->subject->getLoggedInUser());
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithLoggedInUserReturnsFrontEndUserInstance(): void
-    {
-        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
-        $this->testingFramework->createAndLoginFrontEndUser();
-
-        self::assertInstanceOf(FrontEndUser::class, $this->subject->getLoggedInUser());
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithLoggedInUserReturnsFrontEndUserWithUidOfLoggedInUser(): void
-    {
-        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
-        $uid = $this->testingFramework->createAndLoginFrontEndUser();
-
-        $user = $this->subject->getLoggedInUser();
-
-        self::assertInstanceOf(FrontEndUser::class, $user);
-        self::assertSame($uid, $user->getUid());
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserWithAlreadyCreatedUserModelReturnsThatInstance(): void
-    {
-        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
-        $uid = $this->testingFramework->createAndLoginFrontEndUser();
-
-        $user = MapperRegistry::get(FrontEndUserMapper::class)->find($uid);
-
-        self::assertSame($user, $this->subject->getLoggedInUser());
-    }
-
-    /**
-     * @test
-     */
-    public function getLoggedInUserUsesMappedUserDataFromMemory(): void
-    {
-        $this->testingFramework->createFakeFrontEnd($this->testingFramework->createFrontEndPage());
-        $oldName = 'John Doe';
-        $feUserUid = $this->testingFramework->createAndLoginFrontEndUser('', ['name' => $oldName]);
-
-        $user = $this->getFrontEndController()->fe_user;
-        if ($user instanceof FrontendUserAuthentication) {
-            $user->user['name'] = 'Jane Doe';
-        }
-        $this->testingFramework->changeRecord('fe_users', $feUserUid, ['name' => 'James Doe']);
-
-        /** @var FrontEndUser $loggedInUser */
-        $loggedInUser = $this->subject->getLoggedInUser();
-        self::assertSame($oldName, $loggedInUser->getName());
-    }
-
     // Tests concerning logInUser
 
     /**
@@ -198,6 +106,6 @@ class FrontEndLoginManagerTest extends FunctionalTestCase
         $user = new FrontEndUser();
         $this->subject->logInUser($user);
 
-        self::assertSame($user, $this->subject->getLoggedInUser());
+        self::assertSame($user->getUid(), $this->subject->getLoggedInUserUid());
     }
 }
