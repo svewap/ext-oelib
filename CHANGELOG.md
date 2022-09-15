@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop `FrontEndUserMapper::getGroupMembers` (#1113)
 - Drop `TemplateHelper::ensureIntegerArrayValues` (#1109)
 - Drop `CacheNullifyer::disableCoreCaches` (#1104)
 - Drop the `ReadOnlyRepository` trait (#1103)
