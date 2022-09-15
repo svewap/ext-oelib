@@ -2,142 +2,119 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
-use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
+use Rector\PHPUnit\Set\PHPUnitSetList;
+use Rector\Php71\Rector\FuncCall\CountOnNullRector;
 use Rector\PostRector\Rector\NameImportingPostRector;
+use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
-use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\FileIncludeToImportStatementTypoScriptRector;
-use Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector;
-use Ssch\TYPO3Rector\Rector\General\ConvertTypo3ConfVarsRector;
-use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
+use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator->parameters();
-
-    // paths to refactor; solid alternative to CLI arguments
-    $parameters->set(Option::PATHS,
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->paths(
         [
             __DIR__ . '/Classes',
-            __DIR__ . '/Resources',
+            __DIR__ . '/Configuration',
+            __DIR__ . '/TestExtensions',
             __DIR__ . '/Tests',
         ]
     );
 
-    // All rule sets are disabled by default. We can enable them to work on certain refactorings.
+    $rectorConfig->parameters()->set(Option::ENABLE_EDITORCONFIG, true);
 
-//    $containerConfigurator->import(SetList::PHP_52);
-//    $containerConfigurator->import(SetList::PHP_53);
-//    $containerConfigurator->import(SetList::PHP_54);
-//    $containerConfigurator->import(SetList::PHP_55);
-//    $containerConfigurator->import(SetList::PHP_56);
-//    $containerConfigurator->import(SetList::PHP_70);
-//    $containerConfigurator->import(SetList::PHP_71);
-//    $containerConfigurator->import(SetList::PHP_72);
-//    $containerConfigurator->import(SetList::TYPE_DECLARATION);
-//    $containerConfigurator->import(SetList::TYPE_DECLARATION_STRICT);
+    // Disable parallel processing. Otherwise, non-PHP file processing is not working (TypoScript).
+    $rectorConfig->disableParallel();
 
-//    $containerConfigurator->import(Typo3SetList::TYPO3_76);
-//    $containerConfigurator->import(Typo3SetList::TYPO3_87);
-//    $containerConfigurator->import(Typo3SetList::TYPO3_95);
+    // Define your target version which you want to support.
+    $rectorConfig->phpVersion(PhpVersion::PHP_72);
 
-//    $containerConfigurator->import(SetList::CODE_QUALITY);
-//    $containerConfigurator->import(SetList::CODING_STYLE);
-//    $containerConfigurator->import(SetList::CODING_STYLE_ADVANCED);
-//    $containerConfigurator->import(SetList::DEAD_CODE);
-//    $containerConfigurator->import(SetList::PSR_4);
+    // In order to have a better analysis from PHPStan, we teach it here some more things.
+    $rectorConfig->phpstanConfig(Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
 
-    // In order to have a better analysis from phpstan we teach it here some more things
-    $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
-
-    // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
-    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
-
+    // auto-import names, but not classes in doc blocks
+    $rectorConfig->importNames();
     // this will not import root namespace classes, like \DateTime or \Exception
-    $parameters->set(Option::IMPORT_SHORT_CLASSES, false);
+    $rectorConfig->disableImportShortClasses();
 
-    // this will not import classes used in PHP DocBlocks, like in /** @var \Some\Class */
-    $parameters->set(Option::IMPORT_DOC_BLOCKS, false);
+    // define sets of rules
+    $rectorConfig->sets([
+        // LevelSetList::UP_TO_PHP_73,
+        // LevelSetList::UP_TO_PHP_74,
+        // LevelSetList::UP_TO_PHP_80,
+        // LevelSetList::UP_TO_PHP_81,
+        // LevelSetList::UP_TO_PHP_82,
 
-    // Define your target version which you want to support
-    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_72);
+        // https://github.com/sabbelasichon/typo3-rector/blob/main/src/Set/Typo3LevelSetList.php
+        // https://github.com/sabbelasichon/typo3-rector/blob/main/src/Set/Typo3SetList.php
 
-    // If you have an editorconfig and changed files should keep their format enable it here
-    // $parameters->set(Option::ENABLE_EDITORCONFIG, true);
+        // Typo3SetList::TYPO3_95,
+        // Typo3SetList::TCA_95,
+        // Typo3SetList::TYPOSCRIPT_CONDITIONS_95,
+        // Typo3SetList::COMPOSER_PACKAGES_95_CORE,
+        // Typo3SetList::COMPOSER_PACKAGES_95_EXTENSIONS,
 
-    // If you only want to process one/some TYPO3 extension(s), you can specify its path(s) here.
-    // If you use the option --config change __DIR__ to getcwd()
-    // $parameters->set(Option::PATHS, [
-    //    __DIR__ . '/packages/acme_demo/',
-    // ]);
+        // Typo3SetList::TYPO3_104,
+        // Typo3SetList::TCA_104,
+        // Typo3SetList::TYPOSCRIPT_100,
+        // Typo3SetList::TYPOSCRIPT_CONDITIONS_104,
+        // Typo3SetList::COMPOSER_PACKAGES_104_CORE,
+        // Typo3SetList::COMPOSER_PACKAGES_104_EXTENSIONS,
 
-    // If you set option Option::AUTO_IMPORT_NAMES to true, you should consider excluding some TYPO3 files.
-    // If you use the option --config change __DIR__ to getcwd()
-    $parameters->set(Option::SKIP, [
-        NameImportingPostRector::class => [
-            'ClassAliasMap.php',
-            'ext_emconf.php',
-            'ext_localconf.php',
-            'ext_tables.php',
-            __DIR__ . '/**/Configuration/AjaxRoutes.php',
-            __DIR__ . '/**/Configuration/Backend/AjaxRoutes.php',
-            __DIR__ . '/**/Configuration/Commands.php',
-            __DIR__ . '/**/Configuration/ExpressionLanguage.php',
-            __DIR__ . '/**/Configuration/Extbase/Persistence/Classes.php',
-            __DIR__ . '/**/Configuration/RequestMiddlewares.php',
-            __DIR__ . '/**/Configuration/TCA/*',
-        ],
-        // @see https://github.com/sabbelasichon/typo3-rector/issues/2536
-        __DIR__ . '/**/Configuration/ExtensionBuilder/*',
-        // We skip those directories on purpose as there might be node_modules or similar
-        // that include typescript which would result in false positive processing
-        __DIR__ . '/**/Resources/**/node_modules/*',
-        __DIR__ . '/**/Resources/**/NodeModules/*',
-        __DIR__ . '/**/Resources/**/BowerComponents/*',
-        __DIR__ . '/**/Resources/**/bower_components/*',
-        __DIR__ . '/**/Resources/**/build/*',
+        // Typo3SetList::TYPO3_11,
+        // Typo3SetList::TCA_110,
+        // Typo3SetList::COMPOSER_PACKAGES_110_CORE,
+        // Typo3SetList::COMPOSER_PACKAGES_110_EXTENSIONS,
+
+        // Typo3SetList::TYPO3_12,
+        // Typo3SetList::TCA_120,
+        // Typo3SetList::TYPOSCRIPT_120,
+
+        // Typo3SetList::DATABASE_TO_DBAL,
+        // Typo3SetList::UNDERSCORE_TO_NAMESPACE,
+        // Typo3SetList::EXTBASE_COMMAND_CONTROLLERS_TO_SYMFONY_COMMANDS,
+        // Typo3SetList::REGISTER_ICONS_TO_ICON,
+
+        // SetList::CODE_QUALITY,
+        // SetList::CODING_STYLE,
+        // SetList::DEAD_CODE,
+        // SetList::PSR_4,
+        // SetList::TYPE_DECLARATION,
+        // SetList::TYPE_DECLARATION_STRICT,
+        // SetList::EARLY_RETURN,
+
+        // PHPUnitSetList::PHPUNIT80_DMS,
+        // PHPUnitSetList::PHPUNIT_40,
+        // PHPUnitSetList::PHPUNIT_50,
+        // PHPUnitSetList::PHPUNIT_60,
+        // PHPUnitSetList::PHPUNIT_70,
+        // PHPUnitSetList::PHPUNIT_80,
+        // PHPUnitSetList::PHPUNIT_90,
+        // PHPUnitSetList::PHPUNIT_91,
+        // PHPUnitSetList::PHPUNIT_CODE_QUALITY,
+        // PHPUnitSetList::PHPUNIT_EXCEPTION,
+        // PHPUnitSetList::REMOVE_MOCKS,
+        // PHPUnitSetList::PHPUNIT_SPECIFIC_METHOD,
+        // PHPUnitSetList::PHPUNIT_YIELD_DATA_PROVIDER,
     ]);
 
-    // If you have trouble that rector cannot run because some TYPO3 constants are not defined add an additional constants file
-    // @see https://github.com/sabbelasichon/typo3-rector/blob/master/typo3.constants.php
-    // @see https://github.com/rectorphp/rector/blob/main/docs/static_reflection_and_autoload.md#include-files
-    // $parameters->set(Option::BOOTSTRAP_FILES, [
-    //    __DIR__ . '/typo3.constants.php'
-    // ]);
-
-    // get services (needed for register a single rule)
-    $services = $containerConfigurator->services();
-
-    // register a single rule
-    // $services->set(InjectAnnotationRector::class);
-
-    /**
-     * Useful rule from RectorPHP itself to transform i.e. GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')
-     * to GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class) calls.
-     * But be warned, sometimes it produces false positives (edge cases), so watch out
-     */
-    // $services->set(StringClassNameToClassConstantRector::class);
-
-    // Optional non-php file functionalities:
-    // @see https://github.com/sabbelasichon/typo3-rector/blob/main/docs/beyond_php_file_processors.md
-
-    // Adapt your composer.json dependencies to the latest available version for the defined SetList
-    // $containerConfigurator->import(Typo3SetList::COMPOSER_PACKAGES_104_CORE);
-    // $containerConfigurator->import(Typo3SetList::COMPOSER_PACKAGES_104_EXTENSIONS);
-
-    // Rewrite your extbase persistence class mapping from typoscript into php according to official docs.
-    // This processor will create a summarized file with all of the typoscript rewrites combined into a single file.
-    // The filename can be passed as argument, "Configuration_Extbase_Persistence_Classes.php" is default.
-    // $services->set(ExtbasePersistenceTypoScriptRector::class);
-    // Add some general TYPO3 rules
-    $services->set(ConvertTypo3ConfVarsRector::class);
-    $services->set(ExtEmConfRector::class);
-    $services->set(ExtensionComposerRector::class);
-
-    // Do you want to modernize your TypoScript include statements for files and move from <INCLUDE /> to @import use the FileIncludeToImportStatementVisitor
-    // $services->set(FileIncludeToImportStatementTypoScriptRector::class);
+    $rectorConfig->skip(
+        [
+            // This rector is over-zealous.
+            CountOnNullRector::class,
+            NameImportingPostRector::class => [
+                // These files have class names in doc blocks, which we cannot import until TYPO3 V10 or V11.
+                __DIR__ . '/Classes/Domain/Model',
+                // These files get concatenated by TYPO3, and we cannot use imports there.
+                __DIR__ . '/Configuration/Commands.php',
+                __DIR__ . '/Configuration/TCA',
+                __DIR__ . '/ext_localconf.php',
+                __DIR__ . '/TestExtensions/user_oelibtest/Configuration/TCA',
+                __DIR__ . '/TestExtensions/user_oelibtest2/Configuration/TCA',
+            ],
+        ]
+    );
 };
