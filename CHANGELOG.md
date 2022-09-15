@@ -6,17 +6,23 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
-- Add a helper for clearing the `GU::makeInstance()` class name cache (#1091)
-- Allow providing data for `TestingFramework::createFrontEndPage()` (#1086)
 
 ### Changed
-- Make the geo coordinates nullable (#1093)
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+## 4.3.0
+
+### Added
+- Add a helper for clearing the `GU::makeInstance()` class name cache (#1091)
+- Allow providing data for `TestingFramework::createFrontEndPage()` (#1086)
+
+### Changed
+- Make the geo coordinates nullable (#1093)
 
 ## 4.2.0
 
