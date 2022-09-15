@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\ChangedModel;
 /**
  * @covers \OliverKlee\Oelib\Domain\Model\Traits\ChangeDate
  */
-class ChangeDateTest extends UnitTestCase
+final class ChangeDateTest extends UnitTestCase
 {
     /**
      * @var ChangedModel

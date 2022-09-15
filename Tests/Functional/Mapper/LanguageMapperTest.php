@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Model\Language;
  * @covers \OliverKlee\Oelib\Mapper\LanguageMapper
  * @covers \OliverKlee\Oelib\Model\Language
  */
-class LanguageMapperTest extends FunctionalTestCase
+final class LanguageMapperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
 

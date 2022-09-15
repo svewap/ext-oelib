@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Model\FrontEndUser;
 /**
  * @covers \OliverKlee\Oelib\Authentication\FrontEndLoginManager
  */
-class FrontEndLoginManagerTest extends UnitTestCase
+final class FrontEndLoginManagerTest extends UnitTestCase
 {
     /**
      * @var FrontEndLoginManager

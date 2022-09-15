@@ -12,7 +12,7 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
  *
  * @extends AbstractDataMapper<TestingModel>
  */
-class ColumnLessTestingMapper extends AbstractDataMapper
+final class ColumnLessTestingMapper extends AbstractDataMapper
 {
     protected $tableName = 'tx_oelib_test';
 

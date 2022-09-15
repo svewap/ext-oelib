@@ -12,7 +12,7 @@ use Symfony\Component\Mime\Address;
 /**
  * @covers \OliverKlee\Oelib\Email\ConvertableToMimeAddressTrait
  */
-class ConvertableToAddressTest extends UnitTestCase
+final class ConvertableToAddressTest extends UnitTestCase
 {
     /**
      * @test

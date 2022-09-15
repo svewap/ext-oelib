@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Model\FederalState;
 /**
  * @covers \OliverKlee\Oelib\Model\FederalState
  */
-class FederalStateTest extends UnitTestCase
+final class FederalStateTest extends UnitTestCase
 {
     /**
      * @var FederalState

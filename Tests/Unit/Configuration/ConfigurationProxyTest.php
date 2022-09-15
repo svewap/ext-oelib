@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Interfaces\Configuration;
 /**
  * @covers \OliverKlee\Oelib\Configuration\ConfigurationProxy
  */
-class ConfigurationProxyTest extends UnitTestCase
+final class ConfigurationProxyTest extends UnitTestCase
 {
     /**
      * @var ConfigurationProxy

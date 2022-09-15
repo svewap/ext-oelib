@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Templating\Template;
 /**
  * @covers \OliverKlee\Oelib\Templating\Template
  */
-class TemplateTest extends UnitTestCase
+final class TemplateTest extends UnitTestCase
 {
     /**
      * @var Template

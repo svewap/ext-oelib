@@ -16,7 +16,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 /**
  * @covers \OliverKlee\Oelib\Templating\TemplateHelper
  */
-class TemplateHelperTest extends UnitTestCase
+final class TemplateHelperTest extends UnitTestCase
 {
     /**
      * @var TestingTemplateHelper

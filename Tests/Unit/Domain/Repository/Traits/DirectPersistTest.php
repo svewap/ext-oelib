@@ -11,7 +11,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 
-class DirectPersistTest extends UnitTestCase
+final class DirectPersistTest extends UnitTestCase
 {
     /**
      * @var DirectPersistRepository

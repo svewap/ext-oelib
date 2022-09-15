@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Model\Language;
 /**
  * @covers \OliverKlee\Oelib\Model\Language
  */
-class LanguageTest extends UnitTestCase
+final class LanguageTest extends UnitTestCase
 {
     /**
      * @var Language

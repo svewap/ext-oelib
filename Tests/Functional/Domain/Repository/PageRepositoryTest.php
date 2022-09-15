@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Domain\Repository\PageRepository;
 /**
  * @covers \OliverKlee\Oelib\Domain\Repository\PageRepository
  */
-class PageRepositoryTest extends FunctionalTestCase
+final class PageRepositoryTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

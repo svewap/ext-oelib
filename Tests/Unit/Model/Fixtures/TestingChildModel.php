@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Model\AbstractModel;
 /**
  * This class represents a domain model for testing purposes.
  */
-class TestingChildModel extends AbstractModel implements Sortable
+final class TestingChildModel extends AbstractModel implements Sortable
 {
     /**
      * @return string

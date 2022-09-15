@@ -9,7 +9,7 @@ use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 /**
  * This class represents a mapper that is broken because it has no model name defined.
  */
-class ModelLessTestingMapper extends AbstractDataMapper
+final class ModelLessTestingMapper extends AbstractDataMapper
 {
     protected $tableName = 'tx_oelib_test';
 }

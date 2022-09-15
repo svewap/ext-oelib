@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Model\FrontEndUserGroup;
 /**
  * @covers \OliverKlee\Oelib\Model\FrontEndUserGroup
  */
-class FrontEndUserGroupTest extends UnitTestCase
+final class FrontEndUserGroupTest extends UnitTestCase
 {
     /**
      * @var FrontEndUserGroup

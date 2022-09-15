@@ -15,7 +15,7 @@ use Symfony\Component\Mime\Address;
 /**
  * @covers \OliverKlee\Oelib\Model\BackEndUser
  */
-class BackEndUserTest extends UnitTestCase
+final class BackEndUserTest extends UnitTestCase
 {
     /**
      * @var BackEndUser

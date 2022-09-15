@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures\TestingReadOnlyObjectWit
  * @covers \OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectAccessors
  * @covers \OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithPublicAccessors
  */
-class AbstractReadOnlyObjectWithAccessorsTest extends UnitTestCase
+final class AbstractReadOnlyObjectWithAccessorsTest extends UnitTestCase
 {
     /**
      * @var TestingReadOnlyObjectWithPublicAccessors

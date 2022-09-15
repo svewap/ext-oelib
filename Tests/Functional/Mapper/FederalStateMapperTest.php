@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Model\FederalState;
  * @covers \OliverKlee\Oelib\Mapper\FederalStateMapper
  * @covers \OliverKlee\Oelib\Model\FederalState
  */
-class FederalStateMapperTest extends FunctionalTestCase
+final class FederalStateMapperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
 

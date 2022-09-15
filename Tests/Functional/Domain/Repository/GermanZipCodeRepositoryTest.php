@@ -14,7 +14,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  * @covers \OliverKlee\Oelib\Domain\Model\GermanZipCode
  * @covers \OliverKlee\Oelib\Domain\Repository\GermanZipCodeRepository
  */
-class GermanZipCodeRepositoryTest extends FunctionalTestCase
+final class GermanZipCodeRepositoryTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

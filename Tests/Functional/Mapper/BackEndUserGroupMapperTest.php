@@ -12,7 +12,7 @@ use OliverKlee\Oelib\Model\BackEndUserGroup;
  * @covers \OliverKlee\Oelib\Mapper\BackEndUserGroupMapper
  * @covers \OliverKlee\Oelib\Model\BackEndUserGroup
  */
-class BackEndUserGroupMapperTest extends FunctionalTestCase
+final class BackEndUserGroupMapperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Model\BackEndUser;
 /**
  * @covers \OliverKlee\Oelib\Authentication\BackEndLoginManager
  */
-class BackEndLoginManagerTest extends UnitTestCase
+final class BackEndLoginManagerTest extends UnitTestCase
 {
     /**
      * @var BackEndLoginManager

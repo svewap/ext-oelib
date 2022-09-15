@@ -11,7 +11,7 @@ use TYPO3\CMS\Core\SingletonInterface;
 /**
  * @covers \OliverKlee\Oelib\Domain\Repository\PageRepository
  */
-class PageRepositoryTest extends UnitTestCase
+final class PageRepositoryTest extends UnitTestCase
 {
     /**
      * @var PageRepository

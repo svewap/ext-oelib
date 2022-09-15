@@ -12,7 +12,7 @@ use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 /**
  * @covers \OliverKlee\Oelib\Configuration\ConfigurationRegistry
  */
-class ConfigurationRegistryTest extends UnitTestCase
+final class ConfigurationRegistryTest extends UnitTestCase
 {
     // Tests concerning the Singleton property
 

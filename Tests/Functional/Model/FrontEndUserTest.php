@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Model\FrontEndUser;
 /**
  * @covers \OliverKlee\Oelib\Model\FrontEndUser
  */
-class FrontEndUserTest extends FunctionalTestCase
+final class FrontEndUserTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/static_info_tables', 'typo3conf/ext/oelib'];
 

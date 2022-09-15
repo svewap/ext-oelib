@@ -13,7 +13,7 @@ use Symfony\Component\Mime\Address;
 /**
  * @covers \OliverKlee\Oelib\Email\GeneralEmailRole
  */
-class GeneralEmailRoleTest extends UnitTestCase
+final class GeneralEmailRoleTest extends UnitTestCase
 {
     /**
      * @test

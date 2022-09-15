@@ -12,7 +12,7 @@ use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 /**
  * @covers \OliverKlee\Oelib\Mapper\MapperRegistry
  */
-class MapperRegistryTest extends UnitTestCase
+final class MapperRegistryTest extends UnitTestCase
 {
     protected function tearDown(): void
     {

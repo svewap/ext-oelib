@@ -12,7 +12,7 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
  *
  * @extends AbstractDataMapper<TestingModel>
  */
-class TableLessTestingMapper extends AbstractDataMapper
+final class TableLessTestingMapper extends AbstractDataMapper
 {
     protected $modelClassName = TestingModel::class;
 }

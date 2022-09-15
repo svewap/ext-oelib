@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Exception\NotFoundException;
 /**
  * @covers \OliverKlee\Oelib\Exception\NotFoundException
  */
-class NotFoundExceptionTest extends UnitTestCase
+final class NotFoundExceptionTest extends UnitTestCase
 {
     /**
      * @test

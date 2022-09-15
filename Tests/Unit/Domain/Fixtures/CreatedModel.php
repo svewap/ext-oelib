@@ -9,7 +9,7 @@ use OliverKlee\Oelib\Domain\Model\Interfaces\CreationDate;
 /**
  * Testing repository for the CreationDate trait.
  */
-class CreatedModel implements CreationDate
+final class CreatedModel implements CreationDate
 {
     use \OliverKlee\Oelib\Domain\Model\Traits\CreationDate;
 }

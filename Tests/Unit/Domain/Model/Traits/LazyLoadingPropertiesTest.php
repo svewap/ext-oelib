@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\LazyLoadingModel;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
-class LazyLoadingPropertiesTest extends UnitTestCase
+final class LazyLoadingPropertiesTest extends UnitTestCase
 {
     /**
      * @var LazyLoadingModel

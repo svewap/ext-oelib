@@ -15,7 +15,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 /**
  * @covers \OliverKlee\Oelib\Configuration\ConfigurationRegistry
  */
-class ConfigurationRegistryTest extends FunctionalTestCase
+final class ConfigurationRegistryTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

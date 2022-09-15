@@ -12,7 +12,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 /**
  * @covers \OliverKlee\Oelib\Domain\Model\GermanZipCode
  */
-class GermanZipCodeTest extends UnitTestCase
+final class GermanZipCodeTest extends UnitTestCase
 {
     /**
      * @var GermanZipCode

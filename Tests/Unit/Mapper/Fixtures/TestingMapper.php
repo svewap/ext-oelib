@@ -16,7 +16,7 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
  *
  * @phpstan-import-type DatabaseRow from AbstractDataMapper
  */
-class TestingMapper extends AbstractDataMapper
+final class TestingMapper extends AbstractDataMapper
 {
     protected $tableName = 'tx_oelib_test';
 

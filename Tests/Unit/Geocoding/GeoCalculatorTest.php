@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\SingletonInterface;
 /**
  * @covers \OliverKlee\Oelib\Geocoding\GeoCalculator
  */
-class GeoCalculatorTest extends UnitTestCase
+final class GeoCalculatorTest extends UnitTestCase
 {
     /**
      * @var GeoCalculator

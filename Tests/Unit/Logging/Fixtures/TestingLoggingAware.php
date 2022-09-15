@@ -9,7 +9,7 @@ use OliverKlee\Oelib\Logging\Interfaces\LoggingAware;
 /**
  * Testing class for the LoggingAware trait.
  */
-class TestingLoggingAware implements LoggingAware
+final class TestingLoggingAware implements LoggingAware
 {
     use \OliverKlee\Oelib\Logging\Traits\LoggingAware;
 }

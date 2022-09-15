@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Session\FakeSession;
  * @covers \OliverKlee\Oelib\Session\FakeSession
  * @covers \OliverKlee\Oelib\Session\Session
  */
-class FakeSessionTest extends UnitTestCase
+final class FakeSessionTest extends UnitTestCase
 {
     /**
      * @var FakeSession

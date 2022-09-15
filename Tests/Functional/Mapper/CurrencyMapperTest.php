@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Model\Currency;
  * @covers \OliverKlee\Oelib\Mapper\CurrencyMapper
  * @covers \OliverKlee\Oelib\Model\Currency
  */
-class CurrencyMapperTest extends FunctionalTestCase
+final class CurrencyMapperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/static_info_tables'];
 

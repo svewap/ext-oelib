@@ -24,7 +24,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @covers \OliverKlee\Oelib\Mapper\AbstractDataMapper
  * @covers \OliverKlee\Oelib\Model\AbstractModel
  */
-class AbstractDataMapperTest extends FunctionalTestCase
+final class AbstractDataMapperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

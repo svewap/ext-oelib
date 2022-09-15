@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\CreatedModel;
 /**
  * @covers \OliverKlee\Oelib\Domain\Model\Traits\CreationDate
  */
-class CreationDateTest extends UnitTestCase
+final class CreationDateTest extends UnitTestCase
 {
     /**
      * @var CreatedModel

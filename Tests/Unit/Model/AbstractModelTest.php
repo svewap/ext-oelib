@@ -15,7 +15,7 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 /**
  * @covers \OliverKlee\Oelib\Model\AbstractModel
  */
-class AbstractModelTest extends UnitTestCase
+final class AbstractModelTest extends UnitTestCase
 {
     /**
      * @var TestingModel

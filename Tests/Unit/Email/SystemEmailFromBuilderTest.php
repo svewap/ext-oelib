@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
 /**
  * @covers \OliverKlee\Oelib\Email\SystemEmailFromBuilder
  */
-class SystemEmailFromBuilderTest extends UnitTestCase
+final class SystemEmailFromBuilderTest extends UnitTestCase
 {
     /**
      * @var SystemEmailFromBuilder

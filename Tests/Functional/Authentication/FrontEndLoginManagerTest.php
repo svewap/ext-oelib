@@ -14,7 +14,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 /**
  * @covers \OliverKlee\Oelib\Authentication\FrontEndLoginManager
  */
-class FrontEndLoginManagerTest extends FunctionalTestCase
+final class FrontEndLoginManagerTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

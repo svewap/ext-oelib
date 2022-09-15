@@ -10,7 +10,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-class CachedAssociationCountTest extends UnitTestCase
+final class CachedAssociationCountTest extends UnitTestCase
 {
     /**
      * @var ParentModel

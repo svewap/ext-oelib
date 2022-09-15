@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 /**
  * @covers \OliverKlee\Oelib\Geocoding\DummyGeocodingLookup
  */
-class DummyGeocodingLookupTest extends UnitTestCase
+final class DummyGeocodingLookupTest extends UnitTestCase
 {
     /**
      * @var DummyGeocodingLookup

@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Model\BackEndUserGroup;
 /**
  * @covers \OliverKlee\Oelib\Model\BackEndUserGroup
  */
-class BackEndUserGroupTest extends UnitTestCase
+final class BackEndUserGroupTest extends UnitTestCase
 {
     /**
      * @var BackEndUserGroup

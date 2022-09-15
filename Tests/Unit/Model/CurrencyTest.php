@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Model\Currency;
 /**
  * @covers \OliverKlee\Oelib\Model\Currency
  */
-class CurrencyTest extends UnitTestCase
+final class CurrencyTest extends UnitTestCase
 {
     /**
      * @var Currency

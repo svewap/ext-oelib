@@ -14,7 +14,7 @@ use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 /**
  * @covers \OliverKlee\Oelib\Geocoding\GoogleGeocoding
  */
-class GoogleGeocodingTest extends UnitTestCase
+final class GoogleGeocodingTest extends UnitTestCase
 {
     /**
      * @var GoogleGeocoding

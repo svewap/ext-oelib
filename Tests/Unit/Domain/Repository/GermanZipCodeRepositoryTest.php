@@ -13,7 +13,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 /**
  * @covers \OliverKlee\Oelib\Domain\Repository\GermanZipCodeRepository
  */
-class GermanZipCodeRepositoryTest extends UnitTestCase
+final class GermanZipCodeRepositoryTest extends UnitTestCase
 {
     /**
      * @var GermanZipCodeRepository

@@ -11,7 +11,7 @@ use OliverKlee\Oelib\Templating\TemplateRegistry;
 /**
  * @covers \OliverKlee\Oelib\Templating\TemplateRegistry
  */
-class TemplateRegistryTest extends UnitTestCase
+final class TemplateRegistryTest extends UnitTestCase
 {
     // Tests concerning the Singleton property
 

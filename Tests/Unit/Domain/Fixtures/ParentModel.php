@@ -11,7 +11,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 /**
  * Testing model for 1:n associations.
  */
-class ParentModel extends AbstractEntity
+final class ParentModel extends AbstractEntity
 {
     use CachedAssociationCount;
 

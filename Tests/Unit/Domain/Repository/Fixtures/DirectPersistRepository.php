@@ -13,7 +13,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *
  * @extends Repository<EmptyModel>
  */
-class DirectPersistRepository extends Repository implements DirectPersist
+final class DirectPersistRepository extends Repository implements DirectPersist
 {
     use \OliverKlee\Oelib\Domain\Repository\Traits\DirectPersist;
 }

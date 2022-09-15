@@ -15,7 +15,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 /**
  * @covers \OliverKlee\Oelib\Templating\TemplateHelper
  */
-class TemplateHelperTest extends FunctionalTestCase
+final class TemplateHelperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

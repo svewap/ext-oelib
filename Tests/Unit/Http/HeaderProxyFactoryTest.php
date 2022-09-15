@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Http\RealHeaderProxy;
  * @covers \OliverKlee\Oelib\Http\HeaderCollector
  * @covers \OliverKlee\Oelib\Http\HeaderProxyFactory
  */
-class HeaderProxyFactoryTest extends UnitTestCase
+final class HeaderProxyFactoryTest extends UnitTestCase
 {
     /**
      * @var HeaderCollector

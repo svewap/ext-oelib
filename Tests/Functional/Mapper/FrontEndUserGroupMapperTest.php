@@ -13,7 +13,7 @@ use OliverKlee\Oelib\Testing\TestingFramework;
  * @covers \OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper
  * @covers \OliverKlee\Oelib\Model\FrontEndUserGroup
  */
-class FrontEndUserGroupMapperTest extends FunctionalTestCase
+final class FrontEndUserGroupMapperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 

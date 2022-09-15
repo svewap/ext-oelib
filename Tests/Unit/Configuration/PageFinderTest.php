@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Configuration\PageFinder;
 /**
  * @covers \OliverKlee\Oelib\Configuration\PageFinder
  */
-class PageFinderTest extends UnitTestCase
+final class PageFinderTest extends UnitTestCase
 {
     /**
      * @var PageFinder

@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Model\Country;
 /**
  * @covers \OliverKlee\Oelib\Model\Country
  */
-class CountryTest extends UnitTestCase
+final class CountryTest extends UnitTestCase
 {
     /**
      * @var Country

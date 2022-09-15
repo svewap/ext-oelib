@@ -13,7 +13,7 @@ use TYPO3\CMS\Core\Log\LogManagerInterface;
 /**
  * @covers \OliverKlee\Oelib\Logging\Traits\LoggingAware
  */
-class LoggingAwareTest extends UnitTestCase
+final class LoggingAwareTest extends UnitTestCase
 {
     /**
      * @var TestingLoggingAware

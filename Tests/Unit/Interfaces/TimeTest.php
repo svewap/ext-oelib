@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Interfaces\Time;
 /**
  * @covers \OliverKlee\Oelib\Interfaces\Time
  */
-class TimeTest extends UnitTestCase
+final class TimeTest extends UnitTestCase
 {
     /**
      * @test

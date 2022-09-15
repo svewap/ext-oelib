@@ -16,7 +16,7 @@ use OliverKlee\Oelib\Model\FrontEndUser;
  * @covers \OliverKlee\Oelib\Mapper\FrontEndUserMapper
  * @covers \OliverKlee\Oelib\Model\FrontEndUser
  */
-class FrontEndUserMapperTest extends FunctionalTestCase
+final class FrontEndUserMapperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
