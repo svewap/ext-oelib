@@ -46,8 +46,9 @@ final class FrontEndUserMapperTest extends FunctionalTestCase
         $group2 = $groupMapper->getNewGhost();
         $groupUids = $group1->getUid() . ',' . $group2->getUid();
 
-        $this->getDatabaseConnection()->insertArray('fe_users', ['usergroup' => $groupUids]);
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        $connection->insert('fe_users', ['usergroup' => $groupUids]);
+        $uid = (int)$connection->lastInsertId('fe_users');
 
         /** @var FrontEndUser $user */
         $user = $this->subject->find($uid);
@@ -77,7 +78,8 @@ final class FrontEndUserMapperTest extends FunctionalTestCase
     public function findByUserNameWithNameOfExistingUserReturnsFrontEndUserInstance(): void
     {
         $username = 'max.doe';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $username]);
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        $connection->insert('fe_users', ['username' => $username]);
 
         self::assertInstanceOf(
             FrontEndUser::class,
@@ -91,8 +93,9 @@ final class FrontEndUserMapperTest extends FunctionalTestCase
     public function findByUserNameWithNameOfExistingUserReturnsModelWithThatUid(): void
     {
         $username = 'max.doe';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $username]);
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        $connection->insert('fe_users', ['username' => $username]);
+        $uid = (int)$connection->lastInsertId('fe_users');
 
         self::assertSame(
             $uid,
@@ -106,8 +109,9 @@ final class FrontEndUserMapperTest extends FunctionalTestCase
     public function findByUserNameWithUppercasedNameOfExistingLowercasedUserReturnsModelWithThatUid(): void
     {
         $username = 'max.doe';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $username]);
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        $connection->insert('fe_users', ['username' => $username]);
+        $uid = (int)$connection->lastInsertId('fe_users');
 
         self::assertSame(
             $uid,
@@ -121,8 +125,9 @@ final class FrontEndUserMapperTest extends FunctionalTestCase
     public function findByUserNameWithUppercasedNameOfExistingUppercasedUserReturnsModelWithThatUid(): void
     {
         $username = 'MAX.DOE';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $username]);
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        $connection->insert('fe_users', ['username' => $username]);
+        $uid = (int)$connection->lastInsertId('fe_users');
 
         self::assertSame(
             $uid,
@@ -136,8 +141,9 @@ final class FrontEndUserMapperTest extends FunctionalTestCase
     public function findByUserNameWithLowercasedNameOfExistingUppercasedUserReturnsModelWithThatUid(): void
     {
         $username = 'max.doe';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => strtoupper($username)]);
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        $connection->insert('fe_users', ['username' => \strtoupper($username)]);
+        $uid = (int)$connection->lastInsertId('fe_users');
 
         self::assertSame(
             $uid,
@@ -153,7 +159,8 @@ final class FrontEndUserMapperTest extends FunctionalTestCase
         $this->expectException(NotFoundException::class);
 
         $username = 'max.doe';
-        $this->getDatabaseConnection()->insertArray('fe_users', ['username' => $username, 'deleted' => 1]);
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        $connection->insert('fe_users', ['username' => $username, 'deleted' => 1]);
 
         $this->subject->findByUserName($username);
     }

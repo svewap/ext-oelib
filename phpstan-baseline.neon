@@ -626,11 +626,6 @@ parameters:
 			path: Tests/Functional/Mapper/FrontEndUserGroupMapperTest.php
 
 		-
-			message: "#^Casting to int something that's already int\\.$#"
-			count: 5
-			path: Tests/Functional/Mapper/FrontEndUserMapperTest.php
-
-		-
 			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: Tests/Functional/Mapper/FrontEndUserMapperTest.php
