@@ -36,7 +36,8 @@ final class LanguageMapperTest extends FunctionalTestCase
      */
     private function importStaticData(): void
     {
-        if ($this->getDatabaseConnection()->selectCount('*', 'static_languages') === 0) {
+        $connection = $this->getConnectionPool()->getConnectionForTable('static_languages');
+        if ($connection->count('*', 'static_languages', []) === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Languages.xml');
         }
     }

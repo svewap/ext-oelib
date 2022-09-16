@@ -37,7 +37,8 @@ final class FederalStateMapperTest extends FunctionalTestCase
      */
     private function importStaticData(): void
     {
-        if ($this->getDatabaseConnection()->selectCount('*', 'static_country_zones') === 0) {
+        $connection = $this->getConnectionPool()->getConnectionForTable('static_country_zones');
+        if ($connection->count('*', 'static_country_zones', []) === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/CountryZones.xml');
         }
     }

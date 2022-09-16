@@ -38,7 +38,8 @@ final class CurrencyMapperTest extends FunctionalTestCase
      */
     private function importStaticData(): void
     {
-        if ($this->getDatabaseConnection()->selectCount('*', 'static_currencies') === 0) {
+        $connection = $this->getConnectionPool()->getConnectionForTable('static_currencies');
+        if ($connection->count('*', 'static_currencies', []) === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Currencies.xml');
         }
     }
