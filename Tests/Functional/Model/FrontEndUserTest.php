@@ -35,7 +35,8 @@ final class FrontEndUserTest extends FunctionalTestCase
      */
     private function importStaticData(): void
     {
-        if ($this->getDatabaseConnection()->selectCount('*', 'static_countries') === 0) {
+        $connection = $this->getConnectionPool()->getConnectionForTable('static_countries');
+        if ($connection->count('*', 'static_countries', []) === 0) {
             $this->importDataSet(__DIR__ . '/../Fixtures/Countries.xml');
         }
     }
