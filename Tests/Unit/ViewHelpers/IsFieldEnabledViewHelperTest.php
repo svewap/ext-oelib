@@ -10,6 +10,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\Variables\VariableProviderInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
  * @covers \OliverKlee\Oelib\ViewHelpers\IsFieldEnabledViewHelper
@@ -64,9 +65,29 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
     public function isConditionViewHelper(): void
     {
         $subject = new IsFieldEnabledViewHelper();
-        $subject->initializeArguments();
 
         self::assertInstanceOf(AbstractConditionViewHelper::class, $subject);
+    }
+
+    /**
+     * @test
+     */
+    public function implementsViewHelper(): void
+    {
+        $subject = new IsFieldEnabledViewHelper();
+
+        self::assertInstanceOf(ViewHelperInterface::class, $subject);
+    }
+
+    /**
+     * @test
+     * @doesNotPerformAssertions
+     */
+    public function initializeArgumentsCanBeCalled(): void
+    {
+        $subject = new IsFieldEnabledViewHelper();
+
+        $subject->initializeArguments();
     }
 
     /**

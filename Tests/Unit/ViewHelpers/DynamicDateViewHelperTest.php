@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
-use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\ViewHelpers\DynamicDateViewHelper;
-use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
@@ -14,20 +14,20 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 /**
  * @covers \OliverKlee\Oelib\ViewHelpers\DynamicDateViewHelper
  */
-final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
+final class DynamicDateViewHelperTest extends UnitTestCase
 {
     /**
-     * @var DynamicDateViewHelper&MockObject
+     * @var RenderingContextInterface
+     *
+     * We can make this property private once we drop support for TYPO3 V9.
      */
-    private $subject;
+    protected $renderingContext;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $subject = $this->createPartialMock(DynamicDateViewHelper::class, ['renderChildren']);
-        $this->injectDependenciesIntoViewHelper($subject);
-        $this->subject = $subject;
+        $this->renderingContext = $this->prophesize(RenderingContextInterface::class)->reveal();
     }
 
     /**
@@ -35,7 +35,10 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
      */
     public function isViewHelper(): void
     {
-        self::assertInstanceOf(AbstractViewHelper::class, $this->subject);
+        $subject = new DynamicDateViewHelper();
+        $subject->initializeArguments();
+
+        self::assertInstanceOf(AbstractViewHelper::class, $subject);
     }
 
     /**
@@ -43,105 +46,40 @@ final class DynamicDateViewHelperTest extends ViewHelperBaseTestcase
      */
     public function implementsViewHelper(): void
     {
-        self::assertInstanceOf(ViewHelperInterface::class, $this->subject);
+        $subject = new DynamicDateViewHelper();
+
+        self::assertInstanceOf(ViewHelperInterface::class, $subject);
+    }
+
+    /**
+     * @test
+     * @doesNotPerformAssertions
+     */
+    public function initializeArgumentsCanBeCalled(): void
+    {
+        $subject = new DynamicDateViewHelper();
+
+        $subject->initializeArguments();
     }
 
     /**
      * @test
      */
-    public function renderForNullChildrenThrowsException(): void
+    public function doesNotEscapesChildren(): void
     {
-        $this->expectException(Exception::class);
-        $this->subject->expects(self::once())->method('renderChildren')->willReturn(null);
+        $subject = new DynamicDateViewHelper();
 
-        $this->subject->render();
+        self::assertFalse($subject->isChildrenEscapingEnabled());
     }
 
     /**
      * @test
      */
-    public function renderForEmptyStringChildrenThrowsException(): void
+    public function escapesOutput(): void
     {
-        $this->expectException(Exception::class);
-        $this->subject->expects(self::once())->method('renderChildren')->willReturn('');
+        $subject = new DynamicDateViewHelper();
 
-        $this->subject->render();
-    }
-
-    /**
-     * @test
-     */
-    public function renderForDateStringChildrenThrowsException(): void
-    {
-        $this->expectException(Exception::class);
-        $this->subject->expects(self::once())->method('renderChildren')->willReturn('1975-04-02');
-
-        $this->subject->render();
-    }
-
-    /**
-     * @test
-     */
-    public function renderForIntegerTimestampChildrenThrowsException(): void
-    {
-        $this->expectException(Exception::class);
-        $this->subject->expects(self::once())->method('renderChildren')->willReturn(1459513954);
-
-        $this->subject->render();
-    }
-
-    /**
-     * @test
-     */
-    public function renderByDefaultUsesGermanDateAndTimeFormat(): void
-    {
-        $date = new \DateTime('1980-12-07 14:37');
-        $this->subject->expects(self::once())->method('renderChildren')->willReturn($date);
-
-        $result = $this->subject->render();
-
-        self::assertStringContainsString('07.12.1980 14:37', $result);
-    }
-
-    /**
-     * @test
-     */
-    public function renderUsesProvidedDateAndTimeFormatForVisibleDate(): void
-    {
-        $date = new \DateTime('1980-12-07 14:37');
-        $this->subject->expects(self::once())->method('renderChildren')->willReturn($date);
-
-        $this->subject->setArguments(['displayFormat' => 'Y-m-d g:ia']);
-        $result = $this->subject->render();
-
-        self::assertStringContainsString('1980-12-07 2:37pm', $result);
-    }
-
-    /**
-     * @test
-     */
-    public function renderAddsTimeAgoCssClass(): void
-    {
-        $date = new \DateTime('1980-12-07 14:37');
-        $this->subject->expects(self::once())->method('renderChildren')->willReturn($date);
-
-        $result = $this->subject->render();
-
-        self::assertStringContainsString('class="js-time-ago"', $result);
-    }
-
-    /**
-     * @test
-     */
-    public function renderUsesProvidedDateAndTimeFormatForTimeElementDate(): void
-    {
-        $date = new \DateTime('1980-12-07 14:37');
-        $this->subject->expects(self::once())->method('renderChildren')->willReturn($date);
-
-        $this->subject->setArguments(['displayFormat' => 'Y-m-d g:ia']);
-        $result = $this->subject->render();
-
-        self::assertStringContainsString('<time datetime="1980-12-07T14:37"', $result);
+        self::assertTrue($subject->isOutputEscapingEnabled());
     }
 
     /**

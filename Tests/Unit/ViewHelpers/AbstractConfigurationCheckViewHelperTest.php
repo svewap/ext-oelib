@@ -11,12 +11,12 @@ use OliverKlee\Oelib\Configuration\ExtbaseConfiguration;
 use OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures\TestingConfigurationCheck;
 use OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures\TestingConfigurationCheckViewHelper;
 use OliverKlee\Oelib\ViewHelpers\AbstractConfigurationCheckViewHelper;
-use OliverKlee\Oelib\ViewHelpers\IsFieldEnabledViewHelper;
 use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\Variables\VariableProviderInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
  * @covers \OliverKlee\Oelib\ViewHelpers\AbstractConfigurationCheckViewHelper
@@ -79,7 +79,6 @@ final class AbstractConfigurationCheckViewHelperTest extends UnitTestCase
     public function isViewHelper(): void
     {
         $subject = new TestingConfigurationCheckViewHelper();
-        $subject->initializeArguments();
 
         self::assertInstanceOf(AbstractViewHelper::class, $subject);
         self::assertInstanceOf(AbstractConfigurationCheckViewHelper::class, $subject);
@@ -88,9 +87,30 @@ final class AbstractConfigurationCheckViewHelperTest extends UnitTestCase
     /**
      * @test
      */
+    public function implementsViewHelper(): void
+    {
+        $subject = new TestingConfigurationCheckViewHelper();
+
+        self::assertInstanceOf(ViewHelperInterface::class, $subject);
+    }
+
+    /**
+     * @test
+     * @doesNotPerformAssertions
+     */
+    public function initializeArgumentsCanBeCalled(): void
+    {
+        $subject = new TestingConfigurationCheckViewHelper();
+
+        $subject->initializeArguments();
+    }
+
+    /**
+     * @test
+     */
     public function escapesChildren(): void
     {
-        $subject = new IsFieldEnabledViewHelper();
+        $subject = new TestingConfigurationCheckViewHelper();
 
         self::assertTrue($subject->isChildrenEscapingEnabled());
     }
@@ -100,7 +120,7 @@ final class AbstractConfigurationCheckViewHelperTest extends UnitTestCase
      */
     public function doesNotEscapeOutput(): void
     {
-        $subject = new IsFieldEnabledViewHelper();
+        $subject = new TestingConfigurationCheckViewHelper();
 
         self::assertFalse($subject->isOutputEscapingEnabled());
     }
