@@ -154,7 +154,3 @@ Known problems with unit testing
   workaround, please set the PHP memory limit to at least 256 MB on you
   local development machine. (And don’t run the unit tests on a
   production server, of course.)
-
-- If you want to run the oelib test suite itself, you need to install
-  the two test extensions which are provided as T3X files in the
-  TestExtensions/ directory in the oelib extension.

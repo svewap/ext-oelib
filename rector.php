@@ -19,7 +19,6 @@ return static function (RectorConfig $rectorConfig): void {
         [
             __DIR__ . '/Classes',
             __DIR__ . '/Configuration',
-            __DIR__ . '/TestExtensions',
             __DIR__ . '/Tests',
         ]
     );
@@ -112,8 +111,6 @@ return static function (RectorConfig $rectorConfig): void {
                 __DIR__ . '/Configuration/Commands.php',
                 __DIR__ . '/Configuration/TCA',
                 __DIR__ . '/ext_localconf.php',
-                __DIR__ . '/TestExtensions/user_oelibtest/Configuration/TCA',
-                __DIR__ . '/TestExtensions/user_oelibtest2/Configuration/TCA',
             ],
         ]
     );

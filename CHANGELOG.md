@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop the testing extensions (#1150)
 - Drop support for `$additionalTablePrefixes` from the testing framework (#1149)
 - Drop functionality for dummy files/folders from `TestingFramework` (#1121)
 - Drop `TestingFramework::disableCoreCaches` (#1117)
