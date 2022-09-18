@@ -100,26 +100,11 @@ final class TestingFramework
     private $tablePrefix;
 
     /**
-     * prefixes of additional extensions to which this instance of the testing
-     * framework has access (e.g. "tx_seminars")
-     *
-     * @var string[]
-     */
-    private $additionalTablePrefixes;
-
-    /**
      * all own DB table names to which this instance of the testing framework has access
      *
      * @var array<int, non-empty-string>
      */
     private $ownAllowedTables = [];
-
-    /**
-     * all additional DB table names to which this instance of the testing framework has access
-     *
-     * @var string[]
-     */
-    private $additionalAllowedTables = [];
 
     /**
      * all "dirty" non-system tables (i.e., all tables that were used for testing
@@ -201,13 +186,10 @@ final class TestingFramework
      *
      * @param non-empty-string $tablePrefix table name prefix of the extension
      *        for this instance of the testing framework
-     * @param array<int, string> $additionalTablePrefixes additional table name prefixes of the extensions for which
-     *        this instance of the testing framework should be used, may be empty
      */
-    public function __construct(string $tablePrefix, array $additionalTablePrefixes = [])
+    public function __construct(string $tablePrefix)
     {
         $this->tablePrefix = $tablePrefix;
-        $this->additionalTablePrefixes = $additionalTablePrefixes;
 
         (new CacheNullifyer())->setAllCoreCaches();
     }
@@ -219,7 +201,6 @@ final class TestingFramework
         }
 
         $this->createListOfOwnAllowedTables();
-        $this->createListOfAdditionalAllowedTables();
         $this->determineAndSetAutoIncrementThreshold();
 
         $this->databaseInitialized = true;
@@ -1278,35 +1259,6 @@ routes: {  }";
     }
 
     /**
-     * Generates a list of additional allowed tables to which this instance of
-     * the testing framework has access to create/remove test records.
-     *
-     * The generated list is based on the list of all tables that TYPO3 can
-     * access (which will be all tables in this database), filtered by the
-     * prefixes of additional extensions.
-     *
-     * The array with the allowed table names is written directly to
-     * $this->additionalAllowedTables.
-     */
-    private function createListOfAdditionalAllowedTables(): void
-    {
-        $allTables = \implode(',', $this->getAllTableNames());
-        $additionalTablePrefixes = \implode('|', $this->additionalTablePrefixes);
-
-        $matches = [];
-
-        preg_match_all(
-            '/((' . $additionalTablePrefixes . ')_[a-z\\d]+[a-z\\d_]*)(,|$)/',
-            $allTables,
-            $matches
-        );
-
-        if (isset($matches[1])) {
-            $this->additionalAllowedTables = $matches[1];
-        }
-    }
-
-    /**
      * Checks whether the given table name is in the list of allowed tables for
      * this instance of the testing framework.
      *
@@ -1318,20 +1270,6 @@ routes: {  }";
     private function isOwnTableNameAllowed(string $table): bool
     {
         return in_array($table, $this->ownAllowedTables, true);
-    }
-
-    /**
-     * Checks whether the given table name is in the list of additional allowed
-     * tables for this instance of the testing framework.
-     *
-     * @param non-empty-string $table the name of the table to check
-     *
-     * @return bool TRUE if the name of the table is in the list of
-     *                 additional allowed tables, FALSE otherwise
-     */
-    private function isAdditionalTableNameAllowed(string $table): bool
-    {
-        return in_array($table, $this->additionalAllowedTables, true);
     }
 
     /**
@@ -1349,30 +1287,19 @@ routes: {  }";
     }
 
     /**
-     * Checks whether the given table name is in the list of allowed tables or
-     * additional allowed tables for this instance of the testing framework.
+     * Checks whether the given table name is in the list of allowed tables for this instance of the testing framework.
      *
      * @param non-empty-string $table the name of the table to check
-     *
-     * @return bool TRUE if the name of the table is in the list of
-     *                 allowed tables or additional allowed tables, FALSE
-     *                 otherwise
      */
     private function isNoneSystemTableNameAllowed(string $table): bool
     {
-        return $this->isOwnTableNameAllowed($table)
-            || $this->isAdditionalTableNameAllowed($table);
+        return $this->isOwnTableNameAllowed($table);
     }
 
     /**
-     * Checks whether the given table name is in the list of allowed tables,
-     * additional allowed tables or allowed system tables.
+     * Checks whether the given table name is in the list of allowed tables or allowed system tables.
      *
      * @param non-empty-string $table the name of the table to check
-     *
-     * @return bool TRUE if the name of the table is in the list of
-     *                 allowed tables, additional allowed tables or allowed
-     *                 system tables, FALSE otherwise
      */
     private function isTableNameAllowed(string $table): bool
     {
@@ -1398,15 +1325,7 @@ routes: {  }";
     {
         $this->initializeDatabase();
 
-        if ($this->isSystemTableNameAllowed($table)) {
-            $result = 'tx_oelib_is_dummy_record';
-        } elseif ($this->isAdditionalTableNameAllowed($table)) {
-            $result = $this->tablePrefix . '_is_dummy_record';
-        } else {
-            $result = 'is_dummy_record';
-        }
-
-        return $result;
+        return $this->isSystemTableNameAllowed($table) ? 'tx_oelib_is_dummy_record' : 'is_dummy_record';
     }
 
     /**

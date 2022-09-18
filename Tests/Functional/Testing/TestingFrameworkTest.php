@@ -22,11 +22,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 final class TestingFrameworkTest extends FunctionalTestCase
 {
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/oelib',
-        'typo3conf/ext/user_oelibtest',
-        'typo3conf/ext/user_oelibtest2',
-    ];
+    protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
     /**
      * @var TestingFramework
@@ -38,7 +34,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $GLOBALS['TSFE'] = null;
         parent::setUp();
 
-        $this->subject = new TestingFramework('tx_oelib', ['user_oelibtest']);
+        $this->subject = new TestingFramework('tx_oelib');
     }
 
     protected function tearDown(): void
@@ -123,25 +119,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame(
             0,
             $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function markTableAsDirtyWillCleanUpAdditionalAllowedTable(): void
-    {
-        $this->getDatabaseConnection()->insertArray(
-            'user_oelibtest_test',
-            ['tx_oelib_is_dummy_record' => 1]
-        );
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
-
-        $this->subject->markTableAsDirty('user_oelibtest_test');
-        $this->subject->cleanUp();
-        self::assertSame(
-            0,
-            $this->getDatabaseConnection()->selectCount('*', 'user_oelibtest_test', 'uid=' . $uid)
         );
     }
 
@@ -266,22 +243,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->createRecord(
             'tx_oelib_test',
             ['uid' => 99999]
-        );
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function createRecordOnValidAdditionalAllowedTableWithValidDataSucceeds(): void
-    {
-        $title = 'TEST record';
-        $this->subject->createRecord(
-            'user_oelibtest_test',
-            [
-                'title' => $title,
-            ]
         );
     }
 
@@ -438,25 +399,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
     /**
      * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function changeRecordOnAdditionalAllowedTableSucceeds(): void
-    {
-        $uid = $this->subject->createRecord(
-            'user_oelibtest_test',
-            ['title' => 'foo']
-        );
-
-        $this->subject->changeRecord(
-            'user_oelibtest_test',
-            $uid,
-            ['title' => 'bar']
-        );
-    }
-
-    /**
-     * @test
      */
     public function changeRecordFailsWithUidZero(): void
     {
@@ -591,23 +533,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
                 'tx_oelib_test_article_mm',
                 'uid_local=' . $uidLocal . ' AND uid_foreign=' . $uidForeign
             )
-        );
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function createRelationWithValidDataOnAdditionalAllowedTableSucceeds(): void
-    {
-        $uidLocal = $this->subject->createRecord('user_oelibtest_test');
-        $uidForeign = $this->subject->createRecord('user_oelibtest_test');
-
-        $this->subject->createRelation(
-            'user_oelibtest_test_article_mm',
-            $uidLocal,
-            $uidForeign
         );
     }
 
@@ -1542,19 +1467,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function resetAutoIncrementForUnchangedTestTableCanBeRun(): void
     {
         $this->subject->resetAutoIncrement('tx_oelib_test');
-    }
-
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
-    public function resetAutoIncrementForAdditionalAllowedTableSucceeds(): void
-    {
-        // Creates and deletes a record and then resets the auto increment.
-        $latestUid = $this->subject->createRecord('user_oelibtest_test');
-        $this->getDatabaseConnection()->delete('user_oelibtest_test', ['uid' => $latestUid]);
-        $this->subject->resetAutoIncrement('user_oelibtest_test');
     }
 
     /**
@@ -3031,21 +2943,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
         self::assertSame(
             'tx_oelib_is_dummy_record',
             $this->subject->getDummyColumnName('fe_users')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getDummyColumnNameForThirdPartyExtensionTableReturnsPrefixedColumnName(): void
-    {
-        $testingFramework = new TestingFramework(
-            'user_oelibtest',
-            ['user_oelibtest2']
-        );
-        self::assertSame(
-            'user_oelibtest_is_dummy_record',
-            $testingFramework->getDummyColumnName('user_oelibtest2_test')
         );
     }
 }
