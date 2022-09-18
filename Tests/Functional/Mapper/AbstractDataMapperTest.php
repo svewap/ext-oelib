@@ -61,9 +61,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->save($model);
         $testingFramework->cleanUp();
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             0,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $model->getUid())
+            $connection->count('*', 'tx_oelib_test', ['uid' => $model->getUid()])
         );
     }
 
@@ -87,9 +88,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->save($leftModel);
         $testingFramework->cleanUp();
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test_article_mm');
         self::assertSame(
             0,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test_article_mm', 'uid_local = ' . $leftUid)
+            $connection->count('*', 'tx_oelib_test_article_mm', ['uid_local' => $leftUid])
         );
     }
 
@@ -1764,10 +1766,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->setModelClassName(ReadOnlyModel::class);
         $this->subject->save($this->subject->find($uid));
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             0,
-            $this->getDatabaseConnection()
-                ->selectCount('*', 'tx_oelib_test', 'title = "foo" AND tstamp = ' . $GLOBALS['SIM_EXEC_TIME'])
+            $connection->count('*', 'tx_oelib_test', ['title' => 'foo', 'tstamp' => $GLOBALS['SIM_EXEC_TIME']])
         );
     }
 
@@ -1786,9 +1788,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $model->setTitle('bar');
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             0,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar'])
         );
     }
 
@@ -1802,9 +1805,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($this->subject->find($uid));
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             0,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'tstamp > 0')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'foo', 'tstamp' => $GLOBALS['SIM_EXEC_TIME']])
         );
     }
 
@@ -1822,9 +1826,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $model->markAsDead();
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             0,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar'])
         );
     }
 
@@ -1842,9 +1847,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $model->markAsClean();
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             0,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar'])
         );
     }
 
@@ -1861,9 +1867,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $model->setTitle('bar');
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar'])
         );
     }
 
@@ -1950,10 +1957,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $model->setTitle('bar');
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()
-                ->selectCount('*', 'tx_oelib_test', 'title = "bar" AND tstamp = ' . $GLOBALS['SIM_EXEC_TIME'])
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar', 'tstamp' => $GLOBALS['SIM_EXEC_TIME']])
         );
     }
 
@@ -1972,9 +1979,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'tstamp = ' . $GLOBALS['SIM_EXEC_TIME'])
+            $connection->count('*', 'tx_oelib_test', ['tstamp' => $GLOBALS['SIM_EXEC_TIME']])
         );
     }
 
@@ -1989,9 +1997,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo"')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'foo'])
         );
     }
 
@@ -2041,9 +2050,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar'])
         );
     }
 
@@ -2062,9 +2072,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar"')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar'])
         );
     }
 
@@ -2124,9 +2135,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $model->getUid())
+            $connection->count('*', 'tx_oelib_test', ['uid' => $model->getUid()])
         );
     }
 
@@ -2165,10 +2177,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()
-                ->selectCount('*', 'tx_oelib_test', 'title = "bar" AND tstamp = ' . $GLOBALS['SIM_EXEC_TIME'])
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar', 'tstamp' => $GLOBALS['SIM_EXEC_TIME']])
         );
     }
 
@@ -2187,10 +2199,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()
-                ->selectCount('*', 'tx_oelib_test', 'title = "bar" AND crdate = ' . $GLOBALS['SIM_EXEC_TIME'])
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar', 'crdate' => $GLOBALS['SIM_EXEC_TIME']])
         );
     }
 
@@ -2202,9 +2214,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['title' => 'foo']);
         $uid = (int)$this->getDatabaseConnection()->lastInsertId();
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             0,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo" AND tstamp > 0')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'foo', 'tstamp' => $GLOBALS['SIM_EXEC_TIME']])
         );
 
         $model = $this->subject->find($uid);
@@ -2213,7 +2226,7 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         self::assertSame(
             0,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo" AND tstamp > 0')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'foo', 'tstamp' => $GLOBALS['SIM_EXEC_TIME']])
         );
     }
 
@@ -2250,10 +2263,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $model->setTitle('bar');
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()
-                ->selectCount('*', 'tx_oelib_test', 'title = "bar" AND friend = ' . $friendUid)
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar', 'friend' => $friendUid])
         );
     }
 
@@ -2276,13 +2289,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $model->setTitle('bar');
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount(
-                '*',
-                'tx_oelib_test',
-                'title = "bar" AND children = "' . $childUid1 . ',' . $childUid2 . '"'
-            )
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar', 'children' => $childUid1 . ',' . $childUid2])
         );
     }
 
@@ -2307,9 +2317,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $model->setTitle('bar');
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar" AND related_records = 2')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar', 'related_records' => 2])
         );
     }
 
@@ -2335,9 +2346,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "bar" AND composition = 2')
+            $connection->count('*', 'tx_oelib_test', ['title' => 'bar', 'composition' => 2])
         );
     }
 
@@ -2361,13 +2373,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_testchild');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount(
-                '*',
-                'tx_oelib_testchild',
-                'uid = ' . $component->getUid() . ' AND parent = ' . $model->getUid()
-            )
+            $connection->count('*', 'tx_oelib_testchild', ['uid' => $component->getUid(), 'parent' => $model->getUid()])
         );
     }
 
@@ -2388,13 +2397,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_testchild');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount(
-                '*',
-                'tx_oelib_testchild',
-                'uid = ' . $component->getUid() . ' AND parent = ' . $model->getUid()
-            )
+            $connection->count('*', 'tx_oelib_testchild', ['uid' => $component->getUid(), 'parent' => $model->getUid()])
         );
     }
 
@@ -2419,12 +2425,13 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_testchild');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount(
+            $connection->count(
                 '*',
                 'tx_oelib_testchild',
-                'uid = ' . $newComponent2->getUid() . ' AND parent = ' . $model->getUid()
+                ['uid' => $newComponent2->getUid(), 'parent' => $model->getUid()]
             )
         );
     }
@@ -2446,12 +2453,13 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_testchild');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount(
+            $connection->count(
                 '*',
                 'tx_oelib_testchild',
-                'uid = ' . $component->getUid() . ' AND tx_oelib_parent2 = ' . $model->getUid()
+                ['uid' => $component->getUid(), 'tx_oelib_parent2' => $model->getUid()]
             )
         );
     }
@@ -2479,11 +2487,17 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()
-                ->selectCount('*', 'tx_oelib_testchild', 'uid = ' . $component2->getUid() . ' AND deleted = 1')
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_testchild');
+        // We cannot use `$connection->count()` here because it automatically ignores deleted records.
+        $query = 'SELECT COUNT(*) as count from tx_oelib_testchild WHERE uid = :uid AND deleted = :deleted';
+        $queryResult = $connection->executeQuery($query, ['uid' => $component2->getUid(), 'deleted' => 1]);
+        if (\method_exists($queryResult, 'fetchAssociative')) {
+            $row = $queryResult->fetchAssociative();
+        } else {
+            $row = $queryResult->fetch();
+        }
+        self::assertIsArray($row);
+        self::assertSame(1, $row['count']);
     }
 
     /**
@@ -2504,9 +2518,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo" AND uid = ' . $friendUid)
+            $connection->count('*', 'tx_oelib_test', ['title' => 'foo', 'uid' => $friendUid])
         );
     }
 
@@ -2527,9 +2542,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $friend->getUid())
+            $connection->count('*', 'tx_oelib_test', ['uid' => $friend->getUid()])
         );
     }
 
@@ -2553,9 +2569,10 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->save($model);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'title = "foo" AND uid = ' . $childUid1)
+            $connection->count('*', 'tx_oelib_test', ['title' => 'foo', 'uid' => $childUid1])
         );
     }
 
@@ -2660,12 +2677,13 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $parent->getRelatedRecords()->add($child);
         $this->subject->save($parent);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test_article_mm');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount(
+            $connection->count(
                 '*',
                 'tx_oelib_test_article_mm',
-                'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid . ' AND sorting = 0'
+                ['uid_local' => $parentUid, 'uid_foreign' => $childUid, 'sorting' => 0]
             )
         );
     }
@@ -2691,12 +2709,13 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $parent->getRelatedRecords()->add($child2);
         $this->subject->save($parent);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test_article_mm');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount(
+            $connection->count(
                 '*',
                 'tx_oelib_test_article_mm',
-                'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid2 . ' AND sorting = 1'
+                ['uid_local' => $parentUid, 'uid_foreign' => $childUid2, 'sorting' => 1]
             )
         );
     }
@@ -2718,12 +2737,13 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $child->getBidirectional()->add($parent);
         $this->subject->save($child);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test_article_mm');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount(
+            $connection->count(
                 '*',
                 'tx_oelib_test_article_mm',
-                'uid_local=' . $parentUid . ' AND uid_foreign=' . $childUid . ' AND sorting = 0'
+                ['uid_local' => $parentUid, 'uid_foreign' => $childUid, 'sorting' => 0]
             )
         );
     }
@@ -2749,12 +2769,13 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $child->getBidirectional()->add($parent2);
         $this->subject->save($child);
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test_article_mm');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount(
+            $connection->count(
                 '*',
                 'tx_oelib_test_article_mm',
-                'uid_local=' . $parentUid2 . ' AND uid_foreign=' . $childUid . ' AND sorting = 1'
+                ['uid_local' => $parentUid2, 'uid_foreign' => $childUid, 'sorting' => 1]
             )
         );
     }
@@ -3409,10 +3430,17 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->delete($model);
 
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $uid . ' AND deleted = 1')
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        // We cannot use `$connection->count()` here because it automatically ignores deleted records.
+        $query = 'SELECT COUNT(*) as count from tx_oelib_test WHERE uid = :uid AND deleted = :deleted';
+        $queryResult = $connection->executeQuery($query, ['uid' => $uid, 'deleted' => 1]);
+        if (\method_exists($queryResult, 'fetchAssociative')) {
+            $row = $queryResult->fetchAssociative();
+        } else {
+            $row = $queryResult->fetch();
+        }
+        self::assertIsArray($row);
+        self::assertSame(1, $row['count']);
     }
 
     /**
@@ -3444,11 +3472,17 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->delete($this->subject->find($uid));
 
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()
-                ->selectCount('*', 'tx_oelib_testchild', 'uid = ' . $relatedUid . ' AND deleted = 1')
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_testchild');
+        // We cannot use `$connection->count()` here because it automatically ignores deleted records.
+        $query = 'SELECT COUNT(*) as count from tx_oelib_testchild WHERE uid = :uid AND deleted = :deleted';
+        $queryResult = $connection->executeQuery($query, ['uid' => $relatedUid, 'deleted' => 1]);
+        if (\method_exists($queryResult, 'fetchAssociative')) {
+            $row = $queryResult->fetchAssociative();
+        } else {
+            $row = $queryResult->fetch();
+        }
+        self::assertIsArray($row);
+        self::assertSame(1, $row['count']);
     }
 
     /**
