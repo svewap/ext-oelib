@@ -2488,7 +2488,7 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->save($model);
 
         $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_testchild');
-        // We cannot use `$connection->count()` here because it automatically ignores deleted records.
+        // We cannot use `$connection->count()` here because it automatically ignores hidden or deleted records.
         $query = 'SELECT COUNT(*) as count from tx_oelib_testchild WHERE uid = :uid AND deleted = :deleted';
         $queryResult = $connection->executeQuery($query, ['uid' => $component2->getUid(), 'deleted' => 1]);
         if (\method_exists($queryResult, 'fetchAssociative')) {
@@ -3431,7 +3431,7 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $this->subject->delete($model);
 
         $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
-        // We cannot use `$connection->count()` here because it automatically ignores deleted records.
+        // We cannot use `$connection->count()` here because it automatically ignores hidden or deleted records.
         $query = 'SELECT COUNT(*) as count from tx_oelib_test WHERE uid = :uid AND deleted = :deleted';
         $queryResult = $connection->executeQuery($query, ['uid' => $uid, 'deleted' => 1]);
         if (\method_exists($queryResult, 'fetchAssociative')) {

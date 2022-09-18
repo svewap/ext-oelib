@@ -97,9 +97,11 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
         $this->subject->markTableAsDirty('tx_oelib_test');
         $this->subject->cleanUp();
+
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             0,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid=' . $uid)
+            $connection->count('*', 'tx_oelib_test', ['uid' => $uid])
         );
     }
 
@@ -116,9 +118,11 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
         $this->subject->markTableAsDirty('pages');
         $this->subject->cleanUp();
+
+        $connection = $this->getConnectionPool()->getConnectionForTable('pages');
         self::assertSame(
             0,
-            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid)
+            $connection->count('*', 'pages', ['uid' => $uid])
         );
     }
 
@@ -253,8 +257,16 @@ final class TestingFrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createRecord('tx_oelib_test', ['hidden' => 1]);
 
-        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $uid);
-        self::assertSame(1, $count);
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $query = 'SELECT COUNT(*) as count from tx_oelib_test WHERE uid = :uid AND hidden = :hidden';
+        $queryResult = $connection->executeQuery($query, ['uid' => $uid, 'hidden' => 1]);
+        if (\method_exists($queryResult, 'fetchAssociative')) {
+            $row = $queryResult->fetchAssociative();
+        } else {
+            $row = $queryResult->fetch();
+        }
+        self::assertIsArray($row);
+        self::assertSame(1, $row['count']);
     }
 
     /**
@@ -264,8 +276,16 @@ final class TestingFrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createRecord('tx_oelib_test', ['deleted' => 1]);
 
-        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'uid = ' . $uid);
-        self::assertSame(1, $count);
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $query = 'SELECT COUNT(*) as count from tx_oelib_test WHERE uid = :uid AND deleted = :deleted';
+        $queryResult = $connection->executeQuery($query, ['uid' => $uid, 'deleted' => 1]);
+        if (\method_exists($queryResult, 'fetchAssociative')) {
+            $row = $queryResult->fetchAssociative();
+        } else {
+            $row = $queryResult->fetch();
+        }
+        self::assertIsArray($row);
+        self::assertSame(1, $row['count']);
     }
 
     /**
@@ -290,8 +310,11 @@ final class TestingFrameworkTest extends FunctionalTestCase
     {
         $this->subject->createRecord('tx_oelib_test', ['bool_data1' => $value]);
 
-        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value);
-        self::assertSame(1, $count);
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        self::assertSame(
+            1,
+            $connection->count('*', 'tx_oelib_test', ['bool_data1' => (int)$value])
+        );
     }
 
     // Tests regarding changeRecord()
@@ -373,9 +396,10 @@ final class TestingFrameworkTest extends FunctionalTestCase
             ['title' => 'bar']
         );
 
+        $connection = $this->getConnectionPool()->getConnectionForTable('pages');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $pid . ' AND title="bar"')
+            $connection->count('*', 'pages', ['uid' => $pid, 'title' => 'bar'])
         );
     }
 
