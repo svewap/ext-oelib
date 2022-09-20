@@ -236,7 +236,9 @@ final class TestingFramework
     {
         $this->initializeDatabase();
         if (!$this->isNoneSystemTableNameAllowed($table)) {
-            throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331489666);
+            $allowedTables = \implode(',', $this->ownAllowedTables);
+            $errorMessage = \sprintf('The table "%1$s" is not allowed. Allowed tables: %2$s', $table, $allowedTables);
+            throw new \InvalidArgumentException($errorMessage, 1331489666);
         }
         if (isset($recordData['uid'])) {
             throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1331489678);
@@ -528,14 +530,8 @@ final class TestingFramework
     public function changeRecord(string $table, int $uid, array $rawData): void
     {
         $this->initializeDatabase();
+        $this->assertTableNameIsAllowed($table);
         $dummyColumnName = $this->getDummyColumnName($table);
-
-        if (!$this->isTableNameAllowed($table)) {
-            throw new \InvalidArgumentException(
-                'The table "' . $table . '" is not on the lists with allowed tables.',
-                1331489997
-            );
-        }
         if ($uid === 0) {
             throw new \InvalidArgumentException('The parameter $uid must not be zero.', 1331490003);
         }
@@ -580,7 +576,9 @@ final class TestingFramework
     {
         $this->initializeDatabase();
         if (!$this->isNoneSystemTableNameAllowed($table)) {
-            throw new \InvalidArgumentException('The table name "' . $table . '" is not allowed.', 1331490358);
+            $allowedTables = \implode(',', $this->ownAllowedTables);
+            $errorMessage = \sprintf('The table "%1$s" is not allowed. Allowed tables: %2$s', $table, $allowedTables);
+            throw new \InvalidArgumentException($errorMessage, 1331490358);
         }
 
         if ($uidLocal <= 0) {
@@ -621,10 +619,7 @@ final class TestingFramework
         string $columnName
     ): void {
         $this->initializeDatabase();
-        if (!$this->isTableNameAllowed($tableName)) {
-            throw new \InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1331490419);
-        }
-
+        $this->assertTableNameIsAllowed($tableName);
         if ($uidLocal <= 0) {
             throw new \InvalidArgumentException(
                 '$uidLocal must be > 0, but actually is "' . $uidLocal . '"',
@@ -1261,35 +1256,25 @@ routes: {  }";
     /**
      * Checks whether the given table name is in the list of allowed tables for
      * this instance of the testing framework.
-     *
-     * @param non-empty-string $table the name of the table to check
-     *
-     * @return bool TRUE if the name of the table is in the list of
-     *                 allowed tables, FALSE otherwise
      */
     private function isOwnTableNameAllowed(string $table): bool
     {
-        return in_array($table, $this->ownAllowedTables, true);
+        return \in_array($table, $this->ownAllowedTables, true);
     }
 
     /**
      * Checks whether the given table name is in the list of allowed
      * system tables for this instance of the testing framework.
-     *
-     * @param non-empty-string $table the name of the table to check
-     *
-     * @return bool TRUE if the name of the table is in the list of
-     *                 allowed system tables, FALSE otherwise
      */
     private function isSystemTableNameAllowed(string $table): bool
     {
-        return in_array($table, self::ALLOWED_SYSTEM_TABLES, true);
+        return \in_array($table, self::ALLOWED_SYSTEM_TABLES, true);
     }
 
     /**
      * Checks whether the given table name is in the list of allowed tables for this instance of the testing framework.
      *
-     * @param non-empty-string $table the name of the table to check
+     * @param string $table the name of the table to check
      */
     private function isNoneSystemTableNameAllowed(string $table): bool
     {
@@ -1297,14 +1282,19 @@ routes: {  }";
     }
 
     /**
-     * Checks whether the given table name is in the list of allowed tables or allowed system tables.
+     * Checks whether the given table name is in the list of allowed tables or allowed system tables,
+     * and throws an exception if it is not.
      *
-     * @param non-empty-string $table the name of the table to check
+     * @throws \InvalidArgumentException
      */
-    private function isTableNameAllowed(string $table): bool
+    private function assertTableNameIsAllowed(string $table): void
     {
-        return $this->isNoneSystemTableNameAllowed($table)
-            || $this->isSystemTableNameAllowed($table);
+        $isAllowed = $this->isNoneSystemTableNameAllowed($table) || $this->isSystemTableNameAllowed($table);
+        if (!$isAllowed) {
+            $allowedTables = \implode(',', \array_merge(self::ALLOWED_SYSTEM_TABLES, $this->ownAllowedTables));
+            $errorMessage = \sprintf('The table "%1$s" is not allowed. Allowed tables: %2$s', $table, $allowedTables);
+            throw new \InvalidArgumentException($errorMessage, 1569784847);
+        }
     }
 
     /**
@@ -1342,12 +1332,7 @@ routes: {  }";
     public function count(string $table, array $criteria = []): int
     {
         $this->initializeDatabase();
-        if (!$this->isTableNameAllowed($table)) {
-            throw new \InvalidArgumentException(
-                'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
-                1569784847
-            );
-        }
+        $this->assertTableNameIsAllowed($table);
 
         $allCriteria = $criteria;
         $dummyColumn = $this->getDummyColumnName($table);
@@ -1391,12 +1376,7 @@ routes: {  }";
         }
 
         $this->initializeDatabase();
-        if (!$this->isTableNameAllowed($table)) {
-            throw new \InvalidArgumentException(
-                'The given table name is not in the list of allowed tables.',
-                1569785708
-            );
-        }
+        $this->assertTableNameIsAllowed($table);
 
         $dummyColumn = $this->getDummyColumnName($table);
         $queryResult = $this->getConnectionForTable($table)
@@ -1423,13 +1403,7 @@ routes: {  }";
     public function resetAutoIncrement(string $table): void
     {
         $this->initializeDatabase();
-
-        if (!$this->isTableNameAllowed($table)) {
-            throw new \InvalidArgumentException(
-                'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
-                1331490882
-            );
-        }
+        $this->assertTableNameIsAllowed($table);
 
         // Checks whether the current table qualifies for this method. If there
         // is no column "uid" that has the "auto_increment" flag set, we should
@@ -1463,13 +1437,7 @@ routes: {  }";
     private function resetAutoIncrementLazily(string $table): void
     {
         $this->initializeDatabase();
-
-        if (!$this->isTableNameAllowed($table)) {
-            throw new \InvalidArgumentException(
-                'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
-                1331490899
-            );
-        }
+        $this->assertTableNameIsAllowed($table);
 
         // Checks whether the current table qualifies for this method. If there
         // is no column "uid" that has the "auto_increment" flag set, we should
@@ -1545,13 +1513,7 @@ routes: {  }";
     public function getAutoIncrement(string $table): int
     {
         $this->initializeDatabase();
-
-        if (!$this->isTableNameAllowed($table)) {
-            throw new \InvalidArgumentException(
-                'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
-                1331490926
-            );
-        }
+        $this->assertTableNameIsAllowed($table);
 
         $connection = $this->getConnectionForTable($table);
         $query = 'SHOW TABLE STATUS WHERE Name = \'' . $table . '\';';
@@ -1565,7 +1527,7 @@ routes: {  }";
         $autoIncrement = $row['Auto_increment'];
         if ($autoIncrement === null) {
             throw new \InvalidArgumentException(
-                'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
+                'The table "' . $table . '" does not have an auto increment value.',
                 1416849363
             );
         }
@@ -1586,6 +1548,7 @@ routes: {  }";
     public function markTableAsDirty(string $tableNames): void
     {
         $this->initializeDatabase();
+        $this->assertTableNameIsAllowed($tableNames);
 
         /** @var non-empty-string $currentTable */
         foreach (GeneralUtility::trimExplode(',', $tableNames, true) as $currentTable) {
@@ -1593,11 +1556,6 @@ routes: {  }";
                 $this->dirtyTables[$currentTable] = $currentTable;
             } elseif ($this->isSystemTableNameAllowed($currentTable)) {
                 $this->dirtySystemTables[$currentTable] = $currentTable;
-            } else {
-                throw new \InvalidArgumentException(
-                    'The table name "' . $currentTable . '" is not allowed for markTableAsDirty.',
-                    1331490947
-                );
             }
         }
     }
@@ -1644,13 +1602,7 @@ routes: {  }";
      */
     private function increaseRelationCounter(string $tableName, int $uid, string $fieldName): void
     {
-        if (!$this->isTableNameAllowed($tableName)) {
-            throw new \InvalidArgumentException(
-                'The table name "' . $tableName .
-                '" is invalid. This means it is either empty or not in the list of allowed tables.',
-                1331490960
-            );
-        }
+        $this->assertTableNameIsAllowed($tableName);
         if (!$this->tableHasColumn($tableName, $fieldName)) {
             throw new \InvalidArgumentException(
                 'The table ' . $tableName . ' has no column ' . $fieldName . '.',

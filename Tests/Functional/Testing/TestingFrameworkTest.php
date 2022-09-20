@@ -131,12 +131,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function markTableAsDirtyFailsOnInexistentTable(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The table name "tx_oelib_DOESNOTEXIST" is not allowed for markTableAsDirty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "tx_oelib_DOESNOTEXIST" is not allowed.');
         $this->subject->markTableAsDirty('tx_oelib_DOESNOTEXIST');
     }
 
@@ -145,12 +141,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function markTableAsDirtyFailsOnNotAllowedSystemTable(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The table name "sys_domain" is not allowed for markTableAsDirty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "sys_domain" is not allowed.');
         $this->subject->markTableAsDirty('sys_domain');
     }
 
@@ -159,12 +151,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function markTableAsDirtyFailsOnForeignTable(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The table name "tx_seminars_seminars" is not allowed for markTableAsDirty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "tx_seminars_seminars" is not allowed.');
         $this->subject->markTableAsDirty('tx_seminars_seminars');
     }
 
@@ -215,12 +203,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createRecordOnInvalidTable(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The table name "tx_oelib_DOESNOTEXIST" is not allowed.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "tx_oelib_DOESNOTEXIST" is not allowed.');
         $this->subject->createRecord('tx_oelib_DOESNOTEXIST', []);
     }
 
@@ -230,7 +214,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function createRecordWithEmptyTableName(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The table name "" is not allowed.');
+        $this->expectExceptionMessage('The table "" is not allowed.');
 
         // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->createRecord('', []);
@@ -352,12 +336,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function changeRecordFailsOnForeignTable(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The table "tx_seminars_seminars" is not on the lists with allowed tables.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "tx_seminars_seminars" is not allowed.');
         $this->subject->changeRecord(
             'tx_seminars_seminars',
             99999,
@@ -370,12 +350,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function changeRecordFailsOnInexistentTable(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The table "tx_oelib_DOESNOTEXIST" is not on the lists with allowed tables.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "tx_oelib_DOESNOTEXIST" is not allowed.');
         $this->subject->changeRecord(
             'tx_oelib_DOESNOTEXIST',
             99999,
@@ -408,12 +384,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function changeRecordFailsOnOtherSystemTable(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The table "sys_domain" is not on the lists with allowed tables.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "sys_domain" is not allowed.');
         $this->subject->changeRecord(
             'sys_domain',
             1,
@@ -426,12 +398,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function changeRecordFailsWithUidZero(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The parameter $uid must not be zero.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The parameter $uid must not be zero.');
         $this->subject->changeRecord('tx_oelib_test', 0, ['title' => 'foo']);
     }
 
@@ -440,12 +408,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function changeRecordFailsWithEmptyData(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The array with the new record data must not be empty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The array with the new record data must not be empty.');
         $uid = $this->subject->createRecord('tx_oelib_test', []);
 
         $this->subject->changeRecord(
@@ -460,12 +424,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function changeRecordFailsWithUidFieldInRecordData(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The parameter $recordData must not contain changes to the UID of a record.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The parameter $recordData must not contain changes to the UID of a record.');
         $uid = $this->subject->createRecord('tx_oelib_test', []);
 
         $this->subject->changeRecord(
@@ -480,9 +440,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function changeRecordFailsWithDummyRecordFieldInRecordData(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'The parameter $recordData must not contain changes to the field ' .
             '"is_dummy_record". It is impossible to convert a dummy record into a regular record.'
@@ -505,9 +463,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->expectException(
             \BadMethodCallException::class
         );
-        $this->expectExceptionMessage(
-            'There is no record with UID ' . ($uid + 1) . ' on table "tx_oelib_test".'
-        );
+        $this->expectExceptionMessage('There is no record with UID ' . ($uid + 1) . ' on table "tx_oelib_test".');
 
         $this->subject->changeRecord(
             'tx_oelib_test',
@@ -569,12 +525,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $uidLocal = 99999;
         $uidForeign = 199999;
 
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The table name "' . $table . '" is not allowed.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "' . $table . '" is not allowed.');
         $this->subject->createRelation($table, $uidLocal, $uidForeign);
     }
 
@@ -584,7 +536,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function createRelationWithEmptyTableName(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The table name "" is not allowed.');
+        $this->expectExceptionMessage('The table "" is not allowed.');
         // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->createRelation('', 99999, 199999);
     }
@@ -1094,12 +1046,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function getAutoIncrementWithOtherSystemTableFails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "sys_domains" is not allowed.');
         $this->subject->getAutoIncrement('sys_domains');
     }
 
@@ -1119,9 +1067,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function getAutoIncrementWithEmptyTableNameFails(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectExceptionMessage('The table "" is not allowed.');
 
         // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->getAutoIncrement('');
@@ -1133,9 +1079,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function getAutoIncrementWithForeignTableFails(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectExceptionMessage('The table "tx_seminars_seminars" is not allowed.');
 
         $this->subject->getAutoIncrement('tx_seminars_seminars');
     }
@@ -1145,12 +1089,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function getAutoIncrementWithInexistentTableFails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "tx_oelib_DOESNOTEXIST" is not allowed.');
         $this->subject->getAutoIncrement('tx_oelib_DOESNOTEXIST');
     }
 
@@ -1159,12 +1099,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function getAutoIncrementWithTableWithoutUidFails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "tx_oelib_test_article_mm" does not have an auto increment value.');
         $this->subject->getAutoIncrement('tx_oelib_test_article_mm');
     }
 
@@ -1187,9 +1123,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function countWithEmptyTableNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectExceptionMessage('The table "" is not allowed.');
 
         // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->count('');
@@ -1201,9 +1135,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function countWithInvalidTableNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectExceptionMessage('The table "foo_bar" is not allowed.');
 
         $table = 'foo_bar';
         $this->subject->count($table);
@@ -1233,9 +1165,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function countWithOtherTableThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectExceptionMessage('The table "sys_domain" is not allowed.');
 
         $this->subject->count('sys_domain');
     }
@@ -1367,12 +1297,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function existsRecordWithUidWithZeroUidThrowsException(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$uid must be > 0.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$uid must be > 0.');
 
         $this->subject->existsRecordWithUid('tx_oelib_test', 0);
     }
@@ -1382,12 +1308,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function existsRecordWithUidWithNegativeUidThrowsException(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$uid must be > 0.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$uid must be > 0.');
 
         $this->subject->existsRecordWithUid('tx_oelib_test', -1);
     }
@@ -1409,7 +1331,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function existsRecordWithUidWithInvalidTableNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The given table name is not in the list of allowed tables.');
+        $this->expectExceptionMessage('The table "foo_bar" is not allowed.');
 
         $table = 'foo_bar';
         $this->subject->existsRecordWithUid($table, 1);
@@ -1525,12 +1447,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function resetAutoIncrementWithOtherSystemTableFails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "sys_domains" is not allowed.');
 
         $this->subject->resetAutoIncrement('sys_domains');
     }
@@ -1541,9 +1459,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function resetAutoIncrementWithEmptyTableNameFails(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectExceptionMessage('The table "" is not allowed.');
 
         // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         $this->subject->resetAutoIncrement('');
@@ -1554,12 +1470,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function resetAutoIncrementWithForeignTableFails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "tx_seminars_seminars" is not allowed.');
 
         $this->subject->resetAutoIncrement('tx_seminars_seminars');
     }
@@ -1569,12 +1481,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function resetAutoIncrementWithInexistentTableFails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The given table name is invalid. This means it is either empty or not in the list of allowed tables.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The table "tx_oelib_DOESNOTEXIST" is not allowed.');
 
         $this->subject->resetAutoIncrement('tx_oelib_DOESNOTEXIST');
     }
@@ -1597,12 +1505,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function setResetAutoIncrementThresholdForZeroFails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$threshold must be > 0.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$threshold must be > 0.');
 
         $this->subject->setResetAutoIncrementThreshold(0);
     }
@@ -1612,12 +1516,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function setResetAutoIncrementThresholdForMinus1Fails(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$threshold must be > 0.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$threshold must be > 0.');
 
         $this->subject->setResetAutoIncrementThreshold(-1);
     }
@@ -1913,12 +1813,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function templateCannotBeCreatedOnRootPage(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$pageId must be > 0.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$pageId must be > 0.');
 
         $this->subject->createTemplate(0);
     }
@@ -1928,12 +1824,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function templateCannotBeCreatedWithNegativePageNumber(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$pageId must be > 0.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$pageId must be > 0.');
 
         $this->subject->createTemplate(-1);
     }
@@ -2222,12 +2114,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function frontEndUserMustHaveNoZeroUid(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The column "uid" must not be set in $recordData.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The column "uid" must not be set in $recordData.');
 
         $this->subject->createFrontEndUser('', ['uid' => 0]);
     }
@@ -2237,12 +2125,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function frontEndUserMustHaveNoNonZeroUid(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The column "uid" must not be set in $recordData.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The column "uid" must not be set in $recordData.');
 
         $this->subject->createFrontEndUser('', ['uid' => 99999]);
     }
@@ -2252,12 +2136,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function frontEndUserMustHaveNoZeroUserGroupInTheDataArray(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The column "usergroup" must not be set in $recordData.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The column "usergroup" must not be set in $recordData.');
 
         $this->subject->createFrontEndUser('', ['usergroup' => 0]);
     }
@@ -2267,12 +2147,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function frontEndUserMustHaveNoNonZeroUserGroupInTheDataArray(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The column "usergroup" must not be set in $recordData.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The column "usergroup" must not be set in $recordData.');
 
         $this->subject->createFrontEndUser('', ['usergroup' => 99999]);
     }
@@ -2282,12 +2158,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function frontEndUserMustHaveNoUserGroupListInTheDataArray(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            'The column "usergroup" must not be set in $recordData.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The column "usergroup" must not be set in $recordData.');
 
         $this->subject->createFrontEndUser(
             '',
@@ -2311,9 +2183,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function frontEndUserMustHaveNoZeroUserGroupEvenIfSeveralGroupsAreProvided(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
             '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.'
         );
@@ -2332,9 +2202,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function frontEndUserMustHaveNoAlphabeticalCharactersInTheUserGroupList(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
             '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.'
         );
