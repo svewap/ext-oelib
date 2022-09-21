@@ -1446,11 +1446,12 @@ routes: {  }";
         if (!$this->tableHasColumnUid($table)) {
             return;
         }
+        $currentAutoIncrement = $this->getAutoIncrement($table);
+        if (!\is_int($currentAutoIncrement)) {
+            return;
+        }
 
-        if (
-            $this->getAutoIncrement($table) >
-            ($this->getMaximumUidFromTable($table) + $this->resetAutoIncrementThreshold)
-        ) {
+        if ($currentAutoIncrement > ($this->getMaximumUidFromTable($table) + $this->resetAutoIncrementThreshold)) {
             $this->resetAutoIncrement($table);
         }
     }
@@ -1506,11 +1507,9 @@ routes: {  }";
      *
      * @param non-empty-string $table the name of the table for which the auto increment value should be retrieved
      *
-     * @return int the current auto_increment value of table $table, will be > 0
-     *
-     * @throws \InvalidArgumentException
+     * @return int|null the current auto_increment value of table $table, will be > 0, or null if the table has none
      */
-    public function getAutoIncrement(string $table): int
+    public function getAutoIncrement(string $table): ?int
     {
         $this->initializeDatabase();
         $this->assertTableNameIsAllowed($table);
@@ -1524,15 +1523,10 @@ routes: {  }";
             $row = $queryResult->fetch();
         }
 
+        \assert(\is_array($row));
         $autoIncrement = $row['Auto_increment'];
-        if ($autoIncrement === null) {
-            throw new \InvalidArgumentException(
-                'The table "' . $table . '" does not have an auto increment value.',
-                1416849363
-            );
-        }
 
-        return (int)$autoIncrement;
+        return \is_numeric($autoIncrement) ? (int)$autoIncrement : null;
     }
 
     /**

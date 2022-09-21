@@ -296,11 +296,6 @@ parameters:
 			path: Classes/Testing/TestingFramework.php
 
 		-
-			message: "#^Cannot access offset 'Auto_increment' on mixed\\.$#"
-			count: 1
-			path: Classes/Testing/TestingFramework.php
-
-		-
 			message: "#^Cannot access offset 'DOCUMENT_ROOT' on mixed\\.$#"
 			count: 1
 			path: Classes/Testing/TestingFramework.php
@@ -467,7 +462,7 @@ parameters:
 
 		-
 			message: "#^Cannot cast mixed to int\\.$#"
-			count: 4
+			count: 3
 			path: Classes/Testing/TestingFramework.php
 
 		-

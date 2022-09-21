@@ -35,6 +35,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for TYPO3 9LTS (#1094)
 
 ### Fixed
+- Only work on the auto increment value if the DB supports it (#1166)
 - Drop obsolete Doctrine DBAL calls (#1112)
 - Use the `TYPO3` constant instead of `TYPO3_MODE` (#1098)
 

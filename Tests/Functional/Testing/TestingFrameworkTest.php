@@ -1002,17 +1002,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAutoIncrementReturnsOneForTruncatedTable(): void
-    {
-        self::assertSame(
-            1,
-            $this->subject->getAutoIncrement('tx_oelib_test')
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getAutoIncrementGetsCurrentAutoIncrement(): void
     {
         $uid = $this->subject->createRecord('tx_oelib_test');
@@ -1054,11 +1043,9 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAutoIncrementForSysCategoryRecordMmFails(): void
+    public function getAutoIncrementForSysCategoryRecordMmReturnsNull(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $this->subject->getAutoIncrement('sys_category_record_mm');
+        self::assertNull($this->subject->getAutoIncrement('sys_category_record_mm'));
     }
 
     /**
@@ -1097,11 +1084,9 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAutoIncrementWithTableWithoutUidFails(): void
+    public function getAutoIncrementWithTableWithoutUidReturnsNull(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The table "tx_oelib_test_article_mm" does not have an auto increment value.');
-        $this->subject->getAutoIncrement('tx_oelib_test_article_mm');
+        self::assertNull($this->subject->getAutoIncrement('tx_oelib_test_article_mm'));
     }
 
     // Tests regarding count()
@@ -1387,23 +1372,6 @@ final class TestingFrameworkTest extends FunctionalTestCase
     }
 
     // Tests regarding resetAutoIncrement()
-
-    /**
-     * @test
-     */
-    public function resetAutoIncrementForTestTableSucceeds(): void
-    {
-        $this->subject->resetAutoIncrement('tx_oelib_test');
-
-        $latestUid = $this->subject->createRecord('tx_oelib_test');
-        $this->getDatabaseConnection()->delete('tx_oelib_test', ['uid' => $latestUid]);
-        $this->subject->resetAutoIncrement('tx_oelib_test');
-
-        self::assertSame(
-            $latestUid,
-            $this->subject->getAutoIncrement('tx_oelib_test')
-        );
-    }
 
     /**
      * @test
