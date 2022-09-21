@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Switch to the TYPO3 testing framework (#1130, #1132, #1148)
 
 ### Deprecated
+- Deprecate the testing framework auto increment functionality (#1167)
 
 ### Removed
 - Drop the testing extensions (#1150)

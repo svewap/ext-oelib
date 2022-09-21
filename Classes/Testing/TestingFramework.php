@@ -138,6 +138,7 @@ final class TestingFramework
      * the root line.
      *
      * @see https://bugs.oliverklee.com/show_bug.cgi?id=5011
+     * @deprecated will be removed in oelib 6.0
      *
      * @var int
      */
@@ -208,6 +209,8 @@ final class TestingFramework
 
     /**
      * Determines a good value for the auto increment threshold and sets it.
+     *
+     * @deprecated will be removed in oelib 6.0
      */
     private function determineAndSetAutoIncrementThreshold(): void
     {
@@ -770,9 +773,9 @@ final class TestingFramework
     /**
      * Checks whether a table has a column "uid".
      *
-     * @param non-empty-string $table the name of the table to check
+     * @param non-empty-string $table
      *
-     * @return bool
+     * @deprecated will be removed in oelib 6.0
      */
     private function tableHasColumnUid(string $table): bool
     {
@@ -1391,13 +1394,13 @@ routes: {  }";
     }
 
     /**
-     * Eagerly resets the auto increment value for a given table to the highest
-     * existing UID + 1.
+     * Eagerly resets the auto increment value for a given table to the highest existing UID + 1.
      *
      * @param non-empty-string $table the name of the table on which we're going to reset the auto increment entry
      *
      * @throws \InvalidArgumentException
      *
+     * @deprecated will be removed in oelib 6.0
      * @see resetAutoIncrementLazily
      */
     public function resetAutoIncrement(string $table): void
@@ -1428,10 +1431,11 @@ routes: {  }";
      * threshold over the current maximum UID.
      *
      * The threshold is 100 by default and can be set using
-     * setResetAutoIncrementThreshold.
+     * `setResetAutoIncrementThreshold`.
      *
      * @param non-empty-string $table the name of the table on which we're going to reset the auto increment entry
      *
+     * @deprecated will be removed in oelib 6.0
      * @see resetAutoIncrement
      */
     private function resetAutoIncrementLazily(string $table): void
@@ -1484,6 +1488,8 @@ routes: {  }";
      * @param non-empty-string $table the name of an existing table that has the "uid" column
      *
      * @return int the highest UID from this table, will be >= 0
+     *
+     * @deprecated will be removed in oelib 6.0
      */
     private function getMaximumUidFromTable(string $table): int
     {
@@ -1508,6 +1514,8 @@ routes: {  }";
      * @param non-empty-string $table the name of the table for which the auto increment value should be retrieved
      *
      * @return int|null the current auto_increment value of table $table, will be > 0, or null if the table has none
+     *
+     * @deprecated will be removed in oelib 6.0
      */
     public function getAutoIncrement(string $table): ?int
     {
