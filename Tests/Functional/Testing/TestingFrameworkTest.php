@@ -89,16 +89,13 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function markTableAsDirtyWillCleanUpNonSystemTable(): void
     {
-        $this->getDatabaseConnection()->insertArray(
-            'tx_oelib_test',
-            ['is_dummy_record' => 1]
-        );
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $connection->insert('tx_oelib_test', ['is_dummy_record' => 1]);
+        $uid = (int)$connection->lastInsertId('tx_oelib_test');
 
         $this->subject->markTableAsDirty('tx_oelib_test');
         $this->subject->cleanUp();
 
-        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             0,
             $connection->count('*', 'tx_oelib_test', ['uid' => $uid])
@@ -110,16 +107,13 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function markTableAsDirtyWillCleanUpSystemTable(): void
     {
-        $this->getDatabaseConnection()->insertArray(
-            'pages',
-            ['tx_oelib_is_dummy_record' => 1]
-        );
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $connection = $this->getConnectionPool()->getConnectionForTable('pages');
+        $connection->insert('pages', ['tx_oelib_is_dummy_record' => 1]);
+        $uid = (int)$connection->lastInsertId('pages');
 
         $this->subject->markTableAsDirty('pages');
         $this->subject->cleanUp();
 
-        $connection = $this->getConnectionPool()->getConnectionForTable('pages');
         self::assertSame(
             0,
             $connection->count('*', 'pages', ['uid' => $uid])
@@ -802,10 +796,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
         // Creates a dummy record directly in the database, without putting this
         // table name to the list of dirty tables.
-        $this->getDatabaseConnection()->insertArray(
-            'tx_oelib_test_article_mm',
-            ['is_dummy_record' => 1]
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $connection->insert('tx_oelib_test_article_mm', ['is_dummy_record' => 1]);
 
         // Runs a regular clean up. This should now delete only the first record
         // which was created through the testing framework and thus that table
@@ -836,7 +828,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function cleanUpWillCleanUpHiddenRecords(): void
     {
-        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 1, 'is_dummy_record' => 1]);
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $connection->insert('tx_oelib_test', ['hidden' => 1, 'is_dummy_record' => 1]);
         $this->subject->markTableAsDirty('tx_oelib_test');
 
         $this->subject->cleanUp();
@@ -850,7 +843,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function cleanUpWillCleanUpDeletedRecords(): void
     {
-        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['deleted' => 1, 'is_dummy_record' => 1]);
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $connection->insert('tx_oelib_test', ['deleted' => 1, 'is_dummy_record' => 1]);
         $this->subject->markTableAsDirty('tx_oelib_test');
 
         $this->subject->cleanUp();
@@ -924,10 +918,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
         // Creates a dummy record directly in the database, without putting this
         // table name to the list of dirty tables.
-        $this->getDatabaseConnection()->insertArray(
-            'tx_oelib_test_article_mm',
-            ['is_dummy_record' => 1]
-        );
+        $relationConnection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test_article_mm');
+        $relationConnection->insert('tx_oelib_test_article_mm', ['is_dummy_record' => 1]);
 
         // Runs a regular clean up. This should now delete only the first record
         // which was created through the testing framework and thus that table
@@ -1223,10 +1215,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function countIgnoresNonDummyRecords(): void
     {
-        $this->getDatabaseConnection()->insertArray(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $connection->insert('tx_oelib_test', ['title' => 'foo']);
 
         $testResult = $this->subject->count('tx_oelib_test', ['title' => 'foo']);
 
@@ -1241,7 +1231,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function countCanFindHiddenRecord(): void
     {
-        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['hidden' => 1, 'is_dummy_record' => 1]);
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $connection->insert('tx_oelib_test', ['hidden' => 1, 'is_dummy_record' => 1]);
 
         self::assertSame(1, $this->subject->count('tx_oelib_test'));
     }
@@ -1251,7 +1242,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function countCanFindDeletedRecord(): void
     {
-        $this->getDatabaseConnection()->insertArray('tx_oelib_test', ['deleted' => 1, 'is_dummy_record' => 1]);
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $connection->insert('tx_oelib_test', ['deleted' => 1, 'is_dummy_record' => 1]);
 
         self::assertSame(1, $this->subject->count('tx_oelib_test'));
     }
@@ -1265,10 +1257,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function countCanFindWithBooleanValues(bool $value): void
     {
-        $this->getDatabaseConnection()->insertArray(
-            'tx_oelib_test',
-            ['bool_data1' => (int)$value, 'is_dummy_record' => 1]
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $connection->insert('tx_oelib_test', ['bool_data1' => (int)$value, 'is_dummy_record' => 1]);
 
         $result = $this->subject->count('tx_oelib_test', ['bool_data1' => $value]);
 
@@ -1355,20 +1345,13 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function existsRecordWithUidIgnoresNonDummyRecords(): void
     {
-        $this->getDatabaseConnection()->insertArray(
-            'tx_oelib_test',
-            ['title' => 'foo']
-        );
-        $uid = (int)$this->getDatabaseConnection()->lastInsertId();
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $connection->insert('tx_oelib_test', ['title' => 'foo']);
+        $uid = (int)$connection->lastInsertId('tx_oelib_test');
 
-        $testResult = $this->subject->existsRecordWithUid(
-            'tx_oelib_test',
-            $uid
-        );
+        $testResult = $this->subject->existsRecordWithUid('tx_oelib_test', $uid);
 
-        self::assertFalse(
-            $testResult
-        );
+        self::assertFalse($testResult);
     }
 
     // Tests regarding resetAutoIncrement()
