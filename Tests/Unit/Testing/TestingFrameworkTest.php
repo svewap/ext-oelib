@@ -183,14 +183,23 @@ final class TestingFrameworkTest extends UnitTestCase
      */
     public function createFakeFrontThrowsExceptionForNegativePageUid(): void
     {
-        $this->expectException(
-            \InvalidArgumentException::class
-        );
-        $this->expectExceptionMessage(
-            '$pageUid must be >= 0.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$pageUid must be > 0.');
 
+        /** @phpstan-ignore-next-line We are explicitly testing a contract violation here */
         $this->subject->createFakeFrontEnd(-1);
+    }
+
+    /**
+     * @test
+     */
+    public function createFakeFrontThrowsExceptionForZeroPageUid(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$pageUid must be > 0.');
+
+        /** @phpstan-ignore-next-line We are explicitly testing a contract violation here */
+        $this->subject->createFakeFrontEnd(0);
     }
 
     // Tests regarding user login and logout

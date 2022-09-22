@@ -19,11 +19,9 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Exception\Page\PageNotFoundException;
-use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\Site;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
@@ -262,7 +260,7 @@ final class TestingFramework
      * @param non-empty-string $table the name of the table on which the record should be created
      * @param array<string, string|int|bool> $rawData data to save, may be empty, but must not contain the key "uid"
      *
-     * @return int the UID of the new record, will be > 0
+     * @return positive-int the UID of the new record
      */
     private function createRecordWithoutTableNameChecks(string $table, array $rawData): int
     {
@@ -275,7 +273,10 @@ final class TestingFramework
         $connection->insert($table, $dataToInsert);
         $this->markTableAsDirty($table);
 
-        return (int)$connection->lastInsertId($table);
+        $uid = (int)$connection->lastInsertId($table);
+        \assert($uid > 0);
+
+        return $uid;
     }
 
     /**
@@ -328,7 +329,7 @@ final class TestingFramework
      *
      * @param array<string, string|int>|null $data
      *
-     * @return int the UID of the new page, will be > 0
+     * @return positive-int the UID of the new page
      */
     public function createFrontEndPage(int $parentPageUid = 0, ?array $data = null): int
     {
@@ -368,7 +369,7 @@ final class TestingFramework
      * @param array<string, string|int|bool> $recordData data to save in the record, may be empty,
      *        but must not contain the keys "uid", "pid" or "doktype"
      *
-     * @return int the UID of the new record, will be > 0
+     * @return positive-int the UID of the new record
      *
      * @throws \InvalidArgumentException
      */
@@ -865,16 +866,17 @@ final class TestingFramework
      * Note: This function does not set TYPO3_MODE to "FE" (because the value of
      * a constant cannot be changed after it has once been set).
      *
-     * @param int $pageUid UID of a page record to use, must be >= 0
+     * @param positive-int $pageUid UID of a page record to use
      *
      * @return int the UID of the used front-end page, will be > 0
      *
      * @throws \InvalidArgumentException if $pageUid is < 0
      */
-    public function createFakeFrontEnd(int $pageUid = 0): int
+    public function createFakeFrontEnd(int $pageUid): int
     {
-        if ($pageUid < 0) {
-            throw new \InvalidArgumentException('$pageUid must be >= 0.', 1331490786);
+        /** @phpstan-ignore-next-line We are explicitly checking for contract violations here */
+        if ($pageUid <= 0) {
+            throw new \InvalidArgumentException('$pageUid must be > 0.', 1331490786);
         }
 
         $this->suppressFrontEndCookies();
@@ -888,18 +890,13 @@ final class TestingFramework
         $frontEndUser->unpack_uc();
         $frontEndUser->fetchGroupData();
 
-        if ($pageUid > 0) {
-            $this->createDummySite($pageUid);
-            $allSites = GeneralUtility::makeInstance(SiteConfiguration::class)->getAllExistingSites(false);
-            $site = $allSites[self::SITE_IDENTIFIER] ?? null;
-            if (!$site instanceof Site) {
-                throw new \RuntimeException('Dummy site not found.', 1635024025);
-            }
-            $language = $site->getLanguageById(0);
-        } else {
-            $site = new Site('test', $pageUid, []);
-            $language = new SiteLanguage(0, 'en_US.utf8', new Uri($this->getFakeSiteUrl()), []);
+        $this->createDummySite($pageUid);
+        $allSites = GeneralUtility::makeInstance(SiteConfiguration::class)->getAllExistingSites(false);
+        $site = $allSites[self::SITE_IDENTIFIER] ?? null;
+        if (!$site instanceof Site) {
+            throw new \RuntimeException('Dummy site not found.', 1635024025);
         }
+        $language = $site->getLanguageById(0);
         $frontEnd = GeneralUtility::makeInstance(
             TypoScriptFrontendController::class,
             GeneralUtility::makeInstance(Context::class),
@@ -911,16 +908,14 @@ final class TestingFramework
         $GLOBALS['TSFE'] = $frontEnd;
 
         $frontEnd->fe_user = $frontEndUser;
-        if ($pageUid > 0) {
-            $frontEnd->id = (string)$pageUid;
-            $frontEnd->determineId();
-        }
+        $frontEnd->id = (string)$pageUid;
+        $frontEnd->determineId();
         $frontEnd->tmpl = GeneralUtility::makeInstance(TemplateService::class);
         $frontEnd->config = [
             'config' => ['MP_disableTypolinkClosestMPvalue' => true, 'typolinkLinkAccessRestrictedPages' => true],
         ];
 
-        if ($pageUid > 0 && \in_array('sys_template', $this->dirtySystemTables, true)) {
+        if (\in_array('sys_template', $this->dirtySystemTables, true)) {
             try {
                 $rootLine = GeneralUtility::makeInstance(RootlineUtility::class, $pageUid)->get();
             } catch (PageNotFoundException $e) {
