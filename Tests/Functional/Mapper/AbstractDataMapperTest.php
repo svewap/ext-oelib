@@ -62,10 +62,7 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         $testingFramework->cleanUp();
 
         $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
-        self::assertSame(
-            0,
-            $connection->count('*', 'tx_oelib_test', ['uid' => $model->getUid()])
-        );
+        self::assertSame(0, $connection->count('*', 'tx_oelib_test', ['uid' => $model->getUid()]));
     }
 
     /**
@@ -3544,7 +3541,7 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $this->subject->delete($this->subject->find($uid));
 
-        // We cannot use `$connection->count()` here because it automatically ignores deleted records.
+        // We cannot use `$connection->count()` here because it automatically ignores hidden or deleted records.
         $query = 'SELECT COUNT(*) as count from tx_oelib_testchild WHERE uid = :uid AND deleted = :deleted';
         $queryResult = $relationConnection->executeQuery($query, ['uid' => $relatedUid, 'deleted' => 1]);
         if (\method_exists($queryResult, 'fetchAssociative')) {
