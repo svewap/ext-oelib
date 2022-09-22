@@ -19,6 +19,8 @@ final class TemplateHelperTest extends FunctionalTestCase
 {
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib'];
 
+    protected $initializeDatabase = false;
+
     /**
      * @var TestingTemplateHelper
      */
