@@ -646,6 +646,11 @@ parameters:
 			path: Tests/Functional/Testing/CacheNullifyerTest.php
 
 		-
+			message: "#^Call to an undefined method Doctrine\\\\DBAL\\\\Result\\:\\:fetch\\(\\)\\.$#"
+			count: 29
+			path: Tests/Functional/Testing/TestingFrameworkTest.php
+
+		-
 			message: "#^Cannot access offset 'HTTP_HOST' on mixed\\.$#"
 			count: 6
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
