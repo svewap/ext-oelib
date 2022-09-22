@@ -49,6 +49,8 @@ jobs:
         run: "phive install --trust-gpg-keys D8406D0D82947747293778314AA394086372C20A"
       - name: "Start MySQL"
         run: "sudo /etc/init.d/mysql start"
+      - name: "Create the tests directory"
+        run: "mkdir -p .Build/public/typo3temp/var/tests"
       - name: "Run unit tests with coverage"
         run: composer ci:coverage:unit
       - name: "Run functional tests with coverage"
