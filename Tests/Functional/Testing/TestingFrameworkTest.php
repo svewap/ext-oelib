@@ -255,6 +255,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $uid = $this->subject->createRecord('tx_oelib_test', ['deleted' => 1]);
 
         $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        // We cannot use `$connection->count()` here because it automatically ignores hidden or deleted records.
         $query = 'SELECT COUNT(*) as count from tx_oelib_test WHERE uid = :uid AND deleted = :deleted';
         $queryResult = $connection->executeQuery($query, ['uid' => $uid, 'deleted' => 1]);
         if (\method_exists($queryResult, 'fetchAssociative')) {
@@ -479,7 +480,9 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
         $this->subject->changeRecord('tx_oelib_test', $uid, ['bool_data1' => $value]);
 
-        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'bool_data1 = ' . (int)$value);
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $count = $connection->count('*', 'tx_oelib_test', ['bool_data1' => (int)$value]);
+
         self::assertSame(1, $count);
     }
 
@@ -500,14 +503,13 @@ final class TestingFrameworkTest extends FunctionalTestCase
         );
 
         // Checks whether the record really exists.
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount(
-                '*',
-                'tx_oelib_test_article_mm',
-                'uid_local=' . $uidLocal . ' AND uid_foreign=' . $uidForeign
-            )
+        $relationConnection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test_article_mm');
+        $count = $relationConnection->count(
+            '*',
+            'tx_oelib_test_article_mm',
+            ['uid_local' => $uidLocal, 'uid_foreign' => $uidForeign]
         );
+        self::assertSame(1, $count);
     }
 
     /**
@@ -692,15 +694,9 @@ final class TestingFrameworkTest extends FunctionalTestCase
             'related_records'
         );
 
-        $count = $this->getDatabaseConnection()->selectCount(
-            '*',
-            'tx_oelib_test_article_mm',
-            'uid_local=' . $firstRecordUid
-        );
-        self::assertSame(
-            1,
-            $count
-        );
+        $relationConnection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test_article_mm');
+        $count = $relationConnection->count('*', 'tx_oelib_test_article_mm', ['uid_local' => $firstRecordUid]);
+        self::assertSame(1, $count);
     }
 
     /**
@@ -772,16 +768,13 @@ final class TestingFrameworkTest extends FunctionalTestCase
             'bidirectional'
         );
 
-        $count = $this->getDatabaseConnection()->selectCount(
+        $relationConnection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test_article_mm');
+        $count = $relationConnection->count(
             '*',
             'tx_oelib_test_article_mm',
-            'uid_local=' . $secondRecordUid . ' AND uid_foreign=' .
-            $firstRecordUid
+            ['uid_local' => $secondRecordUid, 'uid_foreign' => $firstRecordUid]
         );
-        self::assertSame(
-            1,
-            $count
-        );
+        self::assertSame(1, $count);
     }
 
     // Tests regarding cleanUp()
@@ -809,15 +802,13 @@ final class TestingFrameworkTest extends FunctionalTestCase
         // Checks whether the first dummy record is deleted.
         self::assertSame(
             0,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test'),
+            $connection->count('*', 'tx_oelib_test', []),
             'Some test records were not deleted from table "tx_oelib_test"'
         );
 
         // Checks whether the second dummy record still exists.
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test_article_mm')
-        );
+        $relationConnection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test_article_mm');
+        self::assertSame(1, $relationConnection->count('*', 'tx_oelib_test_article_mm', []));
 
         // Runs a deep cleanup to delete all dummy records.
         $this->subject->cleanUp(true);
@@ -834,8 +825,16 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
         $this->subject->cleanUp();
 
-        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'hidden = 1');
-        self::assertSame(0, $count);
+        // We cannot use `$connection->count()` here because it automatically ignores hidden or deleted records.
+        $query = 'SELECT COUNT(*) as count from tx_oelib_test WHERE hidden = :hidden';
+        $queryResult = $connection->executeQuery($query, ['hidden' => 1]);
+        if (\method_exists($queryResult, 'fetchAssociative')) {
+            $row = $queryResult->fetchAssociative();
+        } else {
+            $row = $queryResult->fetch();
+        }
+        self::assertIsArray($row);
+        self::assertSame(0, $row['count']);
     }
 
     /**
@@ -849,8 +848,16 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
         $this->subject->cleanUp();
 
-        $count = $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test', 'deleted = 1');
-        self::assertSame(0, $count);
+        // We cannot use `$connection->count()` here because it automatically ignores hidden or deleted records.
+        $query = 'SELECT COUNT(*) as count from tx_oelib_test WHERE deleted = :deleted';
+        $queryResult = $connection->executeQuery($query, ['deleted' => 1]);
+        if (\method_exists($queryResult, 'fetchAssociative')) {
+            $row = $queryResult->fetchAssociative();
+        } else {
+            $row = $queryResult->fetch();
+        }
+        self::assertIsArray($row);
+        self::assertSame(0, $row['count']);
     }
 
     /**
@@ -929,9 +936,10 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->cleanUpWithoutDatabase();
 
         // Checks whether the first dummy record is deleted.
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
         self::assertSame(
             1,
-            $this->getDatabaseConnection()->selectCount('*', 'tx_oelib_test'),
+            $connection->count('*', 'tx_oelib_test', []),
             'Some test records were not deleted from table "tx_oelib_test"'
         );
     }
@@ -1479,7 +1487,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $uid = $this->subject->createFrontEndPage();
 
         self::assertNotSame(0, $uid);
-        self::assertSame(1, $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid));
+        $connection = $this->getConnectionPool()->getConnectionForTable('pages');
+        self::assertSame(1, $connection->count('*', 'pages', ['uid' => $uid]));
     }
 
     /**
@@ -1573,16 +1582,12 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function frontEndPageWillBeCleanedUp(): void
     {
         $uid = $this->subject->createFrontEndPage();
-        self::assertNotSame(
-            0,
-            $uid
-        );
+        self::assertNotSame(0, $uid);
 
         $this->subject->cleanUp();
-        self::assertSame(
-            0,
-            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid)
-        );
+
+        $connection = $this->getConnectionPool()->getConnectionForTable('pages');
+        self::assertSame(0, $connection->count('*', 'pages', ['uid' => $uid]));
     }
 
     /**
@@ -1613,15 +1618,10 @@ final class TestingFrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createSystemFolder();
 
-        self::assertNotSame(
-            0,
-            $uid
-        );
+        self::assertNotSame(0, $uid);
 
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid)
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('pages');
+        self::assertSame(1, $connection->count('*', 'pages', ['uid' => $uid]));
     }
 
     /**
@@ -1680,10 +1680,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $parent = $this->subject->createSystemFolder();
         $uid = $this->subject->createSystemFolder($parent);
 
-        self::assertNotSame(
-            0,
-            $uid
-        );
+        self::assertNotSame(0, $uid);
 
         $row = $this->getDatabaseConnection()->selectSingleRow(
             'pid',
@@ -1703,16 +1700,12 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function systemFolderWillBeCleanedUp(): void
     {
         $uid = $this->subject->createSystemFolder();
-        self::assertNotSame(
-            0,
-            $uid
-        );
+        self::assertNotSame(0, $uid);
 
         $this->subject->cleanUp();
-        self::assertSame(
-            0,
-            $this->getDatabaseConnection()->selectCount('*', 'pages', 'uid=' . $uid)
-        );
+
+        $connection = $this->getConnectionPool()->getConnectionForTable('pages');
+        self::assertSame(0, $connection->count('*', 'pages', ['uid' => $uid]));
     }
 
     /**
@@ -1744,15 +1737,9 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate($pageId);
 
-        self::assertNotSame(
-            0,
-            $uid
-        );
-
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'sys_template', 'uid=' . $uid)
-        );
+        self::assertNotSame(0, $uid);
+        $connection = $this->getConnectionPool()->getConnectionForTable('sys_template');
+        self::assertSame(1, $connection->count('*', 'sys_template', ['uid' => $uid]));
     }
 
     /**
@@ -1784,16 +1771,12 @@ final class TestingFrameworkTest extends FunctionalTestCase
     {
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate($pageId);
-        self::assertNotSame(
-            0,
-            $uid
-        );
+        self::assertNotSame(0, $uid);
 
         $this->subject->cleanUp();
-        self::assertSame(
-            0,
-            $this->getDatabaseConnection()->selectCount('*', 'sys_template', 'uid=' . $uid)
-        );
+
+        $connection = $this->getConnectionPool()->getConnectionForTable('sys_template');
+        self::assertSame(0, $connection->count('*', 'sys_template', ['uid' => $uid]));
     }
 
     /**
@@ -1885,15 +1868,9 @@ final class TestingFrameworkTest extends FunctionalTestCase
     {
         $uid = $this->subject->createFrontEndUserGroup();
 
-        self::assertNotSame(
-            0,
-            $uid
-        );
-
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'fe_groups', 'uid=' . $uid)
-        );
+        self::assertNotSame(0, $uid);
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_groups');
+        self::assertSame(1, $connection->count('*', 'fe_groups', ['uid' => $uid]));
     }
 
     /**
@@ -1902,16 +1879,11 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function frontEndUserGroupTableWillBeCleanedUp(): void
     {
         $uid = $this->subject->createFrontEndUserGroup();
-        self::assertNotSame(
-            0,
-            $uid
-        );
+        self::assertNotSame(0, $uid);
 
         $this->subject->cleanUp();
-        self::assertSame(
-            0,
-            $this->getDatabaseConnection()->selectCount('*', 'fe_groups', 'uid=' . $uid)
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_groups');
+        self::assertSame(0, $connection->count('*', 'fe_groups', ['uid' => $uid]));
     }
 
     /**
@@ -1962,16 +1934,10 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function frontEndUserCanBeCreated(): void
     {
         $uid = $this->subject->createFrontEndUser();
+        self::assertNotSame(0, $uid);
 
-        self::assertNotSame(
-            0,
-            $uid
-        );
-
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'fe_users', 'uid=' . $uid)
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        self::assertSame(1, $connection->count('*', 'fe_users', ['uid' => $uid]));
     }
 
     /**
@@ -1980,16 +1946,12 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function frontEndUserTableWillBeCleanedUp(): void
     {
         $uid = $this->subject->createFrontEndUser();
-        self::assertNotSame(
-            0,
-            $uid
-        );
+        self::assertNotSame(0, $uid);
 
         $this->subject->cleanUp();
-        self::assertSame(
-            0,
-            $this->getDatabaseConnection()->selectCount('*', 'fe_users', 'uid=' . $uid)
-        );
+
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        self::assertSame(0, $connection->count('*', 'fe_users', ['uid' => $uid]));
     }
 
     /**
@@ -2044,16 +2006,10 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $uid = $this->subject->createFrontEndUser(
             $feUserGroupUidOne . ', ' . $feUserGroupUidTwo . ', ' . $feUserGroupUidThree
         );
+        self::assertNotSame(0, $uid);
 
-        self::assertNotSame(
-            0,
-            $uid
-        );
-
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'fe_users', 'uid=' . $uid)
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        self::assertSame(1, $connection->count('*', 'fe_users', ['uid' => $uid]));
     }
 
     /**
@@ -2121,8 +2077,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
     {
         $this->subject->createFrontEndUser('');
 
-        $count = $this->getDatabaseConnection()->selectCount('*', 'fe_users');
-        self::assertSame(1, $count);
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_groups');
+        self::assertSame(1, $connection->count('*', 'fe_groups', []));
     }
 
     /**
@@ -2179,14 +2135,11 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createBackEndUserCreatesBackEndUserRecordInTheDatabase(): void
     {
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount(
-                '*',
-                'be_users',
-                'uid=' . $this->subject->createBackEndUser()
-            )
-        );
+        $uid = $this->subject->createBackEndUser();
+        self::assertNotSame(0, $uid);
+
+        $connection = $this->getConnectionPool()->getConnectionForTable('be_users');
+        self::assertSame(1, $connection->count('*', 'be_users', ['uid' => $uid]));
     }
 
     /**
@@ -2197,10 +2150,9 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $uid = $this->subject->createBackEndUser();
 
         $this->subject->cleanUp();
-        self::assertSame(
-            0,
-            $this->getDatabaseConnection()->selectCount('*', 'be_users', 'uid=' . $uid)
-        );
+
+        $connection = $this->getConnectionPool()->getConnectionForTable('be_users');
+        self::assertSame(0, $connection->count('*', 'be_users', ['uid' => $uid]));
     }
 
     /**
@@ -2656,10 +2608,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $this->subject->createFakeFrontEnd($pageUid);
         $this->subject->createAndLoginFrontEndUser();
 
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'fe_users')
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        self::assertSame(1, $connection->count('*', 'fe_users', []));
     }
 
     /**
@@ -2667,17 +2617,14 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createAndLoginFrontEndUserWithRecordDataCreatesFrontEndUserWithThatData(): void
     {
+        $name = 'John Doe';
         $pageUid = $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd($pageUid);
-        $this->subject->createAndLoginFrontEndUser(
-            '',
-            ['name' => 'John Doe']
-        );
 
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'fe_users', 'name = "John Doe"')
-        );
+        $this->subject->createAndLoginFrontEndUser('', ['name' => $name]);
+
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        self::assertSame(1, $connection->count('*', 'fe_users', ['name' => $name]));
     }
 
     /**
@@ -2702,10 +2649,8 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
         $this->subject->createAndLoginFrontEndUser($frontEndUserGroupUid);
 
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'fe_users')
-        );
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        self::assertSame(1, $connection->count('*', 'fe_users', []));
     }
 
     /**
@@ -2740,14 +2685,11 @@ final class TestingFrameworkTest extends FunctionalTestCase
         $pageUid = $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd($pageUid);
         $frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
-        $this->subject->createAndLoginFrontEndUser(
-            $frontEndUserGroupUid
-        );
 
-        self::assertSame(
-            1,
-            $this->getDatabaseConnection()->selectCount('*', 'fe_groups')
-        );
+        $this->subject->createAndLoginFrontEndUser($frontEndUserGroupUid);
+
+        $connection = $this->getConnectionPool()->getConnectionForTable('fe_groups');
+        self::assertSame(1, $connection->count('*', 'fe_groups', []));
     }
 
     /**
