@@ -468,7 +468,7 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         self::assertTrue($model->isGhost());
 
         $newTitle = 'bar';
-        $this->getDatabaseConnection()->updateArray('tx_oelib_test', ['uid' => $uid], ['title' => $newTitle]);
+        $connection->update('tx_oelib_test', ['title' => $newTitle], ['uid' => $uid]);
 
         $this->subject->reload($model);
 
@@ -491,7 +491,7 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         self::assertTrue($model->isLoaded());
 
         $newTitle = 'bar';
-        $this->getDatabaseConnection()->updateArray('tx_oelib_test', ['uid' => $uid], ['title' => $newTitle]);
+        $connection->update('tx_oelib_test', ['title' => $newTitle], ['uid' => $uid]);
 
         $this->subject->reload($model);
 
@@ -515,7 +515,7 @@ final class AbstractDataMapperTest extends FunctionalTestCase
         self::assertTrue($model->isDirty());
 
         $newTitle = 'bar';
-        $this->getDatabaseConnection()->updateArray('tx_oelib_test', ['uid' => $uid], ['title' => $newTitle]);
+        $connection->update('tx_oelib_test', ['title' => $newTitle], ['uid' => $uid]);
 
         $this->subject->reload($model);
 
