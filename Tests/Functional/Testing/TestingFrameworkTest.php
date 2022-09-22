@@ -1318,14 +1318,10 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function existsRecordWithUidForNoMatchReturnsFalse(): void
     {
         $uid = $this->subject->createRecord('tx_oelib_test');
-        $this->getDatabaseConnection()->delete('tx_oelib_test', ['uid' => $uid]);
+        $connection = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test');
+        $connection->delete('tx_oelib_test', ['uid' => $uid]);
 
-        self::assertFalse(
-            $this->subject->existsRecordWithUid(
-                'tx_oelib_test',
-                $uid
-            )
-        );
+        self::assertFalse($this->subject->existsRecordWithUid('tx_oelib_test', $uid));
     }
 
     /**
