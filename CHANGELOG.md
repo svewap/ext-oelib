@@ -32,7 +32,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the `ReadOnlyRepository` trait (#1103)
 - Drop `AbstractDataMapper::countByPageUid` (#1102)
 - Drop `LoginManager::getLoggedInUser` (#1101)
-- Drop the `PriceViewHelper` (#1100)
 - Drop the `GoogleMapsViewHelper` (#1099)
 - Drop `AbstractModel::getAsList` (#1095)
 - Drop support for TYPO3 9LTS (#1094)
