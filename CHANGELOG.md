@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Switch to the TYPO3 testing framework (#1130, #1132, #1148)
 
 ### Deprecated
+- Deprecate `Visibility\Tree` and `Visibility\Node` (#1192)
 - Deprecate the testing framework auto increment functionality (#1167)
 
 ### Removed
@@ -33,7 +34,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop `LoginManager::getLoggedInUser` (#1101)
 - Drop the `PriceViewHelper` (#1100)
 - Drop the `GoogleMapsViewHelper` (#1099)
-- Drop `Visibility\Tree` and `Visibility\Node` (#1097)
 - Drop `AbstractModel::getAsList` (#1095)
 - Drop support for TYPO3 9LTS (#1094)
 
