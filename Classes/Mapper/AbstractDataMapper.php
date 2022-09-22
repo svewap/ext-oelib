@@ -482,7 +482,8 @@ abstract class AbstractDataMapper
     {
         $modelData = [];
 
-        if ((int)$data[$key] > 0) {
+        $dataItem = (int)($data[$key] ?? 0);
+        if ($dataItem > 0) {
             if ($this->isModelAMemoryOnlyDummy($model)) {
                 throw new \InvalidArgumentException(
                     'This is a memory-only dummy which must not load any one-to-many relations from the database.',
@@ -505,7 +506,7 @@ abstract class AbstractDataMapper
             }
             $orderBy = $sortingField !== '' ? [$sortingField => 'ASC'] : [];
             $queryResult = $this->getConnectionForTable($foreignTable)
-                ->select(['*'], $foreignTable, [$foreignField => (int)$data['uid']], [], $orderBy);
+                ->select(['*'], $foreignTable, [$foreignField => (int)($data['uid'] ?? 0)], [], $orderBy);
             if (\method_exists($queryResult, 'fetchAllAssociative')) {
                 /** @var DatabaseRow[] $modelData */
                 $modelData = $queryResult->fetchAllAssociative();
@@ -530,7 +531,7 @@ abstract class AbstractDataMapper
      */
     private function createManyToOneRelation(array &$data, string $key): void
     {
-        $uid = isset($data[$key]) ? (int)$data[$key] : 0;
+        $uid = (int)($data[$key] ?? 0);
 
         $data[$key] = $uid > 0 ? $this->getRelationMapperByKey($key)->find($uid) : null;
     }
@@ -547,7 +548,7 @@ abstract class AbstractDataMapper
         $list = new Collection();
         $list->setParentModel($model);
 
-        $uidList = isset($data[$key]) ? trim((string)$data[$key]) : '';
+        $uidList = \trim((string)($data[$key] ?? ''));
         if ($uidList !== '') {
             $mapper = $this->getRelationMapperByKey($key);
             foreach (GeneralUtility::intExplode(',', $uidList, true) as $uid) {
@@ -578,7 +579,8 @@ abstract class AbstractDataMapper
         $list = new Collection();
         $list->setParentModel($model);
 
-        if ((int)$data[$key] > 0) {
+        $dataItem = (int)($data[$key] ?? 0);
+        if ($dataItem > 0) {
             $mapper = $this->getRelationMapperByKey($key);
             $relationConfiguration = $this->getRelationConfigurationFromTca($key);
             $mnTable = $relationConfiguration['MM'] ?? '';
@@ -586,7 +588,7 @@ abstract class AbstractDataMapper
                 throw new \UnexpectedValueException('MM relation information missing.', 1646236363);
             }
 
-            $rightUid = (int)$data['uid'];
+            $rightUid = (int)($data['uid'] ?? 0);
             if (isset($relationConfiguration['MM_opposite_field'])) {
                 $leftColumn = 'uid_local';
                 $rightColumn = 'uid_foreign';
@@ -841,14 +843,15 @@ abstract class AbstractDataMapper
         $data = $model->getData();
 
         foreach ($this->relations as $key => $relation) {
+            $dataItem = $data[$key] ?? null;
             $relatedMapper = $this->getRelationMapperByKey($key);
             if ($this->isOneToManyRelationConfigured($key)) {
                 $methodName = 'count';
             } elseif ($this->isManyToOneRelationConfigured($key)) {
                 $methodName = 'getUid';
 
-                if ($data[$key] instanceof AbstractModel) {
-                    $this->saveManyToOneRelatedModels($data[$key], $relatedMapper);
+                if ($dataItem instanceof AbstractModel) {
+                    $this->saveManyToOneRelatedModels($dataItem, $relatedMapper);
                 }
             } else {
                 if ($this->isManyToManyRelationConfigured($key)) {
@@ -857,14 +860,13 @@ abstract class AbstractDataMapper
                     $methodName = 'getUids';
                 }
 
-                $relatedData = $data[$key];
-                if ($relatedData instanceof Collection) {
-                    $this->saveManyToManyAndCommaSeparatedRelatedModels($relatedData, $relatedMapper);
+                if ($dataItem instanceof Collection) {
+                    $this->saveManyToManyAndCommaSeparatedRelatedModels($dataItem, $relatedMapper);
                 }
             }
 
             // @phpstan-ignore-next-line This variable method access is okay.
-            $data[$key] = (isset($data[$key]) && \is_object($data[$key])) ? $data[$key]->{$methodName}() : 0;
+            $data[$key] = \is_object($dataItem) ? $dataItem->{$methodName}() : 0;
         }
 
         foreach ($data as &$dataItem) {
@@ -951,7 +953,8 @@ abstract class AbstractDataMapper
         $data = $model->getData();
 
         foreach (\array_keys($this->relations) as $key) {
-            if (!($data[$key] instanceof Collection) || !$this->isManyToManyRelationConfigured($key)) {
+            $dataItem = $data[$key] ?? null;
+            if (!($dataItem instanceof Collection) || !$this->isManyToManyRelationConfigured($key)) {
                 continue;
             }
 
@@ -963,7 +966,7 @@ abstract class AbstractDataMapper
             }
 
             /** @var AbstractModel $relatedModel */
-            foreach ($data[$key] as $relatedModel) {
+            foreach ($dataItem as $relatedModel) {
                 if (isset($relationConfiguration['MM_opposite_field'])) {
                     $uidLocal = $relatedModel->getUid();
                     $uidForeign = $model->getUid();
@@ -993,7 +996,7 @@ abstract class AbstractDataMapper
             if (!$this->isOneToManyRelationConfigured($key)) {
                 continue;
             }
-            $relatedModels = $data[$key];
+            $relatedModels = $data[$key] ?? null;
             if (!$relatedModels instanceof Collection) {
                 continue;
             }
@@ -1118,7 +1121,7 @@ abstract class AbstractDataMapper
 
         foreach ($this->relations as $key => $mapperName) {
             if ($this->isOneToManyRelationConfigured($key)) {
-                $relatedModels = $data[$key];
+                $relatedModels = $data[$key] ?? null;
                 if (!$relatedModels instanceof Collection) {
                     continue;
                 }
@@ -1336,8 +1339,9 @@ abstract class AbstractDataMapper
     private function cacheModelByKeys(AbstractModel $model, array $data): void
     {
         foreach ($this->additionalKeys as $key) {
-            if (isset($data[$key])) {
-                $value = (string)$data[$key];
+            $dataItem = $data[$key] ?? null;
+            if ($dataItem !== null) {
+                $value = (string)$dataItem;
                 if ($value !== '') {
                     $this->cacheByKey[$key][$value] = $model;
                 }
@@ -1387,7 +1391,8 @@ abstract class AbstractDataMapper
         }
         $values = [];
         foreach ($this->compoundKeyParts as $key) {
-            if (isset($data[$key])) {
+            $dataItem = $data[$key] ?? null;
+            if ($dataItem !== null) {
                 $values[] = $data[$key];
             }
         }
