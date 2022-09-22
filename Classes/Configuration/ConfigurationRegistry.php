@@ -137,17 +137,17 @@ class ConfigurationRegistry
     {
         $data = $this->getCompleteTypoScriptSetup();
 
-        foreach (\explode('.', $namespace) as $namespacePart) {
-            if (!\array_key_exists($namespacePart . '.', $data)) {
+        foreach (\explode('.', $namespace) as $namespaceSegment) {
+            $data = $data[$namespaceSegment . '.'] ?? null;
+            if (!\is_array($data)) {
                 $data = [];
                 break;
             }
-
-            $data = $data[$namespacePart . '.'];
         }
 
         $configuration = GeneralUtility::makeInstance(TypoScriptConfiguration::class);
         $configuration->setData($data);
+
         return $configuration;
     }
 
