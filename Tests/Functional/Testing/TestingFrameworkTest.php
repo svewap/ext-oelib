@@ -894,12 +894,12 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function cleanUpRestoresHttpHostAfterCreateFakeFrontEnd(): void
     {
-        $previous = $GLOBALS['_SERVER']['HTTP_HOST'];
+        $previous = $GLOBALS['_SERVER']['HTTP_HOST'] ?? null;
         $this->subject->createFakeFrontEnd();
 
         $this->subject->cleanUp();
 
-        self::assertSame($previous, $GLOBALS['_SERVER']['HTTP_HOST']);
+        self::assertSame($previous, $GLOBALS['_SERVER']['HTTP_HOST'] ?? null);
     }
 
     /**
@@ -978,12 +978,12 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function cleanUpWithoutDatabaseRestoresHttpHostAfterCreateFakeFrontEnd(): void
     {
-        $previous = $GLOBALS['_SERVER']['HTTP_HOST'];
+        $previous = $GLOBALS['_SERVER']['HTTP_HOST'] ?? null;
         $this->subject->createFakeFrontEnd();
 
         $this->subject->cleanUpWithoutDatabase();
 
-        self::assertSame($previous, $GLOBALS['_SERVER']['HTTP_HOST']);
+        self::assertSame($previous, $GLOBALS['_SERVER']['HTTP_HOST'] ?? null);
     }
 
     /**
@@ -2608,12 +2608,12 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function createFakeFrontSetsDummyGlobalHttpHost(): void
     {
         $expected = 'typo3-test.dev';
-        $previous = $GLOBALS['_SERVER']['HTTP_HOST'];
+        $previous = $GLOBALS['_SERVER']['HTTP_HOST'] ?? null;
         self::assertNotSame($expected, $previous);
 
         $this->subject->createFakeFrontEnd();
 
-        self::assertSame($expected, $GLOBALS['_SERVER']['HTTP_HOST']);
+        self::assertSame($expected, $GLOBALS['_SERVER']['HTTP_HOST'] ?? null);
     }
 
     /**
@@ -2626,7 +2626,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
 
         $this->subject->createFakeFrontEnd();
 
-        self::assertNotSame($previousRequest, $GLOBALS['TYPO3_REQUEST']);
+        self::assertNotSame($previousRequest, $GLOBALS['TYPO3_REQUEST'] ?? null);
     }
 
     /**

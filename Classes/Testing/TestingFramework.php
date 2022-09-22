@@ -986,7 +986,7 @@ routes: {  }";
     private function setPageIndependentGlobalsForFakeFrontEnd(): void
     {
         if (!\is_array($this->serverVariablesBackup)) {
-            $this->serverVariablesBackup = $GLOBALS['_SERVER'];
+            $this->serverVariablesBackup = $GLOBALS['_SERVER'] ?? null;
         }
 
         GeneralUtility::flushInternalRuntimeCaches();
@@ -1502,7 +1502,7 @@ routes: {  }";
             $data = $queryResult->fetchAll();
         }
 
-        return (int)$data['uid'];
+        return (int)($data['uid'] ?? 0);
     }
 
     /**
