@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Email;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Email\GeneralEmailRole;
 use OliverKlee\Oelib\Interfaces\ConvertableToMimeAddress;
 use OliverKlee\Oelib\Interfaces\MailRole;
 use Symfony\Component\Mime\Address;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Email\GeneralEmailRole

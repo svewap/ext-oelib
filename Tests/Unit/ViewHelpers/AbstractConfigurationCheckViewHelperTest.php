@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Configuration\ExtbaseConfiguration;
@@ -13,6 +12,7 @@ use OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures\TestingConfigurationCheckVi
 use OliverKlee\Oelib\ViewHelpers\AbstractConfigurationCheckViewHelper;
 use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\Variables\VariableProviderInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;

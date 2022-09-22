@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Model;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Model\AbstractModel

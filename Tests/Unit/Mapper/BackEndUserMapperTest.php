@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Mapper;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Mapper\AbstractDataMapper;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use OliverKlee\Oelib\Model\BackEndUser;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Mapper\BackEndUserMapper

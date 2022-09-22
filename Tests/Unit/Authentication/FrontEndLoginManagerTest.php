@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Authentication;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Authentication\FrontEndLoginManager

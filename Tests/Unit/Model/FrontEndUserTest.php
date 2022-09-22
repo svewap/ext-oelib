@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Interfaces\ConvertableToMimeAddress;
 use OliverKlee\Oelib\Interfaces\MailRole;
@@ -13,6 +12,7 @@ use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
 use Symfony\Component\Mime\Address;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Model\FrontEndUser

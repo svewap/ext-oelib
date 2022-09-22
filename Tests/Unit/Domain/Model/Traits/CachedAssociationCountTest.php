@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Domain\Model\Traits;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\ParentModel;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Domain\Model\Traits\CachedAssociationCount

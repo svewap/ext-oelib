@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Http;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Http\HeaderCollector;
 use OliverKlee\Oelib\Http\HeaderProxyFactory;
 use OliverKlee\Oelib\Http\RealHeaderProxy;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Http\HeaderCollector

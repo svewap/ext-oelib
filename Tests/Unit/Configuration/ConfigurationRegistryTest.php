@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Configuration\ConfigurationRegistry

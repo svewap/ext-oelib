@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Domain\Model;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Domain\Model\GermanZipCode;
 use OliverKlee\Oelib\Interfaces\Geo;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Domain\Model\GermanZipCode

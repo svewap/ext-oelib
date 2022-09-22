@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Configuration;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Testing\TestingFramework;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Configuration\PageFinder

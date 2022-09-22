@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Language;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use OliverKlee\Oelib\Tests\Functional\Language\Fixtures\TestingSalutationSwitcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Language\SalutationSwitcher
@@ -38,8 +38,9 @@ final class SalutationSwitcherTest extends FunctionalTestCase
 
     protected function tearDown(): void
     {
-        GeneralUtility::purgeInstances();
         $this->testingFramework->cleanUpWithoutDatabase();
+        GeneralUtility::purgeInstances();
+        parent::tearDown();
     }
 
     /**

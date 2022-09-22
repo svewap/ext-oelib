@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Mapper\BackEndUserGroupMapper

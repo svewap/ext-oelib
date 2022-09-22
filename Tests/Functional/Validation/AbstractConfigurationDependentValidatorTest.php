@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Validation;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Tests\Functional\Validation\Fixtures\TestingConfigurationDependentValidator;
 use OliverKlee\Oelib\Tests\Functional\Validation\Fixtures\TestingValidatableModel;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -13,6 +12,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Validation\AbstractConfigurationDependentValidator

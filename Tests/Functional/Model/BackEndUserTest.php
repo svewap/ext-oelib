@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Model;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Mapper\BackEndUserGroupMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Model\BackEndUser

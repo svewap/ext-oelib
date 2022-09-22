@@ -521,11 +521,6 @@ parameters:
 			path: Classes/ViewHelpers/DynamicDateViewHelper.php
 
 		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\BackEndLoginManagerTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Authentication/BackEndLoginManagerTest.php
-
-		-
 			message: "#^Instanceof between TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication and TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication will always evaluate to true\\.$#"
 			count: 1
 			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
@@ -536,114 +531,9 @@ parameters:
 			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
 
 		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Authentication\\\\FrontEndLoginManagerTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Authentication/FrontEndLoginManagerTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\AbstractConfigurationCheckTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Configuration/AbstractConfigurationCheckTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\ConfigurationRegistryTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Configuration/ConfigurationRegistryTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Configuration\\\\PageFinderTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Configuration/PageFinderTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Domain\\\\Repository\\\\GermanZipCodeRepositoryTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Domain/Repository/GermanZipCodeRepositoryTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Domain\\\\Repository\\\\PageRepositoryTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Domain/Repository/PageRepositoryTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Language\\\\SalutationSwitcherTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Language/SalutationSwitcherTest.php
-
-		-
 			message: "#^Call to an undefined method Doctrine\\\\DBAL\\\\Result\\:\\:fetch\\(\\)\\.$#"
 			count: 2
 			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\AbstractDataMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Mapper/BackEndUserGroupMapperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\BackEndUserMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Mapper/BackEndUserMapperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CountryMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Mapper/CountryMapperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\CurrencyMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Mapper/CurrencyMapperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FederalStateMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Mapper/FederalStateMapperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserGroupMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Mapper/FrontEndUserGroupMapperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\FrontEndUserMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Mapper/FrontEndUserMapperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Mapper\\\\LanguageMapperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Mapper/LanguageMapperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\AbstractModelTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Model/AbstractModelTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\BackEndUserTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Model/BackEndUserTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Model\\\\FrontEndUserTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Model/FrontEndUserTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Templating\\\\TemplateHelperTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Templating/TemplateHelperTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\CacheNullifyerTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Testing/CacheNullifyerTest.php
 
 		-
 			message: "#^Call to an undefined method Doctrine\\\\DBAL\\\\Result\\:\\:fetch\\(\\)\\.$#"
@@ -664,21 +554,6 @@ parameters:
 			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\TestingFrameworkTest\\:\\:getFrontEndController\\(\\) should return TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController but returns mixed\\.$#"
 			count: 1
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\TestingFrameworkTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Testing/TestingFrameworkTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\WritableEnvironmentTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Testing/WritableEnvironmentTest.php
-
-		-
-			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Validation\\\\AbstractConfigurationDependentValidatorTest\\:\\:\\$testExtensionsToLoad type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Tests/Functional/Validation/AbstractConfigurationDependentValidatorTest.php
 
 		-
 			message: "#^Cannot access offset 'MAIL' on mixed\\.$#"

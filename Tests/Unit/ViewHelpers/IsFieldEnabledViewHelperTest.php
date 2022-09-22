@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\ViewHelpers\IsFieldEnabledViewHelper;
 use Prophecy\Prophecy\ObjectProphecy;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\Variables\VariableProviderInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Mapper;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingChildMapper;
 use OliverKlee\Oelib\Tests\Unit\Mapper\Fixtures\TestingMapper;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Mapper\MapperRegistry

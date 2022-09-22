@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Domain\Repository;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Domain\Repository\PageRepository;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Domain\Repository\PageRepository

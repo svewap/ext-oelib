@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Email;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Email\GeneralEmailRole;
 use OliverKlee\Oelib\Email\SystemEmailFromBuilder;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Email\SystemEmailFromBuilder

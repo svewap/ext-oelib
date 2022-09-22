@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Geocoding\DummyGeocodingLookup;
 use OliverKlee\Oelib\Geocoding\GoogleGeocoding;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Geocoding\GoogleGeocoding

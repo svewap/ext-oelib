@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\DataStructures;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures\TestingReadOnlyObjectWithPublicAccessors;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithAccessors

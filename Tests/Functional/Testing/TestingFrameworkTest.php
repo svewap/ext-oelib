@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Testing;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,6 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Testing\TestingFramework
@@ -44,6 +44,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     protected function tearDown(): void
     {
         $this->subject->cleanUpWithoutDatabase();
+        parent::tearDown();
     }
 
     // Utility functions.

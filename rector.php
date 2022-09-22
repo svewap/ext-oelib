@@ -14,6 +14,10 @@ use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
 
+/**
+ * This configuration file is for Rector 0.13.4. Higher versions need the dedicated TYPO3 Rector
+ * package and a different configuration.
+ */
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths(
         [
@@ -76,6 +80,7 @@ return static function (RectorConfig $rectorConfig): void {
         // Typo3SetList::UNDERSCORE_TO_NAMESPACE,
         // Typo3SetList::EXTBASE_COMMAND_CONTROLLERS_TO_SYMFONY_COMMANDS,
         // Typo3SetList::REGISTER_ICONS_TO_ICON,
+        // Typo3SetList::NIMUT_TESTING_FRAMEWORK_TO_TYPO3_TESTING_FRAMEWORK,
 
         // SetList::CODE_QUALITY,
         // SetList::CODING_STYLE,

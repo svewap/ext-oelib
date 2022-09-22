@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Logging\Traits;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Logging\Interfaces\LoggingAware;
 use OliverKlee\Oelib\Tests\Unit\Logging\Fixtures\TestingLoggingAware;
 use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Core\Log\LogManagerInterface;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Logging\Traits\LoggingAware

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Templating;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Templating\Template;
 use OliverKlee\Oelib\Templating\TemplateRegistry;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Templating\TemplateRegistry

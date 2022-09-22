@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Domain\Repository;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Domain\Model\GermanZipCode;
 use OliverKlee\Oelib\Domain\Repository\GermanZipCodeRepository;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Domain\Model\GermanZipCode

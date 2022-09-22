@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Templating;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Tests\Unit\Templating\Fixtures\TestingTemplateHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Templating\TemplateHelper
@@ -41,6 +41,7 @@ final class TemplateHelperTest extends FunctionalTestCase
     protected function tearDown(): void
     {
         ConfigurationProxy::purgeInstances();
+        parent::tearDown();
     }
 
     ///////////////////////////////

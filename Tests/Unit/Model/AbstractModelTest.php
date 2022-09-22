@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\ReadOnlyModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Model\AbstractModel

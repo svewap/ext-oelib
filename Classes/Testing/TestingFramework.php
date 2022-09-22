@@ -710,8 +710,9 @@ final class TestingFramework
     }
 
     /**
-     * Cleanup without deleting dummy records. Use this method instead of cleanUp() for better performance when
-     * another testing framework (e.g., nimut/testing-framework) already takes care of cleaning up old database records.
+     * Cleanup without deleting dummy records. Use this method instead of `cleanUp()` for better performance when
+     * another testing framework (e.g., `typo3/testing-framework` or `nimut/testing-framework`) already takes care
+     * of cleaning up old database records.
      */
     public function cleanUpWithoutDatabase(): void
     {

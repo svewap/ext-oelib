@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Geocoding;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Geocoding\GeoCalculator;
 use OliverKlee\Oelib\Interfaces\Geo;
 use OliverKlee\Oelib\Model\AbstractModel;
 use OliverKlee\Oelib\Tests\Unit\Geocoding\Fixtures\TestingGeo;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Geocoding\GeoCalculator

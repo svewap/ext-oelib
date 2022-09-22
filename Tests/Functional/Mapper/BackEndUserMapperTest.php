@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use OliverKlee\Oelib\Model\BackEndUser;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Mapper\BackEndUserMapper

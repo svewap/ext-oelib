@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Interfaces\ConvertableToMimeAddress;
 use OliverKlee\Oelib\Interfaces\MailRole;
 use OliverKlee\Oelib\Model\BackEndUser;
 use OliverKlee\Oelib\Model\BackEndUserGroup;
 use Symfony\Component\Mime\Address;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Model\BackEndUser

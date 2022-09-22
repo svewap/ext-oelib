@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Model;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Model\FrontEndUserGroup

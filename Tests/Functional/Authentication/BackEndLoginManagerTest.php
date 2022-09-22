@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Authentication;
 
-use Nimut\TestingFramework\Exception\Exception as NimutException;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\BackEndLoginManager;
 use OliverKlee\Oelib\Mapper\BackEndUserMapper;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
 use OliverKlee\Oelib\Model\BackEndUser;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Authentication\BackEndLoginManager
@@ -37,9 +36,6 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
         $this->subject = BackEndLoginManager::getInstance();
     }
 
-    /**
-     * @throws NimutException
-     */
     private function logInBackEndUser(): void
     {
         $this->setUpBackendUserFromFixture(1);

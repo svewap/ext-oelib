@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Domain\Model\Traits;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\EmptyModel;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\LazyLoadingModel;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Domain\Model\Traits\LazyLoadingProperties

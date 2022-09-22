@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\MapperRegistry;
@@ -18,6 +17,7 @@ use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingChildModel;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Mapper\AbstractDataMapper

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Domain\Repository\Traits;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Domain\Repository\Interfaces\DirectPersist;
 use OliverKlee\Oelib\Tests\Unit\Domain\Repository\Fixtures\DirectPersistRepository;
 use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Domain\Repository\Traits\DirectPersist

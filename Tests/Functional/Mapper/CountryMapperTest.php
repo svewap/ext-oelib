@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
-use Nimut\TestingFramework\Exception\Exception as NimutException;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\CountryMapper;
 use OliverKlee\Oelib\Model\Country;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Mapper\CountryMapper
@@ -32,8 +31,6 @@ final class CountryMapperTest extends FunctionalTestCase
 
     /**
      * Imports static records - but only if they aren't already available as static data.
-     *
-     * @throws NimutException
      */
     private function importStaticData(): void
     {

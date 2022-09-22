@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Authentication;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Authentication\FrontEndLoginManager;
 use OliverKlee\Oelib\Model\FrontEndUser;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Authentication\FrontEndLoginManager

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper;
 use OliverKlee\Oelib\Model\FrontEndUserGroup;
 use OliverKlee\Oelib\Testing\TestingFramework;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Mapper\FrontEndUserGroupMapper
@@ -38,6 +38,7 @@ final class FrontEndUserGroupMapperTest extends FunctionalTestCase
     protected function tearDown(): void
     {
         $this->testingFramework->cleanUpWithoutDatabase();
+        parent::tearDown();
     }
 
     /////////////////////////////////////////

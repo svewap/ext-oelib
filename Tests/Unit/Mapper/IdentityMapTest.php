@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Mapper;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Exception\NotFoundException;
 use OliverKlee\Oelib\Mapper\IdentityMap;
 use OliverKlee\Oelib\Tests\Unit\Model\Fixtures\TestingModel;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Mapper\IdentityMap

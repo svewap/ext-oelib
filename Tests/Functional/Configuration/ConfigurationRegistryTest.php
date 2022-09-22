@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Configuration;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\Configuration\ConfigurationRegistry;
 use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Configuration\PageFinder;
 use OliverKlee\Oelib\Configuration\TypoScriptConfiguration;
 use OliverKlee\Oelib\Testing\TestingFramework;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Configuration\ConfigurationRegistry
@@ -33,6 +33,7 @@ final class ConfigurationRegistryTest extends FunctionalTestCase
     protected function tearDown(): void
     {
         $this->testingFramework->cleanUpWithoutDatabase();
+        parent::tearDown();
     }
 
     ////////////////////////////////

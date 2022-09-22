@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Configuration;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Configuration\AbstractConfigurationCheck;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\TestingConfigurationCheck;
 use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Configuration\AbstractConfigurationCheck

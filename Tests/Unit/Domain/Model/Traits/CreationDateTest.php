@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Domain\Model\Traits;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Domain\Model\Interfaces\CreationDate;
 use OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\CreatedModel;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Domain\Model\Traits\CreationDate

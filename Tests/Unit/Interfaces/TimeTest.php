@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Interfaces;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Interfaces\Time;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @coversNothing

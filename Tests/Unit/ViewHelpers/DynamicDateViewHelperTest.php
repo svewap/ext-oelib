@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\ViewHelpers\DynamicDateViewHelper;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;

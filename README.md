@@ -32,7 +32,7 @@ To run all unit tests in a directory or file (using the directory
 `Tests/Unit/Model/` as an example):
 
 ```bash
-.Build/vendor/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/Model/
+.Build/vendor/bin/phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/Model/
 ```
 
 #### In PhpStorm
@@ -46,7 +46,7 @@ your project.
 
 In the Run/Debug configurations for PHPUnit, use an alternative configuration file:
 
-`.Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml`
+`.Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml`
 
 ### Running the functional tests
 
@@ -77,7 +77,7 @@ To run all functional tests in a directory or file (using the directory
 `Tests/Functional/Authentication/` as an example):
 
 ```bash
-typo3DatabaseUsername=typo3 typo3DatabasePassword=typo3pass typo3DatabaseName=typo3_test .Build/vendor/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional/Authentication/
+typo3DatabaseUsername=typo3 typo3DatabasePassword=typo3pass typo3DatabaseName=typo3_test .Build/vendor/bin/phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml Tests/Functional/Authentication/
 ```
 
 #### In PhpStorm
@@ -91,7 +91,7 @@ your project.
 
 In the Run/Debug configurations for PHPUnit, use an alternative configuration file:
 
-`.Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml`
+`.Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml`
 
 Also set the following environment variables in your runner configuration:
 

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Unit\Testing;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Testing\CacheNullifyer;
 use OliverKlee\Oelib\Testing\ExtendedGeneralUtility;
 use OliverKlee\Oelib\Tests\Unit\Testing\Fixtures\TestingSubclass;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \OliverKlee\Oelib\Testing\CacheNullifyer
