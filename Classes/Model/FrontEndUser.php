@@ -612,6 +612,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address, Convertab
         }
 
         $currentTimestamp = $GLOBALS['EXEC_TIME'];
+        \assert(\is_int($currentTimestamp));
         $birthTimestamp = $this->getDateOfBirth();
 
         $currentYear = (int)strftime('%Y', $currentTimestamp);
