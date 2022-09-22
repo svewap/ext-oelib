@@ -8,7 +8,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Tests\Unit\DataStructures\Fixtures\TestingReadOnlyObjectWithPublicAccessors;
 
 /**
- * @covers \OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectAccessors
+ * @covers \OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithAccessors
  * @covers \OliverKlee\Oelib\DataStructures\AbstractReadOnlyObjectWithPublicAccessors
  */
 final class AbstractReadOnlyObjectWithAccessorsTest extends UnitTestCase

@@ -8,7 +8,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use OliverKlee\Oelib\Interfaces\Time;
 
 /**
- * @covers \OliverKlee\Oelib\Interfaces\Time
+ * @coversNothing
  */
 final class TimeTest extends UnitTestCase
 {
