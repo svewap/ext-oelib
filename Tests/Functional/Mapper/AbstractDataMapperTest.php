@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\Oelib\Tests\Functional\Mapper;
 
-use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use OliverKlee\Oelib\DataStructures\Collection;
 use OliverKlee\Oelib\Exception\NotFoundException;
@@ -23,6 +22,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * @covers \OliverKlee\Oelib\Mapper\AbstractDataMapper
  * @covers \OliverKlee\Oelib\Model\AbstractModel
+ *
+ * @phpstan-type DatabaseColumn string|int|float|bool|null
+ * @phpstan-type DatabaseRow array<string, DatabaseColumn>
  */
 final class AbstractDataMapperTest extends FunctionalTestCase
 {
@@ -1937,11 +1939,17 @@ final class AbstractDataMapperTest extends FunctionalTestCase
 
         $uid = $model->getUid();
 
-        /** @var MysqliStatement<string|int|float> $result */
-        $result = $this->getDatabaseConnection()->select('*', 'tx_oelib_test', 'uid = ' . $uid);
-        /** @var array<string, string|int|float> $data */
-        $data = $result->fetch();
+        $result = $this->getConnectionPool()->getConnectionForTable('tx_oelib_test')
+            ->select(['*'], 'tx_oelib_test', ['uid' => $uid]);
+        if (\method_exists($result, 'fetchAssociative')) {
+            /** @var DatabaseRow|false $data */
+            $data = $result->fetchAssociative();
+        } else {
+            /** @var DatabaseRow|false $data */
+            $data = $result->fetch();
+        }
 
+        self::assertIsArray($data);
         self::assertSame($expectedValue, $data[$propertyName]);
     }
 
@@ -2861,17 +2869,24 @@ final class AbstractDataMapperTest extends FunctionalTestCase
     }
 
     /**
-     * @param int $uid
-     *
-     * @return array<string, string|int>
+     * @return DatabaseRow
      */
     private function findRecordByUid(int $uid): array
     {
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tx_oelib_test');
         $columns = ['float_data', 'decimal_data', 'string_data'];
+        $result = $connection->select($columns, 'tx_oelib_test', ['uid' => $uid]);
+        if (\method_exists($result, 'fetchAssociative')) {
+            /** @var DatabaseRow|false $data */
+            $data = $result->fetchAssociative();
+        } else {
+            /** @var DatabaseRow|false $data */
+            $data = $result->fetch();
+        }
+        self::assertIsArray($data);
 
-        return $connection->select($columns, 'tx_oelib_test', ['uid' => $uid])->fetch();
+        return $data;
     }
 
     /////////////////////////////

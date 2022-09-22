@@ -653,11 +653,13 @@ abstract class AbstractDataMapper
         }
 
         if (\method_exists($result, 'fetchAssociative')) {
+            /** @var DatabaseRow|false $data */
             $data = $result->fetchAssociative();
         } else {
+            /** @var DatabaseRow|false $data */
             $data = $result->fetch();
         }
-        if ($data === false) {
+        if (!\is_array($data)) {
             throw new NotFoundException(
                 'No records found in the table "' . $tableName . '" matching: ' . \json_encode($whereClauseParts)
             );
