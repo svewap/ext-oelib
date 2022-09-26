@@ -34,7 +34,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop `LoginManager::getLoggedInUser` (#1101)
 - Drop the `GoogleMapsViewHelper` (#1099)
 - Drop `AbstractModel::getAsList` (#1095)
-- Drop support for TYPO3 9LTS (#1094)
+- Drop support for TYPO3 9LTS (#1094, #1206)
 
 ### Fixed
 - Harden the `ConfigurationRegistry` (#1195)
