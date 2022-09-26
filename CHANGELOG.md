@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 5.0.0
+
+### Added
 - Add support for PHP 8.1 and 8.2 (#1127, #1200)
 - Add support for TYPO3 11LTS (#1114, #1115, #1123, #1126, #1131, #1136, #1174, #1180)
 - Add a `ConvertableToMimeAddress` interface and trait (#1092)
