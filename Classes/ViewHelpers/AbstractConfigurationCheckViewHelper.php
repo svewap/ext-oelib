@@ -59,7 +59,7 @@ abstract class AbstractConfigurationCheckViewHelper extends AbstractViewHelper
         }
         $configuration = new ExtbaseConfiguration($settings);
         $configurationCheckClassName = static::getConfigurationCheckClassName();
-        $configurationCheck = new $configurationCheckClassName($configuration, static::getConfigurationNamespace());
+        $configurationCheck = new $configurationCheckClassName($configuration, self::getConfigurationNamespace());
         $configurationCheck->check();
 
         return \implode("\n", $configurationCheck->getWarningsAsHtml());
