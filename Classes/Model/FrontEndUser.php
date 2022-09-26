@@ -615,15 +615,14 @@ class FrontEndUser extends AbstractModel implements MailRole, Address, Convertab
         \assert(\is_int($currentTimestamp));
         $birthTimestamp = $this->getDateOfBirth();
 
-        $currentYear = (int)strftime('%Y', $currentTimestamp);
-        $currentMonth = (int)strftime('%m', $currentTimestamp);
-        $currentDay = (int)strftime('%d', $currentTimestamp);
-        $birthYear = (int)strftime('%Y', $birthTimestamp);
-        $birthMonth = (int)strftime('%m', $birthTimestamp);
-        $birthDay = (int)strftime('%d', $birthTimestamp);
+        $currentYear = (int)\date('Y', $currentTimestamp);
+        $currentMonth = (int)\date('m', $currentTimestamp);
+        $currentDay = (int)\date('d', $currentTimestamp);
+        $birthYear = (int)\date('Y', $birthTimestamp);
+        $birthMonth = (int)\date('m', $birthTimestamp);
+        $birthDay = (int)\date('d', $birthTimestamp);
 
         $age = $currentYear - $birthYear;
-
         if ($currentMonth < $birthMonth) {
             $age--;
         } elseif ($currentMonth === $birthMonth) {
