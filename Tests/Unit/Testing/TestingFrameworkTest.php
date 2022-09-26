@@ -48,6 +48,7 @@ final class TestingFrameworkTest extends UnitTestCase
         $cleanUpWithoutDatabaseHookMock->expects(self::atLeastOnce())->method('cleanUp');
         $hookClassName = \get_class($cleanUpWithoutDatabaseHookMock);
 
+        // @phpstan-ignore-next-line We know that the necessary array keys exist.
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oelib']['testingFrameworkCleanUp'][$hookClassName] = $hookClassName;
         GeneralUtility::addInstance($hookClassName, $cleanUpWithoutDatabaseHookMock);
 

@@ -599,8 +599,3 @@ parameters:
 			message: "#^Property OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\FrontEndUserTest\\:\\:\\$tcaBackup \\(array\\<string, mixed\\>\\) does not accept mixed\\.$#"
 			count: 1
 			path: Tests/Unit/Model/FrontEndUserTest.php
-
-		-
-			message: "#^Cannot access offset class\\-string\\<OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Testing\\\\Fixtures\\\\TestingCleanup\\>&class\\-string\\<PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\> on mixed\\.$#"
-			count: 1
-			path: Tests/Unit/Testing/TestingFrameworkTest.php
