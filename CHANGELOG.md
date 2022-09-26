@@ -37,6 +37,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop support for TYPO3 9LTS (#1094, #1206)
 
 ### Fixed
+- Stop using the deprecated `strftime` (#1207)
 - Harden the `ConfigurationRegistry` (#1195)
 - Fix invalid array accesses in `TestingFramework` (#1179)
 - Fix invalid array accesses in `AbstractDataMapper` (#1170)
