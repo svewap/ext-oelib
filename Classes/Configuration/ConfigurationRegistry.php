@@ -19,7 +19,7 @@ class ConfigurationRegistry
     /**
      * @var ConfigurationRegistry|null the Singleton instance
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * @var array<string, ConfigurationInterface> already created configurations (by namespace)

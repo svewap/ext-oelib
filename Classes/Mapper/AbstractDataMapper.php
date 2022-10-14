@@ -45,7 +45,7 @@ abstract class AbstractDataMapper
      * @var IdentityMap a map that holds the models that already
      *                           have been retrieved
      */
-    protected $map = null;
+    protected $map;
 
     /**
      * @var array<int, true> UIDs of models that are memory-only models that must not be saved,
@@ -95,7 +95,7 @@ abstract class AbstractDataMapper
     /**
      * @var TestingFramework|null
      */
-    protected $testingFramework = null;
+    protected $testingFramework;
 
     /**
      * The constructor.
@@ -104,14 +104,14 @@ abstract class AbstractDataMapper
     {
         // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if ($this->getTableName() === '') {
-            throw new \InvalidArgumentException(\get_class($this) . '::tableName must not be empty.', 1331319361);
+            throw new \InvalidArgumentException(static::class . '::tableName must not be empty.', 1331319361);
         }
         // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if ($this->columns === '') {
-            throw new \InvalidArgumentException(\get_class($this) . '::columns must not be empty.', 1331319374);
+            throw new \InvalidArgumentException(static::class . '::columns must not be empty.', 1331319374);
         }
         if (!\is_string($this->modelClassName)) {
-            throw new \InvalidArgumentException(\get_class($this) . '::modelClassName must not be empty.', 1331319378);
+            throw new \InvalidArgumentException(static::class . '::modelClassName must not be empty.', 1331319378);
         }
 
         $this->map = new IdentityMap();
@@ -1451,7 +1451,7 @@ abstract class AbstractDataMapper
         // @phpstan-ignore-next-line We are explicitly testing for a contract violation here.
         if (empty($compoundKeyValues)) {
             throw new \InvalidArgumentException(
-                \get_class($this) . '::compoundKeyValues must not be empty.',
+                static::class . '::compoundKeyValues must not be empty.',
                 1354976660
             );
         }
@@ -1483,7 +1483,7 @@ abstract class AbstractDataMapper
         foreach ($this->compoundKeyParts as $key) {
             if (!isset($compoundKeyValues[$key])) {
                 throw new \InvalidArgumentException(
-                    \get_class($this) . '::keyValue does not contain all compound keys.',
+                    static::class . '::keyValue does not contain all compound keys.',
                     1354976661
                 );
             }

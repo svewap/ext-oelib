@@ -17,7 +17,7 @@ final class GermanZipCodeTest extends UnitTestCase
     /**
      * @var GermanZipCode
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

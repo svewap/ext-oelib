@@ -19,7 +19,7 @@ final class CacheNullifyerTest extends UnitTestCase
     /**
      * @var CacheNullifyer
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

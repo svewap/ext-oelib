@@ -20,12 +20,12 @@ final class FrontEndUserGroupMapperTest extends FunctionalTestCase
     /**
      * @var TestingFramework for creating dummy records
      */
-    private $testingFramework = null;
+    private $testingFramework;
 
     /**
      * @var FrontEndUserGroupMapper the object to test
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

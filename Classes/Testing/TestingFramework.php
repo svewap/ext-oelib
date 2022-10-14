@@ -166,7 +166,7 @@ final class TestingFramework
     /**
      * @var array<string, string|bool|null>|null
      */
-    private $serverVariablesBackup = null;
+    private $serverVariablesBackup;
 
     /**
      * This testing framework can be instantiated for one extension at a time.

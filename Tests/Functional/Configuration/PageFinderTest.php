@@ -18,12 +18,12 @@ final class PageFinderTest extends FunctionalTestCase
     /**
      * @var TestingFramework
      */
-    private $testingFramework = null;
+    private $testingFramework;
 
     /**
      * @var PageFinder
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

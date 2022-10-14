@@ -30,7 +30,7 @@ class TestingGeo extends AbstractModel implements Geo
     /**
      * @var array{latitude: float, longitude: float}|null
      */
-    private $coordinates = null;
+    private $coordinates;
 
     /**
      * Returns this object's address formatted for a geocoding lookup, for example

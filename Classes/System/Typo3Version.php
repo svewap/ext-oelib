@@ -14,7 +14,7 @@ final class Typo3Version
     /**
      * @var \TYPO3\CMS\Core\Information\Typo3Version|null
      */
-    private static $version = null;
+    private static $version;
 
     /**
      * @return \TYPO3\CMS\Core\Information\Typo3Version

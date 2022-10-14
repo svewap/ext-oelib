@@ -47,7 +47,7 @@ class GoogleGeocoding implements GeocodingLookup
      *
      * @var GeocodingLookup|null
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * 120 seconds

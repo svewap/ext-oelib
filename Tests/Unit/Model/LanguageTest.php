@@ -15,7 +15,7 @@ final class LanguageTest extends UnitTestCase
     /**
      * @var Language
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

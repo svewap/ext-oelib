@@ -19,12 +19,12 @@ final class DirectPersistTest extends UnitTestCase
     /**
      * @var DirectPersistRepository
      */
-    private $subject = null;
+    private $subject;
 
     /**
      * @var ObjectProphecy<PersistenceManagerInterface>
      */
-    private $persistenceManagerProphecy = null;
+    private $persistenceManagerProphecy;
 
     protected function setUp(): void
     {

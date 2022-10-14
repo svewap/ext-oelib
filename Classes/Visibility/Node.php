@@ -19,7 +19,7 @@ class Node
     /**
      * @var Node|null the parent node of this node
      */
-    private $parentNode = null;
+    private $parentNode;
 
     /**
      * @var bool whether this node is visible

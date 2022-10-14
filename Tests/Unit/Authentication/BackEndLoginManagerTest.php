@@ -16,7 +16,7 @@ final class BackEndLoginManagerTest extends UnitTestCase
     /**
      * @var BackEndLoginManager
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

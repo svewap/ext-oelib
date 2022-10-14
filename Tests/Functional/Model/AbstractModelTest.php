@@ -26,12 +26,12 @@ final class AbstractModelTest extends FunctionalTestCase
     /**
      * @var TestingModel
      */
-    private $subject = null;
+    private $subject;
 
     /**
      * @var TestingMapper
      */
-    protected $dataMapper = null;
+    protected $dataMapper;
 
     protected function setUp(): void
     {

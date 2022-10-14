@@ -27,7 +27,7 @@ class Collection extends \SplObjectStorage
      *
      * @var AbstractModel|null
      */
-    private $parentModel = null;
+    private $parentModel;
 
     /**
      * whether the parent model is the owner (which is the case for IRRE relations).

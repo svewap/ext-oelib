@@ -17,7 +17,7 @@ final class FrontEndLoginManagerTest extends UnitTestCase
     /**
      * @var FrontEndLoginManager
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

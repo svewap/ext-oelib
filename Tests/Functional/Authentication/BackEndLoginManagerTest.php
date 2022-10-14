@@ -20,12 +20,12 @@ final class BackEndLoginManagerTest extends FunctionalTestCase
     /**
      * @var BackEndLoginManager
      */
-    private $subject = null;
+    private $subject;
 
     /**
      * @var BackEndUserMapper
      */
-    private $backEndUserMapper = null;
+    private $backEndUserMapper;
 
     protected function setUp(): void
     {

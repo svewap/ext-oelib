@@ -16,7 +16,7 @@ final class WritableEnvironment extends Environment
     /**
      * @var string|null
      */
-    private static $currentScriptBackup = null;
+    private static $currentScriptBackup;
 
     /**
      * Sets the fake current PHP script.

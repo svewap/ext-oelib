@@ -12,7 +12,7 @@ final class TestingConfigurationCheck extends AbstractConfigurationCheck
     /**
      * @var Configuration|null
      */
-    private static $checkedConfiguration = null;
+    private static $checkedConfiguration;
 
     public static function getCheckedConfiguration(): ?Configuration
     {

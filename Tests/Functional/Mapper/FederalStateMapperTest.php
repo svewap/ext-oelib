@@ -19,7 +19,7 @@ final class FederalStateMapperTest extends FunctionalTestCase
     /**
      * @var FederalStateMapper
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

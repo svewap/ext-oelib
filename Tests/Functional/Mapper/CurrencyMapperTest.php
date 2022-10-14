@@ -19,7 +19,7 @@ final class CurrencyMapperTest extends FunctionalTestCase
     /**
      * @var CurrencyMapper
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

@@ -16,7 +16,7 @@ final class FakeSessionTest extends UnitTestCase
     /**
      * @var FakeSession
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

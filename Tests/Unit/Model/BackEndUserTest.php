@@ -20,7 +20,7 @@ final class BackEndUserTest extends UnitTestCase
     /**
      * @var BackEndUser
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

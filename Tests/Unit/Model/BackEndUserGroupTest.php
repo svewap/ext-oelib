@@ -16,7 +16,7 @@ final class BackEndUserGroupTest extends UnitTestCase
     /**
      * @var BackEndUserGroup
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

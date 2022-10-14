@@ -15,7 +15,7 @@ final class Typo3VersionTest extends UnitTestCase
     /**
      * @var \TYPO3\CMS\Core\Information\Typo3Version
      */
-    private $version = null;
+    private $version;
 
     protected function setUp(): void
     {

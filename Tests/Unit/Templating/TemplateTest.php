@@ -16,7 +16,7 @@ final class TemplateTest extends UnitTestCase
     /**
      * @var Template
      */
-    protected $subject = null;
+    protected $subject;
 
     protected function setUp(): void
     {

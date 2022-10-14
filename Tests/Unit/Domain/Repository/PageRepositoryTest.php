@@ -16,7 +16,7 @@ final class PageRepositoryTest extends UnitTestCase
     /**
      * @var PageRepository
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

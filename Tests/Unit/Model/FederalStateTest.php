@@ -15,7 +15,7 @@ final class FederalStateTest extends UnitTestCase
     /**
      * @var FederalState
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

@@ -24,7 +24,7 @@ final class AbstractDataMapperTest extends UnitTestCase
     /**
      * @var TestingMapper
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

@@ -18,12 +18,12 @@ class BackEndLoginManager implements LoginManager
     /**
      * @var BackEndLoginManager|null the Singleton instance
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * @var AbstractModel|null a logged-in back-end user (real or faked)
      */
-    private $loggedInUser = null;
+    private $loggedInUser;
 
     /**
      * The constructor. Use getInstance() instead.

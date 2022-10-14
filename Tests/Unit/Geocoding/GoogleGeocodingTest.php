@@ -19,12 +19,12 @@ final class GoogleGeocodingTest extends UnitTestCase
     /**
      * @var GoogleGeocoding
      */
-    private $subject = null;
+    private $subject;
 
     /**
      * @var DummyConfiguration
      */
-    private $configuration = null;
+    private $configuration;
 
     protected function setUp(): void
     {

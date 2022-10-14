@@ -16,7 +16,7 @@ final class SystemEmailFromBuilderTest extends UnitTestCase
     /**
      * @var SystemEmailFromBuilder
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

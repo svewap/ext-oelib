@@ -19,7 +19,7 @@ final class CountryMapperTest extends FunctionalTestCase
     /**
      * @var CountryMapper
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

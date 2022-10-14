@@ -18,7 +18,7 @@ final class GermanZipCodeRepositoryTest extends UnitTestCase
     /**
      * @var GermanZipCodeRepository
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

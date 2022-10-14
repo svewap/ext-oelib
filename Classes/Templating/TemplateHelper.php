@@ -55,7 +55,7 @@ class TemplateHelper extends SalutationSwitcher
     /**
      * @var Template|null this object's (only) template
      */
-    private $template = null;
+    private $template;
 
     /**
      * Initializes the FE plugin stuff and reads the configuration.

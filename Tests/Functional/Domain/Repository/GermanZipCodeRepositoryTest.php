@@ -23,7 +23,7 @@ final class GermanZipCodeRepositoryTest extends FunctionalTestCase
     /**
      * @var GermanZipCodeRepository
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

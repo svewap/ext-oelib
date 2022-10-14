@@ -30,7 +30,7 @@ class PriceViewHelper extends AbstractViewHelper
     /**
      * @var Currency|null the currency of the price to render
      */
-    protected $currency = null;
+    protected $currency;
 
     /**
      * Sets the value of the price to render.

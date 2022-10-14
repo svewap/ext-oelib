@@ -21,12 +21,12 @@ final class FrontEndLoginManagerTest extends FunctionalTestCase
     /**
      * @var FrontEndLoginManager
      */
-    private $subject = null;
+    private $subject;
 
     /**
      * @var TestingFramework
      */
-    private $testingFramework = null;
+    private $testingFramework;
 
     protected function setUp(): void
     {

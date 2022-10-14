@@ -18,7 +18,7 @@ final class TestingFrameworkTest extends UnitTestCase
     /**
      * @var TestingFramework
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

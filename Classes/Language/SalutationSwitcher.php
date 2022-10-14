@@ -21,7 +21,7 @@ abstract class SalutationSwitcher extends AbstractPlugin
      *
      * @var array<int, string>|null
      */
-    private $availableLanguages = null;
+    private $availableLanguages;
 
     /**
      * An ordered list of language label suffixes that should be tried to get
@@ -30,7 +30,7 @@ abstract class SalutationSwitcher extends AbstractPlugin
      *
      * @var array<int, string>|null
      */
-    private $suffixesToTry = null;
+    private $suffixesToTry;
 
     /**
      * @var array<string, string>
@@ -50,7 +50,7 @@ abstract class SalutationSwitcher extends AbstractPlugin
             if ($propertyName === 'frontendController') {
                 continue;
             }
-            $propertyNames[] = $property->isPrivate() ? (get_class($this) . ':' . $propertyName) : $propertyName;
+            $propertyNames[] = $property->isPrivate() ? (static::class . ':' . $propertyName) : $propertyName;
         }
 
         return $propertyNames;

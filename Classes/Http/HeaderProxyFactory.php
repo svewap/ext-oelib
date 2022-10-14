@@ -18,7 +18,7 @@ class HeaderProxyFactory
     /**
      * @var HeaderProxyFactory|null
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * @var bool
@@ -28,7 +28,7 @@ class HeaderProxyFactory
     /**
      * @var HeaderProxy|null
      */
-    private $headerProxy = null;
+    private $headerProxy;
 
     /**
      * Don't call this constructor; use getInstance() instead.

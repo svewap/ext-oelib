@@ -31,7 +31,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     /**
      * @var TestingFramework
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

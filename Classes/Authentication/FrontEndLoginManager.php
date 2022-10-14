@@ -19,14 +19,14 @@ class FrontEndLoginManager implements LoginManager
     /**
      * @var FrontEndLoginManager|null the Singleton instance
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * the real or simulated logged-in user
      *
      * @var AbstractModel|null
      */
-    private $loggedInUser = null;
+    private $loggedInUser;
 
     /**
      * The constructor. Use getInstance() instead.

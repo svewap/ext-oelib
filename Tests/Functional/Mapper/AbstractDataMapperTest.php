@@ -33,7 +33,7 @@ final class AbstractDataMapperTest extends FunctionalTestCase
     /**
      * @var TestingMapper
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

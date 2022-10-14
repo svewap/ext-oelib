@@ -20,7 +20,7 @@ trait ChangeDate
     /**
      * @var \DateTimeImmutable|null
      */
-    protected $creationDate = null;
+    protected $creationDate;
 
     public function getChangeDate(): ?\DateTimeImmutable
     {

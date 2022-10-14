@@ -15,7 +15,7 @@ final class CountryTest extends UnitTestCase
     /**
      * @var Country
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

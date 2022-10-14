@@ -40,7 +40,7 @@ class PageFinder
     /**
      * @var PageFinder|null the Singleton instance
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * @var int the manually set page UID

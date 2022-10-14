@@ -18,7 +18,7 @@ final class LoggingAwareTest extends UnitTestCase
     /**
      * @var TestingLoggingAware
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

@@ -22,7 +22,7 @@ final class FrontEndUserTest extends UnitTestCase
     /**
      * @var FrontEndUser
      */
-    private $subject = null;
+    private $subject;
 
     /**
      * @var int a backup of $GLOBALS['EXEC_TIME']

@@ -17,7 +17,7 @@ trait LoggingAware
     /**
      * @var LoggerInterface
      */
-    private $logger = null;
+    private $logger;
 
     public function injectLogManager(LogManagerInterface $logManager): void
     {

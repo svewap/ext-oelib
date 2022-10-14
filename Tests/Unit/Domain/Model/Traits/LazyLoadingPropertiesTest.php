@@ -18,7 +18,7 @@ final class LazyLoadingPropertiesTest extends UnitTestCase
     /**
      * @var LazyLoadingModel
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

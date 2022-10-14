@@ -15,7 +15,7 @@ final class CurrencyTest extends UnitTestCase
     /**
      * @var Currency
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

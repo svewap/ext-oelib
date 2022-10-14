@@ -19,7 +19,7 @@ final class FrontEndUserTest extends FunctionalTestCase
     /**
      * @var FrontEndUser
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

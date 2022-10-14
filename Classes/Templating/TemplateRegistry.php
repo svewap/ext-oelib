@@ -14,7 +14,7 @@ class TemplateRegistry
     /**
      * @var TemplateRegistry|null the Singleton instance
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * @var array<string, Template> already created templates (by file name)

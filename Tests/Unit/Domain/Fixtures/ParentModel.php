@@ -19,7 +19,7 @@ final class ParentModel extends AbstractEntity
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\OliverKlee\Oelib\Tests\Unit\Domain\Fixtures\ParentModel>
      * @Extbase\ORM\Lazy
      */
-    protected $children = null;
+    protected $children;
 
     public function __construct()
     {

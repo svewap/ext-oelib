@@ -19,7 +19,7 @@ final class LanguageMapperTest extends FunctionalTestCase
     /**
      * @var LanguageMapper
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

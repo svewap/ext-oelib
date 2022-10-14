@@ -18,7 +18,7 @@ final class CachedAssociationCountTest extends UnitTestCase
     /**
      * @var ParentModel
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

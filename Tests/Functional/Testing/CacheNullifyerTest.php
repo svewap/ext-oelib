@@ -26,7 +26,7 @@ final class CacheNullifyerTest extends FunctionalTestCase
     /**
      * @var CacheNullifyer
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

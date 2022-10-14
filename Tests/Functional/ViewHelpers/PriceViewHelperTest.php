@@ -17,7 +17,7 @@ class PriceViewHelperTest extends FunctionalTestCase
     /**
      * @var PriceViewHelper
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

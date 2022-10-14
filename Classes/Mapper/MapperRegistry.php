@@ -17,7 +17,7 @@ class MapperRegistry
     /**
      * @var MapperRegistry|null the Singleton instance
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * @var array<class-string, AbstractDataMapper> already created mappers (by class name)
@@ -37,7 +37,7 @@ class MapperRegistry
     /**
      * @var TestingFramework the testingFramework to use in testing mode
      */
-    private $testingFramework = null;
+    private $testingFramework;
 
     /**
      * The constructor. Use getInstance() instead.

@@ -20,12 +20,12 @@ final class GeoCalculatorTest extends UnitTestCase
     /**
      * @var GeoCalculator
      */
-    protected $subject = null;
+    protected $subject;
 
     /**
      * @var TestingGeo
      */
-    protected $geoObject = null;
+    protected $geoObject;
 
     protected function setUp(): void
     {

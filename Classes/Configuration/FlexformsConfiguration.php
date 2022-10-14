@@ -23,7 +23,7 @@ class FlexformsConfiguration extends AbstractReadOnlyObjectWithPublicAccessors i
     /**
      * @var array<string, mixed>|null
      */
-    private $data = null;
+    private $data;
 
     public function __construct(ContentObjectRenderer $contentObject)
     {

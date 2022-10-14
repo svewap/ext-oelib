@@ -16,7 +16,7 @@ final class AbstractReadOnlyObjectWithAccessorsTest extends UnitTestCase
     /**
      * @var TestingReadOnlyObjectWithPublicAccessors
      */
-    private $subject = null;
+    private $subject;
 
     protected function setUp(): void
     {

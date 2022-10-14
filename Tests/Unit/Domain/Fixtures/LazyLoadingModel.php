@@ -19,7 +19,7 @@ final class LazyLoadingModel extends AbstractEntity
      * @var EmptyModel
      * @phpstan-var EmptyModel|LazyLoadingProxy
      */
-    protected $lazyProperty = null;
+    protected $lazyProperty;
 
     public function getLazyProperty(): EmptyModel
     {

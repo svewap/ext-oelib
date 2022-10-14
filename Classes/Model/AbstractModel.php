@@ -72,7 +72,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     /**
      * @var \Closure|null the callback function that fills this model with data
      */
-    private $loadCallback = null;
+    private $loadCallback;
 
     /**
      * Clone.
@@ -289,7 +289,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
         $this->load();
         if ($this->isDead()) {
             throw new NotFoundException(
-                'The ' . get_class($this) . ' with the UID ' . $this->getUid() .
+                'The ' . static::class . ' with the UID ' . $this->getUid() .
                 ' either has been deleted (or has never existed), but still is accessed.',
                 1332446332
             );
@@ -373,7 +373,7 @@ abstract class AbstractModel extends AbstractObjectWithAccessors implements Iden
     {
         if ($this->isVirgin()) {
             throw new \BadMethodCallException(
-                get_class($this) . '#' . $this->getUid()
+                static::class . '#' . $this->getUid()
                 . ': Please call setData() directly after instantiation first.',
                 1331489395
             );
