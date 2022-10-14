@@ -144,7 +144,7 @@
 		"coverage:create-directories": "mkdir -p build/logs .Build/coverage",
 		"fix": [
 			"@fix:composer",
-			"@php:fix"
+			"@fix:php"
 		],
 		"fix:composer": "@composer normalize",
 		"fix:php": [
