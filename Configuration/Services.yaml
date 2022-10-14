@@ -6,4 +6,4 @@ services:
 
   OliverKlee\Oelib\:
     resource: '../Classes/*'
-    exclude: '../Classes/DataStructures/*../Classes/Domain/Model/*,../Classes/Model/*'
+    exclude: '../Classes/DataStructures/*,../Classes/Domain/Model/*,../Classes/Model/*'

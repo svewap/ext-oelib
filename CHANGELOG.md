@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix typo in the services configuration file (#1218)
 
 ## 5.0.0
 
