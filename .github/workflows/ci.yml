@@ -135,7 +135,13 @@ jobs:
             composer-dependencies: highest
           - typo3-version: "^10.4"
             php-version: "7.3"
+            composer-dependencies: lowest
+          - typo3-version: "^10.4"
+            php-version: "7.3"
             composer-dependencies: highest
+          - typo3-version: "^10.4"
+            php-version: "7.4"
+            composer-dependencies: lowest
           - typo3-version: "^10.4"
             php-version: "7.4"
             composer-dependencies: highest
@@ -237,7 +243,13 @@ jobs:
             composer-dependencies: highest
           - typo3-version: "^10.4"
             php-version: "7.3"
+            composer-dependencies: lowest
+          - typo3-version: "^10.4"
+            php-version: "7.3"
             composer-dependencies: highest
+          - typo3-version: "^10.4"
+            php-version: "7.4"
+            composer-dependencies: lowest
           - typo3-version: "^10.4"
             php-version: "7.4"
             composer-dependencies: highest
