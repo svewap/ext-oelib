@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Fix property name in the `ChangeDate` trait (#1237)
 - Fix typo in the services configuration file (#1218)
 
 ## 5.0.0

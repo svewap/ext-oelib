@@ -20,15 +20,15 @@ trait ChangeDate
     /**
      * @var \DateTimeImmutable|null
      */
-    protected $creationDate;
+    protected $changeDate;
 
     public function getChangeDate(): ?\DateTimeImmutable
     {
-        return $this->creationDate;
+        return $this->changeDate;
     }
 
     public function setChangeDate(\DateTimeImmutable $creationDate): void
     {
-        $this->creationDate = $creationDate;
+        $this->changeDate = $creationDate;
     }
 }
