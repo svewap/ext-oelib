@@ -78,8 +78,6 @@ abstract class AbstractConfigurationCheck
      * Builds a fully-qualified TypoScript namespace from a suffix, e.g., `plugin.tx_oelib.foo` from `foo`.
      *
      * The output is HTML-safe.
-     *
-     * @return string
      */
     protected function buildEncodedConfigurationPath(string $localPath): string
     {
@@ -204,7 +202,7 @@ abstract class AbstractConfigurationCheck
      *
      * @param non-empty-string $tableName the name of an existing DB table (must not be empty, must exist)
      *
-     * @return array<string|int, non-empty-string> column names as values
+     * @return array<int, non-empty-string> column names as values
      */
     private function getDbColumnNames(string $tableName): array
     {
@@ -222,7 +220,9 @@ abstract class AbstractConfigurationCheck
             }
         } else {
             foreach ($statement->fetchAll() as $row) {
-                $columns[] = $row['Field'];
+                /** @var non-empty-string $column */
+                $column = $row['Field'];
+                $columns[] = $column;
             }
         }
 

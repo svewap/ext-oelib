@@ -113,9 +113,9 @@ class Template
             PREG_SET_ORDER
         );
         foreach ($matches as $match) {
-            $subpartName = (string)$match[1];
+            $subpartName = $match[1];
             if (!isset($this->subparts[$subpartName])) {
-                $subpartContent = (string)$match[2];
+                $subpartContent = $match[2];
                 $this->subparts[$subpartName] = $subpartContent;
                 $this->extractSubparts($subpartContent);
             }

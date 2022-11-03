@@ -16,11 +16,6 @@ parameters:
 			path: Classes/Configuration/AbstractConfigurationCheck.php
 
 		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\Configuration\\\\AbstractConfigurationCheck\\:\\:getDbColumnNames\\(\\) should return array\\<int\\|string, non\\-empty\\-string\\> but returns array\\<int, mixed\\>\\.$#"
-			count: 1
-			path: Classes/Configuration/AbstractConfigurationCheck.php
-
-		-
 			message: "#^Cannot access offset 'EXTENSIONS' on mixed\\.$#"
 			count: 2
 			path: Classes/Configuration/ConfigurationProxy.php
