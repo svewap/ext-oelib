@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 ### Deprecated
+- Deprecate the `LazyLoadingModel` trait (#1236)
 
 ### Removed
 
