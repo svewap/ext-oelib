@@ -30,9 +30,10 @@ final class TemplateHelperTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $frontEndController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
-        $frontEndController->cObj = $this->prophesize(ContentObjectRenderer::class)->reveal();
-        $GLOBALS['TSFE'] = $frontEndController;
+        $frontEndControllerMock = $this->getMockBuilder(TypoScriptFrontendController::class)
+            ->disableOriginalConstructor()->getMock();
+        $frontEndControllerMock->cObj = $this->createMock(ContentObjectRenderer::class);
+        $GLOBALS['TSFE'] = $frontEndControllerMock;
 
         $configuration = new DummyConfiguration(['enableConfigCheck' => true]);
         ConfigurationProxy::setInstance('oelib', $configuration);

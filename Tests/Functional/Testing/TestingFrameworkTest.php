@@ -909,7 +909,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function cleanUpUnsetsGlobalRequest(): void
     {
         $this->subject->createFakeFrontEnd($this->subject->createFrontEndPage());
-        $GLOBALS['TYPO3_REQUEST'] = $this->prophesize(ServerRequestInterface::class)->reveal();
+        $GLOBALS['TYPO3_REQUEST'] = $this->createMock(ServerRequestInterface::class);
 
         $this->subject->cleanUp();
 
@@ -993,7 +993,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
     public function cleanUpWithoutDatabaseUnsetsGlobalRequest(): void
     {
         $this->subject->createFakeFrontEnd($this->subject->createFrontEndPage());
-        $GLOBALS['TYPO3_REQUEST'] = $this->prophesize(ServerRequestInterface::class)->reveal();
+        $GLOBALS['TYPO3_REQUEST'] = $this->createMock(ServerRequestInterface::class);
 
         $this->subject->cleanUpWithoutDatabase();
 
@@ -2588,7 +2588,7 @@ final class TestingFrameworkTest extends FunctionalTestCase
      */
     public function createFakeFrontEndReplacesExistingGlobalRequest(): void
     {
-        $previousRequest = $this->prophesize(ServerRequestInterface::class)->reveal();
+        $previousRequest = $this->createMock(ServerRequestInterface::class);
         $GLOBALS['TYPO3_REQUEST'] = $previousRequest;
 
         $this->subject->createFakeFrontEnd($this->subject->createFrontEndPage());
