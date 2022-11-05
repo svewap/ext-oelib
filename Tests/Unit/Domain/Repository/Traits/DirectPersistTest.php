@@ -6,7 +6,7 @@ namespace OliverKlee\Oelib\Tests\Unit\Domain\Repository\Traits;
 
 use OliverKlee\Oelib\Domain\Repository\Interfaces\DirectPersist;
 use OliverKlee\Oelib\Tests\Unit\Domain\Repository\Fixtures\DirectPersistRepository;
-use Prophecy\Prophecy\ObjectProphecy;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -22,20 +22,19 @@ final class DirectPersistTest extends UnitTestCase
     private $subject;
 
     /**
-     * @var ObjectProphecy<PersistenceManagerInterface>
+     * @var PersistenceManagerInterface&MockObject
      */
-    private $persistenceManagerProphecy;
+    private $persistenceManagerMock;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $objectManagerStub = $this->prophesize(ObjectManagerInterface::class)->reveal();
+        $objectManagerStub = $this->createMock(ObjectManagerInterface::class);
         $this->subject = new DirectPersistRepository($objectManagerStub);
 
-        $this->persistenceManagerProphecy = $this->prophesize(PersistenceManagerInterface::class);
-        $persistenceManager = $this->persistenceManagerProphecy->reveal();
-        $this->subject->injectPersistenceManager($persistenceManager);
+        $this->persistenceManagerMock = $this->createMock(PersistenceManagerInterface::class);
+        $this->subject->injectPersistenceManager($this->persistenceManagerMock);
     }
 
     /**
@@ -51,7 +50,7 @@ final class DirectPersistTest extends UnitTestCase
      */
     public function persistAllPersistsAll(): void
     {
-        $this->persistenceManagerProphecy->persistAll()->shouldBeCalled();
+        $this->persistenceManagerMock->expects(self::atLeastOnce())->method('persistAll');
 
         $this->subject->persistAll();
     }

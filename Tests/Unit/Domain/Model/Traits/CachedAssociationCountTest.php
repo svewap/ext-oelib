@@ -54,7 +54,7 @@ final class CachedAssociationCountTest extends UnitTestCase
     public function getChildrenCountForLazyChildrenStorageReturnsRawValueFromLazyStorage(): void
     {
         $childrenCount = 7;
-        $dataMapper = $this->prophesize(DataMapper::class)->reveal();
+        $dataMapper = $this->getMockBuilder(DataMapper::class)->disableOriginalConstructor()->getMock();
         /** @var LazyObjectStorage<ParentModel> $lazyChildrenStorage */
         $lazyChildrenStorage = new LazyObjectStorage($this->subject, 'children', $childrenCount, $dataMapper);
         $this->subject->setChildren($lazyChildrenStorage);

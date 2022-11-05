@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Deprecate the `LazyLoadingModel` trait (#1236)
 
 ### Removed
+- Stop using Prophecy (#1255)
 
 ### Fixed
 - Improve the type annotations (#1253)

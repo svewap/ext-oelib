@@ -35,7 +35,7 @@ final class LazyLoadingPropertiesTest extends UnitTestCase
         $realInstance = new EmptyModel();
         $parentObject = new LazyLoadingModel();
         $parentObject->_setProperty('lazyProperty', $realInstance);
-        $dataMapper = $this->prophesize(DataMapper::class)->reveal();
+        $dataMapper = $this->getMockBuilder(DataMapper::class)->disableOriginalConstructor()->getMock();
         $proxy = new LazyLoadingProxy($parentObject, 'lazyProperty', $realInstance, $dataMapper);
 
         $this->subject->setLazyProperty($proxy);
