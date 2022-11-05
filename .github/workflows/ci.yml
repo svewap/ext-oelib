@@ -94,9 +94,6 @@ jobs:
           ini-values: error_reporting=E_ALL
       - name: "Show Composer version"
         run: composer --version
-      - name: "Fake PHP version for 8.2 to allow installing Prophecy"
-        if: matrix.php-version == '8.2'
-        run: composer config platform.php 8.1.99
       - name: "Show the Composer configuration"
         run: composer config --global --list
       - name: "Cache dependencies installed with composer"
@@ -190,9 +187,6 @@ jobs:
           ini-values: error_reporting=E_ALL
       - name: "Show Composer version"
         run: composer --version
-      - name: "Fake PHP version for 8.2 to allow installing Prophecy"
-        if: matrix.php-version == '8.2'
-        run: composer config platform.php 8.1.99
       - name: "Show the Composer configuration"
         run: composer config --global --list
       - name: "Cache dependencies installed with composer"

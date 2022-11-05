@@ -39,9 +39,7 @@
 	"require-dev": {
 		"ergebnis/composer-normalize": "^2.19.0",
 		"friendsofphp/php-cs-fixer": "^3.4.0",
-		"jangregor/phpstan-prophecy": "^1.0.0",
 		"php-coveralls/php-coveralls": "^2.5.3",
-		"phpspec/prophecy": "^1.15.0",
 		"phpstan/extension-installer": "^1.2.0",
 		"phpstan/phpstan": "^1.9.1",
 		"phpstan/phpstan-phpunit": "^1.2.2",
