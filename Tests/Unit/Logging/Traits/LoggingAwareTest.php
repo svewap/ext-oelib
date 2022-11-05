@@ -6,7 +6,6 @@ namespace OliverKlee\Oelib\Tests\Unit\Logging\Traits;
 
 use OliverKlee\Oelib\Logging\Interfaces\LoggingAware;
 use OliverKlee\Oelib\Tests\Unit\Logging\Fixtures\TestingLoggingAware;
-use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Core\Log\LogManagerInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -40,12 +39,9 @@ final class LoggingAwareTest extends UnitTestCase
      */
     public function injectLogManagerGetsLoggerForClass(): void
     {
-        /** @var ObjectProphecy<LogManagerInterface> $logManagerProphecy */
-        $logManagerProphecy = $this->prophesize(LogManagerInterface::class);
-        $logManagerProphecy->getLogger(TestingLoggingAware::class)->shouldBeCalled();
+        $logManagerMock = $this->createMock(LogManagerInterface::class);
+        $logManagerMock->expects(self::atLeastOnce())->method('getLogger')->with(TestingLoggingAware::class);
 
-        $logManager = $logManagerProphecy->reveal();
-
-        $this->subject->injectLogManager($logManager);
+        $this->subject->injectLogManager($logManagerMock);
     }
 }

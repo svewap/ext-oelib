@@ -10,7 +10,7 @@ use OliverKlee\Oelib\Configuration\ExtbaseConfiguration;
 use OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures\TestingConfigurationCheck;
 use OliverKlee\Oelib\Tests\Unit\ViewHelpers\Fixtures\TestingConfigurationCheckViewHelper;
 use OliverKlee\Oelib\ViewHelpers\AbstractConfigurationCheckViewHelper;
-use Prophecy\Prophecy\ObjectProphecy;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
@@ -31,25 +31,18 @@ final class AbstractConfigurationCheckViewHelperTest extends UnitTestCase
     protected $renderChildrenClosure;
 
     /**
-     * @var RenderingContextInterface
+     * @var RenderingContextInterface&MockObject
      *
      * We can make this property private once we drop support for TYPO3 V9.
      */
-    protected $renderingContext;
+    protected $renderingContextMock;
 
     /**
-     * @var ObjectProphecy<VariableProviderInterface>
+     * @var VariableProviderInterface&MockObject
      *
      * We can make this property private once we drop support for TYPO3 V9.
      */
-    protected $variableProviderProphecy;
-
-    /**
-     * @var VariableProviderInterface
-     *
-     * We can make this property private once we drop support for TYPO3 V9.
-     */
-    protected $variableProvider;
+    protected $variableProviderMock;
 
     protected function setUp(): void
     {
@@ -58,11 +51,9 @@ final class AbstractConfigurationCheckViewHelperTest extends UnitTestCase
         $this->renderChildrenClosure = static function (): string {
             return '';
         };
-        $renderingContextProphecy = $this->prophesize(RenderingContextInterface::class);
-        $this->renderingContext = $renderingContextProphecy->reveal();
-        $this->variableProviderProphecy = $this->prophesize(VariableProviderInterface::class);
-        $this->variableProvider = $this->variableProviderProphecy->reveal();
-        $renderingContextProphecy->getVariableProvider()->willReturn($this->variableProvider);
+        $this->variableProviderMock = $this->createMock(VariableProviderInterface::class);
+        $this->renderingContextMock = $this->createMock(RenderingContextInterface::class);
+        $this->renderingContextMock->method('getVariableProvider')->willReturn($this->variableProviderMock);
     }
 
     protected function tearDown(): void
@@ -134,15 +125,14 @@ final class AbstractConfigurationCheckViewHelperTest extends UnitTestCase
         $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => false]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
-        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
-        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        $adminUserProphecy->isAdmin()->willReturn(true);
-        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
+        $adminUserMock = $this->createMock(BackendUserAuthentication::class);
+        $adminUserMock->method('isAdmin')->willReturn(true);
+        $GLOBALS['BE_USER'] = $adminUserMock;
 
         $result = TestingConfigurationCheckViewHelper::renderStatic(
             [],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
 
         self::assertSame('', $result);
@@ -157,21 +147,20 @@ final class AbstractConfigurationCheckViewHelperTest extends UnitTestCase
         $this->expectExceptionMessage('No settings in the variable container found.');
         $this->expectExceptionCode(1651153736);
 
-        $this->variableProviderProphecy->get('settings')->willReturn(null);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(null);
 
         $extensionKey = 'oelib';
         $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => true]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
-        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
-        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        $adminUserProphecy->isAdmin()->willReturn(true);
-        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
+        $adminUserMock = $this->createMock(BackendUserAuthentication::class);
+        $adminUserMock->method('isAdmin')->willReturn(true);
+        $GLOBALS['BE_USER'] = $adminUserMock;
 
         $result = TestingConfigurationCheckViewHelper::renderStatic(
             [],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
 
         self::assertSame('This is a configuration check warning.', $result);
@@ -185,17 +174,16 @@ final class AbstractConfigurationCheckViewHelperTest extends UnitTestCase
         $extensionKey = 'oelib';
         $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => true]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
-        $this->variableProviderProphecy->get('settings')->willReturn([]);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn([]);
 
-        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
-        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        $adminUserProphecy->isAdmin()->willReturn(true);
-        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
+        $adminUserMock = $this->createMock(BackendUserAuthentication::class);
+        $adminUserMock->method('isAdmin')->willReturn(true);
+        $GLOBALS['BE_USER'] = $adminUserMock;
 
         $result = TestingConfigurationCheckViewHelper::renderStatic(
             [],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
 
         self::assertStringContainsString('This is a configuration check warning.', $result);
@@ -212,14 +200,17 @@ final class AbstractConfigurationCheckViewHelperTest extends UnitTestCase
         $extensionKey = 'oelib';
         $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => true]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
-        $this->variableProviderProphecy->get('settings')->willReturn($settings);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn($settings);
 
-        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
-        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        $adminUserProphecy->isAdmin()->willReturn(true);
-        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
+        $adminUserMock = $this->createMock(BackendUserAuthentication::class);
+        $adminUserMock->method('isAdmin')->willReturn(true);
+        $GLOBALS['BE_USER'] = $adminUserMock;
 
-        TestingConfigurationCheckViewHelper::renderStatic([], $this->renderChildrenClosure, $this->renderingContext);
+        TestingConfigurationCheckViewHelper::renderStatic(
+            [],
+            $this->renderChildrenClosure,
+            $this->renderingContextMock
+        );
 
         $configuration = TestingConfigurationCheck::getCheckedConfiguration();
         self::assertInstanceOf(ExtbaseConfiguration::class, $configuration);

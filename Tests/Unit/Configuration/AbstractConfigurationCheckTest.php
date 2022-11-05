@@ -8,7 +8,6 @@ use OliverKlee\Oelib\Configuration\AbstractConfigurationCheck;
 use OliverKlee\Oelib\Configuration\ConfigurationProxy;
 use OliverKlee\Oelib\Configuration\DummyConfiguration;
 use OliverKlee\Oelib\Tests\Unit\Configuration\Fixtures\TestingConfigurationCheck;
-use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -57,10 +56,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => true]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
-        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
-        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        $adminUserProphecy->isAdmin()->willReturn(true);
-        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
+        $adminUserMock = $this->createMock(BackendUserAuthentication::class);
+        $adminUserMock->method('isAdmin')->willReturn(true);
+        $GLOBALS['BE_USER'] = $adminUserMock;
 
         self::assertTrue(TestingConfigurationCheck::shouldCheck($extensionKey));
     }
@@ -74,10 +72,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => true]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
-        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
-        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        $adminUserProphecy->isAdmin()->willReturn(false);
-        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
+        $adminUserMock = $this->createMock(BackendUserAuthentication::class);
+        $adminUserMock->method('isAdmin')->willReturn(false);
+        $GLOBALS['BE_USER'] = $adminUserMock;
 
         self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
     }
@@ -91,10 +88,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $extensionConfiguration = new DummyConfiguration(['enableConfigCheck' => false]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
-        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
-        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        $adminUserProphecy->isAdmin()->willReturn(true);
-        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
+        $adminUserMock = $this->createMock(BackendUserAuthentication::class);
+        $adminUserMock->method('isAdmin')->willReturn(true);
+        $GLOBALS['BE_USER'] = $adminUserMock;
 
         self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
     }
@@ -108,10 +104,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $extensionConfiguration = new DummyConfiguration([]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
-        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
-        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        $adminUserProphecy->isAdmin()->willReturn(true);
-        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
+        $adminUserMock = $this->createMock(BackendUserAuthentication::class);
+        $adminUserMock->method('isAdmin')->willReturn(true);
+        $GLOBALS['BE_USER'] = $adminUserMock;
 
         self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
     }
@@ -125,10 +120,9 @@ final class AbstractConfigurationCheckTest extends UnitTestCase
         $extensionConfiguration = new DummyConfiguration([]);
         ConfigurationProxy::setInstance($extensionKey, $extensionConfiguration);
 
-        /** @var ObjectProphecy<BackendUserAuthentication> $adminUserProphecy */
-        $adminUserProphecy = $this->prophesize(BackendUserAuthentication::class);
-        $adminUserProphecy->isAdmin()->willReturn(true);
-        $GLOBALS['BE_USER'] = $adminUserProphecy->reveal();
+        $adminUserMock = $this->createMock(BackendUserAuthentication::class);
+        $adminUserMock->method('isAdmin')->willReturn(true);
+        $GLOBALS['BE_USER'] = $adminUserMock;
 
         self::assertFalse(TestingConfigurationCheck::shouldCheck($extensionKey));
     }

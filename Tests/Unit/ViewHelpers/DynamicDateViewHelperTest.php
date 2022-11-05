@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
 use OliverKlee\Oelib\ViewHelpers\DynamicDateViewHelper;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -17,17 +18,17 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 final class DynamicDateViewHelperTest extends UnitTestCase
 {
     /**
-     * @var RenderingContextInterface
+     * @var RenderingContextInterface&MockObject
      *
      * We can make this property private once we drop support for TYPO3 V9.
      */
-    protected $renderingContext;
+    protected $renderingContextMock;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->renderingContext = $this->prophesize(RenderingContextInterface::class)->reveal();
+        $this->renderingContextMock = $this->createMock(RenderingContextInterface::class);
     }
 
     /**
@@ -92,7 +93,7 @@ final class DynamicDateViewHelperTest extends UnitTestCase
             return null;
         };
 
-        DynamicDateViewHelper::renderStatic([], $renderChildrenClosure, $this->renderingContext);
+        DynamicDateViewHelper::renderStatic([], $renderChildrenClosure, $this->renderingContextMock);
     }
 
     /**
@@ -105,7 +106,7 @@ final class DynamicDateViewHelperTest extends UnitTestCase
             return '';
         };
 
-        DynamicDateViewHelper::renderStatic([], $renderChildrenClosure, $this->renderingContext);
+        DynamicDateViewHelper::renderStatic([], $renderChildrenClosure, $this->renderingContextMock);
     }
 
     /**
@@ -118,7 +119,7 @@ final class DynamicDateViewHelperTest extends UnitTestCase
             return '1975-04-02';
         };
 
-        DynamicDateViewHelper::renderStatic([], $renderChildrenClosure, $this->renderingContext);
+        DynamicDateViewHelper::renderStatic([], $renderChildrenClosure, $this->renderingContextMock);
     }
 
     /**
@@ -131,7 +132,7 @@ final class DynamicDateViewHelperTest extends UnitTestCase
             return 1459513954;
         };
 
-        DynamicDateViewHelper::renderStatic([], $renderChildrenClosure, $this->renderingContext);
+        DynamicDateViewHelper::renderStatic([], $renderChildrenClosure, $this->renderingContextMock);
     }
 
     /**
@@ -143,7 +144,7 @@ final class DynamicDateViewHelperTest extends UnitTestCase
             return new \DateTime('1980-12-07 14:37');
         };
 
-        $result = DynamicDateViewHelper::renderStatic([], $renderChildrenClosure, $this->renderingContext);
+        $result = DynamicDateViewHelper::renderStatic([], $renderChildrenClosure, $this->renderingContextMock);
 
         self::assertStringContainsString('07.12.1980 14:37', $result);
     }
@@ -160,7 +161,7 @@ final class DynamicDateViewHelperTest extends UnitTestCase
         $result = DynamicDateViewHelper::renderStatic(
             ['format' => 'Y-m-d g:ia'],
             $renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
 
         self::assertStringContainsString('1980-12-07 2:37pm', $result);

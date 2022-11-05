@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\Oelib\Tests\Unit\ViewHelpers;
 
 use OliverKlee\Oelib\ViewHelpers\IsFieldEnabledViewHelper;
-use Prophecy\Prophecy\ObjectProphecy;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\Variables\VariableProviderInterface;
@@ -25,25 +25,18 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
     protected $renderChildrenClosure;
 
     /**
-     * @var RenderingContextInterface
+     * @var RenderingContextInterface&MockObject
      *
      * We can make this property private once we drop support for TYPO3 V9.
      */
-    protected $renderingContext;
+    protected $renderingContextMock;
 
     /**
-     * @var ObjectProphecy<VariableProviderInterface>
+     * @var VariableProviderInterface&MockObject
      *
      * We can make this property private once we drop support for TYPO3 V9.
      */
-    protected $variableProviderProphecy;
-
-    /**
-     * @var VariableProviderInterface
-     *
-     * We can make this property private once we drop support for TYPO3 V9.
-     */
-    protected $variableProvider;
+    protected $variableProviderMock;
 
     protected function setUp(): void
     {
@@ -52,11 +45,9 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
         $this->renderChildrenClosure = static function (): string {
             return '';
         };
-        $renderingContextProphecy = $this->prophesize(RenderingContextInterface::class);
-        $this->renderingContext = $renderingContextProphecy->reveal();
-        $this->variableProviderProphecy = $this->prophesize(VariableProviderInterface::class);
-        $this->variableProvider = $this->variableProviderProphecy->reveal();
-        $renderingContextProphecy->getVariableProvider()->willReturn($this->variableProvider);
+        $this->renderingContextMock = $this->createMock(RenderingContextInterface::class);
+        $this->variableProviderMock = $this->createMock(VariableProviderInterface::class);
+        $this->renderingContextMock->method('getVariableProvider')->willReturn($this->variableProviderMock);
     }
 
     /**
@@ -119,12 +110,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
         $this->expectExceptionMessage('No settings in the variable container found.');
         $this->expectExceptionCode(1651153736);
 
-        $this->variableProviderProphecy->get('settings')->willReturn(null);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(null);
 
         IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => 'company'],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
     }
 
@@ -137,12 +128,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
         $this->expectExceptionMessage('No field "fieldsToShow" in settings found.');
         $this->expectExceptionCode(1651154598);
 
-        $this->variableProviderProphecy->get('settings')->willReturn([]);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn([]);
 
         IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => 'company'],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
     }
 
@@ -170,12 +161,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
         $this->expectExceptionMessage('The setting "fieldsToShow" needs to be a string.');
         $this->expectExceptionCode(1651155151);
 
-        $this->variableProviderProphecy->get('settings')->willReturn(['fieldsToShow' => $value]);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(['fieldsToShow' => $value]);
 
         IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => 'company'],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
     }
 
@@ -188,12 +179,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
         $this->expectExceptionMessage('The argument "fieldName" must not be empty.');
         $this->expectExceptionCode(1651155957);
 
-        $this->variableProviderProphecy->get('settings')->willReturn(['fieldsToShow' => 'company']);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(['fieldsToShow' => 'company']);
 
         IsFieldEnabledViewHelper::renderStatic(
             [],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
     }
 
@@ -206,12 +197,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
         $this->expectExceptionMessage('The argument "fieldName" must not be empty.');
         $this->expectExceptionCode(1651155957);
 
-        $this->variableProviderProphecy->get('settings')->willReturn(['fieldsToShow' => 'company']);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(['fieldsToShow' => 'company']);
 
         IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => ''],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
     }
 
@@ -224,12 +215,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
         $this->expectExceptionMessage('The argument "fieldName" must be a string, but was array');
         $this->expectExceptionCode(1651496544);
 
-        $this->variableProviderProphecy->get('settings')->willReturn(['fieldsToShow' => 'company']);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(['fieldsToShow' => 'company']);
 
         IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => []],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
     }
 
@@ -238,12 +229,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
      */
     public function renderForSingleRequestedFieldEnabledRendersThenChild(): void
     {
-        $this->variableProviderProphecy->get('settings')->willReturn(['fieldsToShow' => 'company']);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(['fieldsToShow' => 'company']);
 
         $result = IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => 'company', 'then' => 'THEN', 'else' => 'ELSE'],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
 
         self::assertSame('THEN', $result);
@@ -254,12 +245,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
      */
     public function renderForRequestedFieldEnabledWithOtherAfterRendersThenChild(): void
     {
-        $this->variableProviderProphecy->get('settings')->willReturn(['fieldsToShow' => 'company,name']);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(['fieldsToShow' => 'company,name']);
 
         $result = IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => 'company', 'then' => 'THEN', 'else' => 'ELSE'],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
 
         self::assertSame('THEN', $result);
@@ -270,12 +261,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
      */
     public function renderForRequestedFieldEnabledWithOtherBeforeRendersThenChild(): void
     {
-        $this->variableProviderProphecy->get('settings')->willReturn(['fieldsToShow' => 'name,company']);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(['fieldsToShow' => 'name,company']);
 
         $result = IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => 'company', 'then' => 'THEN', 'else' => 'ELSE'],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
 
         self::assertSame('THEN', $result);
@@ -286,12 +277,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
      */
     public function renderForOneOfTwoRequestedFieldsEnabledRendersThenChild(): void
     {
-        $this->variableProviderProphecy->get('settings')->willReturn(['fieldsToShow' => 'company']);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(['fieldsToShow' => 'company']);
 
         $result = IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => 'company|name', 'then' => 'THEN', 'else' => 'ELSE'],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
 
         self::assertSame('THEN', $result);
@@ -302,12 +293,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
      */
     public function renderForBothRequestedFieldsEnabledRendersThenChild(): void
     {
-        $this->variableProviderProphecy->get('settings')->willReturn(['fieldsToShow' => 'company,name']);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(['fieldsToShow' => 'company,name']);
 
         $result = IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => 'company|name', 'then' => 'THEN', 'else' => 'ELSE'],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
 
         self::assertSame('THEN', $result);
@@ -318,12 +309,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
      */
     public function renderForRequestedFieldNotEnabledRendersElseChild(): void
     {
-        $this->variableProviderProphecy->get('settings')->willReturn(['fieldsToShow' => 'company']);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(['fieldsToShow' => 'company']);
 
         $result = IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => 'name', 'then' => 'THEN', 'else' => 'ELSE'],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
 
         self::assertSame('ELSE', $result);
@@ -334,12 +325,12 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
      */
     public function renderForNoFieldEnabledRendersElseChild(): void
     {
-        $this->variableProviderProphecy->get('settings')->willReturn(['fieldsToShow' => '']);
+        $this->variableProviderMock->method('get')->with('settings')->willReturn(['fieldsToShow' => '']);
 
         $result = IsFieldEnabledViewHelper::renderStatic(
             ['fieldName' => 'name', 'then' => 'THEN', 'else' => 'ELSE'],
             $this->renderChildrenClosure,
-            $this->renderingContext
+            $this->renderingContextMock
         );
 
         self::assertSame('ELSE', $result);

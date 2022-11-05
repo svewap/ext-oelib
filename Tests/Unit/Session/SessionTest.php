@@ -22,7 +22,8 @@ final class SessionTest extends UnitTestCase
 
     private function createFakeFrontEnd(): void
     {
-        $GLOBALS['TSFE'] = $this->prophesize(TypoScriptFrontendController::class)->reveal();
+        $GLOBALS['TSFE'] = $this->getMockBuilder(TypoScriptFrontendController::class)
+            ->disableOriginalConstructor()->getMock();
     }
 
     /**
