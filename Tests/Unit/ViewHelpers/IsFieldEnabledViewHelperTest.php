@@ -19,24 +19,18 @@ final class IsFieldEnabledViewHelperTest extends UnitTestCase
 {
     /**
      * @var \Closure
-     *
-     * We can make this property private once we drop support for TYPO3 V9.
      */
-    protected $renderChildrenClosure;
+    private $renderChildrenClosure;
 
     /**
      * @var RenderingContextInterface&MockObject
-     *
-     * We can make this property private once we drop support for TYPO3 V9.
      */
-    protected $renderingContextMock;
+    private $renderingContextMock;
 
     /**
      * @var VariableProviderInterface&MockObject
-     *
-     * We can make this property private once we drop support for TYPO3 V9.
      */
-    protected $variableProviderMock;
+    private $variableProviderMock;
 
     protected function setUp(): void
     {

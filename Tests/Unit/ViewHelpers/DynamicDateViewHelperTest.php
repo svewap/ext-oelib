@@ -19,10 +19,8 @@ final class DynamicDateViewHelperTest extends UnitTestCase
 {
     /**
      * @var RenderingContextInterface&MockObject
-     *
-     * We can make this property private once we drop support for TYPO3 V9.
      */
-    protected $renderingContextMock;
+    private $renderingContextMock;
 
     protected function setUp(): void
     {

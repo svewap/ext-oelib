@@ -23,10 +23,8 @@ final class AbstractConfigurationDependentValidatorTest extends FunctionalTestCa
 
     /**
      * @var TestingConfigurationDependentValidator
-     *
-     * We can make this property private once we drop support for TYPO3 V9.
      */
-    protected $subject;
+    private $subject;
 
     protected function setUp(): void
     {
