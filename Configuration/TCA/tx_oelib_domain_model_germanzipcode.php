@@ -56,9 +56,5 @@ $tca = [
     ],
 ];
 
-if ((new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersion() <= 10) {
-    $tca['interface'] = ['showRecordFieldList' => 'zip_code, city_name, longitude, latitude'];
-}
-
 unset($labelPrefix);
 return $tca;

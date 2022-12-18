@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Stop using Prophecy (#1255, #1257, #1258, #1259)
 
 ### Fixed
+- Drop the obsolete `showRecordFieldList` TCA part (#1281)
 - Enable caching for PHP-CS-Fixer (#1273)
 - Improve the type annotations (#1253)
 
