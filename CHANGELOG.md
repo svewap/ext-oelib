@@ -6,10 +6,20 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
-- Add a diverse gender option (#1288)
-- Add a `TestingQueryResult` class (#1287)
 
 ### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 5.1.0
+
+### Added
+- Add a diverse gender option (#1288)
+- Add a `TestingQueryResult` class (#1287)
 
 ### Deprecated
 - Deprecate `TestingFramework::createBackEndUser` (#1290)
@@ -29,10 +39,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Deprecate `FrontEndUser.wantsHtmlEmail()` (#1289)
 - Deprecate `FrontEndUser.getLastOrFullName()` (#1289)
 - Deprecate `Session` and `FakeSession` (#1289)
-
-### Removed
-
-### Fixed
 
 ## 5.0.2
 
