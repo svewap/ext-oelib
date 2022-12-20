@@ -505,6 +505,8 @@ final class TestingFramework
      * @param array<string, string|int|bool> $recordData data to save, may be empty, but must not contain the key "uid"
      *
      * @return int the UID of the new BE user, will be > 0
+     *
+     * @deprecated will be removed in oelib 6.0
      */
     public function createBackEndUser(array $recordData = []): int
     {
@@ -1327,6 +1329,8 @@ routes: {  }";
      * @return int the number of records that have been found, will be >= 0
      *
      * @throws \InvalidArgumentException
+     *
+     * @deprecated will be removed in oelib 6.0
      */
     public function count(string $table, array $criteria = []): int
     {
@@ -1363,6 +1367,8 @@ routes: {  }";
      * @param int $uid the UID of the record to look up, must be > 0
      *
      * @return bool
+     *
+     * @deprecated will be removed in oelib 6.0
      */
     public function existsRecordWithUid(string $table, int $uid): bool
     {

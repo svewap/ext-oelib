@@ -12,6 +12,8 @@ use Symfony\Component\Mime\Address as MimeAddress;
  * The default implementation of this interface is `ConvertableToMimeAddressTrait`.
  *
  * @mixin MailRole
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 interface ConvertableToMimeAddress
 {

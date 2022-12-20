@@ -65,6 +65,8 @@ CREATE TABLE tx_oelib_test_article_mm (
 #
 # Table structure for table 'be_users'
 #
+# @deprecated will be removed in oelib 6.0
+#
 CREATE TABLE be_users (
     tx_oelib_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
     KEY dummy (tx_oelib_is_dummy_record)
@@ -73,6 +75,8 @@ CREATE TABLE be_users (
 
 #
 # Table structure for table 'be_groups'
+#
+# @deprecated will be removed in oelib 6.0
 #
 CREATE TABLE be_groups (
     tx_oelib_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,

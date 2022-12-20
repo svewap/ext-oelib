@@ -10,6 +10,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Class to provide access to protected static members of `GeneralUtility`.
  *
  * @internal use `CacheNullifyer` instead
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 final class ExtendedGeneralUtility extends GeneralUtility
 {

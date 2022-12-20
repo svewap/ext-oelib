@@ -12,6 +12,11 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 ### Deprecated
+- Deprecate `TestingFramework::createBackEndUser` (#1290)
+- Deprecate `TestingFramework::count` (#1290)
+- Deprecate `TestingFramework::existsRecordWithUid` (#1290)
+- Deprecate `CacheNullifyer::flushMakeInstanceCache()` (#1290)
+- Deprecate the `ConvertableToMimeAddress` interface and trait (#1290)
 - Deprecate `TemplateHelper::isConfigurationCheckEnabled` (#1289)
 - Deprecate `EmptyQueryResultException` (#1289)
 - Deprecate `BackEndUser::getGroups` and the `BackEndUserGroup` model & mapper (#1289)

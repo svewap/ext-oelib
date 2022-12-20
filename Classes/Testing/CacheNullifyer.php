@@ -52,6 +52,8 @@ final class CacheNullifyer
 
     /**
      * Flushes the class name cache for `GeneralUtility::makeInstance()`.
+     *
+     * @deprecated will be removed in oelib 6.0
      */
     public function flushMakeInstanceCache(): void
     {
