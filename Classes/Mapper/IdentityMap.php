@@ -40,12 +40,11 @@ class IdentityMap
     /**
      * Retrieves a model from the map by UID.
      *
-     * @throws NotFoundException if this map does not have a model
-     *                                     with that particular UID
-     *
      * @param int $uid the UID of the model to retrieve, must be > 0
      *
      * @return AbstractModel the stored model with the UID $uid
+     *
+     * @throws NotFoundException if this map does not have a model with that particular UID
      */
     public function get(int $uid): AbstractModel
     {

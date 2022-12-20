@@ -6,6 +6,8 @@ namespace OliverKlee\Oelib\Model;
 
 /**
  * This model represents a federal state, e.g., Nordrhein-Westfalen (in Germany).
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 class FederalState extends AbstractModel
 {

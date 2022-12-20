@@ -12,6 +12,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 ### Deprecated
+- Deprecate `TemplateHelper::isConfigurationCheckEnabled` (#1289)
+- Deprecate `EmptyQueryResultException` (#1289)
+- Deprecate `BackEndUser::getGroups` and the `BackEndUserGroup` model & mapper (#1289)
+- Deprecate the `Country` model & mapper (#1289)
+- Deprecate the `Currency` model & mapper (#1289)
+- Deprecate the `FederalState` model & mapper (#1289)
+- Deprecate the `Language` model & mapper (#1289)
+- Deprecate the `CreationDate` and `ChangeDate` traits (#1289)
+- Deprecate the `LoginManager` classes (#1289)
+- Deprecate `FrontEndUser.wantsHtmlEmail()` (#1289)
+- Deprecate `FrontEndUser.getLastOrFullName()` (#1289)
+- Deprecate `Session` and `FakeSession` (#1289)
 
 ### Removed
 

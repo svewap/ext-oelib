@@ -8,6 +8,8 @@ use OliverKlee\Oelib\Model\FederalState;
 
 /**
  * @extends AbstractDataMapper<FederalState>
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 class FederalStateMapper extends AbstractDataMapper
 {

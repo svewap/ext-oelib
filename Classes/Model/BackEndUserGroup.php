@@ -8,6 +8,8 @@ use OliverKlee\Oelib\DataStructures\Collection;
 
 /**
  * This class represents a back-end user group.
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 class BackEndUserGroup extends AbstractModel
 {

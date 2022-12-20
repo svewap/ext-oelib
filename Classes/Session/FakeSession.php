@@ -9,6 +9,8 @@ namespace OliverKlee\Oelib\Session;
  * thus not sending any HTTP headers.
  *
  * It is intended for testing purposes.
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 class FakeSession extends Session
 {
@@ -36,8 +38,7 @@ class FakeSession extends Session
      *
      * @param string $key the key of the data item to get, must not be empty
      *
-     * @return string|mixed the data for the key $key, will be an empty string
-             if the key has not been set yet
+     * @return mixed the data for the key $key, will be an empty string if the key has not been set yet
      */
     protected function get(string $key)
     {

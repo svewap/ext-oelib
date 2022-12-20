@@ -6,6 +6,8 @@ namespace OliverKlee\Oelib\Model;
 
 /**
  * This class represents a country.
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 class Country extends AbstractModel
 {

@@ -10,6 +10,8 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * This Singleton class represents a session and its data.
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 class Session extends AbstractObjectWithPublicAccessors
 {

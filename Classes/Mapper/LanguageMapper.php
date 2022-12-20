@@ -9,6 +9,8 @@ use OliverKlee\Oelib\Model\Language;
 
 /**
  * @extends AbstractDataMapper<Language>
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 class LanguageMapper extends AbstractDataMapper
 {

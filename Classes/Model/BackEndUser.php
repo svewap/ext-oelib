@@ -86,9 +86,6 @@ class BackEndUser extends AbstractModel implements MailRole, ConvertableToMimeAd
 
     /**
      * Checks whether this user has a non-default language set.
-     *
-     * @return bool TRUE if this user has a non-default language set, FALSE
-     *                 otherwise
      */
     public function hasLanguage(): bool
     {
@@ -99,6 +96,8 @@ class BackEndUser extends AbstractModel implements MailRole, ConvertableToMimeAd
      * Returns the direct user groups of this user.
      *
      * @return Collection<BackEndUserGroup> the user's direct groups, will be empty if this user has no groups
+     *
+     * @deprecated will be removed in oelib 6.0
      */
     public function getGroups(): Collection
     {
@@ -111,8 +110,10 @@ class BackEndUser extends AbstractModel implements MailRole, ConvertableToMimeAd
     /**
      * Recursively gets all groups and subgroups of this user.
      *
-     * @return Collection<BackEndUserGroup> all groups and subgroups of this user, will be
-     *                       empty if this user has no groups
+     * @return Collection<BackEndUserGroup> all groups and subgroups of this user,
+     *         will be empty if this user has no groups
+     *
+     * @deprecated will be removed in oelib 6.0
      */
     public function getAllGroups(): Collection
     {
@@ -156,8 +157,7 @@ class BackEndUser extends AbstractModel implements MailRole, ConvertableToMimeAd
     /**
      * Returns the user's default language.
      *
-     * @return string the user's default language, will be empty if no default
-     *                language has been set
+     * @return string the user's default language, will be empty if no default language has been set
      */
     private function getDefaultLanguage(): string
     {

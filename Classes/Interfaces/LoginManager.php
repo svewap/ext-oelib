@@ -8,6 +8,8 @@ namespace OliverKlee\Oelib\Interfaces;
  * This interface represents a manager for logins, providing access to the logged-in user.
  *
  * @template T of LoginManager
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 interface LoginManager
 {

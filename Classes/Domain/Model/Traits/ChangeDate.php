@@ -14,6 +14,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * Any models that use this mode will still need to map the "tstamp" column using "mapOnProperty".
  *
  * @mixin AbstractEntity
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 trait ChangeDate
 {

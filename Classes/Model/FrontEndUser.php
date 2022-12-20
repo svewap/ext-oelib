@@ -380,8 +380,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address, Convertab
     /**
      * Checks whether this user has agreed to receive HTML e-mails.
      *
-     * @return bool TRUE if the user agreed to receive HTML e-mails, FALSE
-     *                 otherwise
+     * @deprecated will be removed in oelib 6.0
      */
     public function wantsHtmlEmail(): bool
     {
@@ -571,8 +570,9 @@ class FrontEndUser extends AbstractModel implements MailRole, Address, Convertab
      * Gets this user's last name; if the user does not have a last name the
      * full name is returned instead.
      *
-     * @return string the last name of this user if it exists, will return the
-     *                user's full name otherwise
+     * @return string the last name of this user if it exists, will return the user's full name otherwise
+     *
+     * @deprecated will be removed in oelib 6.0
      */
     public function getLastOrFullName(): string
     {

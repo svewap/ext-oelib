@@ -8,6 +8,8 @@ use OliverKlee\Oelib\Model\BackEndUserGroup;
 
 /**
  * @extends AbstractDataMapper<BackEndUserGroup>
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 class BackEndUserGroupMapper extends AbstractDataMapper
 {

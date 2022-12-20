@@ -89,7 +89,7 @@ class TemplateHelper extends SalutationSwitcher
     }
 
     /**
-     * @return bool
+     * @deprecated will be removed in oelib 6.0
      */
     protected function isConfigurationCheckEnabled(): bool
     {

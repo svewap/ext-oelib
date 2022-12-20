@@ -12,6 +12,8 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
  * This class represents a manager for back-end logins, providing access to the logged-in user.
  *
  * @implements LoginManager<BackEndLoginManager>
+ *
+ * @deprecated will be removed in oelib 6.0
  */
 class BackEndLoginManager implements LoginManager
 {
