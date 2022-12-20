@@ -22,24 +22,29 @@ class FrontEndUser extends AbstractModel implements MailRole, Address, Convertab
     use ConvertableToMimeAddressTrait;
 
     /**
-     * @var int represents the male gender for this user
+     * @var 0 represents the male gender for this user
      */
     public const GENDER_MALE = 0;
 
     /**
-     * @var int represents the female gender for this user
+     * @var positive-int represents the female gender for this user
      */
     public const GENDER_FEMALE = 1;
 
     /**
-     * @var int represents an unknown gender for this user
+     * @var positive-int represents the diverse gender for this user
+     */
+    public const GENDER_DIVERSE = 2;
+
+    /**
+     * @var positive-int represents an unknown gender for this user
      */
     public const GENDER_UNKNOWN = 99;
 
     /**
      * @var array<int, self::GENDER_*>
      */
-    private const GENDERS = [self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_UNKNOWN];
+    private const GENDERS = [self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_DIVERSE, self::GENDER_UNKNOWN];
 
     /**
      * Gets this user's username (login name).
@@ -444,9 +449,7 @@ class FrontEndUser extends AbstractModel implements MailRole, Address, Convertab
     }
 
     /**
-     * Will return "unknown gender" if there is no `FrontEndUser.gender` field.
-     *
-     * @return self::GENDER_*
+     * @return self::GENDER_* the gender, will return `self::GENDER_UNKNOWN` if there is no gender field
      */
     public function getGender(): int
     {

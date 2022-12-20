@@ -1282,6 +1282,30 @@ final class FrontEndUserTest extends UnitTestCase
     }
 
     /**
+     * @test
+     */
+    public function getGenderForGenderValueTwoReturnsGenderDiverse(): void
+    {
+        $this->enableGenderField();
+
+        $this->subject->setData(['gender' => 2]);
+
+        self::assertSame(FrontEndUser::GENDER_DIVERSE, $this->subject->getGender());
+    }
+
+    /**
+     * @test
+     */
+    public function getGenderForGenderValueNinetyNineOneReturnsGenderUnknown(): void
+    {
+        $this->enableGenderField();
+
+        $this->subject->setData(['gender' => 99]);
+
+        self::assertSame(FrontEndUser::GENDER_UNKNOWN, $this->subject->getGender());
+    }
+
+    /**
      * @return array<string, array{0: FrontEndUser::GENDER_*}>
      */
     public function genderDataProvider(): array
@@ -1289,6 +1313,7 @@ final class FrontEndUserTest extends UnitTestCase
         return [
             'male' => [FrontEndUser::GENDER_MALE],
             'female' => [FrontEndUser::GENDER_FEMALE],
+            'diverse' => [FrontEndUser::GENDER_DIVERSE],
             'unknown' => [FrontEndUser::GENDER_UNKNOWN],
         ];
     }
