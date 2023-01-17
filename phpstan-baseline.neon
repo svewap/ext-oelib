@@ -521,11 +521,6 @@ parameters:
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\) with PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Psr\\\\Http\\\\Message\\\\ServerRequestInterface will always evaluate to false\\.$#"
-			count: 2
-			path: Tests/Functional/Testing/TestingFrameworkTest.php
-
-		-
 			message: "#^Cannot access offset 'HTTP_HOST' on mixed\\.$#"
 			count: 6
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
@@ -538,11 +533,6 @@ parameters:
 		-
 			message: "#^Method OliverKlee\\\\Oelib\\\\Tests\\\\Functional\\\\Testing\\\\TestingFrameworkTest\\:\\:getFrontEndController\\(\\) should return TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController but returns mixed\\.$#"
 			count: 1
-			path: Tests/Functional/Testing/TestingFrameworkTest.php
-
-		-
-			message: "#^Offset 'TYPO3_REQUEST' on non\\-empty\\-array\\<string, mixed\\> on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 3
 			path: Tests/Functional/Testing/TestingFrameworkTest.php
 
 		-
