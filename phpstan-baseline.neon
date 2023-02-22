@@ -36,12 +36,22 @@ parameters:
 			path: Classes/Configuration/ConfigurationRegistry.php
 
 		-
+			message: "#^Parameter \\#1 \\$data of method OliverKlee\\\\Oelib\\\\Configuration\\\\TypoScriptConfiguration\\:\\:setData\\(\\) expects array\\<int\\|string, mixed\\>, array given\\.$#"
+			count: 1
+			path: Classes/Configuration/ConfigurationRegistry.php
+
+		-
 			message: "#^Parameter \\#1 \\$haystack of method OliverKlee\\\\Oelib\\\\Configuration\\\\FlexformsConfiguration\\:\\:getFromArray\\(\\) expects array\\<array\\<int\\|string, mixed\\>\\|int\\|string\\>, array\\<int\\|string, mixed\\> given\\.$#"
 			count: 1
 			path: Classes/Configuration/FlexformsConfiguration.php
 
 		-
 			message: "#^Parameter \\#1 \\$haystack of method OliverKlee\\\\Oelib\\\\Configuration\\\\FlexformsConfiguration\\:\\:getFromArray\\(\\) expects array\\<array\\<int\\|string, mixed\\>\\|int\\|string\\>, array\\<string, mixed\\> given\\.$#"
+			count: 1
+			path: Classes/Configuration/FlexformsConfiguration.php
+
+		-
+			message: "#^Property OliverKlee\\\\Oelib\\\\Configuration\\\\FlexformsConfiguration\\:\\:\\$data \\(array\\<string, mixed\\>\\|null\\) does not accept array\\.$#"
 			count: 1
 			path: Classes/Configuration/FlexformsConfiguration.php
 
@@ -229,11 +239,6 @@ parameters:
 			message: "#^Cannot access offset 'gender' on mixed\\.$#"
 			count: 1
 			path: Classes/Model/FrontEndUser.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 1
-			path: Classes/Session/Session.php
 
 		-
 			message: "#^Instanceof between TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication and TYPO3\\\\CMS\\\\Frontend\\\\Authentication\\\\FrontendUserAuthentication will always evaluate to true\\.$#"
@@ -481,6 +486,11 @@ parameters:
 			path: Classes/ViewHelpers/AbstractConfigurationCheckViewHelper.php
 
 		-
+			message: "#^Parameter \\#1 \\$data of class OliverKlee\\\\Oelib\\\\Configuration\\\\ExtbaseConfiguration constructor expects array\\<string, mixed\\>, array given\\.$#"
+			count: 1
+			path: Classes/ViewHelpers/AbstractConfigurationCheckViewHelper.php
+
+		-
 			message: "#^Parameter \\#1 \\$arguments \\(array\\<string, mixed\\>\\) of method OliverKlee\\\\Oelib\\\\ViewHelpers\\\\DynamicDateViewHelper\\:\\:renderStatic\\(\\) should be contravariant with parameter \\$arguments \\(array\\) of method TYPO3Fluid\\\\Fluid\\\\Core\\\\ViewHelper\\\\AbstractViewHelper\\:\\:renderStatic\\(\\)$#"
 			count: 1
 			path: Classes/ViewHelpers/DynamicDateViewHelper.php
@@ -512,6 +522,16 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Doctrine\\\\DBAL\\\\Result\\:\\:fetch\\(\\)\\.$#"
+			count: 2
+			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
+
+		-
+			message: "#^PHPDoc tag @var with type OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel is not subtype of type OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingChildModel\\.$#"
+			count: 1
+			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
+
+		-
+			message: "#^PHPDoc tag @var with type OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel is not subtype of type OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingChildModel\\|null\\.$#"
 			count: 2
 			path: Tests/Functional/Mapper/AbstractDataMapperTest.php
 
@@ -559,6 +579,11 @@ parameters:
 			message: "#^Parameter \\#2 \\$value of method OliverKlee\\\\Oelib\\\\DataStructures\\\\AbstractObjectWithPublicAccessors\\:\\:setAsArray\\(\\) expects array\\<int\\|string\\>, array\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: Tests/Unit/DataStructures/AbstractObjectWithPublicAccessorsTest.php
+
+		-
+			message: "#^PHPDoc tag @var with type object\\|null is not subtype of type OliverKlee\\\\Oelib\\\\Tests\\\\Unit\\\\Model\\\\Fixtures\\\\TestingModel\\.$#"
+			count: 2
+			path: Tests/Unit/DataStructures/CollectionTest.php
 
 		-
 			message: "#^Cannot access offset 'defaultMailFromAddr…' on mixed\\.$#"
