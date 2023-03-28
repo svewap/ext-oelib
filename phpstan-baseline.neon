@@ -481,24 +481,9 @@ parameters:
 			path: Classes/Validation/AbstractConfigurationDependentValidator.php
 
 		-
-			message: "#^Method OliverKlee\\\\Oelib\\\\ViewHelpers\\\\AbstractConfigurationCheckViewHelper\\:\\:renderStatic\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: Classes/ViewHelpers/AbstractConfigurationCheckViewHelper.php
-
-		-
 			message: "#^Parameter \\#1 \\$data of class OliverKlee\\\\Oelib\\\\Configuration\\\\ExtbaseConfiguration constructor expects array\\<string, mixed\\>, array given\\.$#"
 			count: 1
 			path: Classes/ViewHelpers/AbstractConfigurationCheckViewHelper.php
-
-		-
-			message: "#^Parameter \\#1 \\$arguments \\(array\\<string, mixed\\>\\) of method OliverKlee\\\\Oelib\\\\ViewHelpers\\\\DynamicDateViewHelper\\:\\:renderStatic\\(\\) should be contravariant with parameter \\$arguments \\(array\\) of method TYPO3Fluid\\\\Fluid\\\\Core\\\\ViewHelper\\\\AbstractViewHelper\\:\\:renderStatic\\(\\)$#"
-			count: 1
-			path: Classes/ViewHelpers/DynamicDateViewHelper.php
-
-		-
-			message: "#^Parameter \\#1 \\$arguments \\(array\\<string, mixed\\>\\) of method OliverKlee\\\\Oelib\\\\ViewHelpers\\\\DynamicDateViewHelper\\:\\:renderStatic\\(\\) should be contravariant with parameter \\$arguments \\(array\\) of method TYPO3Fluid\\\\Fluid\\\\Core\\\\ViewHelper\\\\ViewHelperInterface\\:\\:renderStatic\\(\\)$#"
-			count: 1
-			path: Classes/ViewHelpers/DynamicDateViewHelper.php
 
 		-
 			message: "#^Parameter \\#1 \\$format of method DateTimeInterface\\:\\:format\\(\\) expects string, mixed given\\.$#"
