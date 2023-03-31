@@ -1,7 +1,6 @@
 name: automerge
-
 on:
-  pull_request:
+  pull_request_target:
 
 jobs:
   automerge:
@@ -9,15 +8,10 @@ jobs:
 
     runs-on: ubuntu-22.04
 
-    timeout-minutes: 1
-
-    permissions:
-      pull-requests: write
-
     if: ${{ github.actor == 'dependabot[bot]' }}
 
     steps:
-      - name: Enable PR automerge
-        run: gh pr merge --squash --auto
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: squash
