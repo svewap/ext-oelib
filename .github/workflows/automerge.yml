@@ -1,7 +1,7 @@
 name: automerge
 
 on:
-  pull_request
+  pull_request:
 
 jobs:
   automerge:
